@@ -257,7 +257,8 @@ class ReporteControllerIntegrationTest {
                 .with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.totalTetrazolios").value(20))
-                .andExpect(jsonPath("$.viabilidadPorEspecie.Trigo").value(88.0));
+                .andExpect(jsonPath("$.viabilidadIniaPorEspecie.Trigo").value(88.0))
+                .andExpect(jsonPath("$.viabilidadInasePorEspecie.Trigo").value(90.0));
     }
 
     @Test

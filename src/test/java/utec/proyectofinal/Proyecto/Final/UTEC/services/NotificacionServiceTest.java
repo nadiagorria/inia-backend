@@ -425,6 +425,11 @@ class NotificacionServiceTest {
     @DisplayName("notificarAnalisisAprobado - debe notificar a usuarios involucrados (no admins)")
     void notificarAnalisisAprobado_debeNotificarAUsuariosInvolucrados() {
         // ARRANGE
+        SecurityContextHolder.setContext(securityContext);
+        when(securityContext.getAuthentication()).thenReturn(authentication);
+        when(authentication.getName()).thenReturn("admin");
+        when(usuarioRepository.findByNombre("admin")).thenReturn(Optional.of(adminTest));
+        
         AnalisisHistorial historial1 = new AnalisisHistorial();
         historial1.setUsuario(usuarioTest); // Analista
         
@@ -456,6 +461,11 @@ class NotificacionServiceTest {
     @DisplayName("notificarAnalisisAprobado - sin usuarios involucrados no debe crear notificaciones")
     void notificarAnalisisAprobado_sinUsuariosInvolucrados_noDebeCrearNotificaciones() {
         // ARRANGE
+        SecurityContextHolder.setContext(securityContext);
+        when(securityContext.getAuthentication()).thenReturn(authentication);
+        when(authentication.getName()).thenReturn("admin");
+        when(usuarioRepository.findByNombre("admin")).thenReturn(Optional.of(adminTest));
+        
         AnalisisHistorial historial1 = new AnalisisHistorial();
         historial1.setUsuario(adminTest); // Solo admin
 
@@ -475,6 +485,11 @@ class NotificacionServiceTest {
     @DisplayName("notificarAnalisisRepetir - debe notificar a usuarios involucrados")
     void notificarAnalisisRepetir_debeNotificarAUsuariosInvolucrados() {
         // ARRANGE
+        SecurityContextHolder.setContext(securityContext);
+        when(securityContext.getAuthentication()).thenReturn(authentication);
+        when(authentication.getName()).thenReturn("admin");
+        when(usuarioRepository.findByNombre("admin")).thenReturn(Optional.of(adminTest));
+        
         Usuario analista2 = new Usuario();
         analista2.setUsuarioID(3);
         analista2.setNombres("Analista");
@@ -513,6 +528,11 @@ class NotificacionServiceTest {
     @DisplayName("notificarAnalisisPendienteAprobacion - debe notificar a todos los admins")
     void notificarAnalisisPendienteAprobacion_debeNotificarATodosLosAdmins() {
         // ARRANGE
+        SecurityContextHolder.setContext(securityContext);
+        when(securityContext.getAuthentication()).thenReturn(authentication);
+        when(authentication.getName()).thenReturn("testuser");
+        when(usuarioRepository.findByNombre("testuser")).thenReturn(Optional.of(usuarioTest));
+        
         Usuario admin2 = new Usuario();
         admin2.setUsuarioID(3);
         admin2.setNombres("Admin");
@@ -805,6 +825,11 @@ class NotificacionServiceTest {
     @DisplayName("notificarAnalisisAprobado - análisis no encontrado debe lanzar excepción")
     void notificarAnalisisAprobado_analisisNoEncontrado_debeLanzarExcepcion() {
         // ARRANGE
+        SecurityContextHolder.setContext(securityContext);
+        when(securityContext.getAuthentication()).thenReturn(authentication);
+        when(authentication.getName()).thenReturn("admin");
+        when(usuarioRepository.findByNombre("admin")).thenReturn(Optional.of(adminTest));
+        
         when(analisisHistorialRepository.findByAnalisisIdOrderByFechaHoraDesc(999L))
             .thenReturn(Collections.emptyList());
         when(analisisRepository.findById(999L)).thenReturn(Optional.empty());
@@ -818,6 +843,11 @@ class NotificacionServiceTest {
     @DisplayName("notificarAnalisisRepetir - análisis no encontrado debe lanzar excepción")
     void notificarAnalisisRepetir_analisisNoEncontrado_debeLanzarExcepcion() {
         // ARRANGE
+        SecurityContextHolder.setContext(securityContext);
+        when(securityContext.getAuthentication()).thenReturn(authentication);
+        when(authentication.getName()).thenReturn("admin");
+        when(usuarioRepository.findByNombre("admin")).thenReturn(Optional.of(adminTest));
+        
         when(analisisHistorialRepository.findByAnalisisIdOrderByFechaHoraDesc(999L))
             .thenReturn(Collections.emptyList());
         when(analisisRepository.findById(999L)).thenReturn(Optional.empty());
@@ -831,6 +861,11 @@ class NotificacionServiceTest {
     @DisplayName("notificarAnalisisPendienteAprobacion - análisis no encontrado debe lanzar excepción")
     void notificarAnalisisPendienteAprobacion_analisisNoEncontrado_debeLanzarExcepcion() {
         // ARRANGE
+        SecurityContextHolder.setContext(securityContext);
+        when(securityContext.getAuthentication()).thenReturn(authentication);
+        when(authentication.getName()).thenReturn("testuser");
+        when(usuarioRepository.findByNombre("testuser")).thenReturn(Optional.of(usuarioTest));
+        
         when(usuarioRepository.findByEstado(EstadoUsuario.ACTIVO))
             .thenReturn(Collections.singletonList(adminTest));
         when(analisisRepository.findById(999L)).thenReturn(Optional.empty());
