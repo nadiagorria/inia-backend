@@ -45,16 +45,12 @@ public class UsuarioService {
     @Autowired
     private BackupCodeService backupCodeService;
 
-    /**
-     * Buscar usuario por ID
-     */
+    
     public Optional<Usuario> buscarPorId(Integer id) {
         return usuarioRepository.findById(id);
     }
 
-    /**
-     * Registrar nueva solicitud de usuario
-     */
+    
     public UsuarioDTO registrarSolicitud(RegistroUsuarioRequestDTO solicitud) {
         
         if (usuarioRepository.findByNombre(solicitud.getNombre()).isPresent()) {
@@ -119,9 +115,7 @@ public class UsuarioService {
         return mapearEntidadADTO(usuarioGuardado);
     }
 
-    /**
-     * Listar solicitudes pendientes de aprobación
-     */
+    
     public List<UsuarioDTO> listarSolicitudesPendientes() {
         return usuarioRepository.findByEstado(EstadoUsuario.PENDIENTE)
                 .stream()
@@ -129,9 +123,7 @@ public class UsuarioService {
                 .collect(Collectors.toList());
     }
 
-    /**
-     * Listar solicitudes pendientes con paginación y búsqueda
-     */
+    
     public Page<UsuarioDTO> listarSolicitudesPendientesPaginadas(int page, int size, String search) {
         
         Pageable pageable = PageRequest.of(page, size,
@@ -148,9 +140,7 @@ public class UsuarioService {
         return usuariosPage.map(this::mapearEntidadADTO);
     }
 
-    /**
-     * Aprobar usuario y asignar rol
-     */
+    
     public UsuarioDTO aprobarUsuario(Integer usuarioId, AprobarUsuarioRequestDTO solicitud) {
         Usuario usuario = usuarioRepository.findById(usuarioId)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
@@ -187,9 +177,7 @@ public class UsuarioService {
         return mapearEntidadADTO(usuarioActualizado);
     }
 
-    /**
-     * Rechazar solicitud de usuario
-     */
+    
     public void rechazarSolicitud(Integer usuarioId) {
         Usuario usuario = usuarioRepository.findById(usuarioId)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
@@ -209,9 +197,7 @@ public class UsuarioService {
         usuarioRepository.delete(usuario);
     }
 
-    /**
-     * Listar todos los usuarios (para administración)
-     */
+    
     public List<UsuarioDTO> listarTodosUsuarios() {
         return usuarioRepository.findAll()
                 .stream()
@@ -219,9 +205,7 @@ public class UsuarioService {
                 .collect(Collectors.toList());
     }
 
-    /**
-     * Listar todos los usuarios con paginación, búsqueda y filtros
-     */
+    
     public Page<UsuarioDTO> listarTodosUsuariosPaginados(int page, int size, String search, Rol rol, Boolean activo) {
         
         Pageable pageable = PageRequest.of(page, size, 
@@ -260,9 +244,7 @@ public class UsuarioService {
         return usuariosPage.map(this::mapearEntidadADTO);
     }
 
-    /**
-     * Listar usuarios activos
-     */
+    
     public List<UsuarioDTO> listarUsuariosActivos() {
         return usuarioRepository.findByEstado(EstadoUsuario.ACTIVO)
                 .stream()
@@ -270,9 +252,7 @@ public class UsuarioService {
                 .collect(Collectors.toList());
     }
 
-    /**
-     * Gestionar usuario (cambiar rol o estado)
-     */
+    
     public UsuarioDTO gestionarUsuario(Integer usuarioId, GestionarUsuarioRequestDTO solicitud) {
         Usuario usuario = usuarioRepository.findById(usuarioId)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
@@ -300,17 +280,13 @@ public class UsuarioService {
         return mapearEntidadADTO(usuarioActualizado);
     }
 
-    /**
-     * Obtener perfil del usuario actual
-     */
+    
     public UsuarioDTO obtenerPerfil() {
         Usuario usuario = obtenerUsuarioActual();
         return mapearEntidadADTO(usuario);
     }
 
-    /**
-     * Actualizar perfil del usuario actual
-     */
+    
     public UsuarioDTO actualizarPerfil(ActualizarPerfilRequestDTO solicitud) {
         Usuario usuario = obtenerUsuarioActual();
 
@@ -369,10 +345,7 @@ public class UsuarioService {
         return mapearEntidadADTO(usuarioActualizado);
     }
 
-    /**
-     * Crear admin predeterminado si no existe
-     * El admin se crea con 2FA YA ACTIVADO para cumplir con la política de seguridad
-     */
+    
     public UsuarioDTO crearAdminPredeterminado() {
         
         if (usuarioRepository.existsByRol(Rol.ADMIN)) {
@@ -429,23 +402,17 @@ public class UsuarioService {
 
     
 
-    /**
-     * Guardar usuario (método público para uso desde controladores 2FA)
-     */
+    
     public Usuario guardar(Usuario usuario) {
         return usuarioRepository.save(usuario);
     }
 
-    /**
-     * Buscar usuario por email
-     */
+    
     public Optional<Usuario> buscarPorEmail(String email) {
         return usuarioRepository.findByEmail(email);
     }
 
-    /**
-     * Cambiar contraseña de un usuario (para recuperación de contraseña)
-     */
+    
     public void cambiarContrasenia(Integer usuarioId, String nuevaContrasenia) {
         Usuario usuario = usuarioRepository.findById(usuarioId)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
@@ -467,11 +434,7 @@ public class UsuarioService {
 
     
 
-    /**
-     * Valida que la contraseña cumpla con los requisitos de seguridad
-     * @param contrasenia la contraseña a validar
-     * @throws RuntimeException si la contraseña no cumple los requisitos
-     */
+    
     private void validarContrasenia(String contrasenia) {
         if (contrasenia == null || contrasenia.trim().isEmpty()) {
             throw new RuntimeException("La contraseña no puede estar vacía");
@@ -542,11 +505,7 @@ public class UsuarioService {
         return dto;
     }
 
-    /**
-     * Verifica si un nombre de usuario está disponible
-     * @param nombre el nombre de usuario a verificar
-     * @return true si está disponible, false si ya existe
-     */
+    
     public boolean esNombreUsuarioDisponible(String nombre) {
         if (nombre == null || nombre.trim().isEmpty()) {
             return false;
@@ -554,11 +513,7 @@ public class UsuarioService {
         return usuarioRepository.findByNombre(nombre.trim()).isEmpty();
     }
 
-    /**
-     * Verifica si un email está disponible
-     * @param email el email a verificar
-     * @return true si está disponible, false si ya existe
-     */
+    
     public boolean esEmailDisponible(String email) {
         if (email == null || email.trim().isEmpty()) {
             return false;

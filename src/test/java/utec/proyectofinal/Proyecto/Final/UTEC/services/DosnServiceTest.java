@@ -49,16 +49,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
-/**
- * Tests unitarios para DosnService (Determinación de Otras Semillas por Número)
- * 
- * Funcionalidades testeadas:
- * - Creación de análisis DOSN con estado EN_PROCESO
- * - Validación de pesos y conteos
- * - Actualización de análisis
- * - Gestión de estados según rol de usuario
- * - Desactivación y reactivación
- */
+
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
 @DisplayName("Tests de DosnService")

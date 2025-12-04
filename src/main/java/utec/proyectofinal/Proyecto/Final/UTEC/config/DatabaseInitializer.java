@@ -8,10 +8,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.business.repositories.UsuarioRepos
 import utec.proyectofinal.Proyecto.Final.UTEC.enums.Rol;
 import utec.proyectofinal.Proyecto.Final.UTEC.services.UsuarioService;
 
-/**
- * Inicializador de datos base del sistema.
- * Crea el usuario administrador predeterminado si no existe.
- */
+
 @Component
 @Order(1) // Se ejecuta primero
 public class DatabaseInitializer implements CommandLineRunner {

@@ -93,9 +93,7 @@ public class TablaGermService {
     
     
     
-    /**
-     * Validar datos de la tabla de germinación
-     */
+    
     private void validarDatosTablaGerm(TablaGermRequestDTO solicitud, Germinacion germinacion) {
         
         if (solicitud.getFechaFinal() == null) {
@@ -229,9 +227,7 @@ public class TablaGermService {
         }
     }
     
-    /**
-     * Validar porcentajes con redondeo
-     */
+    
     private void validarPorcentajes(PorcentajesRedondeoRequestDTO solicitud) {
         
         if (solicitud.getPorcentajeNormalesConRedondeo() != null) {
@@ -274,9 +270,7 @@ public class TablaGermService {
         }
     }
     
-    /**
-     * Validar que un porcentaje esté en el rango 0-100
-     */
+    
     private void validarRangoPorcentaje(String tipo, BigDecimal porcentaje) {
         if (porcentaje.compareTo(BigDecimal.ZERO) < 0) {
             throw new RuntimeException("El porcentaje de " + tipo + " no puede ser negativo");
@@ -446,9 +440,7 @@ public class TablaGermService {
         }
     }
     
-    /**
-     * Validar que todas las repeticiones estén dentro del rango de tolerancia del 5%
-     */
+    
     private void validarRangoToleranciaRepeticiones(TablaGerm tabla) {
         if (tabla.getRepGerm() == null || tabla.getRepGerm().isEmpty()) {
             return;
@@ -811,9 +803,7 @@ public class TablaGermService {
         }
     }
     
-    /**
-     * Reiniciar datos de un conteo específico en todas las repeticiones
-     */
+    
     private void reiniciarDatosConteo(TablaGerm tablaGerm, int indiceConteo) {
         if (tablaGerm.getRepGerm() != null) {
             for (RepGerm rep : tablaGerm.getRepGerm()) {
@@ -825,10 +815,7 @@ public class TablaGermService {
         }
     }
     
-    /**
-     * Reiniciar campos del último conteo (anormales, duras, frescas, muertas) cuando 
-     * la fecha de último conteo cambia de presente/pasada a futura
-     */
+    
     private void reiniciarCamposUltimoConteo(TablaGerm tablaGerm) {
         System.out.println(" Reiniciando campos del último conteo para tabla ID: " + tablaGerm.getTablaGermID());
         
@@ -864,9 +851,7 @@ public class TablaGermService {
         System.out.println(" Campos del último conteo reiniciados completamente");
     }
     
-    /**
-     * Validar fechas de conteos en edición
-     */
+    
     private void validarFechasConteosEnEdicion(TablaGermRequestDTO solicitud, TablaGerm tablaExistente) {
         
         

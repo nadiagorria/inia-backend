@@ -8,14 +8,7 @@ import java.util.List;
 
 public class LoteSpecification {
 
-    /**
-     * Crea una especificación para filtrar lotes basándose en múltiples criterios
-     * 
-     * @param searchTerm Término de búsqueda (ficha, nombre, cultivar, especie)
-     * @param activo Estado del lote (true/false/null para todos)
-     * @param cultivarNombre Nombre del cultivar para filtrar
-     * @return Specification para usar con el repositorio
-     */
+    
     public static Specification<Lote> conFiltros(String searchTerm, Boolean activo, String cultivarNombre) {
         return (root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();

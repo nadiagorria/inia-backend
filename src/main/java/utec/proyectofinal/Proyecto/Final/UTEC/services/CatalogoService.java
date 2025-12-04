@@ -168,14 +168,7 @@ public class CatalogoService {
         return catalogoPage.map(this::mapearEntidadADTO);
     }
 
-    /**
-     * Listar Catálogos con paginado y filtros dinámicos
-     * @param pageable Información de paginación
-     * @param searchTerm Término de búsqueda (opcional)
-     * @param activo Filtro por estado activo (opcional)
-     * @param tipo Filtro por tipo de catálogo (opcional)
-     * @return Página de CatalogoDTO filtrados
-     */
+    
     public Page<CatalogoDTO> obtenerCatalogosPaginadosConFiltros(
             Pageable pageable,
             String searchTerm,

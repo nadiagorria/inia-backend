@@ -8,16 +8,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * Tests unitarios para TotpService (Autenticación 2FA)
- * 
- * Funcionalidades testeadas:
- * - Generación de secret keys
- * - Generación de QR codes para Google Authenticator
- * - Verificación de códigos TOTP
- * - Validación de códigos con ventana de tolerancia
- * - Manejo de códigos inválidos
- */
+
 @ExtendWith(MockitoExtension.class)
 @DisplayName("Tests de TotpService (2FA)")
 class TotpServiceTest {

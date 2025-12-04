@@ -25,25 +25,19 @@ public class AnalisisHistorialService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    /**
-     * Registrar automáticamente cuando se crea un análisis
-     */
+    
     @Transactional
     public void registrarCreacion(Analisis analisis) {
         registrarAccion(analisis, "CREACION");
     }
 
-    /**
-     * Registrar automáticamente cuando se modifica un análisis
-     */
+    
     @Transactional
     public void registrarModificacion(Analisis analisis) {
         registrarAccion(analisis, "MODIFICACION");
     }
 
-    /**
-     * Método privado para registrar una acción en el historial
-     */
+    
     private void registrarAccion(Analisis analisis, String accion) {
         try {
             
@@ -65,9 +59,7 @@ public class AnalisisHistorialService {
         }
     }
 
-    /**
-     * Obtener historial de un análisis específico
-     */
+    
     public List<AnalisisHistorialDTO> obtenerHistorialAnalisis(Long analisisId) {
         List<AnalisisHistorial> historial = analisisHistorialRepository
             .findByAnalisisIdOrderByFechaHoraDesc(analisisId);
@@ -77,9 +69,7 @@ public class AnalisisHistorialService {
             .collect(Collectors.toList());
     }
 
-    /**
-     * Obtener historial de análisis por usuario
-     */
+    
     public List<AnalisisHistorialDTO> obtenerHistorialUsuario(Integer usuarioId) {
         List<AnalisisHistorial> historial = analisisHistorialRepository
             .findByUsuarioIdOrderByFechaHoraDesc(usuarioId);
@@ -89,9 +79,7 @@ public class AnalisisHistorialService {
             .collect(Collectors.toList());
     }
 
-    /**
-     * Mapear entidad a DTO
-     */
+    
     private AnalisisHistorialDTO mapearEntidadADTO(AnalisisHistorial historial) {
         AnalisisHistorialDTO dto = new AnalisisHistorialDTO();
         dto.setId(historial.getId());

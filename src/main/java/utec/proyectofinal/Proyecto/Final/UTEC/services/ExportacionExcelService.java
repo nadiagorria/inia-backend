@@ -42,9 +42,7 @@ public class ExportacionExcelService {
     @Autowired
     private DosnRepository dosnRepository;
 
-    /**
-     * Genera un archivo Excel con los datos de análisis de semillas según la estructura de la planilla de ejemplo
-     */
+    
     public byte[] generarReporteExcel(List<Long> loteIds) throws IOException {
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("Análisis de Semillas");
@@ -78,9 +76,7 @@ public class ExportacionExcelService {
         return outputStream.toByteArray();
     }
 
-    /**
-     * Genera un archivo Excel con filtros avanzados
-     */
+    
     public byte[] generarReporteExcelAvanzado(ExportacionRequestDTO solicitud) throws IOException {
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("Análisis de Semillas");

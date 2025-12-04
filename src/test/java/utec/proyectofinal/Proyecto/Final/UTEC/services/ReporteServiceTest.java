@@ -20,17 +20,7 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-/**
- * Tests unitarios para ReporteService
- * 
- * Funcionalidades testeadas:
- * - Reportes generales de análisis
- * - Reportes específicos por tipo (Germinación, PMS, Pureza, Tetrazolio, DOSN)
- * - Cálculo de estadísticas y métricas
- * - Filtrado por fechas
- * - Agregación de datos por período
- * - Top de análisis con problemas
- */
+
 @ExtendWith(MockitoExtension.class)
 @DisplayName("Tests de ReporteService")
 class ReporteServiceTest {

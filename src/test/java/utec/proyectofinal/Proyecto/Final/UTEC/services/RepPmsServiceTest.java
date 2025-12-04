@@ -25,15 +25,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-/**
- * Tests unitarios para RepPmsService (Repeticiones de Peso de Mil Semillas)
- * 
- * Funcionalidades testeadas:
- * - Creación de repeticiones de PMS
- * - Validación de límite de 16 repeticiones
- * - Asignación automática de tandas
- * - Cálculos de validación y estadísticas
- */
+
 @ExtendWith(MockitoExtension.class)
 @DisplayName("Tests de RepPmsService")
 class RepPmsServiceTest {

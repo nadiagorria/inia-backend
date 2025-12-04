@@ -14,12 +14,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-/**
- * Tests para EmailService
- * 
- * Valida el envío correcto de todos los tipos de correos electrónicos
- * del sistema INIA con plantillas HTML personalizadas
- */
+
 @ExtendWith(MockitoExtension.class)
 @DisplayName("Tests de EmailService")
 class EmailServiceTest {

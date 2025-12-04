@@ -22,16 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-/**
- * Tests unitarios para CatalogoService
- * 
- * Funcionalidades testeadas:
- * - Creación de catálogos (especies, sustratos, lugares, etc.)
- * - Validación de duplicados por tipo y valor
- * - Obtención de catálogos por tipo
- * - Activación/Desactivación de catálogos
- * - Actualización de valores
- */
+
 @ExtendWith(MockitoExtension.class)
 @DisplayName("Tests de CatalogoService")
 class CatalogoServiceTest {

@@ -41,15 +41,7 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
-/**
- * Tests unitarios para TetrazolioService
- * 
- * ¿Qué validamos?
- * - Creación de análisis de tetrazolio con estado REGISTRADO
- * - Validación de número de repeticiones esperadas (> 0)
- * - Asignación correcta de lote activo
- * - Configuración de parámetros de tinción
- */
+
 @ExtendWith(MockitoExtension.class)
 @org.mockito.junit.jupiter.MockitoSettings(strictness = org.mockito.quality.Strictness.LENIENT)
 @DisplayName("Tests de TetrazolioService")

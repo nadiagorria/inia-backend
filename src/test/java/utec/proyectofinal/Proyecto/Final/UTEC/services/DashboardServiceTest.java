@@ -34,18 +34,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
-/**
- * Tests unitarios para DashboardService
- * 
- * Funcionalidades testeadas:
- * - Obtención de estadísticas del dashboard
- * - Conteo de lotes activos
- * - Conteo de análisis pendientes
- * - Conteo de análisis completados hoy
- * - Conteo de análisis por aprobar
- * - Listado paginado de análisis pendientes
- * - Listado paginado de análisis por aprobar
- */
+
 @ExtendWith(MockitoExtension.class)
 @DisplayName("Tests de DashboardService")
 class DashboardServiceTest {

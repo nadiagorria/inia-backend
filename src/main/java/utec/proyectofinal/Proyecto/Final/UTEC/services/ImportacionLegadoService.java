@@ -21,9 +21,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Servicio para importar datos legados desde archivos Excel
- */
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -98,9 +96,7 @@ public class ImportacionLegadoService {
     private static final int COL_SEMILLA_MALEZAS_TOL = 58; // BG
     private static final int COL_MATERIA_INERTE = 59;   // BH
 
-    /**
-     * Importa datos desde un archivo Excel
-     */
+    
     @Transactional
     public ImportacionLegadoResponseDTO importarDesdeExcel(MultipartFile archivo, boolean soloValidar) {
         ImportacionLegadoResponseDTO response = new ImportacionLegadoResponseDTO();
@@ -159,9 +155,7 @@ public class ImportacionLegadoService {
         return response;
     }
 
-    /**
-     * Procesa una fila del Excel y crea las entidades necesarias
-     */
+    
     private void procesarFila(Row row, int numeroFila, String nombreArchivo) {
         // 1. Extraer y/o crear entidades relacionadas
         Contacto empresa = obtenerOCrearEmpresa(getCellValueAsString(row, COL_EMPRESA));
@@ -179,9 +173,7 @@ public class ImportacionLegadoService {
         legadoRepository.save(legado);
     }
 
-    /**
-     * Obtiene o crea una empresa (Contacto tipo EMPRESA)
-     */
+    
     private Contacto obtenerOCrearEmpresa(String nombreEmpresa) {
         if (nombreEmpresa == null || nombreEmpresa.trim().isEmpty()) {
             return null;
@@ -206,9 +198,7 @@ public class ImportacionLegadoService {
         return contactoRepository.save(empresa);
     }
 
-    /**
-     * Obtiene o crea un catálogo
-     */
+    
     private Catalogo obtenerOCrearCatalogo(TipoCatalogo tipo, String valorCompleto) {
         if (valorCompleto == null || valorCompleto.trim().isEmpty()) {
             return null;
@@ -233,9 +223,7 @@ public class ImportacionLegadoService {
         return catalogoRepository.save(catalogo);
     }
 
-    /**
-     * Obtiene o crea una especie con búsqueda inteligente para evitar duplicados
-     */
+    
     private Especie obtenerOCrearEspecie(String nombreCompletoEspecie) {
         if (nombreCompletoEspecie == null || nombreCompletoEspecie.trim().isEmpty()) {
             return null;
@@ -290,9 +278,7 @@ public class ImportacionLegadoService {
         return especieRepository.save(especie);
     }
     
-    /**
-     * Remueve acentos de un texto para búsqueda flexible
-     */
+    
     private String removerAcentos(String texto) {
         if (texto == null) return "";
         
@@ -300,9 +286,7 @@ public class ImportacionLegadoService {
         return normalized.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
     }
 
-    /**
-     * Obtiene o crea un cultivar
-     */
+    
     private Cultivar obtenerOCrearCultivar(String nombreCompletoCultivar, Especie especie) {
         if (nombreCompletoCultivar == null || nombreCompletoCultivar.trim().isEmpty() || especie == null) {
             return null;
@@ -327,9 +311,7 @@ public class ImportacionLegadoService {
         return cultivarRepository.save(cultivar);
     }
 
-    /**
-     * Crea un Lote con los datos extraídos
-     */
+    
     private Lote crearLote(Row row, Contacto empresa, Cultivar cultivar, 
                            Catalogo deposito, Catalogo origen) {
         
@@ -364,9 +346,7 @@ public class ImportacionLegadoService {
         return lote;
     }
 
-    /**
-     * Crea un registro Legado con todos los campos restantes
-     */
+    
     private Legado crearLegado(Row row, Lote lote, int numeroFila, String nombreArchivo) {
         Legado legado = new Legado();
         
@@ -443,11 +423,7 @@ public class ImportacionLegadoService {
 
     // MÉTODOS AUXILIARES
 
-    /**
-     * Parsea un valor de catálogo eliminando el código inicial
-     * Ej: "207 - Planta de Procesamiento" -> "Planta de Procesamiento"
-     * Ej: "1517 - RAIGRAS" -> "RAIGRAS"
-     */
+    
     private String parsearValorCatalogo(String valorCompleto) {
         if (valorCompleto == null || valorCompleto.trim().isEmpty()) {
             return "";
@@ -464,11 +440,7 @@ public class ImportacionLegadoService {
         return valorCompleto.trim();
     }
 
-    /**
-     * Extrae solo el código de un valor
-     * Ej: "0522 - Procesamiento y almacenaje de Semillas LE" -> "0522"
-     * Ej: "050 - INIA" -> "050"
-     */
+    
     private String parsearCodigo(String valorCompleto) {
         if (valorCompleto == null || valorCompleto.trim().isEmpty()) {
             return null;
@@ -491,9 +463,7 @@ public class ImportacionLegadoService {
         return valorCompleto.trim();
     }
 
-    /**
-     * Verifica si una fila está vacía
-     */
+    
     private boolean esFilaVacia(Row row) {
         if (row == null) {
             return true;
@@ -511,9 +481,7 @@ public class ImportacionLegadoService {
         return true;
     }
 
-    /**
-     * Obtiene el valor de una celda como String
-     */
+    
     private String getCellValueAsString(Row row, int columnIndex) {
         Cell cell = row.getCell(columnIndex);
         if (cell == null) {
@@ -538,9 +506,7 @@ public class ImportacionLegadoService {
         }
     }
 
-    /**
-     * Obtiene el valor de una celda como BigDecimal
-     */
+    
     private BigDecimal getCellValueAsBigDecimal(Row row, int columnIndex) {
         Cell cell = row.getCell(columnIndex);
         if (cell == null || cell.getCellType() == CellType.BLANK) {
@@ -566,17 +532,13 @@ public class ImportacionLegadoService {
         return null;
     }
 
-    /**
-     * Obtiene el valor de una celda como Integer
-     */
+    
     private Integer getCellValueAsInteger(Row row, int columnIndex) {
         BigDecimal value = getCellValueAsBigDecimal(row, columnIndex);
         return value != null ? value.intValue() : null;
     }
 
-    /**
-     * Obtiene el valor de una celda como LocalDate
-     */
+    
     private LocalDate getCellValueAsDate(Row row, int columnIndex) {
         Cell cell = row.getCell(columnIndex);
         if (cell == null || cell.getCellType() == CellType.BLANK) {

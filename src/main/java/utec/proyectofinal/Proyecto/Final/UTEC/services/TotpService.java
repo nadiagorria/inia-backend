@@ -13,16 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Base64;
 
-/**
- * Servicio para gestionar códigos TOTP (Time-based One-Time Password)
- * Compatible con Google Authenticator, Microsoft Authenticator, Authy, etc.
- * 
- * SEGURIDAD:
- * - Usa algoritmo HMAC-SHA1 (estándar RFC 6238)
- * - Códigos de 6 dígitos
- * - Ventana de tiempo de 30 segundos
- * - Permite discrepancia de 1 período (30s antes/después) para tolerancia de reloj
- */
+
 @Service
 public class TotpService {
 
@@ -44,22 +35,12 @@ public class TotpService {
         this.codeVerifier = verifier;
     }
 
-    /**
-     * Genera un nuevo secret key para TOTP
-     * 
-     * @return Secret en formato Base32 (compatible con Google Authenticator)
-     */
+    
     public String generateSecret() {
         return secretGenerator.generate();
     }
 
-    /**
-     * Genera un QR code para configurar Google Authenticator
-     * 
-     * @param secret El secret key del usuario
-     * @param accountName Nombre de la cuenta (generalmente el email o username)
-     * @return QR code en formato Base64 Data URL (para mostrar en <img src="">)
-     */
+    
     public String generateQrCodeDataUrl(String secret, String accountName) {
         try {
             System.out.println(" [TOTP-QR] Generando QR code...");
@@ -91,13 +72,7 @@ public class TotpService {
         }
     }
 
-    /**
-     * Verifica un código TOTP ingresado por el usuario
-     * 
-     * @param secret El secret key del usuario
-     * @param code El código de 6 dígitos ingresado
-     * @return true si el código es válido, false en caso contrario
-     */
+    
     public boolean verifyCode(String secret, String code) {
         if (secret == null || code == null) {
             return false;
@@ -148,13 +123,7 @@ public class TotpService {
         }
     }
 
-    /**
-     * Genera el código actual (útil para testing o debugging)
-     * NO usar en producción para mostrar al usuario
-     * 
-     * @param secret El secret key
-     * @return El código de 6 dígitos actual
-     */
+    
     public String getCurrentCode(String secret) {
         try {
             long currentBucket = Math.floorDiv(timeProvider.getTime(), 30);
@@ -164,22 +133,13 @@ public class TotpService {
         }
     }
 
-    /**
-     * Obtiene el tiempo restante (en segundos) hasta que el código actual expire
-     * 
-     * @return Segundos restantes (0-30)
-     */
+    
     public int getRemainingSeconds() {
         long currentTime = timeProvider.getTime();
         return (int) (30 - (currentTime % 30));
     }
 
-    /**
-     * Verifica que un secret sea válido (formato Base32 correcto)
-     * 
-     * @param secret El secret a validar
-     * @return true si es válido
-     */
+    
     public boolean isValidSecret(String secret) {
         if (secret == null || secret.isEmpty()) {
             return false;

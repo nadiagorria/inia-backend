@@ -193,9 +193,7 @@ public class RepGermService {
         return repGerm;
     }
     
-    /**
-     * Validar datos de la repetición
-     */
+    
     private void validarDatosRepeticion(RepGermRequestDTO solicitud, TablaGerm tablaGerm) {
         Integer numSemillasPRep = tablaGerm.getNumSemillasPRep();
         

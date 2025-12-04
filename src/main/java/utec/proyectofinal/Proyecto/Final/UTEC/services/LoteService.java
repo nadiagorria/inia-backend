@@ -248,14 +248,7 @@ public class LoteService {
         return lotePage.map(this::mapearEntidadASimpleDTO);
     }
 
-    /**
-     * Listar Lotes Simple con paginado y filtros
-     * @param pageable Información de paginación
-     * @param searchTerm Término de búsqueda (opcional)
-     * @param activo Filtro por estado activo (opcional)
-     * @param cultivarNombre Filtro por nombre de cultivar (opcional)
-     * @return Página de LoteSimpleDTO filtrados
-     */
+    
     public Page<LoteSimpleDTO> obtenerLotesSimplePaginadasConFiltros(
             Pageable pageable, 
             String searchTerm, 

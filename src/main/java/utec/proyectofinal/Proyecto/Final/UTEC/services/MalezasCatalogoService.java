@@ -118,13 +118,7 @@ public class MalezasCatalogoService {
         return malezasPage.map(this::mapearEntidadADTO);
     }
 
-    /**
-     * Listar Malezas con paginado y filtros dinámicos
-     * @param pageable Información de paginación
-     * @param searchTerm Término de búsqueda (opcional)
-     * @param activo Filtro por estado activo (opcional)
-     * @return Página de MalezasCatalogoDTO filtrados
-     */
+    
     public Page<MalezasCatalogoDTO> obtenerMalezasPaginadasConFiltros(
             Pageable pageable,
             String searchTerm,

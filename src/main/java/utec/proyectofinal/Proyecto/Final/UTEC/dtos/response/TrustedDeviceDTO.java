@@ -4,9 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import java.time.LocalDateTime;
 
-/**
- * DTO de respuesta para dispositivo de confianza
- */
+
 @Data
 @AllArgsConstructor
 public class TrustedDeviceDTO {

@@ -25,9 +25,7 @@ public class LegadoService {
     private final LegadoRepository legadoRepository;
     private final LoteService loteService;
 
-    /**
-     * Obtener todos los registros legados activos (versión simple)
-     */
+    
     @Transactional(readOnly = true)
     public List<LegadoSimpleDTO> obtenerTodosSimple() {
         return legadoRepository.findByActivoTrue().stream()
@@ -35,9 +33,7 @@ public class LegadoService {
                 .collect(Collectors.toList());
     }
 
-    /**
-     * Obtener un legado por ID con información completa
-     */
+    
     @Transactional(readOnly = true)
     public LegadoDTO obtenerPorId(Long id) {
         Legado legado = legadoRepository.findById(id)
@@ -46,9 +42,7 @@ public class LegadoService {
         return convertirADTO(legado);
     }
 
-    /**
-     * Obtener legados por archivo origen
-     */
+    
     @Transactional(readOnly = true)
     public List<LegadoSimpleDTO> obtenerPorArchivo(String archivoOrigen) {
         return legadoRepository.findByArchivoOrigen(archivoOrigen).stream()
@@ -56,9 +50,7 @@ public class LegadoService {
                 .collect(Collectors.toList());
     }
 
-    /**
-     * Obtener legados por ficha
-     */
+    
     @Transactional(readOnly = true)
     public List<LegadoSimpleDTO> obtenerPorFicha(String ficha) {
         return legadoRepository.findByFicha(ficha).stream()
@@ -66,9 +58,7 @@ public class LegadoService {
                 .collect(Collectors.toList());
     }
 
-    /**
-     * Desactivar un registro legado
-     */
+    
     @Transactional
     public void desactivar(Long id) {
         Legado legado = legadoRepository.findById(id)
@@ -78,9 +68,7 @@ public class LegadoService {
         legadoRepository.save(legado);
     }
 
-    /**
-     * Obtener legados paginados con filtros
-     */
+    
     @Transactional(readOnly = true)
     public Page<LegadoListadoDTO> obtenerLegadosPaginadas(
             Pageable pageable,
@@ -95,9 +83,7 @@ public class LegadoService {
         return legadoPage.map(this::convertirAListadoDTO);
     }
 
-    /**
-     * Obtener todas las especies únicas de los legados activos
-     */
+    
     @Transactional(readOnly = true)
     public List<String> obtenerEspeciesUnicas() {
         return legadoRepository.findByActivoTrue().stream()
@@ -110,9 +96,7 @@ public class LegadoService {
                 .collect(Collectors.toList());
     }
 
-    /**
-     * Convertir entidad a DTO de listado
-     */
+    
     private LegadoListadoDTO convertirAListadoDTO(Legado legado) {
         LegadoListadoDTO dto = new LegadoListadoDTO();
         dto.setLegadoID(legado.getLegadoID());
@@ -138,9 +122,7 @@ public class LegadoService {
         return dto;
     }
 
-    /**
-     * Convertir entidad a DTO simple
-     */
+    
     private LegadoSimpleDTO convertirASimpleDTO(Legado legado) {
         LegadoSimpleDTO dto = new LegadoSimpleDTO();
         dto.setLegadoID(legado.getLegadoID());
@@ -153,9 +135,7 @@ public class LegadoService {
         return dto;
     }
 
-    /**
-     * Convertir entidad a DTO completo
-     */
+    
     private LegadoDTO convertirADTO(Legado legado) {
         LegadoDTO dto = new LegadoDTO();
         dto.setLegadoID(legado.getLegadoID());

@@ -6,9 +6,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-/**
- * DTO para respuestas de error consistentes en toda la API
- */
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

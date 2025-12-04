@@ -27,19 +27,11 @@ public interface EspecieRepository extends JpaRepository<Especie, Long> {
     
     Optional<Especie> findByNombreComunIgnoreCase(String nombreComun);
     
-    /**
-     * Busca una especie por nombre común con coincidencia flexible:
-     * - Ignora mayúsculas/minúsculas
-     * - El nombre de búsqueda puede ser parte del nombre almacenado
-     * - Útil para casos como "Avena blanca" que debe coincidir con "Avena blanca / Avena amarilla"
-     */
+    
     @Query("SELECT e FROM Especie e WHERE LOWER(e.nombreComun) LIKE LOWER(CONCAT('%', :nombreComun, '%')) AND e.activo = true")
     List<Especie> buscarPorNombreComunFlexible(@Param("nombreComun") String nombreComun);
     
-    /**
-     * Busca una especie donde el nombre común almacenado comience con el texto proporcionado
-     * Útil para búsquedas exactas al inicio del nombre
-     */
+    
     @Query("SELECT e FROM Especie e WHERE LOWER(e.nombreComun) LIKE LOWER(CONCAT(:nombreComun, '%')) AND e.activo = true")
     List<Especie> buscarPorNombreComunInicio(@Param("nombreComun") String nombreComun);
     

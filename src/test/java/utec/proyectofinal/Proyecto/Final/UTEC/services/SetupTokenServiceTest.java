@@ -10,12 +10,7 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * Tests para SetupTokenService
- * 
- * Valida la creación, validación y consumo de tokens JWT de configuración inicial
- * con firma HMAC-SHA256, expiración automática y blacklist de un solo uso
- */
+
 @ExtendWith(MockitoExtension.class)
 @DisplayName("Tests de SetupTokenService")
 class SetupTokenServiceTest {

@@ -138,9 +138,7 @@ public class AuthController {
         }
     }
 
-    /**
-     * Configura una cookie HttpOnly Secure para almacenar tokens JWT de forma segura.
-     */
+    
     private void configurarCookieToken(HttpServletResponse response, String nombre, String valor, int maxAgeSegundos) {
         
         String cookieValue = String.format(

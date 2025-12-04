@@ -10,16 +10,7 @@ import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * Tests unitarios para RecoveryCodeService
- * 
- * Funcionalidades testeadas:
- * - Generación de códigos de recuperación aleatorios
- * - Hashing de códigos para almacenamiento seguro
- * - Verificación de códigos
- * - Validación de formato
- * - Expiración de códigos (10 minutos)
- */
+
 @ExtendWith(MockitoExtension.class)
 @DisplayName("Tests de RecoveryCodeService (Códigos de Recuperación)")
 class RecoveryCodeServiceTest {

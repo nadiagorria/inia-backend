@@ -6,10 +6,7 @@ import lombok.Data;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-/**
- * Entidad para almacenar datos históricos importados desde Excel
- * que no se ajustan completamente al modelo actual de análisis
- */
+
 @Entity
 @Table(name = "Legado")
 @Data

@@ -170,13 +170,7 @@ public class EspecieService {
         return especiePage.map(this::mapearEntidadADTO);
     }
 
-    /**
-     * Listar Especies con paginado y filtros dinámicos
-     * @param pageable Información de paginación
-     * @param searchTerm Término de búsqueda (opcional)
-     * @param activo Filtro por estado activo (opcional)
-     * @return Página de EspecieDTO filtrados
-     */
+    
     public Page<EspecieDTO> obtenerEspeciesPaginadasConFiltros(
             Pageable pageable,
             String searchTerm,

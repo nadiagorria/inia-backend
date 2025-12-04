@@ -31,17 +31,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-/**
- * Tests unitarios para GerminacionService
- * 
- * Funcionalidades testeadas:
- * - Creación de análisis de germinación con estado REGISTRADO
- * - Validación de repeticiones esperadas (> 0)
- * - Actualización de análisis existentes
- * - Gestión de estados (REGISTRADO, EN_PROCESO, PENDIENTE_APROBACION, APROBADO)
- * - Desactivación y reactivación de análisis
- * - Cálculos de germinación
- */
+
 @ExtendWith(MockitoExtension.class)
 @DisplayName("Tests de GerminacionService")
 class GerminacionServiceTest {

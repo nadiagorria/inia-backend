@@ -48,14 +48,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
-/**
- * Tests unitarios para LoteService
- * 
- * ¿Qué estamos testeando?
- * - La lógica de negocio del servicio de lotes
- * - Validaciones y transformaciones de datos
- * - Interacciones con el repositorio
- */
+
 @ExtendWith(MockitoExtension.class)
 @DisplayName("Tests de LoteService")
 class LoteServiceTest {

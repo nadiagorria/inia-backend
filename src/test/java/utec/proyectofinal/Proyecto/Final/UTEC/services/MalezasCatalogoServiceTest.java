@@ -26,24 +26,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-/**
- * Tests unitarios para MalezasCatalogoService
- * 
- * Funcionalidades testeadas:
- * - Obtener todas las malezas activas
- * - Obtener malezas inactivas
- * - Búsqueda por nombre común
- * - Búsqueda por nombre científico
- * - Obtener maleza por ID
- * - Crear nueva maleza
- * - Actualizar maleza existente
- * - Soft delete (eliminar)
- * - Reactivar maleza
- * - Obtener entidad por ID (para uso interno)
- * - Paginación simple
- * - Paginación con filtros dinámicos
- * - Mapeo de entidad a DTO
- */
+
 @ExtendWith(MockitoExtension.class)
 @DisplayName("Tests de MalezasCatalogoService")
 class MalezasCatalogoServiceTest {

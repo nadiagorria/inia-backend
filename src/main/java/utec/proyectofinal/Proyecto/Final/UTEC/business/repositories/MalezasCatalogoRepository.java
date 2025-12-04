@@ -27,17 +27,11 @@ public interface MalezasCatalogoRepository extends JpaRepository<MalezasCatalogo
     
     Optional<MalezasCatalogo> findByNombreCientificoIgnoreCase(String nombreCientifico);
     
-    /**
-     * Busca una maleza por nombre común con coincidencia flexible:
-     * - Ignora mayúsculas/minúsculas
-     * - El nombre de búsqueda puede ser parte del nombre almacenado
-     */
+    
     @Query("SELECT m FROM MalezasCatalogo m WHERE LOWER(m.nombreComun) LIKE LOWER(CONCAT('%', :nombreComun, '%')) AND m.activo = true")
     List<MalezasCatalogo> buscarPorNombreComunFlexible(@Param("nombreComun") String nombreComun);
     
-    /**
-     * Busca una maleza donde el nombre común almacenado comience con el texto proporcionado
-     */
+    
     @Query("SELECT m FROM MalezasCatalogo m WHERE LOWER(m.nombreComun) LIKE LOWER(CONCAT(:nombreComun, '%')) AND m.activo = true")
     List<MalezasCatalogo> buscarPorNombreComunInicio(@Param("nombreComun") String nombreComun);
     

@@ -24,19 +24,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
-/**
- * Tests unitarios para SeguridadService
- * 
- * Funcionalidades testeadas:
- * - Autenticación de usuarios (por nombre o email)
- * - Validaciones de estado de usuario (activo, pendiente, inactivo)
- * - Validación de contraseñas
- * - Obtener usuario autenticado del contexto de seguridad
- * - Listar roles por usuario
- * - Verificar existencia de usuarios
- * - Verificar existencia de emails activos
- * - Actualización de fecha de última conexión
- */
+
 @ExtendWith(MockitoExtension.class)
 @DisplayName("Tests de SeguridadService")
 class SeguridadServiceTest {

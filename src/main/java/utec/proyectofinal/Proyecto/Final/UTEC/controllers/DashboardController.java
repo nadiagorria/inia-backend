@@ -39,14 +39,7 @@ public class DashboardController {
         }
     }
     
-    /**
-     * Endpoint offset estándar para análisis pendientes.
-     * Usa paginación con page/size para navegación de páginas.
-     * 
-     * @param page Número de página (base 0)
-     * @param size Número de items por página (default 10)
-     * @return Página de análisis pendientes
-     */
+    
     @GetMapping("/analisis-pendientes")
     public ResponseEntity<Page<AnalisisPendienteDTO>> obtenerAnalisisPendientes(
             @RequestParam(defaultValue = "0") int page,
@@ -62,14 +55,7 @@ public class DashboardController {
         }
     }
     
-    /**
-     * Endpoint offset estándar para análisis por aprobar.
-     * Usa paginación con page/size para navegación de páginas.
-     * 
-     * @param page Número de página (base 0)
-     * @param size Número de items por página (default 10)
-     * @return Página de análisis por aprobar
-     */
+    
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/analisis-por-aprobar")
     public ResponseEntity<Page<AnalisisPorAprobarDTO>> obtenerAnalisisPorAprobar(
@@ -86,14 +72,7 @@ public class DashboardController {
         }
     }
     
-    /**
-     * Endpoint keyset para análisis pendientes.
-     * Usa cursor Base64 para paginación eficiente sin OFFSET.
-     * 
-     * @param cursor Base64-encoded cursor de la última página (opcional para primera página)
-     * @param size Número de items por página (default 20)
-     * @return Página con items y nextCursor
-     */
+    
     @GetMapping("/analisis-pendientes/keyset")
     public ResponseEntity<?> obtenerAnalisisPendientesKeyset(
             @RequestParam(required = false) String cursor,
@@ -112,14 +91,7 @@ public class DashboardController {
         }
     }
     
-    /**
-     * Endpoint keyset para análisis por aprobar.
-     * Usa cursor Base64 para paginación eficiente sin OFFSET.
-     * 
-     * @param cursor Base64-encoded cursor de la última página (opcional para primera página)
-     * @param size Número de items por página (default 20)
-     * @return Página con items y nextCursor
-     */
+    
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/analisis-por-aprobar/keyset")
     public ResponseEntity<?> obtenerAnalisisPorAprobarKeyset(
@@ -139,9 +111,7 @@ public class DashboardController {
         }
     }
     
-    /**
-     * DTO simple para respuestas de error.
-     */
+    
     private static class ErrorResponse {
         public final String error;
         

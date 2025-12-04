@@ -7,9 +7,7 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * DTO para la respuesta de importación de datos legados
- */
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

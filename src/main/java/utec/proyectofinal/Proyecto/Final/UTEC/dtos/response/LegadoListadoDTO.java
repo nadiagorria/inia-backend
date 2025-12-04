@@ -4,9 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import lombok.Data;
 
-/**
- * DTO para listado paginado de legados
- */
+
 @Data
 public class LegadoListadoDTO {
     private Long legadoID;

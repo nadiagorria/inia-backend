@@ -12,15 +12,11 @@ import utec.proyectofinal.Proyecto.Final.UTEC.business.entities.AnalisisHistoria
 @Repository
 public interface AnalisisHistorialRepository extends JpaRepository<AnalisisHistorial, Long> {
 
-    /**
-     * Obtener historial de un análisis específico
-     */
+    
     @Query("SELECT ah FROM AnalisisHistorial ah WHERE ah.analisis.analisisID = :analisisId ORDER BY ah.fechaHora DESC")
     List<AnalisisHistorial> findByAnalisisIdOrderByFechaHoraDesc(@Param("analisisId") Long analisisId);
 
-    /**
-     * Obtener historial de análisis por usuario
-     */
+    
     @Query("SELECT ah FROM AnalisisHistorial ah WHERE ah.usuario.usuarioID = :usuarioId ORDER BY ah.fechaHora DESC")
     List<AnalisisHistorial> findByUsuarioIdOrderByFechaHoraDesc(@Param("usuarioId") Integer usuarioId);
 }

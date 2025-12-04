@@ -8,15 +8,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * Tests unitarios para PasswordService
- * 
- * Funcionalidades testeadas:
- * - Encriptación de contraseñas con BCrypt
- * - Verificación de contraseñas
- * - Seguridad del hashing (diferentes hashes para misma contraseña)
- * - Manejo de casos edge (null, vacío, espacios)
- */
+
 @ExtendWith(MockitoExtension.class)
 @DisplayName("Tests de PasswordService (Seguridad)")
 class PasswordServiceTest {

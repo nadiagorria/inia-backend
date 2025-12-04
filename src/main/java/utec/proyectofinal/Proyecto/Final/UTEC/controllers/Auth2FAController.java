@@ -40,14 +40,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-/**
- * Controlador para 2FA y Recuperación de Contraseña
- * 
- * Este controlador maneja:
- * - Configuración y gestión de Google Authenticator (2FA)
- * - Dispositivos de confianza
- * - Recuperación segura de contraseña
- */
+
 @RestController
 @RequestMapping("/api/v1/auth")
 @CrossOrigin(origins = "http://localhost:3000")
@@ -189,9 +182,7 @@ public class Auth2FAController {
         return completarLoginExitoso(user, response);
     }
 
-    /**
-     * Completa el login exitoso generando tokens JWT y configurando cookies
-     */
+    
     private ResponseEntity<?> completarLoginExitoso(Usuario user, HttpServletResponse response) {
         String[] roles = seguridadService.listarRolesPorUsuario(user);
         
@@ -216,9 +207,7 @@ public class Auth2FAController {
         return ResponseEntity.ok(responseBody);
     }
 
-    /**
-     * Configura una cookie HttpOnly Secure
-     */
+    
     private void configurarCookieToken(HttpServletResponse response, String nombre, String valor, int maxAgeSegundos) {
         String cookieValue = String.format(
             "%s=%s; Path=/; Max-Age=%d; HttpOnly; SameSite=Lax",
@@ -227,9 +216,7 @@ public class Auth2FAController {
         response.addHeader("Set-Cookie", cookieValue);
     }
 
-    /**
-     * Extrae nombre del dispositivo del User-Agent
-     */
+    
     private String extractDeviceName(HttpServletRequest request) {
         String userAgent = request.getHeader("User-Agent");
         if (userAgent == null) return "Dispositivo Desconocido";
@@ -251,9 +238,7 @@ public class Auth2FAController {
         return browser + " en " + os;
     }
 
-    /**
-     * Extrae IP considerando proxies
-     */
+    
     private String extractIpAddress(HttpServletRequest request) {
         String ip = request.getHeader("X-Forwarded-For");
         if (ip == null || ip.isEmpty() || "unknown".equalsIgnoreCase(ip)) {

@@ -27,18 +27,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-/**
- * Tests de Controlador para LoteController
- * 
- * Usa @WebMvcTest en lugar de @SpringBootTest para evitar problemas
- * con la configuración completa de Spring Security.
- * 
- * Estos tests verifican:
- * - Endpoints REST funcionan correctamente
- * - Serialización/Deserialización JSON
- * - Códigos de respuesta HTTP
- * - Validación de permisos con @WithMockUser
- */
+
 @WebMvcTest(LoteController.class)
 @DisplayName("Tests de Controlador - LoteController")
 class LoteControllerIntegrationTest {

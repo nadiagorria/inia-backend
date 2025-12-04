@@ -36,15 +36,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-/**
- * Tests unitarios para PurezaService
- * 
- * ¿Qué validamos?
- * - Creación de análisis de pureza con estado EN_PROCESO
- * - Validación de pesos (pesoTotal >= pesoInicial)
- * - Asignación correcta de lote
- * - Cálculos de porcentajes
- */
+
 @ExtendWith(MockitoExtension.class)
 @DisplayName("Tests de PurezaService")
 class PurezaServiceTest {

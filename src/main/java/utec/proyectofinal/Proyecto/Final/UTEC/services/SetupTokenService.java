@@ -14,24 +14,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * Servicio para gestionar tokens JWT temporales de configuración inicial del admin
- * 
- * SOLUCIÓN DE PRODUCCIÓN:
- * - Usa JWT firmado con HMAC-SHA256 (criptográficamente seguro)
- * - Tokens expiran automáticamente en 5 minutos (claim 'exp')
- * - Un solo uso garantizado mediante blacklist en memoria
- * - Sin dependencias externas (Redis, base de datos)
- * - Validación criptográfica automática (firma HMAC)
- * - Datos cifrados dentro del token (no almacenados en servidor)
- * 
- * SEGURIDAD:
- * - Secret key de 256 bits mínimo (HMAC-SHA256)
- * - Tokens no pueden ser modificados sin invalidar la firma
- * - Expiración automática (claim 'exp')
- * - Blacklist para prevenir reutilización
- * - ID único por token (claim 'jti') para tracking
- */
+
 @Service
 public class SetupTokenService {
     
@@ -46,26 +29,12 @@ public class SetupTokenService {
     
     private final ConcurrentHashMap<String, Long> tokenBlacklist = new ConcurrentHashMap<>();
     
-    /**
-     * Genera la clave secreta para firmar tokens JWT
-     * Usa la misma clave que JwtUtil para consistencia
-     */
+    
     private SecretKey getSigningKey() {
         return secretKey;
     }
     
-    /**
-     * Genera un token JWT firmado con los datos de configuración del admin
-     * 
-     * Claims incluidos:
-     * - userId: ID del usuario
-     * - nombre: Nombre del usuario
-     * - qrCodeDataUrl: Código QR en base64
-     * - totpSecret: Secret TOTP
-     * - jti: ID único del token (para blacklist)
-     * - iat: Timestamp de creación
-     * - exp: Timestamp de expiración (5 minutos)
-     */
+    
     public String createSetupToken(Integer userId, String nombre, String qrCodeDataUrl, String totpSecret) {
         Date now = new Date();
         Date expiration = new Date(now.getTime() + TOKEN_EXPIRY_MS);
@@ -99,17 +68,7 @@ public class SetupTokenService {
         return token;
     }
     
-    /**
-     * Valida y consume un token JWT de configuración
-     * 
-     * Validaciones:
-     * 1. Firma válida (HMAC-SHA256)
-     * 2. No expirado (claim 'exp')
-     * 3. No usado previamente (blacklist)
-     * 4. Tipo correcto (claim 'type')
-     * 
-     * Retorna null si el token es inválido, expirado o ya fue usado
-     */
+    
     public Map<String, Object> consumeSetupToken(String token) {
         try {
             // Parsear y validar token JWT
@@ -166,9 +125,7 @@ public class SetupTokenService {
         }
     }
     
-    /**
-     * Invalida manualmente un token agregándolo a la blacklist
-     */
+    
     public void invalidateToken(String token) {
         try {
             Claims claims = Jwts.parser()
@@ -188,9 +145,7 @@ public class SetupTokenService {
         }
     }
     
-    /**
-     * Verifica si un token es válido sin consumirlo
-     */
+    
     public boolean isTokenValid(String token) {
         try {
             Claims claims = Jwts.parser()
@@ -214,10 +169,7 @@ public class SetupTokenService {
         }
     }
     
-    /**
-     * Limpia tokens expirados de la blacklist para evitar memory leaks
-     * Se ejecuta automáticamente al crear nuevos tokens
-     */
+    
     private void cleanExpiredTokensFromBlacklist() {
         long now = System.currentTimeMillis();
         tokenBlacklist.entrySet().removeIf(entry -> entry.getValue() < now);

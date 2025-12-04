@@ -107,10 +107,7 @@ public class ValoresGermService {
         
     }
     
-    /**
-     * Validar que la suma de normales + anormales + duras + frescas + muertas no supere 100
-     * (El campo germinacion no se incluye en esta validación)
-     */
+    
     private void validarSumaValores(ValoresGermRequestDTO solicitud, Instituto instituto) {
         BigDecimal suma = BigDecimal.ZERO;
         

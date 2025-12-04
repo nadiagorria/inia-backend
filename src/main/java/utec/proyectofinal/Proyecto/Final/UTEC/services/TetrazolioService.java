@@ -158,9 +158,7 @@ public class TetrazolioService {
         return tetrazolioPage.map(this::mapearEntidadAListadoDTO);
     }
 
-    /**
-     * Listar Tetrazolio con paginado y filtros dinámicos
-     */
+    
     public Page<TetrazolioListadoDTO> obtenerTetrazoliosPaginadasConFiltros(
             Pageable pageable,
             String searchTerm,
@@ -372,11 +370,7 @@ public class TetrazolioService {
         }
     }
 
-    /**
-     * Validación mínima previa a la finalización de un Tetrazolio.
-     * Requiere al menos una forma de evidencia: repeticiones creadas o porcentajes calculados
-     * (porcViablesRedondeo, porcNoViablesRedondeo, porcDurasRedondeo) mayores a 0.
-     */
+    
     private void validarEvidenciaAntesDeFinalizar(Tetrazolio tetrazolio) {
     boolean tieneRepeticiones = tetrazolio.getRepeticiones() != null && !tetrazolio.getRepeticiones().isEmpty();
 

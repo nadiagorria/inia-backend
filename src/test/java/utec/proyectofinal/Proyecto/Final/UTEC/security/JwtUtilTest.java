@@ -19,20 +19,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * Test completo para JwtUtil
- * 
- * Cubre todas las funciones:
- * - generarToken (access token con roles y claims completos)
- * - generarRefreshToken (refresh token con claims mínimos)
- * - obtenerUserIdDelToken (extrae userId del token)
- * - esTokenValido (valida estructura, firma y expiración)
- * - obtenerUsuarioDelToken (extrae username/subject)
- * - getAccessTokenExpiration (retorna tiempo de expiración access)
- * - getRefreshTokenExpiration (retorna tiempo de expiración refresh)
- * 
- * Total de tests: 24
- */
+
 @DisplayName("JwtUtil - Test Completo")
 class JwtUtilTest {
 

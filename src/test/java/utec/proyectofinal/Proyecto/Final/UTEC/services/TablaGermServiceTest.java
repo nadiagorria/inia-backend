@@ -31,15 +31,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-/**
- * Tests unitarios para TablaGermService
- * 
- * Funcionalidades testeadas:
- * - Creación de tablas de germinación
- * - Validación de fechas
- * - Finalización de tablas
- * - Actualización de porcentajes de redondeo
- */
+
 @ExtendWith(MockitoExtension.class)
 @DisplayName("Tests de TablaGermService")
 class TablaGermServiceTest {

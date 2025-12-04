@@ -136,15 +136,7 @@ public class PurezaService {
     }
 
 
-    /**
-     * Listar Pureza con paginado y filtros dinámicos
-     * @param pageable Información de paginación
-     * @param searchTerm Término de búsqueda (opcional)
-     * @param activo Filtro por estado activo (opcional)
-     * @param estado Filtro por estado del análisis (opcional)
-     * @param loteId Filtro por ID del lote (opcional)
-     * @return Página de PurezaListadoDTO filtrados
-     */
+    
     public Page<PurezaListadoDTO> obtenerPurezaPaginadasConFiltros(
             Pageable pageable,
             String searchTerm,
@@ -396,12 +388,7 @@ public class PurezaService {
         return listado;
     }
 
-    /**
-     * Valida las reglas de negocio relacionadas con los pesos en el análisis de pureza
-     * @param pesoInicial_g Peso inicial de la muestra
-     * @param pesoTotal_g Peso total después del análisis
-     * @throws RuntimeException si alguna validación crítica falla
-     */
+    
     private void validarPesos(BigDecimal pesoInicial_g, BigDecimal pesoTotal_g) {
         if (pesoInicial_g == null || pesoTotal_g == null) {
             return; 
@@ -432,11 +419,7 @@ public class PurezaService {
         }
     }
 
-    /**
-     * Finalizar análisis según el rol del usuario
-     * - Analistas: pasa a PENDIENTE_APROBACION
-     * - Administradores: pasa directamente a APROBADO
-     */
+    
     public PurezaDTO finalizarAnalisis(Long id) {
         return analisisService.finalizarAnalisisGenerico(
             id,
@@ -446,11 +429,7 @@ public class PurezaService {
         );
     }
 
-    /**
-     * Validación básica previa a la finalización de un análisis de Pureza.
-     * Requiere al menos una forma de evidencia: datos de pesos registrados (semilla pura, materia inerte, etc.),
-     * datos INASE o listados no vacíos. Si no hay evidencia lanza RuntimeException.
-     */
+    
     private void validarAntesDeFinalizar(Pureza pureza) {
         
         boolean tieneDatosRedon = pureza.getRedonSemillaPura() != null
@@ -486,9 +465,7 @@ public class PurezaService {
         }
     }
 
-    /**
-     * Aprobar análisis (solo administradores)
-     */
+    
     public PurezaDTO aprobarAnalisis(Long id) {
         return analisisService.aprobarAnalisisGenerico(
             id,
@@ -499,9 +476,7 @@ public class PurezaService {
         );
     }
 
-    /**
-     * Marcar análisis para repetir (solo administradores)
-     */
+    
     public PurezaDTO marcarParaRepetir(Long id) {
         return analisisService.marcarParaRepetirGenerico(
             id,

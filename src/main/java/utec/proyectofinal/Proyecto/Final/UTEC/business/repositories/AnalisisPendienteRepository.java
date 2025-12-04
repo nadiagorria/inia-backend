@@ -13,10 +13,7 @@ import java.util.List;
 @Repository
 public interface AnalisisPendienteRepository extends JpaRepository<Lote, Long> {
     
-    /**
-     * Query offset (page-based) para análisis pendientes.
-     * Usa paginación estándar con OFFSET/LIMIT para navegación de páginas.
-     */
+    
     @Query(value = """
         SELECT DISTINCT 
             l.loteid AS loteid,
@@ -127,11 +124,7 @@ public interface AnalisisPendienteRepository extends JpaRepository<Lote, Long> {
         nativeQuery = true)
     Page<AnalisisPendienteProjection> findAllPaginado(Pageable pageable);
     
-    /**
-     * Query keyset (cursor-based) para análisis pendientes.
-     * Usa comparación de tupla para continuar después del cursor.
-     * Más eficiente que OFFSET para deep pagination.
-     */
+    
     @Query(value = """
         SELECT DISTINCT 
             l.loteid AS loteid,

@@ -14,10 +14,7 @@ import org.springframework.stereotype.Service;
 import utec.proyectofinal.Proyecto.Final.UTEC.business.entities.Analisis;
 import utec.proyectofinal.Proyecto.Final.UTEC.enums.Estado;
 
-/**
- * Servicio común para operaciones relacionadas con análisis
- * Maneja la lógica compartida entre diferentes tipos de análisis
- */
+
 @Service
 public class AnalisisService {
 
@@ -27,23 +24,12 @@ public class AnalisisService {
     @Autowired
     private NotificacionService notificacionService;
 
-    /**
-     * Establece la fecha de inicio automáticamente al crear un análisis
-     * 
-     * @param analisis El análisis recién creado
-     */
+    
     public void establecerFechaInicio(Analisis analisis) {
         analisis.setFechaInicio(LocalDateTime.now());
     }
 
-    /**
-     * Finaliza un análisis según el rol del usuario actual y establece fecha fin
-     * - Si es analista, cambia estado a PENDIENTE_APROBACION
-     * - Si es admin, cambia estado a APROBADO directamente
-     * 
-     * @param analisis El análisis a finalizar
-     * @return El análisis actualizado
-     */
+    
     public Analisis finalizarAnalisis(Analisis analisis) {
         
         if (!analisis.getActivo()) {
@@ -85,13 +71,7 @@ public class AnalisisService {
         return analisis;
     }
 
-    /**
-     * Aprueba un análisis (verifica que esté en PENDIENTE_APROBACION o A_REPETIR)
-     * 
-     * @param analisis El análisis a aprobar
-     * @return El análisis actualizado
-     * @throws RuntimeException si el análisis no está en estado PENDIENTE_APROBACION o A_REPETIR, o está inactivo
-     */
+    
     public Analisis aprobarAnalisis(Analisis analisis) {
         
         if (!analisis.getActivo()) {
@@ -124,15 +104,7 @@ public class AnalisisService {
         return analisis;
     }
     
-    /**
-     * Marca un análisis para repetir (solo administradores)
-     * - Se permite marcar para repetir análisis APROBADOS o que cumplan validaciones
-     * - Cambia estado a A_REPETIR
-     * 
-     * @param analisis El análisis a marcar para repetir
-     * @return El análisis actualizado
-     * @throws RuntimeException si el análisis está inactivo o no cumple las validaciones
-     */
+    
     public Analisis marcarParaRepetir(Analisis analisis) {
         
         if (!analisis.getActivo()) {
@@ -158,11 +130,7 @@ public class AnalisisService {
         return analisis;
     }
 
-    /**
-     * Verifica si el usuario actual es un analista
-     * 
-     * @return true si el usuario tiene rol ANALISTA
-     */
+    
     public boolean esAnalista() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.getAuthorities() != null) {
@@ -171,13 +139,7 @@ public class AnalisisService {
         return false;
     }
 
-    /**
-     * Maneja el cambio de estado cuando se edita un análisis finalizado
-     * - Si es admin: mantiene el estado actual (FINALIZADO/APROBADO)
-     * - Si es analista: cambia a PENDIENTE_APROBACION para nueva revisión
-     * 
-     * @param analisis El análisis que se está editando
-     */
+    
     public void manejarEdicionAnalisisFinalizado(Analisis analisis) {
         
         if (analisis.getEstado() == Estado.APROBADO) {
@@ -199,17 +161,7 @@ public class AnalisisService {
         }
     }
 
-    /**
-     * Método genérico para finalizar análisis con validación específica opcional
-     * 
-     * @param <T> Tipo del análisis que extiende Analisis
-     * @param <D> Tipo del DTO de respuesta
-     * @param id ID del análisis
-     * @param repository Repositorio del tipo específico
-     * @param mapper Función para mapear entidad a DTO
-     * @param validator Validación específica opcional (puede ser null)
-     * @return DTO del análisis finalizado
-     */
+    
     public <T extends Analisis, D> D finalizarAnalisisGenerico(
             Long id, 
             JpaRepository<T, Long> repository,
@@ -233,18 +185,7 @@ public class AnalisisService {
         return mapper.apply(analisisActualizado);
     }
 
-    /**
-     * Método genérico para aprobar análisis con validación específica opcional
-     * 
-     * @param <T> Tipo del análisis que extiende Analisis
-     * @param <D> Tipo del DTO de respuesta
-     * @param id ID del análisis
-     * @param repository Repositorio del tipo específico
-     * @param mapper Función para mapear entidad a DTO
-     * @param validator Validación específica opcional (puede ser null)
-     * @param buscarPorLote Función para buscar análisis por lote (puede ser null)
-     * @return DTO del análisis aprobado
-     */
+    
     public <T extends Analisis, D> D aprobarAnalisisGenerico(
             Long id,
             JpaRepository<T, Long> repository,
@@ -307,17 +248,7 @@ public class AnalisisService {
         return mapper.apply(analisisActualizado);
     }
 
-    /**
-     * Método genérico para marcar análisis a repetir con validación específica opcional
-     * 
-     * @param <T> Tipo del análisis que extiende Analisis
-     * @param <D> Tipo del DTO de respuesta
-     * @param id ID del análisis
-     * @param repository Repositorio del tipo específico
-     * @param mapper Función para mapear entidad a DTO
-     * @param validator Validación específica opcional (puede ser null)
-     * @return DTO del análisis marcado para repetir
-     */
+    
     public <T extends Analisis, D> D marcarParaRepetirGenerico(
             Long id,
             JpaRepository<T, Long> repository,
@@ -340,14 +271,7 @@ public class AnalisisService {
         return mapper.apply(analisisActualizado);
     }
 
-    /**
-     * Desactiva un análisis (cambia activo a false)
-     * Método genérico que puede ser usado por cualquier tipo de análisis
-     * 
-     * @param <T> Tipo del análisis que extiende Analisis
-     * @param id ID del análisis
-     * @param repository Repositorio del tipo de análisis
-     */
+    
     public <T extends Analisis> void desactivarAnalisis(
             Long id,
             JpaRepository<T, Long> repository) {
@@ -359,17 +283,7 @@ public class AnalisisService {
         repository.save(analisis);
     }
 
-    /**
-     * Reactiva un análisis (cambia activo a true)
-     * Método genérico que puede ser usado por cualquier tipo de análisis
-     * 
-     * @param <T> Tipo del análisis que extiende Analisis
-     * @param <D> Tipo del DTO de respuesta
-     * @param id ID del análisis
-     * @param repository Repositorio del tipo de análisis
-     * @param mapper Función para mapear entidad a DTO
-     * @return DTO del análisis reactivado
-     */
+    
     public <T extends Analisis, D> D reactivarAnalisis(
             Long id,
             JpaRepository<T, Long> repository,

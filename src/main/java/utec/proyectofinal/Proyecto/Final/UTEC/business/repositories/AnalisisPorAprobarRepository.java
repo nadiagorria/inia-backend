@@ -13,10 +13,7 @@ import java.util.List;
 @Repository
 public interface AnalisisPorAprobarRepository extends JpaRepository<Lote, Long> {
     
-    /**
-     * Query offset (page-based) para análisis por aprobar.
-     * Usa paginación estándar con OFFSET/LIMIT para navegación de páginas.
-     */
+    
     @Query(value = """
         SELECT * FROM (
             -- PMS
@@ -155,11 +152,7 @@ public interface AnalisisPorAprobarRepository extends JpaRepository<Lote, Long> 
         nativeQuery = true)
     Page<AnalisisPorAprobarProjection> findAllPaginado(Pageable pageable);
     
-    /**
-     * Query keyset (cursor-based) para análisis por aprobar.
-     * Usa comparación de tupla (fecha_inicio DESC, analisisID DESC) para continuar después del cursor.
-     * Más eficiente que OFFSET para deep pagination.
-     */
+    
     @Query(value = """
         SELECT * FROM (
             -- PMS

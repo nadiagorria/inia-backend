@@ -16,15 +16,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-/**
- * Servicio para gestionar dispositivos de confianza (Trusted Devices)
- * 
- * SEGURIDAD:
- * - El fingerprint del dispositivo se hashea con SHA-256 antes de almacenar
- * - Los dispositivos expiran automáticamente después de 30 días de inactividad
- * - El fingerprint combina User-Agent + IP + otros headers para identificar únicamente
- * - El admin puede revocar manualmente cualquier dispositivo
- */
+
 @Service
 public class TrustedDeviceService {
 
@@ -33,14 +25,7 @@ public class TrustedDeviceService {
 
     private static final int MAX_DEVICES_PER_USER = 5; // Máximo 5 dispositivos de confianza
 
-    /**
-     * Genera un hash SHA-256 del fingerprint del dispositivo
-     * 
-     * NUNCA almacenamos el fingerprint original, solo su hash
-     * 
-     * @param fingerprint Fingerprint del dispositivo (generado en el cliente)
-     * @return Hash SHA-256 en hexadecimal
-     */
+    
     public String hashFingerprint(String fingerprint) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -60,13 +45,7 @@ public class TrustedDeviceService {
         }
     }
 
-    /**
-     * Verifica si un dispositivo es de confianza para un usuario
-     * 
-     * @param usuarioId ID del usuario
-     * @param fingerprint Fingerprint del dispositivo
-     * @return true si el dispositivo es de confianza y está activo
-     */
+    
     public boolean isTrustedDevice(Integer usuarioId, String fingerprint) {
         if (fingerprint == null || fingerprint.isEmpty()) {
             return false;
@@ -97,14 +76,7 @@ public class TrustedDeviceService {
         return true;
     }
 
-    /**
-     * Registra un nuevo dispositivo de confianza
-     * 
-     * @param usuarioId ID del usuario
-     * @param fingerprint Fingerprint del dispositivo
-     * @param request HttpServletRequest para extraer User-Agent e IP
-     * @return El dispositivo creado
-     */
+    
     @Transactional
     public TrustedDevice trustDevice(Integer usuarioId, String fingerprint, HttpServletRequest request) {
         if (fingerprint == null || fingerprint.isEmpty()) {
@@ -142,12 +114,7 @@ public class TrustedDeviceService {
         return trustedDeviceRepository.save(device);
     }
 
-    /**
-     * Lista todos los dispositivos de confianza de un usuario
-     * 
-     * @param usuarioId ID del usuario
-     * @return Lista de dispositivos
-     */
+    
     public List<TrustedDeviceDTO> listUserDevices(Integer usuarioId) {
         return trustedDeviceRepository.findByUsuarioIdAndActiveTrueOrderByLastUsedAtDesc(usuarioId)
             .stream()
@@ -155,12 +122,7 @@ public class TrustedDeviceService {
             .collect(Collectors.toList());
     }
 
-    /**
-     * Revoca un dispositivo de confianza
-     * 
-     * @param deviceId ID del dispositivo
-     * @param usuarioId ID del usuario (para verificar propiedad)
-     */
+    
     @Transactional
     public void revokeDevice(Long deviceId, Integer usuarioId) {
         TrustedDevice device = trustedDeviceRepository.findById(deviceId)
@@ -174,21 +136,13 @@ public class TrustedDeviceService {
         trustedDeviceRepository.save(device);
     }
 
-    /**
-     * Revoca TODOS los dispositivos de un usuario
-     * Útil al deshabilitar 2FA o cambiar contraseña
-     * 
-     * @param usuarioId ID del usuario
-     */
+    
     @Transactional
     public void revokeAllUserDevices(Integer usuarioId) {
         trustedDeviceRepository.deactivateAllUserDevices(usuarioId);
     }
 
-    /**
-     * Tarea programada para limpiar dispositivos expirados
-     * Debe ejecutarse diariamente
-     */
+    
     @Transactional
     public void cleanupExpiredDevices() {
         int deactivated = trustedDeviceRepository.deactivateExpiredDevices(LocalDateTime.now());
@@ -197,12 +151,7 @@ public class TrustedDeviceService {
         }
     }
 
-    /**
-     * Extrae un nombre descriptivo del dispositivo basado en User-Agent
-     * 
-     * @param request HttpServletRequest
-     * @return Nombre del dispositivo (ej: "Chrome en Windows")
-     */
+    
     private String extractDeviceName(HttpServletRequest request) {
         String userAgent = request.getHeader("User-Agent");
         if (userAgent == null) {
@@ -239,13 +188,7 @@ public class TrustedDeviceService {
         return browser + " en " + os;
     }
 
-    /**
-     * Extrae la dirección IP del request
-     * Considera proxies y load balancers
-     * 
-     * @param request HttpServletRequest
-     * @return Dirección IP
-     */
+    
     private String extractIpAddress(HttpServletRequest request) {
         String ip = request.getHeader("X-Forwarded-For");
         if (ip == null || ip.isEmpty() || "unknown".equalsIgnoreCase(ip)) {
@@ -261,9 +204,7 @@ public class TrustedDeviceService {
         return ip;
     }
 
-    /**
-     * Convierte una entidad TrustedDevice a DTO
-     */
+    
     private TrustedDeviceDTO convertToDTO(TrustedDevice device) {
         return new TrustedDeviceDTO(
             device.getId(),

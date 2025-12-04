@@ -22,19 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
-/**
- * Tests unitarios para NotificationWebSocketService
- * 
- * Funcionalidades testeadas:
- * - Envío de notificaciones a usuario específico
- * - Envío de notificaciones a múltiples usuarios
- * - Broadcast a rol específico (ADMIN, ANALISTA, OBSERVADOR)
- * - Broadcast global a todos los usuarios
- * - Envío de contador de notificaciones no leídas
- * - Envío de notificación marcada como leída
- * - Envío de notificación eliminada
- * - Manejo de errores en envíos
- */
+
 @ExtendWith(MockitoExtension.class)
 @DisplayName("Tests de NotificationWebSocketService")
 class NotificationWebSocketServiceTest {

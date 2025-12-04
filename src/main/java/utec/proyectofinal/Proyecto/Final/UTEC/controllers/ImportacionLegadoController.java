@@ -18,9 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 import utec.proyectofinal.Proyecto.Final.UTEC.dtos.response.ImportacionLegadoResponseDTO;
 import utec.proyectofinal.Proyecto.Final.UTEC.services.ImportacionLegadoService;
 
-/**
- * Controlador para la importación de datos legados desde Excel
- */
+
 
 @RestController
 @RequestMapping("/api/importacion")
@@ -32,12 +30,7 @@ public class ImportacionLegadoController {
 
     private final ImportacionLegadoService importacionService;
 
-    /**
-     * Endpoint para validar un archivo Excel sin importar los datos
-     * 
-     * @param archivo Archivo Excel a validar
-     * @return Resultado de la validación con errores detectados
-     */
+    
     @PostMapping(value = "/legado/validar", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Operation(
         summary = "Validar archivo Excel", 
@@ -84,12 +77,7 @@ public class ImportacionLegadoController {
         }
     }
 
-    /**
-     * Endpoint para importar datos desde un archivo Excel
-     * 
-     * @param archivo Archivo Excel con los datos a importar
-     * @return Resultado de la importación
-     */
+    
     @PostMapping(value = "/legado/importar", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Operation(
         summary = "Importar datos desde Excel", 

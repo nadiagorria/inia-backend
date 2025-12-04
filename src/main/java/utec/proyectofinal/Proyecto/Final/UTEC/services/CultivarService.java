@@ -150,13 +150,7 @@ public class CultivarService {
         return cultivarRepository.findById(id).orElse(null);
     }
 
-    /**
-     * Listar Cultivares con paginado y filtros dinámicos
-     * @param pageable Información de paginación
-     * @param searchTerm Término de búsqueda (opcional)
-     * @param activo Filtro por estado activo (opcional)
-     * @return Página de CultivarDTO filtrados
-     */
+    
     public Page<CultivarDTO> obtenerCultivaresPaginadosConFiltros(
             Pageable pageable,
             String searchTerm,

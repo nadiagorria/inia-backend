@@ -26,9 +26,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.dtos.response.LegadoListadoDTO;
 import utec.proyectofinal.Proyecto.Final.UTEC.dtos.response.LegadoSimpleDTO;
 import utec.proyectofinal.Proyecto.Final.UTEC.services.LegadoService;
 
-/**
- * Controlador para gestión de datos legados
- */
+
 
 @RestController
 @RequestMapping("/api/legados")
@@ -39,9 +37,7 @@ public class LegadoController {
 
     private final LegadoService legadoService;
 
-    /**
-     * Obtener todos los registros legados (versión simple)
-     */
+    
     @GetMapping
     @Operation(summary = "Listar legados", description = "Obtiene todos los registros legados activos")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA')")
@@ -54,9 +50,7 @@ public class LegadoController {
         }
     }
 
-    /**
-     * Obtener legados paginados con filtros
-     */
+    
     @GetMapping("/listado")
     @Operation(summary = "Listar legados paginados", description = "Obtiene legados paginados con filtros de búsqueda")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
@@ -77,9 +71,7 @@ public class LegadoController {
         }
     }
 
-    /**
-     * Obtener todas las especies únicas
-     */
+    
     @GetMapping("/especies")
     @Operation(summary = "Obtener especies únicas", description = "Obtiene todas las especies únicas de los legados activos")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
@@ -92,9 +84,7 @@ public class LegadoController {
         }
     }
 
-    /**
-     * Obtener un legado por ID con información completa
-     */
+    
     @GetMapping("/{id}")
     @Operation(summary = "Obtener legado", description = "Obtiene un registro legado por ID con información completa del lote")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA')")
@@ -109,9 +99,7 @@ public class LegadoController {
         }
     }
 
-    /**
-     * Obtener legados por archivo origen
-     */
+    
     @GetMapping("/archivo/{nombreArchivo}")
     @Operation(summary = "Buscar por archivo", description = "Obtiene registros legados de un archivo específico")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA')")
@@ -124,9 +112,7 @@ public class LegadoController {
         }
     }
 
-    /**
-     * Obtener legados por ficha
-     */
+    
     @GetMapping("/ficha/{ficha}")
     @Operation(summary = "Buscar por ficha", description = "Obtiene registros legados de una ficha específica")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA')")
@@ -139,9 +125,7 @@ public class LegadoController {
         }
     }
 
-    /**
-     * Desactivar un registro legado
-     */
+    
     @DeleteMapping("/{id}")
     @Operation(summary = "Desactivar legado", description = "Desactiva un registro legado")
     @PreAuthorize("hasRole('ADMIN')")

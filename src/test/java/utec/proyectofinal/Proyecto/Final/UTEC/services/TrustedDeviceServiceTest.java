@@ -23,18 +23,7 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
-/**
- * Tests unitarios para TrustedDeviceService
- * 
- * Funcionalidades testeadas:
- * - Hashing de fingerprints con SHA-256
- * - Verificación de dispositivos de confianza
- * - Registro de nuevos dispositivos
- * - Límite de dispositivos por usuario (5 máximo)
- * - Revocación de dispositivos
- * - Limpieza de dispositivos expirados
- * - Actualización de último uso
- */
+
 @ExtendWith(MockitoExtension.class)
 @DisplayName("Tests de TrustedDeviceService (Dispositivos de Confianza)")
 class TrustedDeviceServiceTest {

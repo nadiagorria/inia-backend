@@ -30,17 +30,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-/**
- * Test completo para FiltroJWTAutorizacion
- * 
- * Cubre todas las funciones:
- * - extraerToken (desde cookies y header Authorization)
- * - doFilterInternal (flujo completo del filtro)
- * - crearAutenticacion (creación del contexto de seguridad)
- * - validarToken (validación de JWT)
- * 
- * Total de tests: 18
- */
+
 @ExtendWith(MockitoExtension.class)
 @DisplayName("FiltroJWTAutorizacion - Test Completo")
 class FiltroJWTAutorizacionTest {
@@ -394,9 +384,7 @@ class FiltroJWTAutorizacionTest {
 
     // ===== MÉTODOS AUXILIARES =====
 
-    /**
-     * Genera un token JWT válido con el username y roles proporcionados
-     */
+    
     private String generarTokenValido(String username, List<String> roles) {
         return Jwts.builder()
                 .subject(username)
@@ -407,9 +395,7 @@ class FiltroJWTAutorizacionTest {
                 .compact();
     }
 
-    /**
-     * Genera un token JWT expirado
-     */
+    
     private String generarTokenExpirado(String username, List<String> roles) {
         return Jwts.builder()
                 .subject(username)
@@ -420,9 +406,7 @@ class FiltroJWTAutorizacionTest {
                 .compact();
     }
 
-    /**
-     * Genera un token JWT sin el claim 'authorities'
-     */
+    
     private String generarTokenSinAuthorities(String username) {
         return Jwts.builder()
                 .subject(username)

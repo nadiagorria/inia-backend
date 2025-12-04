@@ -8,11 +8,7 @@ import org.springframework.stereotype.Service;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 
-/**
- * Servicio para envío de correos electrónicos
- * 
- * Maneja el envío de emails HTML con la paleta de colores de INIA
- */
+
 @Service
 public class EmailService {
 
@@ -27,9 +23,7 @@ public class EmailService {
     private static final String INIA_YELLOW = "#f4c430";
     private static final String INIA_GRAY = "#f5f5f5";
 
-    /**
-     * Enviar email a analistas cuando un usuario se registra
-     */
+    
     public void enviarEmailNuevoRegistro(String analistaEmail, String analistaNombre, 
                                         String usuarioNombre, String usuarioEmail) {
         String asunto = "Nuevo Usuario Registrado - Sistema INIA";
@@ -106,9 +100,7 @@ public class EmailService {
         enviarEmail(analistaEmail, asunto, contenidoHtml);
     }
 
-    /**
-     * Enviar email de confirmación al usuario registrado
-     */
+    
     public void enviarEmailConfirmacionRegistro(String usuarioEmail, String usuarioNombre) {
         String asunto = "Registro Exitoso - Sistema INIA";
         
@@ -189,9 +181,7 @@ public class EmailService {
         enviarEmail(usuarioEmail, asunto, contenidoHtml);
     }
 
-    /**
-     * Enviar email de bienvenida cuando el usuario es aprobado
-     */
+    
     public void enviarEmailBienvenida(String usuarioEmail, String usuarioNombre) {
         String asunto = "¡Bienvenido al Sistema INIA!";
         
@@ -273,9 +263,7 @@ public class EmailService {
         enviarEmail(usuarioEmail, asunto, contenidoHtml);
     }
 
-    /**
-     * Enviar código de recuperación de contraseña
-     */
+    
     public void enviarCodigoRecuperacion(String usuarioEmail, String usuarioNombre, String codigoRecuperacion) {
         String asunto = "Código de Recuperación - Sistema INIA";
         
@@ -365,9 +353,7 @@ public class EmailService {
         enviarEmail(usuarioEmail, asunto, contenidoHtml);
     }
 
-    /**
-     * Enviar notificación de activación de 2FA
-     */
+    
     public void enviar2FAActivado(String usuarioEmail, String usuarioNombre) {
         String asunto = "Autenticación de Dos Factores Activada - Sistema INIA";
         
@@ -454,9 +440,7 @@ public class EmailService {
         enviarEmail(usuarioEmail, asunto, contenidoHtml);
     }
 
-    /**
-     * Enviar notificación de nuevo dispositivo de confianza
-     */
+    
     public void enviarNuevoDispositivo(String usuarioEmail, String usuarioNombre, String nombreDispositivo, String ipAddress) {
         String asunto = "Nuevo Dispositivo de Confianza - Sistema INIA";
         
@@ -540,9 +524,7 @@ public class EmailService {
         enviarEmail(usuarioEmail, asunto, contenidoHtml);
     }
 
-    /**
-     * Método genérico para enviar emails
-     */
+    
     private void enviarEmail(String destinatario, String asunto, String contenidoHtml) {
         try {
             MimeMessage mensaje = mailSender.createMimeMessage();

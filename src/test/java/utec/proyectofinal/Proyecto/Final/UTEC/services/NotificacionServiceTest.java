@@ -32,19 +32,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
 
-/**
- * Tests unitarios para NotificacionService
- * 
- * Funcionalidades testeadas:
- * - Creación de notificaciones manuales
- * - Notificaciones automáticas (registro, aprobación, rechazo de usuarios)
- * - Notificaciones de análisis (finalizado, aprobado, a repetir)
- * - Listado de notificaciones
- * - Marcar como leídas
- * - Eliminar notificaciones
- * - Contar notificaciones no leídas
- * - Seguridad de acceso a notificaciones
- */
+
 @ExtendWith(MockitoExtension.class)
 @DisplayName("Tests de NotificacionService")
 class NotificacionServiceTest {

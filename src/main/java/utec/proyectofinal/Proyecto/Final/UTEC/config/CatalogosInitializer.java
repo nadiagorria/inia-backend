@@ -12,10 +12,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.business.repositories.MalezasCatal
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Inicializador de catálogos base (Malezas y Especies).
- * Se ejecuta automáticamente al iniciar la aplicación si los catálogos están vacíos.
- */
+
 @Component
 @Order(2) // Se ejecuta después del DatabaseInitializer (Order 1)
 public class CatalogosInitializer implements CommandLineRunner {
@@ -32,9 +29,7 @@ public class CatalogosInitializer implements CommandLineRunner {
         initializeEspecies();
     }
 
-    /**
-     * Inicializa el catálogo de malezas si está vacío
-     */
+    
     private void initializeMalezas() {
         try {
             // Verificar si ya existen malezas en la base de datos
@@ -114,9 +109,7 @@ public class CatalogosInitializer implements CommandLineRunner {
         }
     }
 
-    /**
-     * Inicializa el catálogo de especies si está vacío
-     */
+    
     private void initializeEspecies() {
         try {
             // Verificar si ya existen especies en la base de datos
@@ -218,9 +211,7 @@ public class CatalogosInitializer implements CommandLineRunner {
         }
     }
 
-    /**
-     * Clase auxiliar para almacenar datos de malezas
-     */
+    
     private static class MalezaData {
         String nombreCientifico;
         String nombreComun;
@@ -231,9 +222,7 @@ public class CatalogosInitializer implements CommandLineRunner {
         }
     }
 
-    /**
-     * Clase auxiliar para almacenar datos de especies
-     */
+    
     private static class EspecieData {
         String nombreComun;
         String nombreCientifico;

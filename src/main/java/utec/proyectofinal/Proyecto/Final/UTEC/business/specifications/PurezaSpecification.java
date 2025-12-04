@@ -9,15 +9,7 @@ import java.util.List;
 
 public class PurezaSpecification {
 
-    /**
-     * Crea una especificación para filtrar análisis de pureza
-     * 
-     * @param searchTerm Término de búsqueda (ficha del lote, ID)
-     * @param activo Estado activo (true/false/null para todos)
-     * @param estado Estado del análisis (REGISTRADO, PENDIENTE_APROBACION, APROBADO, A_REPETIR)
-     * @param loteId ID del lote
-     * @return Specification para usar con el repositorio
-     */
+    
     public static Specification<Pureza> conFiltros(String searchTerm, Boolean activo, String estado, Long loteId) {
         return (root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();

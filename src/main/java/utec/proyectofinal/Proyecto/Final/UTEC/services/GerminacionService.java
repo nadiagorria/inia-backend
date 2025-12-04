@@ -231,10 +231,7 @@ public class GerminacionService {
         return true; 
     }
 
-    /**
-     * Validación completa para operaciones críticas de Germinación (finalizar y marcar para repetir)
-     * Verifica completitud de tablas
-     */
+    
     private void validarGerminacionParaOperacionCritica(Germinacion germinacion) {
         
         if (!todasTablasFinalizadas(germinacion)) {
@@ -400,11 +397,7 @@ public class GerminacionService {
         return dto;
     }
 
-    /**
-     * Finalizar análisis según el rol del usuario
-     * - Analistas: pasa a PENDIENTE_APROBACION
-     * - Administradores: pasa directamente a APROBADO
-     */
+    
     public GerminacionDTO finalizarAnalisis(Long id) {
         return analisisService.finalizarAnalisisGenerico(
             id,
@@ -414,9 +407,7 @@ public class GerminacionService {
         );
     }
 
-    /**
-     * Aprobar análisis (solo administradores)
-     */
+    
     public GerminacionDTO aprobarAnalisis(Long id) {
         return analisisService.aprobarAnalisisGenerico(
             id,

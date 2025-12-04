@@ -24,14 +24,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-/**
- * Tests unitarios para RepTetrazolioViabilidadService
- * 
- * Funcionalidades testeadas:
- * - Creación de repeticiones de tetrazolio
- * - Validación de suma de semillas
- * - Actualización y eliminación de repeticiones
- */
+
 @ExtendWith(MockitoExtension.class)
 @DisplayName("Tests de RepTetrazolioViabilidadService")
 class RepTetrazolioViabilidadServiceTest {

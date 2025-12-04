@@ -59,13 +59,7 @@ public class DashboardService {
         return stats;
     }
     
-    /**
-     * Paginación offset estándar para análisis pendientes.
-     * Mejor para navegación con números de página.
-     * 
-     * @param pageable Información de paginación (page, size, sort)
-     * @return Página de análisis pendientes
-     */
+    
     public Page<AnalisisPendienteDTO> listarAnalisisPendientesPaginados(Pageable pageable) {
         Page<AnalisisPendienteProjection> proyecciones = analisisPendienteRepository.findAllPaginado(pageable);
         
@@ -79,13 +73,7 @@ public class DashboardService {
         ));
     }
     
-    /**
-     * Paginación offset estándar para análisis por aprobar.
-     * Mejor para navegación con números de página.
-     * 
-     * @param pageable Información de paginación (page, size, sort)
-     * @return Página de análisis por aprobar
-     */
+    
     public Page<AnalisisPorAprobarDTO> listarAnalisisPorAprobarPaginados(Pageable pageable) {
         Page<AnalisisPorAprobarProjection> proyecciones = analisisPorAprobarRepository.findAllPaginado(pageable);
         
@@ -111,13 +99,7 @@ public class DashboardService {
         });
     }
     
-    /**
-     * Keyset pagination para análisis pendientes.
-     * 
-     * @param encodedCursor Cursor Base64 (null para primera página)
-     * @param size Número de items por página
-     * @return Página con items y nextCursor encoded
-     */
+    
     public CursorPageResponse<AnalisisPendienteDTO> listarAnalisisPendientesKeyset(
             String encodedCursor, int size) {
         
@@ -167,13 +149,7 @@ public class DashboardService {
         }
     }
     
-    /**
-     * Keyset pagination para análisis por aprobar.
-     * 
-     * @param encodedCursor Cursor Base64 (null para primera página)
-     * @param size Número de items por página
-     * @return Página con items y nextCursor encoded
-     */
+    
     public CursorPageResponse<AnalisisPorAprobarDTO> listarAnalisisPorAprobarKeyset(
             String encodedCursor, int size) {
         

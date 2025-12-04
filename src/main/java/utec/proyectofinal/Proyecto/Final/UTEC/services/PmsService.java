@@ -169,9 +169,7 @@ public class PmsService {
         return pmsPage.map(this::mapearEntidadAListadoDTO);
     }
 
-    /**
-     * Listar PMS con paginado y filtros dinámicos
-     */
+    
     public Page<PmsListadoDTO> obtenerPmsPaginadasConFiltros(
             Pageable pageable,
             String searchTerm,
@@ -355,11 +353,7 @@ public class PmsService {
         pmsRepository.save(pms);
     }
     
-    /**
-     * Valida TODAS las repeticiones del PMS usando estadísticas globales (±2σ).
-     * Se ejecuta cada vez que se crea, edita o elimina una repetición.
-     * No considera tandas - simplemente valida todas las repeticiones contra la media global.
-     */
+    
     @Transactional
     public void validarTodasLasRepeticiones(Long pmsId) {
         System.out.println(" VALIDANDO TODAS LAS REPETICIONES del PMS ID: " + pmsId);
@@ -690,10 +684,7 @@ public class PmsService {
         return false;
     }
 
-    /**
-     * Validación completa para operaciones críticas de PMS (finalizar y marcar para repetir)
-     * Verifica completitud de repeticiones y presencia de promedio con redondeo
-     */
+    
     private void validarPmsParaOperacionCritica(Pms pms) {
         
         if (!todasLasRepeticionesCompletas(pms)) {

@@ -7,9 +7,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Specification para filtrar legados en consultas paginadas
- */
+
 public class LegadoSpecification {
 
     public static Specification<Legado> conFiltros(

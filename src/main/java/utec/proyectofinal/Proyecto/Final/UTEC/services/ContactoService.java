@@ -213,14 +213,7 @@ public class ContactoService {
 
 
 
-    /**
-     * Listar Contactos con paginado y filtros dinámicos
-     * @param pageable Información de paginación
-     * @param searchTerm Término de búsqueda (opcional)
-     * @param activo Filtro por estado activo (opcional)
-     * @param tipo Filtro por tipo de contacto (opcional)
-     * @return Página de ContactoDTO filtrados
-     */
+    
     public Page<ContactoDTO> obtenerContactosPaginadosConFiltros(
             Pageable pageable,
             String searchTerm,

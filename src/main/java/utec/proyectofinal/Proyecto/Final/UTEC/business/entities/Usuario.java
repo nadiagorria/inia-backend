@@ -51,39 +51,25 @@ public class Usuario {
     
     // CAMPOS PARA 2FA
     
-    /**
-     * Secret key para TOTP (Time-based One-Time Password)
-     * Se genera cuando el usuario activa 2FA
-     * Encriptado en Base32 para compatibilidad con Google Authenticator
-     */
+    
     @Column(name = "totp_secret", length = 32)
     private String totpSecret;
     
-    /**
-     * Indica si el usuario tiene 2FA habilitado
-     */
+    
     @Column(name = "totp_enabled", nullable = false)
     private Boolean totpEnabled = false;
     
     // CAMPOS PARA RECUPERACIÓN DE CONTRASEÑA SEGURA
     
-    /**
-     * Código de recuperación hasheado (BCrypt)
-     * Se genera cuando el usuario solicita recuperar contraseña
-     */
+    
     @Column(name = "recovery_code_hash", length = 255)
     private String recoveryCodeHash;
     
-    /**
-     * Fecha de expiración del código de recuperación (10 minutos)
-     */
+    
     @Column(name = "recovery_code_expiry")
     private LocalDateTime recoveryCodeExpiry;
 
-    /**
-     * Indica si el usuario debe cambiar sus credenciales en el primer login
-     * TRUE para admin creado automáticamente o usuarios con contraseña temporal
-     */
+    
     @Column(name = "requiere_cambio_credenciales", nullable = false)
     private Boolean requiereCambioCredenciales = false;
 

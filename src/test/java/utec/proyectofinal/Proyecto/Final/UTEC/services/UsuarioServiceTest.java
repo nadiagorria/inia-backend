@@ -36,17 +36,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
-/**
- * Tests unitarios para UsuarioService
- * 
- * Funcionalidades testeadas:
- * - Registro de nuevos usuarios
- * - Validación de duplicados (username y email)
- * - Aprobación de solicitudes pendientes
- * - Cambio de contraseña
- * - Activación/Desactivación de usuarios
- * - Gestión de roles
- */
+
 @ExtendWith(MockitoExtension.class)
 @org.mockito.junit.jupiter.MockitoSettings(strictness = org.mockito.quality.Strictness.LENIENT)
 @DisplayName("Tests de UsuarioService")

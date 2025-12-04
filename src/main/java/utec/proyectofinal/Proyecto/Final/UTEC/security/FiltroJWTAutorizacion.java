@@ -69,9 +69,7 @@ public class FiltroJWTAutorizacion extends OncePerRequestFilter {
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
     }
 
-    /**
-     * Extrae el token JWT desde cookies (preferible) o desde el header Authorization (fallback).
-     */
+    
     private String extraerToken(HttpServletRequest request) {
         
         

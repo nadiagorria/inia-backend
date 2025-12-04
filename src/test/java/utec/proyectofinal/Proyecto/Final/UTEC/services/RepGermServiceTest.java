@@ -27,20 +27,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
-/**
- * Tests unitarios para RepGermService
- * 
- * Funcionalidades testeadas:
- * - Creación de repeticiones con validaciones
- * - Actualización de repeticiones y totales
- * - Validación de datos de entrada
- * - Cálculo de promedios sin redondeo
- * - Cálculo de promedios por conteo
- * - Mapeo de DTOs a entidades y viceversa
- * - Eliminación de repeticiones
- * - Consultas de repeticiones por tabla
- * - Verificación de completitud de repeticiones
- */
+
 @ExtendWith(MockitoExtension.class)
 @DisplayName("Tests de RepGermService")
 class RepGermServiceTest {

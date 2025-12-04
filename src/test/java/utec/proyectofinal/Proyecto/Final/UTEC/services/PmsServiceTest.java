@@ -40,17 +40,7 @@ import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
-/**
- * Tests unitarios para PmsService (Peso de Mil Semillas)
- * 
- * Funcionalidades testeadas:
- * - Creación de análisis PMS con estado REGISTRADO
- * - Validación de número de repeticiones esperadas (1-16)
- * - Validación de pesos y cálculos
- * - Gestión de tandas y repeticiones
- * - Cálculos de peso promedio de mil semillas
- * - Validación de límites de repeticiones
- */
+
 @ExtendWith(MockitoExtension.class)
 @org.mockito.junit.jupiter.MockitoSettings(strictness = org.mockito.quality.Strictness.LENIENT)
 @DisplayName("Tests de PmsService")

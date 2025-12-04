@@ -80,10 +80,7 @@ public class SeguridadService {
         return usuarioRepository.findByEmailIgnoreCase(email).isPresent();
     }
 
-    /**
-     * Obtener el ID del usuario autenticado actualmente
-     * Usado en endpoints protegidos con @PreAuthorize
-     */
+    
     public Integer obtenerUsuarioAutenticado() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         

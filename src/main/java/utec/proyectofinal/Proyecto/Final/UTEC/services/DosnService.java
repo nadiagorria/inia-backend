@@ -177,9 +177,7 @@ public class DosnService {
         return dosnPage.map(this::mapearEntidadAListadoDTO);
     }
 
-    /**
-     * Listar DOSN con paginado y filtros dinámicos
-     */
+    
     public Page<DosnListadoDTO> obtenerDosnPaginadasConFiltros(
             Pageable pageable,
             String searchTerm,
@@ -426,11 +424,7 @@ public class DosnService {
         return dto;
     }
 
-    /**
-     * Finalizar análisis según el rol del usuario
-     * - Analistas: pasa a PENDIENTE_APROBACION
-     * - Administradores: pasa directamente a APROBADO
-     */
+    
     public DosnDTO finalizarAnalisis(Long id) {
         return analisisService.finalizarAnalisisGenerico(
                 id,
@@ -440,11 +434,7 @@ public class DosnService {
         );
     }
     
-    /**
-     * Validación básica previa a la finalización de un DOSN.
-     * Requiere al menos una forma de evidencia: resultados INIA o INASE (gramos > 0),
-     * datos de cuscuta o listados no vacíos. Si no hay evidencia lanza RuntimeException.
-     */
+    
     private void validarAntesDeFinalizar(Dosn dosn) {
         boolean tieneINIA = dosn.getFechaINIA() != null
                 && dosn.getGramosAnalizadosINIA() != null
@@ -475,9 +465,7 @@ public class DosnService {
         }
     }
 
-    /**
-     * Aprobar análisis (solo administradores)
-     */
+    
     public DosnDTO aprobarAnalisis(Long id) {
         return analisisService.aprobarAnalisisGenerico(
                 id,
@@ -488,9 +476,7 @@ public class DosnService {
         );
     }
 
-    /**
-     * Marcar análisis para repetir (solo administradores)
-     */
+    
     public DosnDTO marcarParaRepetir(Long id) {
         return analisisService.marcarParaRepetirGenerico(
                 id,
