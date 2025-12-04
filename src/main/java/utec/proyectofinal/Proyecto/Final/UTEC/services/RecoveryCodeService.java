@@ -89,7 +89,7 @@ public class RecoveryCodeService {
             
             return passwordEncoder.matches(normalizedCode, hashedCode);
         } catch (Exception e) {
-            System.err.println("❌ Error verificando código de recuperación: " + e.getMessage());
+            System.err.println(" Error verificando código de recuperación: " + e.getMessage());
             return false;
         }
     }

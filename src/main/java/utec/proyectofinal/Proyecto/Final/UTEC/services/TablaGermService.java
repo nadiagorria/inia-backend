@@ -320,7 +320,7 @@ public class TablaGermService {
                 
                 if (fechaAnteriorEsPresenteOPasada && fechaNuevaEsFutura) {
                     debeReiniciarCamposUltimoConteo = true;
-                    System.out.println("  ️ Se detectó cambio de fecha último conteo a futuro - se reiniciarán campos");
+                    System.out.println("   Se detectó cambio de fecha último conteo a futuro - se reiniciarán campos");
                 }
             }
             
@@ -751,7 +751,7 @@ public class TablaGermService {
                 int repeticionesAEliminar = repeticionesAnteriores - repeticionesNuevas;
                 for (int i = 0; i < repeticionesAEliminar && i < repeticiones.size(); i++) {
                     RepGerm repAEliminar = repeticiones.get(i);
-                    System.out.println("  ️ Eliminando repetición " + repAEliminar.getNumRep());
+                    System.out.println("   Eliminando repetición " + repAEliminar.getNumRep());
                     repGermRepository.delete(repAEliminar);
                 }
             }
@@ -858,7 +858,7 @@ public class TablaGermService {
                     ", frescas=" + repGuardada.getFrescas() + ", muertas=" + repGuardada.getMuertas());
             }
         } else {
-            System.out.println("  ️ No se encontraron repeticiones para limpiar");
+            System.out.println("   No se encontraron repeticiones para limpiar");
         }
         
         System.out.println(" Campos del último conteo reiniciados completamente");

@@ -193,7 +193,7 @@ public class TrustedDeviceService {
     public void cleanupExpiredDevices() {
         int deactivated = trustedDeviceRepository.deactivateExpiredDevices(LocalDateTime.now());
         if (deactivated > 0) {
-            System.out.println("🧹 Limpieza: " + deactivated + " dispositivos expirados desactivados");
+            System.out.println(" Limpieza: " + deactivated + " dispositivos expirados desactivados");
         }
     }
 

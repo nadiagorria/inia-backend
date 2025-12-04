@@ -61,7 +61,7 @@ public class BackupCodeService {
             backupCodeRepository.save(backupCode);
         }
         
-        System.out.println("🔑 [BACKUP-CODES] Generados " + BACKUP_CODES_COUNT + " códigos para usuario ID: " + usuarioId);
+        System.out.println(" [BACKUP-CODES] Generados " + BACKUP_CODES_COUNT + " códigos para usuario ID: " + usuarioId);
         
         return plainCodes;
     }
@@ -83,15 +83,15 @@ public class BackupCodeService {
         String normalizedCode = code.replace("-", "").replace(" ", "").toUpperCase();
         
         if (normalizedCode.length() != CODE_LENGTH) {
-            System.err.println("❌ [BACKUP-CODE] Código con longitud incorrecta: " + normalizedCode.length());
+            System.err.println(" [BACKUP-CODE] Código con longitud incorrecta: " + normalizedCode.length());
             return false;
         }
         
         // Obtener todos los códigos no usados del usuario
         List<BackupCode> availableCodes = backupCodeRepository.findByUsuarioIdAndUsedFalse(usuarioId);
         
-        System.out.println("🔍 [BACKUP-CODE] Verificando código para usuario ID: " + usuarioId);
-        System.out.println("🔍 [BACKUP-CODE] Códigos disponibles: " + availableCodes.size());
+        System.out.println(" [BACKUP-CODE] Verificando código para usuario ID: " + usuarioId);
+        System.out.println(" [BACKUP-CODE] Códigos disponibles: " + availableCodes.size());
         
         
         for (BackupCode backupCode : availableCodes) {
@@ -101,17 +101,17 @@ public class BackupCodeService {
                 backupCodeRepository.save(backupCode);
                 
                 long remaining = backupCodeRepository.countByUsuarioIdAndUsedFalse(usuarioId);
-                System.out.println("✅ [BACKUP-CODE] Código válido usado. Códigos restantes: " + remaining);
+                System.out.println(" [BACKUP-CODE] Código válido usado. Códigos restantes: " + remaining);
                 
                 if (remaining <= 2) {
-                    System.out.println("⚠️ [BACKUP-CODE] ADVERTENCIA: Solo quedan " + remaining + " códigos de respaldo");
+                    System.out.println(" [BACKUP-CODE] ADVERTENCIA: Solo quedan " + remaining + " códigos de respaldo");
                 }
                 
                 return true;
             }
         }
         
-        System.err.println("❌ [BACKUP-CODE] Código inválido o ya usado");
+        System.err.println(" [BACKUP-CODE] Código inválido o ya usado");
         return false;
     }
 
@@ -144,7 +144,7 @@ public class BackupCodeService {
      */
     @Transactional
     public List<String> regenerateBackupCodes(Integer usuarioId) {
-        System.out.println("🔄 [BACKUP-CODE] Regenerando códigos para usuario ID: " + usuarioId);
+        System.out.println(" [BACKUP-CODE] Regenerando códigos para usuario ID: " + usuarioId);
         return generateBackupCodes(usuarioId);
     }
 
@@ -157,7 +157,7 @@ public class BackupCodeService {
     @Transactional
     public void deleteAllUserCodes(Integer usuarioId) {
         backupCodeRepository.deleteAllByUsuarioId(usuarioId);
-        System.out.println("🗑️ [BACKUP-CODE] Eliminados todos los códigos de usuario ID: " + usuarioId);
+        System.out.println(" [BACKUP-CODE] Eliminados todos los códigos de usuario ID: " + usuarioId);
     }
 
     /**

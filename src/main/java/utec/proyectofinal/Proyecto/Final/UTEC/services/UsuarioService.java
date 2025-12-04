@@ -111,9 +111,9 @@ public class UsuarioService {
                 }
             }
             
-            System.out.println("✉️ Emails enviados: confirmación a usuario y notificación a " + analistas.size() + " analista(s)");
+            System.out.println(" Emails enviados: confirmación a usuario y notificación a " + analistas.size() + " analista(s)");
         } catch (Exception e) {
-            System.err.println("⚠️ Error enviando emails (registro continúa): " + e.getMessage());
+            System.err.println(" Error enviando emails (registro continúa): " + e.getMessage());
         }
         
         return mapearEntidadADTO(usuarioGuardado);
@@ -179,9 +179,9 @@ public class UsuarioService {
                 usuarioActualizado.getEmail(),
                 usuarioActualizado.getNombres() + " " + usuarioActualizado.getApellidos()
             );
-            System.out.println("✉️ Email de bienvenida enviado a: " + usuarioActualizado.getEmail());
+            System.out.println(" Email de bienvenida enviado a: " + usuarioActualizado.getEmail());
         } catch (Exception e) {
-            System.err.println("⚠️ Error enviando email de bienvenida (aprobación continúa): " + e.getMessage());
+            System.err.println(" Error enviando email de bienvenida (aprobación continúa): " + e.getMessage());
         }
         
         return mapearEntidadADTO(usuarioActualizado);
@@ -380,7 +380,7 @@ public class UsuarioService {
         }
 
         System.out.println("=" .repeat(80));
-        System.out.println("🔐 CREANDO USUARIO ADMINISTRADOR CON 2FA OBLIGATORIO");
+        System.out.println(" CREANDO USUARIO ADMINISTRADOR CON 2FA OBLIGATORIO");
         System.out.println("=" .repeat(80));
 
         
@@ -405,12 +405,12 @@ public class UsuarioService {
         
         
         
-        System.out.println("\n✅ ADMINISTRADOR CREADO EXITOSAMENTE");
+        System.out.println("\n ADMINISTRADOR CREADO EXITOSAMENTE");
         System.out.println("-".repeat(80));
-        System.out.println("📧 Usuario: admin");
-        System.out.println("🔑 Contraseña temporal: admin123");
+        System.out.println(" Usuario: admin");
+        System.out.println(" Contraseña temporal: admin123");
         System.out.println("-".repeat(80));
-        System.out.println("\n⚠️  CONFIGURACIÓN INICIAL REQUERIDA");
+        System.out.println("\n  CONFIGURACIÓN INICIAL REQUERIDA");
         System.out.println("-".repeat(80));
         System.out.println("1. Ve a http://localhost:3000/login");
         System.out.println("2. Ingresa las credenciales temporales (admin / admin123)");
@@ -420,7 +420,7 @@ public class UsuarioService {
         System.out.println("   - Google Authenticator (2FA obligatorio)");
         System.out.println("4. Recibirás códigos de respaldo (guárdalos en lugar seguro)");
         System.out.println("-".repeat(80));
-        System.out.println("\n💡 TIP: El sistema te guiará paso a paso en el navegador");
+        System.out.println("\n TIP: El sistema te guiará paso a paso en el navegador");
         System.out.println("=" .repeat(80));
         System.out.println("\n");
 
@@ -462,7 +462,7 @@ public class UsuarioService {
         usuario.setContrasenia(passwordEncoder.encode(nuevaContrasenia));
         usuarioRepository.save(usuario);
         
-        System.out.println("✅ Contraseña cambiada para usuario: " + usuario.getNombre());
+        System.out.println(" Contraseña cambiada para usuario: " + usuario.getNombre());
     }
 
     

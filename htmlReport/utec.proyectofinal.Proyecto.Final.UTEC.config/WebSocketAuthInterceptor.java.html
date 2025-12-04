@@ -83,17 +83,17 @@ import java.util.List;
                         // Esto permite enviar mensajes a &quot;/user/{userId}/queue/notifications&quot;
 <span class="nc" id="L84">                        accessor.setUser(authentication);</span>
                         
-<span class="nc" id="L86">                        System.out.println(&quot;✅ WebSocket autenticado: Usuario &quot; + username + &quot; (ID: &quot; + userId + &quot;)&quot;);</span>
+<span class="nc" id="L86">                        System.out.println(&quot; WebSocket autenticado: Usuario &quot; + username + &quot; (ID: &quot; + userId + &quot;)&quot;);</span>
 <span class="nc" id="L87">                    } else {</span>
-<span class="nc" id="L88">                        System.err.println(&quot;❌ Token JWT inválido en WebSocket&quot;);</span>
+<span class="nc" id="L88">                        System.err.println(&quot; Token JWT inválido en WebSocket&quot;);</span>
 <span class="nc" id="L89">                        return null; // Rechazar conexión</span>
                     }
 <span class="nc" id="L91">                } catch (Exception e) {</span>
-<span class="nc" id="L92">                    System.err.println(&quot;❌ Error validando token en WebSocket: &quot; + e.getMessage());</span>
+<span class="nc" id="L92">                    System.err.println(&quot; Error validando token en WebSocket: &quot; + e.getMessage());</span>
 <span class="nc" id="L93">                    return null; // Rechazar conexión</span>
                 }
             } else {
-<span class="nc" id="L96">                System.err.println(&quot;⚠️ WebSocket sin token de autenticación&quot;);</span>
+<span class="nc" id="L96">                System.err.println(&quot; WebSocket sin token de autenticación&quot;);</span>
 <span class="nc" id="L97">                return null; // Rechazar conexión sin token</span>
             }
         }
@@ -112,7 +112,7 @@ import java.util.List;
         
 <span class="nc bnc" id="L113" title="All 4 branches missed.">        if (accessor != null &amp;&amp; StompCommand.DISCONNECT.equals(accessor.getCommand())) {</span>
 <span class="nc bnc" id="L114" title="All 2 branches missed.">            if (accessor.getUser() != null) {</span>
-<span class="nc" id="L115">                System.out.println(&quot;🔌 Usuario &quot; + accessor.getUser().getName() + &quot; desconectado del WebSocket&quot;);</span>
+<span class="nc" id="L115">                System.out.println(&quot; Usuario &quot; + accessor.getUser().getName() + &quot; desconectado del WebSocket&quot;);</span>
             }
         }
 <span class="nc" id="L118">    }</span>

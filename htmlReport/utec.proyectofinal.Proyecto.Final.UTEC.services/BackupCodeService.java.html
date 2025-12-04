@@ -61,7 +61,7 @@ import java.util.Optional;
 <span class="fc" id="L61">            backupCodeRepository.save(backupCode);</span>
         }
         
-<span class="fc" id="L64">        System.out.println(&quot;🔑 [BACKUP-CODES] Generados &quot; + BACKUP_CODES_COUNT + &quot; códigos para usuario ID: &quot; + usuarioId);</span>
+<span class="fc" id="L64">        System.out.println(&quot; [BACKUP-CODES] Generados &quot; + BACKUP_CODES_COUNT + &quot; códigos para usuario ID: &quot; + usuarioId);</span>
         
 <span class="fc" id="L66">        return plainCodes;</span>
     }
@@ -83,15 +83,15 @@ import java.util.Optional;
 <span class="fc" id="L83">        String normalizedCode = code.replace(&quot;-&quot;, &quot;&quot;).replace(&quot; &quot;, &quot;&quot;).toUpperCase();</span>
         
 <span class="fc bfc" id="L85" title="All 2 branches covered.">        if (normalizedCode.length() != CODE_LENGTH) {</span>
-<span class="fc" id="L86">            System.err.println(&quot;❌ [BACKUP-CODE] Código con longitud incorrecta: &quot; + normalizedCode.length());</span>
+<span class="fc" id="L86">            System.err.println(&quot; [BACKUP-CODE] Código con longitud incorrecta: &quot; + normalizedCode.length());</span>
 <span class="fc" id="L87">            return false;</span>
         }
         
         // Obtener todos los códigos no usados del usuario
 <span class="fc" id="L91">        List&lt;BackupCode&gt; availableCodes = backupCodeRepository.findByUsuarioIdAndUsedFalse(usuarioId);</span>
         
-<span class="fc" id="L93">        System.out.println(&quot;🔍 [BACKUP-CODE] Verificando código para usuario ID: &quot; + usuarioId);</span>
-<span class="fc" id="L94">        System.out.println(&quot;🔍 [BACKUP-CODE] Códigos disponibles: &quot; + availableCodes.size());</span>
+<span class="fc" id="L93">        System.out.println(&quot; [BACKUP-CODE] Verificando código para usuario ID: &quot; + usuarioId);</span>
+<span class="fc" id="L94">        System.out.println(&quot; [BACKUP-CODE] Códigos disponibles: &quot; + availableCodes.size());</span>
         
         // Probar contra cada código no usado
 <span class="fc bfc" id="L97" title="All 2 branches covered.">        for (BackupCode backupCode : availableCodes) {</span>
@@ -101,17 +101,17 @@ import java.util.Optional;
 <span class="fc" id="L101">                backupCodeRepository.save(backupCode);</span>
                 
 <span class="fc" id="L103">                long remaining = backupCodeRepository.countByUsuarioIdAndUsedFalse(usuarioId);</span>
-<span class="fc" id="L104">                System.out.println(&quot;✅ [BACKUP-CODE] Código válido usado. Códigos restantes: &quot; + remaining);</span>
+<span class="fc" id="L104">                System.out.println(&quot; [BACKUP-CODE] Código válido usado. Códigos restantes: &quot; + remaining);</span>
                 
 <span class="pc bpc" id="L106" title="1 of 2 branches missed.">                if (remaining &lt;= 2) {</span>
-<span class="nc" id="L107">                    System.out.println(&quot;⚠️ [BACKUP-CODE] ADVERTENCIA: Solo quedan &quot; + remaining + &quot; códigos de respaldo&quot;);</span>
+<span class="nc" id="L107">                    System.out.println(&quot; [BACKUP-CODE] ADVERTENCIA: Solo quedan &quot; + remaining + &quot; códigos de respaldo&quot;);</span>
                 }
                 
 <span class="fc" id="L110">                return true;</span>
             }
         }
         
-<span class="fc" id="L114">        System.err.println(&quot;❌ [BACKUP-CODE] Código inválido o ya usado&quot;);</span>
+<span class="fc" id="L114">        System.err.println(&quot; [BACKUP-CODE] Código inválido o ya usado&quot;);</span>
 <span class="fc" id="L115">        return false;</span>
     }
 
@@ -144,7 +144,7 @@ import java.util.Optional;
      */
     @Transactional
     public List&lt;String&gt; regenerateBackupCodes(Integer usuarioId) {
-<span class="fc" id="L147">        System.out.println(&quot;🔄 [BACKUP-CODE] Regenerando códigos para usuario ID: &quot; + usuarioId);</span>
+<span class="fc" id="L147">        System.out.println(&quot; [BACKUP-CODE] Regenerando códigos para usuario ID: &quot; + usuarioId);</span>
 <span class="fc" id="L148">        return generateBackupCodes(usuarioId);</span>
     }
 
@@ -157,7 +157,7 @@ import java.util.Optional;
     @Transactional
     public void deleteAllUserCodes(Integer usuarioId) {
 <span class="fc" id="L159">        backupCodeRepository.deleteAllByUsuarioId(usuarioId);</span>
-<span class="fc" id="L160">        System.out.println(&quot;🗑️ [BACKUP-CODE] Eliminados todos los códigos de usuario ID: &quot; + usuarioId);</span>
+<span class="fc" id="L160">        System.out.println(&quot; [BACKUP-CODE] Eliminados todos los códigos de usuario ID: &quot; + usuarioId);</span>
 <span class="fc" id="L161">    }</span>
 
     /**

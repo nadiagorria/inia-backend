@@ -31,17 +31,17 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.UsuarioService;
         try {
             // Verificar si ya existe al menos un admin en el sistema
 <span class="pc bpc" id="L33" title="1 of 2 branches missed.">            if (!usuarioRepository.existsByRol(Rol.ADMIN)) {</span>
-<span class="fc" id="L34">                System.out.println(&quot;\n🔧 No se encontró ningún administrador en el sistema&quot;);</span>
-<span class="fc" id="L35">                System.out.println(&quot;📝 Creando administrador predeterminado con 2FA...\n&quot;);</span>
+<span class="fc" id="L34">                System.out.println(&quot;\n No se encontró ningún administrador en el sistema&quot;);</span>
+<span class="fc" id="L35">                System.out.println(&quot; Creando administrador predeterminado con 2FA...\n&quot;);</span>
                 
 <span class="fc" id="L37">                usuarioService.crearAdminPredeterminado();</span>
                 
                 // El método crearAdminPredeterminado ya muestra toda la información necesaria
 <span class="fc" id="L40">            } else {</span>
-<span class="nc" id="L41">                System.out.println(&quot;ℹ️  Ya existe al menos un administrador en el sistema&quot;);</span>
+<span class="nc" id="L41">                System.out.println(&quot;ℹ  Ya existe al menos un administrador en el sistema&quot;);</span>
             }
 <span class="nc" id="L43">        } catch (Exception e) {</span>
-<span class="nc" id="L44">            System.err.println(&quot;❌ Error al inicializar admin predeterminado: &quot; + e.getMessage());</span>
+<span class="nc" id="L44">            System.err.println(&quot; Error al inicializar admin predeterminado: &quot; + e.getMessage());</span>
 <span class="nc" id="L45">            e.printStackTrace();</span>
         }
 <span class="fc" id="L47">    }</span>

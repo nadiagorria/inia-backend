@@ -341,9 +341,9 @@ import utec.proyectofinal.Proyecto.Final.UTEC.enums.Estado;
             // CV no aceptable - incrementar tandas si es posible
 <span class="fc bfc" id="L342" title="All 2 branches covered.">            if (puedeIncrementarTandas(pms)) {</span>
 <span class="fc" id="L343">                pms.setNumTandas(pms.getNumTandas() + 1);</span>
-<span class="fc" id="L344">                System.out.println(&quot;  ️ CV no aceptable. Se incrementa el número de tandas a: &quot; + pms.getNumTandas());</span>
+<span class="fc" id="L344">                System.out.println(&quot;   CV no aceptable. Se incrementa el número de tandas a: &quot; + pms.getNumTandas());</span>
 <span class="fc" id="L345">            } else {</span>
-<span class="fc" id="L346">                System.out.println(&quot;  ️ CV no aceptable pero se alcanzó el límite máximo de 16 repeticiones.&quot;);</span>
+<span class="fc" id="L346">                System.out.println(&quot;   CV no aceptable pero se alcanzó el límite máximo de 16 repeticiones.&quot;);</span>
             }
 <span class="fc" id="L348">        } else {</span>
 <span class="fc" id="L349">            System.out.println(&quot;   CV aceptable para la tanda &quot; + numTanda);</span>
@@ -428,7 +428,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.enums.Estado;
             
 <span class="pc bpc" id="L429" title="1 of 4 branches missed.">            if (estadisticasValidas.getCoeficienteVariacion().compareTo(umbralCV) &gt; 0 &amp;&amp; puedeIncrementarTandas(pms)) {</span>
 <span class="fc" id="L430">                pms.setNumTandas(pms.getNumTandas() + 1);</span>
-<span class="fc" id="L431">                System.out.println(&quot;  ️ CV no aceptable. Se incrementa número de tandas a: &quot; + pms.getNumTandas());</span>
+<span class="fc" id="L431">                System.out.println(&quot;   CV no aceptable. Se incrementa número de tandas a: &quot; + pms.getNumTandas());</span>
             }
         }
         

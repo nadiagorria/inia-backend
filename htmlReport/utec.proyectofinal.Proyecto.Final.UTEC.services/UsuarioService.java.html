@@ -108,9 +108,9 @@ import utec.proyectofinal.Proyecto.Final.UTEC.enums.Rol;
                 }
             }
             
-<span class="fc" id="L111">            System.out.println(&quot;✉️ Emails enviados: confirmación a usuario y notificación a &quot; + analistas.size() + &quot; analista(s)&quot;);</span>
+<span class="fc" id="L111">            System.out.println(&quot; Emails enviados: confirmación a usuario y notificación a &quot; + analistas.size() + &quot; analista(s)&quot;);</span>
 <span class="pc" id="L112">        } catch (Exception e) {</span>
-<span class="nc" id="L113">            System.err.println(&quot;⚠️ Error enviando emails (registro continúa): &quot; + e.getMessage());</span>
+<span class="nc" id="L113">            System.err.println(&quot; Error enviando emails (registro continúa): &quot; + e.getMessage());</span>
         }
         
 <span class="fc" id="L116">        return mapearEntidadADTO(usuarioGuardado);</span>
@@ -176,9 +176,9 @@ import utec.proyectofinal.Proyecto.Final.UTEC.enums.Rol;
 <span class="fc" id="L176">                usuarioActualizado.getEmail(),</span>
 <span class="fc" id="L177">                usuarioActualizado.getNombres() + &quot; &quot; + usuarioActualizado.getApellidos()</span>
             );
-<span class="fc" id="L179">            System.out.println(&quot;✉️ Email de bienvenida enviado a: &quot; + usuarioActualizado.getEmail());</span>
+<span class="fc" id="L179">            System.out.println(&quot; Email de bienvenida enviado a: &quot; + usuarioActualizado.getEmail());</span>
 <span class="pc" id="L180">        } catch (Exception e) {</span>
-<span class="nc" id="L181">            System.err.println(&quot;⚠️ Error enviando email de bienvenida (aprobación continúa): &quot; + e.getMessage());</span>
+<span class="nc" id="L181">            System.err.println(&quot; Error enviando email de bienvenida (aprobación continúa): &quot; + e.getMessage());</span>
         }
         
 <span class="fc" id="L184">        return mapearEntidadADTO(usuarioActualizado);</span>
@@ -369,7 +369,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.enums.Rol;
         }
 
 <span class="fc" id="L371">        System.out.println(&quot;=&quot; .repeat(80));</span>
-<span class="fc" id="L372">        System.out.println(&quot;🔐 CREANDO USUARIO ADMINISTRADOR CON 2FA OBLIGATORIO&quot;);</span>
+<span class="fc" id="L372">        System.out.println(&quot; CREANDO USUARIO ADMINISTRADOR CON 2FA OBLIGATORIO&quot;);</span>
 <span class="fc" id="L373">        System.out.println(&quot;=&quot; .repeat(80));</span>
 
         // Crear admin predeterminado
@@ -382,7 +382,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.enums.Rol;
 <span class="fc" id="L382">        admin.setRol(Rol.ADMIN);</span>
 <span class="fc" id="L383">        admin.setEstado(EstadoUsuario.ACTIVO);</span>
 <span class="fc" id="L384">        admin.setActivo(true);</span>
-<span class="fc" id="L385">        admin.setRequiereCambioCredenciales(true); // ⚠️ DEBE cambiar credenciales en primer login</span>
+<span class="fc" id="L385">        admin.setRequiereCambioCredenciales(true); //  DEBE cambiar credenciales en primer login</span>
 
         // GENERAR 2FA AUTOMÁTICAMENTE (pero NO habilitado hasta que configure sus credenciales)
 <span class="fc" id="L388">        String secret = totpService.generateSecret();</span>
@@ -394,12 +394,12 @@ import utec.proyectofinal.Proyecto.Final.UTEC.enums.Rol;
         // NO generamos códigos de respaldo hasta que el admin configure sus credenciales
         
         // MOSTRAR INFORMACIÓN EN CONSOLA
-<span class="fc" id="L397">        System.out.println(&quot;\n✅ ADMINISTRADOR CREADO EXITOSAMENTE&quot;);</span>
+<span class="fc" id="L397">        System.out.println(&quot;\n ADMINISTRADOR CREADO EXITOSAMENTE&quot;);</span>
 <span class="fc" id="L398">        System.out.println(&quot;-&quot;.repeat(80));</span>
-<span class="fc" id="L399">        System.out.println(&quot;📧 Usuario: admin&quot;);</span>
-<span class="fc" id="L400">        System.out.println(&quot;🔑 Contraseña temporal: admin123&quot;);</span>
+<span class="fc" id="L399">        System.out.println(&quot; Usuario: admin&quot;);</span>
+<span class="fc" id="L400">        System.out.println(&quot; Contraseña temporal: admin123&quot;);</span>
 <span class="fc" id="L401">        System.out.println(&quot;-&quot;.repeat(80));</span>
-<span class="fc" id="L402">        System.out.println(&quot;\n⚠️  CONFIGURACIÓN INICIAL REQUERIDA&quot;);</span>
+<span class="fc" id="L402">        System.out.println(&quot;\n  CONFIGURACIÓN INICIAL REQUERIDA&quot;);</span>
 <span class="fc" id="L403">        System.out.println(&quot;-&quot;.repeat(80));</span>
 <span class="fc" id="L404">        System.out.println(&quot;1. Ve a http://localhost:3000/login&quot;);</span>
 <span class="fc" id="L405">        System.out.println(&quot;2. Ingresa las credenciales temporales (admin / admin123)&quot;);</span>
@@ -409,7 +409,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.enums.Rol;
 <span class="fc" id="L409">        System.out.println(&quot;   - Google Authenticator (2FA obligatorio)&quot;);</span>
 <span class="fc" id="L410">        System.out.println(&quot;4. Recibirás códigos de respaldo (guárdalos en lugar seguro)&quot;);</span>
 <span class="fc" id="L411">        System.out.println(&quot;-&quot;.repeat(80));</span>
-<span class="fc" id="L412">        System.out.println(&quot;\n💡 TIP: El sistema te guiará paso a paso en el navegador&quot;);</span>
+<span class="fc" id="L412">        System.out.println(&quot;\n TIP: El sistema te guiará paso a paso en el navegador&quot;);</span>
 <span class="fc" id="L413">        System.out.println(&quot;=&quot; .repeat(80));</span>
 <span class="fc" id="L414">        System.out.println(&quot;\n&quot;);</span>
 
@@ -453,7 +453,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.enums.Rol;
 <span class="fc" id="L453">        usuario.setContrasenia(passwordEncoder.encode(nuevaContrasenia));</span>
 <span class="fc" id="L454">        usuarioRepository.save(usuario);</span>
         
-<span class="fc" id="L456">        System.out.println(&quot;✅ Contraseña cambiada para usuario: &quot; + usuario.getNombre());</span>
+<span class="fc" id="L456">        System.out.println(&quot; Contraseña cambiada para usuario: &quot; + usuario.getNombre());</span>
 <span class="fc" id="L457">    }</span>
 
     // === Métodos auxiliares ===

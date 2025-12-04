@@ -320,7 +320,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.enums.Estado;
                 
 <span class="pc bpc" id="L321" title="1 of 4 branches missed.">                if (fechaAnteriorEsPresenteOPasada &amp;&amp; fechaNuevaEsFutura) {</span>
 <span class="fc" id="L322">                    debeReiniciarCamposUltimoConteo = true;</span>
-<span class="fc" id="L323">                    System.out.println(&quot;  ️ Se detectó cambio de fecha último conteo a futuro - se reiniciarán campos&quot;);</span>
+<span class="fc" id="L323">                    System.out.println(&quot;   Se detectó cambio de fecha último conteo a futuro - se reiniciarán campos&quot;);</span>
                 }
             }
             
@@ -751,7 +751,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.enums.Estado;
 <span class="fc" id="L751">                int repeticionesAEliminar = repeticionesAnteriores - repeticionesNuevas;</span>
 <span class="pc bpc" id="L752" title="1 of 4 branches missed.">                for (int i = 0; i &lt; repeticionesAEliminar &amp;&amp; i &lt; repeticiones.size(); i++) {</span>
 <span class="fc" id="L753">                    RepGerm repAEliminar = repeticiones.get(i);</span>
-<span class="fc" id="L754">                    System.out.println(&quot;  ️ Eliminando repetición &quot; + repAEliminar.getNumRep());</span>
+<span class="fc" id="L754">                    System.out.println(&quot;   Eliminando repetición &quot; + repAEliminar.getNumRep());</span>
 <span class="fc" id="L755">                    repGermRepository.delete(repAEliminar);</span>
                 }
             }
@@ -858,7 +858,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.enums.Estado;
 <span class="fc" id="L858">                    &quot;, frescas=&quot; + repGuardada.getFrescas() + &quot;, muertas=&quot; + repGuardada.getMuertas());</span>
             }
 <span class="fc" id="L860">        } else {</span>
-<span class="nc" id="L861">            System.out.println(&quot;  ️ No se encontraron repeticiones para limpiar&quot;);</span>
+<span class="nc" id="L861">            System.out.println(&quot;   No se encontraron repeticiones para limpiar&quot;);</span>
         }
         
 <span class="fc" id="L864">        System.out.println(&quot; Campos del último conteo reiniciados completamente&quot;);</span>

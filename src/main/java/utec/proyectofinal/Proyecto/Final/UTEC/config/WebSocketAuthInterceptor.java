@@ -83,17 +83,17 @@ public class WebSocketAuthInterceptor implements ChannelInterceptor {
                         
                         accessor.setUser(authentication);
                         
-                        System.out.println("✅ WebSocket autenticado: Usuario " + username + " (ID: " + userId + ")");
+                        System.out.println(" WebSocket autenticado: Usuario " + username + " (ID: " + userId + ")");
                     } else {
-                        System.err.println("❌ Token JWT inválido en WebSocket");
+                        System.err.println(" Token JWT inválido en WebSocket");
                         return null; 
                     }
                 } catch (Exception e) {
-                    System.err.println("❌ Error validando token en WebSocket: " + e.getMessage());
+                    System.err.println(" Error validando token en WebSocket: " + e.getMessage());
                     return null; 
                 }
             } else {
-                System.err.println("⚠️ WebSocket sin token de autenticación");
+                System.err.println(" WebSocket sin token de autenticación");
                 return null; 
             }
         }
@@ -112,7 +112,7 @@ public class WebSocketAuthInterceptor implements ChannelInterceptor {
         
         if (accessor != null && StompCommand.DISCONNECT.equals(accessor.getCommand())) {
             if (accessor.getUser() != null) {
-                System.out.println("🔌 Usuario " + accessor.getUser().getName() + " desconectado del WebSocket");
+                System.out.println(" Usuario " + accessor.getUser().getName() + " desconectado del WebSocket");
             }
         }
     }

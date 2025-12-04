@@ -62,9 +62,9 @@ public class TotpService {
      */
     public String generateQrCodeDataUrl(String secret, String accountName) {
         try {
-            System.out.println("🔐 [TOTP-QR] Generando QR code...");
-            System.out.println("🔑 [TOTP-QR] Secret usado para QR: " + secret);
-            System.out.println("📧 [TOTP-QR] Account name: " + accountName);
+            System.out.println(" [TOTP-QR] Generando QR code...");
+            System.out.println(" [TOTP-QR] Secret usado para QR: " + secret);
+            System.out.println(" [TOTP-QR] Account name: " + accountName);
             
             QrData data = new QrData.Builder()
                 .label(accountName)
@@ -82,7 +82,7 @@ public class TotpService {
             String base64Image = Base64.getEncoder().encodeToString(imageData);
             String dataUrl = String.format("data:%s;base64,%s", mimeType, base64Image);
             
-            System.out.println("✅ [TOTP-QR] QR code generado exitosamente");
+            System.out.println(" [TOTP-QR] QR code generado exitosamente");
             
             return dataUrl;
             
@@ -120,30 +120,30 @@ public class TotpService {
                     long currentBucket = Math.floorDiv(currentTimeMillis, 30000);
                     String currentCode = codeGenerator.generate(secret, currentBucket);
                     
-                    System.err.println("⚠️ [TOTP] ===== DEBUG TOTP =====");
-                    System.err.println("⚠️ [TOTP] Timestamp actual (ms): " + currentTimeMillis);
-                    System.err.println("⚠️ [TOTP] Time bucket calculado: " + currentBucket);
-                    System.err.println("⚠️ [TOTP] Código esperado (actual): " + currentCode);
-                    System.err.println("⚠️ [TOTP] Código recibido: " + cleanCode);
+                    System.err.println(" [TOTP] ===== DEBUG TOTP =====");
+                    System.err.println(" [TOTP] Timestamp actual (ms): " + currentTimeMillis);
+                    System.err.println(" [TOTP] Time bucket calculado: " + currentBucket);
+                    System.err.println(" [TOTP] Código esperado (actual): " + currentCode);
+                    System.err.println(" [TOTP] Código recibido: " + cleanCode);
                     
                     // Probar con buckets anteriores y posteriores (ventana de tolerancia)
-                    System.err.println("⚠️ [TOTP] Probando ventana de tiempo:");
+                    System.err.println(" [TOTP] Probando ventana de tiempo:");
                     for (int i = -3; i <= 3; i++) {
                         long testBucket = currentBucket + i;
                         String testCode = codeGenerator.generate(secret, testBucket);
-                        String status = testCode.equals(cleanCode) ? "✅ MATCH!" : "  ";
-                        System.err.println("⚠️ [TOTP]   Bucket " + testBucket + " (offset " + i + "): " + testCode + " " + status);
+                        String status = testCode.equals(cleanCode) ? " MATCH!" : "  ";
+                        System.err.println(" [TOTP]   Bucket " + testBucket + " (offset " + i + "): " + testCode + " " + status);
                     }
                     
-                    System.err.println("⚠️ [TOTP] ========================");
+                    System.err.println(" [TOTP] ========================");
                 } catch (Exception e) {
-                    System.err.println("⚠️ [TOTP] No se pudo generar código de debug: " + e.getMessage());
+                    System.err.println(" [TOTP] No se pudo generar código de debug: " + e.getMessage());
                 }
             }
             
             return isValid;
         } catch (Exception e) {
-            System.err.println("❌ Error verificando código TOTP: " + e.getMessage());
+            System.err.println(" Error verificando código TOTP: " + e.getMessage());
             return false;
         }
     }

@@ -341,9 +341,9 @@ public class PmsService {
             
             if (puedeIncrementarTandas(pms)) {
                 pms.setNumTandas(pms.getNumTandas() + 1);
-                System.out.println("  ️ CV no aceptable. Se incrementa el número de tandas a: " + pms.getNumTandas());
+                System.out.println("   CV no aceptable. Se incrementa el número de tandas a: " + pms.getNumTandas());
             } else {
-                System.out.println("  ️ CV no aceptable pero se alcanzó el límite máximo de 16 repeticiones.");
+                System.out.println("   CV no aceptable pero se alcanzó el límite máximo de 16 repeticiones.");
             }
         } else {
             System.out.println("   CV aceptable para la tanda " + numTanda);
@@ -428,7 +428,7 @@ public class PmsService {
             
             if (estadisticasValidas.getCoeficienteVariacion().compareTo(umbralCV) > 0 && puedeIncrementarTandas(pms)) {
                 pms.setNumTandas(pms.getNumTandas() + 1);
-                System.out.println("  ️ CV no aceptable. Se incrementa número de tandas a: " + pms.getNumTandas());
+                System.out.println("   CV no aceptable. Se incrementa número de tandas a: " + pms.getNumTandas());
             }
         }
         

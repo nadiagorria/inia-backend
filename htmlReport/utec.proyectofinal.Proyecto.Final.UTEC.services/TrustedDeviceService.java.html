@@ -193,7 +193,7 @@ import java.util.stream.Collectors;
     public void cleanupExpiredDevices() {
 <span class="fc" id="L194">        int deactivated = trustedDeviceRepository.deactivateExpiredDevices(LocalDateTime.now());</span>
 <span class="pc bpc" id="L195" title="1 of 2 branches missed.">        if (deactivated &gt; 0) {</span>
-<span class="fc" id="L196">            System.out.println(&quot;🧹 Limpieza: &quot; + deactivated + &quot; dispositivos expirados desactivados&quot;);</span>
+<span class="fc" id="L196">            System.out.println(&quot; Limpieza: &quot; + deactivated + &quot; dispositivos expirados desactivados&quot;);</span>
         }
 <span class="fc" id="L198">    }</span>
 

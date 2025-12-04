@@ -90,8 +90,8 @@ import java.util.concurrent.ConcurrentHashMap;
 <span class="fc" id="L90">                .signWith(getSigningKey()) // Firma HMAC-SHA256</span>
 <span class="fc" id="L91">                .compact();</span>
         
-<span class="fc" id="L93">        System.out.println(&quot;🎫 [SetupToken] Token JWT creado para usuario: &quot; + nombre);</span>
-<span class="fc" id="L94">        System.out.println(&quot;🔐 [JWT] Token ID: &quot; + tokenId + &quot; (expira en &quot; + TOKEN_EXPIRY_MINUTES + &quot; min)&quot;);</span>
+<span class="fc" id="L93">        System.out.println(&quot; [SetupToken] Token JWT creado para usuario: &quot; + nombre);</span>
+<span class="fc" id="L94">        System.out.println(&quot; [JWT] Token ID: &quot; + tokenId + &quot; (expira en &quot; + TOKEN_EXPIRY_MINUTES + &quot; min)&quot;);</span>
         
         // Limpiar blacklist de tokens expirados periódicamente
 <span class="fc" id="L97">        cleanExpiredTokensFromBlacklist();</span>
@@ -122,7 +122,7 @@ import java.util.concurrent.ConcurrentHashMap;
             // Validar que sea un token de setup
 <span class="fc" id="L123">            String type = claims.get(&quot;type&quot;, String.class);</span>
 <span class="pc bpc" id="L124" title="1 of 2 branches missed.">            if (!&quot;admin_setup&quot;.equals(type)) {</span>
-<span class="nc" id="L125">                System.err.println(&quot;❌ [SetupToken] Token inválido: tipo incorrecto&quot;);</span>
+<span class="nc" id="L125">                System.err.println(&quot; [SetupToken] Token inválido: tipo incorrecto&quot;);</span>
 <span class="nc" id="L126">                return null;</span>
             }
             
@@ -131,7 +131,7 @@ import java.util.concurrent.ConcurrentHashMap;
             
             // Verificar si ya fue usado (blacklist)
 <span class="fc bfc" id="L133" title="All 2 branches covered.">            if (tokenBlacklist.containsKey(tokenId)) {</span>
-<span class="fc" id="L134">                System.err.println(&quot;❌ [SetupToken] Token ya fue usado anteriormente (JTI: &quot; + tokenId + &quot;)&quot;);</span>
+<span class="fc" id="L134">                System.err.println(&quot; [SetupToken] Token ya fue usado anteriormente (JTI: &quot; + tokenId + &quot;)&quot;);</span>
 <span class="fc" id="L135">                return null;</span>
             }
             
@@ -140,8 +140,8 @@ import java.util.concurrent.ConcurrentHashMap;
 <span class="fc" id="L140">            long expirationTime = claims.getExpiration().getTime();</span>
 <span class="fc" id="L141">            tokenBlacklist.put(tokenId, expirationTime);</span>
             
-<span class="fc" id="L143">            System.out.println(&quot;✅ [SetupToken] Token JWT validado y consumido exitosamente&quot;);</span>
-<span class="fc" id="L144">            System.out.println(&quot;🗑️ [JWT] Token agregado a blacklist (un solo uso)&quot;);</span>
+<span class="fc" id="L143">            System.out.println(&quot; [SetupToken] Token JWT validado y consumido exitosamente&quot;);</span>
+<span class="fc" id="L144">            System.out.println(&quot; [JWT] Token agregado a blacklist (un solo uso)&quot;);</span>
             
             // Extraer datos del token
 <span class="fc" id="L147">            Map&lt;String, Object&gt; result = new HashMap&lt;&gt;();</span>
@@ -153,15 +153,15 @@ import java.util.concurrent.ConcurrentHashMap;
 <span class="fc" id="L153">            return result;</span>
             
 <span class="nc" id="L155">        } catch (io.jsonwebtoken.ExpiredJwtException e) {</span>
-<span class="nc" id="L156">            System.err.println(&quot;❌ [SetupToken] Token expirado: &quot; + e.getMessage());</span>
+<span class="nc" id="L156">            System.err.println(&quot; [SetupToken] Token expirado: &quot; + e.getMessage());</span>
 <span class="nc" id="L157">            return null;</span>
             
 <span class="fc" id="L159">        } catch (JwtException e) {</span>
-<span class="fc" id="L160">            System.err.println(&quot;❌ [SetupToken] Token JWT inválido: &quot; + e.getMessage());</span>
+<span class="fc" id="L160">            System.err.println(&quot; [SetupToken] Token JWT inválido: &quot; + e.getMessage());</span>
 <span class="fc" id="L161">            return null;</span>
             
 <span class="fc" id="L163">        } catch (Exception e) {</span>
-<span class="fc" id="L164">            System.err.println(&quot;❌ [SetupToken] Error al procesar token: &quot; + e.getMessage());</span>
+<span class="fc" id="L164">            System.err.println(&quot; [SetupToken] Error al procesar token: &quot; + e.getMessage());</span>
 <span class="fc" id="L165">            return null;</span>
         }
     }
@@ -181,10 +181,10 @@ import java.util.concurrent.ConcurrentHashMap;
 <span class="fc" id="L181">            long expirationTime = claims.getExpiration().getTime();</span>
 <span class="fc" id="L182">            tokenBlacklist.put(tokenId, expirationTime);</span>
             
-<span class="fc" id="L184">            System.out.println(&quot;🗑️ [SetupToken] Token invalidado manualmente (JTI: &quot; + tokenId + &quot;)&quot;);</span>
+<span class="fc" id="L184">            System.out.println(&quot; [SetupToken] Token invalidado manualmente (JTI: &quot; + tokenId + &quot;)&quot;);</span>
             
 <span class="fc" id="L186">        } catch (Exception e) {</span>
-<span class="fc" id="L187">            System.err.println(&quot;⚠️ [SetupToken] No se pudo invalidar token: &quot; + e.getMessage());</span>
+<span class="fc" id="L187">            System.err.println(&quot; [SetupToken] No se pudo invalidar token: &quot; + e.getMessage());</span>
         }
 <span class="fc" id="L189">    }</span>
     

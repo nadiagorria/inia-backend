@@ -90,8 +90,8 @@ public class SetupTokenService {
                 .signWith(getSigningKey()) 
                 .compact();
         
-        System.out.println("🎫 [SetupToken] Token JWT creado para usuario: " + nombre);
-        System.out.println("🔐 [JWT] Token ID: " + tokenId + " (expira en " + TOKEN_EXPIRY_MINUTES + " min)");
+        System.out.println(" [SetupToken] Token JWT creado para usuario: " + nombre);
+        System.out.println(" [JWT] Token ID: " + tokenId + " (expira en " + TOKEN_EXPIRY_MINUTES + " min)");
         
         // Limpiar blacklist de tokens expirados periódicamente
         cleanExpiredTokensFromBlacklist();
@@ -122,7 +122,7 @@ public class SetupTokenService {
             // Validar que sea un token de setup
             String type = claims.get("type", String.class);
             if (!"admin_setup".equals(type)) {
-                System.err.println("❌ [SetupToken] Token inválido: tipo incorrecto");
+                System.err.println(" [SetupToken] Token inválido: tipo incorrecto");
                 return null;
             }
             
@@ -131,7 +131,7 @@ public class SetupTokenService {
             
             // Verificar si ya fue usado (blacklist)
             if (tokenBlacklist.containsKey(tokenId)) {
-                System.err.println("❌ [SetupToken] Token ya fue usado anteriormente (JTI: " + tokenId + ")");
+                System.err.println(" [SetupToken] Token ya fue usado anteriormente (JTI: " + tokenId + ")");
                 return null;
             }
             
@@ -140,8 +140,8 @@ public class SetupTokenService {
             long expirationTime = claims.getExpiration().getTime();
             tokenBlacklist.put(tokenId, expirationTime);
             
-            System.out.println("✅ [SetupToken] Token JWT validado y consumido exitosamente");
-            System.out.println("🗑️ [JWT] Token agregado a blacklist (un solo uso)");
+            System.out.println(" [SetupToken] Token JWT validado y consumido exitosamente");
+            System.out.println(" [JWT] Token agregado a blacklist (un solo uso)");
             
             // Extraer datos del token
             Map<String, Object> result = new HashMap<>();
@@ -153,15 +153,15 @@ public class SetupTokenService {
             return result;
             
         } catch (io.jsonwebtoken.ExpiredJwtException e) {
-            System.err.println("❌ [SetupToken] Token expirado: " + e.getMessage());
+            System.err.println(" [SetupToken] Token expirado: " + e.getMessage());
             return null;
             
         } catch (JwtException e) {
-            System.err.println("❌ [SetupToken] Token JWT inválido: " + e.getMessage());
+            System.err.println(" [SetupToken] Token JWT inválido: " + e.getMessage());
             return null;
             
         } catch (Exception e) {
-            System.err.println("❌ [SetupToken] Error al procesar token: " + e.getMessage());
+            System.err.println(" [SetupToken] Error al procesar token: " + e.getMessage());
             return null;
         }
     }
@@ -181,10 +181,10 @@ public class SetupTokenService {
             long expirationTime = claims.getExpiration().getTime();
             tokenBlacklist.put(tokenId, expirationTime);
             
-            System.out.println("🗑️ [SetupToken] Token invalidado manualmente (JTI: " + tokenId + ")");
+            System.out.println(" [SetupToken] Token invalidado manualmente (JTI: " + tokenId + ")");
             
         } catch (Exception e) {
-            System.err.println("⚠️ [SetupToken] No se pudo invalidar token: " + e.getMessage());
+            System.err.println(" [SetupToken] No se pudo invalidar token: " + e.getMessage());
         }
     }
     

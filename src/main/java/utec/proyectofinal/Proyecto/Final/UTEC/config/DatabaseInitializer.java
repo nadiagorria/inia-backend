@@ -31,17 +31,17 @@ public class DatabaseInitializer implements CommandLineRunner {
         try {
             // Verificar si ya existe al menos un admin en el sistema
             if (!usuarioRepository.existsByRol(Rol.ADMIN)) {
-                System.out.println("\n🔧 No se encontró ningún administrador en el sistema");
-                System.out.println("📝 Creando administrador predeterminado con 2FA...\n");
+                System.out.println("\n No se encontró ningún administrador en el sistema");
+                System.out.println(" Creando administrador predeterminado con 2FA...\n");
                 
                 usuarioService.crearAdminPredeterminado();
                 
                 
             } else {
-                System.out.println("ℹ️  Ya existe al menos un administrador en el sistema");
+                System.out.println("ℹ  Ya existe al menos un administrador en el sistema");
             }
         } catch (Exception e) {
-            System.err.println("❌ Error al inicializar admin predeterminado: " + e.getMessage());
+            System.err.println(" Error al inicializar admin predeterminado: " + e.getMessage());
             e.printStackTrace();
         }
     }
