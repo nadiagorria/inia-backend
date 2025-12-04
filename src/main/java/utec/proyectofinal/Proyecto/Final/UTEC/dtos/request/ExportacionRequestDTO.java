@@ -13,9 +13,9 @@ public class ExportacionRequestDTO {
     private List<Long> especieIds;
     private List<Long> cultivarIds;
     private Boolean incluirInactivos = false;
-    private List<String> tiposAnalisis; // "PUREZA", "GERMINACION", "PMS", "TETRAZOLIO", "DOSN"
+    private List<String> tiposAnalisis; 
     
-    // Opciones de formato
+    
     private Boolean incluirEncabezados = true;
     private Boolean incluirColoresEstilo = true;
     private String formatoFecha = "dd/MM/yyyy";

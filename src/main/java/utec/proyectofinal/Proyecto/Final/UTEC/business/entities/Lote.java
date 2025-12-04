@@ -57,11 +57,11 @@ public class Lote {
 
     private BigDecimal kilosLimpios;
     
-    // Relación con datos de humedad (múltiples conjuntos de tipo + valor)
+    
     @OneToMany(mappedBy = "lote", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<DatosHumedad> datosHumedad;
     
-    // Relación con datos legados importados
+    
     @OneToMany(mappedBy = "lote", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Legado> datosLegados;
     
@@ -78,7 +78,7 @@ public class Lote {
     private Catalogo estado;
     private LocalDate fechaCosecha;
     
-    // Lista de tipos de análisis asignados a este lote
+    
     @ElementCollection(targetClass = TipoAnalisis.class, fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     @CollectionTable(
@@ -91,7 +91,7 @@ public class Lote {
     
     private Boolean activo;
     
-    // Métodos personalizados para manejar tipos de análisis sin duplicados
+    
     public void setTiposAnalisisAsignados(List<TipoAnalisis> tipos) {
         if (tipos == null) {
             this.tiposAnalisisAsignados = null;

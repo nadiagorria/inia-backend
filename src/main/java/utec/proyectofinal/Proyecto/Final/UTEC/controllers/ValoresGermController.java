@@ -23,7 +23,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.dtos.response.ValoresGermDTO;
 import utec.proyectofinal.Proyecto.Final.UTEC.enums.Instituto;
 import utec.proyectofinal.Proyecto.Final.UTEC.services.ValoresGermService;
 
-// CORS configurado globalmente en WebSecurityConfig
+
 @RestController
 @RequestMapping("/api/germinacion/{germinacionId}/tabla/{tablaId}/valores")
 @Tag(name = "Valores Germinación", description = "API para gestión de valores de germinación")
@@ -33,7 +33,7 @@ public class ValoresGermController {
     @Autowired
     private ValoresGermService valoresGermService;
 
-    // Obtener valores por ID
+    
     @Operation(summary = "Obtener valores de germinación por ID",
               description = "Obtiene los valores específicos de germinación por su ID")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
@@ -50,7 +50,7 @@ public class ValoresGermController {
         }
     }
 
-    // Actualizar valores existentes
+    
     @Operation(summary = "Actualizar valores de germinación", 
               description = "Actualiza los valores específicos de germinación por su ID")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA')")
@@ -68,7 +68,7 @@ public class ValoresGermController {
         }
     }
 
-    // Obtener todos los valores de una tabla
+    
     @Operation(summary = "Obtener todos los valores de germinación para una tabla", 
               description = "Obtiene todos los valores de germinación asociados a una tabla específica")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
@@ -84,7 +84,7 @@ public class ValoresGermController {
         }
     }
 
-    // Obtener valores de INIA para una tabla
+    
     @Operation(summary = "Obtener valores de germinación de INIA para una tabla", 
               description = "Obtiene los valores de germinación específicos del instituto INIA para una tabla dada")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
@@ -100,7 +100,7 @@ public class ValoresGermController {
         }
     }
 
-    // Obtener valores de INASE para una tabla
+    
     @Operation(summary = "Obtener valores de germinación de INASE para una tabla", 
               description = "Obtiene los valores de germinación específicos del instituto INASE para una tabla dada")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
@@ -116,7 +116,7 @@ public class ValoresGermController {
         }
     }
 
-    // Obtener valores por tabla e instituto (parámetro de consulta)
+    
     @Operation(summary = "Obtener valores de germinación por tabla e instituto", 
               description = "Obtiene los valores de germinación asociados a una tabla específica y un instituto dado")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
@@ -133,7 +133,7 @@ public class ValoresGermController {
         }
     }
 
-    // Eliminar valores
+    
     @Operation(summary = "Eliminar valores de germinación", 
               description = "Elimina los valores específicos de germinación por su ID")
     @PreAuthorize("hasRole('ADMIN')")

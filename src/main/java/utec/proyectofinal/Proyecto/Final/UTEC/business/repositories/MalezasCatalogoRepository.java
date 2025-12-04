@@ -22,7 +22,7 @@ public interface MalezasCatalogoRepository extends JpaRepository<MalezasCatalogo
     
     List<MalezasCatalogo> findByNombreCientificoContainingIgnoreCaseAndActivoTrue(String nombreCientifico);
     
-    // Búsqueda insensible a mayúsculas/minúsculas
+    
     Optional<MalezasCatalogo> findByNombreComunIgnoreCase(String nombreComun);
     
     Optional<MalezasCatalogo> findByNombreCientificoIgnoreCase(String nombreCientifico);
@@ -41,7 +41,7 @@ public interface MalezasCatalogoRepository extends JpaRepository<MalezasCatalogo
     @Query("SELECT m FROM MalezasCatalogo m WHERE LOWER(m.nombreComun) LIKE LOWER(CONCAT(:nombreComun, '%')) AND m.activo = true")
     List<MalezasCatalogo> buscarPorNombreComunInicio(@Param("nombreComun") String nombreComun);
     
-    // Métodos paginados para listado
+    
     Page<MalezasCatalogo> findByActivoTrueOrderByNombreComunAsc(Pageable pageable);
     
     Page<MalezasCatalogo> findByActivoFalseOrderByNombreComunAsc(Pageable pageable);

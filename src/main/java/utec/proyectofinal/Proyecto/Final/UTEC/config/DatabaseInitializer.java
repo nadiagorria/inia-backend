@@ -36,7 +36,7 @@ public class DatabaseInitializer implements CommandLineRunner {
                 
                 usuarioService.crearAdminPredeterminado();
                 
-                // El método crearAdminPredeterminado ya muestra toda la información necesaria
+                
             } else {
                 System.out.println("ℹ️  Ya existe al menos un administrador en el sistema");
             }

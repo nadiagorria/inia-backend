@@ -16,7 +16,7 @@ public class TablaGermDTO {
     private List<BigDecimal> promedioSinRedondeo;
     private List<BigDecimal> promediosSinRedPorConteo;
 
-    // Campos de porcentaje con redondeo (5 campos ingresados manualmente)
+    
     private BigDecimal porcentajeNormalesConRedondeo;
     private BigDecimal porcentajeAnormalesConRedondeo;
     private BigDecimal porcentajeDurasConRedondeo;
@@ -27,35 +27,35 @@ public class TablaGermDTO {
 
     private LocalDate fechaFinal;
 
-    // Campo de control para finalización
+    
     private Boolean finalizada;
 
-    // Campos movidos desde Germinacion
+    
     private String tratamiento;
     private String productoYDosis;
     private Integer numSemillasPRep;
     private String metodo;
     private String temperatura;
     
-    // Campos de prefrío (boolean + descripción + días)
+    
     private Boolean tienePrefrio;
     private String descripcionPrefrio;
     
-    // Campos de pretratamiento (boolean + descripción, sin días)
+    
     private Boolean tienePretratamiento;
     private String descripcionPretratamiento;
     
-    // Campos de fechas y control de conteos movidos desde Germinacion
-    private LocalDate fechaIngreso; // Nueva fecha de ingreso
-    private LocalDate fechaGerminacion; // Renombrado de fechaInicioGerm
+    
+    private LocalDate fechaIngreso; 
+    private LocalDate fechaGerminacion; 
     private List<LocalDate> fechaConteos;
     private LocalDate fechaUltConteo;
     private String numDias;
     
-    // Campos de control
+    
     private Integer numeroRepeticiones;
     private Integer numeroConteos;
     
-    // Campo para días de prefrío (pretratamiento ya no tiene días)
+    
     private Integer diasPrefrio;
 }

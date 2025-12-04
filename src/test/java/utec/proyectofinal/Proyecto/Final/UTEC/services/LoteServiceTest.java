@@ -167,13 +167,13 @@ class LoteServiceTest {
     @Test
     @DisplayName("Obtener lote por ID - debe retornar el lote si existe")
     void obtenerLotePorId_cuandoExiste_debeRetornarLote() {
-        // ARRANGE
+        
         when(loteRepository.findByIdWithCultivarAndEspecie(1L)).thenReturn(Optional.of(lote));
 
-        // ACT
+        
         LoteDTO resultado = loteService.obtenerLotePorId(1L);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertEquals(1L, resultado.getLoteID());
         assertEquals("LOTE-TEST-001", resultado.getNomLote());
@@ -183,10 +183,10 @@ class LoteServiceTest {
     @Test
     @DisplayName("Obtener lote por ID inexistente - debe lanzar excepción")
     void obtenerLotePorId_cuandoNoExiste_debeLanzarExcepcion() {
-        // ARRANGE
+        
         when(loteRepository.findByIdWithCultivarAndEspecie(999L)).thenReturn(Optional.empty());
 
-        // ACT & ASSERT
+        
         assertThrows(RuntimeException.class, () -> {
             loteService.obtenerLotePorId(999L);
         }, "Debe lanzar excepción cuando el lote no existe");
@@ -211,14 +211,14 @@ class LoteServiceTest {
     @Test
     @DisplayName("Eliminar lote - debe cambiar activo a false")
     void eliminarLote_debeCambiarActivoAFalse() {
-        // ARRANGE
+        
         when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));
         when(loteRepository.save(any(Lote.class))).thenReturn(lote);
 
-        // ACT
+        
         loteService.eliminarLote(1L);
 
-        // ASSERT
+        
         verify(loteRepository, times(1)).findById(1L);
         verify(loteRepository, times(1)).save(any(Lote.class));
     }
@@ -233,15 +233,15 @@ class LoteServiceTest {
     @Test
     @DisplayName("Reactivar lote - debe cambiar activo a true")
     void reactivarLote_debeCambiarActivoATrue() {
-        // ARRANGE
-        lote.setActivo(false); // Lote inicialmente inactivo
+        
+        lote.setActivo(false); 
         when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));
         when(loteRepository.save(any(Lote.class))).thenReturn(lote);
 
-        // ACT
+        
         LoteDTO resultado = loteService.reactivarLote(1L);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         verify(loteRepository, times(1)).findById(1L);
         verify(loteRepository, times(1)).save(any(Lote.class));

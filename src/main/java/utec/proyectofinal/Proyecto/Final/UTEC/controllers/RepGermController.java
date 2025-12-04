@@ -24,7 +24,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.dtos.request.RepGermRequestDTO;
 import utec.proyectofinal.Proyecto.Final.UTEC.dtos.response.RepGermDTO;
 import utec.proyectofinal.Proyecto.Final.UTEC.services.RepGermService;
 
-// CORS configurado globalmente en WebSecurityConfig
+
 @RestController
 @RequestMapping("/api/germinacion/{germinacionId}/tabla/{tablaId}/repeticion")
 @Tag(name = "Repeticiones de Germinación", description = "API para gestión de repeticiones dentro de las tablas de germinación")
@@ -34,7 +34,7 @@ public class RepGermController {
     @Autowired
     private RepGermService repGermService;
 
-    // Crear nueva repetición para una tabla
+    
     @Operation(summary = "Crear repetición", 
               description = "Crea una nueva repetición para una tabla. No puede superar el numeroRepeticiones definido en la germinación")
     @ApiResponses(value = {
@@ -56,7 +56,7 @@ public class RepGermController {
         }
     }
 
-    // Obtener repetición por ID
+    
     @Operation(summary = "Obtener repetición por ID", description = "Devuelve una repetición específica por su ID")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
     @GetMapping("/{repeticionId}")
@@ -72,7 +72,7 @@ public class RepGermController {
         }
     }
 
-    // Actualizar repetición existente
+    
     @Operation(summary = "Actualizar repetición", description = "Actualiza los datos de una repetición existente")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA')")
     @PutMapping("/{repeticionId}")
@@ -89,7 +89,7 @@ public class RepGermController {
         }
     }
 
-    // Eliminar repetición
+    
     @Operation(summary = "Eliminar repetición", description = "Elimina una repetición específica por su ID")
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{repeticionId}")
@@ -105,7 +105,7 @@ public class RepGermController {
         }
     }
 
-    // Obtener todas las repeticiones de una tabla
+    
     @Operation(summary = "Obtener repeticiones por tabla", description = "Devuelve todas las repeticiones asociadas a una tabla específica")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
     @GetMapping
@@ -120,7 +120,7 @@ public class RepGermController {
         }
     }
 
-    // Contar repeticiones de una tabla
+    
     @Operation(summary = "Contar repeticiones por tabla", description = "Devuelve el número total de repeticiones asociadas a una tabla específica")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
     @GetMapping("/contar")

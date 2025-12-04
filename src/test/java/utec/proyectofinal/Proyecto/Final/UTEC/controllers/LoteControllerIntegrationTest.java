@@ -76,10 +76,10 @@ class LoteControllerIntegrationTest {
     @WithMockUser(roles = "ANALISTA")
     @DisplayName("POST /api/lotes - debe crear lote con autenticación")
     void crearLote_conAutenticacion_debeRetornar201() throws Exception {
-        // ARRANGE
+        
         when(loteService.crearLote(any(LoteRequestDTO.class))).thenReturn(loteDTO);
 
-        // ACT & ASSERT
+        
         mockMvc.perform(post("/api/lotes")
                 .with(csrf())
                 .contentType(MediaType.APPLICATION_JSON)
@@ -94,10 +94,10 @@ class LoteControllerIntegrationTest {
     @WithMockUser(roles = "ANALISTA")
     @DisplayName("GET /api/lotes/{id} - debe retornar lote existente")
     void obtenerLotePorId_existente_debeRetornar200() throws Exception {
-        // ARRANGE
+        
         when(loteService.obtenerLotePorId(1L)).thenReturn(loteDTO);
 
-        // ACT & ASSERT
+        
         mockMvc.perform(get("/api/lotes/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.loteID").value(1))
@@ -108,11 +108,11 @@ class LoteControllerIntegrationTest {
     @WithMockUser(roles = "ANALISTA")
     @DisplayName("GET /api/lotes/activos - debe retornar lista de lotes activos")
     void listarLotesActivos_debeRetornarLista() throws Exception {
-        // ARRANGE
+        
         ResponseListadoLoteSimple response = new ResponseListadoLoteSimple();
         when(loteService.obtenerTodosLotesActivos()).thenReturn(response);
 
-        // ACT & ASSERT
+        
         mockMvc.perform(get("/api/lotes/activos"))
                 .andExpect(status().isOk());
     }
@@ -121,13 +121,13 @@ class LoteControllerIntegrationTest {
     @WithMockUser(roles = "ANALISTA")
     @DisplayName("PUT /api/lotes/{id} - debe actualizar lote")
     void actualizarLote_conDatosValidos_debeRetornar200() throws Exception {
-        // ARRANGE
+        
         loteRequestDTO.setNomLote("LOTE-ACTUALIZADO");
         loteDTO.setNomLote("LOTE-ACTUALIZADO");
         
         when(loteService.actualizarLote(eq(1L), any(LoteRequestDTO.class))).thenReturn(loteDTO);
 
-        // ACT & ASSERT
+        
         mockMvc.perform(put("/api/lotes/1")
                 .with(csrf())
                 .contentType(MediaType.APPLICATION_JSON)
@@ -140,10 +140,10 @@ class LoteControllerIntegrationTest {
     @WithMockUser(roles = "ADMIN")
     @DisplayName("DELETE /api/lotes/{id} - debe desactivar lote")
     void eliminarLote_conPermisos_debeRetornar200() throws Exception {
-        // ARRANGE
+        
         doNothing().when(loteService).eliminarLote(1L);
         
-        // ACT & ASSERT
+        
         mockMvc.perform(delete("/api/lotes/1")
                 .with(csrf()))
                 .andExpect(status().isOk());
@@ -153,11 +153,11 @@ class LoteControllerIntegrationTest {
     @WithMockUser(roles = "ADMIN")
     @DisplayName("PUT /api/lotes/{id}/reactivar - debe reactivar lote")
     void reactivarLote_conPermisos_debeRetornar200() throws Exception {
-        // ARRANGE
+        
         loteDTO.setActivo(true);
         when(loteService.reactivarLote(1L)).thenReturn(loteDTO);
 
-        // ACT & ASSERT
+        
         mockMvc.perform(put("/api/lotes/1/reactivar")
                 .with(csrf()))
                 .andExpect(status().isOk())
@@ -168,7 +168,7 @@ class LoteControllerIntegrationTest {
     @WithMockUser(roles = "ANALISTA")
     @DisplayName("POST /api/lotes/validar-campos - debe validar campos únicos")
     void validarCamposUnicos_conDatosValidos_debeRetornarValidacion() throws Exception {
-        // ARRANGE
+        
         utec.proyectofinal.Proyecto.Final.UTEC.dtos.request.ValidacionLoteDTO validacion = 
             new utec.proyectofinal.Proyecto.Final.UTEC.dtos.request.ValidacionLoteDTO();
         validacion.setFicha("F-001");
@@ -181,7 +181,7 @@ class LoteControllerIntegrationTest {
         
         when(loteService.validarCamposUnicos(any())).thenReturn(response);
 
-        // ACT & ASSERT
+        
         mockMvc.perform(post("/api/lotes/validar-campos")
                 .with(csrf())
                 .contentType(MediaType.APPLICATION_JSON)
@@ -195,11 +195,11 @@ class LoteControllerIntegrationTest {
     @WithMockUser(roles = "ANALISTA")
     @DisplayName("GET /api/lotes/inactivos - debe retornar lotes inactivos")
     void obtenerLotesInactivos_debeRetornarLista() throws Exception {
-        // ARRANGE
+        
         ResponseListadoLoteSimple response = new ResponseListadoLoteSimple();
         when(loteService.obtenerTodosLotesInactivos()).thenReturn(response);
 
-        // ACT & ASSERT
+        
         mockMvc.perform(get("/api/lotes/inactivos"))
                 .andExpect(status().isOk());
     }
@@ -208,7 +208,7 @@ class LoteControllerIntegrationTest {
     @WithMockUser(roles = "ANALISTA")
     @DisplayName("GET /api/lotes/listado - debe retornar lotes paginados sin filtros")
     void obtenerLotesPaginados_sinFiltros_debeRetornarPagina() throws Exception {
-        // ARRANGE
+        
         org.springframework.data.domain.Page<LoteSimpleDTO> page = 
             new org.springframework.data.domain.PageImpl<>(java.util.Collections.emptyList());
         
@@ -219,7 +219,7 @@ class LoteControllerIntegrationTest {
                 eq(null)))
             .thenReturn(page);
 
-        // ACT & ASSERT
+        
         mockMvc.perform(get("/api/lotes/listado"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.content").isArray());
@@ -229,7 +229,7 @@ class LoteControllerIntegrationTest {
     @WithMockUser(roles = "ANALISTA")
     @DisplayName("GET /api/lotes/listado - con filtros debe retornar lotes filtrados")
     void obtenerLotesPaginados_conFiltros_debeRetornarPaginaFiltrada() throws Exception {
-        // ARRANGE
+        
         org.springframework.data.domain.Page<LoteSimpleDTO> page = 
             new org.springframework.data.domain.PageImpl<>(java.util.Collections.emptyList());
         
@@ -240,7 +240,7 @@ class LoteControllerIntegrationTest {
                 eq("Trigo")))
             .thenReturn(page);
 
-        // ACT & ASSERT
+        
         mockMvc.perform(get("/api/lotes/listado")
                 .param("search", "LOTE")
                 .param("activo", "true")
@@ -252,7 +252,7 @@ class LoteControllerIntegrationTest {
     @WithMockUser(roles = "ADMIN")
     @DisplayName("GET /api/lotes/estadisticas - debe retornar estadísticas de lotes")
     void obtenerEstadisticas_debeRetornarContadores() throws Exception {
-        // ARRANGE
+        
         java.util.Map<String, Long> stats = new java.util.HashMap<>();
         stats.put("total", 100L);
         stats.put("activos", 80L);
@@ -260,7 +260,7 @@ class LoteControllerIntegrationTest {
         
         when(loteService.obtenerEstadisticasLotes()).thenReturn(stats);
 
-        // ACT & ASSERT
+        
         mockMvc.perform(get("/api/lotes/estadisticas"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.total").value(100))
@@ -272,11 +272,11 @@ class LoteControllerIntegrationTest {
     @WithMockUser(roles = "ANALISTA")
     @DisplayName("GET /api/lotes/elegibles/{tipoAnalisis} - debe retornar lotes elegibles para análisis")
     void obtenerLotesElegibles_paraTipoAnalisis_debeRetornarLista() throws Exception {
-        // ARRANGE
+        
         ResponseListadoLoteSimple response = new ResponseListadoLoteSimple();
         when(loteService.obtenerLotesElegiblesParaTipoAnalisis(any())).thenReturn(response);
 
-        // ACT & ASSERT
+        
         mockMvc.perform(get("/api/lotes/elegibles/GERMINACION"))
                 .andExpect(status().isOk());
     }
@@ -285,10 +285,10 @@ class LoteControllerIntegrationTest {
     @WithMockUser(roles = "ANALISTA")
     @DisplayName("GET /api/lotes/{loteID}/puede-remover-tipo/{tipoAnalisis} - debe verificar si puede remover")
     void verificarPuedeRemoverTipo_debeRetornarVerificacion() throws Exception {
-        // ARRANGE
+        
         when(loteService.puedeRemoverTipoAnalisis(eq(1L), any())).thenReturn(true);
 
-        // ACT & ASSERT
+        
         mockMvc.perform(get("/api/lotes/1/puede-remover-tipo/PMS"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.puedeRemover").value(true));
@@ -298,10 +298,10 @@ class LoteControllerIntegrationTest {
     @WithMockUser(roles = "ANALISTA")
     @DisplayName("GET /api/lotes/{loteID}/puede-remover-tipo/{tipoAnalisis} - no puede remover debe incluir razón")
     void verificarPuedeRemoverTipo_noPuedeRemover_debeIncluirRazon() throws Exception {
-        // ARRANGE
+        
         when(loteService.puedeRemoverTipoAnalisis(eq(1L), any())).thenReturn(false);
 
-        // ACT & ASSERT
+        
         mockMvc.perform(get("/api/lotes/1/puede-remover-tipo/PMS"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.puedeRemover").value(false))

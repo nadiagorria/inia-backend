@@ -21,9 +21,9 @@ public class RecoveryCodeService {
 
     private static final int CODE_LENGTH = 8;
     private static final int EXPIRY_MINUTES = 10;
-    private static final String CHARACTERS = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; // Sin I, O, 0, 1 para evitar confusión
+    private static final String CHARACTERS = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; 
     private final SecureRandom random = new SecureRandom();
-    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(12); // Strength 12
+    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(12); 
 
     /**
      * Genera un código de recuperación aleatorio de 8 caracteres
@@ -82,7 +82,7 @@ public class RecoveryCodeService {
             // Normalizar el código ingresado
             String normalizedCode = plainCode.toUpperCase().replace("-", "").trim();
             
-            // Validar longitud
+            
             if (normalizedCode.length() != CODE_LENGTH) {
                 return false;
             }
@@ -129,7 +129,7 @@ public class RecoveryCodeService {
         
         String normalized = code.toUpperCase().replace("-", "").trim();
         
-        // Debe tener exactamente 8 caracteres
+        
         if (normalized.length() != CODE_LENGTH) {
             return false;
         }

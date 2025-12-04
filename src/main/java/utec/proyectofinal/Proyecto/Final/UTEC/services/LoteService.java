@@ -40,11 +40,11 @@ public class LoteService {
     @Autowired
     private LoteRepository loteRepository;
     
-    // Método para validar campos únicos
+    
     public ValidacionLoteResponseDTO validarCamposUnicos(ValidacionLoteDTO solicitud) {
         ValidacionLoteResponseDTO resultado = new ValidacionLoteResponseDTO();
         
-        // Verificar ficha
+        
         if (solicitud.getFicha() != null && !solicitud.getFicha().isEmpty()) {
             boolean fichaExiste = loteRepository.findByFicha(solicitud.getFicha())
                 .stream()
@@ -52,7 +52,7 @@ public class LoteService {
             resultado.setFichaExiste(fichaExiste);
         }
         
-        // Verificar nombre del lote
+        
         if (solicitud.getNomLote() != null && !solicitud.getNomLote().isEmpty()) {
             boolean nomLoteExiste = loteRepository.findByNomLote(solicitud.getNomLote())
                 .stream()
@@ -72,7 +72,7 @@ public class LoteService {
     @Autowired
     private CatalogoService catalogoService;
     
-    // Repositorios para verificar análisis existentes
+    
     @Autowired
     private PmsRepository pmsRepository;
     
@@ -88,12 +88,12 @@ public class LoteService {
     @Autowired
     private PurezaRepository purezaRepository;
 
-    // Crear Lote con activo = true
+    
     public LoteDTO crearLote(LoteRequestDTO solicitud) {
         try {
             System.out.println("Creando lote con solicitud: " + solicitud);
             
-            // Validar fechas no sean posteriores a la fecha actual
+            
             validarFechaRecibo(solicitud.getFechaRecibo());
             validarFechaCosecha(solicitud.getFechaCosecha());
             
@@ -110,22 +110,22 @@ public class LoteService {
         }
     }
 
-    // Editar Lote
+    
     public LoteDTO actualizarLote(Long id, LoteRequestDTO solicitud) {
         Optional<Lote> loteExistente = loteRepository.findById(id);
         if (loteExistente.isPresent()) {
             Lote lote = loteExistente.get();
             
-            // Validar que el lote esté activo antes de permitir edición
+            
             if (!lote.getActivo()) {
                 throw new RuntimeException("No se puede editar un lote inactivo. Debe reactivarlo primero.");
             }
             
-            // Validar fechas no sean posteriores a la fecha actual
+            
             validarFechaRecibo(solicitud.getFechaRecibo());
             validarFechaCosecha(solicitud.getFechaCosecha());
             
-            // Validar cambios en tipos de análisis antes de actualizar
+            
             if (solicitud.getTiposAnalisisAsignados() != null) {
                 validarCambiosTiposAnalisis(lote, solicitud.getTiposAnalisisAsignados());
             }
@@ -137,9 +137,9 @@ public class LoteService {
         throw new RuntimeException("Lote no encontrado con id: " + id);
     }
     
-    // Método para verificar si un tipo de análisis puede ser removido del lote
+    
     public boolean puedeRemoverTipoAnalisis(Long loteId, TipoAnalisis tipoAnalisis) {
-        // Un tipo de análisis puede ser removido solo si no hay análisis creados de ese tipo
+        
         return switch (tipoAnalisis) {
             case PMS -> !pmsRepository.existsByLoteLoteID(loteId);
             case GERMINACION -> !germinacionRepository.existsByLoteLoteID(loteId);
@@ -150,7 +150,7 @@ public class LoteService {
         };
     }
 
-    // Método para validar cambios en tipos de análisis durante la edición
+    
     private void validarCambiosTiposAnalisis(Lote loteExistente, List<TipoAnalisis> nuevosTypes) {
         List<TipoAnalisis> tiposActuales = loteExistente.getTiposAnalisisAsignados();
         
@@ -158,10 +158,10 @@ public class LoteService {
             tiposActuales = new ArrayList<>();
         }
         
-        // Verificar tipos que se están removiendo
+        
         for (TipoAnalisis tipoActual : tiposActuales) {
             if (!nuevosTypes.contains(tipoActual)) {
-                // Este tipo se está removiendo, verificar si es posible
+                
                 if (!puedeRemoverTipoAnalisis(loteExistente.getLoteID(), tipoActual)) {
                     throw new RuntimeException("No se puede remover el tipo de análisis " + tipoActual.name() + 
                                              " porque ya existen análisis creados de este tipo para el lote");
@@ -169,11 +169,11 @@ public class LoteService {
             }
         }
         
-        // Los tipos que se están agregando siempre son permitidos
-        // (no hay restricciones para agregar nuevos tipos de análisis)
+        
+        
     }
 
-    // Eliminar Lote (cambiar activo a false)
+    
     public void eliminarLote(Long id) {
         Optional<Lote> loteExistente = loteRepository.findById(id);
         if (loteExistente.isPresent()) {
@@ -185,7 +185,7 @@ public class LoteService {
         }
     }
 
-    // Reactivar Lote (cambiar activo a true)
+    
     public LoteDTO reactivarLote(Long id) {
         Lote lote = loteRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Lote no encontrado con ID: " + id));
@@ -199,7 +199,7 @@ public class LoteService {
         return mapearEntidadADTO(loteReactivado);
     }
 
-    // Listar todos los Lotes activos
+    
     public ResponseListadoLoteSimple obtenerTodosLotesActivos() {
         List<Lote> lotes = loteRepository.findByActivoTrue();
         List<LoteSimpleDTO> loteDTOs = lotes.stream()
@@ -211,7 +211,7 @@ public class LoteService {
         return respuesta;
     }
 
-    // Listar todos los Lotes inactivos
+    
     public ResponseListadoLoteSimple obtenerTodosLotesInactivos() {
         List<Lote> lotes = loteRepository.findByActivoFalse();
         List<LoteSimpleDTO> loteDTOs = lotes.stream()
@@ -223,9 +223,9 @@ public class LoteService {
         return respuesta;
     }
 
-    // Obtener Lote por ID (completo)
+    
     public LoteDTO obtenerLotePorId(Long id) {
-        // Usar JOIN FETCH para cargar cultivar y especie en una sola query
+        
         Optional<Lote> lote = loteRepository.findByIdWithCultivarAndEspecie(id);
         if (lote.isPresent()) {
             return mapearEntidadADTO(lote.get());
@@ -233,18 +233,18 @@ public class LoteService {
         throw new RuntimeException("Lote no encontrado con id: " + id);
     }
 
-    // Listar Lotes con paginado para listado
+    
     public Page<LoteListadoDTO> obtenerLotesPaginadas(Pageable pageable) {
         Page<Lote> lotePage = loteRepository.findByActivo(true, pageable);
         return lotePage.map(this::mapearEntidadAListadoDTO);
     }
 
-    // Listar Lotes Simple con paginado para listado
+    
     public Page<LoteSimpleDTO> obtenerLotesSimplePaginadas(Pageable pageable) {
-        // Obtener TODOS los lotes (activos e inactivos) con paginación
+        
         Page<Lote> lotePage = loteRepository.findAll(pageable);
         
-        // Mapear a DTOs usando Page.map() como en PurezaService
+        
         return lotePage.map(this::mapearEntidadASimpleDTO);
     }
 
@@ -262,13 +262,13 @@ public class LoteService {
             Boolean activo, 
             String cultivarNombre) {
         
-        // Crear la especificación con los filtros
+        
         Specification<Lote> spec = LoteSpecification.conFiltros(searchTerm, activo, cultivarNombre);
         
-        // Obtener lotes filtrados y paginados
+        
         Page<Lote> lotePage = loteRepository.findAll(spec, pageable);
         
-        // Mapear a DTOs
+        
         return lotePage.map(this::mapearEntidadASimpleDTO);
     }
 
@@ -281,7 +281,7 @@ public class LoteService {
         return dto;
     }
 
-    // Mapear de RequestDTO a Entity para creación
+    
     private Lote mapearSolicitudAEntidad(LoteRequestDTO solicitud) {
         try {
             System.out.println("Iniciando mapeo de solicitud a entidad");
@@ -291,12 +291,12 @@ public class LoteService {
             lote.setFicha(solicitud.getFicha());
             lote.setNomLote(solicitud.getNomLote());
             
-            // Convertir String a enum TipoLote
+            
             if (solicitud.getTipo() != null) {
                 lote.setTipo(TipoLote.valueOf(solicitud.getTipo().toUpperCase()));
             }
             
-            // Mapear Empresa
+            
             if (solicitud.getEmpresaID() != null) {
                 try {
                     System.out.println("Buscando empresa con ID: " + solicitud.getEmpresaID());
@@ -321,13 +321,13 @@ public class LoteService {
             lote.setObservaciones(solicitud.getObservaciones());
             lote.setKilosLimpios(solicitud.getKilosLimpios());
             
-            // Mapear datos de humedad
+            
             if (solicitud.getDatosHumedad() != null && !solicitud.getDatosHumedad().isEmpty()) {
                 List<DatosHumedad> datosHumedad = solicitud.getDatosHumedad().stream()
                     .map(dhr -> {
                         DatosHumedad dh = new DatosHumedad();
                         
-                        // Obtener el catálogo de tipo humedad por ID
+                        
                         if (dhr.getTipoHumedadID() != null) {
                             Catalogo tipoHumedad = catalogoService.obtenerEntidadPorId(dhr.getTipoHumedadID());
                             dh.setTipoHumedad(tipoHumedad);
@@ -341,13 +341,13 @@ public class LoteService {
                 lote.setDatosHumedad(datosHumedad);
             }
             
-            // Mapear número de artículo
+            
             if (solicitud.getNumeroArticuloID() != null) {
                 Catalogo numeroArticulo = catalogoService.obtenerEntidadPorId(solicitud.getNumeroArticuloID());
                 lote.setNumeroArticulo(numeroArticulo);
             }
             
-            // Mapear origen
+            
             if (solicitud.getOrigenID() != null) {
                 try {
                     System.out.println("Buscando origen con ID: " + solicitud.getOrigenID());
@@ -363,7 +363,7 @@ public class LoteService {
                 }
             }
             
-            // Mapear estado
+            
             if (solicitud.getEstadoID() != null) {
                 try {
                     System.out.println("Buscando estado con ID: " + solicitud.getEstadoID());
@@ -382,7 +382,7 @@ public class LoteService {
             lote.setFechaCosecha(solicitud.getFechaCosecha());
 
             System.out.println("Mapeando entidades relacionadas...");
-            // Mapear entidades relacionadas usando repositorios
+            
             if (solicitud.getCultivarID() != null) {
                 try {
                     System.out.println("Buscando cultivar con ID: " + solicitud.getCultivarID());
@@ -428,9 +428,9 @@ public class LoteService {
                 }
             }
 
-            // Mapear tipos de análisis asignados
+            
             if (solicitud.getTiposAnalisisAsignados() != null && !solicitud.getTiposAnalisisAsignados().isEmpty()) {
-                // Usar el método personalizado que elimina duplicados
+                
                 lote.setTiposAnalisisAsignados(solicitud.getTiposAnalisisAsignados());
                 System.out.println("Tipos de análisis asignados (sin duplicados): " + lote.getTiposAnalisisAsignados());
             }
@@ -444,17 +444,17 @@ public class LoteService {
         }
     }
 
-    // Actualizar Entity desde RequestDTO para edición
+    
     private void actualizarEntidadDesdeSolicitud(Lote lote, LoteRequestDTO solicitud) {
         lote.setFicha(solicitud.getFicha());
         lote.setNomLote(solicitud.getNomLote());
         
-        // Convertir String a enum TipoLote
+        
         if (solicitud.getTipo() != null) {
             lote.setTipo(TipoLote.valueOf(solicitud.getTipo().toUpperCase()));
         }
         
-        // Mapear Empresa
+        
         if (solicitud.getEmpresaID() != null) {
             Optional<Contacto> empresaOpt = contactoRepository.findById(solicitud.getEmpresaID());
             if (empresaOpt.isPresent()) {
@@ -473,20 +473,20 @@ public class LoteService {
         lote.setObservaciones(solicitud.getObservaciones());
         lote.setKilosLimpios(solicitud.getKilosLimpios());
         
-        // Actualizar datos de humedad
+        
         if (solicitud.getDatosHumedad() != null) {
-            // Limpiar datos existentes
+            
             if (lote.getDatosHumedad() != null) {
                 lote.getDatosHumedad().clear();
             }
             
-            // Agregar nuevos datos
+            
             if (!solicitud.getDatosHumedad().isEmpty()) {
                 List<DatosHumedad> datosHumedad = solicitud.getDatosHumedad().stream()
                     .map(dhr -> {
                         DatosHumedad dh = new DatosHumedad();
                         
-                        // Obtener el catálogo de tipo humedad por ID
+                        
                         if (dhr.getTipoHumedadID() != null) {
                             Catalogo tipoHumedad = catalogoService.obtenerEntidadPorId(dhr.getTipoHumedadID());
                             dh.setTipoHumedad(tipoHumedad);
@@ -501,7 +501,7 @@ public class LoteService {
             }
         }
         
-        // Actualizar número de artículo
+        
         if (solicitud.getNumeroArticuloID() != null) {
             Catalogo numeroArticulo = catalogoService.obtenerEntidadPorId(solicitud.getNumeroArticuloID());
             lote.setNumeroArticulo(numeroArticulo);
@@ -509,7 +509,7 @@ public class LoteService {
             lote.setNumeroArticulo(null);
         }
         
-        // Actualizar origen
+        
         if (solicitud.getOrigenID() != null) {
             Catalogo origen = catalogoService.obtenerEntidadPorId(solicitud.getOrigenID());
             lote.setOrigen(origen);
@@ -517,7 +517,7 @@ public class LoteService {
             lote.setOrigen(null);
         }
         
-        // Actualizar estado
+        
         if (solicitud.getEstadoID() != null) {
             Catalogo estado = catalogoService.obtenerEntidadPorId(solicitud.getEstadoID());
             lote.setEstado(estado);
@@ -527,7 +527,7 @@ public class LoteService {
         
         lote.setFechaCosecha(solicitud.getFechaCosecha());
 
-        // Actualizar entidades relacionadas usando repositorios
+        
         if (solicitud.getCultivarID() != null) {
             try {
                 Optional<Cultivar> cultivarOpt = cultivarRepository.findById(solicitud.getCultivarID());
@@ -535,7 +535,7 @@ public class LoteService {
                     lote.setCultivar(cultivarOpt.get());
                 }
             } catch (Exception e) {
-                // Si no se encuentra el cultivar, no lo actualizamos
+                
             }
         } else {
             lote.setCultivar(null);
@@ -548,7 +548,7 @@ public class LoteService {
                     lote.setCliente(clienteOpt.get());
                 }
             } catch (Exception e) {
-                // Si no se encuentra el cliente, no lo actualizamos
+                
             }
         } else {
             lote.setCliente(null);
@@ -559,20 +559,20 @@ public class LoteService {
                 Catalogo deposito = catalogoService.obtenerEntidadPorId(solicitud.getDepositoID());
                 lote.setDeposito(deposito);
             } catch (Exception e) {
-                // Si no se encuentra el deposito, no lo actualizamos
+                
             }
         } else {
             lote.setDeposito(null);
         }
         
-        // Mapear tipos de análisis asignados
+        
         if (solicitud.getTiposAnalisisAsignados() != null && !solicitud.getTiposAnalisisAsignados().isEmpty()) {
-            // Usar el método personalizado que elimina duplicados
+            
             lote.setTiposAnalisisAsignados(solicitud.getTiposAnalisisAsignados());
         }
     }
 
-    // Mapear de Entity a DTO completo
+    
     private LoteDTO mapearEntidadADTO(Lote lote) {
         LoteDTO dto = new LoteDTO();
         
@@ -580,12 +580,12 @@ public class LoteService {
         dto.setFicha(lote.getFicha());
         dto.setNomLote(lote.getNomLote());
         
-        // Convertir enum TipoLote a String
+        
         if (lote.getTipo() != null) {
             dto.setTipo(lote.getTipo().name());
         }
         
-        // Mapear Empresa
+        
         if (lote.getEmpresa() != null) {
             dto.setEmpresaID(lote.getEmpresa().getContactoID());
             dto.setEmpresaNombre(lote.getEmpresa().getNombre());
@@ -600,7 +600,7 @@ public class LoteService {
         dto.setObservaciones(lote.getObservaciones());
         dto.setKilosLimpios(lote.getKilosLimpios());
         
-        // Mapear datos de humedad
+        
         if (lote.getDatosHumedad() != null && !lote.getDatosHumedad().isEmpty()) {
             List<DatosHumedadDTO> datosHumedadDTO = lote.getDatosHumedad().stream()
                 .map(dh -> {
@@ -619,7 +619,7 @@ public class LoteService {
             dto.setDatosHumedad(datosHumedadDTO);
         }
         
-        // Mapear número de artículo
+        
         if (lote.getNumeroArticulo() != null) {
             dto.setNumeroArticuloID(lote.getNumeroArticulo().getId());
             dto.setNumeroArticuloValor(lote.getNumeroArticulo().getValor());
@@ -627,12 +627,12 @@ public class LoteService {
         dto.setFechaCosecha(lote.getFechaCosecha());
         dto.setActivo(lote.getActivo());
 
-        // Mapear entidades relacionadas
+        
         if (lote.getCultivar() != null) {
             dto.setCultivarID(lote.getCultivar().getCultivarID());
             dto.setCultivarNombre(lote.getCultivar().getNombre());
             
-            // Mapear especie del cultivar
+            
             if (lote.getCultivar().getEspecie() != null) {
                 dto.setEspecieNombre(lote.getCultivar().getEspecie().getNombreComun());
             }
@@ -658,7 +658,7 @@ public class LoteService {
             dto.setEstadoValor(lote.getEstado().getValor());
         }
         
-        // Mapear tipos de análisis asignados - usar el getter personalizado que elimina duplicados
+        
         List<TipoAnalisis> tiposAnalisis = lote.getTiposAnalisisAsignados();
         if (tiposAnalisis != null && !tiposAnalisis.isEmpty()) {
             dto.setTiposAnalisisAsignados(tiposAnalisis);
@@ -667,7 +667,7 @@ public class LoteService {
         return dto;
     }
 
-    // Mapear de Entity a DTO simple (solo ID, ficha, activo, cultivar, especie)
+    
     private LoteSimpleDTO mapearEntidadASimpleDTO(Lote lote) {
         LoteSimpleDTO dto = new LoteSimpleDTO();
         dto.setLoteID(lote.getLoteID());
@@ -675,12 +675,12 @@ public class LoteService {
         dto.setNomLote(lote.getNomLote());
         dto.setActivo(lote.getActivo());
         
-        // Mapear cultivar nombre directamente
+        
         if (lote.getCultivar() != null) {
             dto.setCultivarNombre(lote.getCultivar().getNombre());
         }
         
-        // Mapear especie nombre directamente
+        
         if (lote.getCultivar() != null && lote.getCultivar().getEspecie() != null) {
             dto.setEspecieNombre(lote.getCultivar().getEspecie().getNombreComun());
         }
@@ -700,7 +700,7 @@ public class LoteService {
         }
     }
     
-    // Método para verificar si un lote es elegible para crear un análisis de un tipo específico
+    
     public boolean esLoteElegibleParaTipoAnalisis(Long loteId, TipoAnalisis tipoAnalisis) {
         Optional<Lote> loteOpt = loteRepository.findById(loteId);
         if (loteOpt.isEmpty()) {
@@ -709,24 +709,24 @@ public class LoteService {
         
         Lote lote = loteOpt.get();
         
-        // 0. Verificar que el lote esté activo
+        
         if (!lote.getActivo()) {
             return false;
         }
         
-        // 1. Verificar que el lote tenga ese tipo de análisis asignado
+        
         if (lote.getTiposAnalisisAsignados() == null || 
             !lote.getTiposAnalisisAsignados().contains(tipoAnalisis)) {
             return false;
         }
         
-        // 2. Verificar estado de análisis existentes de ese tipo
+        
         return puedeCrearAnalisisDelTipo(loteId, tipoAnalisis);
     }
     
-    // Método para verificar si se puede crear un análisis de un tipo específico
+    
     public boolean puedeCrearAnalisisDelTipo(Long loteId, TipoAnalisis tipoAnalisis) {
-        // Verificar análisis existentes según el tipo
+        
         return switch (tipoAnalisis) {
             case PMS -> !pmsRepository.existsByLoteLoteID(loteId) || 
                        pmsRepository.existsByLoteLoteIDAndEstado(loteId, Estado.A_REPETIR);
@@ -742,7 +742,7 @@ public class LoteService {
         };
     }
     
-    // Método para obtener lotes elegibles para un tipo de análisis específico
+    
     public ResponseListadoLoteSimple obtenerLotesElegiblesParaTipoAnalisis(TipoAnalisis tipoAnalisis) {
         List<Lote> todosLosLotes = loteRepository.findByActivoTrue();
         
@@ -756,7 +756,7 @@ public class LoteService {
         return respuesta;
     }
     
-    // Método para contar análisis pendientes (asignados pero no realizados o todos en A_REPETIR)
+    
     public long contarAnalisisPendientes() {
         List<Lote> lotesActivos = loteRepository.findByActivoTrue();
         long totalPendientes = 0;
@@ -765,14 +765,14 @@ public class LoteService {
             if (lote.getTiposAnalisisAsignados() == null) continue;
             
             for (TipoAnalisis tipo : lote.getTiposAnalisisAsignados()) {
-                // Verificar si el análisis no existe o todos están marcados como A_REPETIR
+                
                 boolean pendiente = switch (tipo) {
                     case PMS -> {
-                        // No existe ningún análisis
+                        
                         if (!pmsRepository.existsByLoteLoteID(lote.getLoteID())) {
                             yield true;
                         }
-                        // Existen análisis, verificar si TODOS están en A_REPETIR
+                        
                         List<utec.proyectofinal.Proyecto.Final.UTEC.business.entities.Pms> analisis = 
                             pmsRepository.findByLoteLoteID(lote.getLoteID());
                         yield analisis.stream().allMatch(a -> a.getEstado() == Estado.A_REPETIR);
@@ -821,7 +821,7 @@ public class LoteService {
         return totalPendientes;
     }
     
-    // Obtener estadísticas de lotes
+    
     public java.util.Map<String, Long> obtenerEstadisticasLotes() {
         long total = loteRepository.count();
         long activos = loteRepository.countLotesActivos();

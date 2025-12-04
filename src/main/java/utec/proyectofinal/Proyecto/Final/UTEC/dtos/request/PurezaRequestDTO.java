@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class PurezaRequestDTO extends AnalisisRequestDTO {
-    // Campos específicos de Pureza
+    
     private LocalDate fecha;
     private Boolean cumpleEstandar;
     private BigDecimal pesoInicial_g;

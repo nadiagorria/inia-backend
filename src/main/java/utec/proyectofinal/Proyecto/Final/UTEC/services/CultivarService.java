@@ -22,24 +22,24 @@ public class CultivarService {
     @Autowired
     private EspecieService especieService;
 
-    // Obtener todos activos
+    
     public List<CultivarDTO> obtenerTodos() {
         return cultivarRepository.findByActivoTrue().stream()
                 .map(this::mapearEntidadADTO)
                 .collect(Collectors.toList());
     }
 
-    // Obtener inactivos
+    
     public List<CultivarDTO> obtenerInactivos() {
         return cultivarRepository.findByActivoFalse().stream()
                 .map(this::mapearEntidadADTO)
                 .collect(Collectors.toList());
     }
 
-    // Obtener con filtro de estado opcional
+    
     public List<CultivarDTO> obtenerTodos(Boolean activo) {
         if (activo == null) {
-            // Devolver todos (activos e inactivos)
+            
             return cultivarRepository.findAll().stream()
                     .map(this::mapearEntidadADTO)
                     .collect(Collectors.toList());
@@ -50,28 +50,28 @@ public class CultivarService {
         }
     }
 
-    // Obtener por especie
+    
     public List<CultivarDTO> obtenerPorEspecie(Long especieID) {
         return cultivarRepository.findByEspecieEspecieIDAndActivoTrue(especieID).stream()
                 .map(this::mapearEntidadADTO)
                 .collect(Collectors.toList());
     }
 
-    // Buscar por nombre
+    
     public List<CultivarDTO> buscarPorNombre(String nombre) {
         return cultivarRepository.findByNombreContainingIgnoreCaseAndActivoTrue(nombre).stream()
                 .map(this::mapearEntidadADTO)
                 .collect(Collectors.toList());
     }
 
-    // Obtener por ID
+    
     public CultivarDTO obtenerPorId(Long id) {
         return cultivarRepository.findById(id)
                 .map(this::mapearEntidadADTO)
                 .orElse(null);
     }
 
-    // Crear
+    
     public CultivarDTO crear(CultivarRequestDTO solicitud) {
         Especie especie = especieService.obtenerEntidadPorId(solicitud.getEspecieID());
         if (especie == null) {
@@ -87,7 +87,7 @@ public class CultivarService {
         return mapearEntidadADTO(guardado);
     }
 
-    // Actualizar
+    
     public CultivarDTO actualizar(Long id, CultivarRequestDTO solicitud) {
         return cultivarRepository.findById(id)
                 .map(cultivar -> {
@@ -107,7 +107,7 @@ public class CultivarService {
                 .orElse(null);
     }
 
-    // Soft delete
+    
     public void eliminar(Long id) {
         cultivarRepository.findById(id)
                 .ifPresent(cultivar -> {
@@ -116,7 +116,7 @@ public class CultivarService {
                 });
     }
 
-    // Reactivar
+    
     public CultivarDTO reactivar(Long id) {
         return cultivarRepository.findById(id)
                 .map(cultivar -> {
@@ -130,7 +130,7 @@ public class CultivarService {
                 .orElse(null);
     }
 
-    // Mapeo
+    
     private CultivarDTO mapearEntidadADTO(Cultivar cultivar) {
         CultivarDTO dto = new CultivarDTO();
         dto.setCultivarID(cultivar.getCultivarID());
@@ -145,7 +145,7 @@ public class CultivarService {
         return dto;
     }
 
-    // Obtener entidad para uso interno
+    
     public Cultivar obtenerEntidadPorId(Long id) {
         return cultivarRepository.findById(id).orElse(null);
     }
@@ -164,33 +164,33 @@ public class CultivarService {
         
         Page<Cultivar> cultivarPage;
         
-        // Si hay término de búsqueda, buscar en nombre
+        
         if (searchTerm != null && !searchTerm.trim().isEmpty()) {
             List<Cultivar> cultivares;
             if (activo == null) {
-                // Buscar en todas (activos e inactivos)
+                
                 cultivares = cultivarRepository.findAll().stream()
                     .filter(c -> c.getNombre() != null && 
                                 c.getNombre().toLowerCase().contains(searchTerm.toLowerCase()))
                     .collect(Collectors.toList());
             } else if (activo) {
-                // Buscar solo en activos
+                
                 cultivares = cultivarRepository.findByNombreContainingIgnoreCaseAndActivoTrue(searchTerm);
             } else {
-                // Buscar solo en inactivos
+                
                 cultivares = cultivarRepository.findByActivoFalse().stream()
                     .filter(c -> c.getNombre() != null && 
                                 c.getNombre().toLowerCase().contains(searchTerm.toLowerCase()))
                     .collect(Collectors.toList());
             }
             
-            // Convertir lista a página
+            
             int start = (int) pageable.getOffset();
             int end = Math.min(start + pageable.getPageSize(), cultivares.size());
             List<Cultivar> pageContent = cultivares.subList(start, end);
             cultivarPage = new org.springframework.data.domain.PageImpl<>(pageContent, pageable, cultivares.size());
         } else {
-            // Sin término de búsqueda, aplicar solo filtro de activo
+            
             if (activo == null) {
                 cultivarPage = cultivarRepository.findAllByOrderByNombreAsc(pageable);
             } else if (activo) {

@@ -29,7 +29,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.LegadoService;
 /**
  * Controlador para gestión de datos legados
  */
-// CORS configurado globalmente en WebSecurityConfig
+
 @RestController
 @RequestMapping("/api/legados")
 @Tag(name = "Legados", description = "API para gestión de datos históricos legados")

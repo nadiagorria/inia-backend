@@ -12,11 +12,11 @@ import utec.proyectofinal.Proyecto.Final.UTEC.enums.Instituto;
 
 public interface ValoresGermRepository extends JpaRepository<ValoresGerm, Long> {
     
-    // Buscar valores por ID de tabla
+    
     @Query("SELECT v FROM ValoresGerm v WHERE v.tablaGerm.tablaGermID = :tablaGermId")
     List<ValoresGerm> findByTablaGermId(@Param("tablaGermId") Long tablaGermId);
     
-    // Buscar valores por tabla e instituto
+    
     @Query("SELECT v FROM ValoresGerm v WHERE v.tablaGerm.tablaGermID = :tablaGermId AND v.instituto = :instituto")
     Optional<ValoresGerm> findByTablaGermIdAndInstituto(@Param("tablaGermId") Long tablaGermId, @Param("instituto") Instituto instituto);
 }

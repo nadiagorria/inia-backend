@@ -151,7 +151,7 @@ class ExportacionExcelServiceTest {
     @Test
     @DisplayName("Generar reporte con lote con datos completos de Pureza")
     void generarReporteExcel_conPureza_debeMapearCorrectamente() throws IOException {
-        // ARRANGE
+        
         Pureza pureza = new Pureza();
         pureza.setAnalisisID(1L);
         pureza.setLote(lote);
@@ -166,10 +166,10 @@ class ExportacionExcelServiceTest {
         when(loteRepository.findAllById(loteIds)).thenReturn(Arrays.asList(lote));
         when(purezaRepository.findByLoteLoteID(1L)).thenReturn(Arrays.asList(pureza));
 
-        // ACT
+        
         byte[] resultado = exportacionExcelService.generarReporteExcel(loteIds);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertTrue(resultado.length > 0);
         verify(purezaRepository, times(1)).findByLoteLoteID(1L);
@@ -178,7 +178,7 @@ class ExportacionExcelServiceTest {
     @Test
     @DisplayName("Generar reporte con lote con datos completos de Germinación")
     void generarReporteExcel_conGerminacion_debeMapearCorrectamente() throws IOException {
-        // ARRANGE
+        
         Germinacion germinacion = new Germinacion();
         germinacion.setAnalisisID(1L);
         germinacion.setLote(lote);
@@ -191,10 +191,10 @@ class ExportacionExcelServiceTest {
         when(loteRepository.findAllById(loteIds)).thenReturn(Arrays.asList(lote));
         when(germinacionRepository.findByLoteLoteID(1L)).thenReturn(Arrays.asList(germinacion));
 
-        // ACT
+        
         byte[] resultado = exportacionExcelService.generarReporteExcel(loteIds);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertTrue(resultado.length > 0);
         verify(germinacionRepository, times(1)).findByLoteLoteID(1L);
@@ -203,7 +203,7 @@ class ExportacionExcelServiceTest {
     @Test
     @DisplayName("Generar reporte con lote con datos completos de PMS")
     void generarReporteExcel_conPms_debeMapearCorrectamente() throws IOException {
-        // ARRANGE
+        
         Pms pms = new Pms();
         pms.setAnalisisID(1L);
         pms.setLote(lote);
@@ -213,10 +213,10 @@ class ExportacionExcelServiceTest {
         when(loteRepository.findAllById(loteIds)).thenReturn(Arrays.asList(lote));
         when(pmsRepository.findByLoteLoteID(1L)).thenReturn(Arrays.asList(pms));
 
-        // ACT
+        
         byte[] resultado = exportacionExcelService.generarReporteExcel(loteIds);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertTrue(resultado.length > 0);
         verify(pmsRepository, times(1)).findByLoteLoteID(1L);
@@ -225,7 +225,7 @@ class ExportacionExcelServiceTest {
     @Test
     @DisplayName("Generar reporte con lote con datos completos de Tetrazolio")
     void generarReporteExcel_conTetrazolio_debeMapearCorrectamente() throws IOException {
-        // ARRANGE
+        
         Tetrazolio tetrazolio = new Tetrazolio();
         tetrazolio.setAnalisisID(1L);
         tetrazolio.setLote(lote);
@@ -236,10 +236,10 @@ class ExportacionExcelServiceTest {
         when(loteRepository.findAllById(loteIds)).thenReturn(Arrays.asList(lote));
         when(tetrazolioRepository.findByLoteLoteID(1L)).thenReturn(Arrays.asList(tetrazolio));
 
-        // ACT
+        
         byte[] resultado = exportacionExcelService.generarReporteExcel(loteIds);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertTrue(resultado.length > 0);
         verify(tetrazolioRepository, times(1)).findByLoteLoteID(1L);
@@ -248,7 +248,7 @@ class ExportacionExcelServiceTest {
     @Test
     @DisplayName("Generar reporte con lote con datos completos de DOSN")
     void generarReporteExcel_conDosn_debeMapearCorrectamente() throws IOException {
-        // ARRANGE
+        
         Dosn dosn = new Dosn();
         dosn.setAnalisisID(1L);
         dosn.setLote(lote);
@@ -259,10 +259,10 @@ class ExportacionExcelServiceTest {
         when(loteRepository.findAllById(loteIds)).thenReturn(Arrays.asList(lote));
         when(dosnRepository.findByLoteLoteID(1L)).thenReturn(Arrays.asList(dosn));
 
-        // ACT
+        
         byte[] resultado = exportacionExcelService.generarReporteExcel(loteIds);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertTrue(resultado.length > 0);
         verify(dosnRepository, times(1)).findByLoteLoteID(1L);
@@ -271,7 +271,7 @@ class ExportacionExcelServiceTest {
     @Test
     @DisplayName("Generar reporte Excel avanzado con filtros complejos")
     void generarReporteExcelAvanzado_conFiltros_debeGenerarArchivo() throws IOException {
-        // ARRANGE
+        
         ExportacionRequestDTO solicitud = new ExportacionRequestDTO();
         solicitud.setIncluirEncabezados(true);
         solicitud.setLoteIds(Arrays.asList(1L));
@@ -280,10 +280,10 @@ class ExportacionExcelServiceTest {
         
         when(loteRepository.findAllById(anyList())).thenReturn(Arrays.asList(lote));
 
-        // ACT
+        
         byte[] resultado = exportacionExcelService.generarReporteExcelAvanzado(solicitud);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertTrue(resultado.length > 0);
     }
@@ -291,13 +291,13 @@ class ExportacionExcelServiceTest {
     @Test
     @DisplayName("Generar reporte con null en loteIds - debe usar todos los lotes activos")
     void generarReporteExcel_loteIdsNull_debeUsarLotesActivos() throws IOException {
-        // ARRANGE
+        
         when(loteRepository.findByActivoTrue()).thenReturn(Arrays.asList(lote));
 
-        // ACT
+        
         byte[] resultado = exportacionExcelService.generarReporteExcel(null);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertTrue(resultado.length > 0);
         verify(loteRepository, times(1)).findByActivoTrue();
@@ -306,7 +306,7 @@ class ExportacionExcelServiceTest {
     @Test
     @DisplayName("Generar reporte con lote sin cultivar - debe manejar nulls")
     void generarReporteExcel_loteSinCultivar_debeManejarNulls() throws IOException {
-        // ARRANGE
+        
         Lote loteSinCultivar = new Lote();
         loteSinCultivar.setLoteID(3L);
         loteSinCultivar.setNomLote("LOTE-SIN-CULTIVAR");
@@ -316,10 +316,10 @@ class ExportacionExcelServiceTest {
         List<Long> loteIds = Arrays.asList(3L);
         when(loteRepository.findAllById(loteIds)).thenReturn(Arrays.asList(loteSinCultivar));
 
-        // ACT
+        
         byte[] resultado = exportacionExcelService.generarReporteExcel(loteIds);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertTrue(resultado.length > 0);
     }
@@ -327,7 +327,7 @@ class ExportacionExcelServiceTest {
     @Test
     @DisplayName("Generar reporte con múltiples análisis del mismo tipo - debe usar el más reciente")
     void generarReporteExcel_multiplesPurezas_debeUsarMasReciente() throws IOException {
-        // ARRANGE
+        
         Pureza pureza1 = new Pureza();
         pureza1.setAnalisisID(1L);
         pureza1.setLote(lote);
@@ -344,10 +344,10 @@ class ExportacionExcelServiceTest {
         when(loteRepository.findAllById(loteIds)).thenReturn(Arrays.asList(lote));
         when(purezaRepository.findByLoteLoteID(1L)).thenReturn(Arrays.asList(pureza1, pureza2));
 
-        // ACT
+        
         byte[] resultado = exportacionExcelService.generarReporteExcel(loteIds);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertTrue(resultado.length > 0);
     }
@@ -355,7 +355,7 @@ class ExportacionExcelServiceTest {
     @Test
     @DisplayName("Mapear datos pureza - con todos los campos completos")
     void mapearDatosPureza_conTodosLosCampos_debeLlenarDTO() throws IOException {
-        // ARRANGE
+        
         Pureza pureza = new Pureza();
         pureza.setAnalisisID(1L);
         pureza.setLote(lote);
@@ -372,10 +372,10 @@ class ExportacionExcelServiceTest {
         when(loteRepository.findAllById(loteIds)).thenReturn(Arrays.asList(lote));
         when(purezaRepository.findByLoteLoteID(1L)).thenReturn(Arrays.asList(pureza));
 
-        // ACT
+        
         byte[] resultado = exportacionExcelService.generarReporteExcel(loteIds);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertTrue(resultado.length > 0);
         verify(purezaRepository, times(1)).findByLoteLoteID(1L);
@@ -384,7 +384,7 @@ class ExportacionExcelServiceTest {
     @Test
     @DisplayName("Mapear datos germinacion - con tablas germ completas")
     void mapearDatosGerminacion_conTablasGerm_debeLlenarDTO() throws IOException {
-        // ARRANGE
+        
         Germinacion germinacion = new Germinacion();
         germinacion.setAnalisisID(1L);
         germinacion.setLote(lote);
@@ -402,10 +402,10 @@ class ExportacionExcelServiceTest {
         when(loteRepository.findAllById(loteIds)).thenReturn(Arrays.asList(lote));
         when(germinacionRepository.findByLoteLoteID(1L)).thenReturn(Arrays.asList(germinacion));
 
-        // ACT
+        
         byte[] resultado = exportacionExcelService.generarReporteExcel(loteIds);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertTrue(resultado.length > 0);
         verify(germinacionRepository, times(1)).findByLoteLoteID(1L);
@@ -414,7 +414,7 @@ class ExportacionExcelServiceTest {
     @Test
     @DisplayName("Mapear datos PMS - con repeticiones completas")
     void mapearDatosPms_conRepeticiones_debeLlenarDTO() throws IOException {
-        // ARRANGE
+        
         Pms pms = new Pms();
         pms.setAnalisisID(1L);
         pms.setLote(lote);
@@ -427,10 +427,10 @@ class ExportacionExcelServiceTest {
         when(loteRepository.findAllById(loteIds)).thenReturn(Arrays.asList(lote));
         when(pmsRepository.findByLoteLoteID(1L)).thenReturn(Arrays.asList(pms));
 
-        // ACT
+        
         byte[] resultado = exportacionExcelService.generarReporteExcel(loteIds);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertTrue(resultado.length > 0);
         verify(pmsRepository, times(1)).findByLoteLoteID(1L);
@@ -439,7 +439,7 @@ class ExportacionExcelServiceTest {
     @Test
     @DisplayName("Mapear datos tetrazolio - con viabilidad completa")
     void mapearDatosTetrazolio_conViabilidad_debeLlenarDTO() throws IOException {
-        // ARRANGE
+        
         Tetrazolio tetrazolio = new Tetrazolio();
         tetrazolio.setAnalisisID(1L);
         tetrazolio.setLote(lote);
@@ -453,10 +453,10 @@ class ExportacionExcelServiceTest {
         when(loteRepository.findAllById(loteIds)).thenReturn(Arrays.asList(lote));
         when(tetrazolioRepository.findByLoteLoteID(1L)).thenReturn(Arrays.asList(tetrazolio));
 
-        // ACT
+        
         byte[] resultado = exportacionExcelService.generarReporteExcel(loteIds);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertTrue(resultado.length > 0);
         verify(tetrazolioRepository, times(1)).findByLoteLoteID(1L);
@@ -465,7 +465,7 @@ class ExportacionExcelServiceTest {
     @Test
     @DisplayName("Mapear datos DOSN - con análisis INIA e INASE")
     void mapearDatosDosn_conINIAeINASE_debeLlenarDTO() throws IOException {
-        // ARRANGE
+        
         Dosn dosn = new Dosn();
         dosn.setAnalisisID(1L);
         dosn.setLote(lote);
@@ -479,10 +479,10 @@ class ExportacionExcelServiceTest {
         when(loteRepository.findAllById(loteIds)).thenReturn(Arrays.asList(lote));
         when(dosnRepository.findByLoteLoteID(1L)).thenReturn(Arrays.asList(dosn));
 
-        // ACT
+        
         byte[] resultado = exportacionExcelService.generarReporteExcel(loteIds);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertTrue(resultado.length > 0);
         verify(dosnRepository, times(1)).findByLoteLoteID(1L);
@@ -491,7 +491,7 @@ class ExportacionExcelServiceTest {
     @Test
     @DisplayName("Obtener datos con filtros - con request completo")
     void obtenerDatosConFiltros_conRequestCompleto_debeAplicarFiltros() throws IOException {
-        // ARRANGE
+        
         ExportacionRequestDTO solicitud = new ExportacionRequestDTO();
         solicitud.setTiposAnalisis(Arrays.asList("PUREZA", "GERMINACION", "PMS", "TETRAZOLIO", "DOSN"));
         solicitud.setIncluirEncabezados(true);
@@ -504,10 +504,10 @@ class ExportacionExcelServiceTest {
         pureza.setRedonSemillaPura(java.math.BigDecimal.valueOf(95.0));
         when(purezaRepository.findByLoteLoteID(1L)).thenReturn(Arrays.asList(pureza));
 
-        // ACT
+        
         byte[] resultado = exportacionExcelService.generarReporteExcelAvanzado(solicitud);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertTrue(resultado.length > 0);
         verify(purezaRepository, times(1)).findByLoteLoteID(1L);
@@ -516,7 +516,7 @@ class ExportacionExcelServiceTest {
     @Test
     @DisplayName("Obtener datos con filtros - solo pureza")
     void obtenerDatosConFiltros_soloPureza_debeGenerarSoloPureza() throws IOException {
-        // ARRANGE
+        
         ExportacionRequestDTO solicitud = new ExportacionRequestDTO();
         solicitud.setTiposAnalisis(Arrays.asList("PUREZA"));
         
@@ -528,10 +528,10 @@ class ExportacionExcelServiceTest {
         pureza.setRedonSemillaPura(java.math.BigDecimal.valueOf(95.0));
         when(purezaRepository.findByLoteLoteID(1L)).thenReturn(Arrays.asList(pureza));
 
-        // ACT
+        
         byte[] resultado = exportacionExcelService.generarReporteExcelAvanzado(solicitud);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertTrue(resultado.length > 0);
         verify(purezaRepository, times(1)).findByLoteLoteID(1L);
@@ -540,15 +540,15 @@ class ExportacionExcelServiceTest {
     @Test
     @DisplayName("Mapear DOSN completo - con listados INIA e INASE")
     void mapearDatosDosn_conListadosCompletos_debeMapeartodo() throws IOException {
-        // ARRANGE
+        
         Dosn dosn = new Dosn();
         dosn.setGramosAnalizadosINIA(BigDecimal.valueOf(100.0));
         dosn.setGramosAnalizadosINASE(BigDecimal.valueOf(95.0));
         
-        // Crear listados INIA
+        
         List<Listado> listados = new ArrayList<>();
         
-        // Maleza con tolerancia cero INIA
+        
         Listado malezaTolCeroInia = new Listado();
         malezaTolCeroInia.setListadoInsti(Instituto.INIA);
         malezaTolCeroInia.setListadoTipo(TipoListado.MAL_TOLERANCIA_CERO);
@@ -557,7 +557,7 @@ class ExportacionExcelServiceTest {
         malezaTolCeroInia.setCatalogo(maleza1);
         listados.add(malezaTolCeroInia);
         
-        // Brassica INIA
+        
         Listado brassicaInia = new Listado();
         brassicaInia.setListadoInsti(Instituto.INIA);
         brassicaInia.setListadoTipo(TipoListado.BRASSICA);
@@ -566,7 +566,7 @@ class ExportacionExcelServiceTest {
         brassicaInia.setCatalogo(brassica);
         listados.add(brassicaInia);
         
-        // Maleza tolerada INIA
+        
         Listado malezaTolerInia = new Listado();
         malezaTolerInia.setListadoInsti(Instituto.INIA);
         malezaTolerInia.setListadoTipo(TipoListado.MAL_TOLERANCIA);
@@ -575,7 +575,7 @@ class ExportacionExcelServiceTest {
         malezaTolerInia.setCatalogo(maleza2);
         listados.add(malezaTolerInia);
         
-        // Otro cultivo INIA
+        
         Listado cultivoInia = new Listado();
         cultivoInia.setListadoInsti(Instituto.INIA);
         cultivoInia.setListadoTipo(TipoListado.OTROS);
@@ -584,7 +584,7 @@ class ExportacionExcelServiceTest {
         cultivoInia.setEspecie(especieCultivo);
         listados.add(cultivoInia);
         
-        // Listados INASE
+        
         Listado malezaTolCeroInase = new Listado();
         malezaTolCeroInase.setListadoInsti(Instituto.INASE);
         malezaTolCeroInase.setListadoTipo(TipoListado.MAL_TOLERANCIA_CERO);
@@ -598,10 +598,10 @@ class ExportacionExcelServiceTest {
         when(dosnRepository.findByLoteLoteID(1L)).thenReturn(List.of(dosn));
         when(loteRepository.findAllById(any())).thenReturn(List.of(lote));
 
-        // ACT
+        
         byte[] resultado = exportacionExcelService.generarReporteExcel(List.of(1L));
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertTrue(resultado.length > 0);
         verify(dosnRepository, times(1)).findByLoteLoteID(1L);
@@ -610,7 +610,7 @@ class ExportacionExcelServiceTest {
     @Test
     @DisplayName("Mapear Germinacion completa - con valores INIA e INASE y tratamiento")
     void mapearDatosGerminacion_conValoresCompletos_debeMapeartodo() throws IOException {
-        // ARRANGE
+        
         Germinacion germinacion = new Germinacion();
         
         TablaGerm tablaGerm = new TablaGerm();
@@ -618,7 +618,7 @@ class ExportacionExcelServiceTest {
         
         List<ValoresGerm> valores = new ArrayList<>();
         
-        // Valores INIA
+        
         ValoresGerm valoresInia = new ValoresGerm();
         valoresInia.setInstituto(Instituto.INIA);
         valoresInia.setNormales(BigDecimal.valueOf(85.0));
@@ -629,7 +629,7 @@ class ExportacionExcelServiceTest {
         valoresInia.setGerminacion(BigDecimal.valueOf(85.0));
         valores.add(valoresInia);
         
-        // Valores INASE
+        
         ValoresGerm valoresInase = new ValoresGerm();
         valoresInase.setInstituto(Instituto.INASE);
         valoresInase.setNormales(BigDecimal.valueOf(83.0));
@@ -646,10 +646,10 @@ class ExportacionExcelServiceTest {
         when(germinacionRepository.findByLoteLoteID(1L)).thenReturn(List.of(germinacion));
         when(loteRepository.findAllById(any())).thenReturn(List.of(lote));
 
-        // ACT
+        
         byte[] resultado = exportacionExcelService.generarReporteExcel(List.of(1L));
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertTrue(resultado.length > 0);
         verify(germinacionRepository, times(1)).findByLoteLoteID(1L);
@@ -658,7 +658,7 @@ class ExportacionExcelServiceTest {
     @Test
     @DisplayName("Mapear Germinacion sin valores - no debe fallar")
     void mapearDatosGerminacion_sinValores_noDebeFallar() throws IOException {
-        // ARRANGE
+        
         Germinacion germinacion = new Germinacion();
         TablaGerm tablaGerm = new TablaGerm();
         tablaGerm.setValoresGerm(new ArrayList<>());
@@ -667,10 +667,10 @@ class ExportacionExcelServiceTest {
         when(germinacionRepository.findByLoteLoteID(1L)).thenReturn(List.of(germinacion));
         when(loteRepository.findAllById(any())).thenReturn(List.of(lote));
 
-        // ACT
+        
         byte[] resultado = exportacionExcelService.generarReporteExcel(List.of(1L));
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertTrue(resultado.length > 0);
     }
@@ -678,17 +678,17 @@ class ExportacionExcelServiceTest {
     @Test
     @DisplayName("Mapear DOSN sin listados - no debe fallar")
     void mapearDatosDosn_sinListados_noDebeFallar() throws IOException {
-        // ARRANGE
+        
         Dosn dosn = new Dosn();
         dosn.setListados(new ArrayList<>());
         
         when(dosnRepository.findByLoteLoteID(1L)).thenReturn(List.of(dosn));
         when(loteRepository.findAllById(any())).thenReturn(List.of(lote));
 
-        // ACT
+        
         byte[] resultado = exportacionExcelService.generarReporteExcel(List.of(1L));
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertTrue(resultado.length > 0);
     }
@@ -696,7 +696,7 @@ class ExportacionExcelServiceTest {
     @Test
     @DisplayName("Mapear DOSN con listados sin catalogo ni especie - no debe fallar")
     void mapearDatosDosn_conListadosSinNombre_noDebeFallar() throws IOException {
-        // ARRANGE
+        
         Dosn dosn = new Dosn();
         
         List<Listado> listados = new ArrayList<>();
@@ -710,10 +710,10 @@ class ExportacionExcelServiceTest {
         when(dosnRepository.findByLoteLoteID(1L)).thenReturn(List.of(dosn));
         when(loteRepository.findAllById(any())).thenReturn(List.of(lote));
 
-        // ACT
+        
         byte[] resultado = exportacionExcelService.generarReporteExcel(List.of(1L));
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertTrue(resultado.length > 0);
     }
@@ -721,17 +721,17 @@ class ExportacionExcelServiceTest {
     @Test
     @DisplayName("Crear celda con valores nulos - no debe fallar")
     void crearCelda_conValoresNulos_noDebeFallar() throws IOException {
-        // ARRANGE
+        
         Pureza pureza = new Pureza();
-        // No establecer valores, quedarán en null
+        
         
         when(purezaRepository.findByLoteLoteID(1L)).thenReturn(List.of(pureza));
         when(loteRepository.findAllById(any())).thenReturn(List.of(lote));
 
-        // ACT
+        
         byte[] resultado = exportacionExcelService.generarReporteExcel(List.of(1L));
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertTrue(resultado.length > 0);
     }
@@ -739,7 +739,7 @@ class ExportacionExcelServiceTest {
     @Test
     @DisplayName("Combinar descripciones - ambas tienen valor")
     void combinarDescripciones_ambasConValor_debeCombinar() throws IOException {
-        // ARRANGE
+        
         Pureza pureza = new Pureza();
         pureza.setAnalisisID(1L);
         pureza.setLote(lote);
@@ -765,10 +765,10 @@ class ExportacionExcelServiceTest {
         when(purezaRepository.findByLoteLoteID(1L)).thenReturn(List.of(pureza));
         when(loteRepository.findAllById(any())).thenReturn(List.of(lote));
 
-        // ACT
+        
         byte[] resultado = exportacionExcelService.generarReporteExcel(List.of(1L));
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertTrue(resultado.length > 0);
     }
@@ -776,7 +776,7 @@ class ExportacionExcelServiceTest {
     @Test
     @DisplayName("Combinar descripciones - solo INIA tiene valor")
     void combinarDescripciones_soloIniaTieneValor_debeRetornarInia() throws IOException {
-        // ARRANGE
+        
         Pureza pureza = new Pureza();
         pureza.setAnalisisID(1L);
         pureza.setLote(lote);
@@ -794,10 +794,10 @@ class ExportacionExcelServiceTest {
         when(purezaRepository.findByLoteLoteID(1L)).thenReturn(List.of(pureza));
         when(loteRepository.findAllById(any())).thenReturn(List.of(lote));
 
-        // ACT
+        
         byte[] resultado = exportacionExcelService.generarReporteExcel(List.of(1L));
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertTrue(resultado.length > 0);
     }
@@ -805,7 +805,7 @@ class ExportacionExcelServiceTest {
     @Test
     @DisplayName("Combinar descripciones - solo INASE tiene valor")
     void combinarDescripciones_soloInaseTieneValor_debeRetornarInase() throws IOException {
-        // ARRANGE
+        
         Pureza pureza = new Pureza();
         pureza.setAnalisisID(1L);
         pureza.setLote(lote);
@@ -823,10 +823,10 @@ class ExportacionExcelServiceTest {
         when(purezaRepository.findByLoteLoteID(1L)).thenReturn(List.of(pureza));
         when(loteRepository.findAllById(any())).thenReturn(List.of(lote));
 
-        // ACT
+        
         byte[] resultado = exportacionExcelService.generarReporteExcel(List.of(1L));
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertTrue(resultado.length > 0);
     }
@@ -834,7 +834,7 @@ class ExportacionExcelServiceTest {
     @Test
     @DisplayName("Combinar descripciones - ninguna tiene valor")
     void combinarDescripciones_ningunaConValor_debeRetornarVacio() throws IOException {
-        // ARRANGE
+        
         Pureza pureza = new Pureza();
         pureza.setAnalisisID(1L);
         pureza.setLote(lote);
@@ -843,10 +843,10 @@ class ExportacionExcelServiceTest {
         when(purezaRepository.findByLoteLoteID(1L)).thenReturn(List.of(pureza));
         when(loteRepository.findAllById(any())).thenReturn(List.of(lote));
 
-        // ACT
+        
         byte[] resultado = exportacionExcelService.generarReporteExcel(List.of(1L));
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertTrue(resultado.length > 0);
     }

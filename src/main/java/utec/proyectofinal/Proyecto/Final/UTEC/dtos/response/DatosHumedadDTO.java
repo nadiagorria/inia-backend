@@ -7,6 +7,6 @@ import java.math.BigDecimal;
 public class DatosHumedadDTO {
     private Long datosHumedadID;
     private Long tipoHumedadID;
-    private String tipoHumedadValor; // El valor del catálogo para mostrar
+    private String tipoHumedadValor; 
     private BigDecimal valor;
 }

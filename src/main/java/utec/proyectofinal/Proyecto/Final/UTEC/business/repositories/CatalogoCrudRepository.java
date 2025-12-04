@@ -15,26 +15,26 @@ import java.util.Optional;
 @Repository
 public interface CatalogoCrudRepository extends JpaRepository<Catalogo, Long> {
     
-    // Buscar por tipo y activos
+    
     List<Catalogo> findByTipoAndActivoTrue(TipoCatalogo tipo);
     
-    // Buscar por tipo y inactivos
+    
     List<Catalogo> findByTipoAndActivoFalse(TipoCatalogo tipo);
     
-    // Buscar por tipo (incluyendo inactivos)
+    
     List<Catalogo> findByTipo(TipoCatalogo tipo);
     
-    // Buscar por tipo y valor específico
+    
     Optional<Catalogo> findByTipoAndValorAndActivoTrue(TipoCatalogo tipo, String valor);
     
-    // Buscar solo los activos
+    
     List<Catalogo> findByActivoTrue();
     
-    // Buscar por valor (para validar duplicados)
+    
     @Query("SELECT c FROM Catalogo c WHERE c.tipo = :tipo AND c.valor = :valor")
     Optional<Catalogo> findByTipoAndValor(@Param("tipo") TipoCatalogo tipo, @Param("valor") String valor);
     
-    // Métodos paginados para listado
+    
     Page<Catalogo> findByActivoTrueOrderByTipoAscValorAsc(Pageable pageable);
     
     Page<Catalogo> findByActivoFalseOrderByTipoAscValorAsc(Pageable pageable);

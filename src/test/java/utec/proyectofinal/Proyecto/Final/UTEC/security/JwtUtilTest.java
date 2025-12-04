@@ -63,13 +63,13 @@ class JwtUtilTest {
     @Test
     @DisplayName("generarToken - Debe generar access token con rol único")
     void generarToken_rolUnico_debeGenerarTokenValido() {
-        // Arrange
+        
         List<String> roles = Arrays.asList("ADMIN");
 
-        // Act
+        
         String token = jwtUtil.generarToken(usuarioTest, roles);
 
-        // Assert
+        
         assertNotNull(token, "Token no debe ser null");
         assertFalse(token.isEmpty(), "Token no debe estar vacío");
         assertTrue(token.contains("."), "Token debe tener formato JWT (3 partes separadas por .)");
@@ -81,41 +81,41 @@ class JwtUtilTest {
     @Test
     @DisplayName("generarToken - Debe incluir subject (username)")
     void generarToken_debeIncluirSubject() {
-        // Arrange
+        
         List<String> roles = Arrays.asList("ADMIN");
 
-        // Act
+        
         String token = jwtUtil.generarToken(usuarioTest, roles);
         String username = jwtUtil.obtenerUsuarioDelToken(token);
 
-        // Assert
+        
         assertEquals("testuser", username, "Subject debe ser el nombre del usuario");
     }
 
     @Test
     @DisplayName("generarToken - Debe incluir userId en claims")
     void generarToken_debeIncluirUserId() {
-        // Arrange
+        
         List<String> roles = Arrays.asList("ADMIN");
 
-        // Act
+        
         String token = jwtUtil.generarToken(usuarioTest, roles);
         Integer userId = jwtUtil.obtenerUserIdDelToken(token);
 
-        // Assert
+        
         assertEquals(123, userId, "userId debe coincidir con el del usuario");
     }
 
     @Test
     @DisplayName("generarToken - Debe incluir authorities (roles)")
     void generarToken_debeIncluirAuthorities() {
-        // Arrange
+        
         List<String> roles = Arrays.asList("ADMIN", "ANALISTA");
 
-        // Act
+        
         String token = jwtUtil.generarToken(usuarioTest, roles);
 
-        // Assert
+        
         // Parsear token para verificar authorities
         @SuppressWarnings("unchecked")
         List<String> authorities = (List<String>) Jwts.parser()
@@ -133,13 +133,13 @@ class JwtUtilTest {
     @Test
     @DisplayName("generarToken - Debe incluir claim 'type' con valor 'access'")
     void generarToken_debeIncluirTypeAccess() {
-        // Arrange
+        
         List<String> roles = Arrays.asList("ADMIN");
 
-        // Act
+        
         String token = jwtUtil.generarToken(usuarioTest, roles);
 
-        // Assert
+        
         String type = Jwts.parser()
                 .verifyWith(secretKey)
                 .build()
@@ -153,13 +153,13 @@ class JwtUtilTest {
     @Test
     @DisplayName("generarToken - Debe incluir email, nombres y apellidos")
     void generarToken_debeIncluirDatosCompletos() {
-        // Arrange
+        
         List<String> roles = Arrays.asList("ADMIN");
 
-        // Act
+        
         String token = jwtUtil.generarToken(usuarioTest, roles);
 
-        // Assert
+        
         var claims = Jwts.parser()
                 .verifyWith(secretKey)
                 .build()
@@ -174,14 +174,14 @@ class JwtUtilTest {
     @Test
     @DisplayName("generarToken - Debe tener fecha de expiración de 1 hora")
     void generarToken_debeExpirarEn1Hora() {
-        // Arrange
+        
         List<String> roles = Arrays.asList("ADMIN");
         long ahora = System.currentTimeMillis();
 
-        // Act
+        
         String token = jwtUtil.generarToken(usuarioTest, roles);
 
-        // Assert
+        
         Date expiracion = Jwts.parser()
                 .verifyWith(secretKey)
                 .build()
@@ -201,10 +201,10 @@ class JwtUtilTest {
     @Test
     @DisplayName("generarRefreshToken - Debe generar refresh token válido")
     void generarRefreshToken_debeGenerarTokenValido() {
-        // Act
+        
         String refreshToken = jwtUtil.generarRefreshToken(usuarioTest);
 
-        // Assert
+        
         assertNotNull(refreshToken, "Refresh token no debe ser null");
         assertFalse(refreshToken.isEmpty(), "Refresh token no debe estar vacío");
         assertTrue(jwtUtil.esTokenValido(refreshToken), "Refresh token debe ser válido");
@@ -213,32 +213,32 @@ class JwtUtilTest {
     @Test
     @DisplayName("generarRefreshToken - Debe incluir subject (username)")
     void generarRefreshToken_debeIncluirSubject() {
-        // Act
+        
         String refreshToken = jwtUtil.generarRefreshToken(usuarioTest);
         String username = jwtUtil.obtenerUsuarioDelToken(refreshToken);
 
-        // Assert
+        
         assertEquals("testuser", username, "Subject debe ser el nombre del usuario");
     }
 
     @Test
     @DisplayName("generarRefreshToken - Debe incluir userId")
     void generarRefreshToken_debeIncluirUserId() {
-        // Act
+        
         String refreshToken = jwtUtil.generarRefreshToken(usuarioTest);
         Integer userId = jwtUtil.obtenerUserIdDelToken(refreshToken);
 
-        // Assert
+        
         assertEquals(123, userId, "userId debe coincidir con el del usuario");
     }
 
     @Test
     @DisplayName("generarRefreshToken - Debe incluir claim 'type' con valor 'refresh'")
     void generarRefreshToken_debeIncluirTypeRefresh() {
-        // Act
+        
         String refreshToken = jwtUtil.generarRefreshToken(usuarioTest);
 
-        // Assert
+        
         String type = Jwts.parser()
                 .verifyWith(secretKey)
                 .build()
@@ -252,10 +252,10 @@ class JwtUtilTest {
     @Test
     @DisplayName("generarRefreshToken - NO debe incluir authorities")
     void generarRefreshToken_noDebeIncluirAuthorities() {
-        // Act
+        
         String refreshToken = jwtUtil.generarRefreshToken(usuarioTest);
 
-        // Assert
+        
         var claims = Jwts.parser()
                 .verifyWith(secretKey)
                 .build()
@@ -268,13 +268,13 @@ class JwtUtilTest {
     @Test
     @DisplayName("generarRefreshToken - Debe tener fecha de expiración de 7 días")
     void generarRefreshToken_debeExpirarEn7Dias() {
-        // Arrange
+        
         long ahora = System.currentTimeMillis();
 
-        // Act
+        
         String refreshToken = jwtUtil.generarRefreshToken(usuarioTest);
 
-        // Assert
+        
         Date expiracion = Jwts.parser()
                 .verifyWith(secretKey)
                 .build()
@@ -295,13 +295,13 @@ class JwtUtilTest {
     @Test
     @DisplayName("obtenerUserIdDelToken - Debe extraer userId de access token")
     void obtenerUserIdDelToken_accessToken_debeExtraerUserId() {
-        // Arrange
+        
         String token = jwtUtil.generarToken(usuarioTest, Arrays.asList("ADMIN"));
 
-        // Act
+        
         Integer userId = jwtUtil.obtenerUserIdDelToken(token);
 
-        // Assert
+        
         assertNotNull(userId, "userId no debe ser null");
         assertEquals(123, userId, "userId debe ser 123");
     }
@@ -309,13 +309,13 @@ class JwtUtilTest {
     @Test
     @DisplayName("obtenerUserIdDelToken - Debe extraer userId de refresh token")
     void obtenerUserIdDelToken_refreshToken_debeExtraerUserId() {
-        // Arrange
+        
         String refreshToken = jwtUtil.generarRefreshToken(usuarioTest);
 
-        // Act
+        
         Integer userId = jwtUtil.obtenerUserIdDelToken(refreshToken);
 
-        // Assert
+        
         assertNotNull(userId, "userId no debe ser null");
         assertEquals(123, userId, "userId debe ser 123");
     }
@@ -323,10 +323,10 @@ class JwtUtilTest {
     @Test
     @DisplayName("obtenerUserIdDelToken - Debe lanzar excepción con token inválido")
     void obtenerUserIdDelToken_tokenInvalido_debeLanzarExcepcion() {
-        // Arrange
+        
         String tokenInvalido = "token.invalido.xyz";
 
-        // Act & Assert
+        
         assertThrows(Exception.class, () -> {
             jwtUtil.obtenerUserIdDelToken(tokenInvalido);
         }, "Debe lanzar excepción con token inválido");
@@ -337,20 +337,20 @@ class JwtUtilTest {
     @Test
     @DisplayName("esTokenValido - Token válido debe retornar true")
     void esTokenValido_tokenValido_debeRetornarTrue() {
-        // Arrange
+        
         String token = jwtUtil.generarToken(usuarioTest, Arrays.asList("ADMIN"));
 
-        // Act
+        
         boolean esValido = jwtUtil.esTokenValido(token);
 
-        // Assert
+        
         assertTrue(esValido, "Token válido debe retornar true");
     }
 
     @Test
     @DisplayName("esTokenValido - Token expirado debe retornar false")
     void esTokenValido_tokenExpirado_debeRetornarFalse() {
-        // Arrange
+        
         String tokenExpirado = Jwts.builder()
                 .subject("testuser")
                 .claim("userId", 123)
@@ -359,17 +359,17 @@ class JwtUtilTest {
                 .signWith(secretKey)
                 .compact();
 
-        // Act
+        
         boolean esValido = jwtUtil.esTokenValido(tokenExpirado);
 
-        // Assert
+        
         assertFalse(esValido, "Token expirado debe retornar false");
     }
 
     @Test
     @DisplayName("esTokenValido - Token con firma incorrecta debe retornar false")
     void esTokenValido_firmaIncorrecta_debeRetornarFalse() {
-        // Arrange
+        
         SecretKey otraLlave = Keys.hmacShaKeyFor("otra_clave_secreta_diferente_muy_larga_123456789".getBytes(StandardCharsets.UTF_8));
         String tokenConOtraFirma = Jwts.builder()
                 .subject("hacker")
@@ -379,46 +379,46 @@ class JwtUtilTest {
                 .signWith(otraLlave)
                 .compact();
 
-        // Act
+        
         boolean esValido = jwtUtil.esTokenValido(tokenConOtraFirma);
 
-        // Assert
+        
         assertFalse(esValido, "Token con firma incorrecta debe retornar false");
     }
 
     @Test
     @DisplayName("esTokenValido - Token malformado debe retornar false")
     void esTokenValido_tokenMalformado_debeRetornarFalse() {
-        // Arrange
+        
         String tokenMalformado = "token.malformado.xyz";
 
-        // Act
+        
         boolean esValido = jwtUtil.esTokenValido(tokenMalformado);
 
-        // Assert
+        
         assertFalse(esValido, "Token malformado debe retornar false");
     }
 
     @Test
     @DisplayName("esTokenValido - Token vacío debe retornar false")
     void esTokenValido_tokenVacio_debeRetornarFalse() {
-        // Arrange
+        
         String tokenVacio = "";
 
-        // Act
+        
         boolean esValido = jwtUtil.esTokenValido(tokenVacio);
 
-        // Assert
+        
         assertFalse(esValido, "Token vacío debe retornar false");
     }
 
     @Test
     @DisplayName("esTokenValido - Token null debe retornar false")
     void esTokenValido_tokenNull_debeRetornarFalse() {
-        // Act
+        
         boolean esValido = jwtUtil.esTokenValido(null);
 
-        // Assert
+        
         assertFalse(esValido, "Token null debe retornar false");
     }
 
@@ -427,36 +427,36 @@ class JwtUtilTest {
     @Test
     @DisplayName("obtenerUsuarioDelToken - Debe extraer username de access token")
     void obtenerUsuarioDelToken_accessToken_debeExtraerUsername() {
-        // Arrange
+        
         String token = jwtUtil.generarToken(usuarioTest, Arrays.asList("ADMIN"));
 
-        // Act
+        
         String username = jwtUtil.obtenerUsuarioDelToken(token);
 
-        // Assert
+        
         assertEquals("testuser", username, "Username debe ser 'testuser'");
     }
 
     @Test
     @DisplayName("obtenerUsuarioDelToken - Debe extraer username de refresh token")
     void obtenerUsuarioDelToken_refreshToken_debeExtraerUsername() {
-        // Arrange
+        
         String refreshToken = jwtUtil.generarRefreshToken(usuarioTest);
 
-        // Act
+        
         String username = jwtUtil.obtenerUsuarioDelToken(refreshToken);
 
-        // Assert
+        
         assertEquals("testuser", username, "Username debe ser 'testuser'");
     }
 
     @Test
     @DisplayName("obtenerUsuarioDelToken - Debe lanzar excepción con token inválido")
     void obtenerUsuarioDelToken_tokenInvalido_debeLanzarExcepcion() {
-        // Arrange
+        
         String tokenInvalido = "token.invalido.xyz";
 
-        // Act & Assert
+        
         assertThrows(Exception.class, () -> {
             jwtUtil.obtenerUsuarioDelToken(tokenInvalido);
         }, "Debe lanzar excepción con token inválido");
@@ -467,10 +467,10 @@ class JwtUtilTest {
     @Test
     @DisplayName("getAccessTokenExpiration - Debe retornar 1 hora en milisegundos")
     void getAccessTokenExpiration_debeRetornar1Hora() {
-        // Act
+        
         long expiracion = jwtUtil.getAccessTokenExpiration();
 
-        // Assert
+        
         assertEquals(3600000, expiracion, "Access token expiration debe ser 3600000 ms (1 hora)");
     }
 
@@ -479,10 +479,10 @@ class JwtUtilTest {
     @Test
     @DisplayName("getRefreshTokenExpiration - Debe retornar 7 días en milisegundos")
     void getRefreshTokenExpiration_debeRetornar7Dias() {
-        // Act
+        
         long expiracion = jwtUtil.getRefreshTokenExpiration();
 
-        // Assert
+        
         assertEquals(604800000, expiracion, "Refresh token expiration debe ser 604800000 ms (7 días)");
     }
 }

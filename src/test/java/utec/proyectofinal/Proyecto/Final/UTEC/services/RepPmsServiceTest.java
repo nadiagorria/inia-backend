@@ -86,7 +86,7 @@ class RepPmsServiceTest {
     @Test
     @DisplayName("Crear repetición PMS - debe crear exitosamente")
     void crearRepeticion_debeCrearExitosamente() {
-        // ARRANGE
+        
         when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));
         when(repPmsRepository.countByPmsId(1L)).thenReturn(0L);
         when(repPmsRepository.findByPmsId(1L)).thenReturn(Arrays.asList());
@@ -94,10 +94,10 @@ class RepPmsServiceTest {
         when(pmsRepository.save(any(Pms.class))).thenReturn(pms);
         doNothing().when(analisisHistorialService).registrarModificacion(any(Pms.class));
 
-        // ACT
+        
         RepPmsDTO resultado = repPmsService.crearRepeticion(1L, repPmsRequestDTO);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertEquals(10L, resultado.getRepPMSID());
         assertEquals(1, resultado.getNumRep());
@@ -108,7 +108,7 @@ class RepPmsServiceTest {
     @Test
     @DisplayName("Crear repetición - debe cambiar estado a EN_PROCESO en primera repetición")
     void crearRepeticion_debeCambiarEstadoEnProceso() {
-        // ARRANGE
+        
         when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));
         when(repPmsRepository.countByPmsId(1L)).thenReturn(0L);
         when(repPmsRepository.findByPmsId(1L)).thenReturn(Arrays.asList());
@@ -116,20 +116,20 @@ class RepPmsServiceTest {
         when(pmsRepository.save(any(Pms.class))).thenReturn(pms);
         doNothing().when(analisisHistorialService).registrarModificacion(any(Pms.class));
 
-        // ACT
+        
         repPmsService.crearRepeticion(1L, repPmsRequestDTO);
 
-        // ASSERT
+        
         verify(pmsRepository).save(argThat(p -> p.getEstado() == Estado.EN_PROCESO));
     }
 
     @Test
     @DisplayName("Crear repetición - debe lanzar excepción si PMS no existe")
     void crearRepeticion_debeLanzarExcepcionSiPmsNoExiste() {
-        // ARRANGE
+        
         when(pmsRepository.findById(999L)).thenReturn(Optional.empty());
 
-        // ACT & ASSERT
+        
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             repPmsService.crearRepeticion(999L, repPmsRequestDTO);
         });
@@ -141,11 +141,11 @@ class RepPmsServiceTest {
     @Test
     @DisplayName("Crear repetición - debe lanzar excepción si PMS está finalizado")
     void crearRepeticion_debeLanzarExcepcionSiPmsEstFinalizado() {
-        // ARRANGE
+        
         pms.setEstado(Estado.APROBADO);
         when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));
 
-        // ACT & ASSERT
+        
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             repPmsService.crearRepeticion(1L, repPmsRequestDTO);
         });
@@ -157,11 +157,11 @@ class RepPmsServiceTest {
     @Test
     @DisplayName("Crear repetición - debe lanzar excepción si se exceden 16 repeticiones")
     void crearRepeticion_debeLanzarExcepcionSiExcede16() {
-        // ARRANGE
+        
         when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));
         when(repPmsRepository.countByPmsId(1L)).thenReturn(16L);
 
-        // ACT & ASSERT
+        
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             repPmsService.crearRepeticion(1L, repPmsRequestDTO);
         });
@@ -173,13 +173,13 @@ class RepPmsServiceTest {
     @Test
     @DisplayName("Obtener repetición por ID - debe retornar repetición si existe")
     void obtenerPorId_debeRetornarRepeticionSiExiste() {
-        // ARRANGE
+        
         when(repPmsRepository.findById(10L)).thenReturn(Optional.of(repPms));
 
-        // ACT
+        
         RepPmsDTO resultado = repPmsService.obtenerPorId(10L);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertEquals(10L, resultado.getRepPMSID());
         assertEquals(new BigDecimal("45.5"), resultado.getPeso());
@@ -189,10 +189,10 @@ class RepPmsServiceTest {
     @Test
     @DisplayName("Obtener repetición por ID - debe lanzar excepción si no existe")
     void obtenerPorId_debeLanzarExcepcionSiNoExiste() {
-        // ARRANGE
+        
         when(repPmsRepository.findById(999L)).thenReturn(Optional.empty());
 
-        // ACT & ASSERT
+        
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             repPmsService.obtenerPorId(999L);
         });
@@ -203,7 +203,7 @@ class RepPmsServiceTest {
     @Test
     @DisplayName("Actualizar repetición - debe actualizar correctamente")
     void actualizarRepeticion_debeActualizarCorrectamente() {
-        // ARRANGE
+        
         RepPmsRequestDTO updateDTO = new RepPmsRequestDTO();
         updateDTO.setNumRep(1);
         updateDTO.setPeso(new BigDecimal("47.3"));
@@ -215,10 +215,10 @@ class RepPmsServiceTest {
         doNothing().when(pmsService).validarTodasLasRepeticiones(1L);
         doNothing().when(analisisHistorialService).registrarModificacion(any(Pms.class));
 
-        // ACT
+        
         RepPmsDTO resultado = repPmsService.actualizarRepeticion(10L, updateDTO);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         verify(repPmsRepository, times(1)).save(any(RepPms.class));
         verify(analisisHistorialService, times(1)).registrarModificacion(any(Pms.class));
@@ -227,7 +227,7 @@ class RepPmsServiceTest {
     @Test
     @DisplayName("Eliminar repetición - debe eliminar correctamente")
     void eliminarRepeticion_debeEliminarCorrectamente() {
-        // ARRANGE
+        
         when(repPmsRepository.findById(10L)).thenReturn(Optional.of(repPms));
         doNothing().when(repPmsRepository).deleteById(10L);
         when(repPmsRepository.countByPmsId(1L)).thenReturn(7L);
@@ -235,10 +235,10 @@ class RepPmsServiceTest {
         doNothing().when(pmsService).actualizarEstadisticasPms(1L);
         doNothing().when(analisisHistorialService).registrarModificacion(any(Pms.class));
 
-        // ACT
+        
         repPmsService.eliminarRepeticion(10L);
 
-        // ASSERT
+        
         verify(repPmsRepository, times(1)).deleteById(10L);
         verify(analisisHistorialService, times(1)).registrarModificacion(any(Pms.class));
     }
@@ -246,10 +246,10 @@ class RepPmsServiceTest {
     @Test
     @DisplayName("Eliminar repetición - debe lanzar excepción si no existe")
     void eliminarRepeticion_debeLanzarExcepcionSiNoExiste() {
-        // ARRANGE
+        
         when(repPmsRepository.findById(999L)).thenReturn(Optional.empty());
 
-        // ACT & ASSERT
+        
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             repPmsService.eliminarRepeticion(999L);
         });
@@ -261,7 +261,7 @@ class RepPmsServiceTest {
     @Test
     @DisplayName("Obtener repeticiones por PMS - debe retornar lista")
     void obtenerPorPms_debeRetornarLista() {
-        // ARRANGE
+        
         RepPms rep2 = new RepPms();
         rep2.setRepPMSID(11L);
         rep2.setNumRep(2);
@@ -271,10 +271,10 @@ class RepPmsServiceTest {
         
         when(repPmsRepository.findByPmsId(1L)).thenReturn(Arrays.asList(repPms, rep2));
 
-        // ACT
+        
         List<RepPmsDTO> resultado = repPmsService.obtenerPorPms(1L);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertEquals(2, resultado.size());
         assertEquals(10L, resultado.get(0).getRepPMSID());
@@ -284,36 +284,36 @@ class RepPmsServiceTest {
     @Test
     @DisplayName("Contar repeticiones por PMS - debe retornar cantidad correcta")
     void contarPorPms_debeRetornarCantidad() {
-        // ARRANGE
+        
         when(repPmsRepository.countByPmsId(1L)).thenReturn(8L);
 
-        // ACT
+        
         Long resultado = repPmsService.contarPorPms(1L);
 
-        // ASSERT
+        
         assertEquals(8L, resultado);
         verify(repPmsRepository, times(1)).countByPmsId(1L);
     }
 
-    // ==============================
-    // TESTS DE determinarTandaActual
-    // ==============================
+    
+    
+    
 
     @Test
     @DisplayName("determinarTandaActual - debe retornar 1 cuando no hay repeticiones")
     void determinarTandaActual_debeRetornar1CuandoNoHayRepeticiones() {
-        // ARRANGE
+        
         when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));
         when(repPmsRepository.countByPmsId(1L)).thenReturn(0L);
-        when(repPmsRepository.findByPmsId(1L)).thenReturn(Arrays.asList()); // Sin repeticiones
+        when(repPmsRepository.findByPmsId(1L)).thenReturn(Arrays.asList()); 
         when(repPmsRepository.save(any(RepPms.class))).thenReturn(repPms);
         when(pmsRepository.save(any(Pms.class))).thenReturn(pms);
         doNothing().when(analisisHistorialService).registrarModificacion(any(Pms.class));
 
-        // ACT
+        
         RepPmsDTO resultado = repPmsService.crearRepeticion(1L, repPmsRequestDTO);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertEquals(1, resultado.getNumTanda(), "Debe asignar tanda 1 cuando no hay repeticiones");
     }
@@ -321,8 +321,8 @@ class RepPmsServiceTest {
     @Test
     @DisplayName("determinarTandaActual - debe retornar tanda incompleta con repeticiones válidas insuficientes")
     void determinarTandaActual_debeRetornarTandaIncompletaConValidasInsuficientes() {
-        // ARRANGE
-        // Crear 5 repeticiones válidas en tanda 1 (necesita 8)
+        
+        
         RepPms rep1 = crearRepeticionConValor(1L, 1, 1, new BigDecimal("45.0"), true);
         RepPms rep2 = crearRepeticionConValor(2L, 2, 1, new BigDecimal("45.5"), true);
         RepPms rep3 = crearRepeticionConValor(3L, 3, 1, new BigDecimal("46.0"), true);
@@ -336,10 +336,10 @@ class RepPmsServiceTest {
         when(pmsRepository.save(any(Pms.class))).thenReturn(pms);
         doNothing().when(analisisHistorialService).registrarModificacion(any(Pms.class));
 
-        // ACT
+        
         RepPmsDTO resultado = repPmsService.crearRepeticion(1L, repPmsRequestDTO);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertEquals(1, resultado.getNumTanda(), "Debe seguir en tanda 1 porque tiene menos de 8 válidas");
     }
@@ -347,15 +347,15 @@ class RepPmsServiceTest {
     @Test
     @DisplayName("determinarTandaActual - debe retornar tanda incompleta aunque haya inválidas")
     void determinarTandaActual_debeRetornarTandaIncompletaConInvalidas() {
-        // ARRANGE
-        // Tanda 1: 5 válidas + 2 inválidas = 7 total (necesita 8 válidas)
+        
+        
         RepPms rep1 = crearRepeticionConValor(1L, 1, 1, new BigDecimal("45.0"), true);
         RepPms rep2 = crearRepeticionConValor(2L, 2, 1, new BigDecimal("45.5"), true);
         RepPms rep3 = crearRepeticionConValor(3L, 3, 1, new BigDecimal("46.0"), true);
         RepPms rep4 = crearRepeticionConValor(4L, 4, 1, new BigDecimal("45.8"), true);
         RepPms rep5 = crearRepeticionConValor(5L, 5, 1, new BigDecimal("45.3"), true);
-        RepPms rep6 = crearRepeticionConValor(6L, 6, 1, new BigDecimal("60.0"), false); // Inválida (outlier)
-        RepPms rep7 = crearRepeticionConValor(7L, 7, 1, new BigDecimal("30.0"), false); // Inválida (outlier)
+        RepPms rep6 = crearRepeticionConValor(6L, 6, 1, new BigDecimal("60.0"), false); 
+        RepPms rep7 = crearRepeticionConValor(7L, 7, 1, new BigDecimal("30.0"), false); 
 
         RepPms octavaRep = crearRepeticionConValor(8L, 8, 1, new BigDecimal("45.6"), null);
 
@@ -367,10 +367,10 @@ class RepPmsServiceTest {
         when(repPmsRepository.findById(8L)).thenReturn(Optional.of(octavaRep));
         doNothing().when(pmsService).validarTodasLasRepeticiones(1L);
 
-        // ACT
+        
         RepPmsDTO resultado = repPmsService.crearRepeticion(1L, repPmsRequestDTO);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertEquals(1, resultado.getNumTanda(), "Debe seguir en tanda 1 porque solo tiene 5 válidas (necesita 8)");
     }
@@ -378,8 +378,8 @@ class RepPmsServiceTest {
     @Test
     @DisplayName("determinarTandaActual - debe incrementar tanda cuando CV no es aceptable")
     void determinarTandaActual_debeIncrementarTandaCuandoCVNoAceptable() {
-        // ARRANGE
-        // Tanda 1: 8 válidas completas pero con CV alto (> 4%)
+        
+        
         RepPms rep1 = crearRepeticionConValor(1L, 1, 1, new BigDecimal("45.0"), true);
         RepPms rep2 = crearRepeticionConValor(2L, 2, 1, new BigDecimal("46.0"), true);
         RepPms rep3 = crearRepeticionConValor(3L, 3, 1, new BigDecimal("47.0"), true);
@@ -396,9 +396,9 @@ class RepPmsServiceTest {
         when(repPmsRepository.findByPmsId(1L)).thenReturn(Arrays.asList(rep1, rep2, rep3, rep4, rep5, rep6, rep7, rep8));
         when(pmsRepository.save(any(Pms.class))).thenAnswer(invocation -> {
             Pms savedPms = invocation.getArgument(0);
-            // Verificar que se incrementó el número de tandas
+            
             if (savedPms.getNumTandas() == 2) {
-                pms.setNumTandas(2); // Actualizar para futuras llamadas
+                pms.setNumTandas(2); 
             }
             return savedPms;
         });
@@ -407,10 +407,10 @@ class RepPmsServiceTest {
         when(repPmsRepository.save(any(RepPms.class))).thenReturn(nuevaRep);
         doNothing().when(analisisHistorialService).registrarModificacion(any(Pms.class));
 
-        // ACT
+        
         RepPmsDTO resultado = repPmsService.crearRepeticion(1L, repPmsRequestDTO);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertEquals(2, resultado.getNumTanda(), "Debe asignar tanda 2 porque la tanda 1 está completa pero CV no es aceptable");
         verify(pmsRepository, atLeastOnce()).save(argThat(p -> p.getNumTandas() == 2));
@@ -419,8 +419,8 @@ class RepPmsServiceTest {
     @Test
     @DisplayName("determinarTandaActual - debe lanzar excepción cuando CV es aceptable")
     void determinarTandaActual_debeLanzarExcepcionCuandoCVAceptable() {
-        // ARRANGE
-        // Tanda 1: 8 válidas con valores muy similares (CV < 4%)
+        
+        
         RepPms rep1 = crearRepeticionConValor(1L, 1, 1, new BigDecimal("45.0"), true);
         RepPms rep2 = crearRepeticionConValor(2L, 2, 1, new BigDecimal("45.1"), true);
         RepPms rep3 = crearRepeticionConValor(3L, 3, 1, new BigDecimal("45.2"), true);
@@ -436,7 +436,7 @@ class RepPmsServiceTest {
         when(repPmsRepository.countByPmsId(1L)).thenReturn(8L);
         when(repPmsRepository.findByPmsId(1L)).thenReturn(Arrays.asList(rep1, rep2, rep3, rep4, rep5, rep6, rep7, rep8));
 
-        // ACT & ASSERT
+        
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             repPmsService.crearRepeticion(1L, repPmsRequestDTO);
         });
@@ -448,11 +448,11 @@ class RepPmsServiceTest {
     @Test
     @DisplayName("determinarTandaActual - debe lanzar excepción cuando se alcanza el límite de 16 repeticiones")
     void determinarTandaActual_debeLanzarExcepcionCuandoAlcanzaLimite16() {
-        // ARRANGE
+        
         when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));
-        when(repPmsRepository.countByPmsId(1L)).thenReturn(16L); // Ya hay 16 repeticiones
+        when(repPmsRepository.countByPmsId(1L)).thenReturn(16L); 
 
-        // ACT & ASSERT
+        
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             repPmsService.crearRepeticion(1L, repPmsRequestDTO);
         });
@@ -464,9 +464,9 @@ class RepPmsServiceTest {
     @Test
     @DisplayName("determinarTandaActual - debe retornar tanda 2 si tanda 1 está completa con suficientes válidas")
     void determinarTandaActual_debeRetornarTanda2SiTanda1CompletaConValidas() {
-        // ARRANGE
-        // Tanda 1: 8 válidas (completa con CV alto, por eso se creó tanda 2)
-        // Tanda 2: 3 válidas (incompleta)
+        
+        
+        
         List<RepPms> repeticiones = Arrays.asList(
             crearRepeticionConValor(1L, 1, 1, new BigDecimal("45.0"), true),
             crearRepeticionConValor(2L, 2, 1, new BigDecimal("46.0"), true),
@@ -492,23 +492,23 @@ class RepPmsServiceTest {
         when(pmsRepository.save(any(Pms.class))).thenReturn(pms);
         doNothing().when(analisisHistorialService).registrarModificacion(any(Pms.class));
 
-        // ACT
+        
         RepPmsDTO resultado = repPmsService.crearRepeticion(1L, repPmsRequestDTO);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertEquals(2, resultado.getNumTanda(), "Debe asignar tanda 2 porque la tanda 1 está completa");
     }
 
-    // ==============================
-    // TESTS DE crearRepeticion con tanda completa
-    // ==============================
+    
+    
+    
 
     @Test
     @DisplayName("crearRepeticion - debe validar todas las repeticiones cuando se completa la tanda")
     void crearRepeticion_debeValidarTodasCuandoCompletaTanda() {
-        // ARRANGE
-        // Crear 7 repeticiones existentes en tanda 1
+        
+        
         List<RepPms> repeticionesExistentes = Arrays.asList(
             crearRepeticionConValor(1L, 1, 1, new BigDecimal("45.0"), null),
             crearRepeticionConValor(2L, 2, 1, new BigDecimal("45.5"), null),
@@ -519,7 +519,7 @@ class RepPmsServiceTest {
             crearRepeticionConValor(7L, 7, 1, new BigDecimal("45.2"), null)
         );
 
-        // La octava repetición completará la tanda
+        
         RepPms octavaRepeticion = crearRepeticionConValor(8L, 8, 1, new BigDecimal("45.9"), true);
 
         when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));
@@ -529,28 +529,28 @@ class RepPmsServiceTest {
         when(pmsRepository.save(any(Pms.class))).thenReturn(pms);
         when(repPmsRepository.findById(8L)).thenReturn(Optional.of(octavaRepeticion));
         
-        // Mockear la validación de todas las repeticiones
+        
         doNothing().when(pmsService).validarTodasLasRepeticiones(1L);
 
-        // ACT
+        
         RepPmsDTO resultado = repPmsService.crearRepeticion(1L, repPmsRequestDTO);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertEquals(8L, resultado.getRepPMSID(), "Debe ser la octava repetición");
         
-        // Verificar que se llamó a validarTodasLasRepeticiones cuando se completó la tanda
+        
         verify(pmsService, times(1)).validarTodasLasRepeticiones(1L);
         
-        // Verificar que se recargó la repetición para obtener el valor actualizado de 'valido'
+        
         verify(repPmsRepository, times(1)).findById(8L);
     }
 
     @Test
     @DisplayName("crearRepeticion - NO debe validar si no se completa la tanda")
     void crearRepeticion_noDebeValidarSiNoCompletaTanda() {
-        // ARRANGE
-        // Crear 5 repeticiones existentes (no alcanza las 8 esperadas)
+        
+        
         List<RepPms> repeticionesExistentes = Arrays.asList(
             crearRepeticionConValor(1L, 1, 1, new BigDecimal("45.0"), null),
             crearRepeticionConValor(2L, 2, 1, new BigDecimal("45.5"), null),
@@ -568,24 +568,24 @@ class RepPmsServiceTest {
         when(pmsRepository.save(any(Pms.class))).thenReturn(pms);
         doNothing().when(analisisHistorialService).registrarModificacion(any(Pms.class));
 
-        // ACT
+        
         RepPmsDTO resultado = repPmsService.crearRepeticion(1L, repPmsRequestDTO);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         
-        // Verificar que NO se llamó a validarTodasLasRepeticiones porque no se completó la tanda
+        
         verify(pmsService, never()).validarTodasLasRepeticiones(anyLong());
         
-        // Verificar que se registró la modificación en el historial
+        
         verify(analisisHistorialService, times(1)).registrarModificacion(pms);
     }
 
     @Test
     @DisplayName("crearRepeticion - debe validar cuando se alcanza exactamente el número esperado")
     void crearRepeticion_debeValidarCuandoAlcanzaExactamenteNumeroEsperado() {
-        // ARRANGE
-        pms.setNumRepeticionesEsperadas(4); // Reducir a 4 para simplificar el test
+        
+        pms.setNumRepeticionesEsperadas(4); 
         
         List<RepPms> repeticionesExistentes = Arrays.asList(
             crearRepeticionConValor(1L, 1, 1, new BigDecimal("45.0"), null),
@@ -604,17 +604,17 @@ class RepPmsServiceTest {
         
         doNothing().when(pmsService).validarTodasLasRepeticiones(1L);
 
-        // ACT
+        
         RepPmsDTO resultado = repPmsService.crearRepeticion(1L, repPmsRequestDTO);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         
-        // Verificar que se validó cuando se alcanzó exactamente el número esperado
+        
         verify(pmsService, times(1)).validarTodasLasRepeticiones(1L);
     }
 
-    // Método auxiliar para crear repeticiones de prueba
+    
     private RepPms crearRepeticionConValor(Long id, Integer numRep, Integer numTanda, 
                                            BigDecimal peso, Boolean valido) {
         RepPms rep = new RepPms();

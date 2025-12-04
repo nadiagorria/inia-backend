@@ -90,7 +90,7 @@ public class MalezasCatalogoController {
         return reactivado != null ? ResponseEntity.ok(reactivado) : ResponseEntity.notFound().build();
     }
 
-    // Obtener Malezas con paginado para listado
+    
     @GetMapping("/listado")
     @PreAuthorize("hasRole('ANALISTA') or hasRole('ADMIN') or hasRole('OBSERVADOR')")
     @Operation(summary = "Obtener malezas paginadas", 

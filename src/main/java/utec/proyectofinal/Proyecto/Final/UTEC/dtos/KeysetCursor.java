@@ -20,8 +20,8 @@ import java.util.Base64;
 @NoArgsConstructor
 @AllArgsConstructor
 public class KeysetCursor {
-    private String lastFecha;  // ISO timestamp de la última fila
-    private Long lastId;        // ID de la última fila (tiebreaker)
+    private String lastFecha;  
+    private Long lastId;        
     
     private static final ObjectMapper MAPPER = new ObjectMapper();
     
@@ -57,7 +57,7 @@ public class KeysetCursor {
             String json = new String(decoded);
             KeysetCursor cursor = MAPPER.readValue(json, KeysetCursor.class);
             
-            // Validar que el cursor tiene datos válidos
+            
             if (cursor.getLastId() == null) {
                 throw new InvalidCursorException("Cursor no contiene lastId válido");
             }

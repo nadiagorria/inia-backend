@@ -25,7 +25,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.dtos.request.TablaGermRequestDTO;
 import utec.proyectofinal.Proyecto.Final.UTEC.dtos.response.TablaGermDTO;
 import utec.proyectofinal.Proyecto.Final.UTEC.services.TablaGermService;
 
-// CORS configurado globalmente en WebSecurityConfig
+
 @RestController
 @RequestMapping("/api/germinacion/{germinacionId}/tabla")
 @Tag(name = "Tabla de Germinación", description = "API para gestión de tablas dentro del análisis de germinación")
@@ -35,7 +35,7 @@ public class TablaGermController {
     @Autowired
     private TablaGermService tablaGermService;
 
-    // Crear nueva tabla para una germinación
+    
     @Operation(summary = "Crear tabla de germinación", 
               description = "Crea una nueva tabla de germinación. Solo se puede crear si todas las tablas anteriores están finalizadas")
     @ApiResponses(value = {
@@ -56,7 +56,7 @@ public class TablaGermController {
         }
     }
 
-    // Contar tablas de una germinación
+    
     @Operation(summary = "Contar tablas por germinación", description = "Devuelve el número total de tablas asociadas a una germinación específica")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
     @GetMapping("/contar")
@@ -69,7 +69,7 @@ public class TablaGermController {
         }
     }
 
-    // Finalizar tabla (marcar como finalizada)
+    
     @Operation(summary = "Finalizar tabla de germinación",
               description = "Marca una tabla como finalizada. Requiere que todas las repeticiones estén completas y porcentajes ingresados")
     @ApiResponses(value = {
@@ -90,7 +90,7 @@ public class TablaGermController {
         }
     }
 
-    // Verificar si se pueden ingresar porcentajes
+    
     @Operation(summary = "Verificar si se pueden ingresar porcentajes", 
               description = "Verifica si es posible ingresar los 5 porcentajes con redondeo para una tabla. Solo si todas las repeticiones están completas")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA')")
@@ -106,7 +106,7 @@ public class TablaGermController {
         }
     }
 
-    // Actualizar porcentajes con redondeo
+    
     @Operation(summary = "Actualizar porcentajes con redondeo", 
               description = "Actualiza los 5 porcentajes con redondeo de una tabla. Solo disponible cuando todas las repeticiones están completas")
     @ApiResponses(value = {
@@ -128,7 +128,7 @@ public class TablaGermController {
         }
     } 
 
-    // Obtener tabla por ID (dentro de una germinación)
+    
     @Operation(summary = "Obtener tabla por ID", 
               description = "Obtiene los detalles de una tabla de germinación específica dentro de una germinación")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
@@ -144,7 +144,7 @@ public class TablaGermController {
         }
     }
 
-    // Actualizar tabla existente
+    
     @Operation(summary = "Actualizar tabla de germinación", 
               description = "Actualiza los detalles de una tabla de germinación existente")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA')")
@@ -161,7 +161,7 @@ public class TablaGermController {
         }
     }
 
-    // Eliminar tabla
+    
     @Operation(summary = "Eliminar tabla de germinación", 
               description = "Elimina una tabla de germinación específica (solo administradores)")
     @PreAuthorize("hasRole('ADMIN')")
@@ -177,7 +177,7 @@ public class TablaGermController {
         }
     }
 
-    // Obtener todas las tablas de una germinación
+    
     @Operation(summary = "Obtener tablas por germinación", 
               description = "Obtiene todas las tablas asociadas a una germinación específica")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")

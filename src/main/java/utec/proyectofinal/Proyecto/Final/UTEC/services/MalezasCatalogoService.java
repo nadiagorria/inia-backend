@@ -18,42 +18,42 @@ public class MalezasCatalogoService {
     @Autowired
     private MalezasCatalogoRepository repository;
 
-    // Obtener todos activos
+    
     public List<MalezasCatalogoDTO> obtenerTodos() {
         return repository.findByActivoTrue().stream()
                 .map(this::mapearEntidadADTO)
                 .collect(Collectors.toList());
     }
 
-    // Obtener inactivos
+    
     public List<MalezasCatalogoDTO> obtenerInactivos() {
         return repository.findByActivoFalse().stream()
                 .map(this::mapearEntidadADTO)
                 .collect(Collectors.toList());
     }
 
-    // Buscar por nombre común
+    
     public List<MalezasCatalogoDTO> buscarPorNombreComun(String nombre) {
         return repository.findByNombreComunContainingIgnoreCaseAndActivoTrue(nombre).stream()
                 .map(this::mapearEntidadADTO)
                 .collect(Collectors.toList());
     }
 
-    // Buscar por nombre científico
+    
     public List<MalezasCatalogoDTO> buscarPorNombreCientifico(String nombre) {
         return repository.findByNombreCientificoContainingIgnoreCaseAndActivoTrue(nombre).stream()
                 .map(this::mapearEntidadADTO)
                 .collect(Collectors.toList());
     }
 
-    // Obtener por ID
+    
     public MalezasCatalogoDTO obtenerPorId(Long id) {
         return repository.findById(id)
                 .map(this::mapearEntidadADTO)
                 .orElse(null);
     }
 
-    // Crear
+    
     public MalezasCatalogoDTO crear(MalezasCatalogoRequestDTO solicitud) {
         MalezasCatalogo catalogo = new MalezasCatalogo();
         catalogo.setNombreComun(solicitud.getNombreComun());
@@ -64,7 +64,7 @@ public class MalezasCatalogoService {
         return mapearEntidadADTO(guardado);
     }
 
-    // Actualizar
+    
     public MalezasCatalogoDTO actualizar(Long id, MalezasCatalogoRequestDTO solicitud) {
         return repository.findById(id)
                 .map(catalogo -> {
@@ -77,7 +77,7 @@ public class MalezasCatalogoService {
                 .orElse(null);
     }
 
-    // Soft delete
+    
     public void eliminar(Long id) {
         repository.findById(id)
                 .ifPresent(catalogo -> {
@@ -86,7 +86,7 @@ public class MalezasCatalogoService {
                 });
     }
 
-    // Reactivar
+    
     public MalezasCatalogoDTO reactivar(Long id) {
         return repository.findById(id)
                 .map(catalogo -> {
@@ -97,22 +97,22 @@ public class MalezasCatalogoService {
                 .orElse(null);
     }
 
-    // Mapeo
+    
     private MalezasCatalogoDTO mapearEntidadADTO(MalezasCatalogo catalogo) {
         MalezasCatalogoDTO dto = new MalezasCatalogoDTO();
         dto.setCatalogoID(catalogo.getCatalogoID());
         dto.setNombreComun(catalogo.getNombreComun());
         dto.setNombreCientifico(catalogo.getNombreCientifico());
-        dto.setActivo(catalogo.getActivo()); // Mapear campo activo
+        dto.setActivo(catalogo.getActivo()); 
         return dto;
     }
 
-    // Obtener entidad para uso interno
+    
     public MalezasCatalogo obtenerEntidadPorId(Long id) {
         return repository.findById(id).orElse(null);
     }
 
-    // Listar Malezas con paginado (para listado)
+    
     public Page<MalezasCatalogoDTO> obtenerMalezasPaginadas(Pageable pageable) {
         Page<MalezasCatalogo> malezasPage = repository.findByActivoTrueOrderByNombreComunAsc(pageable);
         return malezasPage.map(this::mapearEntidadADTO);
@@ -132,11 +132,11 @@ public class MalezasCatalogoService {
         
         Page<MalezasCatalogo> malezasPage;
         
-        // Si hay término de búsqueda, buscar en nombre común y científico
+        
         if (searchTerm != null && !searchTerm.trim().isEmpty()) {
             List<MalezasCatalogo> malezas;
             if (activo == null) {
-                // Buscar en todas (activas e inactivas)
+                
                 malezas = repository.findAll().stream()
                     .filter(m -> 
                         (m.getNombreComun() != null && m.getNombreComun().toLowerCase().contains(searchTerm.toLowerCase())) ||
@@ -144,7 +144,7 @@ public class MalezasCatalogoService {
                     )
                     .collect(Collectors.toList());
             } else if (activo) {
-                // Buscar solo en activas
+                
                 List<MalezasCatalogo> porComun = repository.findByNombreComunContainingIgnoreCaseAndActivoTrue(searchTerm);
                 List<MalezasCatalogo> porCientifico = repository.findByNombreCientificoContainingIgnoreCaseAndActivoTrue(searchTerm);
                 malezas = new java.util.ArrayList<>(porComun);
@@ -152,7 +152,7 @@ public class MalezasCatalogoService {
                     if (!malezas.contains(m)) malezas.add(m);
                 });
             } else {
-                // Buscar solo en inactivas
+                
                 malezas = repository.findAll().stream()
                     .filter(m -> !m.getActivo() &&
                         ((m.getNombreComun() != null && m.getNombreComun().toLowerCase().contains(searchTerm.toLowerCase())) ||
@@ -161,13 +161,13 @@ public class MalezasCatalogoService {
                     .collect(Collectors.toList());
             }
             
-            // Convertir lista a página
+            
             int start = (int) pageable.getOffset();
             int end = Math.min(start + pageable.getPageSize(), malezas.size());
             List<MalezasCatalogo> pageContent = malezas.subList(start, end);
             malezasPage = new org.springframework.data.domain.PageImpl<>(pageContent, pageable, malezas.size());
         } else {
-            // Sin término de búsqueda, aplicar solo filtro de activo
+            
             if (activo == null) {
                 malezasPage = repository.findAllByOrderByNombreComunAsc(pageable);
             } else if (activo) {

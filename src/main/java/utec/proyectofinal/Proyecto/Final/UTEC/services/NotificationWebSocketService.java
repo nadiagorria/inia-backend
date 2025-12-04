@@ -141,7 +141,7 @@ public class NotificationWebSocketService {
      * Enviar contador de notificaciones no leídas actualizado
      * 
      * Ejemplo de uso:
-     * sendUnreadCount(123, 5L); // Usuario 123 tiene 5 notificaciones no leídas
+     * sendUnreadCount(123, 5L); 
      * 
      * El frontend recibirá solo el número (sin necesidad de hacer GET)
      * y actualizará el badge instantáneamente

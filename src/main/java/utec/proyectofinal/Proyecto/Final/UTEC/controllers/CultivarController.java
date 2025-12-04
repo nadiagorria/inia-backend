@@ -18,7 +18,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.CultivarService;
 
 import java.util.List;
 
-// CORS configurado globalmente en WebSecurityConfig
+
 @RestController
 @RequestMapping("/api/cultivar")
 @Tag(name = "Cultivares", description = "API para gestión de cultivares")
@@ -28,7 +28,7 @@ public class CultivarController {
     @Autowired
     private CultivarService cultivarService;
 
-    // Obtener todos activos
+    
     @Operation(summary = "Listar todos los cultivares", 
               description = "Obtiene todos los cultivares con filtro opcional de estado (activo/inactivo)")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
@@ -39,7 +39,7 @@ public class CultivarController {
         return ResponseEntity.ok(cultivares);
     }
 
-    // Obtener inactivos
+    
     @Operation(summary = "Listar todos los cultivares inactivos", 
               description = "Obtiene todos los cultivares que están inactivos en el sistema")
     @PreAuthorize("hasRole('ADMIN')")
@@ -49,7 +49,7 @@ public class CultivarController {
         return ResponseEntity.ok(cultivares);
     }
 
-    // Obtener por especie
+    
     @Operation(summary = "Listar todos los cultivares por especie", 
               description = "Obtiene todos los cultivares asociados a una especie específica")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
@@ -59,7 +59,7 @@ public class CultivarController {
         return ResponseEntity.ok(cultivares);
     }
 
-    // Buscar por nombre
+    
     @Operation(summary = "Buscar cultivares por nombre", 
               description = "Busca cultivares cuyo nombre contenga el texto especificado")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
@@ -69,7 +69,7 @@ public class CultivarController {
         return ResponseEntity.ok(cultivares);
     }
 
-    // Obtener por ID
+    
     @Operation(summary = "Obtener cultivar por ID", 
               description = "Obtiene un cultivar específico por su ID")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
@@ -82,7 +82,7 @@ public class CultivarController {
         return ResponseEntity.notFound().build();
     }
 
-    // Crear
+    
     @Operation(summary = "Crear nuevo cultivar", 
               description = "Crea un nuevo cultivar en el sistema")
     @PreAuthorize("hasRole('ADMIN')")
@@ -96,7 +96,7 @@ public class CultivarController {
         }
     }
 
-    // Actualizar
+    
     @Operation(summary = "Actualizar cultivar", 
               description = "Actualiza los detalles de un cultivar existente")
     @PreAuthorize("hasRole('ADMIN')")
@@ -113,7 +113,7 @@ public class CultivarController {
         }
     }
 
-    // Eliminar (soft delete)
+    
     @Operation(summary = "Eliminar cultivar", 
               description = "Elimina (cambia a inactivo) un cultivar existente")
     @PreAuthorize("hasRole('ADMIN')")
@@ -123,7 +123,7 @@ public class CultivarController {
         return ResponseEntity.ok().build();
     }
 
-    // Reactivar
+    
     @Operation(summary = "Reactivar cultivar", 
               description = "Reactiva un cultivar que estaba inactivo")
     @PreAuthorize("hasRole('ADMIN')")
@@ -136,7 +136,7 @@ public class CultivarController {
         return ResponseEntity.notFound().build();
     }
 
-    // Obtener Cultivares con paginado para listado
+    
     @Operation(summary = "Obtener cultivares paginados", 
               description = "Obtiene la lista paginada de cultivares para el listado")
     @PreAuthorize("hasRole('ANALISTA') or hasRole('ADMIN') or hasRole('OBSERVADOR')")

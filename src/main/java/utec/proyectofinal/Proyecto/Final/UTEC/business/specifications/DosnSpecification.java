@@ -16,7 +16,7 @@ public class DosnSpecification {
             if (searchTerm != null && !searchTerm.trim().isEmpty()) {
                 String searchPattern = "%" + searchTerm.toLowerCase() + "%";
                 
-                // Buscar por ID parcial (permite encontrar 1001, 1002, etc. al buscar "100")
+                
                 Predicate idPredicate = criteriaBuilder.like(
                     criteriaBuilder.lower(criteriaBuilder.toString(root.get("analisisID"))), searchPattern);
                 
@@ -38,7 +38,7 @@ public class DosnSpecification {
                     Estado estadoEnum = Estado.valueOf(estado.toUpperCase());
                     predicates.add(criteriaBuilder.equal(root.get("estado"), estadoEnum));
                 } catch (IllegalArgumentException e) {
-                    // Ignorar
+                    
                 }
             }
 

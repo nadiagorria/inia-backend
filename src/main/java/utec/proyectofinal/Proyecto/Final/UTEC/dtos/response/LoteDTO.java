@@ -30,10 +30,10 @@ public class LoteDTO {
     private String observaciones;
     private BigDecimal kilosLimpios;
     
-    // Datos de humedad con información completa
+    
     private List<DatosHumedadDTO> datosHumedad;
     
-    // Número de artículo con información completa
+    
     private Long numeroArticuloID;
     private String numeroArticuloValor;
     
@@ -43,7 +43,7 @@ public class LoteDTO {
     private String estadoValor;
     private LocalDate fechaCosecha;
     
-    // Lista de tipos de análisis asignados
+    
     private List<TipoAnalisis> tiposAnalisisAsignados;
     
     private Boolean activo;

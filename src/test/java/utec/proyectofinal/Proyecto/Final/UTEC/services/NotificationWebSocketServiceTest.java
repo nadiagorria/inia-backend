@@ -49,7 +49,7 @@ class NotificationWebSocketServiceTest {
 
     @BeforeEach
     void setUp() {
-        // ARRANGE: Preparar notificación de prueba
+        
         notificacion = new NotificacionDTO();
         notificacion.setId(1L);
         notificacion.setNombre("Análisis Aprobado");
@@ -66,7 +66,7 @@ class NotificationWebSocketServiceTest {
     @Test
     @DisplayName("sendToUser - debe enviar notificación a usuario específico")
     void sendToUser_debeEnviarNotificacionAUsuario() {
-        // ARRANGE
+        
         Integer usuarioId = 123;
         ArgumentCaptor<String> userCaptor = ArgumentCaptor.forClass(String.class);
         ArgumentCaptor<String> destinationCaptor = ArgumentCaptor.forClass(String.class);
@@ -78,10 +78,10 @@ class NotificationWebSocketServiceTest {
                 any(NotificacionDTO.class)
         );
 
-        // ACT
+        
         service.sendToUser(usuarioId, notificacion);
 
-        // ASSERT
+        
         verify(messagingTemplate, times(1)).convertAndSendToUser(
                 userCaptor.capture(),
                 destinationCaptor.capture(),
@@ -98,7 +98,7 @@ class NotificationWebSocketServiceTest {
     @Test
     @DisplayName("sendToUser - debe enviar notificación con todos los campos correctos")
     void sendToUser_debeEnviarNotificacionConTodosLosCampos() {
-        // ARRANGE
+        
         Integer usuarioId = 456;
         ArgumentCaptor<NotificacionDTO> notificationCaptor = ArgumentCaptor.forClass(NotificacionDTO.class);
 
@@ -108,10 +108,10 @@ class NotificationWebSocketServiceTest {
                 any(NotificacionDTO.class)
         );
 
-        // ACT
+        
         service.sendToUser(usuarioId, notificacion);
 
-        // ASSERT
+        
         verify(messagingTemplate, times(1)).convertAndSendToUser(
                 eq("456"),
                 eq("/queue/notifications"),
@@ -131,7 +131,7 @@ class NotificationWebSocketServiceTest {
     @Test
     @DisplayName("sendToUser - debe manejar errores sin lanzar excepción")
     void sendToUser_debeManejarlErroresSinLanzarExcepcion() {
-        // ARRANGE
+        
         Integer usuarioId = 789;
         doThrow(new RuntimeException("Error de conexión WebSocket"))
                 .when(messagingTemplate).convertAndSendToUser(
@@ -140,7 +140,7 @@ class NotificationWebSocketServiceTest {
                         any(NotificacionDTO.class)
                 );
 
-        // ACT & ASSERT - No debe lanzar excepción
+        
         assertDoesNotThrow(() -> service.sendToUser(usuarioId, notificacion),
                 "No debe lanzar excepción cuando hay error en el envío");
 
@@ -154,7 +154,7 @@ class NotificationWebSocketServiceTest {
     @Test
     @DisplayName("sendToUsers - debe enviar notificación a múltiples usuarios")
     void sendToUsers_debeEnviarAMultiplesUsuarios() {
-        // ARRANGE
+        
         List<Integer> usuarioIds = Arrays.asList(1, 2, 3, 4, 5);
 
         doNothing().when(messagingTemplate).convertAndSendToUser(
@@ -163,17 +163,17 @@ class NotificationWebSocketServiceTest {
                 any(NotificacionDTO.class)
         );
 
-        // ACT
+        
         service.sendToUsers(usuarioIds, notificacion);
 
-        // ASSERT
+        
         verify(messagingTemplate, times(5)).convertAndSendToUser(
                 anyString(),
                 eq("/queue/notifications"),
                 eq(notificacion)
         );
 
-        // Verificar que se envió a cada usuario específico
+        
         verify(messagingTemplate).convertAndSendToUser("1", "/queue/notifications", notificacion);
         verify(messagingTemplate).convertAndSendToUser("2", "/queue/notifications", notificacion);
         verify(messagingTemplate).convertAndSendToUser("3", "/queue/notifications", notificacion);
@@ -184,7 +184,7 @@ class NotificationWebSocketServiceTest {
     @Test
     @DisplayName("sendToUsers - debe enviar a un solo usuario si la lista tiene uno")
     void sendToUsers_debeEnviarAUnSoloUsuario() {
-        // ARRANGE
+        
         List<Integer> usuarioIds = Arrays.asList(100);
 
         doNothing().when(messagingTemplate).convertAndSendToUser(
@@ -193,10 +193,10 @@ class NotificationWebSocketServiceTest {
                 any(NotificacionDTO.class)
         );
 
-        // ACT
+        
         service.sendToUsers(usuarioIds, notificacion);
 
-        // ASSERT
+        
         verify(messagingTemplate, times(1)).convertAndSendToUser(
                 eq("100"),
                 eq("/queue/notifications"),
@@ -207,13 +207,13 @@ class NotificationWebSocketServiceTest {
     @Test
     @DisplayName("sendToUsers - no debe enviar nada si la lista está vacía")
     void sendToUsers_noDebeEnviarSiListaVacia() {
-        // ARRANGE
+        
         List<Integer> usuarioIds = Arrays.asList();
 
-        // ACT
+        
         service.sendToUsers(usuarioIds, notificacion);
 
-        // ASSERT
+        
         verify(messagingTemplate, never()).convertAndSendToUser(
                 anyString(),
                 anyString(),
@@ -224,7 +224,7 @@ class NotificationWebSocketServiceTest {
     @Test
     @DisplayName("broadcastToRole - debe enviar a rol ADMIN")
     void broadcastToRole_debeEnviarARolAdmin() {
-        // ARRANGE
+        
         ArgumentCaptor<String> destinationCaptor = ArgumentCaptor.forClass(String.class);
         ArgumentCaptor<NotificacionDTO> notificationCaptor = ArgumentCaptor.forClass(NotificacionDTO.class);
 
@@ -233,10 +233,10 @@ class NotificationWebSocketServiceTest {
                 any(NotificacionDTO.class)
         );
 
-        // ACT
+        
         service.broadcastToRole(Rol.ADMIN, notificacion);
 
-        // ASSERT
+        
         verify(messagingTemplate, times(1)).convertAndSend(
                 destinationCaptor.capture(),
                 notificationCaptor.capture()
@@ -251,16 +251,16 @@ class NotificationWebSocketServiceTest {
     @Test
     @DisplayName("broadcastToRole - debe enviar a rol ANALISTA")
     void broadcastToRole_debeEnviarARolAnalista() {
-        // ARRANGE
+        
         doNothing().when(messagingTemplate).convertAndSend(
                 anyString(),
                 any(NotificacionDTO.class)
         );
 
-        // ACT
+        
         service.broadcastToRole(Rol.ANALISTA, notificacion);
 
-        // ASSERT
+        
         verify(messagingTemplate, times(1)).convertAndSend(
                 eq("/topic/notifications/analista"),
                 eq(notificacion)
@@ -270,16 +270,16 @@ class NotificationWebSocketServiceTest {
     @Test
     @DisplayName("broadcastToRole - debe enviar a rol OBSERVADOR")
     void broadcastToRole_debeEnviarARolObservador() {
-        // ARRANGE
+        
         doNothing().when(messagingTemplate).convertAndSend(
                 anyString(),
                 any(NotificacionDTO.class)
         );
 
-        // ACT
+        
         service.broadcastToRole(Rol.OBSERVADOR, notificacion);
 
-        // ASSERT
+        
         verify(messagingTemplate, times(1)).convertAndSend(
                 eq("/topic/notifications/observador"),
                 eq(notificacion)
@@ -289,14 +289,14 @@ class NotificationWebSocketServiceTest {
     @Test
     @DisplayName("broadcastToRole - debe manejar errores sin lanzar excepción")
     void broadcastToRole_debeManejarlErroresSinLanzarExcepcion() {
-        // ARRANGE
+        
         doThrow(new RuntimeException("Error en broadcast"))
                 .when(messagingTemplate).convertAndSend(
                         anyString(),
                         any(NotificacionDTO.class)
                 );
 
-        // ACT & ASSERT - No debe lanzar excepción
+        
         assertDoesNotThrow(() -> service.broadcastToRole(Rol.ADMIN, notificacion),
                 "No debe lanzar excepción cuando hay error en el broadcast");
 
@@ -309,7 +309,7 @@ class NotificationWebSocketServiceTest {
     @Test
     @DisplayName("broadcast - debe enviar notificación global a todos")
     void broadcast_debeEnviarGlobalATodos() {
-        // ARRANGE
+        
         ArgumentCaptor<String> destinationCaptor = ArgumentCaptor.forClass(String.class);
         ArgumentCaptor<NotificacionDTO> notificationCaptor = ArgumentCaptor.forClass(NotificacionDTO.class);
 
@@ -318,10 +318,10 @@ class NotificationWebSocketServiceTest {
                 any(NotificacionDTO.class)
         );
 
-        // ACT
+        
         service.broadcast(notificacion);
 
-        // ASSERT
+        
         verify(messagingTemplate, times(1)).convertAndSend(
                 destinationCaptor.capture(),
                 notificationCaptor.capture()
@@ -336,14 +336,14 @@ class NotificationWebSocketServiceTest {
     @Test
     @DisplayName("broadcast - debe manejar errores sin lanzar excepción")
     void broadcast_debeManejarlErroresSinLanzarExcepcion() {
-        // ARRANGE
+        
         doThrow(new RuntimeException("Error en broadcast global"))
                 .when(messagingTemplate).convertAndSend(
                         anyString(),
                         any(NotificacionDTO.class)
                 );
 
-        // ACT & ASSERT - No debe lanzar excepción
+        
         assertDoesNotThrow(() -> service.broadcast(notificacion),
                 "No debe lanzar excepción cuando hay error en el broadcast global");
 
@@ -356,7 +356,7 @@ class NotificationWebSocketServiceTest {
     @Test
     @DisplayName("sendUnreadCount - debe enviar contador de no leídas a usuario")
     void sendUnreadCount_debeEnviarContador() {
-        // ARRANGE
+        
         Integer usuarioId = 123;
         Long count = 5L;
         ArgumentCaptor<String> userCaptor = ArgumentCaptor.forClass(String.class);
@@ -369,10 +369,10 @@ class NotificationWebSocketServiceTest {
                 any(Long.class)
         );
 
-        // ACT
+        
         service.sendUnreadCount(usuarioId, count);
 
-        // ASSERT
+        
         verify(messagingTemplate, times(1)).convertAndSendToUser(
                 userCaptor.capture(),
                 destinationCaptor.capture(),
@@ -388,7 +388,7 @@ class NotificationWebSocketServiceTest {
     @Test
     @DisplayName("sendUnreadCount - debe enviar contador cero")
     void sendUnreadCount_debeEnviarContadorCero() {
-        // ARRANGE
+        
         Integer usuarioId = 456;
         Long count = 0L;
 
@@ -398,10 +398,10 @@ class NotificationWebSocketServiceTest {
                 any(Long.class)
         );
 
-        // ACT
+        
         service.sendUnreadCount(usuarioId, count);
 
-        // ASSERT
+        
         verify(messagingTemplate, times(1)).convertAndSendToUser(
                 eq("456"),
                 eq("/queue/notifications/count"),
@@ -412,7 +412,7 @@ class NotificationWebSocketServiceTest {
     @Test
     @DisplayName("sendUnreadCount - debe manejar errores sin lanzar excepción")
     void sendUnreadCount_debeManejarlErroresSinLanzarExcepcion() {
-        // ARRANGE
+        
         Integer usuarioId = 789;
         Long count = 10L;
 
@@ -423,7 +423,7 @@ class NotificationWebSocketServiceTest {
                         any(Long.class)
                 );
 
-        // ACT & ASSERT - No debe lanzar excepción
+        
         assertDoesNotThrow(() -> service.sendUnreadCount(usuarioId, count),
                 "No debe lanzar excepción cuando hay error enviando el contador");
 
@@ -437,7 +437,7 @@ class NotificationWebSocketServiceTest {
     @Test
     @DisplayName("sendMarkAsRead - debe enviar evento de marcado como leído")
     void sendMarkAsRead_debeEnviarEvento() {
-        // ARRANGE
+        
         Integer usuarioId = 123;
         Long notificacionId = 456L;
         ArgumentCaptor<String> userCaptor = ArgumentCaptor.forClass(String.class);
@@ -450,10 +450,10 @@ class NotificationWebSocketServiceTest {
                 any(Long.class)
         );
 
-        // ACT
+        
         service.sendMarkAsRead(usuarioId, notificacionId);
 
-        // ASSERT
+        
         verify(messagingTemplate, times(1)).convertAndSendToUser(
                 userCaptor.capture(),
                 destinationCaptor.capture(),
@@ -469,7 +469,7 @@ class NotificationWebSocketServiceTest {
     @Test
     @DisplayName("sendMarkAsRead - debe manejar errores sin lanzar excepción")
     void sendMarkAsRead_debeManejarlErroresSinLanzarExcepcion() {
-        // ARRANGE
+        
         Integer usuarioId = 789;
         Long notificacionId = 999L;
 
@@ -480,7 +480,7 @@ class NotificationWebSocketServiceTest {
                         any(Long.class)
                 );
 
-        // ACT & ASSERT - No debe lanzar excepción
+        
         assertDoesNotThrow(() -> service.sendMarkAsRead(usuarioId, notificacionId),
                 "No debe lanzar excepción cuando hay error enviando mark-read");
 
@@ -494,7 +494,7 @@ class NotificationWebSocketServiceTest {
     @Test
     @DisplayName("sendDeleted - debe enviar evento de notificación eliminada")
     void sendDeleted_debeEnviarEvento() {
-        // ARRANGE
+        
         Integer usuarioId = 123;
         Long notificacionId = 789L;
         ArgumentCaptor<String> userCaptor = ArgumentCaptor.forClass(String.class);
@@ -507,10 +507,10 @@ class NotificationWebSocketServiceTest {
                 any(Long.class)
         );
 
-        // ACT
+        
         service.sendDeleted(usuarioId, notificacionId);
 
-        // ASSERT
+        
         verify(messagingTemplate, times(1)).convertAndSendToUser(
                 userCaptor.capture(),
                 destinationCaptor.capture(),
@@ -526,7 +526,7 @@ class NotificationWebSocketServiceTest {
     @Test
     @DisplayName("sendDeleted - debe manejar errores sin lanzar excepción")
     void sendDeleted_debeManejarlErroresSinLanzarExcepcion() {
-        // ARRANGE
+        
         Integer usuarioId = 456;
         Long notificacionId = 111L;
 
@@ -537,7 +537,7 @@ class NotificationWebSocketServiceTest {
                         any(Long.class)
                 );
 
-        // ACT & ASSERT - No debe lanzar excepción
+        
         assertDoesNotThrow(() -> service.sendDeleted(usuarioId, notificacionId),
                 "No debe lanzar excepción cuando hay error enviando deleted");
 
@@ -551,7 +551,7 @@ class NotificationWebSocketServiceTest {
     @Test
     @DisplayName("Integración - debe enviar múltiples notificaciones a diferentes usuarios")
     void integracion_debeEnviarMultiplesNotificaciones() {
-        // ARRANGE
+        
         NotificacionDTO notif1 = new NotificacionDTO();
         notif1.setId(1L);
         notif1.setNombre("Notificación 1");
@@ -566,13 +566,13 @@ class NotificationWebSocketServiceTest {
                 any()
         );
 
-        // ACT
+        
         service.sendToUser(100, notif1);
         service.sendToUser(200, notif2);
         service.sendUnreadCount(100, 1L);
         service.sendUnreadCount(200, 2L);
 
-        // ASSERT
+        
         verify(messagingTemplate, times(4)).convertAndSendToUser(
                 anyString(),
                 anyString(),
@@ -588,7 +588,7 @@ class NotificationWebSocketServiceTest {
     @Test
     @DisplayName("Integración - debe enviar broadcast y notificaciones individuales")
     void integracion_debeCombinarBroadcastYNotificacionesIndividuales() {
-        // ARRANGE
+        
         doNothing().when(messagingTemplate).convertAndSend(
                 anyString(),
                 any(NotificacionDTO.class)
@@ -599,12 +599,12 @@ class NotificationWebSocketServiceTest {
                 any(NotificacionDTO.class)
         );
 
-        // ACT
+        
         service.broadcast(notificacion);
         service.broadcastToRole(Rol.ADMIN, notificacion);
         service.sendToUser(123, notificacion);
 
-        // ASSERT
+        
         verify(messagingTemplate, times(2)).convertAndSend(
                 anyString(),
                 eq(notificacion)

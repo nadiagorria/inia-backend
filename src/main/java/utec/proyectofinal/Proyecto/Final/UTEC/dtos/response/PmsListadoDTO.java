@@ -11,14 +11,14 @@ public class PmsListadoDTO {
     private Estado estado;
     private LocalDateTime fechaInicio;
     private LocalDateTime fechaFin;
-    private String lote; // nomLote
+    private String lote; 
     private Long idLote;
-    private String especie; // Nombre de la especie del lote
+    private String especie; 
     private Boolean activo;
     
-    // Campos para mostrar en listado
-    private BigDecimal pms_g; // PMS en gramos
-    private BigDecimal coeficienteVariacion; // Coeficiente de Variación
+    
+    private BigDecimal pms_g; 
+    private BigDecimal coeficienteVariacion; 
     
     private String usuarioCreador;
     private String usuarioModificador;

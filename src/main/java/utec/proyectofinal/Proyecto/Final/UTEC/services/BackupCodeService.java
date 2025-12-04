@@ -28,8 +28,8 @@ public class BackupCodeService {
     private BackupCodeRepository backupCodeRepository;
 
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(12);
-    private static final String CHARACTERS = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; // Sin O, 0, I, 1 para evitar confusión
-    private static final int CODE_LENGTH = 12; // XXXX-XXXX-XXXX
+    private static final String CHARACTERS = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; 
+    private static final int CODE_LENGTH = 12; 
     private static final int BACKUP_CODES_COUNT = 10;
 
     /**
@@ -57,7 +57,7 @@ public class BackupCodeService {
             // Hashear y guardar
             BackupCode backupCode = new BackupCode();
             backupCode.setUsuarioId(usuarioId);
-            backupCode.setCodeHash(passwordEncoder.encode(code.replace("-", ""))); // Hashear sin guiones
+            backupCode.setCodeHash(passwordEncoder.encode(code.replace("-", ""))); 
             backupCodeRepository.save(backupCode);
         }
         
@@ -79,7 +79,7 @@ public class BackupCodeService {
             return false;
         }
         
-        // Normalizar código (quitar guiones, convertir a mayúsculas, quitar espacios)
+        
         String normalizedCode = code.replace("-", "").replace(" ", "").toUpperCase();
         
         if (normalizedCode.length() != CODE_LENGTH) {
@@ -93,10 +93,10 @@ public class BackupCodeService {
         System.out.println("🔍 [BACKUP-CODE] Verificando código para usuario ID: " + usuarioId);
         System.out.println("🔍 [BACKUP-CODE] Códigos disponibles: " + availableCodes.size());
         
-        // Probar contra cada código no usado
+        
         for (BackupCode backupCode : availableCodes) {
             if (passwordEncoder.matches(normalizedCode, backupCode.getCodeHash())) {
-                // ¡Código válido! Marcarlo como usado
+                
                 backupCode.markAsUsed();
                 backupCodeRepository.save(backupCode);
                 

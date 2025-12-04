@@ -45,12 +45,12 @@ public class AnalisisService {
      * @return El análisis actualizado
      */
     public Analisis finalizarAnalisis(Analisis analisis) {
-        // Validar que el análisis esté activo
+        
         if (!analisis.getActivo()) {
             throw new RuntimeException("No se puede finalizar un análisis inactivo");
         }
         
-        // Chequear si el estado del análisis no es APROBADO o A_REPETIR
+        
         if (analisis.getEstado() == Estado.APROBADO || analisis.getEstado() == Estado.A_REPETIR) {
             throw new RuntimeException("El análisis ya está finalizado o marcado para repetir");
         }
@@ -65,10 +65,10 @@ public class AnalisisService {
             analisis.setEstado(Estado.APROBADO);
         }
         
-        // Establecer fecha de finalización
+        
         analisis.setFechaFin(LocalDateTime.now());
         
-        // Registrar en el historial
+        
         analisisHistorialService.registrarModificacion(analisis);
         
         // Crear notificación automática SOLO si es analista
@@ -77,7 +77,7 @@ public class AnalisisService {
             try {
                 notificacionService.notificarAnalisisFinalizado(analisis.getAnalisisID());
             } catch (Exception e) {
-                // Log error but don't fail the analysis finalization
+                
                 System.err.println("Error creating notification for analysis finalization: " + e.getMessage());
             }
         }
@@ -93,31 +93,31 @@ public class AnalisisService {
      * @throws RuntimeException si el análisis no está en estado PENDIENTE_APROBACION o A_REPETIR, o está inactivo
      */
     public Analisis aprobarAnalisis(Analisis analisis) {
-        // Validar que el análisis esté activo
+        
         if (!analisis.getActivo()) {
             throw new RuntimeException("No se puede aprobar un análisis inactivo");
         }
         
-        // Validar que esté en estado PENDIENTE_APROBACION o A_REPETIR
+        
         if (analisis.getEstado() != Estado.PENDIENTE_APROBACION && analisis.getEstado() != Estado.A_REPETIR) {
             throw new RuntimeException("El análisis debe estar en estado PENDIENTE_APROBACION o A_REPETIR para ser aprobado");
         }
         
         analisis.setEstado(Estado.APROBADO);
         
-        // Establecer fecha de finalización si no está establecida
+        
         if (analisis.getFechaFin() == null) {
             analisis.setFechaFin(LocalDateTime.now());
         }
         
-        // Registrar en el historial
+        
         analisisHistorialService.registrarModificacion(analisis);
         
         // Crear notificación automática para aprobación de análisis
         try {
             notificacionService.notificarAnalisisAprobado(analisis.getAnalisisID());
         } catch (Exception e) {
-            // Log error but don't fail the analysis approval
+            
             System.err.println("Error creating notification for analysis approval: " + e.getMessage());
         }
         
@@ -134,24 +134,24 @@ public class AnalisisService {
      * @throws RuntimeException si el análisis está inactivo o no cumple las validaciones
      */
     public Analisis marcarParaRepetir(Analisis analisis) {
-        // Validar que el análisis esté activo
+        
         if (!analisis.getActivo()) {
             throw new RuntimeException("No se puede marcar para repetir un análisis inactivo");
         }
         
-        // Se permite marcar para repetir análisis APROBADOS o que cumplan validaciones
-        // (El validador específico se encargará de verificar requisitos por tipo de análisis)
+        
+        // (El validador específico se encarga de verificar requisitos por tipo de análisis)
         
         analisis.setEstado(Estado.A_REPETIR);
         
-        // Registrar en el historial
+        
         analisisHistorialService.registrarModificacion(analisis);
         
-        // Crear notificación automática para rechazo de análisis (marcado para repetir)
+        
         try {
             notificacionService.notificarAnalisisRepetir(analisis.getAnalisisID());
         } catch (Exception e) {
-            // Log error but don't fail the analysis rejection
+            
             System.err.println("Error creating notification for analysis rejection: " + e.getMessage());
         }
         
@@ -179,23 +179,23 @@ public class AnalisisService {
      * @param analisis El análisis que se está editando
      */
     public void manejarEdicionAnalisisFinalizado(Analisis analisis) {
-        // Solo procesar si el análisis está finalizado o aprobado
+        
         if (analisis.getEstado() == Estado.APROBADO) {
             if (esAnalista()) {
-                // Analista: cambiar a pendiente de aprobación para nueva revisión
+                
                 analisis.setEstado(Estado.PENDIENTE_APROBACION);
                 
-                // Registrar en el historial
+                
                 analisisHistorialService.registrarModificacion(analisis);
                 
-                // Crear notificación para informar que necesita nueva aprobación
+                
                 try {
                     notificacionService.notificarAnalisisPendienteAprobacion(analisis.getAnalisisID());
                 } catch (Exception e) {
                     System.err.println("Error creating notification for analysis pending approval: " + e.getMessage());
                 }
             }
-            // Si es admin: no hacer nada, mantener estado actual
+            
         }
     }
 
@@ -219,15 +219,15 @@ public class AnalisisService {
         T analisis = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Análisis no encontrado con ID: " + id));
         
-        // Ejecutar validación específica si existe
+        
         if (validator != null) {
             validator.accept(analisis);
         }
         
-        // Finalizar usando la lógica común
+        
         finalizarAnalisis(analisis);
         
-        // Guardar cambios
+        
         T analisisActualizado = repository.save(analisis);
         
         return mapper.apply(analisisActualizado);
@@ -256,16 +256,16 @@ public class AnalisisService {
                 .orElseThrow(() -> new RuntimeException("Análisis no encontrado con ID: " + id));
         
 
-        // Si el análisis está marcado como A_REPETIR y tiene lote asociado
+        
         if (analisis.getEstado() == Estado.A_REPETIR && analisis.getLote() != null && buscarPorLote != null) {
             System.out.println("   Análisis está en A_REPETIR, validando si existen otros análisis válidos...");
             
-            // Buscar otros análisis del mismo tipo para el mismo lote
+            
             java.util.List<T> analisisDelMismoLote = buscarPorLote.apply(analisis.getLote().getLoteID());
             
             System.out.println("  - Total análisis del mismo tipo para este lote: " + analisisDelMismoLote.size());
             
-            // Mostrar todos los análisis encontrados
+            
             analisisDelMismoLote.forEach(a -> {
                 System.out.println("    • ID: " + a.getAnalisisID() + 
                                  ", Estado: " + a.getEstado() + 
@@ -273,12 +273,12 @@ public class AnalisisService {
                                  (a.getAnalisisID().equals(analisis.getAnalisisID()) ? " (ACTUAL)" : ""));
             });
             
-            // Verificar si existe algún análisis válido (estado diferente de A_REPETIR, no null, y activo)
+            
             boolean existeAnalisisValido = analisisDelMismoLote.stream()
                 .filter(a -> !a.getAnalisisID().equals(analisis.getAnalisisID())) // Excluir el análisis actual
-                .filter(a -> a.getActivo()) // Solo análisis activos
-                .filter(a -> a.getEstado() != null) // Excluir análisis sin estado asignado
-                .anyMatch(a -> a.getEstado() != Estado.A_REPETIR); // Estado diferente de A_REPETIR
+                .filter(a -> a.getActivo()) 
+                .filter(a -> a.getEstado() != null) 
+                .anyMatch(a -> a.getEstado() != Estado.A_REPETIR); 
             
             System.out.println("  - ¿Existe otro análisis válido (activo, con estado y no A_REPETIR)? " + existeAnalisisValido);
             
@@ -296,10 +296,10 @@ public class AnalisisService {
             validator.accept(analisis);
         }
         
-        // Aprobar usando la lógica común
+        
         aprobarAnalisis(analisis);
         
-        // Guardar cambios
+        
         T analisisActualizado = repository.save(analisis);
         
         System.out.println("   Análisis aprobado exitosamente, nuevo estado: " + analisisActualizado.getEstado());
@@ -327,15 +327,15 @@ public class AnalisisService {
         T analisis = repository.findById(id)
             .orElseThrow(() -> new RuntimeException("Análisis no encontrado con ID: " + id));
         
-        // Aplicar validación específica si se proporciona
+        
         if (validator != null) {
             validator.accept(analisis);
         }
         
-        // Marcar para repetir usando el método común
+        
         marcarParaRepetir(analisis);
         
-        // Guardar y devolver
+        
         T analisisActualizado = repository.save(analisis);
         return mapper.apply(analisisActualizado);
     }

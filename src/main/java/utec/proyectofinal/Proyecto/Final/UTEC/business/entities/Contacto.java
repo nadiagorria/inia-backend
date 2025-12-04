@@ -17,7 +17,7 @@ public class Contacto {
     private String nombre;
     
     @Column(nullable = false)
-    private String contacto; // Puede ser teléfono, email, etc.
+    private String contacto; 
     
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

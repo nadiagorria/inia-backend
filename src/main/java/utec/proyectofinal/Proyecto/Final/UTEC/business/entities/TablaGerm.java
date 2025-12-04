@@ -68,7 +68,7 @@ public class TablaGerm {
 
     // Campos de fechas y control de conteos movidos desde Germinacion
     private LocalDate fechaIngreso; 
-    private LocalDate fechaGerminacion; // Renombrado de fechaInicioGerm
+    private LocalDate fechaGerminacion; 
 
     @ElementCollection
     private List<LocalDate> fechaConteos;
@@ -81,7 +81,7 @@ public class TablaGerm {
     private Integer numeroRepeticiones;
     private Integer numeroConteos;
     
-    // Campo para días de prefrío (pretratamiento ya no tiene días)
+    // Campo para días de prefrío
     private Integer diasPrefrio;
 
     @ManyToOne

@@ -259,7 +259,7 @@ class RepTetrazolioViabilidadControllerIntegrationTest {
                 .with(csrf())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(repTetrazolioRequestDTO)))
-                .andExpect(status().isInternalServerError()); // IllegalStateException retorna 500
+                .andExpect(status().isInternalServerError()); 
     }
 
     @Test
@@ -296,7 +296,7 @@ class RepTetrazolioViabilidadControllerIntegrationTest {
         mockMvc.perform(get("/api/tetrazolios/{tetrazolioId}/repeticiones/{repeticionId}", 
                 TETRAZOLIO_ID, REP_ID)
                 .with(csrf()))
-                .andExpect(status().isInternalServerError()); // IllegalStateException retorna 500
+                .andExpect(status().isInternalServerError()); 
     }
 
     @Test
@@ -326,7 +326,7 @@ class RepTetrazolioViabilidadControllerIntegrationTest {
                 .with(csrf())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(repTetrazolioRequestDTO)))
-                .andExpect(status().isInternalServerError()); // IllegalStateException retorna 500
+                .andExpect(status().isInternalServerError()); 
     }
 
     @Test
@@ -352,7 +352,7 @@ class RepTetrazolioViabilidadControllerIntegrationTest {
         mockMvc.perform(delete("/api/tetrazolios/{tetrazolioId}/repeticiones/{repeticionId}", 
                 TETRAZOLIO_ID, REP_ID)
                 .with(csrf()))
-                .andExpect(status().isInternalServerError()); // IllegalStateException retorna 500
+                .andExpect(status().isInternalServerError()); 
     }
 
     @Test

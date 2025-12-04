@@ -24,7 +24,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.dtos.response.TetrazolioDTO;
 import utec.proyectofinal.Proyecto.Final.UTEC.responses.ResponseListadoTetrazolio;
 import utec.proyectofinal.Proyecto.Final.UTEC.services.TetrazolioService;
 
-// CORS configurado globalmente en WebSecurityConfig
+
 @RestController
 @RequestMapping("/api/tetrazolios")
 @Tag(name = "Tetrazolio", description = "API para gestión del análisis de tetrazolio")
@@ -34,7 +34,7 @@ public class TetrazolioController {
     @Autowired
     private TetrazolioService tetrazolioService;
 
-    // Crear nuevo Tetrazolio
+    
     @Operation(summary = "Crear análisis de tetrazolio", 
               description = "Crea un nuevo análisis de tetrazolio con numeroRepeticiones y numeroConteos definidos")
     @PreAuthorize("hasRole('ANALISTA') or hasRole('ADMIN')")
@@ -44,7 +44,7 @@ public class TetrazolioController {
         return ResponseEntity.status(HttpStatus.CREATED).body(tetrazolioCreado);
     }
 
-    // Obtener todos los Tetrazolios activos
+    
     @Operation(summary = "Listar todos los análisis de tetrazolio", 
               description = "Obtiene todos los análisis de tetrazolio activos en el sistema")
     @PreAuthorize("hasRole('ANALISTA') or hasRole('ADMIN') or hasRole('OBSERVADOR')")
@@ -54,7 +54,7 @@ public class TetrazolioController {
         return ResponseEntity.ok(response);
     }
 
-    // Obtener Tetrazolio por ID
+    
     @Operation(summary = "Obtener análisis de tetrazolio por ID", 
               description = "Obtiene un análisis de tetrazolio específico por su ID")
     @PreAuthorize("hasRole('ANALISTA') or hasRole('ADMIN') or hasRole('OBSERVADOR')")
@@ -64,7 +64,7 @@ public class TetrazolioController {
         return ResponseEntity.ok(tetrazolio);
     }
 
-    // Actualizar Tetrazolio
+    
     @Operation(summary = "Actualizar análisis de tetrazolio", 
               description = "Actualiza los detalles de un análisis de tetrazolio existente")
     @PreAuthorize("hasRole('ANALISTA') or hasRole('ADMIN')")
@@ -74,7 +74,7 @@ public class TetrazolioController {
         return ResponseEntity.ok(tetrazolioActualizado);
     }
 
-    // Actualizar porcentajes redondeados (solo cuando todas las repeticiones estén completas)
+    
     @Operation(summary = "Actualizar porcentajes redondeados")
     @PreAuthorize("hasRole('ANALISTA') or hasRole('ADMIN')")
     @PutMapping("/{id}/porcentajes")
@@ -83,7 +83,7 @@ public class TetrazolioController {
         return ResponseEntity.ok(tetrazolioActualizado);
     }
 
-    // Eliminar Tetrazolio (cambiar estado a INACTIVO)
+    
     @Operation(summary = "Eliminar análisis de tetrazolio")
     @PreAuthorize("hasRole('ANALISTA') or hasRole('ADMIN')")
     @DeleteMapping("/{id}")
@@ -92,7 +92,7 @@ public class TetrazolioController {
         return ResponseEntity.noContent().build();
     }
 
-    // Desactivar Tetrazolio (soft delete)
+    
     @Operation(summary = "Desactivar análisis Tetrazolio", 
               description = "Desactiva un análisis Tetrazolio (cambiar activo a false)")
     @PreAuthorize("hasRole('ADMIN')")
@@ -102,7 +102,7 @@ public class TetrazolioController {
         return ResponseEntity.ok().build();
     }
 
-    // Reactivar Tetrazolio
+    
     @Operation(summary = "Reactivar análisis Tetrazolio", 
               description = "Reactiva un análisis Tetrazolio desactivado (solo administradores)")
     @PreAuthorize("hasRole('ADMIN')")
@@ -112,7 +112,7 @@ public class TetrazolioController {
         return ResponseEntity.ok(tetrazolioReactivado);
     }
 
-    // Obtener Tetrazolios por Lote
+    
     @Operation(summary = "Obtener tetrazolios por lote", 
               description = "Obtiene todos los análisis de tetrazolio asociados a un lote específico")
     @PreAuthorize("hasRole('ANALISTA') or hasRole('ADMIN') or hasRole('OBSERVADOR')")
@@ -122,7 +122,7 @@ public class TetrazolioController {
         return ResponseEntity.ok(tetrazolios);
     }
 
-    // Obtener Tetrazolios con paginado para listado
+    
     @Operation(summary = "Obtener tetrazolios paginadas", 
               description = "Obtiene la lista paginada de análisis de tetrazolio para el listado")
     @PreAuthorize("hasRole('ANALISTA') or hasRole('ADMIN') or hasRole('OBSERVADOR')")
@@ -139,7 +139,7 @@ public class TetrazolioController {
         return ResponseEntity.ok(response);
     }
 
-    // Finalizar análisis de tetrazolio
+    
     @Operation(summary = "Finalizar análisis de tetrazolio", 
               description = "Finaliza un análisis de tetrazolio cambiando su estado según el rol del usuario (analista -> PENDIENTE_APROBACION, admin -> APROBADO)")
     @PreAuthorize("hasRole('ANALISTA') or hasRole('ADMIN')")
@@ -149,7 +149,7 @@ public class TetrazolioController {
         return ResponseEntity.ok(tetrazolioFinalizado);
     }
 
-    // Aprobar análisis (solo admin)
+    
     @Operation(summary = "Aprobar análisis de tetrazolio", 
               description = "Aprueba un análisis de tetrazolio, cambiando su estado a APROBADO (solo administradores)")
     @PreAuthorize("hasRole('ADMIN')")
@@ -159,7 +159,7 @@ public class TetrazolioController {
         return ResponseEntity.ok(tetrazolioAprobado);
     }
 
-    // Marcar análisis para repetir (solo admin)
+    
     @Operation(summary = "Marcar análisis de tetrazolio para repetir", 
               description = "Marca un análisis de tetrazolio para repetir - solo administradores")
     @PreAuthorize("hasRole('ADMIN')")

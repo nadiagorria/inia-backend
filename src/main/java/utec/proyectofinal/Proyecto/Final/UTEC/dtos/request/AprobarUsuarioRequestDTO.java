@@ -5,5 +5,5 @@ import utec.proyectofinal.Proyecto.Final.UTEC.enums.Rol;
 
 @Data
 public class AprobarUsuarioRequestDTO {
-    private Rol rol;               // Rol que se le asignará al usuario
+    private Rol rol;               
 }

@@ -51,7 +51,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.UsuarioService;
 
 @RestController
 @RequestMapping("/api/v1/auth")
-@CrossOrigin(origins = "http://localhost:3000") // Ajusta el origen según tu configuración de frontend
+@CrossOrigin(origins = "http://localhost:3000") 
 @Tag(name = "Autenticación y Gestión de Usuarios", description = "Endpoints para autenticación, registro y gestión de usuarios")
 public class AuthController {
 
@@ -93,25 +93,16 @@ public class AuthController {
             if (usuarioOpt.isPresent()) {
                 Usuario user = usuarioOpt.get();
                 String[] roles = seguridadService.listarRolesPorUsuario(user);
+            
                 
-                // Debug: Ver qué roles se están asignando
-                System.out.println(" [LOGIN] Usuario: " + user.getNombre());
-                System.out.println(" [LOGIN] Roles asignados: " + java.util.Arrays.toString(roles));
-                System.out.println(" [LOGIN] Estado usuario: " + user.getEstado());
-                System.out.println(" [LOGIN] Rol en entidad: " + user.getRol());
-                
-                // Generar access token y refresh token
                 String accessToken = jwtUtil.generarToken(user, java.util.Arrays.asList(roles));
                 String refreshToken = jwtUtil.generarRefreshToken(user);
                 
-                // Configurar cookies HttpOnly Secure
+                
                 configurarCookieToken(response, "accessToken", accessToken, (int) (jwtUtil.getAccessTokenExpiration() / 1000));
                 configurarCookieToken(response, "refreshToken", refreshToken, (int) (jwtUtil.getRefreshTokenExpiration() / 1000));
                 
-                System.out.println(" [LOGIN] Cookies establecidas correctamente");
-                System.out.println(" [LOGIN] Preparando respuesta con datos de usuario...");
                 
-                // Responder SOLO con información del usuario (NO incluir token en body)
                 Map<String, Object> responseBody = new HashMap<>();
                 responseBody.put("mensaje", "Login exitoso");
                 responseBody.put("usuario", Map.of(
@@ -151,7 +142,7 @@ public class AuthController {
      * Configura una cookie HttpOnly Secure para almacenar tokens JWT de forma segura.
      */
     private void configurarCookieToken(HttpServletResponse response, String nombre, String valor, int maxAgeSegundos) {
-        // Usar ResponseCookie (Spring Framework 5+) para mejor control de SameSite
+        
         String cookieValue = String.format(
             "%s=%s; Path=/; Max-Age=%d; HttpOnly; SameSite=Lax",
             nombre, valor, maxAgeSegundos
@@ -193,7 +184,7 @@ public class AuthController {
             Usuario user = usuarioOpt.get();
             String[] roles = seguridadService.listarRolesPorUsuario(user);
 
-            // Generar nuevo access token
+            
             String nuevoAccessToken = jwtUtil.generarToken(user, java.util.Arrays.asList(roles));
             configurarCookieToken(response, "accessToken", nuevoAccessToken, (int) (jwtUtil.getAccessTokenExpiration() / 1000));
 
@@ -207,7 +198,7 @@ public class AuthController {
     @PostMapping("/logout")
     @Operation(summary = "Cerrar sesión", description = "Invalida las cookies de autenticación")
     public ResponseEntity<?> logout(HttpServletResponse response) {
-        // Borrar cookies estableciendo Max-Age=0
+        
         Cookie accessCookie = new Cookie("accessToken", "");
         accessCookie.setHttpOnly(true);
         accessCookie.setPath("/");
@@ -247,7 +238,7 @@ public class AuthController {
         }
     }
 
-    // === ENDPOINTS DE REGISTRO Y GESTIÓN DE USUARIOS ===
+    
 
     @PostMapping("/register")
     @Operation(summary = "Registrar usuario", description = "Solicita el registro de un nuevo usuario (pendiente de aprobación)")
@@ -337,7 +328,7 @@ public class AuthController {
             @RequestParam(required = false) String rol,
             @RequestParam(required = false) String activo) {
         
-        // Convertir String a Rol enum si se proporciona
+        
         utec.proyectofinal.Proyecto.Final.UTEC.enums.Rol rolEnum = null;
         if (rol != null && !rol.trim().isEmpty() && !rol.equalsIgnoreCase("all")) {
             try {
@@ -347,7 +338,7 @@ public class AuthController {
             }
         }
         
-        // Convertir String a Boolean si se proporciona
+        
         Boolean activoBoolean = null;
         if (activo != null && !activo.trim().isEmpty() && !activo.equalsIgnoreCase("all")) {
             activoBoolean = Boolean.parseBoolean(activo);
@@ -383,7 +374,7 @@ public class AuthController {
         }
     }
 
-    // === ENDPOINTS DE GESTIÓN DE PERFIL ===
+    
 
     @GetMapping("/profile")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
@@ -407,18 +398,18 @@ public class AuthController {
         try {
             UsuarioDTO perfilActualizado = usuarioService.actualizarPerfil(solicitud);
             
-            // Buscar el usuario completo para regenerar el token
+            
             Optional<Usuario> usuarioOpt = usuarioService.buscarPorId(perfilActualizado.getUsuarioID());
             
             if (usuarioOpt.isPresent()) {
                 Usuario usuario = usuarioOpt.get();
                 String[] roles = seguridadService.listarRolesPorUsuario(usuario);
                 
-                // Generar nuevos tokens con la información actualizada
+                
                 String nuevoAccessToken = jwtUtil.generarToken(usuario, java.util.Arrays.asList(roles));
                 String nuevoRefreshToken = jwtUtil.generarRefreshToken(usuario);
                 
-                // Actualizar cookies con los nuevos tokens
+                
                 configurarCookieToken(response, "accessToken", nuevoAccessToken, (int) (jwtUtil.getAccessTokenExpiration() / 1000));
                 configurarCookieToken(response, "refreshToken", nuevoRefreshToken, (int) (jwtUtil.getRefreshTokenExpiration() / 1000));
                 
@@ -435,7 +426,7 @@ public class AuthController {
         }
     }
 
-    // === ADMIN PREDETERMINADO ===
+    
 
     @PostMapping("/init-admin")
     @Operation(summary = "Crear admin inicial", description = "Crea el administrador predeterminado si no existe")
@@ -453,7 +444,7 @@ public class AuthController {
         }
     }
 
-    // === VALIDACIONES DE UNICIDAD ===
+    
 
     @GetMapping("/check-username")
     @Operation(summary = "Verificar disponibilidad de nombre de usuario", description = "Verifica si un nombre de usuario está disponible")

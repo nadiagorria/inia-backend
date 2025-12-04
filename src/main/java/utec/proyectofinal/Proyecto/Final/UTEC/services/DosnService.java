@@ -62,51 +62,51 @@ public class DosnService {
     @Autowired
     private AnalisisHistorialService analisisHistorialService;
 
-    // Crear Dosn
+    
     @Transactional
     public DosnDTO crearDosn(DosnRequestDTO solicitud) {
         Dosn dosn = mapearSolicitudAEntidad(solicitud);
         dosn.setEstado(Estado.EN_PROCESO);
 
-        // Establecer fecha de inicio automáticamente
+        
         analisisService.establecerFechaInicio(dosn);
 
         Dosn dosnGuardada = dosnRepository.save(dosn);
 
-        // Registrar automáticamente en el historial
+        
         analisisHistorialService.registrarCreacion(dosnGuardada);
 
         return mapearEntidadADTO(dosnGuardada);
     }
 
-    // Editar Dosn
+    
     @Transactional
     public DosnDTO actualizarDosn(Long id, DosnRequestDTO solicitud) {
         Dosn dosn = dosnRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Dosn no encontrada con id: " + id));
 
-        // Manejar cambios de estado según rol del usuario
+        
         Estado estadoOriginal = dosn.getEstado();
 
         if (estadoOriginal == Estado.APROBADO && analisisService.esAnalista()) {
-            // Si es ANALISTA editando un análisis APROBADO, cambiar a PENDIENTE_APROBACION
+            
             dosn.setEstado(Estado.PENDIENTE_APROBACION);
         }
-        // Si es ADMIN editando análisis APROBADO, mantiene el estado APROBADO
-        // Para otros estados se mantiene igual
+        
+        
 
         actualizarEntidadDesdeSolicitud(dosn, solicitud);
 
-        // Guardar la entidad actualizada
+        
         Dosn dosnActualizada = dosnRepository.save(dosn);
 
-        // Registrar automáticamente en el historial
+        
         analisisHistorialService.registrarModificacion(dosnActualizada);
 
         return mapearEntidadADTO(dosnActualizada);
     }
 
-    // Eliminar Dosn (desactivar - cambiar activo a false)
+    
     public void eliminarDosn(Long id) {
         Dosn dosn = dosnRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Dosn no encontrada con id: " + id));
@@ -115,17 +115,17 @@ public class DosnService {
         dosnRepository.save(dosn);
     }
 
-    // Desactivar DOSN (cambiar activo a false)
+    
     public void desactivarDosn(Long id) {
         analisisService.desactivarAnalisis(id, dosnRepository);
     }
 
-    // Reactivar DOSN (cambiar activo a true)
+    
     public DosnDTO reactivarDosn(Long id) {
         return analisisService.reactivarAnalisis(id, dosnRepository, this::mapearEntidadADTO);
     }
 
-    // Listar todas las Dosn activas
+    
     public ResponseListadoDosn obtenerTodasDosnActivas() {
         List<DosnDTO> dosnDTOs = dosnRepository.findByActivoTrue()
                 .stream()
@@ -137,14 +137,14 @@ public class DosnService {
         return respuesta;
     }
 
-    // Obtener Dosn por ID
+    
     public DosnDTO obtenerDosnPorId(Long id) {
         return dosnRepository.findById(id)
                 .map(this::mapearEntidadADTO)
                 .orElseThrow(() -> new RuntimeException("Dosn no encontrada con id: " + id));
     }
 
-    // Obtener Dosn por Lote
+    
     public List<DosnDTO> obtenerDosnPorIdLote(Integer idLote) {
         return dosnRepository.findByIdLote(idLote)
                 .stream()
@@ -152,13 +152,13 @@ public class DosnService {
                 .collect(Collectors.toList());
     }
 
-    // Listar Dosn con paginado (para listado)
+    
     public Page<DosnListadoDTO> obtenerDosnPaginadas(Pageable pageable) {
         Page<Dosn> dosnPage = dosnRepository.findByActivoTrueOrderByFechaInicioDesc(pageable);
         return dosnPage.map(this::mapearEntidadAListadoDTO);
     }
 
-    // Listar Dosn con paginado y filtro de activo
+    
     public Page<DosnListadoDTO> obtenerDosnPaginadasConFiltro(Pageable pageable, String filtroActivo) {
         Page<Dosn> dosnPage;
         
@@ -169,7 +169,7 @@ public class DosnService {
             case "inactivos":
                 dosnPage = dosnRepository.findByActivoFalseOrderByFechaInicioDesc(pageable);
                 break;
-            default: // "todos"
+            default: 
                 dosnPage = dosnRepository.findAllByOrderByFechaInicioDesc(pageable);
                 break;
         }
@@ -192,7 +192,7 @@ public class DosnService {
         return dosnPage.map(this::mapearEntidadAListadoDTO);
     }
 
-    // Mapear entidad a DTO de listado simple
+    
     private DosnListadoDTO mapearEntidadAListadoDTO(Dosn dosn) {
         DosnListadoDTO dto = new DosnListadoDTO();
         dto.setAnalisisID(dosn.getAnalisisID());
@@ -201,17 +201,17 @@ public class DosnService {
         dto.setFechaFin(dosn.getFechaFin());
         dto.setActivo(dosn.getActivo());
         
-        // Campo específico de DOSN
+        
         dto.setCumpleEstandar(dosn.getCumpleEstandar());
         
         if (dosn.getLote() != null) {
             dto.setIdLote(dosn.getLote().getLoteID());
-            dto.setLote(dosn.getLote().getNomLote()); // Usar nomLote en lugar de ficha
+            dto.setLote(dosn.getLote().getNomLote()); 
             
-            // Obtener especie del lote - Usar nombreComun primero, luego nombreCientifico
+            
             if (dosn.getLote().getCultivar() != null && dosn.getLote().getCultivar().getEspecie() != null) {
                 String nombreEspecie = dosn.getLote().getCultivar().getEspecie().getNombreComun();
-                // Si nombreComun está vacío, intentar con nombreCientifico
+                
                 if (nombreEspecie == null || nombreEspecie.trim().isEmpty()) {
                     nombreEspecie = dosn.getLote().getCultivar().getEspecie().getNombreCientifico();
                 }
@@ -231,7 +231,7 @@ public class DosnService {
         return dto;
     }
 
-    // === Mappers ===
+    
 
     private Dosn mapearSolicitudAEntidad(DosnRequestDTO solicitud) {
         Dosn dosn = new Dosn();
@@ -241,7 +241,7 @@ public class DosnService {
             if (loteOpt.isPresent()) {
                 Lote lote = loteOpt.get();
                 
-                // Validar que el lote esté activo
+                
                 if (!lote.getActivo()) {
                     throw new RuntimeException("No se puede crear un análisis para un lote inactivo");
                 }
@@ -255,7 +255,7 @@ public class DosnService {
         dosn.setCumpleEstandar(solicitud.getCumpleEstandar());
         dosn.setComentarios(solicitud.getComentarios());
 
-        // Las fechas fechaInicio y fechaFin son automáticas
+        
         dosn.setFechaINIA(solicitud.getFechaINIA());
         dosn.setGramosAnalizadosINIA(solicitud.getGramosAnalizadosINIA());
         dosn.setTipoINIA(solicitud.getTipoINIA());
@@ -264,7 +264,7 @@ public class DosnService {
         dosn.setGramosAnalizadosINASE(solicitud.getGramosAnalizadosINASE());
         dosn.setTipoINASE(solicitud.getTipoINASE());
 
-        // Mapear registros de Cuscuta
+        
         if (solicitud.getCuscutaRegistros() != null && !solicitud.getCuscutaRegistros().isEmpty()) {
             List<CuscutaRegistro> cuscutaRegistros = solicitud.getCuscutaRegistros().stream()
                     .map(req -> crearCuscutaRegistroDesdeSolicitud(req, dosn))
@@ -305,17 +305,17 @@ public class DosnService {
             dosn.setGramosAnalizadosINASE(solicitud.getGramosAnalizadosINASE());
         if (solicitud.getTipoINASE() != null) dosn.setTipoINASE(solicitud.getTipoINASE());
 
-        // Actualizar registros de Cuscuta
+        
         if (solicitud.getCuscutaRegistros() != null) {
-            // Inicializar la lista si es null
+            
             if (dosn.getCuscutaRegistros() == null) {
                 dosn.setCuscutaRegistros(new ArrayList<>());
             }
 
-            // Limpiar registros existentes
+            
             dosn.getCuscutaRegistros().clear();
 
-            // Si hay nuevos registros, crearlos y agregarlos
+            
             if (!solicitud.getCuscutaRegistros().isEmpty()) {
                 List<CuscutaRegistro> nuevosCuscutaRegistros = solicitud.getCuscutaRegistros().stream()
                         .map(req -> crearCuscutaRegistroDesdeSolicitud(req, dosn))
@@ -326,15 +326,15 @@ public class DosnService {
         }
 
         if (solicitud.getListados() != null) {
-            // Inicializar la lista si es null
+            
             if (dosn.getListados() == null) {
                 dosn.setListados(new ArrayList<>());
             }
 
-            // Limpiar listados existentes
+            
             dosn.getListados().clear();
 
-            // Si hay nuevos listados, crearlos y agregarlos
+            
             if (!solicitud.getListados().isEmpty()) {
                 List<Listado> nuevosListados = solicitud.getListados().stream()
                         .map(req -> crearListadoDesdeSolicitud(req, dosn))
@@ -355,13 +355,13 @@ public class DosnService {
         dto.setCumpleEstandar(dosn.getCumpleEstandar());
         dto.setComentarios(dosn.getComentarios());
         
-        // Datos completos del lote si existe
+        
         if (dosn.getLote() != null) {
             dto.setIdLote(dosn.getLote().getLoteID());
             dto.setLote(dosn.getLote().getNomLote());
             dto.setFicha(dosn.getLote().getFicha());
             
-            // Información del cultivar y especie
+            
             if (dosn.getLote().getCultivar() != null) {
                 dto.setCultivarNombre(dosn.getLote().getCultivar().getNombre());
                 
@@ -379,7 +379,7 @@ public class DosnService {
         dto.setGramosAnalizadosINASE(dosn.getGramosAnalizadosINASE());
         dto.setTipoINASE(dosn.getTipoINASE());
 
-        // Mapear registros de Cuscuta
+        
         if (dosn.getCuscutaRegistros() != null) {
             List<CuscutaRegistroDTO> cuscutaRegistroDTOs = dosn.getCuscutaRegistros().stream()
                     .map(this::mapearCuscutaRegistroADTO)
@@ -394,7 +394,7 @@ public class DosnService {
             dto.setListados(listadoDTOs);
         }
 
-        // Mapear historial de análisis
+        
         dto.setHistorial(analisisHistorialService.obtenerHistorialAnalisis(dosn.getAnalisisID()));
 
         return dto;
@@ -436,7 +436,7 @@ public class DosnService {
                 id,
                 dosnRepository,
                 this::mapearEntidadADTO,
-                this::validarAntesDeFinalizar // Validación específica para DOSN
+                this::validarAntesDeFinalizar 
         );
     }
     
@@ -483,8 +483,8 @@ public class DosnService {
                 id,
                 dosnRepository,
                 this::mapearEntidadADTO,
-                this::validarAntesDeFinalizar, // Mismas validaciones que finalizar
-                (idLote) -> dosnRepository.findByIdLote(idLote.intValue()) // Función para buscar por lote
+                this::validarAntesDeFinalizar, 
+                (idLote) -> dosnRepository.findByIdLote(idLote.intValue()) 
         );
     }
 
@@ -496,7 +496,7 @@ public class DosnService {
                 id,
                 dosnRepository,
                 this::mapearEntidadADTO,
-                this::validarAntesDeFinalizar // Mismas validaciones que finalizar
+                this::validarAntesDeFinalizar 
         );
     }
 }

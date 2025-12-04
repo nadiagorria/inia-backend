@@ -44,16 +44,16 @@ public class DashboardService {
     public DashboardStatsDTO obtenerEstadisticas() {
         DashboardStatsDTO stats = new DashboardStatsDTO();
         
-        // 1. Lotes activos
+        
         stats.setLotesActivos(loteRepository.countLotesActivos());
         
-        // 2. Análisis pendientes (asignados pero no realizados o marcados como A_REPETIR)
+        
         stats.setAnalisisPendientes(loteService.contarAnalisisPendientes());
         
-        // 3. Completados hoy (finalizados en la fecha actual con estado APROBADO)
+        
         stats.setCompletadosHoy(analisisRepository.countCompletadosEnFecha(LocalDate.now(), Estado.APROBADO));
         
-        // 4. Análisis por aprobar (estado PENDIENTE_APROBACION)
+        
         stats.setAnalisisPorAprobar(analisisRepository.countByEstado(Estado.PENDIENTE_APROBACION));
         
         return stats;
@@ -97,7 +97,7 @@ public class DashboardService {
             dto.setNomLote(p.getNomLote());
             dto.setFicha(p.getFicha());
             
-            // Convertir fechas String a LocalDateTime
+            
             if (p.getFechaInicio() != null) {
                 dto.setFechaInicio(LocalDateTime.parse(p.getFechaInicio(), 
                     java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
@@ -124,14 +124,14 @@ public class DashboardService {
         List<AnalisisPendienteProjection> proyecciones;
         
         if (encodedCursor == null || encodedCursor.trim().isEmpty()) {
-            // Primera página
+            
             proyecciones = analisisPendienteRepository.findNextPageByCursor(
                 0L, "", size + 1);
         } else {
-            // Decodificar cursor (lanza InvalidCursorException si es inválido)
+            
             KeysetCursor cursor = KeysetCursor.decode(encodedCursor);
             
-            // Para analisis-pendientes, usamos lastId como loteId y lastFecha como tipo
+            
             Long lastLoteId = cursor.getLastId();
             String lastTipo = cursor.getLastFecha() != null ? cursor.getLastFecha() : "";
             
@@ -139,7 +139,7 @@ public class DashboardService {
                 lastLoteId, lastTipo, size + 1);
         }
         
-        // Convertir a DTOs
+        
         List<AnalisisPendienteDTO> items = proyecciones.stream()
             .limit(size)
             .map(p -> new AnalisisPendienteDTO(
@@ -152,13 +152,13 @@ public class DashboardService {
             ))
             .collect(Collectors.toList());
         
-        // Verificar si hay más resultados
+        
         boolean hasMore = proyecciones.size() > size;
         
         if (hasMore && !items.isEmpty()) {
             AnalisisPendienteDTO lastItem = items.get(items.size() - 1);
             KeysetCursor cursor = new KeysetCursor(
-                lastItem.getTipoAnalisis().name(),  // Guardar tipo como "fecha"
+                lastItem.getTipoAnalisis().name(),  
                 lastItem.getLoteID()
             );
             return CursorPageResponse.of(items, cursor, size);
@@ -180,11 +180,11 @@ public class DashboardService {
         List<AnalisisPorAprobarProjection> proyecciones;
         
         if (encodedCursor == null || encodedCursor.trim().isEmpty()) {
-            // Primera página
+            
             proyecciones = analisisPorAprobarRepository.findNextPageByCursor(
                 "9999-12-31 23:59:59", Long.MAX_VALUE, size + 1);
         } else {
-            // Decodificar cursor (lanza InvalidCursorException si es inválido)
+            
             KeysetCursor cursor = KeysetCursor.decode(encodedCursor);
             
             String lastFecha = cursor.getLastFecha();
@@ -194,7 +194,7 @@ public class DashboardService {
                 lastFecha, lastId, size + 1);
         }
         
-        // Convertir a DTOs
+        
         List<AnalisisPorAprobarDTO> items = proyecciones.stream()
             .limit(size)
             .map(p -> {
@@ -205,7 +205,7 @@ public class DashboardService {
                 dto.setNomLote(p.getNomLote());
                 dto.setFicha(p.getFicha());
                 
-                // Convertir fechas String a LocalDateTime
+                
                 if (p.getFechaInicio() != null) {
                     dto.setFechaInicio(LocalDateTime.parse(p.getFechaInicio(), 
                         java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
@@ -219,13 +219,13 @@ public class DashboardService {
             })
             .collect(Collectors.toList());
         
-        // Verificar si hay más resultados
+        
         boolean hasMore = proyecciones.size() > size;
         
         if (hasMore && !items.isEmpty()) {
             AnalisisPorAprobarDTO lastItem = items.get(items.size() - 1);
             
-            // Formatear fecha para cursor (mismo formato que en la query)
+            
             String fechaStr = lastItem.getFechaInicio() != null 
                 ? lastItem.getFechaInicio().format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
                 : null;

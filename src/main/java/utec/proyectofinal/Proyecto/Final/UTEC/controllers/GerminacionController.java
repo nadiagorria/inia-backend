@@ -31,7 +31,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.dtos.response.GerminacionListadoDT
 import utec.proyectofinal.Proyecto.Final.UTEC.responses.ResponseListadoGerminacion;
 import utec.proyectofinal.Proyecto.Final.UTEC.services.GerminacionService;
 
-// CORS configurado globalmente en WebSecurityConfig
+
 @RestController
 @RequestMapping("/api/germinaciones")
 @Tag(name = "Germinación", description = "API para gestión del análisis de germinación")
@@ -41,7 +41,7 @@ public class GerminacionController {
     @Autowired
     private GerminacionService germinacionService;
 
-    // Crear nueva Germinación
+    
     @Operation(summary = "Crear análisis de germinación", 
               description = "Crea un nuevo análisis de germinación con numeroRepeticiones y numeroConteos definidos")
     @ApiResponses(value = {
@@ -56,7 +56,7 @@ public class GerminacionController {
         return ResponseEntity.status(HttpStatus.CREATED).body(germinacionCreada);
     }
 
-    // Obtener todas las Germinaciones activas
+    
     @Operation(summary = "Obtener todas las germinaciones", 
               description = "Obtiene la lista de todos los análisis de germinación activos")
     @ApiResponses(value = {
@@ -70,7 +70,7 @@ public class GerminacionController {
         return ResponseEntity.ok(response);
     }
 
-    // Obtener germinaciones con paginado para listado
+    
     @Operation(summary = "Obtener germinaciones paginadas", 
               description = "Obtiene la lista paginada de análisis de germinación para el listado")
     @ApiResponses(value = {
@@ -91,7 +91,7 @@ public class GerminacionController {
         return ResponseEntity.ok(response);
     }
 
-    // Obtener Germinación por ID
+    
     @Operation(summary = "Obtener germinación por ID", 
               description = "Obtiene los detalles de un análisis de germinación específico")
     @ApiResponses(value = {
@@ -106,7 +106,7 @@ public class GerminacionController {
         return ResponseEntity.ok(germinacion);
     }
 
-    // Actualizar Germinación
+    
     @Operation(summary = "Actualizar germinación", 
               description = "Actualiza solo los campos editables de una germinación existente. " +
                           "Las fechas no se pueden modificar por seguridad.")
@@ -122,7 +122,7 @@ public class GerminacionController {
         return ResponseEntity.ok(germinacionActualizada);
     }
 
-    // Eliminar Germinación (cambiar estado a INACTIVO)
+    
     @Operation(summary = "Eliminar germinación", description = "Cambia el estado de la germinación a INACTIVO")
     @PreAuthorize("hasRole('ANALISTA') or hasRole('ADMIN')")
     @DeleteMapping("/{id}")
@@ -131,7 +131,7 @@ public class GerminacionController {
         return ResponseEntity.noContent().build();
     }
 
-    // Desactivar Germinacion (soft delete)
+    
     @Operation(summary = "Desactivar análisis Germinación", 
               description = "Desactiva un análisis de Germinación (cambiar activo a false)")
     @PreAuthorize("hasRole('ADMIN')")
@@ -141,7 +141,7 @@ public class GerminacionController {
         return ResponseEntity.ok().build();
     }
 
-    // Reactivar Germinacion
+    
     @Operation(summary = "Reactivar análisis Germinación", 
               description = "Reactiva un análisis de Germinación desactivado (solo administradores)")
     @PreAuthorize("hasRole('ADMIN')")
@@ -151,7 +151,7 @@ public class GerminacionController {
         return ResponseEntity.ok(germinacionReactivada);
     }
 
-    // Obtener Germinaciones por Lote
+    
     @Operation(summary = "Obtener germinaciones por lote", description = "Devuelve una lista de germinaciones asociadas a un lote específico")
     @PreAuthorize("hasRole('ANALISTA') or hasRole('ADMIN') or hasRole('OBSERVADOR')")
     @GetMapping("/lote/{idLote}")
@@ -160,7 +160,7 @@ public class GerminacionController {
         return ResponseEntity.ok(germinaciones);
     }
 
-    // Finalizar análisis de germinación
+    
     @Operation(summary = "Finalizar análisis de germinación", description = "Marca el análisis como FINALIZADO, impidiendo más modificaciones")
     @PreAuthorize("hasRole('ANALISTA') or hasRole('ADMIN')")
     @PutMapping("/{id}/finalizar")
@@ -169,7 +169,7 @@ public class GerminacionController {
         return ResponseEntity.ok(analisisFinalizado);
     }
 
-    // Aprobar análisis (solo admin)
+    
     @Operation(summary = "Aprobar análisis de germinación", description = "Solo administradores pueden aprobar análisis")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Análisis aprobado exitosamente"),
@@ -183,7 +183,7 @@ public class GerminacionController {
         return ResponseEntity.ok(analisisAprobado);
     }
 
-    // Marcar análisis para repetir (solo admin)
+    
     @Operation(summary = "Marcar análisis de germinación para repetir", 
               description = "Marca un análisis de germinación para repetir - solo administradores")
     @PreAuthorize("hasRole('ADMIN')")

@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class TetrazolioRequestDTO extends AnalisisRequestDTO {
-    // Campos específicos de Tetrazolio
+    
     private Integer numSemillasPorRep;
     private String pretratamiento;
     private String concentracion;

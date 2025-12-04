@@ -20,7 +20,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.ContactoService;
 
 import java.util.List;
 
-// CORS configurado globalmente en WebSecurityConfig
+
 @RestController
 @RequestMapping("/api/contactos")
 @Tag(name = "Contactos", description = "API para gestión de contactos y empresas")
@@ -30,7 +30,7 @@ public class ContactoController {
     @Autowired
     private ContactoService contactoService;
 
-    // Obtener todos los contactos activos
+    
     @Operation(summary = "Listar todos los contactos", 
               description = "Obtiene todos los contactos activos, incluyendo clientes y empresas")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
@@ -44,7 +44,7 @@ public class ContactoController {
         }
     }
 
-    // Obtener solo clientes
+    
     @Operation(summary = "Listar todos los clientes", 
               description = "Obtiene todos los contactos que son clientes con filtro opcional de estado")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
@@ -59,7 +59,7 @@ public class ContactoController {
         }
     }
 
-    // Obtener solo empresas
+    
     @Operation(summary = "Listar todas las empresas", 
               description = "Obtiene todos los contactos que son empresas con filtro opcional de estado")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
@@ -74,7 +74,7 @@ public class ContactoController {
         }
     }
 
-    // Obtener contacto por ID
+    
     @Operation(summary = "Obtener contacto por ID", 
               description = "Obtiene un contacto específico por su ID")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
@@ -90,7 +90,7 @@ public class ContactoController {
         }
     }
 
-    // Crear nuevo contacto
+    
     @Operation(summary = "Crear nuevo contacto", 
               description = "Crea un nuevo contacto o empresa (solo administradores)")
     @PreAuthorize("hasRole('ADMIN')")
@@ -107,7 +107,7 @@ public class ContactoController {
         }
     }
 
-    // Actualizar contacto existente
+    
     @Operation(summary = "Actualizar contacto", 
               description = "Actualiza un contacto o empresa existente (solo administradores)")
     @PreAuthorize("hasRole('ADMIN')")
@@ -128,7 +128,7 @@ public class ContactoController {
         }
     }
 
-    // Eliminar contacto (soft delete)
+    
     @Operation(summary = "Eliminar contacto")
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{contactoID}")
@@ -144,7 +144,7 @@ public class ContactoController {
         }
     }
 
-    // Reactivar contacto
+    
     @Operation(summary = "Reactivar contacto")
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{contactoID}/reactivar")
@@ -163,7 +163,7 @@ public class ContactoController {
         }
     }
 
-    // Buscar contactos por nombre
+    
     @Operation(summary = "Buscar contactos por nombre")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
     @GetMapping("/buscar")
@@ -176,7 +176,7 @@ public class ContactoController {
         }
     }
 
-    // Buscar clientes por nombre
+    
     @Operation(summary = "Buscar clientes por nombre")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
     @GetMapping("/clientes/buscar")
@@ -189,7 +189,7 @@ public class ContactoController {
         }
     }
 
-    // Buscar empresas por nombre
+    
     @Operation(summary = "Buscar empresas por nombre")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
     @GetMapping("/empresas/buscar")
@@ -202,7 +202,7 @@ public class ContactoController {
         }
     }
 
-    // Obtener Contactos con paginado para listado
+    
     @Operation(summary = "Obtener contactos paginados", 
               description = "Obtiene la lista paginada de contactos para el listado")
     @PreAuthorize("hasRole('ANALISTA') or hasRole('ADMIN') or hasRole('OBSERVADOR')")
@@ -219,7 +219,7 @@ public class ContactoController {
             try {
                 tipoContacto = TipoContacto.valueOf(tipo.toUpperCase());
             } catch (IllegalArgumentException e) {
-                // Tipo inválido, se ignorará
+                
             }
         }
         Page<ContactoDTO> response = contactoService.obtenerContactosPaginadosConFiltros(pageable, search, activo, tipoContacto);

@@ -18,7 +18,7 @@ public interface TetrazolioRepository extends JpaRepository<Tetrazolio, Long>, J
     
     List<Tetrazolio> findByEstado(Estado estado);
     
-    // Buscar por activo
+    
     List<Tetrazolio> findByActivoTrue();
     
     @Query("SELECT t FROM Tetrazolio t WHERE t.lote.loteID = :idLote")
@@ -26,15 +26,15 @@ public interface TetrazolioRepository extends JpaRepository<Tetrazolio, Long>, J
     
     List<Tetrazolio> findByLoteLoteID(Long loteID);
 
-    // Pageable
+    
     Page<Tetrazolio> findByEstadoNotOrderByFechaInicioDesc(Estado estado, Pageable pageable);
     
-    // Filtrado por activo
+    
     Page<Tetrazolio> findByActivoTrueOrderByFechaInicioDesc(Pageable pageable);
     Page<Tetrazolio> findByActivoFalseOrderByFechaInicioDesc(Pageable pageable);
     Page<Tetrazolio> findAllByOrderByFechaInicioDesc(Pageable pageable);
     
-    // Métodos eficientes para validaciones
+    
     boolean existsByLoteLoteID(Long loteID);
     boolean existsByLoteLoteIDAndEstado(Long loteID, Estado estado);
 }

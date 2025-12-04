@@ -26,7 +26,7 @@ public class PurezaSpecification {
             if (searchTerm != null && !searchTerm.trim().isEmpty()) {
                 String searchPattern = "%" + searchTerm.toLowerCase() + "%";
                 
-                // Buscar por ID parcial (permite encontrar 1001, 1002, etc. al buscar "100")
+                // Buscar por ID parcial
                 Predicate idPredicate = criteriaBuilder.like(
                     criteriaBuilder.lower(criteriaBuilder.toString(root.get("analisisID"))), searchPattern);
                 

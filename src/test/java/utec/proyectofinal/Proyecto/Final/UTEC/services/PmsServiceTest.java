@@ -104,15 +104,15 @@ class PmsServiceTest {
     @Test
     @DisplayName("Crear PMS - debe asignar estado REGISTRADO")
     void crearPms_debeAsignarEstadoRegistrado() {
-        // ARRANGE
+        
         when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));
         when(pmsRepository.save(any(Pms.class))).thenReturn(pms);
         doNothing().when(analisisHistorialService).registrarCreacion(any(Pms.class));
 
-        // ACT
+        
         PmsDTO resultado = pmsService.crearPms(pmsRequestDTO);
 
-        // ASSERT
+        
         assertNotNull(resultado, "El resultado no debe ser nulo");
         verify(pmsRepository, times(1)).save(any(Pms.class));
         verify(analisisHistorialService, times(1)).registrarCreacion(any(Pms.class));
@@ -121,10 +121,10 @@ class PmsServiceTest {
     @Test
     @DisplayName("Crear PMS sin repeticiones esperadas - debe lanzar excepción")
     void crearPms_sinRepeticionesEsperadas_debeLanzarExcepcion() {
-        // ARRANGE
+        
         pmsRequestDTO.setNumRepeticionesEsperadas(null);
 
-        // ACT & ASSERT
+        
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             pmsService.crearPms(pmsRequestDTO);
         });
@@ -136,10 +136,10 @@ class PmsServiceTest {
     @Test
     @DisplayName("Crear PMS con repeticiones = 0 - debe lanzar excepción")
     void crearPms_conRepeticionesCero_debeLanzarExcepcion() {
-        // ARRANGE
+        
         pmsRequestDTO.setNumRepeticionesEsperadas(0);
 
-        // ACT & ASSERT
+        
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             pmsService.crearPms(pmsRequestDTO);
         });
@@ -151,10 +151,10 @@ class PmsServiceTest {
     @Test
     @DisplayName("Crear PMS con más de 16 repeticiones - debe lanzar excepción")
     void crearPms_conMasDe16Repeticiones_debeLanzarExcepcion() {
-        // ARRANGE
+        
         pmsRequestDTO.setNumRepeticionesEsperadas(17);
 
-        // ACT & ASSERT
+        
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             pmsService.crearPms(pmsRequestDTO);
         });
@@ -166,16 +166,16 @@ class PmsServiceTest {
     @Test
     @DisplayName("Crear PMS con 8 repeticiones - debe ser válido")
     void crearPms_con8Repeticiones_debeSerValido() {
-        // ARRANGE
+        
         pmsRequestDTO.setNumRepeticionesEsperadas(8);
         when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));
         when(pmsRepository.save(any(Pms.class))).thenReturn(pms);
         doNothing().when(analisisHistorialService).registrarCreacion(any(Pms.class));
 
-        // ACT
+        
         PmsDTO resultado = pmsService.crearPms(pmsRequestDTO);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         verify(pmsRepository, times(1)).save(any(Pms.class));
     }
@@ -183,11 +183,11 @@ class PmsServiceTest {
     @Test
     @DisplayName("Crear PMS con lote inexistente - debe lanzar excepción")
     void crearPms_conLoteInexistente_debeLanzarExcepcion() {
-        // ARRANGE
+        
         when(loteRepository.findById(999L)).thenReturn(Optional.empty());
         pmsRequestDTO.setIdLote(999L);
 
-        // ACT & ASSERT
+        
         assertThrows(RuntimeException.class, () -> {
             pmsService.crearPms(pmsRequestDTO);
         }, "Debe lanzar excepción cuando el lote no existe");
@@ -196,13 +196,13 @@ class PmsServiceTest {
     @Test
     @DisplayName("Obtener PMS por ID - debe retornar el análisis si existe")
     void obtenerPorId_cuandoExiste_debeRetornarPms() {
-        // ARRANGE
+        
         when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));
 
-        // ACT
+        
         PmsDTO resultado = pmsService.obtenerPorId(1L);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertEquals(1L, resultado.getAnalisisID());
         assertEquals(8, resultado.getNumRepeticionesEsperadas());
@@ -212,10 +212,10 @@ class PmsServiceTest {
     @Test
     @DisplayName("Obtener PMS por ID inexistente - debe lanzar excepción")
     void obtenerPorId_cuandoNoExiste_debeLanzarExcepcion() {
-        // ARRANGE
+        
         when(pmsRepository.findById(999L)).thenReturn(Optional.empty());
 
-        // ACT & ASSERT
+        
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             pmsService.obtenerPorId(999L);
         });
@@ -226,7 +226,7 @@ class PmsServiceTest {
     @Test
     @DisplayName("Actualizar PMS - debe actualizar correctamente")
     void actualizarPms_debeActualizarCorrectamente() {
-        // ARRANGE
+        
         pmsRequestDTO.setComentarios("Comentarios actualizados");
         
         when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));
@@ -235,10 +235,10 @@ class PmsServiceTest {
         doNothing().when(analisisService).manejarEdicionAnalisisFinalizado(any(Pms.class));
         doNothing().when(analisisHistorialService).registrarModificacion(any(Pms.class));
 
-        // ACT
+        
         PmsDTO resultado = pmsService.actualizarPms(1L, pmsRequestDTO);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         verify(pmsRepository, times(1)).save(any(Pms.class));
         verify(analisisHistorialService, times(1)).registrarModificacion(any(Pms.class));
@@ -248,10 +248,10 @@ class PmsServiceTest {
     @Test
     @DisplayName("Actualizar PMS inexistente - debe lanzar excepción")
     void actualizarPms_noExistente_debeLanzarExcepcion() {
-        // ARRANGE
+        
         when(pmsRepository.findById(999L)).thenReturn(Optional.empty());
 
-        // ACT & ASSERT
+        
         assertThrows(RuntimeException.class, () -> {
             pmsService.actualizarPms(999L, pmsRequestDTO);
         });
@@ -262,20 +262,20 @@ class PmsServiceTest {
     @Test
     @DisplayName("Desactivar PMS - debe cambiar activo a false")
     void desactivarPms_debeCambiarActivoAFalse() {
-        // ARRANGE
+        
         doNothing().when(analisisService).desactivarAnalisis(eq(1L), any());
 
-        // ACT
+        
         pmsService.desactivarPms(1L);
 
-        // ASSERT
+        
         verify(analisisService, times(1)).desactivarAnalisis(eq(1L), any());
     }
 
     @Test
     @DisplayName("Reactivar PMS - debe cambiar activo a true")
     void reactivarPms_debeCambiarActivoATrue() {
-        // ARRANGE
+        
         pms.setActivo(false);
         PmsDTO pmsDTO = new PmsDTO();
         pmsDTO.setAnalisisID(1L);
@@ -283,24 +283,24 @@ class PmsServiceTest {
         
         when(analisisService.reactivarAnalisis(any(Long.class), any(), any())).thenReturn(pmsDTO);
 
-        // ACT
+        
         pmsService.reactivarPms(1L);
 
-        // ASSERT
+        
         verify(analisisService, times(1)).reactivarAnalisis(any(Long.class), any(), any());
     }
 
     @Test
     @DisplayName("Eliminar PMS - debe desactivar el análisis")
     void eliminarPms_debeDesactivarAnalisis() {
-        // ARRANGE
+        
         when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));
         when(pmsRepository.save(any(Pms.class))).thenReturn(pms);
 
-        // ACT
+        
         pmsService.eliminarPms(1L);
 
-        // ASSERT
+        
         verify(pmsRepository, times(1)).findById(1L);
         verify(pmsRepository, times(1)).save(any(Pms.class));
     }
@@ -308,17 +308,17 @@ class PmsServiceTest {
     @Test
     @DisplayName("Listar PMS activos - debe retornar solo activos")
     void obtenerTodos_debeRetornarSoloActivos() {
-        // ARRANGE
+        
         Pms pms2 = new Pms();
         pms2.setAnalisisID(2L);
         pms2.setActivo(true);
         
         when(pmsRepository.findByActivoTrue()).thenReturn(Arrays.asList(pms, pms2));
 
-        // ACT
+        
         List<PmsDTO> resultado = pmsService.obtenerTodos();
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertEquals(2, resultado.size());
         verify(pmsRepository, times(1)).findByActivoTrue();
@@ -327,13 +327,13 @@ class PmsServiceTest {
     @Test
     @DisplayName("Obtener PMS por ID de lote - debe retornar análisis del lote")
     void obtenerPmsPorIdLote_debeRetornarAnalisisDelLote() {
-        // ARRANGE
+        
         when(pmsRepository.findByIdLote(1)).thenReturn(Arrays.asList(pms));
 
-        // ACT
+        
         List<PmsDTO> resultado = pmsService.obtenerPmsPorIdLote(1L);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertEquals(1, resultado.size());
         verify(pmsRepository, times(1)).findByIdLote(1);
@@ -342,17 +342,17 @@ class PmsServiceTest {
     @Test
     @DisplayName("Listar PMS paginadas - debe retornar página correcta")
     void obtenerPmsPaginadas_debeRetornarPaginaCorrecta() {
-        // ARRANGE
+        
         Pageable pageable = PageRequest.of(0, 10);
         Page<Pms> pmsPage = new PageImpl<>(Arrays.asList(pms));
         
         when(pmsRepository.findByActivoTrueOrderByFechaInicioDesc(any(Pageable.class)))
             .thenReturn(pmsPage);
 
-        // ACT
+        
         var resultado = pmsService.obtenerPmsPaginadas(pageable);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertEquals(1, resultado.getTotalElements());
     }
@@ -360,16 +360,16 @@ class PmsServiceTest {
     @Test
     @DisplayName("Validar esSemillaBrozosa - debe aceptar true o false")
     void crearPms_conSemillaBrozosaTrue_debeCrearse() {
-        // ARRANGE
+        
         pmsRequestDTO.setEsSemillaBrozosa(true);
         when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));
         when(pmsRepository.save(any(Pms.class))).thenReturn(pms);
         doNothing().when(analisisHistorialService).registrarCreacion(any(Pms.class));
 
-        // ACT
+        
         PmsDTO resultado = pmsService.crearPms(pmsRequestDTO);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         verify(pmsRepository, times(1)).save(any(Pms.class));
     }
@@ -510,7 +510,7 @@ class PmsServiceTest {
     @Test
     @DisplayName("procesarCalculosTanda - tanda incompleta solo actualiza estadísticas")
     void procesarCalculosTanda_tandaIncompleta_soloActualizaEstadisticas() {
-        // ARRANGE
+        
         pms.setNumRepeticionesEsperadas(8);
         pms.setNumTandas(1);
         pms.setEsSemillaBrozosa(false);
@@ -530,10 +530,10 @@ class PmsServiceTest {
         when(repPmsRepository.findByPmsId(1L)).thenReturn(repeticiones);
         when(pmsRepository.save(any(Pms.class))).thenReturn(pms);
         
-        // ACT
+        
         pmsService.procesarCalculosTanda(1L, 1);
         
-        // ASSERT
+        
         verify(pmsRepository, times(1)).save(any(Pms.class));
         verify(repPmsRepository, never()).saveAll(anyList());
     }
@@ -541,7 +541,7 @@ class PmsServiceTest {
     @Test
     @DisplayName("procesarCalculosTanda - tanda completa con CV aceptable")
     void procesarCalculosTanda_tandaCompleta_CVAceptable() {
-        // ARRANGE
+        
         pms.setNumRepeticionesEsperadas(4);
         pms.setNumTandas(1);
         pms.setEsSemillaBrozosa(false); // Umbral CV = 4.0
@@ -562,10 +562,10 @@ class PmsServiceTest {
         when(repPmsRepository.saveAll(anyList())).thenReturn(repeticiones);
         when(pmsRepository.save(any(Pms.class))).thenReturn(pms);
         
-        // ACT
+        
         pmsService.procesarCalculosTanda(1L, 1);
         
-        // ASSERT
+        
         verify(repPmsRepository, times(1)).saveAll(anyList());
         verify(pmsRepository, times(1)).save(any(Pms.class));
     }
@@ -573,7 +573,7 @@ class PmsServiceTest {
     @Test
     @DisplayName("procesarCalculosTanda - tanda completa con CV no aceptable incrementa tandas")
     void procesarCalculosTanda_CVNoAceptable_incrementaTandas() {
-        // ARRANGE
+        
         pms.setNumRepeticionesEsperadas(4);
         pms.setNumTandas(1);
         pms.setEsSemillaBrozosa(false); // Umbral CV = 4.0
@@ -597,17 +597,17 @@ class PmsServiceTest {
         when(repPmsRepository.countByPmsId(1L)).thenReturn(4L);
         when(pmsRepository.save(any(Pms.class))).thenReturn(pms);
         
-        // ACT
+        
         pmsService.procesarCalculosTanda(1L, 1);
         
-        // ASSERT
+        
         verify(pmsRepository, times(1)).save(any(Pms.class));
     }
 
     @Test
     @DisplayName("procesarCalculosTanda - sin repeticiones válidas incrementa tandas")
     void procesarCalculosTanda_sinRepeticionesValidas_incrementaTandas() {
-        // ARRANGE
+        
         pms.setNumRepeticionesEsperadas(4);
         pms.setNumTandas(1);
         pms.setEsSemillaBrozosa(false);
@@ -629,31 +629,31 @@ class PmsServiceTest {
         when(repPmsRepository.countByPmsId(1L)).thenReturn(4L);
         when(pmsRepository.save(any(Pms.class))).thenReturn(pms);
         
-        // ACT
+        
         pmsService.procesarCalculosTanda(1L, 1);
         
-        // ASSERT
+        
         verify(pmsRepository, times(1)).save(any(Pms.class));
     }
 
     @Test
     @DisplayName("validarTodasLasRepeticiones - sin repeticiones no hace nada")
     void validarTodasLasRepeticiones_sinRepeticiones_noHaceNada() {
-        // ARRANGE
+        
         when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));
         when(repPmsRepository.findByPmsId(1L)).thenReturn(Collections.emptyList());
         
-        // ACT
+        
         pmsService.validarTodasLasRepeticiones(1L);
         
-        // ASSERT
+        
         verify(repPmsRepository, never()).saveAll(anyList());
     }
 
     @Test
     @DisplayName("validarTodasLasRepeticiones - repeticiones insuficientes marca como indeterminadas")
     void validarTodasLasRepeticiones_repeticionesInsuficientes_marcaIndeterminadas() {
-        // ARRANGE
+        
         pms.setNumRepeticionesEsperadas(8);
         
         List<RepPms> repeticiones = new ArrayList<>();
@@ -669,10 +669,10 @@ class PmsServiceTest {
         when(repPmsRepository.saveAll(anyList())).thenReturn(repeticiones);
         when(pmsRepository.save(any(Pms.class))).thenReturn(pms);
         
-        // ACT
+        
         pmsService.validarTodasLasRepeticiones(1L);
         
-        // ASSERT
+        
         verify(repPmsRepository, times(1)).saveAll(anyList());
         verify(pmsRepository, times(1)).save(any(Pms.class));
     }
@@ -680,7 +680,7 @@ class PmsServiceTest {
     @Test
     @DisplayName("validarTodasLasRepeticiones - con repeticiones suficientes valida correctamente")
     void validarTodasLasRepeticiones_repeticionesSuficientes_validaCorrectamente() {
-        // ARRANGE
+        
         pms.setNumRepeticionesEsperadas(4);
         pms.setNumTandas(1);
         pms.setEsSemillaBrozosa(false);
@@ -700,10 +700,10 @@ class PmsServiceTest {
         when(repPmsRepository.countByPmsId(1L)).thenReturn(4L);
         when(pmsRepository.save(any(Pms.class))).thenReturn(pms);
         
-        // ACT
+        
         pmsService.validarTodasLasRepeticiones(1L);
         
-        // ASSERT
+        
         verify(repPmsRepository, times(1)).saveAll(anyList());
         verify(pmsRepository, times(1)).save(any(Pms.class));
     }
@@ -711,13 +711,13 @@ class PmsServiceTest {
     @Test
     @DisplayName("actualizarPmsConRedondeo - actualiza correctamente en estado EN_PROCESO")
     void actualizarPmsConRedondeo_estadoEnProceso_actualizaCorrectamente() {
-        // ARRANGE
+        
         pms.setEstado(Estado.EN_PROCESO);
         pms.setNumRepeticionesEsperadas(4);
         pms.setNumTandas(1);
         pms.setEsSemillaBrozosa(false);
         
-        // Crear repeticiones válidas completas
+        
         List<RepPms> repeticiones = new ArrayList<>();
         for (int i = 1; i <= 4; i++) {
             RepPms rep = new RepPms();
@@ -735,10 +735,10 @@ class PmsServiceTest {
         when(repPmsRepository.findByPmsId(1L)).thenReturn(repeticiones);
         when(pmsRepository.save(any(Pms.class))).thenReturn(pms);
         
-        // ACT
+        
         PmsDTO resultado = pmsService.actualizarPmsConRedondeo(1L, request);
         
-        // ASSERT
+        
         assertNotNull(resultado);
         verify(pmsRepository, times(1)).save(any(Pms.class));
     }
@@ -746,7 +746,7 @@ class PmsServiceTest {
     @Test
     @DisplayName("actualizarPmsConRedondeo - falla con estado REGISTRADO")
     void actualizarPmsConRedondeo_estadoRegistrado_lanzaExcepcion() {
-        // ARRANGE
+        
         pms.setEstado(Estado.REGISTRADO);
         
         PmsRedondeoRequestDTO request = new PmsRedondeoRequestDTO();
@@ -754,7 +754,7 @@ class PmsServiceTest {
         
         when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));
         
-        // ACT & ASSERT
+        
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             pmsService.actualizarPmsConRedondeo(1L, request);
         });
@@ -766,12 +766,12 @@ class PmsServiceTest {
     @Test
     @DisplayName("actualizarPmsConRedondeo - falla si repeticiones incompletas")
     void actualizarPmsConRedondeo_repeticionesIncompletas_lanzaExcepcion() {
-        // ARRANGE
+        
         pms.setEstado(Estado.EN_PROCESO);
         pms.setNumRepeticionesEsperadas(8);
         pms.setNumTandas(1);
         
-        // Solo 4 repeticiones (incompletas)
+        
         List<RepPms> repeticiones = new ArrayList<>();
         for (int i = 1; i <= 4; i++) {
             RepPms rep = new RepPms();
@@ -788,7 +788,7 @@ class PmsServiceTest {
         when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));
         when(repPmsRepository.findByPmsId(1L)).thenReturn(repeticiones);
         
-        // ACT & ASSERT
+        
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             pmsService.actualizarPmsConRedondeo(1L, request);
         });
@@ -800,32 +800,32 @@ class PmsServiceTest {
     @Test
     @DisplayName("actualizarEstadisticasPms - actualiza estadísticas públicamente")
     void actualizarEstadisticasPms_actualizaCorrectamente() {
-        // ARRANGE
+        
         when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));
         when(repPmsRepository.findByPmsId(1L)).thenReturn(Collections.emptyList());
         when(pmsRepository.save(any(Pms.class))).thenReturn(pms);
         
-        // ACT
+        
         pmsService.actualizarEstadisticasPms(1L);
         
-        // ASSERT
+        
         verify(pmsRepository, times(1)).save(any(Pms.class));
     }
 
     @Test
     @DisplayName("obtenerPmsPaginadasConFiltro - filtro 'activos'")
     void obtenerPmsPaginadasConFiltro_activos() {
-        // ARRANGE
+        
         Pageable pageable = PageRequest.of(0, 10);
         Page<Pms> pmsPage = new PageImpl<>(Arrays.asList(pms));
         
         when(pmsRepository.findByActivoTrueOrderByFechaInicioDesc(pageable))
             .thenReturn(pmsPage);
         
-        // ACT
+        
         var resultado = pmsService.obtenerPmsPaginadasConFiltro(pageable, "activos");
         
-        // ASSERT
+        
         assertNotNull(resultado);
         assertEquals(1, resultado.getTotalElements());
         verify(pmsRepository, times(1)).findByActivoTrueOrderByFechaInicioDesc(pageable);
@@ -834,7 +834,7 @@ class PmsServiceTest {
     @Test
     @DisplayName("obtenerPmsPaginadasConFiltro - filtro 'inactivos'")
     void obtenerPmsPaginadasConFiltro_inactivos() {
-        // ARRANGE
+        
         Pageable pageable = PageRequest.of(0, 10);
         pms.setActivo(false);
         Page<Pms> pmsPage = new PageImpl<>(Arrays.asList(pms));
@@ -842,10 +842,10 @@ class PmsServiceTest {
         when(pmsRepository.findByActivoFalseOrderByFechaInicioDesc(pageable))
             .thenReturn(pmsPage);
         
-        // ACT
+        
         var resultado = pmsService.obtenerPmsPaginadasConFiltro(pageable, "inactivos");
         
-        // ASSERT
+        
         assertNotNull(resultado);
         assertEquals(1, resultado.getTotalElements());
         verify(pmsRepository, times(1)).findByActivoFalseOrderByFechaInicioDesc(pageable);
@@ -854,17 +854,17 @@ class PmsServiceTest {
     @Test
     @DisplayName("obtenerPmsPaginadasConFiltro - filtro 'todos'")
     void obtenerPmsPaginadasConFiltro_todos() {
-        // ARRANGE
+        
         Pageable pageable = PageRequest.of(0, 10);
         Page<Pms> pmsPage = new PageImpl<>(Arrays.asList(pms));
         
         when(pmsRepository.findAllByOrderByFechaInicioDesc(pageable))
             .thenReturn(pmsPage);
         
-        // ACT
+        
         var resultado = pmsService.obtenerPmsPaginadasConFiltro(pageable, "todos");
         
-        // ASSERT
+        
         assertNotNull(resultado);
         assertEquals(1, resultado.getTotalElements());
         verify(pmsRepository, times(1)).findAllByOrderByFechaInicioDesc(pageable);
@@ -873,7 +873,7 @@ class PmsServiceTest {
     @Test
     @DisplayName("obtenerPmsPaginadasConFiltros - con filtros dinámicos")
     void obtenerPmsPaginadasConFiltros_conFiltrosDinamicos() {
-        // ARRANGE
+        
         Pageable pageable = PageRequest.of(0, 10);
         Page<Pms> pmsPage = new PageImpl<>(Arrays.asList(pms));
         
@@ -882,11 +882,11 @@ class PmsServiceTest {
         when(pmsRepository.findAll(anySpec, eq(pageable)))
             .thenReturn(pmsPage);
         
-        // ACT
+        
         var resultado = pmsService.obtenerPmsPaginadasConFiltros(
             pageable, "LOTE-001", true, "EN_PROCESO", 1L);
         
-        // ASSERT
+        
         assertNotNull(resultado);
         assertEquals(1, resultado.getTotalElements());
     }
@@ -894,11 +894,11 @@ class PmsServiceTest {
     @Test
     @DisplayName("crear PMS con lote inactivo - debe lanzar excepción")
     void crearPms_conLoteInactivo_debeLanzarExcepcion() {
-        // ARRANGE
+        
         lote.setActivo(false);
         when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));
         
-        // ACT & ASSERT
+        
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             pmsService.crearPms(pmsRequestDTO);
         });
@@ -910,7 +910,7 @@ class PmsServiceTest {
     @Test
     @DisplayName("mapeo DTO completo - con cultivar y especie")
     void mapeoDTO_conCultivarYEspecie() {
-        // ARRANGE
+        
         Especie especie = new Especie();
         especie.setNombreComun("Trigo");
         especie.setNombreCientifico("Triticum aestivum");
@@ -933,10 +933,10 @@ class PmsServiceTest {
         when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));
         when(analisisHistorialService.obtenerHistorialAnalisis(1L)).thenReturn(historial);
         
-        // ACT
+        
         PmsDTO resultado = pmsService.obtenerPorId(1L);
         
-        // ASSERT
+        
         assertNotNull(resultado);
         assertEquals("Cultivar Test", resultado.getCultivarNombre());
         assertEquals("Trigo", resultado.getEspecieNombre());
@@ -946,7 +946,7 @@ class PmsServiceTest {
     @Test
     @DisplayName("actualizarPmsConRedondeo - con estado PENDIENTE_APROBACION")
     void actualizarPmsConRedondeo_estadoPendienteAprobacion() {
-        // ARRANGE
+        
         pms.setEstado(Estado.PENDIENTE_APROBACION);
         pms.setNumRepeticionesEsperadas(4);
         pms.setNumTandas(1);
@@ -969,10 +969,10 @@ class PmsServiceTest {
         when(repPmsRepository.findByPmsId(1L)).thenReturn(repeticiones);
         when(pmsRepository.save(any(Pms.class))).thenReturn(pms);
         
-        // ACT
+        
         PmsDTO resultado = pmsService.actualizarPmsConRedondeo(1L, request);
         
-        // ASSERT
+        
         assertNotNull(resultado);
         verify(pmsRepository, times(1)).save(any(Pms.class));
     }
@@ -980,7 +980,7 @@ class PmsServiceTest {
     @Test
     @DisplayName("actualizarPmsConRedondeo - con estado APROBADO")
     void actualizarPmsConRedondeo_estadoAprobado() {
-        // ARRANGE
+        
         pms.setEstado(Estado.APROBADO);
         pms.setNumRepeticionesEsperadas(4);
         pms.setNumTandas(1);
@@ -1003,10 +1003,10 @@ class PmsServiceTest {
         when(repPmsRepository.findByPmsId(1L)).thenReturn(repeticiones);
         when(pmsRepository.save(any(Pms.class))).thenReturn(pms);
         
-        // ACT
+        
         PmsDTO resultado = pmsService.actualizarPmsConRedondeo(1L, request);
         
-        // ASSERT
+        
         assertNotNull(resultado);
         verify(pmsRepository, times(1)).save(any(Pms.class));
     }
@@ -1014,12 +1014,12 @@ class PmsServiceTest {
     @Test
     @DisplayName("validarTodasLasRepeticiones - con CV alto incrementa tandas")
     void validarTodasLasRepeticiones_CVAlto_incrementaTandas() {
-        // ARRANGE
+        
         pms.setNumRepeticionesEsperadas(4);
         pms.setNumTandas(1);
         pms.setEsSemillaBrozosa(false);
         
-        // Crear repeticiones con mucha variación
+        
         List<RepPms> repeticiones = new ArrayList<>();
         BigDecimal[] pesos = {new BigDecimal("8.0"), new BigDecimal("10.0"), 
                              new BigDecimal("12.0"), new BigDecimal("14.0")};
@@ -1037,20 +1037,20 @@ class PmsServiceTest {
         when(repPmsRepository.countByPmsId(1L)).thenReturn(4L);
         when(pmsRepository.save(any(Pms.class))).thenReturn(pms);
         
-        // ACT
+        
         pmsService.validarTodasLasRepeticiones(1L);
         
-        // ASSERT
+        
         verify(pmsRepository, times(1)).save(any(Pms.class));
     }
 
     @Test
     @DisplayName("procesarCalculosTanda - con semilla brozosa usa umbral CV 6.0")
     void procesarCalculosTanda_semillaBrozosa_umbralCV6() {
-        // ARRANGE
+        
         pms.setNumRepeticionesEsperadas(4);
         pms.setNumTandas(1);
-        pms.setEsSemillaBrozosa(true); // Umbral CV = 6.0
+        pms.setEsSemillaBrozosa(true); 
         
         List<RepPms> repeticiones = new ArrayList<>();
         for (int i = 1; i <= 4; i++) {
@@ -1066,17 +1066,17 @@ class PmsServiceTest {
         when(repPmsRepository.saveAll(anyList())).thenReturn(repeticiones);
         when(pmsRepository.save(any(Pms.class))).thenReturn(pms);
         
-        // ACT
+        
         pmsService.procesarCalculosTanda(1L, 1);
         
-        // ASSERT
+        
         verify(pmsRepository, times(1)).save(any(Pms.class));
     }
 
     @Test
     @DisplayName("procesarCalculosTanda - alcanza límite de 16 repeticiones")
     void procesarCalculosTanda_alcanzaLimite16_noIncrementaTandas() {
-        // ARRANGE
+        
         pms.setNumRepeticionesEsperadas(4);
         pms.setNumTandas(4);
         pms.setEsSemillaBrozosa(false);
@@ -1095,13 +1095,13 @@ class PmsServiceTest {
         when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));
         when(repPmsRepository.findByPmsId(1L)).thenReturn(repeticiones);
         when(repPmsRepository.saveAll(anyList())).thenReturn(repeticiones);
-        when(repPmsRepository.countByPmsId(1L)).thenReturn(16L); // 16 repeticiones totales
+        when(repPmsRepository.countByPmsId(1L)).thenReturn(16L); 
         when(pmsRepository.save(any(Pms.class))).thenReturn(pms);
         
-        // ACT
+        
         pmsService.procesarCalculosTanda(1L, 4);
         
-        // ASSERT
+        
         verify(pmsRepository, times(1)).save(any(Pms.class));
     }
 }

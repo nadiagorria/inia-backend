@@ -15,5 +15,5 @@ public class ValoresGermDTO {
     private BigDecimal frescas;
     private BigDecimal muertas;
     private BigDecimal germinacion;
-    private Long tablaGermId; // ID de la tabla asociada
+    private Long tablaGermId; 
 }

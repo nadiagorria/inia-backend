@@ -25,7 +25,7 @@ public interface CultivarRepository extends JpaRepository<Cultivar, Long> {
     
     Optional<Cultivar> findByNombreAndEspecie_EspecieID(String nombre, Long especieID);
     
-    // Métodos paginados para listado
+    
     Page<Cultivar> findByActivoTrueOrderByNombreAsc(Pageable pageable);
     
     Page<Cultivar> findByActivoFalseOrderByNombreAsc(Pageable pageable);

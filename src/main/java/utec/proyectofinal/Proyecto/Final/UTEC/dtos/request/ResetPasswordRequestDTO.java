@@ -7,8 +7,8 @@ import lombok.Data;
  */
 @Data
 public class ResetPasswordRequestDTO {
-    private String email;              // Email del usuario
-    private String recoveryCode;       // Código de 8 caracteres enviado por email
-    private String totpCode;           // Código de 6 dígitos de Google Authenticator
-    private String newPassword;        // Nueva contraseña
+    private String email;              
+    private String recoveryCode;       
+    private String totpCode;           
+    private String newPassword;        
 }

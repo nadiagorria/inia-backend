@@ -56,20 +56,20 @@ public class UsuarioService {
      * Registrar nueva solicitud de usuario
      */
     public UsuarioDTO registrarSolicitud(RegistroUsuarioRequestDTO solicitud) {
-        // Validar que el username no exista
+        
         if (usuarioRepository.findByNombre(solicitud.getNombre()).isPresent()) {
             throw new RuntimeException("El nombre de usuario ya existe");
         }
 
-        // Validar que el email no exista
+        
         if (usuarioRepository.findByEmail(solicitud.getEmail()).isPresent()) {
             throw new RuntimeException("El email ya está registrado");
         }
 
-        // Validar contraseña
+        
         validarContrasenia(solicitud.getContrasenia());
 
-        // Crear nuevo usuario en estado PENDIENTE
+        
         Usuario usuario = new Usuario();
         usuario.setNombre(solicitud.getNombre());
         usuario.setNombres(solicitud.getNombres());
@@ -77,28 +77,28 @@ public class UsuarioService {
         usuario.setEmail(solicitud.getEmail());
         usuario.setContrasenia(passwordEncoder.encode(solicitud.getContrasenia()));
         usuario.setEstado(EstadoUsuario.PENDIENTE);
-        usuario.setRol(null); // Sin rol hasta ser aprobado
-        usuario.setActivo(false); // Inactivo hasta ser aprobado
+        usuario.setRol(null); 
+        usuario.setActivo(false); 
 
         Usuario usuarioGuardado = usuarioRepository.save(usuario);
         
-        // Crear notificación automática para el nuevo usuario registrado
+        
         try {
             notificacionService.notificarNuevoUsuario(usuarioGuardado.getUsuarioID().longValue());
         } catch (Exception e) {
-            // Log error but don't fail the registration
+            
             System.err.println("Error creating notification for new user: " + e.getMessage());
         }
         
-        // Enviar emails
+        
         try {
-            // 1. Email de confirmación al usuario registrado
+            
             emailService.enviarEmailConfirmacionRegistro(
                 usuarioGuardado.getEmail(),
                 usuarioGuardado.getNombres() + " " + usuarioGuardado.getApellidos()
             );
             
-            // 2. Email a todos los analistas notificando el nuevo registro
+            
             List<Usuario> analistas = usuarioRepository.findAllByRol(Rol.ANALISTA);
             for (Usuario analista : analistas) {
                 if (analista.getActivo() && analista.getEmail() != null) {
@@ -133,13 +133,13 @@ public class UsuarioService {
      * Listar solicitudes pendientes con paginación y búsqueda
      */
     public Page<UsuarioDTO> listarSolicitudesPendientesPaginadas(int page, int size, String search) {
-        // Crear Pageable ordenado por fecha de creación descendente (más recientes primero)
+        
         Pageable pageable = PageRequest.of(page, size,
             Sort.by(Sort.Direction.DESC, "fechaCreacion"));
         Page<Usuario> usuariosPage;
         
         if (search != null && !search.trim().isEmpty()) {
-            // Búsqueda por nombre de usuario, nombres, apellidos o email
+            
             usuariosPage = usuarioRepository.findByEstadoAndSearchTerm(EstadoUsuario.PENDIENTE, search, pageable);
         } else {
             usuariosPage = usuarioRepository.findByEstado(EstadoUsuario.PENDIENTE, pageable);
@@ -165,15 +165,15 @@ public class UsuarioService {
 
         Usuario usuarioActualizado = usuarioRepository.save(usuario);
         
-        // Crear notificación automática para aprobación de usuario
+        
         try {
             notificacionService.notificarUsuarioAprobado(usuarioActualizado.getUsuarioID().longValue());
         } catch (Exception e) {
-            // Log error but don't fail the approval
+            
             System.err.println("Error creating notification for user approval: " + e.getMessage());
         }
         
-        // Enviar email de bienvenida al usuario aprobado
+        
         try {
             emailService.enviarEmailBienvenida(
                 usuarioActualizado.getEmail(),
@@ -198,11 +198,11 @@ public class UsuarioService {
             throw new RuntimeException("Solo se pueden rechazar usuarios en estado PENDIENTE");
         }
 
-        // Crear notificación automática para rechazo de usuario
+        
         try {
             notificacionService.notificarUsuarioRechazado(usuario.getUsuarioID().longValue());
         } catch (Exception e) {
-            // Log error but continue with rejection
+            
             System.err.println("Error creating notification for user rejection: " + e.getMessage());
         }
 
@@ -223,37 +223,37 @@ public class UsuarioService {
      * Listar todos los usuarios con paginación, búsqueda y filtros
      */
     public Page<UsuarioDTO> listarTodosUsuariosPaginados(int page, int size, String search, Rol rol, Boolean activo) {
-        // Crear Pageable con ordenamiento alfabético por nombres y apellidos
+        
         Pageable pageable = PageRequest.of(page, size, 
             Sort.by(Sort.Direction.ASC, "apellidos", "nombres"));
         Page<Usuario> usuariosPage;
         
         boolean hasSearch = search != null && !search.trim().isEmpty();
         
-        // Combinaciones de filtros
+        
         if (rol != null && activo != null && hasSearch) {
-            // Rol + Activo + Búsqueda
+            
             usuariosPage = usuarioRepository.findByRolAndActivoAndSearchTerm(rol, activo, search, pageable);
         } else if (rol != null && activo != null) {
-            // Rol + Activo (sin búsqueda)
+            
             usuariosPage = usuarioRepository.findByRolAndActivo(rol, activo, pageable);
         } else if (rol != null && hasSearch) {
-            // Rol + Búsqueda
+            
             usuariosPage = usuarioRepository.findBySearchTermAndRol(search, rol, pageable);
         } else if (activo != null && hasSearch) {
-            // Activo + Búsqueda
+            
             usuariosPage = usuarioRepository.findByActivoAndSearchTerm(activo, search, pageable);
         } else if (rol != null) {
-            // Solo Rol
+            
             usuariosPage = usuarioRepository.findByRol(rol, pageable);
         } else if (activo != null) {
-            // Solo Activo
+            
             usuariosPage = usuarioRepository.findByActivo(activo, pageable);
         } else if (hasSearch) {
-            // Solo Búsqueda
+            
             usuariosPage = usuarioRepository.findBySearchTerm(search, pageable);
         } else {
-            // Sin filtros
+            
             usuariosPage = usuarioRepository.findAll(pageable);
         }
         
@@ -277,22 +277,22 @@ public class UsuarioService {
         Usuario usuario = usuarioRepository.findById(usuarioId)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
-        // Actualizar rol si se proporciona
+        
         if (solicitud.getRol() != null) {
             usuario.setRol(solicitud.getRol());
         }
 
-        // Actualizar estado si se proporciona
+        
         if (solicitud.getEstado() != null) {
             usuario.setEstado(solicitud.getEstado());
-            // Sincronizar campo activo con estado
+            
             usuario.setActivo(solicitud.getEstado() == EstadoUsuario.ACTIVO);
         }
         
-        // Actualizar campo activo si se proporciona (y sincronizar con estado)
+        
         if (solicitud.getActivo() != null) {
             usuario.setActivo(solicitud.getActivo());
-            // Sincronizar estado con activo
+            
             usuario.setEstado(solicitud.getActivo() ? EstadoUsuario.ACTIVO : EstadoUsuario.INACTIVO);
         }
 
@@ -314,7 +314,7 @@ public class UsuarioService {
     public UsuarioDTO actualizarPerfil(ActualizarPerfilRequestDTO solicitud) {
         Usuario usuario = obtenerUsuarioActual();
 
-        // Verificar contraseña actual si se va a cambiar
+        
         if (solicitud.getContraseniaNueva() != null && !solicitud.getContraseniaNueva().isEmpty()) {
             if (solicitud.getContraseniaActual() == null || solicitud.getContraseniaActual().isEmpty()) {
                 throw new RuntimeException("Debe proporcionar la contraseña actual para cambiarla");
@@ -324,21 +324,21 @@ public class UsuarioService {
                 throw new RuntimeException("Contraseña actual incorrecta");
             }
             
-            // Validar que la nueva contraseña no sea igual a la actual
+            
             if (passwordEncoder.matches(solicitud.getContraseniaNueva(), usuario.getContrasenia())) {
                 throw new RuntimeException("La nueva contraseña no puede ser igual a la contraseña actual");
             }
             
-            // Validar nueva contraseña
+            
             validarContrasenia(solicitud.getContraseniaNueva());
             
             usuario.setContrasenia(passwordEncoder.encode(solicitud.getContraseniaNueva()));
         }
 
-        // Actualizar nombre de usuario (username) si se proporciona
+        
         if (solicitud.getNombre() != null && !solicitud.getNombre().trim().isEmpty() 
             && !solicitud.getNombre().equalsIgnoreCase(usuario.getNombre())) {
-            // Verificar que el nuevo nombre de usuario no exista
+            
             Optional<Usuario> usuarioExistente = usuarioRepository.findByNombreIgnoreCase(solicitud.getNombre());
             if (usuarioExistente.isPresent() && !usuarioExistente.get().getUsuarioID().equals(usuario.getUsuarioID())) {
                 throw new RuntimeException("El nombre de usuario ya está en uso por otro usuario");
@@ -346,7 +346,7 @@ public class UsuarioService {
             usuario.setNombre(solicitud.getNombre());
         }
 
-        // Actualizar datos del perfil
+        
         if (solicitud.getNombres() != null && !solicitud.getNombres().trim().isEmpty()) {
             usuario.setNombres(solicitud.getNombres());
         }
@@ -357,7 +357,7 @@ public class UsuarioService {
         
         if (solicitud.getEmail() != null && !solicitud.getEmail().trim().isEmpty() 
             && !solicitud.getEmail().equalsIgnoreCase(usuario.getEmail())) {
-            // Verificar que el nuevo email no exista (case-insensitive)
+            
             Optional<Usuario> usuarioExistente = usuarioRepository.findByEmailIgnoreCase(solicitud.getEmail());
             if (usuarioExistente.isPresent() && !usuarioExistente.get().getUsuarioID().equals(usuario.getUsuarioID())) {
                 throw new RuntimeException("El email ya está en uso por otro usuario");
@@ -374,7 +374,7 @@ public class UsuarioService {
      * El admin se crea con 2FA YA ACTIVADO para cumplir con la política de seguridad
      */
     public UsuarioDTO crearAdminPredeterminado() {
-        // Verificar si ya existe al menos un admin
+        
         if (usuarioRepository.existsByRol(Rol.ADMIN)) {
             throw new RuntimeException("Ya existe un administrador en el sistema");
         }
@@ -383,28 +383,28 @@ public class UsuarioService {
         System.out.println("🔐 CREANDO USUARIO ADMINISTRADOR CON 2FA OBLIGATORIO");
         System.out.println("=" .repeat(80));
 
-        // Crear admin predeterminado
+        
         Usuario admin = new Usuario();
         admin.setNombre("admin");
         admin.setNombres("Administrador");
         admin.setApellidos("del Sistema");
-        admin.setEmail("admin@temporal.local"); // Email temporal que DEBE cambiar
-        admin.setContrasenia(passwordEncoder.encode("admin123")); // Contraseña temporal
+        admin.setEmail("admin@temporal.local"); 
+        admin.setContrasenia(passwordEncoder.encode("admin123")); 
         admin.setRol(Rol.ADMIN);
         admin.setEstado(EstadoUsuario.ACTIVO);
         admin.setActivo(true);
-        admin.setRequiereCambioCredenciales(true); // ⚠️ DEBE cambiar credenciales en primer login
+        admin.setRequiereCambioCredenciales(true); 
 
-        // GENERAR 2FA AUTOMÁTICAMENTE (pero NO habilitado hasta que configure sus credenciales)
+        
         String secret = totpService.generateSecret();
         admin.setTotpSecret(secret);
-        admin.setTotpEnabled(false); // Se habilitará después de cambiar credenciales
+        admin.setTotpEnabled(false); 
 
         Usuario adminGuardado = usuarioRepository.save(admin);
 
-        // NO generamos códigos de respaldo hasta que el admin configure sus credenciales
         
-        // MOSTRAR INFORMACIÓN EN CONSOLA
+        
+        
         System.out.println("\n✅ ADMINISTRADOR CREADO EXITOSAMENTE");
         System.out.println("-".repeat(80));
         System.out.println("📧 Usuario: admin");
@@ -427,7 +427,7 @@ public class UsuarioService {
         return mapearEntidadADTO(adminGuardado);
     }
 
-    // === MÉTODOS PARA 2FA Y RECUPERACIÓN DE CONTRASEÑA ===
+    
 
     /**
      * Guardar usuario (método público para uso desde controladores 2FA)
@@ -450,22 +450,22 @@ public class UsuarioService {
         Usuario usuario = usuarioRepository.findById(usuarioId)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
         
-        // Validar que la nueva contraseña no sea igual a la actual
+        
         if (passwordEncoder.matches(nuevaContrasenia, usuario.getContrasenia())) {
             throw new RuntimeException("La nueva contraseña no puede ser igual a la contraseña actual");
         }
         
-        // Validar nueva contraseña
+        
         validarContrasenia(nuevaContrasenia);
         
-        // Hashear y guardar la nueva contraseña
+        
         usuario.setContrasenia(passwordEncoder.encode(nuevaContrasenia));
         usuarioRepository.save(usuario);
         
         System.out.println("✅ Contraseña cambiada para usuario: " + usuario.getNombre());
     }
 
-    // === Métodos auxiliares ===
+    
 
     /**
      * Valida que la contraseña cumpla con los requisitos de seguridad
@@ -481,12 +481,12 @@ public class UsuarioService {
             throw new RuntimeException("La contraseña debe tener al menos 8 caracteres");
         }
         
-        // Validar que contenga al menos una letra (a-z, A-Z)
+        
         if (!contrasenia.matches(".*[a-zA-Z].*")) {
             throw new RuntimeException("La contraseña debe contener al menos una letra");
         }
         
-        // Validar que contenga al menos un número (0-9)
+        
         if (!contrasenia.matches(".*\\d.*")) {
             throw new RuntimeException("La contraseña debe contener al menos un número");
         }
@@ -510,10 +510,10 @@ public class UsuarioService {
         dto.setApellidos(usuario.getApellidos());
         dto.setEmail(usuario.getEmail());
         
-        // Campo original
+        
         dto.setRol(usuario.getRol());
         
-        // Mapear rol a array de strings para el frontend
+        
         if (usuario.getRol() != null) {
             dto.setRoles(List.of(usuario.getRol().name()));
         } else {
@@ -522,17 +522,17 @@ public class UsuarioService {
         
         dto.setEstado(usuario.getEstado());
         
-        // Mapear estado a string para el frontend
+        
         if (usuario.getEstado() != null) {
             dto.setEstadoSolicitud(usuario.getEstado().name());
         }
         
         dto.setActivo(usuario.getActivo());
         
-        // Campo original
+        
         dto.setFechaCreacion(usuario.getFechaCreacion());
         
-        // Mapear fechaCreacion a ISO string para el frontend
+        
         if (usuario.getFechaCreacion() != null) {
             dto.setFechaRegistro(usuario.getFechaCreacion().toString());
         }

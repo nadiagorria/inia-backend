@@ -24,16 +24,16 @@ public class LoteRequestDTO {
     private String observaciones;
     private BigDecimal kilosLimpios;
     
-    // Datos de humedad - lista de objetos con tipo y valor
+    
     private List<DatosHumedadRequestDTO> datosHumedad;
     
-    // Número de artículo - ID del catálogo seleccionado
+    
     private Long numeroArticuloID;
     
     private Long origenID;
     private Long estadoID;
     private LocalDate fechaCosecha;
     
-    // Lista de tipos de análisis asignados
+    
     private List<TipoAnalisis> tiposAnalisisAsignados;
 }

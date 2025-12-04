@@ -81,7 +81,7 @@ public class Auth2FAController {
     @Autowired
     private SetupTokenService setupTokenService;
 
-    // ===== ENDPOINT DE LOGIN CON SOPORTE 2FA =====
+    
 
     @PostMapping("/login-2fa")
     @Operation(summary = "Login con soporte 2FA", description = "Autentica usuario con soporte para 2FA y dispositivos de confianza")
@@ -268,7 +268,7 @@ public class Auth2FAController {
         return ip;
     }
 
-    // ===== ENDPOINTS DE AUTENTICACIÓN DE DOS FACTORES (2FA) =====
+    // ENDPOINTS DE AUTENTICACIÓN DE DOS FACTORES (2FA)
 
     @PostMapping("/2fa/setup-initial")
     @Operation(summary = "Setup inicial de 2FA (sin autenticación)", 
@@ -616,7 +616,7 @@ public class Auth2FAController {
         ));
     }
 
-    // ===== ENDPOINTS DE DISPOSITIVOS DE CONFIANZA =====
+    // ENDPOINTS DE DISPOSITIVOS DE CONFIANZA
 
     @GetMapping("/trusted-devices")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
@@ -654,7 +654,7 @@ public class Auth2FAController {
         return ResponseEntity.ok(Map.of("mensaje", "Todos los dispositivos revocados exitosamente"));
     }
 
-    // ===== ENDPOINTS DE RECUPERACIÓN DE CONTRASEÑA =====
+    // ENDPOINTS DE RECUPERACIÓN DE CONTRASEÑA
 
     @PostMapping("/recuperar-contrasena")
     @Operation(summary = "Olvidé mi contraseña", description = "Envía un código de recuperación al email del usuario")
@@ -750,9 +750,7 @@ public class Auth2FAController {
         ));
     }
 
-    // ============================================
     // ENDPOINTS DE CÓDIGOS DE RESPALDO
-    // ============================================
 
     @PostMapping("/2fa/backup-codes/regenerate")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")

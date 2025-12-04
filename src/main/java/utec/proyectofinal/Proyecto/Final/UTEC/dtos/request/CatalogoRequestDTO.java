@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class CatalogoRequestDTO {
-    private String tipo; // HUMEDAD, ORIGEN, ARTICULO, ESTADO, DEPOSITO
+    private String tipo; 
     private String valor;
 }

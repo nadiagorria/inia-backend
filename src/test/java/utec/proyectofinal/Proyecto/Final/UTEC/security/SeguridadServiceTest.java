@@ -117,15 +117,15 @@ class SeguridadServiceTest {
     @Test
     @DisplayName("autenticarUsuario - debe autenticar correctamente por nombre de usuario")
     void autenticarUsuario_porNombreUsuario_debeAutenticarCorrectamente() {
-        // ARRANGE
+        
         when(usuarioRepository.findByNombreIgnoreCase("testuser")).thenReturn(Optional.of(usuarioActivo));
         when(passwordService.matchPassword("password123", usuarioActivo.getContrasenia())).thenReturn(true);
         when(usuarioRepository.save(any(Usuario.class))).thenReturn(usuarioActivo);
 
-        // ACT
+        
         Optional<Usuario> resultado = seguridadService.autenticarUsuario("testuser", "password123");
 
-        // ASSERT
+        
         assertTrue(resultado.isPresent());
         assertEquals(usuarioActivo.getUsuarioID(), resultado.get().getUsuarioID());
         assertEquals("testuser", resultado.get().getNombre());
@@ -137,16 +137,16 @@ class SeguridadServiceTest {
     @Test
     @DisplayName("autenticarUsuario - debe autenticar correctamente por email")
     void autenticarUsuario_porEmail_debeAutenticarCorrectamente() {
-        // ARRANGE
+        
         when(usuarioRepository.findByNombreIgnoreCase("testuser@inia.org.uy")).thenReturn(Optional.empty());
         when(usuarioRepository.findByEmailIgnoreCase("testuser@inia.org.uy")).thenReturn(Optional.of(usuarioActivo));
         when(passwordService.matchPassword("password123", usuarioActivo.getContrasenia())).thenReturn(true);
         when(usuarioRepository.save(any(Usuario.class))).thenReturn(usuarioActivo);
 
-        // ACT
+        
         Optional<Usuario> resultado = seguridadService.autenticarUsuario("testuser@inia.org.uy", "password123");
 
-        // ASSERT
+        
         assertTrue(resultado.isPresent());
         assertEquals(usuarioActivo.getUsuarioID(), resultado.get().getUsuarioID());
         assertEquals("testuser@inia.org.uy", resultado.get().getEmail());
@@ -156,15 +156,15 @@ class SeguridadServiceTest {
     @Test
     @DisplayName("autenticarUsuario - debe ser case-insensitive para nombre de usuario")
     void autenticarUsuario_caseInsensitive_debeAutenticar() {
-        // ARRANGE
+        
         when(usuarioRepository.findByNombreIgnoreCase("TESTUSER")).thenReturn(Optional.of(usuarioActivo));
         when(passwordService.matchPassword("password123", usuarioActivo.getContrasenia())).thenReturn(true);
         when(usuarioRepository.save(any(Usuario.class))).thenReturn(usuarioActivo);
 
-        // ACT
+        
         Optional<Usuario> resultado = seguridadService.autenticarUsuario("TESTUSER", "password123");
 
-        // ASSERT
+        
         assertTrue(resultado.isPresent());
         verify(usuarioRepository).findByNombreIgnoreCase("TESTUSER");
     }
@@ -172,16 +172,16 @@ class SeguridadServiceTest {
     @Test
     @DisplayName("autenticarUsuario - debe ser case-insensitive para email")
     void autenticarUsuario_emailCaseInsensitive_debeAutenticar() {
-        // ARRANGE
+        
         when(usuarioRepository.findByNombreIgnoreCase("TESTUSER@INIA.ORG.UY")).thenReturn(Optional.empty());
         when(usuarioRepository.findByEmailIgnoreCase("TESTUSER@INIA.ORG.UY")).thenReturn(Optional.of(usuarioActivo));
         when(passwordService.matchPassword("password123", usuarioActivo.getContrasenia())).thenReturn(true);
         when(usuarioRepository.save(any(Usuario.class))).thenReturn(usuarioActivo);
 
-        // ACT
+        
         Optional<Usuario> resultado = seguridadService.autenticarUsuario("TESTUSER@INIA.ORG.UY", "password123");
 
-        // ASSERT
+        
         assertTrue(resultado.isPresent());
         verify(usuarioRepository).findByEmailIgnoreCase("TESTUSER@INIA.ORG.UY");
     }
@@ -189,16 +189,16 @@ class SeguridadServiceTest {
     @Test
     @DisplayName("autenticarUsuario - debe actualizar fecha de última conexión")
     void autenticarUsuario_debeActualizarFechaUltimaConexion() {
-        // ARRANGE
+        
         LocalDateTime antes = LocalDateTime.now();
         when(usuarioRepository.findByNombreIgnoreCase("testuser")).thenReturn(Optional.of(usuarioActivo));
         when(passwordService.matchPassword("password123", usuarioActivo.getContrasenia())).thenReturn(true);
         when(usuarioRepository.save(any(Usuario.class))).thenReturn(usuarioActivo);
 
-        // ACT
+        
         seguridadService.autenticarUsuario("testuser", "password123");
 
-        // ASSERT
+        
         verify(usuarioRepository).save(argThat(usuario -> {
             LocalDateTime fechaConexion = usuario.getFechaUltimaConexion();
             return fechaConexion != null && 
@@ -211,11 +211,11 @@ class SeguridadServiceTest {
     @Test
     @DisplayName("autenticarUsuario - usuario no encontrado debe lanzar USUARIO_INCORRECTO")
     void autenticarUsuario_usuarioNoEncontrado_debeLanzarExcepcion() {
-        // ARRANGE
+        
         when(usuarioRepository.findByNombreIgnoreCase("noexiste")).thenReturn(Optional.empty());
         when(usuarioRepository.findByEmailIgnoreCase("noexiste")).thenReturn(Optional.empty());
 
-        // ACT & ASSERT
+        
         RuntimeException exception = assertThrows(RuntimeException.class, () -> 
             seguridadService.autenticarUsuario("noexiste", "password123"));
         
@@ -226,11 +226,11 @@ class SeguridadServiceTest {
     @Test
     @DisplayName("autenticarUsuario - usuario inactivo (campo legacy) debe lanzar USUARIO_INACTIVO")
     void autenticarUsuario_usuarioInactivoLegacy_debeLanzarExcepcion() {
-        // ARRANGE
+        
         usuarioActivo.setActivo(false);
         when(usuarioRepository.findByNombreIgnoreCase("testuser")).thenReturn(Optional.of(usuarioActivo));
 
-        // ACT & ASSERT
+        
         RuntimeException exception = assertThrows(RuntimeException.class, () -> 
             seguridadService.autenticarUsuario("testuser", "password123"));
         
@@ -241,10 +241,10 @@ class SeguridadServiceTest {
     @Test
     @DisplayName("autenticarUsuario - usuario pendiente debe lanzar USUARIO_PENDIENTE_APROBACION")
     void autenticarUsuario_usuarioPendiente_debeLanzarExcepcion() {
-        // ARRANGE
+        
         when(usuarioRepository.findByNombreIgnoreCase("pendinguser")).thenReturn(Optional.of(usuarioPendiente));
 
-        // ACT & ASSERT
+        
         RuntimeException exception = assertThrows(RuntimeException.class, () -> 
             seguridadService.autenticarUsuario("pendinguser", "password123"));
         
@@ -255,10 +255,10 @@ class SeguridadServiceTest {
     @Test
     @DisplayName("autenticarUsuario - usuario con estado INACTIVO debe lanzar USUARIO_INACTIVO")
     void autenticarUsuario_estadoInactivo_debeLanzarExcepcion() {
-        // ARRANGE
+        
         when(usuarioRepository.findByNombreIgnoreCase("inactiveuser")).thenReturn(Optional.of(usuarioInactivo));
 
-        // ACT & ASSERT
+        
         RuntimeException exception = assertThrows(RuntimeException.class, () -> 
             seguridadService.autenticarUsuario("inactiveuser", "password123"));
         
@@ -269,11 +269,11 @@ class SeguridadServiceTest {
     @Test
     @DisplayName("autenticarUsuario - usuario sin rol debe lanzar USUARIO_SIN_ROL")
     void autenticarUsuario_usuarioSinRol_debeLanzarExcepcion() {
-        // ARRANGE
+        
         usuarioActivo.setRol(null);
         when(usuarioRepository.findByNombreIgnoreCase("testuser")).thenReturn(Optional.of(usuarioActivo));
 
-        // ACT & ASSERT
+        
         RuntimeException exception = assertThrows(RuntimeException.class, () -> 
             seguridadService.autenticarUsuario("testuser", "password123"));
         
@@ -284,11 +284,11 @@ class SeguridadServiceTest {
     @Test
     @DisplayName("autenticarUsuario - contraseña incorrecta debe lanzar CONTRASENIA_INCORRECTA")
     void autenticarUsuario_contraseniaIncorrecta_debeLanzarExcepcion() {
-        // ARRANGE
+        
         when(usuarioRepository.findByNombreIgnoreCase("testuser")).thenReturn(Optional.of(usuarioActivo));
         when(passwordService.matchPassword("wrongpassword", usuarioActivo.getContrasenia())).thenReturn(false);
 
-        // ACT & ASSERT
+        
         RuntimeException exception = assertThrows(RuntimeException.class, () -> 
             seguridadService.autenticarUsuario("testuser", "wrongpassword"));
         
@@ -301,16 +301,16 @@ class SeguridadServiceTest {
     @Test
     @DisplayName("obtenerUsuarioAutenticado - debe retornar ID del usuario autenticado por nombre")
     void obtenerUsuarioAutenticado_porNombre_debeRetornarID() {
-        // ARRANGE
+        
         SecurityContextHolder.setContext(securityContext);
         when(securityContext.getAuthentication()).thenReturn(authentication);
         when(authentication.getName()).thenReturn("testuser");
         when(usuarioRepository.findByNombre("testuser")).thenReturn(Optional.of(usuarioActivo));
 
-        // ACT
+        
         Integer usuarioId = seguridadService.obtenerUsuarioAutenticado();
 
-        // ASSERT
+        
         assertEquals(1, usuarioId);
         verify(usuarioRepository).findByNombre("testuser");
     }
@@ -318,17 +318,17 @@ class SeguridadServiceTest {
     @Test
     @DisplayName("obtenerUsuarioAutenticado - debe retornar ID del usuario autenticado por email")
     void obtenerUsuarioAutenticado_porEmail_debeRetornarID() {
-        // ARRANGE
+        
         SecurityContextHolder.setContext(securityContext);
         when(securityContext.getAuthentication()).thenReturn(authentication);
         when(authentication.getName()).thenReturn("testuser@inia.org.uy");
         when(usuarioRepository.findByNombre("testuser@inia.org.uy")).thenReturn(Optional.empty());
         when(usuarioRepository.findByEmail("testuser@inia.org.uy")).thenReturn(Optional.of(usuarioActivo));
 
-        // ACT
+        
         Integer usuarioId = seguridadService.obtenerUsuarioAutenticado();
 
-        // ASSERT
+        
         assertEquals(1, usuarioId);
         verify(usuarioRepository).findByNombre("testuser@inia.org.uy");
         verify(usuarioRepository).findByEmail("testuser@inia.org.uy");
@@ -337,11 +337,11 @@ class SeguridadServiceTest {
     @Test
     @DisplayName("obtenerUsuarioAutenticado - sin autenticación debe lanzar excepción")
     void obtenerUsuarioAutenticado_sinAutenticacion_debeLanzarExcepcion() {
-        // ARRANGE
+        
         SecurityContextHolder.setContext(securityContext);
         when(securityContext.getAuthentication()).thenReturn(null);
 
-        // ACT & ASSERT
+        
         RuntimeException exception = assertThrows(RuntimeException.class, () -> 
             seguridadService.obtenerUsuarioAutenticado());
         
@@ -351,12 +351,12 @@ class SeguridadServiceTest {
     @Test
     @DisplayName("obtenerUsuarioAutenticado - authentication sin nombre debe lanzar excepción")
     void obtenerUsuarioAutenticado_authenticationSinNombre_debeLanzarExcepcion() {
-        // ARRANGE
+        
         SecurityContextHolder.setContext(securityContext);
         when(securityContext.getAuthentication()).thenReturn(authentication);
         when(authentication.getName()).thenReturn(null);
 
-        // ACT & ASSERT
+        
         RuntimeException exception = assertThrows(RuntimeException.class, () -> 
             seguridadService.obtenerUsuarioAutenticado());
         
@@ -366,14 +366,14 @@ class SeguridadServiceTest {
     @Test
     @DisplayName("obtenerUsuarioAutenticado - usuario no encontrado en BD debe lanzar excepción")
     void obtenerUsuarioAutenticado_usuarioNoEnBD_debeLanzarExcepcion() {
-        // ARRANGE
+        
         SecurityContextHolder.setContext(securityContext);
         when(securityContext.getAuthentication()).thenReturn(authentication);
         when(authentication.getName()).thenReturn("noexiste");
         when(usuarioRepository.findByNombre("noexiste")).thenReturn(Optional.empty());
         when(usuarioRepository.findByEmail("noexiste")).thenReturn(Optional.empty());
 
-        // ACT & ASSERT
+        
         RuntimeException exception = assertThrows(RuntimeException.class, () -> 
             seguridadService.obtenerUsuarioAutenticado());
         
@@ -388,10 +388,10 @@ class SeguridadServiceTest {
         // ARRANGE - Usuario con rol ANALISTA tiene roles ["ANALISTA"]
         // (asumiendo que Usuario.getRoles() retorna una lista de strings basada en el rol)
 
-        // ACT
+        
         String[] roles = seguridadService.listarRolesPorUsuario(usuarioActivo);
 
-        // ASSERT
+        
         assertNotNull(roles);
         assertTrue(roles.length > 0);
     }
@@ -401,10 +401,10 @@ class SeguridadServiceTest {
     void listarRolesPorUsuario_admin_debeTenerRolesAdmin() {
         // ARRANGE - Admin puede tener múltiples roles
 
-        // ACT
+        
         String[] roles = seguridadService.listarRolesPorUsuario(adminActivo);
 
-        // ASSERT
+        
         assertNotNull(roles);
         assertTrue(roles.length > 0);
     }
@@ -412,16 +412,16 @@ class SeguridadServiceTest {
     @Test
     @DisplayName("listarRolesPorUsuario - debe retornar array vacío si no tiene roles")
     void listarRolesPorUsuario_sinRoles_debeRetornarArrayVacio() {
-        // ARRANGE
+        
         Usuario usuarioSinRoles = new Usuario();
         usuarioSinRoles.setUsuarioID(99);
         usuarioSinRoles.setNombre("sinroles");
         // getRoles() debería retornar lista vacía si no hay rol configurado
 
-        // ACT
+        
         String[] roles = seguridadService.listarRolesPorUsuario(usuarioSinRoles);
 
-        // ASSERT
+        
         assertNotNull(roles);
         // El array existe aunque esté vacío
     }
@@ -431,13 +431,13 @@ class SeguridadServiceTest {
     @Test
     @DisplayName("existeUsuario - debe retornar true si el usuario existe")
     void existeUsuario_usuarioExiste_debeRetornarTrue() {
-        // ARRANGE
+        
         when(usuarioRepository.findByNombreIgnoreCase("testuser")).thenReturn(Optional.of(usuarioActivo));
 
-        // ACT
+        
         boolean existe = seguridadService.existeUsuario("testuser");
 
-        // ASSERT
+        
         assertTrue(existe);
         verify(usuarioRepository).findByNombreIgnoreCase("testuser");
     }
@@ -445,13 +445,13 @@ class SeguridadServiceTest {
     @Test
     @DisplayName("existeUsuario - debe retornar false si el usuario no existe")
     void existeUsuario_usuarioNoExiste_debeRetornarFalse() {
-        // ARRANGE
+        
         when(usuarioRepository.findByNombreIgnoreCase("noexiste")).thenReturn(Optional.empty());
 
-        // ACT
+        
         boolean existe = seguridadService.existeUsuario("noexiste");
 
-        // ASSERT
+        
         assertFalse(existe);
         verify(usuarioRepository).findByNombreIgnoreCase("noexiste");
     }
@@ -459,13 +459,13 @@ class SeguridadServiceTest {
     @Test
     @DisplayName("existeUsuario - debe ser case-insensitive")
     void existeUsuario_caseInsensitive_debeRetornarTrue() {
-        // ARRANGE
+        
         when(usuarioRepository.findByNombreIgnoreCase("TESTUSER")).thenReturn(Optional.of(usuarioActivo));
 
-        // ACT
+        
         boolean existe = seguridadService.existeUsuario("TESTUSER");
 
-        // ASSERT
+        
         assertTrue(existe);
         verify(usuarioRepository).findByNombreIgnoreCase("TESTUSER");
     }
@@ -475,14 +475,14 @@ class SeguridadServiceTest {
     @Test
     @DisplayName("existeEmailActivo - debe retornar true si el email existe")
     void existeEmailActivo_emailExiste_debeRetornarTrue() {
-        // ARRANGE
+        
         when(usuarioRepository.findByEmailIgnoreCase("testuser@inia.org.uy"))
             .thenReturn(Optional.of(usuarioActivo));
 
-        // ACT
+        
         boolean existe = seguridadService.existeEmailActivo("testuser@inia.org.uy");
 
-        // ASSERT
+        
         assertTrue(existe);
         verify(usuarioRepository).findByEmailIgnoreCase("testuser@inia.org.uy");
     }
@@ -490,14 +490,14 @@ class SeguridadServiceTest {
     @Test
     @DisplayName("existeEmailActivo - debe retornar false si el email no existe")
     void existeEmailActivo_emailNoExiste_debeRetornarFalse() {
-        // ARRANGE
+        
         when(usuarioRepository.findByEmailIgnoreCase("noexiste@inia.org.uy"))
             .thenReturn(Optional.empty());
 
-        // ACT
+        
         boolean existe = seguridadService.existeEmailActivo("noexiste@inia.org.uy");
 
-        // ASSERT
+        
         assertFalse(existe);
         verify(usuarioRepository).findByEmailIgnoreCase("noexiste@inia.org.uy");
     }
@@ -505,14 +505,14 @@ class SeguridadServiceTest {
     @Test
     @DisplayName("existeEmailActivo - debe ser case-insensitive")
     void existeEmailActivo_caseInsensitive_debeRetornarTrue() {
-        // ARRANGE
+        
         when(usuarioRepository.findByEmailIgnoreCase("TESTUSER@INIA.ORG.UY"))
             .thenReturn(Optional.of(usuarioActivo));
 
-        // ACT
+        
         boolean existe = seguridadService.existeEmailActivo("TESTUSER@INIA.ORG.UY");
 
-        // ASSERT
+        
         assertTrue(existe);
         verify(usuarioRepository).findByEmailIgnoreCase("TESTUSER@INIA.ORG.UY");
     }
@@ -520,14 +520,14 @@ class SeguridadServiceTest {
     @Test
     @DisplayName("existeEmailActivo - debe encontrar emails con diferentes mayúsculas/minúsculas")
     void existeEmailActivo_diferentesMayusculas_debeRetornarTrue() {
-        // ARRANGE
+        
         when(usuarioRepository.findByEmailIgnoreCase("TestUser@INIA.org.UY"))
             .thenReturn(Optional.of(usuarioActivo));
 
-        // ACT
+        
         boolean existe = seguridadService.existeEmailActivo("TestUser@INIA.org.UY");
 
-        // ASSERT
+        
         assertTrue(existe);
         verify(usuarioRepository).findByEmailIgnoreCase("TestUser@INIA.org.UY");
     }
@@ -537,15 +537,15 @@ class SeguridadServiceTest {
     @Test
     @DisplayName("Flujo completo - autenticar admin y verificar todos sus datos")
     void flujoCompleto_autenticarAdmin_debeVerificarTodosSusDatos() {
-        // ARRANGE
+        
         when(usuarioRepository.findByNombreIgnoreCase("admin")).thenReturn(Optional.of(adminActivo));
         when(passwordService.matchPassword("admin123", adminActivo.getContrasenia())).thenReturn(true);
         when(usuarioRepository.save(any(Usuario.class))).thenReturn(adminActivo);
 
-        // ACT
+        
         Optional<Usuario> resultado = seguridadService.autenticarUsuario("admin", "admin123");
 
-        // ASSERT
+        
         assertTrue(resultado.isPresent());
         Usuario admin = resultado.get();
         assertEquals(4, admin.getUsuarioID());
@@ -563,19 +563,19 @@ class SeguridadServiceTest {
     @Test
     @DisplayName("Flujo completo - verificar existencia de usuario y email antes de autenticar")
     void flujoCompleto_verificarExistenciaAntesDeAutenticar() {
-        // ARRANGE
+        
         when(usuarioRepository.findByNombreIgnoreCase("testuser")).thenReturn(Optional.of(usuarioActivo));
         when(usuarioRepository.findByEmailIgnoreCase("testuser@inia.org.uy"))
             .thenReturn(Optional.of(usuarioActivo));
         when(passwordService.matchPassword("password123", usuarioActivo.getContrasenia())).thenReturn(true);
         when(usuarioRepository.save(any(Usuario.class))).thenReturn(usuarioActivo);
 
-        // ACT
+        
         boolean existeUsuario = seguridadService.existeUsuario("testuser");
         boolean existeEmail = seguridadService.existeEmailActivo("testuser@inia.org.uy");
         Optional<Usuario> autenticado = seguridadService.autenticarUsuario("testuser", "password123");
 
-        // ASSERT
+        
         assertTrue(existeUsuario, "El usuario debe existir");
         assertTrue(existeEmail, "El email debe existir");
         assertTrue(autenticado.isPresent(), "La autenticación debe ser exitosa");

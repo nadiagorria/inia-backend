@@ -7,7 +7,7 @@ import lombok.Data;
  */
 @Data
 public class Verify2FARequestDTO {
-    private String totpCode;           // Código de 6 dígitos de Google Authenticator
-    private String deviceFingerprint;  // Fingerprint del dispositivo (opcional)
-    private Boolean trustDevice;       // Si el usuario quiere confiar en este dispositivo
+    private String totpCode;           
+    private String deviceFingerprint;  
+    private Boolean trustDevice;       
 }

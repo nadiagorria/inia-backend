@@ -64,7 +64,7 @@ class ReporteServiceTest {
         fechaInicio = LocalDate.of(2024, 1, 1);
         fechaFin = LocalDate.of(2024, 12, 31);
 
-        // Configurar entidades mock base
+        
         especieMock = new Especie();
         especieMock.setNombreComun("Soja");
 
@@ -78,22 +78,22 @@ class ReporteServiceTest {
     @Test
     @DisplayName("Obtener reporte general - sin análisis debe retornar reporte vacío")
     void obtenerReporteGeneral_sinAnalisis_debeRetornarReporteVacio() {
-        // ARRANGE
+        
         when(germinacionRepository.findAll()).thenReturn(Collections.emptyList());
         when(purezaRepository.findAll()).thenReturn(Collections.emptyList());
         when(pmsRepository.findAll()).thenReturn(Collections.emptyList());
         when(tetrazolioRepository.findAll()).thenReturn(Collections.emptyList());
         when(dosnRepository.findAll()).thenReturn(Collections.emptyList());
 
-        // ACT
+        
         ReporteGeneralDTO reporte = reporteService.obtenerReporteGeneral(fechaInicio, fechaFin);
 
-        // ASSERT
+        
         assertNotNull(reporte);
         assertEquals(0L, reporte.getTotalAnalisis());
         assertTrue(reporte.getAnalisisPorPeriodo().isEmpty());
         assertTrue(reporte.getAnalisisPorEstado().isEmpty());
-        // Nota: findAll() se llama múltiples veces (en obtenerReporteGeneral y calcularTopAnalisisProblemas)
+        
         verify(germinacionRepository, atLeastOnce()).findAll();
         verify(purezaRepository, atLeastOnce()).findAll();
     }
@@ -101,7 +101,7 @@ class ReporteServiceTest {
     @Test
     @DisplayName("Obtener reporte general - con análisis debe calcular métricas correctamente")
     void obtenerReporteGeneral_conAnalisis_debeCalcularMetricas() {
-        // ARRANGE
+        
         Germinacion germ = crearGerminacion(Estado.APROBADO, LocalDateTime.of(2024, 6, 15, 10, 0));
         Pureza pureza = crearPureza(Estado.EN_PROCESO, LocalDateTime.of(2024, 6, 20, 14, 0));
 
@@ -111,10 +111,10 @@ class ReporteServiceTest {
         when(tetrazolioRepository.findAll()).thenReturn(Collections.emptyList());
         when(dosnRepository.findAll()).thenReturn(Collections.emptyList());
 
-        // ACT
+        
         ReporteGeneralDTO reporte = reporteService.obtenerReporteGeneral(fechaInicio, fechaFin);
 
-        // ASSERT
+        
         assertNotNull(reporte);
         assertEquals(2L, reporte.getTotalAnalisis());
         assertFalse(reporte.getAnalisisPorPeriodo().isEmpty());
@@ -126,7 +126,7 @@ class ReporteServiceTest {
     @Test
     @DisplayName("Obtener reporte germinación - debe calcular media por especie")
     void obtenerReporteGerminacion_debeCalcularMediaPorEspecie() {
-        // ARRANGE
+        
         Germinacion germ = crearGerminacion(Estado.APROBADO, LocalDateTime.of(2024, 6, 15, 10, 0));
         
         TablaGerm tablaGerm = new TablaGerm();
@@ -142,10 +142,10 @@ class ReporteServiceTest {
 
         when(germinacionRepository.findAll()).thenReturn(Collections.singletonList(germ));
 
-        // ACT
+        
         ReporteGerminacionDTO reporte = reporteService.obtenerReporteGerminacion(fechaInicio, fechaFin);
 
-        // ASSERT
+        
         assertNotNull(reporte);
         assertEquals(1L, reporte.getTotalGerminaciones());
         assertFalse(reporte.getMediaGerminacionPorEspecie().isEmpty());
@@ -155,17 +155,17 @@ class ReporteServiceTest {
     @Test
     @DisplayName("Obtener reporte PMS - debe calcular muestras con CV superado")
     void obtenerReportePms_debeCalcularMuestrasConCVSuperado() {
-        // ARRANGE
-        Pms pms1 = crearPms(BigDecimal.valueOf(7.5), 10); // CV > 6%
-        Pms pms2 = crearPms(BigDecimal.valueOf(4.2), 8);  // CV < 6%
-        Pms pms3 = crearPms(BigDecimal.valueOf(8.1), 16); // CV > 6% y rep máximas
+        
+        Pms pms1 = crearPms(BigDecimal.valueOf(7.5), 10); 
+        Pms pms2 = crearPms(BigDecimal.valueOf(4.2), 8);  
+        Pms pms3 = crearPms(BigDecimal.valueOf(8.1), 16); 
 
         when(pmsRepository.findAll()).thenReturn(Arrays.asList(pms1, pms2, pms3));
 
-        // ACT
+        
         ReportePMSDTO reporte = reporteService.obtenerReportePms(fechaInicio, fechaFin);
 
-        // ASSERT
+        
         assertNotNull(reporte);
         assertEquals(3L, reporte.getTotalPms());
         assertEquals(2L, reporte.getMuestrasConCVSuperado());
@@ -177,7 +177,7 @@ class ReporteServiceTest {
     @Test
     @DisplayName("Obtener reporte Pureza - debe calcular porcentajes por especie")
     void obtenerReportePureza_debeCalcularPorcentajesPorEspecie() {
-        // ARRANGE
+        
         Pureza pureza1 = crearPureza(
             BigDecimal.valueOf(100.0),
             BigDecimal.valueOf(2.5),
@@ -193,10 +193,10 @@ class ReporteServiceTest {
 
         when(purezaRepository.findAll()).thenReturn(Arrays.asList(pureza1, pureza2));
 
-        // ACT
+        
         ReportePurezaDTO reporte = reporteService.obtenerReportePureza(fechaInicio, fechaFin);
 
-        // ASSERT
+        
         assertNotNull(reporte);
         assertEquals(2L, reporte.getTotalPurezas());
         assertFalse(reporte.getContaminantesPorEspecie().isEmpty());
@@ -208,16 +208,16 @@ class ReporteServiceTest {
     @Test
     @DisplayName("Obtener reporte Tetrazolio - debe calcular viabilidad por especie")
     void obtenerReporteTetrazolio_debeCalcularViabilidadPorEspecie() {
-        // ARRANGE
+        
         Tetrazolio tetra1 = crearTetrazolio(BigDecimal.valueOf(92.5));
         Tetrazolio tetra2 = crearTetrazolio(BigDecimal.valueOf(88.3));
 
         when(tetrazolioRepository.findAll()).thenReturn(Arrays.asList(tetra1, tetra2));
 
-        // ACT
+        
         ReporteTetrazolioDTO reporte = reporteService.obtenerReporteTetrazolio(fechaInicio, fechaFin);
 
-        // ASSERT
+        
         assertNotNull(reporte);
         assertEquals(2L, reporte.getTotalTetrazolios());
         assertFalse(reporte.getViabilidadIniaPorEspecie().isEmpty());
@@ -231,15 +231,15 @@ class ReporteServiceTest {
     @Test
     @DisplayName("Obtener reporte DOSN - debe retornar estructura correcta")
     void obtenerReporteDosn_debeRetornarEstructuraCorrecta() {
-        // ARRANGE
+        
         Dosn dosn = crearDosn(true);
 
         when(dosnRepository.findAll()).thenReturn(Collections.singletonList(dosn));
 
-        // ACT
+        
         ReportePurezaDTO reporte = reporteService.obtenerReporteDosn(fechaInicio, fechaFin);
 
-        // ASSERT
+        
         assertNotNull(reporte);
         assertEquals(1L, reporte.getTotalPurezas());
         assertFalse(reporte.getContaminantesPorEspecie().isEmpty());
@@ -249,41 +249,41 @@ class ReporteServiceTest {
     @Test
     @DisplayName("Obtener contaminantes por especie Pureza - debe listar detalle de contaminantes")
     void obtenerContaminantesPorEspeciePureza_debeListarDetalle() {
-        // ARRANGE
+        
         Pureza pureza = crearPurezaConListados();
 
         when(purezaRepository.findAll()).thenReturn(Collections.singletonList(pureza));
 
-        // ACT
+        
         Map<String, Double> contaminantes = reporteService.obtenerContaminantesPorEspeciePureza("Soja", fechaInicio, fechaFin);
 
-        // ASSERT
+        
         assertNotNull(contaminantes);
-        // El mapa puede estar vacío si no hay listados con datos
-        // Solo verificamos que no sea nulo y que el método se ejecute sin errores
+        
+        
     }
 
     @Test
     @DisplayName("Obtener contaminantes por especie DOSN - debe listar detalle de contaminantes")
     void obtenerContaminantesPorEspecieDosn_debeListarDetalle() {
-        // ARRANGE
+        
         Dosn dosn = crearDosnConListados();
 
         when(dosnRepository.findAll()).thenReturn(Collections.singletonList(dosn));
 
-        // ACT
+        
         Map<String, Double> contaminantes = reporteService.obtenerContaminantesPorEspecieDosn("Soja", fechaInicio, fechaFin);
 
-        // ASSERT
+        
         assertNotNull(contaminantes);
-        // El mapa puede estar vacío si no hay listados con datos
-        // Solo verificamos que no sea nulo y que el método se ejecute sin errores
+        
+        
     }
 
     @Test
     @DisplayName("Filtrado por fechas - debe excluir análisis fuera del rango")
     void filtradoPorFechas_debeExcluirAnalisisFueraDelRango() {
-        // ARRANGE
+        
         Germinacion germDentro = crearGerminacion(Estado.APROBADO, LocalDateTime.of(2024, 6, 15, 10, 0));
         Germinacion germFuera = crearGerminacion(Estado.APROBADO, LocalDateTime.of(2023, 12, 31, 10, 0));
 
@@ -293,18 +293,18 @@ class ReporteServiceTest {
         when(tetrazolioRepository.findAll()).thenReturn(Collections.emptyList());
         when(dosnRepository.findAll()).thenReturn(Collections.emptyList());
 
-        // ACT
+        
         ReporteGeneralDTO reporte = reporteService.obtenerReporteGeneral(fechaInicio, fechaFin);
 
-        // ASSERT
+        
         assertNotNull(reporte);
-        assertEquals(1L, reporte.getTotalAnalisis()); // Solo cuenta el que está dentro del rango
+        assertEquals(1L, reporte.getTotalAnalisis()); 
     }
 
     @Test
     @DisplayName("Análisis inactivos - no deben incluirse en reportes")
     void analisisInactivos_noDebenIncluirse() {
-        // ARRANGE
+        
         Pureza purezaActiva = crearPureza(Estado.APROBADO, LocalDateTime.of(2024, 6, 15, 10, 0));
         purezaActiva.setActivo(true);
         
@@ -317,18 +317,18 @@ class ReporteServiceTest {
         when(tetrazolioRepository.findAll()).thenReturn(Collections.emptyList());
         when(dosnRepository.findAll()).thenReturn(Collections.emptyList());
 
-        // ACT
+        
         ReporteGeneralDTO reporte = reporteService.obtenerReporteGeneral(fechaInicio, fechaFin);
 
-        // ASSERT
+        
         assertNotNull(reporte);
-        assertEquals(1L, reporte.getTotalAnalisis()); // Solo cuenta el activo
+        assertEquals(1L, reporte.getTotalAnalisis()); 
     }
 
     @Test
     @DisplayName("Reporte con fechas nulas - debe incluir todos los análisis")
     void reporteConFechasNulas_debeIncluirTodos() {
-        // ARRANGE
+        
         Germinacion germ = crearGerminacion(Estado.APROBADO, LocalDateTime.of(2020, 1, 1, 10, 0));
 
         when(germinacionRepository.findAll()).thenReturn(Collections.singletonList(germ));
@@ -337,10 +337,10 @@ class ReporteServiceTest {
         when(tetrazolioRepository.findAll()).thenReturn(Collections.emptyList());
         when(dosnRepository.findAll()).thenReturn(Collections.emptyList());
 
-        // ACT
+        
         ReporteGeneralDTO reporte = reporteService.obtenerReporteGeneral(null, null);
 
-        // ASSERT
+        
         assertNotNull(reporte);
         assertEquals(1L, reporte.getTotalAnalisis());
     }
@@ -348,7 +348,7 @@ class ReporteServiceTest {
     @Test
     @DisplayName("Top análisis con problemas - debe ordenar por cantidad")
     void topAnalisisConProblemas_debeOrdenarPorCantidad() {
-        // ARRANGE
+        
         Germinacion germ1 = crearGerminacion(Estado.A_REPETIR, LocalDateTime.of(2024, 6, 15, 10, 0));
         Germinacion germ2 = crearGerminacion(Estado.A_REPETIR, LocalDateTime.of(2024, 6, 16, 10, 0));
         Pureza pureza = crearPureza(Estado.A_REPETIR, LocalDateTime.of(2024, 6, 17, 10, 0));
@@ -359,16 +359,16 @@ class ReporteServiceTest {
         when(tetrazolioRepository.findAll()).thenReturn(Collections.emptyList());
         when(dosnRepository.findAll()).thenReturn(Collections.emptyList());
 
-        // ACT
+        
         ReporteGeneralDTO reporte = reporteService.obtenerReporteGeneral(fechaInicio, fechaFin);
 
-        // ASSERT
+        
         assertNotNull(reporte);
         assertNotNull(reporte.getTopAnalisisProblemas());
         assertTrue(reporte.getTopAnalisisProblemas().containsKey("GERMINACION"));
     }
 
-    // Métodos auxiliares para crear entidades mock
+    
 
     private Germinacion crearGerminacion(Estado estado, LocalDateTime fechaInicio) {
         Germinacion germ = new Germinacion();

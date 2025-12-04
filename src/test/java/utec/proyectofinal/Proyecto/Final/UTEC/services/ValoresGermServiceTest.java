@@ -121,7 +121,7 @@ class ValoresGermServiceTest {
         requestDTO.setAnormales(new BigDecimal("30.00"));
         requestDTO.setDuras(new BigDecimal("15.00"));
         requestDTO.setFrescas(new BigDecimal("10.00"));
-        requestDTO.setMuertas(new BigDecimal("10.00")); // Suma = 115
+        requestDTO.setMuertas(new BigDecimal("10.00")); 
 
         when(valoresGermRepository.findById(1L)).thenReturn(Optional.of(valoresGerm));
 
@@ -225,7 +225,7 @@ class ValoresGermServiceTest {
         requestDTO.setAnormales(new BigDecimal("10.00"));
         requestDTO.setDuras(new BigDecimal("5.00"));
         requestDTO.setFrescas(new BigDecimal("3.00"));
-        requestDTO.setMuertas(new BigDecimal("2.00")); // Suma = 100
+        requestDTO.setMuertas(new BigDecimal("2.00")); 
 
         when(valoresGermRepository.findById(1L)).thenReturn(Optional.of(valoresGerm));
         when(valoresGermRepository.save(any(ValoresGerm.class))).thenReturn(valoresGerm);

@@ -22,7 +22,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.dtos.request.RepTetrazolioViabilid
 import utec.proyectofinal.Proyecto.Final.UTEC.dtos.response.RepTetrazolioViabilidadDTO;
 import utec.proyectofinal.Proyecto.Final.UTEC.services.RepTetrazolioViabilidadService;
 
-// CORS configurado globalmente en WebSecurityConfig
+
 @RestController
 @RequestMapping("/api/tetrazolios/{tetrazolioId}/repeticiones")
 @Tag(name = "Repeticiones Tetrazolio Viabilidad", description = "API para gestión de repeticiones de análisis de tetrazolio viabilidad")
@@ -32,7 +32,7 @@ public class RepTetrazolioViabilidadController {
     @Autowired
     private RepTetrazolioViabilidadService repeticionService;
 
-    // Crear nueva repetición para un tetrazolio específico
+    
     @Operation(summary = "Crear repetición de tetrazolio viabilidad", 
               description = "Crea una nueva repetición para un análisis de tetrazolio viabilidad específico")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA')")
@@ -44,7 +44,7 @@ public class RepTetrazolioViabilidadController {
         return ResponseEntity.status(HttpStatus.CREATED).body(repeticionCreada);
     }
 
-    // Obtener todas las repeticiones de un tetrazolio
+    
     @Operation(summary = "Listar repeticiones de tetrazolio viabilidad", 
               description = "Obtiene todas las repeticiones asociadas a un análisis de tetrazolio viabilidad específico")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
@@ -54,7 +54,7 @@ public class RepTetrazolioViabilidadController {
         return ResponseEntity.ok(repeticiones);
     }
 
-    // Contar repeticiones de un tetrazolio
+    
     @Operation(summary = "Contar repeticiones de tetrazolio viabilidad", 
               description = "Cuenta el número de repeticiones asociadas a un análisis de tetrazolio viabilidad específico")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
@@ -64,7 +64,7 @@ public class RepTetrazolioViabilidadController {
         return ResponseEntity.ok(count);
     }
 
-    // Obtener repetición específica por ID (ruta alternativa fuera del contexto del tetrazolio)
+    
     @Operation(summary = "Obtener repetición de tetrazolio viabilidad por ID", 
               description = "Obtiene una repetición específica de un análisis de tetrazolio viabilidad por su ID")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
@@ -76,7 +76,7 @@ public class RepTetrazolioViabilidadController {
         return ResponseEntity.ok(repeticion);
     }
 
-    // Actualizar repetición específica
+    
     @Operation(summary = "Actualizar repetición de tetrazolio viabilidad", 
               description = "Actualiza una repetición específica de un análisis de tetrazolio viabilidad")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA')")
@@ -89,7 +89,7 @@ public class RepTetrazolioViabilidadController {
         return ResponseEntity.ok(repeticionActualizada);
     }
 
-    // Eliminar repetición específica (eliminación real)
+    
     @Operation(summary = "Eliminar repetición de tetrazolio viabilidad", 
               description = "Elimina una repetición específica de un análisis de tetrazolio viabilidad (eliminación física)")
     @PreAuthorize("hasRole('ADMIN')")

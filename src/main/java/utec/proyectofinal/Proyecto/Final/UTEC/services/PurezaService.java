@@ -60,43 +60,43 @@ public class PurezaService {
     @Autowired
     private AnalisisService analisisService;
 
-    // Crear Pureza con estado EN_PROCESO
+    
     @Transactional
     public PurezaDTO crearPureza(PurezaRequestDTO solicitud) {
-        // Validar pesos antes de crear
+        
         validarPesos(solicitud.getPesoInicial_g(), solicitud.getPesoTotal_g());
         
         Pureza pureza = mapearSolicitudAEntidad(solicitud);
         pureza.setEstado(Estado.EN_PROCESO);
         
-        // Establecer fecha de inicio automáticamente
+        
         analisisService.establecerFechaInicio(pureza);
         
         Pureza purezaGuardada = purezaRepository.save(pureza);
         
-        // Registrar automáticamente en el historial
+        
         analisisHistorialService.registrarCreacion(purezaGuardada);
         
         return mapearEntidadADTO(purezaGuardada);
     }
 
-    // Editar Pureza
+    
     @Transactional
     public PurezaDTO actualizarPureza(Long id, PurezaRequestDTO solicitud) {
         Pureza pureza = purezaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Pureza no encontrada con id: " + id));
 
-        // Manejar cambios de estado según rol del usuario
+        
         Estado estadoOriginal = pureza.getEstado();
         
         if (estadoOriginal == Estado.APROBADO && analisisService.esAnalista()) {
-            // Si es ANALISTA editando un análisis APROBADO, cambiar a PENDIENTE_APROBACION
+            
             pureza.setEstado(Estado.PENDIENTE_APROBACION);
         }
-        // Si es ADMIN editando análisis APROBADO o FINALIZADO, mantiene su estado
-        // Para otros estados (EN_PROCESO, PENDIENTE_APROBACION) se mantiene igual
+        
+        
 
-        // Validar pesos antes de actualizar
+        
         BigDecimal pesoInicial = solicitud.getPesoInicial_g() != null ? solicitud.getPesoInicial_g() : pureza.getPesoInicial_g();
         BigDecimal pesoTotal = solicitud.getPesoTotal_g() != null ? solicitud.getPesoTotal_g() : pureza.getPesoTotal_g();
         validarPesos(pesoInicial, pesoTotal);
@@ -104,30 +104,30 @@ public class PurezaService {
         actualizarEntidadDesdeSolicitud(pureza, solicitud);
         Pureza purezaActualizada = purezaRepository.save(pureza);
         
-        // Registrar automáticamente en el historial
+        
         analisisHistorialService.registrarModificacion(purezaActualizada);
         
         return mapearEntidadADTO(purezaActualizada);
     }
 
-    // Desactivar Pureza (cambiar activo a false)
+    
     public void desactivarPureza(Long id) {
         analisisService.desactivarAnalisis(id, purezaRepository);
     }
 
-    // Reactivar Pureza (cambiar activo a true)
+    
     public PurezaDTO reactivarPureza(Long id) {
         return analisisService.reactivarAnalisis(id, purezaRepository, this::mapearEntidadADTO);
     }
 
-    // Obtener Pureza por ID
+    
     public PurezaDTO obtenerPurezaPorId(Long id) {
         return purezaRepository.findById(id)
                 .map(this::mapearEntidadADTO)
                 .orElseThrow(() -> new RuntimeException("Pureza no encontrada con id: " + id));
     }
 
-    // Obtener Purezas por Lote
+    
     public List<PurezaDTO> obtenerPurezasPorIdLote(Long idLote) {
         return purezaRepository.findByIdLote(idLote)
                 .stream()
@@ -152,17 +152,17 @@ public class PurezaService {
             String estado,
             Long loteId) {
         
-        // Crear la especificación con los filtros
+        
         Specification<Pureza> spec = PurezaSpecification.conFiltros(searchTerm, activo, estado, loteId);
         
-        // Obtener purezas filtradas y paginadas
+        
         Page<Pureza> purezaPage = purezaRepository.findAll(spec, pageable);
         
-        // Mapear a DTOs
+        
         return purezaPage.map(this::mapearEntidadAListadoDTO);
     }
 
-    // Mapear entidad a DTO de listado simple
+    
     private PurezaListadoDTO mapearEntidadAListadoDTO(Pureza pureza) {
         PurezaListadoDTO dto = new PurezaListadoDTO();
         dto.setAnalisisID(pureza.getAnalisisID());
@@ -171,18 +171,18 @@ public class PurezaService {
         dto.setFechaFin(pureza.getFechaFin());
         dto.setActivo(pureza.getActivo());
         
-        // Datos de pureza
+        
         dto.setRedonSemillaPura(pureza.getRedonSemillaPura());
         dto.setInasePura(pureza.getInasePura());
         
         if (pureza.getLote() != null) {
             dto.setIdLote(pureza.getLote().getLoteID());
-            dto.setLote(pureza.getLote().getNomLote()); // Usar nomLote en lugar de ficha
+            dto.setLote(pureza.getLote().getNomLote()); 
             
-            // Obtener especie del lote - Usar nombreComun primero, luego nombreCientifico
+            
             if (pureza.getLote().getCultivar() != null && pureza.getLote().getCultivar().getEspecie() != null) {
                 String nombreEspecie = pureza.getLote().getCultivar().getEspecie().getNombreComun();
-                // Si nombreComun está vacío, intentar con nombreCientifico
+                
                 if (nombreEspecie == null || nombreEspecie.trim().isEmpty()) {
                     nombreEspecie = pureza.getLote().getCultivar().getEspecie().getNombreCientifico();
                 }
@@ -203,7 +203,7 @@ public class PurezaService {
     }
 
 
-    // === Mappers internos ===
+    
 
     private Pureza mapearSolicitudAEntidad(PurezaRequestDTO solicitud) {
         Pureza pureza = new Pureza();
@@ -213,7 +213,7 @@ public class PurezaService {
             if (loteOpt.isPresent()) {
                 Lote lote = loteOpt.get();
                 
-                // Validar que el lote esté activo
+                
                 if (!lote.getActivo()) {
                     throw new RuntimeException("No se puede crear un análisis para un lote inactivo");
                 }
@@ -224,11 +224,11 @@ public class PurezaService {
             }
         }
 
-        // Las fechas fechaInicio y fechaFin son automáticas, no del request
+        
         pureza.setCumpleEstandar(solicitud.getCumpleEstandar());
         pureza.setComentarios(solicitud.getComentarios());
 
-        // Campos específicos
+        
         pureza.setFecha(solicitud.getFecha());
         pureza.setPesoInicial_g(solicitud.getPesoInicial_g());
         pureza.setSemillaPura_g(solicitud.getSemillaPura_g());
@@ -306,15 +306,15 @@ public class PurezaService {
         if (solicitud.getInaseFecha() != null) pureza.setInaseFecha(solicitud.getInaseFecha());
 
         if (solicitud.getOtrasSemillas() != null) {
-            // Inicializar la lista si es null
+            
             if (pureza.getListados() == null) {
                 pureza.setListados(new ArrayList<>());
             }
             
-            // Limpiar listados existentes
+            
             pureza.getListados().clear();
 
-            // Si hay nuevos listados, crearlos y agregarlos
+            
             if (!solicitud.getOtrasSemillas().isEmpty()) {
                 List<Listado> nuevosListados = solicitud.getOtrasSemillas().stream()
                         .map(req -> crearListadoDesdeSolicitud(req, pureza))
@@ -335,13 +335,13 @@ public class PurezaService {
         dto.setCumpleEstandar(pureza.getCumpleEstandar());
         dto.setComentarios(pureza.getComentarios());
         
-        // Datos completos del lote si existe
+        
         if (pureza.getLote() != null) {
             dto.setIdLote(pureza.getLote().getLoteID());
             dto.setLote(pureza.getLote().getNomLote());
             dto.setFicha(pureza.getLote().getFicha());
             
-            // Información del cultivar y especie
+            
             if (pureza.getLote().getCultivar() != null) {
                 dto.setCultivarNombre(pureza.getLote().getCultivar().getNombre());
                 
@@ -384,7 +384,7 @@ public class PurezaService {
             dto.setOtrasSemillas(otrasSemillasDTO);
         }
 
-        // Mapear historial de análisis
+        
         dto.setHistorial(analisisHistorialService.obtenerHistorialAnalisis(pureza.getAnalisisID()));
 
         return dto;
@@ -404,28 +404,28 @@ public class PurezaService {
      */
     private void validarPesos(BigDecimal pesoInicial_g, BigDecimal pesoTotal_g) {
         if (pesoInicial_g == null || pesoTotal_g == null) {
-            return; // No validar si los valores son nulos
+            return; 
         }
 
-        // Validación especial: El peso inicial no puede ser cero o negativo
+        
         if (pesoInicial_g.compareTo(BigDecimal.ZERO) <= 0) {
             throw new RuntimeException("El peso inicial debe ser mayor a cero para realizar el análisis");
         }
 
-        // Validación 1: El peso total no puede ser mayor al inicial
+        
         if (pesoTotal_g.compareTo(pesoInicial_g) > 0) {
             throw new RuntimeException("El peso total (" + pesoTotal_g + "g) no puede ser mayor al peso inicial (" + pesoInicial_g + "g)");
         }
 
-        // Validación 2: Solo información para el frontend si se pierde más del 5% de la muestra
-        // No arroja error, el frontend debe manejar esta validación como alerta
+        
+        
         BigDecimal diferenciaPeso = pesoInicial_g.subtract(pesoTotal_g);
         BigDecimal porcentajePerdida = diferenciaPeso.divide(pesoInicial_g, 4, java.math.RoundingMode.HALF_UP)
                                                     .multiply(new BigDecimal("100"));
         
         BigDecimal limitePermitido = new BigDecimal("5.0");
         if (porcentajePerdida.compareTo(limitePermitido) > 0) {
-            // Solo log para información, no error
+            
             System.out.println("INFO: La muestra ha perdido " + porcentajePerdida.setScale(2, java.math.RoundingMode.HALF_UP) + 
                              "% de su peso inicial, lo cual excede el límite recomendado del 5%. " +
                              "Pérdida: " + diferenciaPeso.setScale(2, java.math.RoundingMode.HALF_UP) + "g");
@@ -452,7 +452,7 @@ public class PurezaService {
      * datos INASE o listados no vacíos. Si no hay evidencia lanza RuntimeException.
      */
     private void validarAntesDeFinalizar(Pureza pureza) {
-        // Verificar si tiene datos de pesos registrados (campos Redon)
+        
         boolean tieneDatosRedon = pureza.getRedonSemillaPura() != null
                 || pureza.getRedonMateriaInerte() != null
                 || pureza.getRedonOtrosCultivos() != null
@@ -460,7 +460,7 @@ public class PurezaService {
                 || pureza.getRedonMalezasToleradas() != null
                 || pureza.getRedonMalezasTolCero() != null;
 
-        // Verificar si tiene datos INASE
+        
         boolean tieneDatosINASE = (pureza.getInaseFecha() != null)
                 && (pureza.getInasePura() != null
                     || pureza.getInaseMateriaInerte() != null
@@ -469,15 +469,15 @@ public class PurezaService {
                     || pureza.getInaseMalezasToleradas() != null
                     || pureza.getInaseMalezasTolCero() != null);
 
-        // Verificar si tiene listados
+        
         boolean tieneListados = pureza.getListados() != null && !pureza.getListados().isEmpty();
 
-        // Validar que tenga al menos una forma de evidencia
+        
         if (!tieneDatosRedon && !tieneDatosINASE && !tieneListados) {
             throw new RuntimeException("No se puede finalizar: el análisis de Pureza carece de evidencia. Agregue datos de pesos (Redon), datos INASE o listados antes de finalizar.");
         }
 
-        // Validaciones adicionales de pesos si están presentes
+        
         if (pureza.getPesoInicial_g() != null && pureza.getPesoInicial_g().compareTo(BigDecimal.ZERO) <= 0) {
             throw new RuntimeException("El peso inicial debe ser mayor que 0");
         }
@@ -495,7 +495,7 @@ public class PurezaService {
             purezaRepository,
             this::mapearEntidadADTO,
             this::validarAntesDeFinalizar,
-            purezaRepository::findByIdLote // Función para buscar por lote
+            purezaRepository::findByIdLote 
         );
     }
 

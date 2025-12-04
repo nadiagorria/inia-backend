@@ -16,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 public class CursorPageResponse<T> {
     private List<T> items;
-    private String nextCursor;  // Base64-encoded cursor
+    private String nextCursor;  
     private boolean hasMore;
     private int size;
     

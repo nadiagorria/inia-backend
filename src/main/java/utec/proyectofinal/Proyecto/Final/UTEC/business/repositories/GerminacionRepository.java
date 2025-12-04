@@ -18,13 +18,13 @@ public interface GerminacionRepository extends JpaRepository<Germinacion, Long>,
     
     List<Germinacion> findByEstado(Estado estado);
     
-    // Buscar por activo
+    
     List<Germinacion> findByActivoTrue();
     
-    // Método con paginado para listado
+    
     Page<Germinacion> findByEstadoNotOrderByFechaInicioDesc(Estado estado, Pageable pageable);
     
-    // Filtrado por activo
+    
     Page<Germinacion> findByActivoTrueOrderByFechaInicioDesc(Pageable pageable);
     Page<Germinacion> findByActivoFalseOrderByFechaInicioDesc(Pageable pageable);
     Page<Germinacion> findAllByOrderByFechaInicioDesc(Pageable pageable);
@@ -34,7 +34,7 @@ public interface GerminacionRepository extends JpaRepository<Germinacion, Long>,
     
     List<Germinacion> findByLoteLoteID(Long loteID);
     
-    // Métodos eficientes para validaciones
+    
     boolean existsByLoteLoteID(Long loteID);
     boolean existsByLoteLoteIDAndEstado(Long loteID, Estado estado);
 }

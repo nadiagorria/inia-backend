@@ -17,17 +17,17 @@ import utec.proyectofinal.Proyecto.Final.UTEC.dtos.response.DosnDTO;
 import utec.proyectofinal.Proyecto.Final.UTEC.responses.ResponseListadoDosn;
 import utec.proyectofinal.Proyecto.Final.UTEC.services.DosnService;
 
-// CORS configurado globalmente en WebSecurityConfig
+
 @RestController
 @RequestMapping("/api/dosn")
-@Tag(name = "Determinacion de Otras Semillas en Número (DOSN)", description = "API para gestión de DOSN")
+@Tag(name = "Determinación de Otras Semillas en Número (DOSN)", description = "API para gestión de DOSN")
 @SecurityRequirement(name = "bearerAuth")
 public class DosnController {
 
     @Autowired
     private DosnService dosnService;
 
-    // Crear nueva Dosn
+    
     @Operation(summary = "Crear declaración de origen y sanidad (DOSN)", 
               description = "Crea una nueva declaración de origen y sanidad (DOSN)")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA')")
@@ -37,7 +37,7 @@ public class DosnController {
         return ResponseEntity.status(HttpStatus.CREATED).body(dosnCreado);
     }
 
-    // Obtener todas las Dosn activas
+    
     @Operation(summary = "Listar todos los DOSN", 
               description = "Obtiene todos los DOSN activas")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
@@ -47,7 +47,7 @@ public class DosnController {
         return ResponseEntity.ok(respuesta);
     }
 
-    // Obtener Dosn por ID
+    
     @Operation(summary = "Obtener declaración de origen y sanidad (DOSN) por ID", 
               description = "Obtiene una declaración de origen y sanidad (DOSN) específica por su ID")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
@@ -57,7 +57,7 @@ public class DosnController {
         return ResponseEntity.ok(dosn);
     }
 
-    // Actualizar Dosn
+    
     @Operation(summary = "Actualizar declaración de origen y sanidad (DOSN)", 
               description = "Actualiza una declaración de origen y sanidad (DOSN) existente")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA')")
@@ -67,7 +67,7 @@ public class DosnController {
         return ResponseEntity.ok(dosnActualizado);
     }
 
-    // Eliminar Dosn (cambiar estado a INACTIVO)
+    
     @Operation(summary = "Eliminar análisis de DOSN", 
               description = "Elimina una declaración de origen y sanidad (DOSN) cambiando su estado a INACTIVO")
     @PreAuthorize("hasRole('ADMIN')")
@@ -77,7 +77,7 @@ public class DosnController {
         return ResponseEntity.noContent().build();
     }
 
-    // Desactivar DOSN (soft delete)
+    
     @Operation(summary = "Desactivar análisis DOSN", 
               description = "Desactiva un análisis DOSN (cambiar activo a false)")
     @PreAuthorize("hasRole('ADMIN')")
@@ -87,7 +87,7 @@ public class DosnController {
         return ResponseEntity.ok().build();
     }
 
-    // Reactivar DOSN
+    
     @Operation(summary = "Reactivar análisis DOSN", 
               description = "Reactiva un análisis DOSN desactivado (solo administradores)")
     @PreAuthorize("hasRole('ADMIN')")
@@ -97,7 +97,7 @@ public class DosnController {
         return ResponseEntity.ok(dosnReactivada);
     }
 
-    // Obtener Dosn por Lote
+    
     @Operation(summary = "Obtener DOSN por ID de lote", 
               description = "Obtiene todos los DOSN asociados a un lote específico")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
@@ -108,7 +108,7 @@ public class DosnController {
     }
 
 
-    // Obtener DOSN con paginado para listado
+    
     @Operation(summary = "Obtener DOSN paginadas", 
               description = "Obtiene la lista paginada de análisis de DOSN para el listado")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
@@ -125,7 +125,7 @@ public class DosnController {
         return ResponseEntity.ok(response);
     }
 
-    // Finalizar análisis de DOSN
+    
     @Operation(summary = "Finalizar análisis de DOSN", 
               description = "Finaliza un DOSN según el rol del usuario")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA')")
@@ -135,7 +135,7 @@ public class DosnController {
         return ResponseEntity.ok(dosnFinalizada);
     }
 
-    // Aprobar análisis de DOSN (solo admin)
+    
     @Operation(summary = "Aprobar análisis de DOSN", 
               description = "Aprueba un DOSN - solo administradores")
     @PreAuthorize("hasRole('ADMIN')")
@@ -145,7 +145,7 @@ public class DosnController {
         return ResponseEntity.ok(dosnAprobada);
     }
 
-    // Marcar análisis para repetir (solo admin)
+    
     @Operation(summary = "Marcar análisis de DOSN para repetir", 
               description = "Marca un DOSN para repetir - solo administradores")
     @PreAuthorize("hasRole('ADMIN')")

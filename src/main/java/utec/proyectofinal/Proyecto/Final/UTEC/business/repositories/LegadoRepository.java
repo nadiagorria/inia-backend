@@ -13,19 +13,19 @@ import java.util.Optional;
 @Repository
 public interface LegadoRepository extends JpaRepository<Legado, Long>, JpaSpecificationExecutor<Legado> {
     
-    // Buscar por lote
+    
     List<Legado> findByLote_LoteID(Long loteID);
     
-    // Buscar por archivo origen
+    
     List<Legado> findByArchivoOrigen(String archivoOrigen);
     
-    // Buscar por número de ficha (a través del lote)
+    
     @Query("SELECT l FROM Legado l WHERE l.lote.ficha = :ficha AND l.activo = true")
     List<Legado> findByFicha(@Param("ficha") String ficha);
     
-    // Verificar si ya existe un registro de una fila específica de un archivo
+    
     Optional<Legado> findByArchivoOrigenAndFilaExcel(String archivoOrigen, Integer filaExcel);
     
-    // Buscar todos los activos
+    
     List<Legado> findByActivoTrue();
 }

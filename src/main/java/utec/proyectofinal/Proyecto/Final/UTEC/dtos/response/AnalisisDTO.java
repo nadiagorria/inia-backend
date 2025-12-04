@@ -12,11 +12,11 @@ public abstract class AnalisisDTO {
 
     private Long analisisID;
 
-    private Long idLote; // ID del lote
-    private String lote; // Nombre del lote (nomLote)
-    private String ficha; // Ficha del lote
-    private String cultivarNombre; // Nombre del cultivar
-    private String especieNombre; // Nombre de la especie
+    private Long idLote; 
+    private String lote; 
+    private String ficha; 
+    private String cultivarNombre; 
+    private String especieNombre; 
 
     private Estado estado;
     private LocalDateTime fechaInicio;

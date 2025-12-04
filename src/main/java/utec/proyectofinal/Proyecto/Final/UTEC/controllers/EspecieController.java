@@ -25,7 +25,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.dtos.request.EspecieRequestDTO;
 import utec.proyectofinal.Proyecto.Final.UTEC.dtos.response.EspecieDTO;
 import utec.proyectofinal.Proyecto.Final.UTEC.services.EspecieService;
 
-// CORS configurado globalmente en WebSecurityConfig
+
 @RestController
 @RequestMapping("/api/especie")
 @Tag(name = "Especies", description = "API para gestión de especies")
@@ -35,7 +35,7 @@ public class EspecieController {
     @Autowired
     private EspecieService especieService;
 
-    // Obtener todas activas
+    
     @Operation(summary = "Listar todas las especies",
               description = "Obtiene todas las especies con filtro opcional de estado (activo/inactivo)")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
@@ -46,7 +46,7 @@ public class EspecieController {
         return ResponseEntity.ok(especies);
     }
 
-    // Obtener inactivas
+    
     @Operation(summary = "Listar especies inactivas", 
               description = "Obtiene todas las especies inactivas")
     @PreAuthorize("hasRole('ADMIN')")
@@ -56,7 +56,7 @@ public class EspecieController {
         return ResponseEntity.ok(especies);
     }
 
-    // Buscar por nombre común
+    
     @Operation(summary = "Buscar especies por nombre común", 
               description = "Busca especies cuyo nombre común contenga el texto proporcionado")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
@@ -66,7 +66,7 @@ public class EspecieController {
         return ResponseEntity.ok(especies);
     }
 
-    // Buscar por nombre científico
+    
     @Operation(summary = "Buscar especies por nombre científico", 
               description = "Busca especies cuyo nombre científico contenga el texto proporcionado")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
@@ -76,7 +76,7 @@ public class EspecieController {
         return ResponseEntity.ok(especies);
     }
 
-    // Obtener por ID
+    
     @Operation(summary = "Obtener especie por ID", 
               description = "Obtiene una especie específica por su ID")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
@@ -89,7 +89,7 @@ public class EspecieController {
         return ResponseEntity.notFound().build();
     }
 
-    // Crear
+    
     @Operation(summary = "Crear nueva especie", 
               description = "Crea una nueva especie (solo administradores)")
     @PreAuthorize("hasRole('ADMIN')")
@@ -99,7 +99,7 @@ public class EspecieController {
         return ResponseEntity.ok(creada);
     }
 
-    // Actualizar
+    
     @Operation(summary = "Actualizar especie", 
               description = "Actualiza una especie existente (solo administradores)")
     @PreAuthorize("hasRole('ADMIN')")
@@ -112,7 +112,7 @@ public class EspecieController {
         return ResponseEntity.notFound().build();
     }
 
-    // Eliminar (soft delete)
+    
     @Operation(summary = "Eliminar especie", 
               description = "Elimina una especie (soft delete) (solo administradores)")
     @PreAuthorize("hasRole('ADMIN')")
@@ -122,7 +122,7 @@ public class EspecieController {
         return ResponseEntity.ok().build();
     }
 
-    // Reactivar
+    
     @Operation(summary = "Reactivar especie", 
               description = "Reactiva una especie (solo administradores)")
     @PreAuthorize("hasRole('ADMIN')")
@@ -135,7 +135,7 @@ public class EspecieController {
         return ResponseEntity.notFound().build();
     }
 
-    // Obtener Especies con paginado para listado
+    
     @Operation(summary = "Obtener especies paginadas", 
               description = "Obtiene la lista paginada de especies para el listado")
     @PreAuthorize("hasRole('ANALISTA') or hasRole('ADMIN') or hasRole('OBSERVADOR')")

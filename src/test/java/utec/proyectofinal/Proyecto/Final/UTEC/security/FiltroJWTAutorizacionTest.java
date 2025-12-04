@@ -70,15 +70,15 @@ class FiltroJWTAutorizacionTest {
     @Test
     @DisplayName("extraerToken - Debe extraer token desde cookie accessToken")
     void extraerToken_desdeCookie_debeRetornarToken() throws ServletException, IOException {
-        // Arrange
+        
         String tokenEsperado = generarTokenValido("testuser", List.of("ADMIN"));
         Cookie cookie = new Cookie("accessToken", tokenEsperado);
         request.setCookies(cookie);
 
-        // Act
+        
         filtro.doFilterInternal(request, response, filterChain);
 
-        // Assert
+        
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         assertNotNull(auth, "Debe crear autenticación");
         assertEquals("testuser", auth.getName());
@@ -90,14 +90,14 @@ class FiltroJWTAutorizacionTest {
     @Test
     @DisplayName("extraerToken - Debe extraer token desde header Authorization Bearer")
     void extraerToken_desdeHeaderBearer_debeRetornarToken() throws ServletException, IOException {
-        // Arrange
+        
         String tokenEsperado = generarTokenValido("analista", List.of("ANALISTA"));
         request.addHeader("Authorization", "Bearer " + tokenEsperado);
 
-        // Act
+        
         filtro.doFilterInternal(request, response, filterChain);
 
-        // Assert
+        
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         assertNotNull(auth, "Debe crear autenticación desde header");
         assertEquals("analista", auth.getName());
@@ -109,7 +109,7 @@ class FiltroJWTAutorizacionTest {
     @Test
     @DisplayName("extraerToken - Cookie tiene prioridad sobre header Authorization")
     void extraerToken_cookieTienePrioridad_debeUsarCookie() throws ServletException, IOException {
-        // Arrange
+        
         String tokenCookie = generarTokenValido("usuario_cookie", List.of("ADMIN"));
         String tokenHeader = generarTokenValido("usuario_header", List.of("OBSERVADOR"));
         
@@ -117,10 +117,10 @@ class FiltroJWTAutorizacionTest {
         request.setCookies(cookie);
         request.addHeader("Authorization", "Bearer " + tokenHeader);
 
-        // Act
+        
         filtro.doFilterInternal(request, response, filterChain);
 
-        // Assert
+        
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         assertNotNull(auth);
         assertEquals("usuario_cookie", auth.getName(), "Debe usar el token de la cookie");
@@ -132,12 +132,12 @@ class FiltroJWTAutorizacionTest {
     @Test
     @DisplayName("extraerToken - Sin token debe limpiar contexto de seguridad")
     void extraerToken_sinToken_debeLimpiarContexto() throws ServletException, IOException {
-        // Arrange - sin cookies ni headers
+        
 
-        // Act
+        
         filtro.doFilterInternal(request, response, filterChain);
 
-        // Assert
+        
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         assertNull(auth, "No debe crear autenticación sin token");
         verify(filterChain, times(1)).doFilter(request, response);
@@ -146,14 +146,14 @@ class FiltroJWTAutorizacionTest {
     @Test
     @DisplayName("extraerToken - Header sin prefijo Bearer debe ignorarse")
     void extraerToken_headerSinBearer_debeIgnorarse() throws ServletException, IOException {
-        // Arrange
+        
         String token = generarTokenValido("user", List.of("ADMIN"));
-        request.addHeader("Authorization", token); // Sin "Bearer "
+        request.addHeader("Authorization", token); 
 
-        // Act
+        
         filtro.doFilterInternal(request, response, filterChain);
 
-        // Assert
+        
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         assertNull(auth, "No debe autenticar sin prefijo Bearer");
         verify(filterChain, times(1)).doFilter(request, response);
@@ -162,15 +162,15 @@ class FiltroJWTAutorizacionTest {
     @Test
     @DisplayName("extraerToken - Cookie con nombre incorrecto debe ignorarse")
     void extraerToken_cookieNombreIncorrecto_debeIgnorarse() throws ServletException, IOException {
-        // Arrange
+        
         String token = generarTokenValido("user", List.of("ADMIN"));
         Cookie cookieIncorrecta = new Cookie("otherCookie", token);
         request.setCookies(cookieIncorrecta);
 
-        // Act
+        
         filtro.doFilterInternal(request, response, filterChain);
 
-        // Assert
+        
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         assertNull(auth, "No debe autenticar con cookie incorrecta");
         verify(filterChain, times(1)).doFilter(request, response);
@@ -181,15 +181,15 @@ class FiltroJWTAutorizacionTest {
     @Test
     @DisplayName("doFilterInternal - Token válido debe crear autenticación y continuar filtro")
     void doFilterInternal_tokenValido_debeCrearAutenticacionYContinuar() throws ServletException, IOException {
-        // Arrange
+        
         String token = generarTokenValido("admin", List.of("ADMIN", "ANALISTA"));
         Cookie cookie = new Cookie("accessToken", token);
         request.setCookies(cookie);
 
-        // Act
+        
         filtro.doFilterInternal(request, response, filterChain);
 
-        // Assert
+        
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         assertNotNull(auth, "Debe crear autenticación");
         assertEquals("admin", auth.getName());
@@ -200,15 +200,15 @@ class FiltroJWTAutorizacionTest {
     @Test
     @DisplayName("doFilterInternal - Token expirado debe limpiar contexto y continuar")
     void doFilterInternal_tokenExpirado_debeLimpiarContextoYContinuar() throws ServletException, IOException {
-        // Arrange
+        
         String tokenExpirado = generarTokenExpirado("user", List.of("ADMIN"));
         Cookie cookie = new Cookie("accessToken", tokenExpirado);
         request.setCookies(cookie);
 
-        // Act
+        
         filtro.doFilterInternal(request, response, filterChain);
 
-        // Assert
+        
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         assertNull(auth, "Debe limpiar contexto con token expirado");
         verify(filterChain, times(1)).doFilter(request, response);
@@ -217,15 +217,15 @@ class FiltroJWTAutorizacionTest {
     @Test
     @DisplayName("doFilterInternal - Token malformado debe limpiar contexto y continuar")
     void doFilterInternal_tokenMalformado_debeLimpiarContextoYContinuar() throws ServletException, IOException {
-        // Arrange
+        
         String tokenMalformado = "token.invalido.malformado";
         Cookie cookie = new Cookie("accessToken", tokenMalformado);
         request.setCookies(cookie);
 
-        // Act
+        
         filtro.doFilterInternal(request, response, filterChain);
 
-        // Assert
+        
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         assertNull(auth, "Debe limpiar contexto con token malformado");
         verify(filterChain, times(1)).doFilter(request, response);
@@ -234,15 +234,15 @@ class FiltroJWTAutorizacionTest {
     @Test
     @DisplayName("doFilterInternal - Token sin authorities debe limpiar contexto")
     void doFilterInternal_tokenSinAuthorities_debeLimpiarContexto() throws ServletException, IOException {
-        // Arrange
+        
         String tokenSinAuthorities = generarTokenSinAuthorities("user");
         Cookie cookie = new Cookie("accessToken", tokenSinAuthorities);
         request.setCookies(cookie);
 
-        // Act
+        
         filtro.doFilterInternal(request, response, filterChain);
 
-        // Assert
+        
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         assertNull(auth, "No debe crear autenticación sin authorities");
         verify(filterChain, times(1)).doFilter(request, response);
@@ -251,14 +251,14 @@ class FiltroJWTAutorizacionTest {
     @Test
     @DisplayName("doFilterInternal - Token vacío debe limpiar contexto")
     void doFilterInternal_tokenVacio_debeLimpiarContexto() throws ServletException, IOException {
-        // Arrange
+        
         Cookie cookie = new Cookie("accessToken", "");
         request.setCookies(cookie);
 
-        // Act
+        
         filtro.doFilterInternal(request, response, filterChain);
 
-        // Assert
+        
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         assertNull(auth, "No debe crear autenticación con token vacío");
         verify(filterChain, times(1)).doFilter(request, response);
@@ -269,15 +269,15 @@ class FiltroJWTAutorizacionTest {
     @Test
     @DisplayName("crearAutenticacion - Debe crear autenticación con rol único")
     void crearAutenticacion_rolUnico_debeCrearAutenticacion() throws ServletException, IOException {
-        // Arrange
+        
         String token = generarTokenValido("observador", List.of("OBSERVADOR"));
         Cookie cookie = new Cookie("accessToken", token);
         request.setCookies(cookie);
 
-        // Act
+        
         filtro.doFilterInternal(request, response, filterChain);
 
-        // Assert
+        
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         assertNotNull(auth);
         assertEquals("observador", auth.getName());
@@ -289,15 +289,15 @@ class FiltroJWTAutorizacionTest {
     @Test
     @DisplayName("crearAutenticacion - Debe agregar prefijo ROLE_ a todas las authorities")
     void crearAutenticacion_multipleRoles_debeAgregarPrefijoRole() throws ServletException, IOException {
-        // Arrange
+        
         String token = generarTokenValido("superuser", List.of("ADMIN", "ANALISTA", "OBSERVADOR"));
         Cookie cookie = new Cookie("accessToken", token);
         request.setCookies(cookie);
 
-        // Act
+        
         filtro.doFilterInternal(request, response, filterChain);
 
-        // Assert
+        
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         assertNotNull(auth);
         assertEquals(3, auth.getAuthorities().size());
@@ -311,17 +311,17 @@ class FiltroJWTAutorizacionTest {
     @Test
     @DisplayName("crearAutenticacion - Debe establecer autenticación en SecurityContext")
     void crearAutenticacion_debeEstablecerEnSecurityContext() throws ServletException, IOException {
-        // Arrange
+        
         String token = generarTokenValido("testuser", List.of("ADMIN"));
         Cookie cookie = new Cookie("accessToken", token);
         request.setCookies(cookie);
         
         assertNull(SecurityContextHolder.getContext().getAuthentication(), "Contexto debe estar vacío inicialmente");
 
-        // Act
+        
         filtro.doFilterInternal(request, response, filterChain);
 
-        // Assert
+        
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         assertNotNull(auth, "Debe establecer autenticación en SecurityContext");
         assertEquals("testuser", auth.getPrincipal());
@@ -333,17 +333,17 @@ class FiltroJWTAutorizacionTest {
     @Test
     @DisplayName("validarToken - Token válido debe retornar claims correctos")
     void validarToken_tokenValido_debeRetornarClaims() throws ServletException, IOException {
-        // Arrange
+        
         String username = "validuser";
         List<String> roles = List.of("ADMIN", "ANALISTA");
         String token = generarTokenValido(username, roles);
         Cookie cookie = new Cookie("accessToken", token);
         request.setCookies(cookie);
 
-        // Act
+        
         filtro.doFilterInternal(request, response, filterChain);
 
-        // Assert
+        
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         assertNotNull(auth);
         assertEquals(username, auth.getName());
@@ -353,7 +353,7 @@ class FiltroJWTAutorizacionTest {
     @Test
     @DisplayName("validarToken - Token con firma incorrecta debe lanzar excepción")
     void validarToken_firmaIncorrecta_debeLanzarExcepcion() throws ServletException, IOException {
-        // Arrange
+        
         SecretKey otraLlave = Keys.hmacShaKeyFor("otra_clave_secreta_diferente_muy_larga_123456789".getBytes(StandardCharsets.UTF_8));
         String tokenConOtraFirma = Jwts.builder()
                 .subject("hacker")
@@ -366,10 +366,10 @@ class FiltroJWTAutorizacionTest {
         Cookie cookie = new Cookie("accessToken", tokenConOtraFirma);
         request.setCookies(cookie);
 
-        // Act
+        
         filtro.doFilterInternal(request, response, filterChain);
 
-        // Assert
+        
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         assertNull(auth, "No debe autenticar con firma incorrecta");
         verify(filterChain, times(1)).doFilter(request, response);
@@ -378,15 +378,15 @@ class FiltroJWTAutorizacionTest {
     @Test
     @DisplayName("validarToken - Token expirado debe lanzar ExpiredJwtException")
     void validarToken_tokenExpirado_debeLanzarExpiredJwtException() throws ServletException, IOException {
-        // Arrange
+        
         String tokenExpirado = generarTokenExpirado("expireduser", List.of("ADMIN"));
         Cookie cookie = new Cookie("accessToken", tokenExpirado);
         request.setCookies(cookie);
 
-        // Act
+        
         filtro.doFilterInternal(request, response, filterChain);
 
-        // Assert
+        
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         assertNull(auth, "No debe autenticar con token expirado");
         verify(filterChain, times(1)).doFilter(request, response);

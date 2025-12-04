@@ -40,15 +40,15 @@ public class FiltroJWTAutorizacion extends OncePerRequestFilter {
             }
             filterChain.doFilter(request, response);
         } catch (JwtException ex) {
-            // Captura TODAS las excepciones de JWT: 
-            // - ExpiredJwtException (token expirado)
-            // - UnsupportedJwtException (formato no soportado)
-            // - MalformedJwtException (token malformado)
-            // - SignatureException (firma incorrecta)
-            // - etc.
+            
+            
+            
+            
+            
+            
             System.err.println("Error JWT: " + ex.getMessage());
             SecurityContextHolder.clearContext();
-            // Continuar con el filtro para que Spring Security maneje la autenticación fallida
+            
             filterChain.doFilter(request, response);
             return;
         }
@@ -59,7 +59,7 @@ public class FiltroJWTAutorizacion extends OncePerRequestFilter {
         List<String> autorizaciones = (List<String>) claims.get("authorities");
         
         
-        // Agregar prefijo ROLE_ para que funcione con hasRole()
+        
         List<SimpleGrantedAuthority> authorities = autorizaciones.stream()
                 .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
                 .collect(Collectors.toList());
@@ -74,7 +74,7 @@ public class FiltroJWTAutorizacion extends OncePerRequestFilter {
      */
     private String extraerToken(HttpServletRequest request) {
         
-        // 1) Intentar obtener desde cookie HttpOnly (método seguro)
+        
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
@@ -86,7 +86,7 @@ public class FiltroJWTAutorizacion extends OncePerRequestFilter {
             System.out.println("No se encontraron cookies en la solicitud.");
         }
         
-        // 2) Fallback: obtener desde header Authorization (compatibilidad temporal)
+        
         String authHeader = request.getHeader("Authorization");
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             return authHeader.replace("Bearer ", "");

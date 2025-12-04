@@ -9,5 +9,5 @@ public class AnalisisHistorialDTO {
     private Long id;
     private String usuario;
     private LocalDateTime fechaHora;
-    private String accion; // "CREACION" o "MODIFICACION"
+    private String accion; 
 }

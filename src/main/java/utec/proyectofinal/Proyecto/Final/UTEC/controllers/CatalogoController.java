@@ -26,7 +26,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.dtos.request.CatalogoRequestDTO;
 import utec.proyectofinal.Proyecto.Final.UTEC.dtos.response.CatalogoDTO;
 import utec.proyectofinal.Proyecto.Final.UTEC.services.CatalogoService;
 
-// CORS configurado globalmente en WebSecurityConfig
+
 @RestController
 @RequestMapping("/api/catalogo")
 @Tag(name = "Catálogos", description = "API para gestión de catálogos del sistema")
@@ -36,7 +36,7 @@ public class CatalogoController {
     @Autowired
     private CatalogoService catalogoService;
 
-    // Obtener todos los catálogos activos
+    
     @GetMapping
     @Operation(summary = "Listar catálogos", description = "Obtiene todos los catálogos activos")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
@@ -45,7 +45,7 @@ public class CatalogoController {
         return ResponseEntity.ok(catalogos);
     }
 
-    // Obtener catálogos por tipo
+    
     @GetMapping("/tipo/{tipo}")
     @Operation(summary = "Listar catálogos por tipo", description = "Obtiene catálogos filtrados por tipo y estado (activo/inactivo)")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
@@ -60,7 +60,7 @@ public class CatalogoController {
         }
     }
 
-    // Obtener catálogo por ID
+    
     @GetMapping("/{id}")
     @Operation(summary = "Obtener catálogo por ID", description = "Obtiene un catálogo específico por su ID")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
@@ -72,7 +72,7 @@ public class CatalogoController {
         return ResponseEntity.notFound().build();
     }
 
-    // Crear nuevo catálogo
+    
     @PostMapping
     @Operation(summary = "Crear catálogo", description = "Crea un nuevo catálogo (solo administradores)")
     @PreAuthorize("hasRole('ADMIN')")
@@ -87,7 +87,7 @@ public class CatalogoController {
         }
     }
 
-    // Actualizar catálogo
+    
     @PutMapping("/{id}")
     @Operation(summary = "Actualizar catálogo", description = "Actualiza un catálogo existente (solo administradores)")
     @PreAuthorize("hasRole('ADMIN')")
@@ -105,7 +105,7 @@ public class CatalogoController {
         }
     }
 
-    // Desactivar catálogo
+    
     @DeleteMapping("/{id}")
     @Operation(summary = "Eliminar catálogo", description = "Desactiva un catálogo (solo administradores)")
     @PreAuthorize("hasRole('ADMIN')")
@@ -114,7 +114,7 @@ public class CatalogoController {
         return ResponseEntity.ok().build();
     }
 
-    // Reactivar catálogo
+    
     @Operation(summary = "Reactivar catálogo", description = "Reactiva un catálogo desactivado (solo administradores)")
     @PutMapping("/{id}/reactivar")
     @PreAuthorize("hasRole('ADMIN')")
@@ -126,7 +126,7 @@ public class CatalogoController {
         return ResponseEntity.notFound().build();
     }
 
-    // Eliminar físicamente (solo para casos especiales)
+    
     @Operation(summary = "Eliminar catálogo físicamente", description = "Elimina un catálogo de forma permanente (solo administradores)")
     @DeleteMapping("/{id}/fisico")
     @PreAuthorize("hasRole('ADMIN')")
@@ -135,7 +135,7 @@ public class CatalogoController {
         return ResponseEntity.ok().build();
     }
 
-    // Endpoints específicos para obtener tipos de datos (solo activos por defecto)
+    
     @Operation(summary = "Obtener Catalogo Humedad")
     @GetMapping("/humedad")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
@@ -178,7 +178,7 @@ public class CatalogoController {
         return obtenerPorTipo("UNIDAD_EMBOLSADO", true);
     }
 
-    // Obtener Catálogos con paginado para listado
+    
     @Operation(summary = "Obtener catálogos paginados", 
               description = "Obtiene la lista paginada de catálogos para el listado")
     @PreAuthorize("hasRole('ANALISTA') or hasRole('ADMIN') or hasRole('OBSERVADOR')")

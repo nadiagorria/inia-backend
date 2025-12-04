@@ -71,34 +71,34 @@ public class WebSocketAuthInterceptor implements ChannelInterceptor {
                         Integer userId = jwtUtil.obtenerUserIdDelToken(token);
                         
                         // Crear una autenticación de Spring Security
-                        // Esto permite que el sistema sepa quién es el usuario
+                        
                         UsernamePasswordAuthenticationToken authentication = 
                             new UsernamePasswordAuthenticationToken(
-                                userId.toString(),  // Principal (identificador único)
-                                null,               // Credentials (no necesarias después de autenticar)
+                                userId.toString(),  
+                                null,               
                                 List.of(new SimpleGrantedAuthority("ROLE_USER"))
                             );
                         
                         // Asociar el usuario autenticado a esta sesión WebSocket
-                        // Esto permite enviar mensajes a "/user/{userId}/queue/notifications"
+                        
                         accessor.setUser(authentication);
                         
                         System.out.println("✅ WebSocket autenticado: Usuario " + username + " (ID: " + userId + ")");
                     } else {
                         System.err.println("❌ Token JWT inválido en WebSocket");
-                        return null; // Rechazar conexión
+                        return null; 
                     }
                 } catch (Exception e) {
                     System.err.println("❌ Error validando token en WebSocket: " + e.getMessage());
-                    return null; // Rechazar conexión
+                    return null; 
                 }
             } else {
                 System.err.println("⚠️ WebSocket sin token de autenticación");
-                return null; // Rechazar conexión sin token
+                return null; 
             }
         }
 
-        return message; // Permitir que el mensaje continúe
+        return message; 
     }
 
     /**

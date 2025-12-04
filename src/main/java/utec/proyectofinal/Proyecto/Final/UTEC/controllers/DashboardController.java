@@ -19,7 +19,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.dtos.CursorPageResponse;
 import utec.proyectofinal.Proyecto.Final.UTEC.exceptions.InvalidCursorException;
 import utec.proyectofinal.Proyecto.Final.UTEC.services.DashboardService;
 
-// CORS configurado globalmente en WebSecurityConfig
+
 @RestController
 @RequestMapping("/api/dashboard")
 public class DashboardController {

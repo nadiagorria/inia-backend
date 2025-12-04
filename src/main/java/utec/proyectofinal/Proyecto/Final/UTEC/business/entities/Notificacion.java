@@ -50,7 +50,7 @@ public class Notificacion {
     @Column(name = "analisis_id")
     private Long analisisId;
 
-    // Tipo de notificación para facilitar filtros y procesamiento
+    
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TipoNotificacion tipo;

@@ -25,7 +25,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.dtos.request.NotificacionRequestDT
 import utec.proyectofinal.Proyecto.Final.UTEC.dtos.response.NotificacionDTO;
 import utec.proyectofinal.Proyecto.Final.UTEC.services.NotificacionService;
 
-// CORS configurado globalmente en WebSecurityConfig
+
 @RestController
 @RequestMapping("/api/notificaciones")
 @Tag(name = "Notificaciones", description = "Gestión de notificaciones del sistema")
@@ -34,7 +34,7 @@ public class NotificacionController {
     @Autowired
     private NotificacionService notificacionService;
 
-    // Crear notificación manual
+    
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Crear notificación manual", description = "Crear una notificación manual (solo administradores)")
@@ -44,7 +44,7 @@ public class NotificacionController {
         return ResponseEntity.ok(notificacion);
     }
 
-    // Obtener notificaciones de un usuario con paginación
+    
     @GetMapping("/usuario/{usuarioId}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
     @Operation(summary = "Obtener notificaciones por usuario", description = "Obtener notificaciones de un usuario con paginación (solo admins pueden ver otras notificaciones)")
@@ -59,7 +59,7 @@ public class NotificacionController {
         return ResponseEntity.ok(notificaciones);
     }
 
-    // Obtener MIS notificaciones con paginación (usuario actual)
+    
     @GetMapping("/mis-notificaciones")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
     @Operation(summary = "Obtener mis notificaciones", description = "Obtener notificaciones del usuario autenticado con paginación")
@@ -73,7 +73,7 @@ public class NotificacionController {
         return ResponseEntity.ok(notificaciones);
     }
 
-    // Obtener notificaciones no leídas de un usuario
+    
     @GetMapping("/usuario/{usuarioId}/no-leidas")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
     @Operation(summary = "Obtener notificaciones no leídas", description = "Obtener notificaciones no leídas de un usuario (solo admins pueden ver otras notificaciones)")
@@ -83,7 +83,7 @@ public class NotificacionController {
         return ResponseEntity.ok(notificaciones);
     }
 
-    // Obtener MIS notificaciones no leídas (usuario actual)
+    
     @GetMapping("/mis-notificaciones/no-leidas")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
     @Operation(summary = "Obtener mis notificaciones no leídas", description = "Obtener notificaciones no leídas del usuario autenticado")
@@ -93,7 +93,7 @@ public class NotificacionController {
         return ResponseEntity.ok(notificaciones);
     }
 
-    // Contar notificaciones no leídas
+    
     @GetMapping("/usuario/{usuarioId}/contar-no-leidas")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
     @Operation(summary = "Contar notificaciones no leídas", description = "Contar el número de notificaciones no leídas de un usuario (solo admins pueden ver otras notificaciones)")
@@ -103,7 +103,7 @@ public class NotificacionController {
         return ResponseEntity.ok(count);
     }
 
-    // Contar MIS notificaciones no leídas (usuario actual)
+    
     @GetMapping("/mis-notificaciones/contar-no-leidas")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
     @Operation(summary = "Contar mis notificaciones no leídas", description = "Contar el número de notificaciones no leídas del usuario autenticado")
@@ -113,7 +113,7 @@ public class NotificacionController {
         return ResponseEntity.ok(count);
     }
 
-    // Marcar notificación como leída
+    
     @PutMapping("/{notificacionId}/marcar-leida")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
     @Operation(summary = "Marcar notificación como leída", description = "Marcar una notificación específica como leída")
@@ -123,7 +123,7 @@ public class NotificacionController {
         return ResponseEntity.ok(notificacion);
     }
 
-    // Marcar todas las notificaciones de un usuario como leídas
+    
     @PutMapping("/usuario/{usuarioId}/marcar-todas-leidas")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
     @Operation(summary = "Marcar todas como leídas", description = "Marcar todas las notificaciones de un usuario como leídas (solo admins pueden marcar otras notificaciones)")
@@ -133,7 +133,7 @@ public class NotificacionController {
         return ResponseEntity.ok().build();
     }
 
-    // Marcar todas MIS notificaciones como leídas (usuario actual)
+    
     @PutMapping("/mis-notificaciones/marcar-todas-leidas")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
     @Operation(summary = "Marcar todas mis notificaciones como leídas", description = "Marcar todas las notificaciones del usuario autenticado como leídas")
@@ -143,7 +143,7 @@ public class NotificacionController {
         return ResponseEntity.ok().build();
     }
 
-    // Eliminar notificación (marcar como inactiva)
+    
     @DeleteMapping("/{notificacionId}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
     @Operation(summary = "Eliminar notificación", description = "Eliminar una notificación (marcar como inactiva)")

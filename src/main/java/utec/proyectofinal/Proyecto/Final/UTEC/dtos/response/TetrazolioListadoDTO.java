@@ -15,14 +15,14 @@ public class TetrazolioListadoDTO {
     private LocalDateTime fechaFin;
     private String lote;
     private Long idLote;
-    private String especie; // Nombre de la especie del lote
+    private String especie; 
     private Boolean activo;
     private LocalDate fecha;
     
-    // Viabilidad con redondeo (Viabilidad INIA %)
+    
     private BigDecimal viabilidadConRedondeo;
     
-    // Viabilidad INASE %
+    
     private BigDecimal viabilidadInase;
     
     private String usuarioCreador;

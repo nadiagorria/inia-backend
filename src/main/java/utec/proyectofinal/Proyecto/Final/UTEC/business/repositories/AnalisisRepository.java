@@ -13,10 +13,10 @@ import java.time.LocalDateTime;
 @Repository
 public interface AnalisisRepository extends JpaRepository<Analisis, Long> {
     
-    // Contar análisis completados hoy (finalizados en la fecha actual)
+    
     @Query("SELECT COUNT(a) FROM Analisis a WHERE CAST(a.fechaFin AS date) = :fecha AND a.estado = :estado")
     long countCompletadosEnFecha(@Param("fecha") LocalDate fecha, @Param("estado") Estado estado);
     
-    // Contar análisis pendientes de aprobación
+    
     long countByEstado(Estado estado);
 }

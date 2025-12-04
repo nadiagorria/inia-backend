@@ -28,7 +28,7 @@ public class WebSecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .addFilterBefore(new FiltroJWTAutorizacion(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(auth -> auth
-                        // Endpoints públicos (sin autenticación)
+                        
                         .requestMatchers("/api/v1/auth/**").permitAll()
                         .requestMatchers("/swagger-ui.html").permitAll()
                         .requestMatchers("/webjars/**").permitAll()
@@ -38,10 +38,10 @@ public class WebSecurityConfig {
                         .requestMatchers("/configuration/**").permitAll()
 
                         /*
-                        // LECTURA - Todos los roles autenticados pueden ver
+                        
                         .requestMatchers(HttpMethod.GET, "/api/**").hasAnyRole("ADMIN", "ANALISTA", "OBSERVADOR")
 
-                        // CREACIÓN Y EDICIÓN - Solo ADMIN y ANALISTA
+                        
                         .requestMatchers(HttpMethod.POST, "/api/germinacion/**").hasAnyRole("ADMIN", "ANALISTA")
                         .requestMatchers(HttpMethod.POST, "/api/tetrazolio/**").hasAnyRole("ADMIN", "ANALISTA")
                         .requestMatchers(HttpMethod.POST, "/api/pureza/**").hasAnyRole("ADMIN", "ANALISTA")
@@ -49,13 +49,13 @@ public class WebSecurityConfig {
                         .requestMatchers(HttpMethod.PUT, "/api/tetrazolio/**").hasAnyRole("ADMIN", "ANALISTA")
                         .requestMatchers(HttpMethod.PUT, "/api/pureza/**").hasAnyRole("ADMIN", "ANALISTA")
 
-                        // ELIMINACIÓN - Solo ADMIN
+                        
                         .requestMatchers(HttpMethod.DELETE, "/api/**").hasRole("ADMIN")
 
-                        // GESTIÓN DE USUARIOS - Solo ADMIN
+                        
                         .requestMatchers("/api/usuarios/**").hasRole("ADMIN")
                         */
-                        // DESARROLLO: Cambiar a authenticated() para que funcione JWT
+                        
                         .anyRequest().authenticated());
 
 
@@ -75,10 +75,10 @@ public class WebSecurityConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/api/**")
-                        .allowedOrigins("http://localhost:3000") // Dominio específico del frontend
+                        .allowedOrigins("http://localhost:3000") 
                         .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
-                        .allowCredentials(true); // CRÍTICO: permite enviar cookies desde el frontend
+                        .allowCredentials(true); 
             }
         };
     }

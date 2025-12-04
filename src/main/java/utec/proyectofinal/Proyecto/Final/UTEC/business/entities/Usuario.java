@@ -41,7 +41,7 @@ public class Usuario {
     private EstadoUsuario estado = EstadoUsuario.PENDIENTE;
     
     @Column(nullable = false)
-    private Boolean activo = true; // Mantenemos por compatibilidad
+    private Boolean activo = true; 
     
     @Column(name = "fecha_creacion")
     private LocalDateTime fechaCreacion;
@@ -49,7 +49,7 @@ public class Usuario {
     @Column(name = "fecha_ultima_conexion")
     private LocalDateTime fechaUltimaConexion;
     
-    // ===== CAMPOS PARA 2FA (Google Authenticator) =====
+    // CAMPOS PARA 2FA
     
     /**
      * Secret key para TOTP (Time-based One-Time Password)
@@ -65,7 +65,7 @@ public class Usuario {
     @Column(name = "totp_enabled", nullable = false)
     private Boolean totpEnabled = false;
     
-    // ===== CAMPOS PARA RECUPERACIÓN DE CONTRASEÑA SEGURA =====
+    // CAMPOS PARA RECUPERACIÓN DE CONTRASEÑA SEGURA
     
     /**
      * Código de recuperación hasheado (BCrypt)
@@ -92,7 +92,7 @@ public class Usuario {
         fechaCreacion = LocalDateTime.now();
     }
 
-    // Método para obtener roles como lista (compatibilidad con JWT)
+    
     public List<String> getRoles() {
         if (rol == null) {
             return Arrays.asList(); // Usuario sin rol asignado
@@ -100,12 +100,12 @@ public class Usuario {
         return Arrays.asList(rol.name());
     }
     
-    // Método para obtener el nombre completo
+    
     public String getNombreCompleto() {
         return nombres + " " + apellidos;
     }
     
-    // Métodos de conveniencia para verificar roles
+    
     public boolean esAdmin() {
         return rol == Rol.ADMIN;
     }
@@ -126,7 +126,7 @@ public class Usuario {
         return rol == Rol.ADMIN;
     }
     
-    // Métodos para gestión de estados
+    
     public boolean estaActivo() {
         return estado == EstadoUsuario.ACTIVO;
     }

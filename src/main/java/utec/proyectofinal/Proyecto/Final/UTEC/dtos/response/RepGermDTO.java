@@ -14,5 +14,5 @@ public class RepGermDTO {
     private Integer frescas;
     private Integer muertas;
     private Integer total;
-    private Long tablaGermId; // ID de la tabla asociada
+    private Long tablaGermId; 
 }

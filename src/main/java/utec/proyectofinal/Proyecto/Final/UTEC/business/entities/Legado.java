@@ -19,7 +19,7 @@ public class Legado {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long legadoID;
 
-    // Relación con el lote creado/relacionado
+    
     @ManyToOne
     @JoinColumn(name = "loteID")
     private Lote lote;

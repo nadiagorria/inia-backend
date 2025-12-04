@@ -10,8 +10,8 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class Setup2FAResponseDTO {
-    private String secret;          // Secret key en Base32 (para manual setup)
-    private String qrCodeDataUrl;   // QR code en formato Base64 data URL
-    private String issuer;          // Nombre de la app (INIA)
-    private String accountName;     // Nombre del usuario
+    private String secret;          
+    private String qrCodeDataUrl;   
+    private String issuer;          
+    private String accountName;     
 }

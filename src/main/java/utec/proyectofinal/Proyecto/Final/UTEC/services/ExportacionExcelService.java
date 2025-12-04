@@ -49,28 +49,28 @@ public class ExportacionExcelService {
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("Análisis de Semillas");
         
-        // Configurar estilos
+        
         CellStyle headerStyle = crearEstiloEncabezado(workbook);
         CellStyle subHeaderStyle = crearEstiloSubEncabezado(workbook);
         CellStyle dataStyle = crearEstiloData(workbook);
         CellStyle yellowHeaderStyle = crearEstiloEncabezadoAmarillo(workbook);
         
-        // Crear encabezados
+        
         crearEncabezados(sheet, headerStyle, subHeaderStyle, yellowHeaderStyle);
         
-        // Obtener datos y crear filas
+        
         List<DatosExportacionExcelDTO> datos = obtenerDatosParaExportacion(loteIds);
-        int filaActual = 2; // Empezar después de los encabezados
+        int filaActual = 2; 
         
         for (DatosExportacionExcelDTO dato : datos) {
             crearFilaDatos(sheet, filaActual, dato, dataStyle);
             filaActual++;
         }
         
-        // Ajustar anchos de columnas
+        
         ajustarAnchoColumnas(sheet);
         
-        // Convertir a byte array
+        
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         workbook.write(outputStream);
         workbook.close();
@@ -85,18 +85,18 @@ public class ExportacionExcelService {
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("Análisis de Semillas");
         
-        // Configurar estilos
+        
         CellStyle headerStyle = crearEstiloEncabezado(workbook);
         CellStyle subHeaderStyle = crearEstiloSubEncabezado(workbook);
         CellStyle dataStyle = crearEstiloData(workbook);
         CellStyle yellowHeaderStyle = crearEstiloEncabezadoAmarillo(workbook);
         
-        // Crear encabezados solo si se solicita
+        
         if (solicitud.getIncluirEncabezados()) {
             crearEncabezados(sheet, headerStyle, subHeaderStyle, yellowHeaderStyle);
         }
         
-        // Obtener datos con filtros
+        
         List<DatosExportacionExcelDTO> datos = obtenerDatosConFiltros(solicitud);
         int filaActual = solicitud.getIncluirEncabezados() ? 2 : 0;
         
@@ -105,10 +105,10 @@ public class ExportacionExcelService {
             filaActual++;
         }
         
-        // Ajustar anchos de columnas
+        
         ajustarAnchoColumnas(sheet);
         
-        // Convertir a byte array
+        
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         workbook.write(outputStream);
         workbook.close();
@@ -117,102 +117,102 @@ public class ExportacionExcelService {
     }
 
     private void crearEncabezados(Sheet sheet, CellStyle headerStyle, CellStyle subHeaderStyle, CellStyle yellowHeaderStyle) {
-        // Fila 0: Encabezados principales (Fila 1 en Excel, índice 0 en POI)
+        
         Row row0 = sheet.createRow(0);
         
-        // Columnas A-I: Vacías (datos básicos sin encabezado superior)
+        
         for (int i = 0; i < 9; i++) {
             Cell cell = row0.createCell(i);
             cell.setCellValue("");
             cell.setCellStyle(headerStyle);
         }
         
-        // Columnas J-O: Pureza INIA (índices 9-14) - 6 columnas
+        
         Cell purezaIniaCell = row0.createCell(9);
         purezaIniaCell.setCellValue("Pureza INIA");
         purezaIniaCell.setCellStyle(headerStyle);
         
-        // Columnas P-U: Pureza INASE (índices 15-20) - 6 columnas
+        
         Cell purezaInaseCell = row0.createCell(15);
         purezaInaseCell.setCellValue("Pureza INASE");
         purezaInaseCell.setCellStyle(yellowHeaderStyle);
         
-        // Columnas V-Y: Descripción (índices 21-24) - 4 columnas
+        
         Cell descripcionCell = row0.createCell(21);
         descripcionCell.setCellValue("Descripción");
         descripcionCell.setCellStyle(headerStyle);
         
-        // Columnas Z-AD: DOSN (índices 25-29) - 5 columnas
+        
         Cell dosnCell = row0.createCell(25);
         dosnCell.setCellValue("DOSN");
         dosnCell.setCellStyle(headerStyle);
         
-        // Columnas AE-AI: DOSN-I (índices 30-34) - 5 columnas
+        
         Cell dosniCell = row0.createCell(30);
         dosniCell.setCellValue("DOSN-I");
         dosniCell.setCellStyle(yellowHeaderStyle);
         
-        // Columna AJ: PMS (índice 35)
+        
         Cell pmsCell = row0.createCell(35);
         pmsCell.setCellValue("PMS");
         pmsCell.setCellStyle(headerStyle);
         
-        // Columna AK: Fecha Análisis (índice 36)
+        
         Cell fechaCell = row0.createCell(36);
         fechaCell.setCellValue("Fecha Análisis");
         fechaCell.setCellStyle(headerStyle);
         
-        // Columna AL: TS (índice 37)
+        
         Cell tsCell = row0.createCell(37);
         tsCell.setCellValue("TS");
         tsCell.setCellStyle(headerStyle);
         
-        // Columnas AM-AR: Germinación (índices 38-43) - 6 columnas
+        
         Cell germinacionCell = row0.createCell(38);
         germinacionCell.setCellValue("Germinación");
         germinacionCell.setCellStyle(headerStyle);
         
-        // Columnas AS-AX: Germinación -I (índices 44-49) - 6 columnas
+        
         Cell germinacionICell = row0.createCell(44);
         germinacionICell.setCellValue("Germinación -I");
         germinacionICell.setCellStyle(yellowHeaderStyle);
         
-        // Columna AY: V% (índice 50)
+        
         Cell vCell = row0.createCell(50);
         vCell.setCellValue("V%");
         vCell.setCellStyle(headerStyle);
         
-        // Columna AZ: V-I% (índice 51)
+        
         Cell viCell = row0.createCell(51);
         viCell.setCellValue("V-I%");
         viCell.setCellStyle(yellowHeaderStyle);
         
-        // Fila 1: Subencabezados (Fila 2 en Excel, índice 1 en POI)
+        
         Row row1 = sheet.createRow(1);
         String[] subEncabezados = {
-            // A-I: Datos básicos (índices 0-8)
+            
             "Especie", "Variedad", "Ficha", "Deposito", "N° de articulo", "N° análisis", "Lote", "Kilos", "H%",
-            // J-O: Pureza INIA (índices 9-14)
+            
             "SP%", "MI%", "OC%", "M%", "MT.%", "M.T.C%",
-            // P-U: Pureza INASE (índices 15-20)
+            
             "SP-I%", "MI-I%", "OC-I%", "M%", "M.T-I%", "M.T.C%",
-            // V-Y: Descripción (índices 21-24)
+            
             "MI", "OC", "MT", "MTC",
-            // Z-AD: DOSN (índices 25-29)
+            
             "MTC", "OC", "M", "MT", "DB",
-            // AE-AI: DOSN-I (índices 30-34)
+            
             "MTC", "OC", "M", "MT", "DB",
-            // AJ: PMS (índice 35)
+            
             "",
-            // AK: Fecha Análisis (índice 36)
+            
             "",
-            // AL: TS (índice 37)
+            
             "",
-            // AM-AR: Germinación (índices 38-43)
+            
             "PN%", "AN%", "D%", "F%", "M%", "G%",
-            // AS-AX: Germinación -I (índices 44-49)
+            
             "PN-I%", "AN-I%", "D-I%", "F-I%", "M-I%", "G-I%",
-            // AY-AZ: Viabilidad (índices 50-51)
+            
             "", ""
         };
         
@@ -222,32 +222,32 @@ public class ExportacionExcelService {
             cell.setCellStyle(subHeaderStyle);
         }
         
-        // Crear celdas combinadas para encabezados principales (fila 0)
-        sheet.addMergedRegion(new CellRangeAddress(0, 0, 9, 14));   // Pureza INIA (J-O)
-        sheet.addMergedRegion(new CellRangeAddress(0, 0, 15, 20));  // Pureza INASE (P-U)
-        sheet.addMergedRegion(new CellRangeAddress(0, 0, 21, 24));  // Descripción (V-Y)
-        sheet.addMergedRegion(new CellRangeAddress(0, 0, 25, 29));  // DOSN (Z-AD)
-        sheet.addMergedRegion(new CellRangeAddress(0, 0, 30, 34));  // DOSN-I (AE-AI)
-        sheet.addMergedRegion(new CellRangeAddress(0, 0, 38, 43));  // Germinación (AM-AR)
-        sheet.addMergedRegion(new CellRangeAddress(0, 0, 44, 49));  // Germinación -I (AS-AX)
+        
+        sheet.addMergedRegion(new CellRangeAddress(0, 0, 9, 14));   
+        sheet.addMergedRegion(new CellRangeAddress(0, 0, 15, 20));  
+        sheet.addMergedRegion(new CellRangeAddress(0, 0, 21, 24));  
+        sheet.addMergedRegion(new CellRangeAddress(0, 0, 25, 29));  
+        sheet.addMergedRegion(new CellRangeAddress(0, 0, 30, 34));  
+        sheet.addMergedRegion(new CellRangeAddress(0, 0, 38, 43));  
+        sheet.addMergedRegion(new CellRangeAddress(0, 0, 44, 49));  
     }
 
     private void crearFilaDatos(Sheet sheet, int numeroFila, DatosExportacionExcelDTO datos, CellStyle style) {
         Row row = sheet.createRow(numeroFila);
         int col = 0;
         
-        // A-I: Datos básicos (índices 0-8)
+        
         crearCelda(row, col++, datos.getEspecie(), style);
         crearCelda(row, col++, datos.getVariedad(), style);
         crearCelda(row, col++, datos.getLote(), style);
         crearCelda(row, col++, datos.getDeposito(), style);
         crearCelda(row, col++, datos.getNumeroArticulo(), style);
         crearCelda(row, col++, datos.getNumeroAnalisis(), style);
-        crearCelda(row, col++, datos.getNombreLote(), style);  // Nombre del lote en lugar de número de ficha
+        crearCelda(row, col++, datos.getNombreLote(), style);  
         crearCelda(row, col++, datos.getKilos(), style);
         crearCelda(row, col++, datos.getHumedad(), style);
         
-        // J-O: Pureza INIA (índices 9-14) - 6 columnas
+        
         crearCelda(row, col++, datos.getPurezaSemillaPura(), style);
         crearCelda(row, col++, datos.getPurezaMateriaInerte(), style);
         crearCelda(row, col++, datos.getPurezaOtrosCultivos(), style);
@@ -255,7 +255,7 @@ public class ExportacionExcelService {
         crearCelda(row, col++, datos.getPurezaMalezasToleradas(), style);
         crearCelda(row, col++, datos.getPurezaMalezasToleranciaC(), style);
         
-        // P-U: Pureza INASE (índices 15-20) - 6 columnas
+        
         crearCelda(row, col++, datos.getPurezaInaseSemillaPura(), style);
         crearCelda(row, col++, datos.getPurezaInaseMateriaInerte(), style);
         crearCelda(row, col++, datos.getPurezaInaseOtrosCultivos(), style);
@@ -263,36 +263,36 @@ public class ExportacionExcelService {
         crearCelda(row, col++, datos.getPurezaInaseMalezasToleradas(), style);
         crearCelda(row, col++, datos.getPurezaInaseMalezasToleranciaC(), style);
         
-        // V-Y: Descripción (índices 21-24) - 4 columnas
+        
         crearCelda(row, col++, datos.getDescripcionMalezas(), style);
         crearCelda(row, col++, datos.getDescripcionOtrosCultivos(), style);
         crearCelda(row, col++, datos.getDescripcionMalezasToleradas(), style);
         crearCelda(row, col++, datos.getDescripcionMalezasToleranciaC(), style);
         
-        // Z-AD: DOSN (índices 25-29) - 5 columnas
-        crearCelda(row, col++, datos.getDosnMalezasToleranciaC(), style);  // MTC
-        crearCelda(row, col++, datos.getDosnOtrosCultivos(), style);        // OC
-        crearCelda(row, col++, datos.getDosnMalezas(), style);              // M
-        crearCelda(row, col++, datos.getDosnMalezasToleradas(), style);     // MT
-        crearCelda(row, col++, datos.getDosnBrassica(), style);             // DB
         
-        // AE-AI: DOSN-I (índices 30-34) - 5 columnas
-        crearCelda(row, col++, datos.getDosnInaseMalezasToleranciaC(), style);  // MTC
-        crearCelda(row, col++, datos.getDosnInaseOtrosCultivos(), style);        // OC
-        crearCelda(row, col++, datos.getDosnInaseMalezas(), style);              // M
-        crearCelda(row, col++, datos.getDosnInaseMalezasToleradas(), style);     // MT
-        crearCelda(row, col++, datos.getDosnInaseBrassica(), style);             // DB
+        crearCelda(row, col++, datos.getDosnMalezasToleranciaC(), style);  
+        crearCelda(row, col++, datos.getDosnOtrosCultivos(), style);        
+        crearCelda(row, col++, datos.getDosnMalezas(), style);              
+        crearCelda(row, col++, datos.getDosnMalezasToleradas(), style);     
+        crearCelda(row, col++, datos.getDosnBrassica(), style);             
         
-        // AJ: PMS (índice 35)
+        
+        crearCelda(row, col++, datos.getDosnInaseMalezasToleranciaC(), style);  
+        crearCelda(row, col++, datos.getDosnInaseOtrosCultivos(), style);        
+        crearCelda(row, col++, datos.getDosnInaseMalezas(), style);              
+        crearCelda(row, col++, datos.getDosnInaseMalezasToleradas(), style);     
+        crearCelda(row, col++, datos.getDosnInaseBrassica(), style);             
+        
+        
         crearCelda(row, col++, datos.getPms(), style);
         
-        // AK: Fecha Análisis (índice 36)
+        
         crearCelda(row, col++, datos.getFechaAnalisis() != null ? datos.getFechaAnalisis().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) : "", style);
         
-        // AL: TS (índice 37)
+        
         crearCelda(row, col++, datos.getTratamientoSemillas(), style);
         
-        // AM-AR: Germinación INIA (índices 38-43) - 6 columnas
+        
         crearCelda(row, col++, datos.getGerminacionPlantulasNormales(), style);
         crearCelda(row, col++, datos.getGerminacionPlantulasAnormales(), style);
         crearCelda(row, col++, datos.getGerminacionSemillasDeterioras(), style);
@@ -300,7 +300,7 @@ public class ExportacionExcelService {
         crearCelda(row, col++, datos.getGerminacionSemillasMuertas(), style);
         crearCelda(row, col++, datos.getGerminacionTotal(), style);
         
-        // AS-AX: Germinación INASE (índices 44-49) - 6 columnas
+        
         crearCelda(row, col++, datos.getGerminacionInasePlantulasNormales(), style);
         crearCelda(row, col++, datos.getGerminacionInasePlantulasAnormales(), style);
         crearCelda(row, col++, datos.getGerminacionInaseSemillasDeterioras(), style);
@@ -308,7 +308,7 @@ public class ExportacionExcelService {
         crearCelda(row, col++, datos.getGerminacionInaseSemillasMuertas(), style);
         crearCelda(row, col++, datos.getGerminacionInaseTotal(), style);
         
-        // AY-AZ: Viabilidad (índices 50-51)
+        
         crearCelda(row, col++, datos.getViabilidadPorcentaje(), style);
         crearCelda(row, col++, datos.getViabilidadInasePorcentaje(), style);
     }
@@ -365,27 +365,27 @@ public class ExportacionExcelService {
             
             DatosExportacionExcelDTO dto = new DatosExportacionExcelDTO();
             
-            // Datos básicos del lote
+            
             mapearDatosBasicosLote(dto, lote);
             System.out.println("Datos básicos mapeados - Especie: " + dto.getEspecie() + ", Variedad: " + dto.getVariedad());
             
-            // Obtener y mapear análisis de pureza
+            
             mapearDatosPureza(dto, lote);
             System.out.println("Datos pureza mapeados - SP: " + dto.getPurezaSemillaPura() + ", MI: " + dto.getPurezaMateriaInerte());
             
-            // Obtener y mapear análisis de germinación
+            
             mapearDatosGerminacion(dto, lote);
             System.out.println("Datos germinación mapeados - PN: " + dto.getGerminacionPlantulasNormales());
             
-            // Obtener y mapear análisis de PMS
+            
             mapearDatosPms(dto, lote);
             System.out.println("Datos PMS mapeados - PMS: " + dto.getPms());
             
-            // Obtener y mapear análisis de tetrazolio
+            
             mapearDatosTetrazolio(dto, lote);
             System.out.println("Datos tetrazolio mapeados - V%: " + dto.getViabilidadPorcentaje());
             
-            // Obtener y mapear DOSN
+            
             mapearDatosDosn(dto, lote);
             System.out.println("Datos DOSN mapeados");
             
@@ -400,11 +400,11 @@ public class ExportacionExcelService {
         
         List<Lote> lotes;
         
-        // Aplicar filtros para obtener lotes
+        
         if (solicitud.getLoteIds() != null && !solicitud.getLoteIds().isEmpty()) {
             lotes = loteRepository.findAllById(solicitud.getLoteIds());
         } else {
-            // Obtener lotes según si incluir inactivos o no
+            
             if (solicitud.getIncluirInactivos()) {
                 lotes = loteRepository.findAll();
             } else {
@@ -412,11 +412,11 @@ public class ExportacionExcelService {
             }
         }
         
-        // Filtrar por fechas si se especifican
+        
         if (solicitud.getFechaDesde() != null || solicitud.getFechaHasta() != null) {
             lotes = lotes.stream()
                 .filter(lote -> {
-                    LocalDate fechaLote = lote.getFechaRecibo(); // o la fecha que consideres relevante
+                    LocalDate fechaLote = lote.getFechaRecibo(); 
                     if (fechaLote == null) return false;
                     
                     boolean cumpleFechaDesde = solicitud.getFechaDesde() == null || 
@@ -429,7 +429,7 @@ public class ExportacionExcelService {
                 .collect(Collectors.toList());
         }
         
-        // Filtrar por especies si se especifican
+        
         if (solicitud.getEspecieIds() != null && !solicitud.getEspecieIds().isEmpty()) {
             lotes = lotes.stream()
                 .filter(lote -> lote.getCultivar() != null && 
@@ -438,7 +438,7 @@ public class ExportacionExcelService {
                 .collect(Collectors.toList());
         }
         
-        // Filtrar por cultivares si se especifican
+        
         if (solicitud.getCultivarIds() != null && !solicitud.getCultivarIds().isEmpty()) {
             lotes = lotes.stream()
                 .filter(lote -> lote.getCultivar() != null &&
@@ -446,14 +446,14 @@ public class ExportacionExcelService {
                 .collect(Collectors.toList());
         }
         
-        // Procesar cada lote
+        
         for (Lote lote : lotes) {
             DatosExportacionExcelDTO dto = new DatosExportacionExcelDTO();
             
-            // Datos básicos del lote
+            
             mapearDatosBasicosLote(dto, lote);
             
-            // Mapear solo los tipos de análisis solicitados
+            
             List<String> tiposAnalisis = solicitud.getTiposAnalisis();
             if (tiposAnalisis == null || tiposAnalisis.isEmpty() || tiposAnalisis.contains("PUREZA")) {
                 mapearDatosPureza(dto, lote);
@@ -478,7 +478,7 @@ public class ExportacionExcelService {
     }
 
     private void mapearDatosBasicosLote(DatosExportacionExcelDTO dto, Lote lote) {
-        // Especie y variedad
+        
         if (lote.getCultivar() != null) {
             dto.setVariedad(lote.getCultivar().getNombre());
             if (lote.getCultivar().getEspecie() != null) {
@@ -486,25 +486,25 @@ public class ExportacionExcelService {
             }
         }
         
-        // Datos del lote
+        
         dto.setLote(lote.getFicha());
-        dto.setNombreLote(lote.getNomLote());  //  NUEVO: Nombre del lote
+        dto.setNombreLote(lote.getNomLote());  
         dto.setKilos(lote.getKilosLimpios() != null ? lote.getKilosLimpios().toString() : "");
         
-        // Número de análisis (usando el ID del lote como referencia temporal)
+        
         dto.setNumeroAnalisis(lote.getLoteID() != null ? lote.getLoteID().toString() : "");
         
-        // Deposito
+        
         if (lote.getDeposito() != null) {
             dto.setDeposito(lote.getDeposito().getValor());
         }
         
-        // Número de artículo
+        
         if (lote.getNumeroArticulo() != null) {
             dto.setNumeroArticulo(lote.getNumeroArticulo().getValor());
         }
         
-        // Humedad (tomar el primer valor de datos de humedad)
+        
         if (lote.getDatosHumedad() != null && !lote.getDatosHumedad().isEmpty()) {
             dto.setHumedad(lote.getDatosHumedad().get(0).getValor());
         }
@@ -517,12 +517,12 @@ public class ExportacionExcelService {
         System.out.println("Análisis de pureza encontrados: " + analisisPureza.size());
         
         if (!analisisPureza.isEmpty()) {
-            Pureza pureza = analisisPureza.get(0); // Tomar el más reciente o el primero
+            Pureza pureza = analisisPureza.get(0); 
             
             System.out.println("Datos INIA - SP: " + pureza.getRedonSemillaPura() + ", MI: " + pureza.getRedonMateriaInerte());
             System.out.println("Datos INASE - SP: " + pureza.getInasePura() + ", MI: " + pureza.getInaseMateriaInerte());
             
-            // Datos INIA
+            
             dto.setPurezaSemillaPura(pureza.getRedonSemillaPura());
             dto.setPurezaMateriaInerte(pureza.getRedonMateriaInerte());
             dto.setPurezaOtrosCultivos(pureza.getRedonOtrosCultivos());
@@ -530,7 +530,7 @@ public class ExportacionExcelService {
             dto.setPurezaMalezasToleradas(pureza.getRedonMalezasToleradas());
             dto.setPurezaMalezasToleranciaC(pureza.getRedonMalezasTolCero());
             
-            // Datos INASE
+            
             dto.setPurezaInaseSemillaPura(pureza.getInasePura());
             dto.setPurezaInaseMateriaInerte(pureza.getInaseMateriaInerte());
             dto.setPurezaInaseOtrosCultivos(pureza.getInaseOtrosCultivos());
@@ -542,17 +542,17 @@ public class ExportacionExcelService {
                 dto.setFechaAnalisis(pureza.getFecha());
             }
             
-            // Mapear descripción de malezas y otros cultivos desde listados
+            
             if (pureza.getListados() != null && !pureza.getListados().isEmpty()) {
                 System.out.println("Listados encontrados: " + pureza.getListados().size());
                 
-                // Variables para INIA
+                
                 StringBuilder descripcionMalezas = new StringBuilder();
                 StringBuilder descripcionOtrosCultivos = new StringBuilder();
                 StringBuilder descripcionMalezasToleradas = new StringBuilder();
                 StringBuilder descripcionMalezasToleranciaC = new StringBuilder();
                 
-                // Variables para INASE
+                
                 StringBuilder descripcionInaseMalezas = new StringBuilder();
                 StringBuilder descripcionInaseOtrosCultivos = new StringBuilder();
                 StringBuilder descripcionInaseMalezasToleradas = new StringBuilder();
@@ -563,7 +563,7 @@ public class ExportacionExcelService {
                     boolean esMaleza = false;
                     boolean esCultivo = false;
                     
-                    // Determinar si es maleza (tiene catalogo) o cultivo (tiene especie)
+                    
                     if (listado.getCatalogo() != null) {
                         nombre = listado.getCatalogo().getNombreComun();
                         esMaleza = true;
@@ -578,9 +578,9 @@ public class ExportacionExcelService {
                         
                         System.out.println("Procesando listado - Nombre: " + nombre + ", Tipo: " + tipoListado + ", Instituto: " + instituto);
                         
-                        // Procesar según el tipo de listado y el instituto
+                        
                         if (instituto == Instituto.INIA) {
-                            // PUREZA INIA
+                            
                             if (tipoListado == TipoListado.MAL_TOLERANCIA_CERO) {
                                 if (descripcionMalezasToleranciaC.length() > 0) descripcionMalezasToleranciaC.append(", ");
                                 descripcionMalezasToleranciaC.append(nombre);
@@ -597,7 +597,7 @@ public class ExportacionExcelService {
                                 descripcionOtrosCultivos.append(nombre);
                             }
                         } else if (instituto == Instituto.INASE) {
-                            // PUREZA INASE
+                            
                             if (tipoListado == TipoListado.MAL_TOLERANCIA_CERO) {
                                 if (descripcionInaseMalezasToleranciaC.length() > 0) descripcionInaseMalezasToleranciaC.append(", ");
                                 descripcionInaseMalezasToleranciaC.append(nombre);
@@ -617,8 +617,8 @@ public class ExportacionExcelService {
                     }
                 }
                 
-                // Combinar descripciones de INIA e INASE en las mismas columnas (V-Y)
-                // Si hay datos de ambos institutos, se separan con " | "
+                
+                
                 
                 String malezasFinales = combinarDescripciones(descripcionMalezas.toString(), descripcionInaseMalezas.toString());
                 String cultivosFinales = combinarDescripciones(descripcionOtrosCultivos.toString(), descripcionInaseOtrosCultivos.toString());
@@ -630,7 +630,7 @@ public class ExportacionExcelService {
                 dto.setDescripcionMalezasToleradas(toleradasFinales);
                 dto.setDescripcionMalezasToleranciaC(tolCeroFinales);
                 
-                // Guardar también las versiones separadas por instituto (para uso futuro si se necesitan columnas separadas)
+                
                 dto.setDescripcionInaseMalezas(descripcionInaseMalezas.toString());
                 dto.setDescripcionInaseOtrosCultivos(descripcionInaseOtrosCultivos.toString());
                 dto.setDescripcionInaseMalezasToleradas(descripcionInaseMalezasToleradas.toString());
@@ -657,11 +657,11 @@ public class ExportacionExcelService {
             if (germinacion.getTablaGerm() != null && !germinacion.getTablaGerm().isEmpty()) {
                 TablaGerm tabla = germinacion.getTablaGerm().get(0);
                 
-                // Buscar valores de INIA e INASE en ValoresGerm
+                
                 if (tabla.getValoresGerm() != null) {
                     for (ValoresGerm valores : tabla.getValoresGerm()) {
                         if (valores.getInstituto() == Instituto.INIA) {
-                            // Datos de germinación INIA
+                            
                             dto.setGerminacionPlantulasNormales(valores.getNormales());
                             dto.setGerminacionPlantulasAnormales(valores.getAnormales());
                             dto.setGerminacionSemillasDeterioras(valores.getDuras());
@@ -669,7 +669,7 @@ public class ExportacionExcelService {
                             dto.setGerminacionSemillasMuertas(valores.getMuertas());
                             dto.setGerminacionTotal(valores.getGerminacion());
                         } else if (valores.getInstituto() == Instituto.INASE) {
-                            // Datos de germinación INASE
+                            
                             dto.setGerminacionInasePlantulasNormales(valores.getNormales());
                             dto.setGerminacionInasePlantulasAnormales(valores.getAnormales());
                             dto.setGerminacionInaseSemillasDeterioras(valores.getDuras());
@@ -680,7 +680,7 @@ public class ExportacionExcelService {
                     }
                 }
                 
-                // Mapear tratamiento de semillas
+                
                 if (tabla.getTratamiento() != null) {
                     dto.setTratamientoSemillas(tabla.getTratamiento());
                 }
@@ -703,10 +703,10 @@ public class ExportacionExcelService {
         if (!analisisTetrazolio.isEmpty()) {
             Tetrazolio tetrazolio = analisisTetrazolio.get(0);
             
-            // Datos de viabilidad INIA (columna AY)
+            
             dto.setViabilidadPorcentaje(tetrazolio.getPorcViablesRedondeo());
             
-            //  Datos de viabilidad INASE (columna AZ) - usar el campo viabilidadInase
+            
             dto.setViabilidadInasePorcentaje(tetrazolio.getViabilidadInase());
         }
     }
@@ -717,7 +717,7 @@ public class ExportacionExcelService {
         if (!analisisDosn.isEmpty()) {
             Dosn dosn = analisisDosn.get(0);
             
-            // Mapear descripción de malezas y otros cultivos desde listados de DOSN
+            
             if (dosn.getListados() != null) {
                 StringBuilder dosnOtrosCultivos = new StringBuilder();
                 StringBuilder dosnMalezas = new StringBuilder();
@@ -725,7 +725,7 @@ public class ExportacionExcelService {
                 StringBuilder dosnMalezasToleranciaC = new StringBuilder();
                 StringBuilder dosnBrassica = new StringBuilder();
                 
-                // Para DOSN INASE
+                
                 StringBuilder dosnInaseOtrosCultivos = new StringBuilder();
                 StringBuilder dosnInaseMalezas = new StringBuilder();
                 StringBuilder dosnInaseMalezasToleradas = new StringBuilder();
@@ -737,7 +737,7 @@ public class ExportacionExcelService {
                     boolean esMaleza = false;
                     boolean esCultivo = false;
                     
-                    // Determinar si es maleza (tiene catalogo) o cultivo (tiene especie)
+                    
                     if (listado.getCatalogo() != null) {
                         nombre = listado.getCatalogo().getNombreComun();
                         esMaleza = true;
@@ -750,9 +750,9 @@ public class ExportacionExcelService {
                         TipoListado tipoListado = listado.getListadoTipo();
                         Instituto instituto = listado.getListadoInsti();
                         
-                        // Procesar según el tipo de listado y el instituto
+                        
                         if (instituto == Instituto.INIA) {
-                            // DOSN INIA
+                            
                             if (tipoListado == TipoListado.MAL_TOLERANCIA_CERO) {
                                 if (dosnMalezasToleranciaC.length() > 0) dosnMalezasToleranciaC.append(", ");
                                 dosnMalezasToleranciaC.append(nombre);
@@ -772,7 +772,7 @@ public class ExportacionExcelService {
                                 dosnOtrosCultivos.append(nombre);
                             }
                         } else if (instituto == Instituto.INASE) {
-                            // DOSN INASE
+                            
                             if (tipoListado == TipoListado.MAL_TOLERANCIA_CERO) {
                                 if (dosnInaseMalezasToleranciaC.length() > 0) dosnInaseMalezasToleranciaC.append(", ");
                                 dosnInaseMalezasToleranciaC.append(nombre);
@@ -795,14 +795,14 @@ public class ExportacionExcelService {
                     }
                 }
                 
-                // DOSN INIA
+                
                 dto.setDosnOtrosCultivos(dosnOtrosCultivos.toString());
                 dto.setDosnMalezas(dosnMalezas.toString());
                 dto.setDosnMalezasToleradas(dosnMalezasToleradas.toString());
                 dto.setDosnMalezasToleranciaC(dosnMalezasToleranciaC.toString());
                 dto.setDosnBrassica(dosnBrassica.toString());
                 
-                // DOSN INASE
+                
                 dto.setDosnInaseOtrosCultivos(dosnInaseOtrosCultivos.toString());
                 dto.setDosnInaseMalezas(dosnInaseMalezas.toString());
                 dto.setDosnInaseMalezasToleradas(dosnInaseMalezasToleradas.toString());
@@ -884,16 +884,16 @@ public class ExportacionExcelService {
     }
 
     private void ajustarAnchoColumnas(Sheet sheet) {
-        // Ajustar el ancho de las primeras columnas que contienen texto
+        
         for (int i = 0; i < 8; i++) {
             sheet.autoSizeColumn(i);
-            // Establecer un ancho mínimo
+            
             if (sheet.getColumnWidth(i) < 3000) {
                 sheet.setColumnWidth(i, 3000);
             }
         }
         
-        // Para el resto de columnas (datos numéricos), establecer un ancho fijo
+        
         for (int i = 8; i < 50; i++) {
             sheet.setColumnWidth(i, 2500);
         }

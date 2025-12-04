@@ -30,12 +30,12 @@ public class RepGermService {
     @Autowired
     private AnalisisService analisisService;
 
-    // Crear nueva repetición asociada a una tabla
+    
     public RepGermDTO crearRepGerm(Long tablaGermId, RepGermRequestDTO solicitud) {
         try {
             System.out.println("Creando repetición para tabla ID: " + tablaGermId);
             
-            // Validar que la tabla existe
+            
             Optional<TablaGerm> tablaGermOpt = tablaGermRepository.findById(tablaGermId);
             if (tablaGermOpt.isEmpty()) {
                 throw new RuntimeException("Tabla no encontrada con ID: " + tablaGermId);
@@ -43,7 +43,7 @@ public class RepGermService {
             
             TablaGerm tablaGerm = tablaGermOpt.get();
             
-            //validar numero de repeticiones permitidas
+            
             if (tablaGerm != null && tablaGerm.getNumeroRepeticiones() != null) {
                 Long repeticionesExistentes = repGermRepository.countByTablaGermId(tablaGermId);
                 if (repeticionesExistentes >= tablaGerm.getNumeroRepeticiones()) {
@@ -52,11 +52,11 @@ public class RepGermService {
                 }
             }
 
-            // Crear la repetición
+            
             RepGerm repGerm = mapearSolicitudAEntidad(solicitud, tablaGerm);
             RepGerm repGermGuardada = repGermRepository.save(repGerm);
             
-            // Actualizar totales de la tabla padre cuando se crea una nueva repetición
+            
             actualizarTotalesTablaGerm(tablaGerm);
             
             System.out.println("Repetición creada exitosamente con ID: " + repGermGuardada.getRepGermID());
@@ -67,7 +67,7 @@ public class RepGermService {
         }
     }
 
-    // Obtener repetición por ID
+    
     public RepGermDTO obtenerRepGermPorId(Long id) {
         Optional<RepGerm> repGerm = repGermRepository.findById(id);
         if (repGerm.isPresent()) {
@@ -77,23 +77,23 @@ public class RepGermService {
         }
     }
 
-    // Actualizar repetición
+    
     public RepGermDTO actualizarRepGerm(Long id, RepGermRequestDTO solicitud) {
         Optional<RepGerm> repGermExistente = repGermRepository.findById(id);
         
         if (repGermExistente.isPresent()) {
             RepGerm repGerm = repGermExistente.get();
             
-            // Manejar edición de análisis finalizado según el rol del usuario
+            
             analisisService.manejarEdicionAnalisisFinalizado(repGerm.getTablaGerm().getGerminacion());
         
-            // Validar datos de la solicitud
+            
             validarDatosRepeticion(solicitud, repGerm.getTablaGerm());
             
             actualizarEntidadDesdeSolicitud(repGerm, solicitud);
             RepGerm repGermActualizada = repGermRepository.save(repGerm);
             
-            // Actualizar totales de la tabla padre cuando se actualiza una repetición
+            
             actualizarTotalesTablaGerm(repGermActualizada.getTablaGerm());
             
             return mapearEntidadADTO(repGermActualizada);
@@ -102,7 +102,7 @@ public class RepGermService {
         }
     }
 
-    // Eliminar repetición (eliminar realmente, no cambio de estado)
+    
     public void eliminarRepGerm(Long id) {
         Optional<RepGerm> repGermExistente = repGermRepository.findById(id);
         
@@ -115,7 +115,7 @@ public class RepGermService {
         }
     }
 
-    // Obtener todas las repeticiones de una tabla
+    
     public List<RepGermDTO> obtenerRepeticionesPorTabla(Long tablaGermId) {
         List<RepGerm> repeticiones = repGermRepository.findByTablaGermId(tablaGermId);
         return repeticiones.stream()
@@ -123,33 +123,33 @@ public class RepGermService {
                 .collect(Collectors.toList());
     }
 
-    // Contar repeticiones de una tabla
+    
     public Long contarRepeticionesPorTabla(Long tablaGermId) {
         return repGermRepository.countByTablaGermId(tablaGermId);
     }
 
-    // Mapear de RequestDTO a Entity
+    
     private RepGerm mapearSolicitudAEntidad(RepGermRequestDTO solicitud, TablaGerm tablaGerm) {
-        // Validar datos de la solicitud
+        
         validarDatosRepeticion(solicitud, tablaGerm);
         
         RepGerm repGerm = new RepGerm();
         
-        // Asignar la tabla asociada
+        
         repGerm.setTablaGerm(tablaGerm);
         
-        // Generar numRep automáticamente (siguiente número disponible)
+        
         Long repeticionesExistentes = repGermRepository.countByTablaGermId(tablaGerm.getTablaGermID());
         repGerm.setNumRep(repeticionesExistentes.intValue() + 1);
         
-        // Inicializar lista normales con el número de conteos definido en la tabla
+        
         Integer numeroConteos = (tablaGerm != null && tablaGerm.getNumeroConteos() != null) 
             ? tablaGerm.getNumeroConteos() 
-            : 1; // valor por defecto
+            : 1; 
             
         List<Integer> normalesInicializadas = new ArrayList<>(Collections.nCopies(numeroConteos, 0));
         
-        // Si el usuario envió valores para normales, preservar su posición y completar con 0 el resto
+        
         if (solicitud.getNormales() != null && !solicitud.getNormales().isEmpty()) {
             for (int i = 0; i < Math.min(solicitud.getNormales().size(), numeroConteos); i++) {
                 if (solicitud.getNormales().get(i) != null) {
@@ -165,21 +165,21 @@ public class RepGermService {
         repGerm.setFrescas(solicitud.getFrescas() != null ? solicitud.getFrescas() : 0);
         repGerm.setMuertas(solicitud.getMuertas() != null ? solicitud.getMuertas() : 0);
         
-        // Calcular total automáticamente
+        
         Integer totalCalculado = calcularTotal(normalesInicializadas, repGerm.getAnormales(), 
                                              repGerm.getDuras(), repGerm.getFrescas(), repGerm.getMuertas());
         repGerm.setTotal(totalCalculado);
         
         repGerm.setTotal(totalCalculado);
         
-        // Validar que haya al menos un valor
+        
         if (totalCalculado == 0) {
             throw new RuntimeException("Debe ingresar al menos un valor");
         }
         
-        // Validar solo el límite máximo
-        // El mínimo no se valida aquí para permitir guardar repeticiones incompletas
-        // (se validará al finalizar la tabla)
+        
+        
+        
         if (tablaGerm.getNumSemillasPRep() != null) {
             int limiteMaximo = (int) Math.floor(tablaGerm.getNumSemillasPRep() * 1.05);
             
@@ -199,7 +199,7 @@ public class RepGermService {
     private void validarDatosRepeticion(RepGermRequestDTO solicitud, TablaGerm tablaGerm) {
         Integer numSemillasPRep = tablaGerm.getNumSemillasPRep();
         
-        // Validar que los valores no sean negativos ni excedan numSemillasPRep
+        
         if (solicitud.getAnormales() != null) {
             if (solicitud.getAnormales() < 0) {
                 throw new RuntimeException("El número de semillas anormales no puede ser negativo");
@@ -236,7 +236,7 @@ public class RepGermService {
             }
         }
         
-        // Validar valores de normales
+        
         if (solicitud.getNormales() != null) {
             for (int i = 0; i < solicitud.getNormales().size(); i++) {
                 Integer valor = solicitud.getNormales().get(i);
@@ -252,11 +252,11 @@ public class RepGermService {
         }
     }
     
-    // Método para calcular el total de una repetición
+    
     private Integer calcularTotal(List<Integer> normales, Integer anormales, Integer duras, Integer frescas, Integer muertas) {
         int total = 0;
         
-        // Sumar todos los valores de normales
+        
         if (normales != null) {
             for (Integer normal : normales) {
                 if (normal != null) {
@@ -265,7 +265,7 @@ public class RepGermService {
             }
         }
         
-        // Sumar los demás campos
+        
         total += (anormales != null ? anormales : 0);
         total += (duras != null ? duras : 0);
         total += (frescas != null ? frescas : 0);
@@ -274,11 +274,11 @@ public class RepGermService {
         return total;
     }
 
-    // Actualizar Entity desde RequestDTO
+    
     private void actualizarEntidadDesdeSolicitud(RepGerm repGerm, RepGermRequestDTO solicitud) {
-        // numRep NO se actualiza, es generado automáticamente y es inmutable
         
-        // Gestionar la lista normales preservando el tamaño según numeroConteos
+        
+        
         Integer numeroConteos = (repGerm.getTablaGerm() != null && 
                                repGerm.getTablaGerm().getNumeroConteos() != null) 
             ? repGerm.getTablaGerm().getNumeroConteos() 
@@ -286,7 +286,7 @@ public class RepGermService {
         
         List<Integer> normalesActualizadas = new ArrayList<>(Collections.nCopies(numeroConteos, 0));
         
-        // Si el usuario envió valores para normales, preservar su posición y completar con 0 el resto
+        
         if (solicitud.getNormales() != null && !solicitud.getNormales().isEmpty()) {
             for (int i = 0; i < Math.min(solicitud.getNormales().size(), numeroConteos); i++) {
                 if (solicitud.getNormales().get(i) != null) {
@@ -302,19 +302,19 @@ public class RepGermService {
         repGerm.setFrescas(solicitud.getFrescas() != null ? solicitud.getFrescas() : 0);
         repGerm.setMuertas(solicitud.getMuertas() != null ? solicitud.getMuertas() : 0);
         
-        // Calcular total automáticamente
+        
         Integer totalCalculado = calcularTotal(normalesActualizadas, repGerm.getAnormales(), 
                                              repGerm.getDuras(), repGerm.getFrescas(), repGerm.getMuertas());
         
-        // Validar que haya al menos un valor 
+        
         if (totalCalculado == 0) {
             throw new RuntimeException("Debe ingresar al menos un valor");
         }
         repGerm.setTotal(totalCalculado);
         
-        // Validar solo el límite máximo
-        // El mínimo no se valida aquí para permitir guardar repeticiones incompletas
-        // (se validará al finalizar la tabla)
+        
+        
+        
         if (repGerm.getTablaGerm().getNumSemillasPRep() != null) {
             int limiteMaximo = (int) Math.floor(repGerm.getTablaGerm().getNumSemillasPRep() * 1.05);
             
@@ -325,12 +325,12 @@ public class RepGermService {
             }
         }
         
-        // El total se calcula automáticamente, no se toma del DTO
+        
         repGerm.setTotal(totalCalculado);
-        // La tabla asociada no se cambia en actualizaciones
+        
     }
 
-    // Mapear de Entity a DTO
+    
     private RepGermDTO mapearEntidadADTO(RepGerm repGerm) {
         RepGermDTO dto = new RepGermDTO();
         dto.setRepGermID(repGerm.getRepGermID());
@@ -342,7 +342,7 @@ public class RepGermService {
         dto.setMuertas(repGerm.getMuertas());
         dto.setTotal(repGerm.getTotal());
         
-        // Incluir ID de la tabla asociada
+        
         if (repGerm.getTablaGerm() != null) {
             dto.setTablaGermId(repGerm.getTablaGerm().getTablaGermID());
         }
@@ -350,46 +350,46 @@ public class RepGermService {
         return dto;
     }
     
-    // Actualizar totales de la tabla padre cuando cambia una repetición
+    
     private void actualizarTotalesTablaGerm(TablaGerm tablaGerm) {
-        // Obtener todas las repeticiones de esta tabla
+        
         List<RepGerm> repeticiones = repGermRepository.findByTablaGermId(tablaGerm.getTablaGermID());
         
-        // Calcular total como suma de todos los totales de repeticiones
+        
         int totalCalculado = repeticiones.stream()
             .mapToInt(rep -> rep.getTotal() != null ? rep.getTotal() : 0)
             .sum();
             
         tablaGerm.setTotal(totalCalculado);
         
-        // Verificar si todas las repeticiones están completas para calcular promedio
+        
         if (todasLasRepeticionesCompletas(tablaGerm, repeticiones)) {
             calcularPromediosSinRedondeo(tablaGerm, repeticiones);
         }
         
-        // Guardar la tabla actualizada
+        
         tablaGermRepository.save(tablaGerm);
     }
     
-    // Verificar si todas las repeticiones están completas
+    
     private boolean todasLasRepeticionesCompletas(TablaGerm tablaGerm, List<RepGerm> repeticiones) {
         if (tablaGerm == null || tablaGerm.getNumeroRepeticiones() == null) {
             return false;
         }
         
-        // Verificar que tenemos el número esperado de repeticiones
+        
         if (repeticiones.size() < tablaGerm.getNumeroRepeticiones()) {
             return false;
         }
         
-        // Verificar que todas las repeticiones tienen datos completos
+        
         return repeticiones.stream().allMatch(rep -> 
             rep.getTotal() != null && rep.getTotal() > 0
         );
     }
     
-    // Calcular promedios sin redondeo automáticamente
-    // 5 promedios: normales (suma de todos los valores de todas las listas), anormales, duras, frescas, muertas
+    
+    
     private void calcularPromediosSinRedondeo(TablaGerm tablaGerm, List<RepGerm> repeticiones) {
         if (repeticiones.isEmpty()) {
             tablaGerm.setPromedioSinRedondeo(new ArrayList<>());
@@ -399,35 +399,35 @@ public class RepGermService {
         int numRepeticiones = repeticiones.size();
         List<BigDecimal> promedios = new ArrayList<>();
         
-        // 1. Promedio de normales (suma de todos los valores de todas las listas de normales)
+        
         int sumaNormales = repeticiones.stream()
             .flatMapToInt(rep -> rep.getNormales() != null ? rep.getNormales().stream().mapToInt(Integer::intValue) : java.util.stream.IntStream.empty())
             .sum();
         BigDecimal promedioNormales = BigDecimal.valueOf(sumaNormales).divide(BigDecimal.valueOf(numRepeticiones), 2, RoundingMode.HALF_UP);
         promedios.add(promedioNormales);
         
-        // 2. Promedio de anormales
+        
         int sumaAnormales = repeticiones.stream()
             .mapToInt(rep -> rep.getAnormales() != null ? rep.getAnormales() : 0)
             .sum();
         BigDecimal promedioAnormales = BigDecimal.valueOf(sumaAnormales).divide(BigDecimal.valueOf(numRepeticiones), 2, RoundingMode.HALF_UP);
         promedios.add(promedioAnormales);
         
-        // 3. Promedio de duras
+        
         int sumaDuras = repeticiones.stream()
             .mapToInt(rep -> rep.getDuras() != null ? rep.getDuras() : 0)
             .sum();
         BigDecimal promedioDuras = BigDecimal.valueOf(sumaDuras).divide(BigDecimal.valueOf(numRepeticiones), 2, RoundingMode.HALF_UP);
         promedios.add(promedioDuras);
         
-        // 4. Promedio de frescas
+        
         int sumaFrescas = repeticiones.stream()
             .mapToInt(rep -> rep.getFrescas() != null ? rep.getFrescas() : 0)
             .sum();
         BigDecimal promedioFrescas = BigDecimal.valueOf(sumaFrescas).divide(BigDecimal.valueOf(numRepeticiones), 2, RoundingMode.HALF_UP);
         promedios.add(promedioFrescas);
         
-        // 5. Promedio de muertas
+        
         int sumaMuertas = repeticiones.stream()
             .mapToInt(rep -> rep.getMuertas() != null ? rep.getMuertas() : 0)
             .sum();
@@ -436,11 +436,11 @@ public class RepGermService {
         
         tablaGerm.setPromedioSinRedondeo(promedios);
         
-        // Calcular promediosSinRedPorConteo
+        
         calcularPromediosPorConteo(tablaGerm, repeticiones);
     }
     
-    // Calcular promedios por cada conteo individual de normales + los otros campos
+    
     private void calcularPromediosPorConteo(TablaGerm tablaGerm, List<RepGerm> repeticiones) {
         if (repeticiones.isEmpty()) {
             tablaGerm.setPromediosSinRedPorConteo(new ArrayList<>());
@@ -450,11 +450,11 @@ public class RepGermService {
         int numRepeticiones = repeticiones.size();
         List<BigDecimal> promediosPorConteo = new ArrayList<>();
         
-        // Obtener el número de conteos desde la tabla
+        
         Integer numConteos = tablaGerm != null ? tablaGerm.getNumeroConteos() : null;
             
         if (numConteos != null && numConteos > 0) {
-            // Calcular promedio para cada conteo de normales por separado
+            
             for (int conteo = 0; conteo < numConteos; conteo++) {
                 final int conteoIndex = conteo;
                 int sumaNormalesConteo = repeticiones.stream()
@@ -471,29 +471,29 @@ public class RepGermService {
             }
         }
         
-        // Agregar los otros campos (anormales, duras, frescas, muertas) igual que antes
-        // 2. Promedio de anormales
+        
+        
         int sumaAnormales = repeticiones.stream()
             .mapToInt(rep -> rep.getAnormales() != null ? rep.getAnormales() : 0)
             .sum();
         BigDecimal promedioAnormales = BigDecimal.valueOf(sumaAnormales).divide(BigDecimal.valueOf(numRepeticiones), 2, RoundingMode.HALF_UP);
         promediosPorConteo.add(promedioAnormales);
         
-        // 3. Promedio de duras
+        
         int sumaDuras = repeticiones.stream()
             .mapToInt(rep -> rep.getDuras() != null ? rep.getDuras() : 0)
             .sum();
         BigDecimal promedioDuras = BigDecimal.valueOf(sumaDuras).divide(BigDecimal.valueOf(numRepeticiones), 2, RoundingMode.HALF_UP);
         promediosPorConteo.add(promedioDuras);
         
-        // 4. Promedio de frescas
+        
         int sumaFrescas = repeticiones.stream()
             .mapToInt(rep -> rep.getFrescas() != null ? rep.getFrescas() : 0)
             .sum();
         BigDecimal promedioFrescas = BigDecimal.valueOf(sumaFrescas).divide(BigDecimal.valueOf(numRepeticiones), 2, RoundingMode.HALF_UP);
         promediosPorConteo.add(promedioFrescas);
         
-        // 5. Promedio de muertas
+        
         int sumaMuertas = repeticiones.stream()
             .mapToInt(rep -> rep.getMuertas() != null ? rep.getMuertas() : 0)
             .sum();

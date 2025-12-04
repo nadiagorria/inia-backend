@@ -147,15 +147,15 @@ public class GlobalExceptionHandler {
             RuntimeException ex, 
             HttpServletRequest request) {
         
-        // IllegalStateException tiene su propio handler, ignorar aquí
+        
         if (ex instanceof IllegalStateException) {
-            throw ex; // Re-lanzar para que sea capturada por su handler específico
+            throw ex; 
         }
         
         String mensaje = ex.getMessage();
         HttpStatus status = HttpStatus.BAD_REQUEST;
         
-        // Si el mensaje indica que algo no fue encontrado, retornar 404
+        
         if (mensaje != null && (mensaje.toLowerCase().contains("no encontrad") || 
                                 mensaje.toLowerCase().contains("not found"))) {
             status = HttpStatus.NOT_FOUND;

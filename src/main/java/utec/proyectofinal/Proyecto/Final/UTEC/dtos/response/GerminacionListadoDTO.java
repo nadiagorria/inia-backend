@@ -12,19 +12,19 @@ public class GerminacionListadoDTO {
     private Estado estado;
     private LocalDateTime fechaInicio;
     private LocalDateTime fechaFin;
-    private String lote; // nomLote
+    private String lote; 
     private Long idLote;
-    private String especie; // Nombre de la especie del lote
+    private String especie; 
     private Boolean activo;
     
-    // Campos para mostrar en listado - Germinación ahora es solo un contenedor
-    // Los detalles de fechas están en TablaGerm
+    
+    
     
     private String usuarioCreador;
     private String usuarioModificador;
-    private Boolean cumpleNorma; // true si NO está "A REPETIR"
+    private Boolean cumpleNorma; 
     
-    // Nuevos campos de TablaGerm para listado
+    
     private BigDecimal valorGerminacionINIA;
     private BigDecimal valorGerminacionINASE;
     private LocalDate fechaInicioGerm;

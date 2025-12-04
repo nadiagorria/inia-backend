@@ -6,5 +6,5 @@ public enum TipoListado {
     MAL_COMUNES,
     BRASSICA,
     OTROS,
-    NO_CONTIENE, // Usado cuando se verifica pero no se encuentra
+    NO_CONTIENE, 
 }

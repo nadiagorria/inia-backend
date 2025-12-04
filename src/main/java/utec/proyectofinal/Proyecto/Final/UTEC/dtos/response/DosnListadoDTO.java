@@ -10,12 +10,12 @@ public class DosnListadoDTO {
     private Estado estado;
     private LocalDateTime fechaInicio;
     private LocalDateTime fechaFin;
-    private String lote; // nomLote
+    private String lote; 
     private Long idLote;
-    private String especie; // Nombre de la especie del lote
+    private String especie; 
     private Boolean activo;
     
-    // Campos para mostrar en listado
+    
     private Boolean cumpleEstandar;
     
     private String usuarioCreador;

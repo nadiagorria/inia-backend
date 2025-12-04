@@ -277,13 +277,13 @@ class CultivarServiceTest {
     @Test
     @DisplayName("obtenerTodos con activo=true - debe retornar solo activos")
     void obtenerTodos_activoTrue_debeRetornarSoloActivos() {
-        // ARRANGE
+        
         when(cultivarRepository.findByActivoTrue()).thenReturn(Arrays.asList(cultivar));
 
-        // ACT
+        
         List<CultivarDTO> resultado = cultivarService.obtenerTodos(true);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertEquals(1, resultado.size());
         verify(cultivarRepository, times(1)).findByActivoTrue();
@@ -294,14 +294,14 @@ class CultivarServiceTest {
     @Test
     @DisplayName("obtenerTodos con activo=false - debe retornar solo inactivos")
     void obtenerTodos_activoFalse_debeRetornarSoloInactivos() {
-        // ARRANGE
+        
         cultivar.setActivo(false);
         when(cultivarRepository.findByActivoFalse()).thenReturn(Arrays.asList(cultivar));
 
-        // ACT
+        
         List<CultivarDTO> resultado = cultivarService.obtenerTodos(false);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertEquals(1, resultado.size());
         verify(cultivarRepository, times(1)).findByActivoFalse();
@@ -314,16 +314,16 @@ class CultivarServiceTest {
     @Test
     @DisplayName("obtenerCultivaresPaginadosConFiltros - sin filtros, retorna todos ordenados")
     void obtenerCultivaresPaginadosConFiltros_sinFiltros_retornaTodos() {
-        // ARRANGE
+        
         Pageable pageable = PageRequest.of(0, 10);
         Page<Cultivar> cultivarPage = new PageImpl<>(Arrays.asList(cultivar), pageable, 1);
         
         when(cultivarRepository.findAllByOrderByNombreAsc(pageable)).thenReturn(cultivarPage);
 
-        // ACT
+        
         Page<CultivarDTO> resultado = cultivarService.obtenerCultivaresPaginadosConFiltros(pageable, null, null);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertEquals(1, resultado.getTotalElements());
         assertEquals(1, resultado.getContent().size());
@@ -333,16 +333,16 @@ class CultivarServiceTest {
     @Test
     @DisplayName("obtenerCultivaresPaginadosConFiltros - filtro activo=true, sin búsqueda")
     void obtenerCultivaresPaginadosConFiltros_soloActivos_retornaActivos() {
-        // ARRANGE
+        
         Pageable pageable = PageRequest.of(0, 10);
         Page<Cultivar> cultivarPage = new PageImpl<>(Arrays.asList(cultivar), pageable, 1);
         
         when(cultivarRepository.findByActivoTrueOrderByNombreAsc(pageable)).thenReturn(cultivarPage);
 
-        // ACT
+        
         Page<CultivarDTO> resultado = cultivarService.obtenerCultivaresPaginadosConFiltros(pageable, null, true);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertEquals(1, resultado.getTotalElements());
         verify(cultivarRepository, times(1)).findByActivoTrueOrderByNombreAsc(pageable);
@@ -351,17 +351,17 @@ class CultivarServiceTest {
     @Test
     @DisplayName("obtenerCultivaresPaginadosConFiltros - filtro activo=false, sin búsqueda")
     void obtenerCultivaresPaginadosConFiltros_soloInactivos_retornaInactivos() {
-        // ARRANGE
+        
         Pageable pageable = PageRequest.of(0, 10);
         cultivar.setActivo(false);
         Page<Cultivar> cultivarPage = new PageImpl<>(Arrays.asList(cultivar), pageable, 1);
         
         when(cultivarRepository.findByActivoFalseOrderByNombreAsc(pageable)).thenReturn(cultivarPage);
 
-        // ACT
+        
         Page<CultivarDTO> resultado = cultivarService.obtenerCultivaresPaginadosConFiltros(pageable, null, false);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertEquals(1, resultado.getTotalElements());
         verify(cultivarRepository, times(1)).findByActivoFalseOrderByNombreAsc(pageable);
@@ -370,7 +370,7 @@ class CultivarServiceTest {
     @Test
     @DisplayName("obtenerCultivaresPaginadosConFiltros - con término de búsqueda y activo=null")
     void obtenerCultivaresPaginadosConFiltros_conBusquedaSinFiltroActivo_retornaTodosCoincidentes() {
-        // ARRANGE
+        
         Pageable pageable = PageRequest.of(0, 10);
         Cultivar cultivar2 = new Cultivar();
         cultivar2.setCultivarID(2L);
@@ -380,10 +380,10 @@ class CultivarServiceTest {
         
         when(cultivarRepository.findAll()).thenReturn(Arrays.asList(cultivar, cultivar2));
 
-        // ACT
+        
         Page<CultivarDTO> resultado = cultivarService.obtenerCultivaresPaginadosConFiltros(pageable, "Test", null);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertEquals(2, resultado.getTotalElements()); // Ambos contienen "Test"
         verify(cultivarRepository, times(1)).findAll();
@@ -392,15 +392,15 @@ class CultivarServiceTest {
     @Test
     @DisplayName("obtenerCultivaresPaginadosConFiltros - con término de búsqueda y activo=true")
     void obtenerCultivaresPaginadosConFiltros_conBusquedaYActivoTrue_retornaSoloActivosCoincidentes() {
-        // ARRANGE
+        
         Pageable pageable = PageRequest.of(0, 10);
         
         when(cultivarRepository.findByNombreContainingIgnoreCaseAndActivoTrue("Test")).thenReturn(Arrays.asList(cultivar));
 
-        // ACT
+        
         Page<CultivarDTO> resultado = cultivarService.obtenerCultivaresPaginadosConFiltros(pageable, "Test", true);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertEquals(1, resultado.getTotalElements());
         assertTrue(resultado.getContent().get(0).getActivo());
@@ -410,16 +410,16 @@ class CultivarServiceTest {
     @Test
     @DisplayName("obtenerCultivaresPaginadosConFiltros - con término de búsqueda y activo=false")
     void obtenerCultivaresPaginadosConFiltros_conBusquedaYActivoFalse_retornaSoloInactivosCoincidentes() {
-        // ARRANGE
+        
         Pageable pageable = PageRequest.of(0, 10);
         cultivar.setActivo(false);
         
         when(cultivarRepository.findByActivoFalse()).thenReturn(Arrays.asList(cultivar));
 
-        // ACT
+        
         Page<CultivarDTO> resultado = cultivarService.obtenerCultivaresPaginadosConFiltros(pageable, "Test", false);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertEquals(1, resultado.getTotalElements());
         assertFalse(resultado.getContent().get(0).getActivo());
@@ -429,16 +429,16 @@ class CultivarServiceTest {
     @Test
     @DisplayName("obtenerCultivaresPaginadosConFiltros - con búsqueda vacía, trata como sin filtro")
     void obtenerCultivaresPaginadosConFiltros_busquedaVacia_trataSinFiltro() {
-        // ARRANGE
+        
         Pageable pageable = PageRequest.of(0, 10);
         Page<Cultivar> cultivarPage = new PageImpl<>(Arrays.asList(cultivar), pageable, 1);
         
         when(cultivarRepository.findAllByOrderByNombreAsc(pageable)).thenReturn(cultivarPage);
 
-        // ACT
+        
         Page<CultivarDTO> resultado = cultivarService.obtenerCultivaresPaginadosConFiltros(pageable, "   ", null);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         verify(cultivarRepository, times(1)).findAllByOrderByNombreAsc(pageable);
     }
@@ -446,7 +446,7 @@ class CultivarServiceTest {
     @Test
     @DisplayName("obtenerCultivaresPaginadosConFiltros - paginación correcta con búsqueda")
     void obtenerCultivaresPaginadosConFiltros_paginacionCorrecta() {
-        // ARRANGE
+        
         Pageable pageable = PageRequest.of(0, 1); // Solo 1 elemento por página
         
         Cultivar cultivar2 = new Cultivar();
@@ -458,10 +458,10 @@ class CultivarServiceTest {
         when(cultivarRepository.findByNombreContainingIgnoreCaseAndActivoTrue("Test"))
             .thenReturn(Arrays.asList(cultivar, cultivar2));
 
-        // ACT
+        
         Page<CultivarDTO> resultado = cultivarService.obtenerCultivaresPaginadosConFiltros(pageable, "Test", true);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertEquals(2, resultado.getTotalElements()); // Total de elementos
         assertEquals(1, resultado.getContent().size()); // Solo 1 en la primera página

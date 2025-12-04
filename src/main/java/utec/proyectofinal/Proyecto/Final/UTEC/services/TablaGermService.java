@@ -43,7 +43,7 @@ public class TablaGermService {
     @Autowired
     private AnalisisService analisisService;
 
-    // Crear nueva tabla asociada a una germinación
+    
     public TablaGermDTO crearTablaGerm(Long germinacionId, TablaGermRequestDTO solicitud) {
         try {
             Optional<Germinacion> germinacionOpt = germinacionRepository.findById(germinacionId);
@@ -54,13 +54,13 @@ public class TablaGermService {
             Germinacion germinacion = germinacionOpt.get();
             
             
-            // Validar datos de la solicitud
+            
             validarDatosTablaGerm(solicitud, germinacion);
 
-            // Validar que la tabla anterior esté finalizada (si existe alguna tabla)
+            
             List<TablaGerm> tablasExistentes = tablaGermRepository.findByGerminacionId(germinacionId);
             if (!tablasExistentes.isEmpty()) {
-                // Verificar que todas las tablas existentes estén finalizadas
+                
                 boolean algunaTablaNoFinalizada = tablasExistentes.stream()
                     .anyMatch(tabla -> tabla.getFinalizada() == null || !tabla.getFinalizada());
                 
@@ -70,19 +70,19 @@ public class TablaGermService {
                 
             
             } else {
-                // Si no hay tablas existentes, es la primera tabla: cambiar estado a EN_PROCESO
+                
                 germinacion.setEstado(Estado.EN_PROCESO);
                 germinacionRepository.save(germinacion);
             }
 
             TablaGerm tablaGerm = mapearSolicitudAEntidad(solicitud, germinacion);
             
-            // Calcular total automáticamente desde las repeticiones existentes
+            
             calcularYActualizarTotales(tablaGerm);
             
             TablaGerm tablaGermGuardada = tablaGermRepository.save(tablaGerm);
 
-            // Crear ValoresGerm para INIA e INASE con valores iniciales en 0
+            
             crearValoresGermAutomaticos(tablaGermGuardada);
 
             return mapearEntidadADTO(tablaGermGuardada);
@@ -97,7 +97,7 @@ public class TablaGermService {
      * Validar datos de la tabla de germinación
      */
     private void validarDatosTablaGerm(TablaGermRequestDTO solicitud, Germinacion germinacion) {
-        // Validar campos obligatorios
+        
         if (solicitud.getFechaFinal() == null) {
             throw new RuntimeException("La fecha final es obligatoria");
         }
@@ -118,7 +118,7 @@ public class TablaGermService {
             throw new RuntimeException("La temperatura es obligatoria");
         }
         
-        // Validar fechas de germinación
+        
         if (solicitud.getFechaIngreso() == null) {
             throw new RuntimeException("La fecha de ingreso es obligatoria");
         }
@@ -131,12 +131,12 @@ public class TablaGermService {
             throw new RuntimeException("La fecha de último conteo es obligatoria");
         }
         
-        // Validar que la fecha de germinación sea posterior a la de ingreso
+        
         if (!solicitud.getFechaGerminacion().isAfter(solicitud.getFechaIngreso())) {
             throw new RuntimeException("La fecha de germinación debe ser posterior a la fecha de ingreso");
         }
         
-        // Si hay días de prefrío, validar que haya suficientes días entre fechaIngreso y fechaGerminacion
+        
         int diasPrefrio = (solicitud.getDiasPrefrio() != null) ? solicitud.getDiasPrefrio() : 0;
         if (diasPrefrio > 0) {
             long diasEntreFechas = java.time.temporal.ChronoUnit.DAYS.between(
@@ -150,12 +150,12 @@ public class TablaGermService {
             }
         }
         
-        // Validar que la fecha de último conteo sea posterior a la de germinación
+        
         if (!solicitud.getFechaUltConteo().isAfter(solicitud.getFechaGerminacion())) {
             throw new RuntimeException("La fecha de último conteo debe ser posterior a la fecha de germinación");
         }
         
-        // Validar fechaFinal (debe estar entre fechaGerminacion y fechaUltConteo, o después)
+        
         if (solicitud.getFechaFinal().isBefore(solicitud.getFechaGerminacion())) {
             throw new RuntimeException("La fecha final debe ser posterior o igual a la fecha de germinación");
         }
@@ -164,7 +164,7 @@ public class TablaGermService {
             throw new RuntimeException("La fecha final debe ser igual o posterior a la fecha de último conteo");
         }
         
-        // Validar parámetros de repeticiones y conteos
+        
         if (solicitud.getNumeroRepeticiones() == null || solicitud.getNumeroRepeticiones() <= 0) {
             throw new RuntimeException("Debe especificar un número válido de repeticiones (mayor a 0)");
         }
@@ -181,7 +181,7 @@ public class TablaGermService {
             throw new RuntimeException("El número de conteos debe estar entre 1 y 15");
         }
         
-        // Validar fechas de conteos
+        
         if (solicitud.getFechaConteos() == null || solicitud.getFechaConteos().isEmpty()) {
             throw new RuntimeException("Debe especificar al menos una fecha de conteo");
         }
@@ -190,7 +190,7 @@ public class TablaGermService {
             throw new RuntimeException("El número de fechas de conteos debe coincidir con el número de conteos definido");
         }
         
-        // Validar días de prefrío según el flag booleano y verificar que haya suficiente tiempo
+        
         if (Boolean.TRUE.equals(solicitud.getTienePrefrio())) {
             if (solicitud.getDiasPrefrio() != null && solicitud.getDiasPrefrio() > 0) {
                 if (diasPrefrio < 0) {
@@ -199,29 +199,29 @@ public class TablaGermService {
             }
         }
         
-        // Validar que las fechas de conteo estén dentro del rango
-        // Los días de prefrío se cuentan entre fechaIngreso y fechaGerminacion
-        // Por lo tanto, el primer conteo solo debe ser posterior a fechaGerminacion
+        
+        
+        
         for (int i = 0; i < solicitud.getFechaConteos().size(); i++) {
             java.time.LocalDate fechaConteo = solicitud.getFechaConteos().get(i);
             if (fechaConteo == null) {
                 throw new RuntimeException("La fecha de conteo " + (i + 1) + " no puede ser nula");
             }
             
-            // Validar que la primera fecha de conteo sea posterior a la fecha de germinación
+            
             if (i == 0 && !fechaConteo.isAfter(solicitud.getFechaGerminacion())) {
                 throw new RuntimeException("El primer conteo debe realizarse después de la fecha de germinación (fecha mínima: " + 
                     solicitud.getFechaGerminacion().plusDays(1) + ")");
             }
             
-            // Validar que esté dentro del rango permitido
+            
             if (fechaConteo.isBefore(solicitud.getFechaGerminacion()) || 
                 fechaConteo.isAfter(solicitud.getFechaUltConteo())) {
                 throw new RuntimeException("La fecha de conteo " + (i + 1) + 
                     " debe estar entre la fecha de germinación y la fecha de último conteo");
             }
             
-            // Validar orden cronológico - debe ser igual o posterior al anterior
+            
             if (i > 0 && fechaConteo.isBefore(solicitud.getFechaConteos().get(i - 1))) {
                 throw new RuntimeException("La fecha de conteo " + (i + 1) + 
                     " debe ser igual o posterior a la fecha de conteo " + i);
@@ -233,7 +233,7 @@ public class TablaGermService {
      * Validar porcentajes con redondeo
      */
     private void validarPorcentajes(PorcentajesRedondeoRequestDTO solicitud) {
-        // Validar que todos los porcentajes estén entre 0 y 100
+        
         if (solicitud.getPorcentajeNormalesConRedondeo() != null) {
             validarRangoPorcentaje("Normales", solicitud.getPorcentajeNormalesConRedondeo());
         }
@@ -254,7 +254,7 @@ public class TablaGermService {
             validarRangoPorcentaje("Muertas", solicitud.getPorcentajeMuertasConRedondeo());
         }
         
-        // Validar que la suma de todos los porcentajes sea aproximadamente 100
+        
         if (solicitud.getPorcentajeNormalesConRedondeo() != null &&
             solicitud.getPorcentajeAnormalesConRedondeo() != null &&
             solicitud.getPorcentajeDurasConRedondeo() != null &&
@@ -267,7 +267,7 @@ public class TablaGermService {
                          solicitud.getPorcentajeFrescasConRedondeo().doubleValue() +
                          solicitud.getPorcentajeMuertasConRedondeo().doubleValue();
             
-            // Permitir un margen de error de ±1 debido al redondeo
+            
             if (suma < 99.0 || suma > 101.0) {
                 throw new RuntimeException("La suma de todos los porcentajes debe ser aproximadamente 100% (actual: " + suma + "%)");
             }
@@ -287,7 +287,7 @@ public class TablaGermService {
         }
     }
 
-    // Obtener tabla por ID
+    
     public TablaGermDTO obtenerTablaGermPorId(Long id) {
         Optional<TablaGerm> tablaGerm = tablaGermRepository.findById(id);
         if (tablaGerm.isPresent()) {
@@ -297,7 +297,7 @@ public class TablaGermService {
         }
     }
 
-    // Actualizar tabla
+    
     public TablaGermDTO actualizarTablaGerm(Long id, TablaGermRequestDTO solicitud) {
         Optional<TablaGerm> tablaGermExistente = tablaGermRepository.findById(id);
         
@@ -308,7 +308,7 @@ public class TablaGermService {
             System.out.println("  Fecha último conteo anterior: " + tablaGerm.getFechaUltConteo());
             System.out.println("  Fecha último conteo nueva: " + solicitud.getFechaUltConteo());
             
-            // Verificar si necesitamos reiniciar campos del último conteo ANTES de actualizar
+            
             boolean debeReiniciarCamposUltimoConteo = false;
             if (solicitud.getFechaUltConteo() != null && tablaGerm.getFechaUltConteo() != null) {
                 java.time.LocalDate hoy = java.time.LocalDate.now();
@@ -324,20 +324,20 @@ public class TablaGermService {
                 }
             }
             
-            // Manejar edición de análisis finalizado según el rol del usuario
+            
             analisisService.manejarEdicionAnalisisFinalizado(tablaGerm.getGerminacion());
             
-            // Validar datos de la solicitud
+            
             validarDatosTablaGerm(solicitud, tablaGerm.getGerminacion());
             
-            // Si necesitamos reiniciar campos, hacerlo ANTES de actualizar la entidad
+            
             if (debeReiniciarCamposUltimoConteo) {
                 reiniciarCamposUltimoConteo(tablaGerm);
             }
             
             actualizarEntidadDesdeSolicitud(tablaGerm, solicitud);
             
-            // Calcular total automáticamente desde las repeticiones
+            
             calcularYActualizarTotales(tablaGerm);
             
             TablaGerm tablaGermActualizada = tablaGermRepository.save(tablaGerm);
@@ -348,12 +348,12 @@ public class TablaGermService {
         }
     }
 
-    // Eliminar tabla (eliminar realmente)
+    
     public void eliminarTablaGerm(Long id) {
         Optional<TablaGerm> tablaGermExistente = tablaGermRepository.findById(id);
         
         if (tablaGermExistente.isPresent()) {
-            // Eliminar valores asociados primero
+            
             List<ValoresGerm> valores = valoresGermRepository.findByTablaGermId(id);
             valoresGermRepository.deleteAll(valores);
             
@@ -363,36 +363,36 @@ public class TablaGermService {
         }
     }
 
-    // Obtener todas las tablas de una germinación
+    
     public List<TablaGermDTO> obtenerTablasPorGerminacion(Long germinacionId) {
         List<TablaGerm> tablas = tablaGermRepository.findByGerminacionId(germinacionId);
         return tablas.stream().map(this::mapearEntidadADTO).collect(Collectors.toList());
     }
 
-    // Contar tablas de una germinación
+    
     public Long contarTablasPorGerminacion(Long germinacionId) {
         return tablaGermRepository.countByGerminacionId(germinacionId);
     }
 
-    // Actualizar solo los porcentajes con redondeo
+    
     public TablaGermDTO actualizarPorcentajes(Long tablaId, PorcentajesRedondeoRequestDTO solicitud) {
         Optional<TablaGerm> tablaExistente = tablaGermRepository.findById(tablaId);
         
         if (tablaExistente.isPresent()) {
             TablaGerm tabla = tablaExistente.get();
             
-            // Manejar edición de análisis finalizado según el rol del usuario
+            
             analisisService.manejarEdicionAnalisisFinalizado(tabla.getGerminacion());
             
-            // Validar que se puedan ingresar porcentajes
+            
             if (!puedeIngresarPorcentajes(tablaId)) {
                 throw new RuntimeException("No se pueden ingresar porcentajes hasta completar todas las repeticiones");
             }
             
-            // Validar porcentajes
+            
             validarPorcentajes(solicitud);
             
-            // Actualizar solo los porcentajes
+            
             tabla.setPorcentajeNormalesConRedondeo(solicitud.getPorcentajeNormalesConRedondeo());
             tabla.setPorcentajeAnormalesConRedondeo(solicitud.getPorcentajeAnormalesConRedondeo());
             tabla.setPorcentajeDurasConRedondeo(solicitud.getPorcentajeDurasConRedondeo());
@@ -401,7 +401,7 @@ public class TablaGermService {
             
             TablaGerm tablaActualizada = tablaGermRepository.save(tabla);
             
-            // Actualizar valores INIA con los porcentajes con redondeo ingresados
+            
             actualizarValoresInia(tablaActualizada);
             
             return mapearEntidadADTO(tablaActualizada);
@@ -410,32 +410,32 @@ public class TablaGermService {
         }
     }
 
-    // Finalizar tabla (solo si todas las repeticiones están completas)
+    
     public TablaGermDTO finalizarTabla(Long tablaId) {
         Optional<TablaGerm> tablaExistente = tablaGermRepository.findById(tablaId);
         
         if (tablaExistente.isPresent()) {
             TablaGerm tabla = tablaExistente.get();
             
-            // Validar que no esté ya finalizada
+            
             if (tabla.getFinalizada() != null && tabla.getFinalizada()) {
                 throw new RuntimeException("La tabla ya está finalizada");
             }
             
-            // Validar que todas las repeticiones estén completas
+            
             if (!todasLasRepeticionesCompletas(tabla)) {
                 throw new RuntimeException("No se puede finalizar la tabla. Faltan repeticiones por completar.");
             }
             
-            // Validar que todas las repeticiones cumplan con el rango de tolerancia del 5%
+            
             validarRangoToleranciaRepeticiones(tabla);
             
-            // Validar que los campos de porcentaje con redondeo estén ingresados
+            
             if (!camposPorcentajeCompletos(tabla)) {
                 throw new RuntimeException("No se puede finalizar la tabla. Debe ingresar todos los porcentajes con redondeo.");
             }
             
-            // Marcar como finalizada
+            
             tabla.setFinalizada(true);
             TablaGerm tablaActualizada = tablaGermRepository.save(tabla);
             
@@ -478,13 +478,13 @@ public class TablaGermService {
         }
     }
 
-    // Validar que todas las repeticiones esperadas estén completas
+    
     private boolean todasLasRepeticionesCompletas(TablaGerm tabla) {
         if (tabla == null || tabla.getNumeroRepeticiones() == null) {
             return false;
         }
         
-        // Contar repeticiones existentes
+        
         List<RepGerm> repeticiones = tabla.getRepGerm();
         if (repeticiones == null) {
             return false;
@@ -493,12 +493,12 @@ public class TablaGermService {
         int repeticionesEsperadas = tabla.getNumeroRepeticiones();
         int repeticionesExistentes = repeticiones.size();
         
-        // Verificar que tengamos el número esperado de repeticiones
+        
         if (repeticionesExistentes != repeticionesEsperadas) {
             return false;
         }
         
-        // Verificar que cada repetición tenga todos sus conteos completos
+        
         Integer numeroConteos = tabla.getNumeroConteos();
         if (numeroConteos == null) {
             return false;
@@ -509,27 +509,27 @@ public class TablaGermService {
                 return false;
             }
             
-            // Verificar que todos los valores estén completados (no sean null)
-            // Los valores 0 son válidos ya que representan conteos no ingresados
+            
+            
             for (Integer normal : repeticion.getNormales()) {
                 if (normal == null) {
                     return false;
                 }
             }
             
-            // Verificar que al menos algunos valores sean mayores a 0 (que haya datos reales ingresados)
+            
             boolean tieneValoresIngresados = repeticion.getNormales().stream()
                 .anyMatch(valor -> valor != null && valor > 0);
             
             if (!tieneValoresIngresados) {
-                return false; // La repetición no tiene datos reales ingresados
+                return false; 
             }
         }
         
         return true;
     }
 
-    // Validar que todos los campos de porcentaje con redondeo estén ingresados
+    
     private boolean camposPorcentajeCompletos(TablaGerm tabla) {
         return tabla.getPorcentajeNormalesConRedondeo() != null &&
                tabla.getPorcentajeAnormalesConRedondeo() != null &&
@@ -538,31 +538,31 @@ public class TablaGermService {
                tabla.getPorcentajeMuertasConRedondeo() != null;
     }
 
-    // Validar que se puedan ingresar los porcentajes (todas las repeticiones completas)
+    
     public boolean puedeIngresarPorcentajes(Long tablaId) {
         Optional<TablaGerm> tablaExistente = tablaGermRepository.findById(tablaId);
         
         if (tablaExistente.isPresent()) {
             TablaGerm tabla = tablaExistente.get();
             
-            // Los porcentajes se pueden editar incluso si la tabla está finalizada
-            // Solo verificamos que todas las repeticiones estén completas
+            
+            
             return todasLasRepeticionesCompletas(tabla);
         }
         
         return false;
     }
 
-    // Crear ValoresGerm automáticos para INIA e INASE con valores en 0
+    
     private void crearValoresGermAutomaticos(TablaGerm tablaGerm) {
-        // Crear valores para INIA
+        
         ValoresGerm valoresInia = new ValoresGerm();
         valoresInia.setInstituto(Instituto.INIA);
         valoresInia.setTablaGerm(tablaGerm);
         inicializarValoresEnCero(valoresInia);
         valoresGermRepository.save(valoresInia);
 
-        // Crear valores para INASE
+        
         ValoresGerm valoresInase = new ValoresGerm();
         valoresInase.setInstituto(Instituto.INASE);
         valoresInase.setTablaGerm(tablaGerm);
@@ -570,7 +570,7 @@ public class TablaGermService {
         valoresGermRepository.save(valoresInase);
     }
 
-    // Inicializar todos los valores en 0
+    
     private void inicializarValoresEnCero(ValoresGerm valores) {
         valores.setNormales(BigDecimal.ZERO);
         valores.setAnormales(BigDecimal.ZERO);
@@ -582,7 +582,7 @@ public class TablaGermService {
 
 
 
-    // Actualizar valores de INIA con los porcentajes con redondeo ingresados manualmente
+    
     private void actualizarValoresInia(TablaGerm tablaGerm) {
         Optional<ValoresGerm> valoresIniaOpt = valoresGermRepository.findByTablaGermIdAndInstituto(
             tablaGerm.getTablaGermID(), Instituto.INIA);
@@ -590,7 +590,7 @@ public class TablaGermService {
         if (valoresIniaOpt.isPresent()) {
             ValoresGerm valoresInia = valoresIniaOpt.get();
             
-            // Los valores de INIA son iguales a los porcentajes con redondeo
+            
             if (tablaGerm.getPorcentajeNormalesConRedondeo() != null) {
                 valoresInia.setNormales(tablaGerm.getPorcentajeNormalesConRedondeo());
             }
@@ -607,7 +607,7 @@ public class TablaGermService {
                 valoresInia.setMuertas(tablaGerm.getPorcentajeMuertasConRedondeo());
             }
             
-            // Calcular germinación como la suma de normales
+            
             valoresInia.setGerminacion(tablaGerm.getPorcentajeNormalesConRedondeo() != null ? 
                 tablaGerm.getPorcentajeNormalesConRedondeo() : BigDecimal.ZERO);
             
@@ -615,27 +615,27 @@ public class TablaGermService {
         }
     }
 
-    // Mapear de RequestDTO a Entity
+    
     private TablaGerm mapearSolicitudAEntidad(TablaGermRequestDTO solicitud, Germinacion germinacion) {
         TablaGerm tablaGerm = new TablaGerm();
         
         tablaGerm.setGerminacion(germinacion);
-        // total se calcula automáticamente cuando se agreguen repeticiones
+        
         tablaGerm.setTotal(0);
         
         tablaGerm.setFechaFinal(solicitud.getFechaFinal());
         
-        // Campo de control para finalización (por defecto false)
+        
         tablaGerm.setFinalizada(false);
         
-        // Campos movidos desde Germinacion
+        
         tablaGerm.setTratamiento(solicitud.getTratamiento());
         tablaGerm.setProductoYDosis(solicitud.getProductoYDosis());
         tablaGerm.setNumSemillasPRep(solicitud.getNumSemillasPRep());
         tablaGerm.setMetodo(solicitud.getMetodo());
         tablaGerm.setTemperatura(solicitud.getTemperatura());
         
-        // Campos Boolean para prefrío y pretratamiento con lógica condicional
+        
         tablaGerm.setTienePrefrio(solicitud.getTienePrefrio());
         if (Boolean.TRUE.equals(solicitud.getTienePrefrio())) {
             tablaGerm.setDescripcionPrefrio(solicitud.getDescripcionPrefrio());
@@ -652,7 +652,7 @@ public class TablaGermService {
             tablaGerm.setDescripcionPretratamiento(null);
         }
         
-        // Campos de fechas y control de conteos
+        
         tablaGerm.setFechaIngreso(solicitud.getFechaIngreso());
         tablaGerm.setFechaGerminacion(solicitud.getFechaGerminacion());
         tablaGerm.setFechaConteos(solicitud.getFechaConteos());
@@ -664,20 +664,20 @@ public class TablaGermService {
         return tablaGerm;
     }
 
-    // Actualizar Entity desde RequestDTO
+    
     private void actualizarEntidadDesdeSolicitud(TablaGerm tablaGerm, TablaGermRequestDTO solicitud) {
-        // total y promedioSinRedondeo se calculan automáticamente
+        
         
         tablaGerm.setFechaFinal(solicitud.getFechaFinal());
         
-        // Campos movidos desde Germinacion
+        
         tablaGerm.setTratamiento(solicitud.getTratamiento());
         tablaGerm.setProductoYDosis(solicitud.getProductoYDosis());
         tablaGerm.setNumSemillasPRep(solicitud.getNumSemillasPRep());
         tablaGerm.setMetodo(solicitud.getMetodo());
         tablaGerm.setTemperatura(solicitud.getTemperatura());
         
-        // Campos Boolean para prefrío y pretratamiento con lógica condicional
+        
         tablaGerm.setTienePrefrio(solicitud.getTienePrefrio());
         if (Boolean.TRUE.equals(solicitud.getTienePrefrio())) {
             tablaGerm.setDescripcionPrefrio(solicitud.getDescripcionPrefrio());
@@ -694,7 +694,7 @@ public class TablaGermService {
             tablaGerm.setDescripcionPretratamiento(null);
         };
         
-        // Manejar cambios en el número de conteos
+        
         if (solicitud.getNumeroConteos() != null && tablaGerm.getNumeroConteos() != null &&
             !solicitud.getNumeroConteos().equals(tablaGerm.getNumeroConteos())) {
             
@@ -703,21 +703,21 @@ public class TablaGermService {
             
             System.out.println(" Cambio en número de conteos detectado: " + conteosAnteriores + " -> " + conteosNuevos);
             
-            // Ajustar el array de normales en todas las repeticiones
+            
             if (tablaGerm.getRepGerm() != null && !tablaGerm.getRepGerm().isEmpty()) {
                 for (RepGerm rep : tablaGerm.getRepGerm()) {
                     List<Integer> normalesActuales = rep.getNormales() != null ? 
                         new ArrayList<>(rep.getNormales()) : new ArrayList<>();
                     
                     if (conteosNuevos > conteosAnteriores) {
-                        // Agregar conteos al final (inicializados en 0)
+                        
                         int conteosAAgregar = conteosNuevos - conteosAnteriores;
                         for (int i = 0; i < conteosAAgregar; i++) {
                             normalesActuales.add(0);
                         }
                         System.out.println("   Repetición " + rep.getNumRep() + ": agregados " + conteosAAgregar + " conteos al final");
                     } else {
-                        // Eliminar conteos desde el final
+                        
                         int conteosAEliminar = conteosAnteriores - conteosNuevos;
                         for (int i = 0; i < conteosAEliminar && !normalesActuales.isEmpty(); i++) {
                             normalesActuales.remove(normalesActuales.size() - 1);
@@ -730,11 +730,11 @@ public class TablaGermService {
                 }
             }
             
-            // Actualizar el número de conteos en la tabla
+            
             tablaGerm.setNumeroConteos(conteosNuevos);
         }
         
-        // Manejar cambios en el número de repeticiones
+        
         if (solicitud.getNumeroRepeticiones() != null && tablaGerm.getNumeroRepeticiones() != null &&
             !solicitud.getNumeroRepeticiones().equals(tablaGerm.getNumeroRepeticiones())) {
             
@@ -744,9 +744,9 @@ public class TablaGermService {
             System.out.println(" Cambio en número de repeticiones detectado: " + repeticionesAnteriores + " -> " + repeticionesNuevas);
             
             if (repeticionesNuevas < repeticionesAnteriores) {
-                // Eliminar repeticiones desde el final
+                
                 List<RepGerm> repeticiones = repGermRepository.findByTablaGermId(tablaGerm.getTablaGermID());
-                repeticiones.sort((r1, r2) -> Integer.compare(r2.getNumRep(), r1.getNumRep())); // Ordenar descendente
+                repeticiones.sort((r1, r2) -> Integer.compare(r2.getNumRep(), r1.getNumRep())); 
                 
                 int repeticionesAEliminar = repeticionesAnteriores - repeticionesNuevas;
                 for (int i = 0; i < repeticionesAEliminar && i < repeticiones.size(); i++) {
@@ -755,15 +755,15 @@ public class TablaGermService {
                     repGermRepository.delete(repAEliminar);
                 }
             }
-            // Si se aumentan las repeticiones, el usuario las creará manualmente
             
-            // Actualizar el número de repeticiones en la tabla
+            
+            
             tablaGerm.setNumeroRepeticiones(repeticionesNuevas);
         }
         
-        // Actualizar fechas de conteos si se proporcionan
+        
         if (solicitud.getFechaConteos() != null && !solicitud.getFechaConteos().isEmpty()) {
-            // Verificar si alguna fecha cambió
+            
             boolean fechasCambiaron = false;
             if (tablaGerm.getFechaConteos() == null || 
                 tablaGerm.getFechaConteos().size() != solicitud.getFechaConteos().size()) {
@@ -772,9 +772,9 @@ public class TablaGermService {
                 for (int i = 0; i < solicitud.getFechaConteos().size(); i++) {
                     if (!solicitud.getFechaConteos().get(i).equals(tablaGerm.getFechaConteos().get(i))) {
                         fechasCambiaron = true;
-                        // Verificar si la nueva fecha es posterior a la original
+                        
                         if (solicitud.getFechaConteos().get(i).isAfter(tablaGerm.getFechaConteos().get(i))) {
-                            // Reiniciar datos de las repeticiones para este conteo
+                            
                             reiniciarDatosConteo(tablaGerm, i);
                         }
                     }
@@ -782,13 +782,13 @@ public class TablaGermService {
             }
             
             if (fechasCambiaron) {
-                // Validar las nuevas fechas
+                
                 validarFechasConteosEnEdicion(solicitud, tablaGerm);
                 tablaGerm.setFechaConteos(solicitud.getFechaConteos());
             }
         }
         
-        // Actualizar otros campos de fechas
+        
         if (solicitud.getFechaIngreso() != null) {
             tablaGerm.setFechaIngreso(solicitud.getFechaIngreso());
         }
@@ -805,7 +805,7 @@ public class TablaGermService {
             tablaGerm.setNumDias(solicitud.getNumDias());
         }
         
-        // Actualizar días de prefrío
+        
         if (solicitud.getDiasPrefrio() != null) {
             tablaGerm.setDiasPrefrio(solicitud.getDiasPrefrio());
         }
@@ -832,7 +832,7 @@ public class TablaGermService {
     private void reiniciarCamposUltimoConteo(TablaGerm tablaGerm) {
         System.out.println(" Reiniciando campos del último conteo para tabla ID: " + tablaGerm.getTablaGermID());
         
-        // Cargar repeticiones explícitamente desde la base de datos
+        
         List<RepGerm> repeticiones = repGermRepository.findByTablaGermId(tablaGerm.getTablaGermID());
         
         System.out.println("   Repeticiones encontradas: " + repeticiones.size());
@@ -846,7 +846,7 @@ public class TablaGermService {
                     ", frescas=" + rep.getFrescas() + 
                     ", muertas=" + rep.getMuertas());
                 
-                // Establecer todos los campos del último conteo a 0
+                
                 rep.setAnormales(0);
                 rep.setDuras(0);
                 rep.setFrescas(0);
@@ -868,8 +868,8 @@ public class TablaGermService {
      * Validar fechas de conteos en edición
      */
     private void validarFechasConteosEnEdicion(TablaGermRequestDTO solicitud, TablaGerm tablaExistente) {
-        // Aplicar las mismas validaciones que en creación
-        // Los días de prefrío se cuentan entre fechaIngreso y fechaGerminacion
+        
+        
         java.time.LocalDate fechaGerminacion = solicitud.getFechaGerminacion() != null ? 
             solicitud.getFechaGerminacion() : tablaExistente.getFechaGerminacion();
         
@@ -883,13 +883,13 @@ public class TablaGermService {
         }
     }
 
-    // Mapear de Entity a DTO
+    
     private TablaGermDTO mapearEntidadADTO(TablaGerm tablaGerm) {
         TablaGermDTO dto = new TablaGermDTO();
         
         dto.setTablaGermID(tablaGerm.getTablaGermID());
         
-        // Mapear RepGerm entities a RepGermDTO
+        
         if (tablaGerm.getRepGerm() != null) {
             List<RepGermDTO> repGermDTOs = tablaGerm.getRepGerm().stream()
                 .map(this::mapearRepGermADTO)
@@ -901,14 +901,14 @@ public class TablaGermService {
         dto.setPromedioSinRedondeo(tablaGerm.getPromedioSinRedondeo());
         dto.setPromediosSinRedPorConteo(tablaGerm.getPromediosSinRedPorConteo());
         
-        // Campos de porcentaje con redondeo
+        
         dto.setPorcentajeNormalesConRedondeo(tablaGerm.getPorcentajeNormalesConRedondeo());
         dto.setPorcentajeAnormalesConRedondeo(tablaGerm.getPorcentajeAnormalesConRedondeo());
         dto.setPorcentajeDurasConRedondeo(tablaGerm.getPorcentajeDurasConRedondeo());
         dto.setPorcentajeFrescasConRedondeo(tablaGerm.getPorcentajeFrescasConRedondeo());
         dto.setPorcentajeMuertasConRedondeo(tablaGerm.getPorcentajeMuertasConRedondeo());
         
-        // Mapear ValoresGerm
+        
         if (tablaGerm.getValoresGerm() != null) {
             List<ValoresGermDTO> valoresDTO = tablaGerm.getValoresGerm().stream()
                 .map(this::mapearValoresGermADTO)
@@ -918,23 +918,23 @@ public class TablaGermService {
         
         dto.setFechaFinal(tablaGerm.getFechaFinal());
         
-        // Campo de control para finalización
+        
         dto.setFinalizada(tablaGerm.getFinalizada());
         
-        // Campos movidos desde Germinacion
+        
         dto.setTratamiento(tablaGerm.getTratamiento());
         dto.setProductoYDosis(tablaGerm.getProductoYDosis());
         dto.setNumSemillasPRep(tablaGerm.getNumSemillasPRep());
         dto.setMetodo(tablaGerm.getMetodo());
         dto.setTemperatura(tablaGerm.getTemperatura());
         
-        // Campos Boolean para prefrío y pretratamiento
+        
         dto.setTienePrefrio(tablaGerm.getTienePrefrio());
         dto.setDescripcionPrefrio(tablaGerm.getDescripcionPrefrio());
         dto.setTienePretratamiento(tablaGerm.getTienePretratamiento());
         dto.setDescripcionPretratamiento(tablaGerm.getDescripcionPretratamiento());
         
-        // Campos de fechas y control de conteos
+        
         dto.setFechaIngreso(tablaGerm.getFechaIngreso());
         dto.setFechaGerminacion(tablaGerm.getFechaGerminacion());
         dto.setFechaConteos(tablaGerm.getFechaConteos());
@@ -947,7 +947,7 @@ public class TablaGermService {
         return dto;
     }
     
-    // Mapear RepGerm a DTO
+    
     private RepGermDTO mapearRepGermADTO(RepGerm repGerm) {
         RepGermDTO dto = new RepGermDTO();
         dto.setRepGermID(repGerm.getRepGermID());
@@ -962,7 +962,7 @@ public class TablaGermService {
         return dto;
     }
 
-    // Mapear ValoresGerm a DTO
+    
     private ValoresGermDTO mapearValoresGermADTO(ValoresGerm valores) {
         ValoresGermDTO dto = new ValoresGermDTO();
         dto.setValoresGermID(valores.getValoresGermID());
@@ -977,18 +977,18 @@ public class TablaGermService {
         return dto;
     }
     
-    // Calcular y actualizar totales automáticamente
+    
     private void calcularYActualizarTotales(TablaGerm tablaGerm) {
         if (tablaGerm.getTablaGermID() == null) {
-            // Nueva tabla, total inicial será 0
+            
             tablaGerm.setTotal(0);
             return;
         }
         
-        // Obtener todas las repeticiones de esta tabla
+        
         List<RepGerm> repeticiones = repGermRepository.findByTablaGermId(tablaGerm.getTablaGermID());
         
-        // El total es la suma de todos los totales de las repeticiones
+        
         int totalCalculado = repeticiones.stream()
             .mapToInt(rep -> rep.getTotal() != null ? rep.getTotal().intValue() : 0)
             .sum();

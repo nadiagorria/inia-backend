@@ -379,8 +379,8 @@ public class ReporteService {
             double porcentajeCumple = dosnsEspecie.size() > 0 ? (cumpleEstandar * 100.0 / dosnsEspecie.size()) : 0.0;
 
             contaminantesPorEspecie.put(especie, (long) dosnsEspecie.size());
-            porcentajeMalezas.put(especie, 0.0); // DOSN no tiene campos directos de malezas
-            porcentajeOtrasSemillas.put(especie, 0.0); // DOSN usa estructura diferente
+            porcentajeMalezas.put(especie, 0.0); 
+            porcentajeOtrasSemillas.put(especie, 0.0); 
             porcentajeCumpleEstandar.put(especie, porcentajeCumple);
         }
 

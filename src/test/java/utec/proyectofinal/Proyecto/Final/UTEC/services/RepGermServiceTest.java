@@ -64,12 +64,12 @@ class RepGermServiceTest {
 
     @BeforeEach
     void setUp() {
-        // ARRANGE: Preparar germinación
+        
         germinacion = new Germinacion();
         germinacion.setAnalisisID(1L);
         germinacion.setActivo(true);
 
-        // ARRANGE: Preparar tabla de germinación
+        
         tablaGerm = new TablaGerm();
         tablaGerm.setTablaGermID(1L);
         tablaGerm.setGerminacion(germinacion);
@@ -78,15 +78,15 @@ class RepGermServiceTest {
         tablaGerm.setNumSemillasPRep(100);
         tablaGerm.setFinalizada(false);
 
-        // ARRANGE: Preparar request DTO con todos los datos
+        
         repGermRequestDTO = new RepGermRequestDTO();
-        repGermRequestDTO.setNormales(Arrays.asList(25, 30, 20)); // 3 conteos
+        repGermRequestDTO.setNormales(Arrays.asList(25, 30, 20)); 
         repGermRequestDTO.setAnormales(10);
         repGermRequestDTO.setDuras(5);
         repGermRequestDTO.setFrescas(3);
         repGermRequestDTO.setMuertas(7);
 
-        // ARRANGE: Preparar repetición existente
+        
         repGerm = new RepGerm();
         repGerm.setRepGermID(1L);
         repGerm.setNumRep(1);
@@ -102,17 +102,17 @@ class RepGermServiceTest {
     @Test
     @DisplayName("Crear repetición - debe crear con todos los datos correctos")
     void crearRepGerm_debeCrearConTodosLosDatos() {
-        // ARRANGE
+        
         when(tablaGermRepository.findById(1L)).thenReturn(Optional.of(tablaGerm));
         when(repGermRepository.countByTablaGermId(1L)).thenReturn(0L);
         when(repGermRepository.save(any(RepGerm.class))).thenReturn(repGerm);
         when(repGermRepository.findByTablaGermId(1L)).thenReturn(Arrays.asList(repGerm));
         when(tablaGermRepository.save(any(TablaGerm.class))).thenReturn(tablaGerm);
 
-        // ACT
+        
         RepGermDTO resultado = repGermService.crearRepGerm(1L, repGermRequestDTO);
 
-        // ASSERT
+        
         assertNotNull(resultado, "El resultado no debe ser nulo");
         assertEquals(1L, resultado.getRepGermID(), "El ID debe ser 1");
         assertEquals(1, resultado.getNumRep(), "El número de repetición debe ser 1");
@@ -124,22 +124,22 @@ class RepGermServiceTest {
         assertEquals(100, resultado.getTotal(), "El total debe ser 100");
         assertEquals(1L, resultado.getTablaGermId(), "El ID de tabla debe ser 1");
 
-        // Verificar que se guardó la repetición
+        
         verify(repGermRepository, times(1)).save(any(RepGerm.class));
-        // Verificar que se actualizó la tabla
+        
         verify(tablaGermRepository, times(1)).save(any(TablaGerm.class));
     }
 
     @Test
     @DisplayName("Crear repetición - debe generar numRep automáticamente")
     void crearRepGerm_debeGenerarNumRepAutomaticamente() {
-        // ARRANGE
+        
         when(tablaGermRepository.findById(1L)).thenReturn(Optional.of(tablaGerm));
-        when(repGermRepository.countByTablaGermId(1L)).thenReturn(2L); // Ya hay 2 repeticiones
+        when(repGermRepository.countByTablaGermId(1L)).thenReturn(2L); 
         
         RepGerm repGerm3 = new RepGerm();
         repGerm3.setRepGermID(3L);
-        repGerm3.setNumRep(3); // Debe ser la tercera
+        repGerm3.setNumRep(3); 
         repGerm3.setTablaGerm(tablaGerm);
         repGerm3.setNormales(Arrays.asList(25, 30, 20));
         repGerm3.setTotal(100);
@@ -148,23 +148,23 @@ class RepGermServiceTest {
         when(repGermRepository.findByTablaGermId(1L)).thenReturn(Arrays.asList(repGerm3));
         when(tablaGermRepository.save(any(TablaGerm.class))).thenReturn(tablaGerm);
 
-        // ACT
+        
         RepGermDTO resultado = repGermService.crearRepGerm(1L, repGermRequestDTO);
 
-        // ASSERT
+        
         assertEquals(3, resultado.getNumRep(), "El numRep debe ser 3 (siguiente disponible)");
-        // Se llama 2 veces: una en crearRepGerm y otra en mapearSolicitudAEntidad
+        
         verify(repGermRepository, times(2)).countByTablaGermId(1L);
     }
 
     @Test
     @DisplayName("Crear repetición - debe validar número máximo de repeticiones")
     void crearRepGerm_debeValidarNumeroMaximoRepeticiones() {
-        // ARRANGE
+        
         when(tablaGermRepository.findById(1L)).thenReturn(Optional.of(tablaGerm));
-        when(repGermRepository.countByTablaGermId(1L)).thenReturn(4L); // Ya hay 4 (el máximo)
+        when(repGermRepository.countByTablaGermId(1L)).thenReturn(4L); 
 
-        // ACT & ASSERT
+        
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             repGermService.crearRepGerm(1L, repGermRequestDTO);
         });
@@ -177,10 +177,10 @@ class RepGermServiceTest {
     @Test
     @DisplayName("Crear repetición - debe validar tabla no encontrada")
     void crearRepGerm_debeValidarTablaNoEncontrada() {
-        // ARRANGE
+        
         when(tablaGermRepository.findById(999L)).thenReturn(Optional.empty());
 
-        // ACT & ASSERT
+        
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             repGermService.crearRepGerm(999L, repGermRequestDTO);
         });
@@ -193,19 +193,19 @@ class RepGermServiceTest {
     @Test
     @DisplayName("Crear repetición - debe validar que el total no exceda el límite máximo (105% tolerancia)")
     void crearRepGerm_debeValidarLimiteMaximo() {
-        // ARRANGE
+        
         when(tablaGermRepository.findById(1L)).thenReturn(Optional.of(tablaGerm));
         when(repGermRepository.countByTablaGermId(1L)).thenReturn(0L);
 
-        // Datos que exceden el límite máximo (100 * 1.05 = 105)
+        
         RepGermRequestDTO requestExcesivo = new RepGermRequestDTO();
-        requestExcesivo.setNormales(Arrays.asList(50, 40, 20)); // 110 total
+        requestExcesivo.setNormales(Arrays.asList(50, 40, 20)); 
         requestExcesivo.setAnormales(0);
         requestExcesivo.setDuras(0);
         requestExcesivo.setFrescas(0);
         requestExcesivo.setMuertas(0);
 
-        // ACT & ASSERT
+        
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             repGermService.crearRepGerm(1L, requestExcesivo);
         });
@@ -217,15 +217,15 @@ class RepGermServiceTest {
     @Test
     @DisplayName("Crear repetición - debe validar valores negativos en normales")
     void crearRepGerm_debeValidarValoresNegativosEnNormales() {
-        // ARRANGE
+        
         when(tablaGermRepository.findById(1L)).thenReturn(Optional.of(tablaGerm));
         when(repGermRepository.countByTablaGermId(1L)).thenReturn(0L);
 
         RepGermRequestDTO requestNegativo = new RepGermRequestDTO();
-        requestNegativo.setNormales(Arrays.asList(25, -10, 20)); // Valor negativo
+        requestNegativo.setNormales(Arrays.asList(25, -10, 20)); 
         requestNegativo.setAnormales(10);
 
-        // ACT & ASSERT
+        
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             repGermService.crearRepGerm(1L, requestNegativo);
         });
@@ -237,15 +237,15 @@ class RepGermServiceTest {
     @Test
     @DisplayName("Crear repetición - debe validar valores negativos en anormales")
     void crearRepGerm_debeValidarValoresNegativosEnAnormales() {
-        // ARRANGE
+        
         when(tablaGermRepository.findById(1L)).thenReturn(Optional.of(tablaGerm));
         when(repGermRepository.countByTablaGermId(1L)).thenReturn(0L);
 
         RepGermRequestDTO requestNegativo = new RepGermRequestDTO();
         requestNegativo.setNormales(Arrays.asList(25, 30, 20));
-        requestNegativo.setAnormales(-5); // Valor negativo
+        requestNegativo.setAnormales(-5); 
 
-        // ACT & ASSERT
+        
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             repGermService.crearRepGerm(1L, requestNegativo);
         });
@@ -257,15 +257,15 @@ class RepGermServiceTest {
     @Test
     @DisplayName("Crear repetición - debe validar valores que exceden numSemillasPRep")
     void crearRepGerm_debeValidarValoresQueExcedenNumSemillasPRep() {
-        // ARRANGE
+        
         when(tablaGermRepository.findById(1L)).thenReturn(Optional.of(tablaGerm));
         when(repGermRepository.countByTablaGermId(1L)).thenReturn(0L);
 
         RepGermRequestDTO requestExcesivo = new RepGermRequestDTO();
         requestExcesivo.setNormales(Arrays.asList(25, 30, 20));
-        requestExcesivo.setAnormales(150); // Excede 100
+        requestExcesivo.setAnormales(150); 
 
-        // ACT & ASSERT
+        
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             repGermService.crearRepGerm(1L, requestExcesivo);
         });
@@ -277,7 +277,7 @@ class RepGermServiceTest {
     @Test
     @DisplayName("Crear repetición - debe rechazar total cero")
     void crearRepGerm_debeRechazarTotalCero() {
-        // ARRANGE
+        
         when(tablaGermRepository.findById(1L)).thenReturn(Optional.of(tablaGerm));
         when(repGermRepository.countByTablaGermId(1L)).thenReturn(0L);
 
@@ -288,7 +288,7 @@ class RepGermServiceTest {
         requestVacio.setFrescas(0);
         requestVacio.setMuertas(0);
 
-        // ACT & ASSERT
+        
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             repGermService.crearRepGerm(1L, requestVacio);
         });
@@ -300,11 +300,11 @@ class RepGermServiceTest {
     @Test
     @DisplayName("Actualizar repetición - debe actualizar correctamente todos los campos")
     void actualizarRepGerm_debeActualizarCorrectamente() {
-        // ARRANGE
+        
         when(repGermRepository.findById(1L)).thenReturn(Optional.of(repGerm));
         
         RepGermRequestDTO requestActualizado = new RepGermRequestDTO();
-        requestActualizado.setNormales(Arrays.asList(30, 35, 25)); // Nuevos valores
+        requestActualizado.setNormales(Arrays.asList(30, 35, 25)); 
         requestActualizado.setAnormales(5);
         requestActualizado.setDuras(2);
         requestActualizado.setFrescas(1);
@@ -318,7 +318,7 @@ class RepGermServiceTest {
         repGermActualizada.setDuras(2);
         repGermActualizada.setFrescas(1);
         repGermActualizada.setMuertas(2);
-        repGermActualizada.setTotal(100); // 30+35+25+5+2+1+2=100
+        repGermActualizada.setTotal(100); 
         repGermActualizada.setTablaGerm(tablaGerm);
         
         when(repGermRepository.save(any(RepGerm.class))).thenReturn(repGermActualizada);
@@ -326,10 +326,10 @@ class RepGermServiceTest {
         when(tablaGermRepository.save(any(TablaGerm.class))).thenReturn(tablaGerm);
         doNothing().when(analisisService).manejarEdicionAnalisisFinalizado(any(Germinacion.class));
 
-        // ACT
+        
         RepGermDTO resultado = repGermService.actualizarRepGerm(1L, requestActualizado);
 
-        // ASSERT
+        
         assertNotNull(resultado, "El resultado no debe ser nulo");
         assertEquals(Arrays.asList(30, 35, 25), resultado.getNormales(), "Los valores normales deben actualizarse");
         assertEquals(5, resultado.getAnormales(), "Las anormales deben actualizarse");
@@ -346,10 +346,10 @@ class RepGermServiceTest {
     @Test
     @DisplayName("Actualizar repetición - debe validar repetición no encontrada")
     void actualizarRepGerm_debeValidarRepeticionNoEncontrada() {
-        // ARRANGE
+        
         when(repGermRepository.findById(999L)).thenReturn(Optional.empty());
 
-        // ACT & ASSERT
+        
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             repGermService.actualizarRepGerm(999L, repGermRequestDTO);
         });
@@ -362,24 +362,24 @@ class RepGermServiceTest {
     @Test
     @DisplayName("Eliminar repetición - debe eliminar correctamente")
     void eliminarRepGerm_debeEliminarCorrectamente() {
-        // ARRANGE
+        
         when(repGermRepository.findById(1L)).thenReturn(Optional.of(repGerm));
         doNothing().when(repGermRepository).deleteById(1L);
 
-        // ACT
+        
         repGermService.eliminarRepGerm(1L);
 
-        // ASSERT
+        
         verify(repGermRepository, times(1)).deleteById(1L);
     }
 
     @Test
     @DisplayName("Eliminar repetición - debe validar repetición no encontrada")
     void eliminarRepGerm_debeValidarRepeticionNoEncontrada() {
-        // ARRANGE
+        
         when(repGermRepository.findById(999L)).thenReturn(Optional.empty());
 
-        // ACT & ASSERT
+        
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             repGermService.eliminarRepGerm(999L);
         });
@@ -392,13 +392,13 @@ class RepGermServiceTest {
     @Test
     @DisplayName("Obtener repetición por ID - debe retornar repetición existente")
     void obtenerRepGermPorId_debeRetornarRepeticionExistente() {
-        // ARRANGE
+        
         when(repGermRepository.findById(1L)).thenReturn(Optional.of(repGerm));
 
-        // ACT
+        
         RepGermDTO resultado = repGermService.obtenerRepGermPorId(1L);
 
-        // ASSERT
+        
         assertNotNull(resultado, "El resultado no debe ser nulo");
         assertEquals(1L, resultado.getRepGermID(), "El ID debe coincidir");
         assertEquals(1, resultado.getNumRep(), "El numRep debe coincidir");
@@ -408,10 +408,10 @@ class RepGermServiceTest {
     @Test
     @DisplayName("Obtener repetición por ID - debe validar repetición no encontrada")
     void obtenerRepGermPorId_debeValidarRepeticionNoEncontrada() {
-        // ARRANGE
+        
         when(repGermRepository.findById(999L)).thenReturn(Optional.empty());
 
-        // ACT & ASSERT
+        
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             repGermService.obtenerRepGermPorId(999L);
         });
@@ -423,7 +423,7 @@ class RepGermServiceTest {
     @Test
     @DisplayName("Obtener repeticiones por tabla - debe retornar lista de repeticiones")
     void obtenerRepeticionesPorTabla_debeRetornarListaRepeticiones() {
-        // ARRANGE
+        
         RepGerm rep2 = new RepGerm();
         rep2.setRepGermID(2L);
         rep2.setNumRep(2);
@@ -438,10 +438,10 @@ class RepGermServiceTest {
         List<RepGerm> repeticiones = Arrays.asList(repGerm, rep2);
         when(repGermRepository.findByTablaGermId(1L)).thenReturn(repeticiones);
 
-        // ACT
+        
         List<RepGermDTO> resultado = repGermService.obtenerRepeticionesPorTabla(1L);
 
-        // ASSERT
+        
         assertNotNull(resultado, "El resultado no debe ser nulo");
         assertEquals(2, resultado.size(), "Debe retornar 2 repeticiones");
         assertEquals(1, resultado.get(0).getNumRep(), "La primera debe ser numRep 1");
@@ -452,13 +452,13 @@ class RepGermServiceTest {
     @Test
     @DisplayName("Obtener repeticiones por tabla - debe retornar lista vacía si no hay repeticiones")
     void obtenerRepeticionesPorTabla_debeRetornarListaVacia() {
-        // ARRANGE
+        
         when(repGermRepository.findByTablaGermId(1L)).thenReturn(new ArrayList<>());
 
-        // ACT
+        
         List<RepGermDTO> resultado = repGermService.obtenerRepeticionesPorTabla(1L);
 
-        // ASSERT
+        
         assertNotNull(resultado, "El resultado no debe ser nulo");
         assertEquals(0, resultado.size(), "La lista debe estar vacía");
     }
@@ -466,13 +466,13 @@ class RepGermServiceTest {
     @Test
     @DisplayName("Contar repeticiones por tabla - debe retornar conteo correcto")
     void contarRepeticionesPorTabla_debeRetornarConteoCorrecto() {
-        // ARRANGE
+        
         when(repGermRepository.countByTablaGermId(1L)).thenReturn(3L);
 
-        // ACT
+        
         Long resultado = repGermService.contarRepeticionesPorTabla(1L);
 
-        // ASSERT
+        
         assertEquals(3L, resultado, "Debe retornar el conteo correcto");
         verify(repGermRepository, times(1)).countByTablaGermId(1L);
     }
@@ -480,7 +480,7 @@ class RepGermServiceTest {
     @Test
     @DisplayName("Actualizar totales tabla - debe calcular total como suma de repeticiones")
     void actualizarTotalesTablaGerm_debeCalcularTotalCorrectamente() {
-        // ARRANGE
+        
         RepGerm rep1 = new RepGerm();
         rep1.setTotal(100);
         rep1.setNormales(Arrays.asList(25, 30, 20));
@@ -505,25 +505,25 @@ class RepGermServiceTest {
         when(repGermRepository.findByTablaGermId(1L)).thenReturn(Arrays.asList(rep1, rep2));
         when(tablaGermRepository.save(any(TablaGerm.class))).thenAnswer(invocation -> {
             TablaGerm tabla = invocation.getArgument(0);
-            // Verificar que el total sea 198 (100 + 98)
+            
             assertEquals(198, tabla.getTotal(), "El total debe ser la suma de las repeticiones");
             return tabla;
         });
 
-        // ACT
+        
         repGermService.crearRepGerm(1L, repGermRequestDTO);
 
-        // ASSERT
+        
         verify(tablaGermRepository, times(1)).save(any(TablaGerm.class));
     }
 
     @Test
     @DisplayName("Calcular promedios sin redondeo - debe calcular 5 promedios correctamente")
     void calcularPromediosSinRedondeo_debeCalcularCorrectamente() {
-        // ARRANGE
+        
         tablaGerm.setNumeroRepeticiones(4);
         
-        // Crear 4 repeticiones completas
+        
         RepGerm rep1 = crearRepeticion(1, Arrays.asList(25, 30, 20), 10, 5, 3, 7);
         RepGerm rep2 = crearRepeticion(2, Arrays.asList(28, 32, 22), 8, 4, 2, 4);
         RepGerm rep3 = crearRepeticion(3, Arrays.asList(26, 31, 21), 9, 5, 2, 6);
@@ -536,48 +536,48 @@ class RepGermServiceTest {
         when(tablaGermRepository.save(any(TablaGerm.class))).thenAnswer(invocation -> {
             TablaGerm tabla = invocation.getArgument(0);
             
-            // Verificar que se calcularon los 5 promedios
+            
             assertNotNull(tabla.getPromedioSinRedondeo(), "Los promedios no deben ser nulos");
             assertEquals(5, tabla.getPromedioSinRedondeo().size(), "Debe haber 5 promedios");
             
-            // Promedio normales: (25+30+20+28+32+22+26+31+21+27+29+23)/4 = 314/4 = 78.50
+            
             assertEquals(new BigDecimal("78.50"), tabla.getPromedioSinRedondeo().get(0), 
                     "Promedio de normales debe ser 78.50");
             
-            // Promedio anormales: (10+8+9+11)/4 = 38/4 = 9.50
+            
             assertEquals(new BigDecimal("9.50"), tabla.getPromedioSinRedondeo().get(1), 
                     "Promedio de anormales debe ser 9.50");
             
-            // Promedio duras: (5+4+5+3)/4 = 17/4 = 4.25
+            
             assertEquals(new BigDecimal("4.25"), tabla.getPromedioSinRedondeo().get(2), 
                     "Promedio de duras debe ser 4.25");
             
-            // Promedio frescas: (3+2+2+4)/4 = 11/4 = 2.75
+            
             assertEquals(new BigDecimal("2.75"), tabla.getPromedioSinRedondeo().get(3), 
                     "Promedio de frescas debe ser 2.75");
             
-            // Promedio muertas: (7+4+6+3)/4 = 20/4 = 5.00
+            
             assertEquals(new BigDecimal("5.00"), tabla.getPromedioSinRedondeo().get(4), 
                     "Promedio de muertas debe ser 5.00");
             
             return tabla;
         });
 
-        // ACT
+        
         repGermService.crearRepGerm(1L, repGermRequestDTO);
 
-        // ASSERT
+        
         verify(tablaGermRepository, times(1)).save(any(TablaGerm.class));
     }
 
     @Test
     @DisplayName("Calcular promedios por conteo - debe calcular promedios por cada conteo individual")
     void calcularPromediosPorConteo_debeCalcularCorrectamente() {
-        // ARRANGE
+        
         tablaGerm.setNumeroRepeticiones(4);
         tablaGerm.setNumeroConteos(3);
         
-        // Crear 4 repeticiones completas
+        
         RepGerm rep1 = crearRepeticion(1, Arrays.asList(25, 30, 20), 10, 5, 3, 7);
         RepGerm rep2 = crearRepeticion(2, Arrays.asList(28, 32, 22), 8, 4, 2, 4);
         RepGerm rep3 = crearRepeticion(3, Arrays.asList(26, 31, 21), 9, 5, 2, 6);
@@ -590,52 +590,52 @@ class RepGermServiceTest {
         when(tablaGermRepository.save(any(TablaGerm.class))).thenAnswer(invocation -> {
             TablaGerm tabla = invocation.getArgument(0);
             
-            // Verificar que se calcularon los promedios por conteo (3 conteos + 4 campos)
+            
             assertNotNull(tabla.getPromediosSinRedPorConteo(), "Los promedios por conteo no deben ser nulos");
             assertEquals(7, tabla.getPromediosSinRedPorConteo().size(), "Debe haber 7 promedios (3 conteos + 4 campos)");
             
-            // Promedio conteo 1: (25+28+26+27)/4 = 106/4 = 26.50
+            
             assertEquals(new BigDecimal("26.50"), tabla.getPromediosSinRedPorConteo().get(0), 
                     "Promedio del conteo 1 debe ser 26.50");
             
-            // Promedio conteo 2: (30+32+31+29)/4 = 122/4 = 30.50
+            
             assertEquals(new BigDecimal("30.50"), tabla.getPromediosSinRedPorConteo().get(1), 
                     "Promedio del conteo 2 debe ser 30.50");
             
-            // Promedio conteo 3: (20+22+21+23)/4 = 86/4 = 21.50
+            
             assertEquals(new BigDecimal("21.50"), tabla.getPromediosSinRedPorConteo().get(2), 
                     "Promedio del conteo 3 debe ser 21.50");
             
-            // Promedio anormales: (10+8+9+11)/4 = 38/4 = 9.50
+            
             assertEquals(new BigDecimal("9.50"), tabla.getPromediosSinRedPorConteo().get(3), 
                     "Promedio de anormales debe ser 9.50");
             
-            // Promedio duras: (5+4+5+3)/4 = 17/4 = 4.25
+            
             assertEquals(new BigDecimal("4.25"), tabla.getPromediosSinRedPorConteo().get(4), 
                     "Promedio de duras debe ser 4.25");
             
-            // Promedio frescas: (3+2+2+4)/4 = 11/4 = 2.75
+            
             assertEquals(new BigDecimal("2.75"), tabla.getPromediosSinRedPorConteo().get(5), 
                     "Promedio de frescas debe ser 2.75");
             
-            // Promedio muertas: (7+4+6+3)/4 = 20/4 = 5.00
+            
             assertEquals(new BigDecimal("5.00"), tabla.getPromediosSinRedPorConteo().get(6), 
                     "Promedio de muertas debe ser 5.00");
             
             return tabla;
         });
 
-        // ACT
+        
         repGermService.crearRepGerm(1L, repGermRequestDTO);
 
-        // ASSERT
+        
         verify(tablaGermRepository, times(1)).save(any(TablaGerm.class));
     }
 
     @Test
     @DisplayName("Verificar todas las repeticiones completas - debe retornar true cuando están completas")
     void todasLasRepeticionesCompletas_debeRetornarTrueCuandoCompletas() {
-        // ARRANGE
+        
         tablaGerm.setNumeroRepeticiones(2);
         
         RepGerm rep1 = crearRepeticion(1, Arrays.asList(25, 30, 20), 10, 5, 3, 7);
@@ -648,59 +648,59 @@ class RepGermServiceTest {
         when(tablaGermRepository.save(any(TablaGerm.class))).thenAnswer(invocation -> {
             TablaGerm tabla = invocation.getArgument(0);
             
-            // Verificar que se calcularon promedios (solo se hace cuando todas están completas)
+            
             assertNotNull(tabla.getPromedioSinRedondeo(), "Los promedios deben calcularse cuando todas están completas");
             assertEquals(5, tabla.getPromedioSinRedondeo().size(), "Debe haber 5 promedios");
             
             return tabla;
         });
 
-        // ACT
+        
         repGermService.crearRepGerm(1L, repGermRequestDTO);
 
-        // ASSERT
+        
         verify(tablaGermRepository, times(1)).save(any(TablaGerm.class));
     }
 
     @Test
     @DisplayName("Verificar todas las repeticiones completas - debe retornar false cuando faltan repeticiones")
     void todasLasRepeticionesCompletas_debeRetornarFalseCuandoFaltan() {
-        // ARRANGE
-        tablaGerm.setNumeroRepeticiones(4); // Se esperan 4
+        
+        tablaGerm.setNumeroRepeticiones(4); 
         
         RepGerm rep1 = crearRepeticion(1, Arrays.asList(25, 30, 20), 10, 5, 3, 7);
 
         when(tablaGermRepository.findById(1L)).thenReturn(Optional.of(tablaGerm));
         when(repGermRepository.countByTablaGermId(1L)).thenReturn(0L);
         when(repGermRepository.save(any(RepGerm.class))).thenReturn(rep1);
-        when(repGermRepository.findByTablaGermId(1L)).thenReturn(Arrays.asList(rep1)); // Solo 1 de 4
+        when(repGermRepository.findByTablaGermId(1L)).thenReturn(Arrays.asList(rep1)); 
         when(tablaGermRepository.save(any(TablaGerm.class))).thenAnswer(invocation -> {
             TablaGerm tabla = invocation.getArgument(0);
             
-            // Verificar que NO se calcularon promedios (faltan repeticiones)
+            
             assertTrue(tabla.getPromedioSinRedondeo() == null || tabla.getPromedioSinRedondeo().isEmpty(),
                     "No deben calcularse promedios cuando faltan repeticiones");
             
             return tabla;
         });
 
-        // ACT
+        
         repGermService.crearRepGerm(1L, repGermRequestDTO);
 
-        // ASSERT
+        
         verify(tablaGermRepository, times(1)).save(any(TablaGerm.class));
     }
 
     @Test
     @DisplayName("Mapear entidad a DTO - debe mapear todos los campos correctamente")
     void mapearEntidadADTO_debeMapeaTodosLosCampos() {
-        // ARRANGE
+        
         when(repGermRepository.findById(1L)).thenReturn(Optional.of(repGerm));
 
-        // ACT
+        
         RepGermDTO resultado = repGermService.obtenerRepGermPorId(1L);
 
-        // ASSERT
+        
         assertNotNull(resultado, "El DTO no debe ser nulo");
         assertEquals(repGerm.getRepGermID(), resultado.getRepGermID(), "El ID debe coincidir");
         assertEquals(repGerm.getNumRep(), resultado.getNumRep(), "El numRep debe coincidir");
@@ -717,9 +717,9 @@ class RepGermServiceTest {
     @Test
     @DisplayName("Crear repetición con valores null - debe asignar valores por defecto")
     void crearRepGerm_conValoresNull_debeAsignarDefecto() {
-        // ARRANGE
+        
         RepGermRequestDTO requestConNulls = new RepGermRequestDTO();
-        requestConNulls.setNormales(Arrays.asList(75, null, null)); // Solo primer valor
+        requestConNulls.setNormales(Arrays.asList(75, null, null)); 
         requestConNulls.setAnormales(null);
         requestConNulls.setDuras(null);
         requestConNulls.setFrescas(null);
@@ -728,7 +728,7 @@ class RepGermServiceTest {
         RepGerm repGermConDefectos = new RepGerm();
         repGermConDefectos.setRepGermID(1L);
         repGermConDefectos.setNumRep(1);
-        repGermConDefectos.setNormales(Arrays.asList(75, 0, 0)); // Completado con 0
+        repGermConDefectos.setNormales(Arrays.asList(75, 0, 0)); 
         repGermConDefectos.setAnormales(0);
         repGermConDefectos.setDuras(0);
         repGermConDefectos.setFrescas(0);
@@ -742,10 +742,10 @@ class RepGermServiceTest {
         when(repGermRepository.findByTablaGermId(1L)).thenReturn(Arrays.asList(repGermConDefectos));
         when(tablaGermRepository.save(any(TablaGerm.class))).thenReturn(tablaGerm);
 
-        // ACT
+        
         RepGermDTO resultado = repGermService.crearRepGerm(1L, requestConNulls);
 
-        // ASSERT
+        
         assertEquals(Arrays.asList(75, 0, 0), resultado.getNormales(), 
                 "Debe completar con 0 los valores null en normales");
         assertEquals(0, resultado.getAnormales(), "Debe asignar 0 cuando anormales es null");
@@ -755,7 +755,7 @@ class RepGermServiceTest {
         assertEquals(75, resultado.getTotal(), "El total debe calcularse correctamente");
     }
 
-    // Método auxiliar para crear repeticiones de prueba
+    
     private RepGerm crearRepeticion(int numRep, List<Integer> normales, int anormales, 
                                     int duras, int frescas, int muertas) {
         RepGerm rep = new RepGerm();

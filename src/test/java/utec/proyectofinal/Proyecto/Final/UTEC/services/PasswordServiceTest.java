@@ -31,13 +31,13 @@ class PasswordServiceTest {
     @Test
     @DisplayName("Encriptar contraseña - debe retornar hash BCrypt válido")
     void encryptPassword_debeRetornarHashBCrypt() {
-        // ARRANGE
+        
         String plainPassword = "MiContraseña123!";
 
-        // ACT
+        
         String encryptedPassword = passwordService.encryptPassword(plainPassword);
 
-        // ASSERT
+        
         assertNotNull(encryptedPassword, "El hash no debe ser nulo");
         assertNotEquals(plainPassword, encryptedPassword, "El hash debe ser diferente a la contraseña original");
         assertTrue(encryptedPassword.startsWith("$2a$") || encryptedPassword.startsWith("$2b$"), 
@@ -48,14 +48,14 @@ class PasswordServiceTest {
     @Test
     @DisplayName("Encriptar misma contraseña dos veces - debe generar hashes diferentes")
     void encryptPassword_mismaContraseña_debeGenerarHashesDiferentes() {
-        // ARRANGE
+        
         String plainPassword = "Password123!";
 
-        // ACT
+        
         String hash1 = passwordService.encryptPassword(plainPassword);
         String hash2 = passwordService.encryptPassword(plainPassword);
 
-        // ASSERT
+        
         assertNotEquals(hash1, hash2, 
             "BCrypt debe generar hashes diferentes para la misma contraseña (salt aleatorio)");
     }
@@ -63,58 +63,58 @@ class PasswordServiceTest {
     @Test
     @DisplayName("Verificar contraseña correcta - debe retornar true")
     void matchPassword_contraseñaCorrecta_debeRetornarTrue() {
-        // ARRANGE
+        
         String plainPassword = "SecurePass456!";
         String encryptedPassword = passwordService.encryptPassword(plainPassword);
 
-        // ACT
+        
         boolean matches = passwordService.matchPassword(plainPassword, encryptedPassword);
 
-        // ASSERT
+        
         assertTrue(matches, "La contraseña correcta debe ser verificada exitosamente");
     }
 
     @Test
     @DisplayName("Verificar contraseña incorrecta - debe retornar false")
     void matchPassword_contraseñaIncorrecta_debeRetornarFalse() {
-        // ARRANGE
+        
         String plainPassword = "CorrectPassword123!";
         String wrongPassword = "WrongPassword456!";
         String encryptedPassword = passwordService.encryptPassword(plainPassword);
 
-        // ACT
+        
         boolean matches = passwordService.matchPassword(wrongPassword, encryptedPassword);
 
-        // ASSERT
+        
         assertFalse(matches, "Una contraseña incorrecta debe fallar la verificación");
     }
 
     @Test
     @DisplayName("Verificar contraseña con mayúsculas/minúsculas - debe ser case sensitive")
     void matchPassword_caseSensitive_debeFallar() {
-        // ARRANGE
+        
         String plainPassword = "Password123";
         String wrongCasePassword = "password123";
         String encryptedPassword = passwordService.encryptPassword(plainPassword);
 
-        // ACT
+        
         boolean matches = passwordService.matchPassword(wrongCasePassword, encryptedPassword);
 
-        // ASSERT
+        
         assertFalse(matches, "La verificación debe ser case-sensitive");
     }
 
     @Test
     @DisplayName("Encriptar contraseña con caracteres especiales - debe funcionar correctamente")
     void encryptPassword_conCaracteresEspeciales_debeFuncionar() {
-        // ARRANGE
+        
         String specialPassword = "P@ssw0rd!#$%&*()";
 
-        // ACT
+        
         String encrypted = passwordService.encryptPassword(specialPassword);
         boolean matches = passwordService.matchPassword(specialPassword, encrypted);
 
-        // ASSERT
+        
         assertNotNull(encrypted);
         assertTrue(matches, "Debe manejar caracteres especiales correctamente");
     }
@@ -122,15 +122,15 @@ class PasswordServiceTest {
     @Test
     @DisplayName("Encriptar contraseña con espacios - debe preservar espacios")
     void encryptPassword_conEspacios_debePreservarEspacios() {
-        // ARRANGE
+        
         String passwordWithSpaces = "My Pass Word 123";
 
-        // ACT
+        
         String encrypted = passwordService.encryptPassword(passwordWithSpaces);
         boolean matchesWithSpaces = passwordService.matchPassword(passwordWithSpaces, encrypted);
         boolean matchesWithoutSpaces = passwordService.matchPassword("MyPassWord123", encrypted);
 
-        // ASSERT
+        
         assertTrue(matchesWithSpaces, "Debe preservar espacios en la contraseña");
         assertFalse(matchesWithoutSpaces, "No debe coincidir sin los espacios");
     }
@@ -138,15 +138,15 @@ class PasswordServiceTest {
     @Test
     @DisplayName("Encriptar contraseña muy larga - debe funcionar")
     void encryptPassword_contraseñaMuyLarga_debeFuncionar() {
-        // ARRANGE
-        // BCrypt tiene un límite de 72 bytes, así que probamos con 70 caracteres
+        
+        
         String longPassword = "A".repeat(70);
 
-        // ACT
+        
         String encrypted = passwordService.encryptPassword(longPassword);
         boolean matches = passwordService.matchPassword(longPassword, encrypted);
 
-        // ASSERT
+        
         assertNotNull(encrypted);
         assertTrue(matches, "Debe manejar contraseñas largas (hasta 72 bytes)");
     }
@@ -154,14 +154,14 @@ class PasswordServiceTest {
     @Test
     @DisplayName("Encriptar contraseña muy corta - debe funcionar")
     void encryptPassword_contraseñaMuyCorta_debeFuncionar() {
-        // ARRANGE
+        
         String shortPassword = "Ab1";
 
-        // ACT
+        
         String encrypted = passwordService.encryptPassword(shortPassword);
         boolean matches = passwordService.matchPassword(shortPassword, encrypted);
 
-        // ASSERT
+        
         assertNotNull(encrypted);
         assertTrue(matches, "Debe manejar contraseñas cortas");
     }
@@ -169,28 +169,28 @@ class PasswordServiceTest {
     @Test
     @DisplayName("Verificar con contraseña vacía - debe retornar false")
     void matchPassword_contraseñaVacia_debeRetornarFalse() {
-        // ARRANGE
+        
         String plainPassword = "ValidPassword123";
         String encryptedPassword = passwordService.encryptPassword(plainPassword);
 
-        // ACT
+        
         boolean matches = passwordService.matchPassword("", encryptedPassword);
 
-        // ASSERT
+        
         assertFalse(matches, "Una contraseña vacía no debe coincidir");
     }
 
     @Test
     @DisplayName("Encriptar contraseña con Unicode - debe funcionar")
     void encryptPassword_conUnicode_debeFuncionar() {
-        // ARRANGE
+        
         String unicodePassword = "Contraseña123áéíóú";
 
-        // ACT
+        
         String encrypted = passwordService.encryptPassword(unicodePassword);
         boolean matches = passwordService.matchPassword(unicodePassword, encrypted);
 
-        // ASSERT
+        
         assertNotNull(encrypted);
         assertTrue(matches, "Debe manejar caracteres Unicode correctamente");
     }
@@ -198,7 +198,7 @@ class PasswordServiceTest {
     @Test
     @DisplayName("Verificar múltiples contraseñas diferentes - solo una debe coincidir")
     void matchPassword_multiplesCandidatos_soloUnaCoincide() {
-        // ARRANGE
+        
         String correctPassword = "CorrectOne123!";
         String encryptedPassword = passwordService.encryptPassword(correctPassword);
         
@@ -210,7 +210,7 @@ class PasswordServiceTest {
             "CorrectOne123!!"
         };
 
-        // ACT & ASSERT
+        
         assertTrue(passwordService.matchPassword(correctPassword, encryptedPassword), 
             "La contraseña correcta debe coincidir");
         
@@ -223,14 +223,14 @@ class PasswordServiceTest {
     @Test
     @DisplayName("Encriptar y verificar contraseña compleja - debe funcionar")
     void encryptPassword_contraseñaCompleja_debeFuncionar() {
-        // ARRANGE
+        
         String complexPassword = "C0mpl3x!P@ssw0rd#2024$%&";
 
-        // ACT
+        
         String encrypted = passwordService.encryptPassword(complexPassword);
         boolean matches = passwordService.matchPassword(complexPassword, encrypted);
 
-        // ASSERT
+        
         assertNotNull(encrypted);
         assertTrue(matches, "Debe manejar contraseñas complejas correctamente");
     }
@@ -238,17 +238,17 @@ class PasswordServiceTest {
     @Test
     @DisplayName("Encriptar misma contraseña 10 veces - todos los hashes deben ser únicos")
     void encryptPassword_10Veces_todosHashesUnicos() {
-        // ARRANGE
+        
         String password = "TestPassword123";
         int iterations = 10;
 
-        // ACT
+        
         String[] hashes = new String[iterations];
         for (int i = 0; i < iterations; i++) {
             hashes[i] = passwordService.encryptPassword(password);
         }
 
-        // ASSERT
+        
         for (int i = 0; i < iterations; i++) {
             for (int j = i + 1; j < iterations; j++) {
                 assertNotEquals(hashes[i], hashes[j], 
@@ -256,7 +256,7 @@ class PasswordServiceTest {
             }
         }
 
-        // Verificar que todos los hashes funcionan
+        
         for (String hash : hashes) {
             assertTrue(passwordService.matchPassword(password, hash), 
                 "Todos los hashes deben verificar correctamente");

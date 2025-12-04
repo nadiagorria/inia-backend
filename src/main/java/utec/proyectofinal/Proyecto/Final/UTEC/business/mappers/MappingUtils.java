@@ -19,7 +19,7 @@ public class MappingUtils {
         dto.setCatalogoID(MalezasCatalogo.getCatalogoID());
         dto.setNombreComun(MalezasCatalogo.getNombreComun());
         dto.setNombreCientifico(MalezasCatalogo.getNombreCientifico());
-        // Omitir campo activo intencionalmente
+        
         return dto;
     }
 
@@ -29,7 +29,7 @@ public class MappingUtils {
         dto.setNombreComun(especie.getNombreComun());
         dto.setNombreCientifico(especie.getNombreCientifico());
         dto.setActivo(especie.getActivo());
-        // Cultivares se puede agregar si es necesario
+        
         return dto;
     }
 

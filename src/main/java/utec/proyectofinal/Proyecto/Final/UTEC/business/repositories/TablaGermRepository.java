@@ -10,11 +10,11 @@ import utec.proyectofinal.Proyecto.Final.UTEC.business.entities.TablaGerm;
 
 public interface TablaGermRepository extends JpaRepository<TablaGerm, Long> {
     
-    // Buscar tablas por ID de germinación
+    
     @Query("SELECT t FROM TablaGerm t WHERE t.germinacion.analisisID = :germinacionId")
     List<TablaGerm> findByGerminacionId(@Param("germinacionId") Long germinacionId);
     
-    // Contar tablas por germinación
+    
     @Query("SELECT COUNT(t) FROM TablaGerm t WHERE t.germinacion.analisisID = :germinacionId")
     Long countByGerminacionId(@Param("germinacionId") Long germinacionId);
 }

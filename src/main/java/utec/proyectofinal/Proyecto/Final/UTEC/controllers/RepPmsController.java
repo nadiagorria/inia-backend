@@ -23,7 +23,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.dtos.request.RepPmsRequestDTO;
 import utec.proyectofinal.Proyecto.Final.UTEC.dtos.response.RepPmsDTO;
 import utec.proyectofinal.Proyecto.Final.UTEC.services.RepPmsService;
 
-// CORS configurado globalmente en WebSecurityConfig
+
 @RestController
 @RequestMapping("/api/pms/{pmsId}/repeticiones")
 @Tag(name = "Repeticiones PMS", description = "API para gestión de repeticiones de análisis PMS")
@@ -33,7 +33,7 @@ public class RepPmsController {
     @Autowired
     private RepPmsService repeticionService;
 
-    // Crear nueva repetición para un Pms específico
+    
     @Operation(summary = "Crear repetición de PMS", 
               description = "Crea una nueva repetición para un análisis PMS específico")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA')")
@@ -51,7 +51,7 @@ public class RepPmsController {
         }
     }
 
-    // Obtener todas las repeticiones de un Pms
+    
     @Operation(summary = "Listar repeticiones de PMS", 
               description = "Obtiene todas las repeticiones asociadas a un análisis PMS específico")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
@@ -65,7 +65,7 @@ public class RepPmsController {
         }
     }
 
-    // Contar repeticiones de un Pms
+    
     @Operation(summary = "Contar repeticiones de PMS", 
               description = "Cuenta el número de repeticiones asociadas a un análisis PMS específico")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
@@ -79,7 +79,7 @@ public class RepPmsController {
         }
     }
 
-    // Obtener repetición específica por ID
+    
     @Operation(summary = "Obtener repetición de PMS por ID", 
               description = "Obtiene una repetición específica de un análisis PMS por su ID")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
@@ -97,7 +97,7 @@ public class RepPmsController {
         }
     }
 
-    // Actualizar repetición específica
+    
     @Operation(summary = "Actualizar repetición de PMS", 
               description = "Actualiza una repetición específica de un análisis PMS")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA')")
@@ -116,7 +116,7 @@ public class RepPmsController {
         }
     }
 
-    // Eliminar repetición específica
+    
     @Operation(summary = "Eliminar repetición de PMS", 
               description = "Elimina una repetición específica de un análisis PMS (eliminación física)")
     @PreAuthorize("hasRole('ADMIN')")

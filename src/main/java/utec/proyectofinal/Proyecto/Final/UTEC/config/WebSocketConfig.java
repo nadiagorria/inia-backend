@@ -40,16 +40,13 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
      */
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
-        // Habilita un broker simple en memoria (suficiente para la mayoría de casos)
-        // Para alta demanda, considera RabbitMQ o ActiveMQ
+        // Habilita un broker simple en memoria
         config.enableSimpleBroker("/topic", "/queue");
         
         // Prefijo para mensajes desde el cliente
-        // Ejemplo: cliente envía a "/app/send" -> llega al @MessageMapping("/send")
         config.setApplicationDestinationPrefixes("/app");
         
         // Prefijo para mensajes dirigidos a usuarios específicos
-        // Ejemplo: enviar a "/user/123/queue/notifications"
         config.setUserDestinationPrefix("/user");
     }
 
@@ -64,8 +61,8 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
      */
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/ws/notifications")  // URL: ws://localhost:8080/ws/notifications
-                .setAllowedOriginPatterns("*")     // Permitir todas las origenes (CORS)
+        registry.addEndpoint("/ws/notifications")  
+                .setAllowedOriginPatterns("*")     // CORS
                 .withSockJS();                      // Habilitar fallback SockJS
     }
 

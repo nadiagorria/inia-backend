@@ -18,7 +18,7 @@ public interface PurezaRepository extends JpaRepository<Pureza, Long>, JpaSpecif
     
     List<Pureza> findByEstado(Estado estado);
     
-    // Buscar por activo
+    
     List<Pureza> findByActivoTrue();
     
     @Query("SELECT p FROM Pureza p WHERE p.lote.loteID = :idLote")
@@ -26,15 +26,15 @@ public interface PurezaRepository extends JpaRepository<Pureza, Long>, JpaSpecif
     
     List<Pureza> findByLoteLoteID(Long loteID);
 
-    // Pageable
+    
     Page<Pureza> findByEstadoNotOrderByFechaInicioDesc(Estado estado, Pageable pageable);
     
-    // Filtrado por activo
+    
     Page<Pureza> findByActivoTrueOrderByFechaInicioDesc(Pageable pageable);
     Page<Pureza> findByActivoFalseOrderByFechaInicioDesc(Pageable pageable);
     Page<Pureza> findAllByOrderByFechaInicioDesc(Pageable pageable);
     
-    // Métodos eficientes para validaciones
+    
     boolean existsByLoteLoteID(Long loteID);
     boolean existsByLoteLoteIDAndEstado(Long loteID, Estado estado);
 

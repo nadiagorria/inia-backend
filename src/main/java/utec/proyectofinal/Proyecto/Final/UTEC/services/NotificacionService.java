@@ -41,11 +41,11 @@ public class NotificacionService {
     @Autowired
     private AnalisisHistorialRepository analisisHistorialRepository;
 
-    // NUEVO: Servicio WebSocket para notificaciones en tiempo real
+    
     @Autowired
     private NotificationWebSocketService wsService;
 
-    // Crear notificación manual
+    
     public NotificacionDTO crearNotificacion(NotificacionRequestDTO request) {
         Usuario usuario = usuarioRepository.findById(request.getUsuarioId().intValue())
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
@@ -61,9 +61,9 @@ public class NotificacionService {
         return convertToDTO(notificacion);
     }
 
-    // Notificación cuando se registra un nuevo usuario
+    
     public void notificarNuevoUsuario(Long usuarioId) {
-        // Buscar todos los administradores
+        
         List<Usuario> administradores = usuarioRepository.findByEstado(utec.proyectofinal.Proyecto.Final.UTEC.enums.EstadoUsuario.ACTIVO)
                 .stream()
                 .filter(u -> u.getRol() == utec.proyectofinal.Proyecto.Final.UTEC.enums.Rol.ADMIN)
@@ -82,7 +82,7 @@ public class NotificacionService {
             
             notificacion = notificacionRepository.save(notificacion);
             
-            // EMITIR VÍA WEBSOCKET - El admin recibe la notificación instantáneamente
+            
             NotificacionDTO dto = convertToDTO(notificacion);
             wsService.sendToUser(admin.getUsuarioID(), dto);
             wsService.sendUnreadCount(admin.getUsuarioID(), 
@@ -90,7 +90,7 @@ public class NotificacionService {
         }
     }
 
-    // Notificación cuando se aprueba un usuario
+    
     public void notificarUsuarioAprobado(Long usuarioId) {
         Usuario usuario = usuarioRepository.findById(usuarioId.intValue())
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
@@ -103,14 +103,14 @@ public class NotificacionService {
         
         notificacion = notificacionRepository.save(notificacion);
         
-        // EMITIR VÍA WEBSOCKET
+        
         NotificacionDTO dto = convertToDTO(notificacion);
         wsService.sendToUser(usuario.getUsuarioID(), dto);
         wsService.sendUnreadCount(usuario.getUsuarioID(), 
             contarNotificacionesNoLeidas(usuario.getUsuarioID().longValue()));
     }
 
-    // Notificación cuando se rechaza un usuario
+    
     public void notificarUsuarioRechazado(Long usuarioId) {
         Usuario usuario = usuarioRepository.findById(usuarioId.intValue())
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
@@ -123,16 +123,16 @@ public class NotificacionService {
         
         notificacion = notificacionRepository.save(notificacion);
         
-        // EMITIR VÍA WEBSOCKET
+        
         NotificacionDTO dto = convertToDTO(notificacion);
         wsService.sendToUser(usuario.getUsuarioID(), dto);
         wsService.sendUnreadCount(usuario.getUsuarioID(), 
             contarNotificacionesNoLeidas(usuario.getUsuarioID().longValue()));
     }
 
-    // Notificación cuando se finaliza un análisis
+    
     public void notificarAnalisisFinalizado(Long analisisId) {
-        // Buscar todos los administradores
+        
         List<Usuario> administradores = usuarioRepository.findByEstado(utec.proyectofinal.Proyecto.Final.UTEC.enums.EstadoUsuario.ACTIVO)
                 .stream()
                 .filter(u -> u.getRol() == utec.proyectofinal.Proyecto.Final.UTEC.enums.Rol.ADMIN)
@@ -152,7 +152,7 @@ public class NotificacionService {
             
             notificacion = notificacionRepository.save(notificacion);
             
-            // EMITIR VÍA WEBSOCKET
+            
             NotificacionDTO dto = convertToDTO(notificacion);
             wsService.sendToUser(admin.getUsuarioID(), dto);
             wsService.sendUnreadCount(admin.getUsuarioID(), 
@@ -160,12 +160,12 @@ public class NotificacionService {
         }
     }
 
-    // Notificación cuando se aprueba un análisis
+    
     public void notificarAnalisisAprobado(Long analisisId) {
-        // Obtener el usuario que está aprobando (administrador actual)
+        
         Usuario usuarioActual = obtenerUsuarioActual();
         
-        // Buscar usuarios que modificaron el análisis (excluyendo administradores y el usuario actual)
+        
         List<AnalisisHistorial> historial = analisisHistorialRepository.findByAnalisisIdOrderByFechaHoraDesc(analisisId);
         List<Usuario> usuariosInvolucrados = historial.stream()
                 .map(AnalisisHistorial::getUsuario)
@@ -188,7 +188,7 @@ public class NotificacionService {
             
             notificacion = notificacionRepository.save(notificacion);
             
-            // EMITIR VÍA WEBSOCKET
+            
             NotificacionDTO dto = convertToDTO(notificacion);
             wsService.sendToUser(usuario.getUsuarioID(), dto);
             wsService.sendUnreadCount(usuario.getUsuarioID(), 
@@ -196,12 +196,12 @@ public class NotificacionService {
         }
     }
 
-    // Notificación cuando se marca un análisis para repetir
+    
     public void notificarAnalisisRepetir(Long analisisId) {
-        // Obtener el usuario que está marcando para repetir (administrador actual)
+        
         Usuario usuarioActual = obtenerUsuarioActual();
         
-        // Buscar usuarios que modificaron el análisis (excluyendo administradores y el usuario actual)
+        
         List<AnalisisHistorial> historial = analisisHistorialRepository.findByAnalisisIdOrderByFechaHoraDesc(analisisId);
         List<Usuario> usuariosInvolucrados = historial.stream()
                 .map(AnalisisHistorial::getUsuario)
@@ -224,7 +224,7 @@ public class NotificacionService {
             
             notificacion = notificacionRepository.save(notificacion);
             
-            // EMITIR VÍA WEBSOCKET
+            
             NotificacionDTO dto = convertToDTO(notificacion);
             wsService.sendToUser(usuario.getUsuarioID(), dto);
             wsService.sendUnreadCount(usuario.getUsuarioID(), 
@@ -232,12 +232,12 @@ public class NotificacionService {
         }
     }
 
-    // Notificación cuando un análisis editado vuelve a estado pendiente de aprobación
+    
     public void notificarAnalisisPendienteAprobacion(Long analisisId) {
-        // Obtener el usuario que está editando el análisis
+        
         Usuario usuarioActual = obtenerUsuarioActual();
         
-        // Buscar todos los administradores excluyendo al usuario actual (quien editó)
+        
         List<Usuario> administradores = usuarioRepository.findByEstado(utec.proyectofinal.Proyecto.Final.UTEC.enums.EstadoUsuario.ACTIVO)
                 .stream()
                 .filter(u -> u.getRol() == utec.proyectofinal.Proyecto.Final.UTEC.enums.Rol.ADMIN)
@@ -254,11 +254,11 @@ public class NotificacionService {
                                   " ha sido modificado y requiere nueva aprobación.");
             notificacion.setUsuario(admin);
             notificacion.setAnalisisId(analisisId);
-            notificacion.setTipo(ANALISIS_FINALIZADO); // Reutilizamos el tipo existente
+            notificacion.setTipo(ANALISIS_FINALIZADO); 
             
             notificacion = notificacionRepository.save(notificacion);
             
-            // EMITIR VÍA WEBSOCKET
+            
             NotificacionDTO dto = convertToDTO(notificacion);
             wsService.sendToUser(admin.getUsuarioID(), dto);
             wsService.sendUnreadCount(admin.getUsuarioID(), 
@@ -266,24 +266,24 @@ public class NotificacionService {
         }
     }
 
-    // Obtener notificaciones de un usuario
+    
     public Page<NotificacionDTO> obtenerNotificacionesPorUsuario(Long usuarioId, Pageable pageable) {
         Page<Notificacion> notificaciones = notificacionRepository.findByUsuarioUsuarioIDAndActivoTrueOrderByFechaCreacionDesc(usuarioId.intValue(), pageable);
         return notificaciones.map(this::convertToDTO);
     }
 
-    // Obtener notificaciones no leídas de un usuario
+    
     public List<NotificacionDTO> obtenerNotificacionesNoLeidas(Long usuarioId) {
         List<Notificacion> notificaciones = notificacionRepository.findByUsuarioUsuarioIDAndLeidoFalseAndActivoTrueOrderByFechaCreacionDesc(usuarioId.intValue());
         return notificaciones.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
-    // Marcar notificación como leída
+    
     public NotificacionDTO marcarComoLeida(Long notificacionId) {
         Notificacion notificacion = notificacionRepository.findById(notificacionId)
                 .orElseThrow(() -> new RuntimeException("Notificación no encontrada"));
         
-        // Validar que el usuario actual puede marcar esta notificación
+        
         Usuario usuarioActual = obtenerUsuarioActual();
         if (!usuarioActual.esAdmin() && !notificacion.getUsuario().getUsuarioID().equals(usuarioActual.getUsuarioID())) {
             throw new RuntimeException("No tiene permisos para marcar esta notificación como leída");
@@ -295,19 +295,19 @@ public class NotificacionService {
         return convertToDTO(notificacion);
     }
 
-    // Marcar todas las notificaciones de un usuario como leídas
+    
     public void marcarTodasComoLeidas(Long usuarioId) {
         List<Notificacion> notificaciones = notificacionRepository.findByUsuarioUsuarioIDAndLeidoFalseAndActivoTrue(usuarioId.intValue());
         notificaciones.forEach(n -> n.setLeido(true));
         notificacionRepository.saveAll(notificaciones);
     }
 
-    // Eliminar notificación (marcar como inactiva)
+    
     public void eliminarNotificacion(Long notificacionId) {
         Notificacion notificacion = notificacionRepository.findById(notificacionId)
                 .orElseThrow(() -> new RuntimeException("Notificación no encontrada"));
         
-        // Validar que el usuario actual puede eliminar esta notificación
+        
         Usuario usuarioActual = obtenerUsuarioActual();
         if (!usuarioActual.esAdmin() && !notificacion.getUsuario().getUsuarioID().equals(usuarioActual.getUsuarioID())) {
             throw new RuntimeException("No tiene permisos para eliminar esta notificación");
@@ -317,14 +317,14 @@ public class NotificacionService {
         notificacionRepository.save(notificacion);
     }
 
-    // Contar notificaciones no leídas
+    
     public Long contarNotificacionesNoLeidas(Long usuarioId) {
         return notificacionRepository.countByUsuarioUsuarioIDAndLeidoFalseAndActivoTrue(usuarioId.intValue());
     }
 
-    // === MÉTODOS SEGUROS QUE USAN EL USUARIO AUTENTICADO ===
+    
 
-    // Obtener usuario actual autenticado
+    
     private Usuario obtenerUsuarioActual() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth == null || auth.getName() == null) {
@@ -335,22 +335,22 @@ public class NotificacionService {
                 .orElseThrow(() -> new RuntimeException("Usuario autenticado no encontrado en base de datos"));
     }
 
-    // Validar que el usuario actual puede acceder a las notificaciones del usuarioId especificado
+    
     private void validarAccesoANotificaciones(Integer usuarioId) {
         Usuario usuarioActual = obtenerUsuarioActual();
         
-        // Los administradores pueden ver las notificaciones de cualquier usuario
+        
         if (usuarioActual.esAdmin()) {
             return;
         }
         
-        // Los demás usuarios solo pueden ver sus propias notificaciones
+        
         if (!Objects.equals(usuarioActual.getUsuarioID(), usuarioId)) {
             throw new RuntimeException("No tiene permisos para acceder a las notificaciones de este usuario");
         }
     }
 
-    // Métodos seguros que obtienen las notificaciones del usuario actual
+    
     public Page<NotificacionDTO> obtenerMisNotificaciones(Pageable pageable) {
         Usuario usuarioActual = obtenerUsuarioActual();
         Page<Notificacion> notificaciones = notificacionRepository.findByUsuarioUsuarioIDAndActivoTrueOrderByFechaCreacionDesc(
@@ -377,7 +377,7 @@ public class NotificacionService {
         notificacionRepository.saveAll(notificaciones);
     }
 
-    // Métodos que requieren validación de acceso (para administradores o acceso propio)
+    
     public Page<NotificacionDTO> obtenerNotificacionesPorUsuarioConValidacion(Long usuarioId, Pageable pageable) {
         validarAccesoANotificaciones(usuarioId.intValue());
         return obtenerNotificacionesPorUsuario(usuarioId, pageable);

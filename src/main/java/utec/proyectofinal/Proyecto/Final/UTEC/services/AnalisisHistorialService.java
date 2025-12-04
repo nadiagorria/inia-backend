@@ -46,7 +46,7 @@ public class AnalisisHistorialService {
      */
     private void registrarAccion(Analisis analisis, String accion) {
         try {
-            // Obtener usuario actual del contexto de seguridad
+            
             String username = SecurityContextHolder.getContext().getAuthentication().getName();
             Usuario usuario = usuarioRepository.findByNombreIgnoreCase(username)
                 .orElse(null);
@@ -60,7 +60,7 @@ public class AnalisisHistorialService {
                 analisisHistorialRepository.save(historial);
             }
         } catch (Exception e) {
-            // Log error pero no interrumpir el flujo principal
+            
             System.err.println("Error registrando historial de análisis: " + e.getMessage());
         }
     }
@@ -98,7 +98,7 @@ public class AnalisisHistorialService {
         dto.setUsuario(historial.getUsuario().getNombres() + " " + historial.getUsuario().getApellidos());
         dto.setFechaHora(historial.getFechaHora());
         
-        // Determinar la acción basándose en la fecha (primera entrada = creación, resto = modificación)
+        
         List<AnalisisHistorial> todosRegistros = analisisHistorialRepository
             .findByAnalisisIdOrderByFechaHoraDesc(historial.getAnalisis().getAnalisisID());
         

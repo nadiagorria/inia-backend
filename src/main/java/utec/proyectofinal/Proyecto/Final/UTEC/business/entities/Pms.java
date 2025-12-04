@@ -26,7 +26,7 @@ public class Pms extends Analisis {
     @OneToMany(mappedBy = "pms", cascade = CascadeType.ALL)
     private List<RepPms> repPms;
 
-    //@OneToMany(mappedBy = "pms", cascade = CascadeType.ALL, orphanRemoval = true)
-    //private List<RepPms> repPms = new ArrayList<>();
+    
+    
 
 }

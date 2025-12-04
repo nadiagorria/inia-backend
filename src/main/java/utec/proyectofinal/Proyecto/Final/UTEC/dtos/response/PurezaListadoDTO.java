@@ -13,12 +13,12 @@ public class PurezaListadoDTO {
     private LocalDateTime fechaFin;
     private String lote;
     private Long idLote;
-    private String especie; // Nombre de la especie del lote
+    private String especie; 
     private Boolean activo;
     
-    // Campos para mostrar en listado
-    private BigDecimal redonSemillaPura; // Pureza INIA (%)
-    private BigDecimal inasePura; // Pureza INASE (%)
+    
+    private BigDecimal redonSemillaPura; 
+    private BigDecimal inasePura; 
     
     private String usuarioCreador;
     private String usuarioModificador;

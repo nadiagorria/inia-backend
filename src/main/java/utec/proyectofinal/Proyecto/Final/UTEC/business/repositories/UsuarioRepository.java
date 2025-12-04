@@ -34,7 +34,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     boolean existsByEmailIgnoreCase(String email);
     boolean existsByRol(Rol rol);
     
-    // Búsqueda paginada con filtros de texto
+    
     @Query("SELECT u FROM Usuario u WHERE u.estado = :estado AND " +
            "(LOWER(u.nombre) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
            "LOWER(u.nombres) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
@@ -51,7 +51,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
            "LOWER(u.email) LIKE LOWER(CONCAT('%', :search, '%'))")
     Page<Usuario> findBySearchTerm(@Param("search") String search, Pageable pageable);
     
-    // Búsqueda paginada con filtro de rol
+    
     @Query("SELECT u FROM Usuario u WHERE u.rol = :rol AND " +
            "(LOWER(u.nombre) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
            "LOWER(u.nombres) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
@@ -61,7 +61,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                           @Param("rol") Rol rol, 
                                           Pageable pageable);
     
-    // Búsqueda paginada con filtro de activo
+    
     @Query("SELECT u FROM Usuario u WHERE u.activo = :activo AND " +
            "(LOWER(u.nombre) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
            "LOWER(u.nombres) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
@@ -71,7 +71,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                              @Param("search") String search, 
                                              Pageable pageable);
     
-    // Búsqueda paginada con filtro de rol y activo
+    
     @Query("SELECT u FROM Usuario u WHERE u.rol = :rol AND u.activo = :activo AND " +
            "(LOWER(u.nombre) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
            "LOWER(u.nombres) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
@@ -82,6 +82,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
                                                     @Param("search") String search, 
                                                     Pageable pageable);
     
-    // Filtro combinado: rol + activo (sin búsqueda)
+    
     Page<Usuario> findByRolAndActivo(Rol rol, Boolean activo, Pageable pageable);
 }

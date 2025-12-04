@@ -214,7 +214,7 @@ public class ImportacionLegadoService {
             return null;
         }
         
-        // Parsear el valor (quitar código si existe, ej: "207 - Planta de Procesamiento" -> "Planta de Procesamiento")
+        
         String valor = parsearValorCatalogo(valorCompleto);
         
         // Buscar si ya existe
@@ -241,7 +241,7 @@ public class ImportacionLegadoService {
             return null;
         }
         
-        // Parsear el nombre (quitar código, ej: "1517 - RAIGRAS" -> "RAIGRAS")
+        
         String nombreComun = parsearValorCatalogo(nombreCompletoEspecie);
         
         // Normalizar el nombre (trim y quitar espacios múltiples)
@@ -255,7 +255,6 @@ public class ImportacionLegadoService {
         }
         
         // 2. Búsqueda flexible: el nombre de la BD puede contener el nombre buscado
-        // Ejemplo: buscamos "Avena blanca" y en BD está "Avena blanca / Avena amarilla"
         List<Especie> coincidencias = especieRepository.buscarPorNombreComunInicio(nombreComun);
         if (!coincidencias.isEmpty()) {
             log.debug("Especie encontrada (búsqueda por inicio): {} -> {}", nombreComun, coincidencias.get(0).getNombreComun());
@@ -263,7 +262,7 @@ public class ImportacionLegadoService {
         }
         
         // 3. Búsqueda aún más flexible: buscar por palabras clave
-        // Si buscamos "RAIGRAS" debería encontrar "Raigrás"
+        
         String nombreSinAcentos = removerAcentos(nombreComun);
         for (Especie especie : especieRepository.findByActivoTrue()) {
             String nombreBD = removerAcentos(especie.getNombreComun());
@@ -442,7 +441,7 @@ public class ImportacionLegadoService {
         return legado;
     }
 
-    // ==================== MÉTODOS AUXILIARES ====================
+    // MÉTODOS AUXILIARES
 
     /**
      * Parsea un valor de catálogo eliminando el código inicial
@@ -593,7 +592,7 @@ public class ImportacionLegadoService {
                 if (dateStr.isEmpty()) {
                     return null;
                 }
-                // Formato esperado: d/M/yyyy (ej: 7/11/2005)
+                // Formato esperado: d/M/yyyy
                 String[] parts = dateStr.split("/");
                 if (parts.length == 3) {
                     int day = Integer.parseInt(parts[0]);

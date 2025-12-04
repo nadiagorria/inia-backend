@@ -23,7 +23,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.dtos.request.PmsRedondeoRequestDTO
 import utec.proyectofinal.Proyecto.Final.UTEC.dtos.response.PmsDTO;
 import utec.proyectofinal.Proyecto.Final.UTEC.services.PmsService;
 
-// CORS configurado globalmente en WebSecurityConfig
+
 @RestController
 @RequestMapping("/api/pms")
 @Tag(name = "PMS", description = "API para gestión del análisis de Peso de Mil Semillas")
@@ -33,7 +33,7 @@ public class PmsController {
     @Autowired
     private PmsService pmsService;
 
-    // Crear nuevo Pms
+    
     @Operation(summary = "Crear análisis de peso de mil semillas (PMS)", 
               description = "Crea un nuevo análisis de peso de mil semillas (PMS)")
     @PreAuthorize("hasRole('ANALISTA') or hasRole('ADMIN')")
@@ -43,7 +43,7 @@ public class PmsController {
         return ResponseEntity.status(HttpStatus.CREATED).body(creado);
     }
 
-    // Obtener todos los Pms activos
+    
     @Operation(summary = "Listar todos los análisis de peso de mil semillas (PMS)", 
               description = "Obtiene todos los análisis de peso de mil semillas (PMS) activos")
     @PreAuthorize("hasRole('ANALISTA') or hasRole('ADMIN') or hasRole('OBSERVADOR')")
@@ -53,7 +53,7 @@ public class PmsController {
         return ResponseEntity.ok(lista);
     }
 
-    // Obtener Pms por ID
+    
     @Operation(summary = "Obtener análisis de peso de mil semillas (PMS) por ID", 
               description = "Obtiene un análisis de peso de mil semillas (PMS) específico por su ID")
     @PreAuthorize("hasRole('ANALISTA') or hasRole('ADMIN') or hasRole('OBSERVADOR')")
@@ -63,7 +63,7 @@ public class PmsController {
         return ResponseEntity.ok(dto);
     }
     
-    // Obtener PMS con paginado para listado
+    
     @Operation(summary = "Obtener PMS paginadas", 
               description = "Obtiene la lista paginada de análisis de PMS para el listado")
     @PreAuthorize("hasRole('ANALISTA') or hasRole('ADMIN') or hasRole('OBSERVADOR')")
@@ -80,7 +80,7 @@ public class PmsController {
         return ResponseEntity.ok(response);
     }
 
-    // Actualizar Pms
+    
     @Operation(summary = "Actualizar análisis de peso de mil semillas (PMS)", 
               description = "Actualiza un análisis de peso de mil semillas (PMS) existente")
     @PreAuthorize("hasRole('ANALISTA') or hasRole('ADMIN')")
@@ -90,7 +90,7 @@ public class PmsController {
         return ResponseEntity.ok(actualizado);
     }
 
-    // Eliminar Pms (cambiar estado a INACTIVO)
+    
     @Operation(summary = "Eliminar análisis de peso de mil semillas (PMS)", 
               description = "Elimina (cambia a inactivo) un análisis de peso de mil semillas (PMS) existente")
     @PreAuthorize("hasRole('ANALISTA') or hasRole('ADMIN')")
@@ -100,7 +100,7 @@ public class PmsController {
         return ResponseEntity.noContent().build();
     }
 
-    // Desactivar PMS (soft delete)
+    
     @Operation(summary = "Desactivar análisis PMS", 
               description = "Desactiva un análisis PMS (cambiar activo a false)")
     @PreAuthorize("hasRole('ADMIN')")
@@ -110,7 +110,7 @@ public class PmsController {
         return ResponseEntity.ok().build();
     }
 
-    // Reactivar PMS
+    
     @Operation(summary = "Reactivar análisis PMS", 
               description = "Reactiva un análisis PMS desactivado (solo administradores)")
     @PreAuthorize("hasRole('ADMIN')")
@@ -120,7 +120,7 @@ public class PmsController {
         return ResponseEntity.ok(pmsReactivado);
     }
 
-    // Obtener Pms por Lote
+    
     @Operation(summary = "Obtener análisis de peso de mil semillas (PMS) por ID de lote", 
               description = "Obtiene todos los análisis de peso de mil semillas (PMS) asociados a un lote específico")
     @PreAuthorize("hasRole('ANALISTA') or hasRole('ADMIN') or hasRole('OBSERVADOR')")
@@ -130,7 +130,7 @@ public class PmsController {
         return ResponseEntity.ok(lista);
     }
 
-    // Actualizar PMS con valor redondeado (solo cuando todas las repeticiones estén completas)
+    
     @Operation(summary = "Actualizar análisis de peso de mil semillas (PMS) con redondeo", 
               description = "Actualiza un análisis de peso de mil semillas (PMS) existente con valores redondeados")
     @PreAuthorize("hasRole('ANALISTA') or hasRole('ADMIN')")
@@ -140,7 +140,7 @@ public class PmsController {
         return ResponseEntity.ok(actualizado);
     }
 
-    // Finalizar análisis PMS
+    
     @Operation(summary = "Finalizar análisis de peso de mil semillas (PMS)", 
               description = "Finaliza un análisis de peso de mil semillas (PMS), marcándolo como completado")
     @PreAuthorize("hasRole('ANALISTA') or hasRole('ADMIN')")
@@ -150,7 +150,7 @@ public class PmsController {
         return ResponseEntity.ok(analisisFinalizado);
     }
 
-    // Aprobar análisis (solo admin)
+    
     @Operation(summary = "Aprobar análisis de peso de mil semillas (PMS)", 
               description = "Aprueba un análisis de peso de mil semillas (PMS) - solo administradores")
     @PreAuthorize("hasRole('ADMIN')")
@@ -160,7 +160,7 @@ public class PmsController {
         return ResponseEntity.ok(analisisAprobado);
     }
 
-    // Marcar análisis para repetir (solo admin)
+    
     @Operation(summary = "Marcar análisis de peso de mil semillas (PMS) para repetir", 
               description = "Marca un análisis de peso de mil semillas (PMS) para repetir - solo administradores")
     @PreAuthorize("hasRole('ADMIN')")

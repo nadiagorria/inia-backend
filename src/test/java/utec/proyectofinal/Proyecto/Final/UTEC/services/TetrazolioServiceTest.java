@@ -79,7 +79,7 @@ class TetrazolioServiceTest {
 
     @BeforeEach
     void setUp() {
-        // ARRANGE: Preparar datos de prueba
+        
         lote = new Lote();
         lote.setLoteID(1L);
         lote.setNomLote("LOTE-TEST-001");
@@ -106,14 +106,14 @@ class TetrazolioServiceTest {
     @Test
     @DisplayName("Crear tetrazolio - debe asignar estado REGISTRADO")
     void crearTetrazolio_debeAsignarEstadoRegistrado() {
-        // ARRANGE
+        
         when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));
         when(tetrazolioRepository.save(any(Tetrazolio.class))).thenReturn(tetrazolio);
 
-        // ACT
+        
         TetrazolioDTO resultado = tetrazolioService.crearTetrazolio(tetrazolioRequestDTO);
 
-        // ASSERT
+        
         assertNotNull(resultado, "El resultado no debe ser nulo");
         verify(tetrazolioRepository, times(1)).save(any(Tetrazolio.class));
         verify(analisisHistorialService, times(1)).registrarCreacion(any(Tetrazolio.class));
@@ -122,10 +122,10 @@ class TetrazolioServiceTest {
     @Test
     @DisplayName("Crear tetrazolio sin repeticiones esperadas - debe lanzar excepción")
     void crearTetrazolio_sinRepeticionesEsperadas_debeLanzarExcepcion() {
-        // ARRANGE
+        
         tetrazolioRequestDTO.setNumRepeticionesEsperadas(null);
 
-        // ACT & ASSERT
+        
         assertThrows(RuntimeException.class, () -> {
             tetrazolioService.crearTetrazolio(tetrazolioRequestDTO);
         }, "Debe lanzar excepción cuando no se especifican repeticiones esperadas");
@@ -134,10 +134,10 @@ class TetrazolioServiceTest {
     @Test
     @DisplayName("Crear tetrazolio con repeticiones = 0 - debe lanzar excepción")
     void crearTetrazolio_conRepeticionesCero_debeLanzarExcepcion() {
-        // ARRANGE
+        
         tetrazolioRequestDTO.setNumRepeticionesEsperadas(0);
 
-        // ACT & ASSERT
+        
         assertThrows(RuntimeException.class, () -> {
             tetrazolioService.crearTetrazolio(tetrazolioRequestDTO);
         }, "Debe lanzar excepción cuando repeticiones = 0");
@@ -146,11 +146,11 @@ class TetrazolioServiceTest {
     @Test
     @DisplayName("Crear tetrazolio con lote inactivo - debe lanzar excepción")
     void crearTetrazolio_conLoteInactivo_debeLanzarExcepcion() {
-        // ARRANGE
+        
         lote.setActivo(false);
         when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));
 
-        // ACT & ASSERT
+        
         assertThrows(RuntimeException.class, () -> {
             tetrazolioService.crearTetrazolio(tetrazolioRequestDTO);
         }, "Debe lanzar excepción cuando el lote está inactivo");
@@ -174,7 +174,7 @@ class TetrazolioServiceTest {
     @Test
     @DisplayName("finalizarAnalisis Tetrazolio - completa sin lanzar excepciones")
     void finalizarTetrazolio_conDatosCompletos_noFalla() {
-        // Mock AnalisisService.finalizarAnalisisGenerico to invoke the mapper
+        
         when(analisisService.finalizarAnalisisGenerico(eq(1L), eq(tetrazolioRepository), any(), any()))
             .thenAnswer(invocation -> {
                 java.util.function.Function<Tetrazolio, TetrazolioDTO> mapper = invocation.getArgument(2);
@@ -190,7 +190,7 @@ class TetrazolioServiceTest {
     @Test
     @DisplayName("aprobarAnalisis Tetrazolio - completa con mock de AnalisisService")
     void aprobarTetrazolio_conAnalisisServiceMock_noFalla() {
-        // Mock AnalisisService.aprobarAnalisisGenerico to invoke the mapper
+        
         when(analisisService.aprobarAnalisisGenerico(eq(1L), eq(tetrazolioRepository), any(), any(), any()))
             .thenAnswer(invocation -> {
                 java.util.function.Function<Tetrazolio, TetrazolioDTO> mapper = invocation.getArgument(2);
@@ -206,7 +206,7 @@ class TetrazolioServiceTest {
     @Test
     @DisplayName("marcarParaRepetir Tetrazolio - completa con mock de AnalisisService")
     void marcarParaRepetirTetrazolio_conAnalisisServiceMock_noFalla() {
-        // Mock AnalisisService.marcarParaRepetirGenerico to invoke the mapper
+        
         when(analisisService.marcarParaRepetirGenerico(eq(1L), eq(tetrazolioRepository), any(), any()))
             .thenAnswer(invocation -> {
                 java.util.function.Function<Tetrazolio, TetrazolioDTO> mapper = invocation.getArgument(2);
@@ -222,13 +222,13 @@ class TetrazolioServiceTest {
     @Test
     @DisplayName("Obtener tetrazolio por ID - debe retornar el análisis si existe")
     void obtenerTetrazolioPorId_cuandoExiste_debeRetornarTetrazolio() {
-        // ARRANGE
+        
         when(tetrazolioRepository.findById(1L)).thenReturn(Optional.of(tetrazolio));
 
-        // ACT
+        
         TetrazolioDTO resultado = tetrazolioService.obtenerTetrazolioPorId(1L);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertEquals(1L, resultado.getAnalisisID());
         assertEquals(4, resultado.getNumRepeticionesEsperadas());
@@ -238,20 +238,20 @@ class TetrazolioServiceTest {
     @Test
     @DisplayName("Desactivar tetrazolio - debe cambiar activo a false")
     void desactivarTetrazolio_debeCambiarActivoAFalse() {
-        // ARRANGE
+        
         doNothing().when(analisisService).desactivarAnalisis(anyLong(), any());
 
-        // ACT
+        
         tetrazolioService.desactivarTetrazolio(1L);
 
-        // ASSERT
+        
         verify(analisisService, times(1)).desactivarAnalisis(eq(1L), any());
     }
 
     @Test
     @DisplayName("actualizarPorcentajesRedondeados - con repeticiones completas actualiza correctamente")
     void actualizarPorcentajesRedondeados_conRepeticionesCompletas_actualiza() {
-        // ARRANGE
+        
         tetrazolio.setNumRepeticionesEsperadas(4);
         PorcentajesRedondeadosRequestDTO request = new PorcentajesRedondeadosRequestDTO();
         request.setPorcViablesRedondeo(new BigDecimal("85.5"));
@@ -259,13 +259,13 @@ class TetrazolioServiceTest {
         request.setPorcDurasRedondeo(new BigDecimal("4.3"));
         
         when(tetrazolioRepository.findById(1L)).thenReturn(Optional.of(tetrazolio));
-        when(repeticionRepository.countByTetrazolioId(1L)).thenReturn(4L); // 4 de 4 esperadas
+        when(repeticionRepository.countByTetrazolioId(1L)).thenReturn(4L); 
         when(tetrazolioRepository.save(any(Tetrazolio.class))).thenReturn(tetrazolio);
         
-        // ACT
+        
         TetrazolioDTO resultado = tetrazolioService.actualizarPorcentajesRedondeados(1L, request);
         
-        // ASSERT
+        
         assertNotNull(resultado);
         verify(tetrazolioRepository, times(1)).save(any(Tetrazolio.class));
         verify(repeticionRepository, times(1)).countByTetrazolioId(1L);
@@ -274,15 +274,15 @@ class TetrazolioServiceTest {
     @Test
     @DisplayName("actualizarPorcentajesRedondeados - con repeticiones incompletas lanza excepción")
     void actualizarPorcentajesRedondeados_repeticionesIncompletas_lanzaExcepcion() {
-        // ARRANGE
+        
         tetrazolio.setNumRepeticionesEsperadas(4);
         PorcentajesRedondeadosRequestDTO request = new PorcentajesRedondeadosRequestDTO();
         request.setPorcViablesRedondeo(new BigDecimal("85.5"));
         
         when(tetrazolioRepository.findById(1L)).thenReturn(Optional.of(tetrazolio));
-        when(repeticionRepository.countByTetrazolioId(1L)).thenReturn(2L); // Solo 2 de 4 esperadas
+        when(repeticionRepository.countByTetrazolioId(1L)).thenReturn(2L); 
         
-        // ACT & ASSERT
+        
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             tetrazolioService.actualizarPorcentajesRedondeados(1L, request);
         });
@@ -294,7 +294,7 @@ class TetrazolioServiceTest {
     @Test
     @DisplayName("obtenerTetrazoliosPaginadasConFiltro - filtro 'activos'")
     void obtenerTetrazoliosPaginadasConFiltro_activos() {
-        // ARRANGE
+        
         Pageable pageable = PageRequest.of(0, 10);
         Page<Tetrazolio> tetrazolioPage = new PageImpl<>(Arrays.asList(tetrazolio));
         
@@ -303,10 +303,10 @@ class TetrazolioServiceTest {
         when(analisisHistorialService.obtenerHistorialAnalisis(anyLong()))
             .thenReturn(Collections.emptyList());
         
-        // ACT
+        
         var resultado = tetrazolioService.obtenerTetrazoliosPaginadasConFiltro(pageable, "activos");
         
-        // ASSERT
+        
         assertNotNull(resultado);
         assertEquals(1, resultado.getTotalElements());
         verify(tetrazolioRepository, times(1)).findByActivoTrueOrderByFechaInicioDesc(pageable);
@@ -315,7 +315,7 @@ class TetrazolioServiceTest {
     @Test
     @DisplayName("obtenerTetrazoliosPaginadasConFiltro - filtro 'inactivos'")
     void obtenerTetrazoliosPaginadasConFiltro_inactivos() {
-        // ARRANGE
+        
         Pageable pageable = PageRequest.of(0, 10);
         tetrazolio.setActivo(false);
         Page<Tetrazolio> tetrazolioPage = new PageImpl<>(Arrays.asList(tetrazolio));
@@ -325,10 +325,10 @@ class TetrazolioServiceTest {
         when(analisisHistorialService.obtenerHistorialAnalisis(anyLong()))
             .thenReturn(Collections.emptyList());
         
-        // ACT
+        
         var resultado = tetrazolioService.obtenerTetrazoliosPaginadasConFiltro(pageable, "inactivos");
         
-        // ASSERT
+        
         assertNotNull(resultado);
         assertEquals(1, resultado.getTotalElements());
         verify(tetrazolioRepository, times(1)).findByActivoFalseOrderByFechaInicioDesc(pageable);
@@ -337,7 +337,7 @@ class TetrazolioServiceTest {
     @Test
     @DisplayName("obtenerTetrazoliosPaginadasConFiltro - filtro 'todos'")
     void obtenerTetrazoliosPaginadasConFiltro_todos() {
-        // ARRANGE
+        
         Pageable pageable = PageRequest.of(0, 10);
         Page<Tetrazolio> tetrazolioPage = new PageImpl<>(Arrays.asList(tetrazolio));
         
@@ -346,10 +346,10 @@ class TetrazolioServiceTest {
         when(analisisHistorialService.obtenerHistorialAnalisis(anyLong()))
             .thenReturn(Collections.emptyList());
         
-        // ACT
+        
         var resultado = tetrazolioService.obtenerTetrazoliosPaginadasConFiltro(pageable, "todos");
         
-        // ASSERT
+        
         assertNotNull(resultado);
         assertEquals(1, resultado.getTotalElements());
         verify(tetrazolioRepository, times(1)).findAllByOrderByFechaInicioDesc(pageable);
@@ -358,7 +358,7 @@ class TetrazolioServiceTest {
     @Test
     @DisplayName("mapearEntidadAListadoDTO - con cultivar y especie completos")
     void mapearEntidadAListadoDTO_conCultivarYEspecie() {
-        // ARRANGE
+        
         Especie especie = new Especie();
         especie.setNombreComun("Trigo");
         especie.setNombreCientifico("Triticum aestivum");
@@ -388,11 +388,11 @@ class TetrazolioServiceTest {
         when(analisisHistorialService.obtenerHistorialAnalisis(1L))
             .thenReturn(historial);
         
-        // ACT
+        
         var resultado = tetrazolioService.obtenerTetrazoliosPaginadasConFiltro(pageable, "activos");
         var dto = resultado.getContent().get(0);
         
-        // ASSERT
+        
         assertNotNull(dto);
         assertEquals("Trigo", dto.getEspecie());
         assertEquals("LOTE-TEST-001", dto.getLote());
@@ -403,9 +403,9 @@ class TetrazolioServiceTest {
     @Test
     @DisplayName("mapearEntidadAListadoDTO - con especie usando nombreCientifico cuando nombreComun está vacío")
     void mapearEntidadAListadoDTO_especieConNombreCientifico() {
-        // ARRANGE
+        
         Especie especie = new Especie();
-        especie.setNombreComun(""); // Vacío
+        especie.setNombreComun(""); 
         especie.setNombreCientifico("Triticum aestivum");
         
         Cultivar cultivar = new Cultivar();
@@ -422,11 +422,11 @@ class TetrazolioServiceTest {
         when(analisisHistorialService.obtenerHistorialAnalisis(anyLong()))
             .thenReturn(Collections.emptyList());
         
-        // ACT
+        
         var resultado = tetrazolioService.obtenerTetrazoliosPaginadasConFiltro(pageable, "activos");
         var dto = resultado.getContent().get(0);
         
-        // ASSERT
+        
         assertNotNull(dto);
         assertEquals("Triticum aestivum", dto.getEspecie());
     }
@@ -434,7 +434,7 @@ class TetrazolioServiceTest {
     @Test
     @DisplayName("validarCompletitudRepeticiones - con todas las repeticiones creadas no lanza excepción")
     void validarCompletitudRepeticiones_completadas_noLanzaExcepcion() {
-        // ARRANGE
+        
         tetrazolio.setNumRepeticionesEsperadas(4);
         
         when(tetrazolioRepository.findById(1L)).thenReturn(Optional.of(tetrazolio));
@@ -444,7 +444,7 @@ class TetrazolioServiceTest {
         PorcentajesRedondeadosRequestDTO request = new PorcentajesRedondeadosRequestDTO();
         request.setPorcViablesRedondeo(new BigDecimal("85.0"));
         
-        // ACT & ASSERT - no debe lanzar excepción
+        
         assertDoesNotThrow(() -> {
             tetrazolioService.actualizarPorcentajesRedondeados(1L, request);
         });
@@ -453,7 +453,7 @@ class TetrazolioServiceTest {
     @Test
     @DisplayName("validarEvidenciaAntesDeFinalizar - con repeticiones no lanza excepción")
     void validarEvidenciaAntesDeFinalizar_conRepeticiones_noLanzaExcepcion() {
-        // ARRANGE
+        
         tetrazolio.setNumRepeticionesEsperadas(2);
         
         List<RepTetrazolioViabilidad> repeticiones = new ArrayList<>();
@@ -463,17 +463,17 @@ class TetrazolioServiceTest {
         
         when(analisisService.finalizarAnalisisGenerico(eq(1L), eq(tetrazolioRepository), any(), any()))
             .thenAnswer(invocation -> {
-                // Ejecutar el validador (cuarto parámetro)
+                
                 java.util.function.Consumer<Tetrazolio> validator = invocation.getArgument(3);
                 validator.accept(tetrazolio);
                 
-                // Retornar DTO mapeado
+                
                 java.util.function.Function<Tetrazolio, TetrazolioDTO> mapper = invocation.getArgument(2);
                 return mapper.apply(tetrazolio);
             });
         when(repeticionRepository.countByTetrazolioId(1L)).thenReturn(2L);
         
-        // ACT & ASSERT
+        
         assertDoesNotThrow(() -> {
             tetrazolioService.finalizarAnalisis(1L);
         });
@@ -482,24 +482,24 @@ class TetrazolioServiceTest {
     @Test
     @DisplayName("validarEvidenciaAntesDeFinalizar - con porcentajes válidos no lanza excepción")
     void validarEvidenciaAntesDeFinalizar_conPorcentajes_noLanzaExcepcion() {
-        // ARRANGE
+        
         tetrazolio.setNumRepeticionesEsperadas(2);
-        tetrazolio.setRepeticiones(Collections.emptyList()); // Sin repeticiones
-        tetrazolio.setPorcViablesRedondeo(new BigDecimal("85.5")); // Pero con porcentaje > 0
+        tetrazolio.setRepeticiones(Collections.emptyList()); 
+        tetrazolio.setPorcViablesRedondeo(new BigDecimal("85.5")); 
         
         when(analisisService.finalizarAnalisisGenerico(eq(1L), eq(tetrazolioRepository), any(), any()))
             .thenAnswer(invocation -> {
-                // Ejecutar el validador
+                
                 java.util.function.Consumer<Tetrazolio> validator = invocation.getArgument(3);
                 validator.accept(tetrazolio);
                 
-                // Retornar DTO
+                
                 java.util.function.Function<Tetrazolio, TetrazolioDTO> mapper = invocation.getArgument(2);
                 return mapper.apply(tetrazolio);
             });
         when(repeticionRepository.countByTetrazolioId(1L)).thenReturn(2L);
         
-        // ACT & ASSERT
+        
         assertDoesNotThrow(() -> {
             tetrazolioService.finalizarAnalisis(1L);
         });
@@ -508,7 +508,7 @@ class TetrazolioServiceTest {
     @Test
     @DisplayName("validarEvidenciaAntesDeFinalizar - sin repeticiones ni porcentajes lanza excepción")
     void validarEvidenciaAntesDeFinalizar_sinEvidencia_lanzaExcepcion() {
-        // ARRANGE
+        
         tetrazolio.setNumRepeticionesEsperadas(2);
         tetrazolio.setRepeticiones(Collections.emptyList());
         tetrazolio.setPorcViablesRedondeo(null);
@@ -517,14 +517,14 @@ class TetrazolioServiceTest {
         
         when(analisisService.finalizarAnalisisGenerico(eq(1L), eq(tetrazolioRepository), any(), any()))
             .thenAnswer(invocation -> {
-                // Ejecutar el validador que debe lanzar excepción
+                
                 java.util.function.Consumer<Tetrazolio> validator = invocation.getArgument(3);
-                validator.accept(tetrazolio); // Esto lanzará RuntimeException
+                validator.accept(tetrazolio); 
                 return null;
             });
         when(repeticionRepository.countByTetrazolioId(1L)).thenReturn(2L);
         
-        // ACT & ASSERT
+        
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             tetrazolioService.finalizarAnalisis(1L);
         });
@@ -535,7 +535,7 @@ class TetrazolioServiceTest {
     @Test
     @DisplayName("Reactivar tetrazolio - debe cambiar activo a true")
     void reactivarTetrazolio_debeCambiarActivoATrue() {
-        // ARRANGE
+        
         tetrazolio.setActivo(false);
         TetrazolioDTO tetrazolioDTO = new TetrazolioDTO();
         tetrazolioDTO.setAnalisisID(1L);
@@ -544,10 +544,10 @@ class TetrazolioServiceTest {
         when(analisisService.reactivarAnalisis(eq(1L), eq(tetrazolioRepository), any()))
             .thenReturn(tetrazolioDTO);
         
-        // ACT
+        
         TetrazolioDTO resultado = tetrazolioService.reactivarTetrazolio(1L);
         
-        // ASSERT
+        
         assertNotNull(resultado);
         assertTrue(resultado.getActivo());
         verify(analisisService, times(1)).reactivarAnalisis(eq(1L), eq(tetrazolioRepository), any());
@@ -556,7 +556,7 @@ class TetrazolioServiceTest {
     @Test
     @DisplayName("obtenerTetrazoliosPaginadasConFiltros - con filtros dinámicos")
     void obtenerTetrazoliosPaginadasConFiltros_conFiltrosDinamicos() {
-        // ARRANGE
+        
         Pageable pageable = PageRequest.of(0, 10);
         Page<Tetrazolio> tetrazolioPage = new PageImpl<>(Arrays.asList(tetrazolio));
         
@@ -567,11 +567,11 @@ class TetrazolioServiceTest {
         when(analisisHistorialService.obtenerHistorialAnalisis(anyLong()))
             .thenReturn(Collections.emptyList());
         
-        // ACT
+        
         var resultado = tetrazolioService.obtenerTetrazoliosPaginadasConFiltros(
             pageable, "LOTE-001", true, "EN_PROCESO", 1L);
         
-        // ASSERT
+        
         assertNotNull(resultado);
         assertEquals(1, resultado.getTotalElements());
     }

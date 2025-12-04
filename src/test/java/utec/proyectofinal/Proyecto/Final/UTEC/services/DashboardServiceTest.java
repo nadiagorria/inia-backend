@@ -159,17 +159,17 @@ class DashboardServiceTest {
     @Test
     @DisplayName("Obtener estadísticas - debe retornar todas las métricas del dashboard")
     void obtenerEstadisticas_debeRetornarTodasLasMetricas() {
-        // ARRANGE
+        
         when(loteRepository.countLotesActivos()).thenReturn(25L);
         when(loteService.contarAnalisisPendientes()).thenReturn(12L);
         when(analisisRepository.countCompletadosEnFecha(any(LocalDate.class), eq(Estado.APROBADO)))
             .thenReturn(5L);
         when(analisisRepository.countByEstado(Estado.PENDIENTE_APROBACION)).thenReturn(8L);
 
-        // ACT
+        
         DashboardStatsDTO resultado = dashboardService.obtenerEstadisticas();
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertEquals(25L, resultado.getLotesActivos());
         assertEquals(12L, resultado.getAnalisisPendientes());
@@ -185,17 +185,17 @@ class DashboardServiceTest {
     @Test
     @DisplayName("Obtener estadísticas sin datos - debe retornar ceros")
     void obtenerEstadisticas_sinDatos_debeRetornarCeros() {
-        // ARRANGE
+        
         when(loteRepository.countLotesActivos()).thenReturn(0L);
         when(loteService.contarAnalisisPendientes()).thenReturn(0L);
         when(analisisRepository.countCompletadosEnFecha(any(LocalDate.class), eq(Estado.APROBADO)))
             .thenReturn(0L);
         when(analisisRepository.countByEstado(Estado.PENDIENTE_APROBACION)).thenReturn(0L);
 
-        // ACT
+        
         DashboardStatsDTO resultado = dashboardService.obtenerEstadisticas();
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertEquals(0L, resultado.getLotesActivos());
         assertEquals(0L, resultado.getAnalisisPendientes());
@@ -206,7 +206,7 @@ class DashboardServiceTest {
     @Test
     @DisplayName("Listar análisis pendientes paginados - debe retornar página correcta")
     void listarAnalisisPendientesPaginados_debeRetornarPaginaCorrecta() {
-        // ARRANGE
+        
         Pageable pageable = PageRequest.of(0, 10);
         Page<AnalisisPendienteProjection> proyeccionesPage = 
             new PageImpl<>(Arrays.asList(analisisPendienteProjection));
@@ -214,10 +214,10 @@ class DashboardServiceTest {
         when(analisisPendienteRepository.findAllPaginado(any(Pageable.class)))
             .thenReturn(proyeccionesPage);
 
-        // ACT
+        
         Page<AnalisisPendienteDTO> resultado = dashboardService.listarAnalisisPendientesPaginados(pageable);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertEquals(1, resultado.getTotalElements());
         assertEquals(1, resultado.getContent().size());
@@ -236,17 +236,17 @@ class DashboardServiceTest {
     @Test
     @DisplayName("Listar análisis pendientes vacío - debe retornar página vacía")
     void listarAnalisisPendientesPaginados_vacio_debeRetornarPaginaVacia() {
-        // ARRANGE
+        
         Pageable pageable = PageRequest.of(0, 10);
         Page<AnalisisPendienteProjection> proyeccionesPage = Page.empty();
         
         when(analisisPendienteRepository.findAllPaginado(any(Pageable.class)))
             .thenReturn(proyeccionesPage);
 
-        // ACT
+        
         Page<AnalisisPendienteDTO> resultado = dashboardService.listarAnalisisPendientesPaginados(pageable);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertEquals(0, resultado.getTotalElements());
         assertTrue(resultado.getContent().isEmpty());
@@ -255,7 +255,7 @@ class DashboardServiceTest {
     @Test
     @DisplayName("Listar análisis por aprobar paginados - debe retornar página correcta")
     void listarAnalisisPorAprobarPaginados_debeRetornarPaginaCorrecta() {
-        // ARRANGE
+        
         Pageable pageable = PageRequest.of(0, 10);
         Page<AnalisisPorAprobarProjection> proyeccionesPage = 
             new PageImpl<>(Arrays.asList(analisisPorAprobarProjection));
@@ -263,10 +263,10 @@ class DashboardServiceTest {
         when(analisisPorAprobarRepository.findAllPaginado(any(Pageable.class)))
             .thenReturn(proyeccionesPage);
 
-        // ACT
+        
         Page<AnalisisPorAprobarDTO> resultado = dashboardService.listarAnalisisPorAprobarPaginados(pageable);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertEquals(1, resultado.getTotalElements());
         assertEquals(1, resultado.getContent().size());
@@ -284,17 +284,17 @@ class DashboardServiceTest {
     @Test
     @DisplayName("Listar análisis por aprobar vacío - debe retornar página vacía")
     void listarAnalisisPorAprobarPaginados_vacio_debeRetornarPaginaVacia() {
-        // ARRANGE
+        
         Pageable pageable = PageRequest.of(0, 10);
         Page<AnalisisPorAprobarProjection> proyeccionesPage = Page.empty();
         
         when(analisisPorAprobarRepository.findAllPaginado(any(Pageable.class)))
             .thenReturn(proyeccionesPage);
 
-        // ACT
+        
         Page<AnalisisPorAprobarDTO> resultado = dashboardService.listarAnalisisPorAprobarPaginados(pageable);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertEquals(0, resultado.getTotalElements());
         assertTrue(resultado.getContent().isEmpty());
@@ -303,17 +303,17 @@ class DashboardServiceTest {
     @Test
     @DisplayName("Obtener estadísticas debe calcular correctamente completados hoy")
     void obtenerEstadisticas_debeCalcularCompletadosHoyCorrectamente() {
-        // ARRANGE
+        
         LocalDate hoy = LocalDate.now();
         when(loteRepository.countLotesActivos()).thenReturn(10L);
         when(loteService.contarAnalisisPendientes()).thenReturn(5L);
         when(analisisRepository.countCompletadosEnFecha(hoy, Estado.APROBADO)).thenReturn(3L);
         when(analisisRepository.countByEstado(Estado.PENDIENTE_APROBACION)).thenReturn(2L);
 
-        // ACT
+        
         DashboardStatsDTO resultado = dashboardService.obtenerEstadisticas();
 
-        // ASSERT
+        
         assertEquals(3L, resultado.getCompletadosHoy());
         verify(analisisRepository, times(1)).countCompletadosEnFecha(hoy, Estado.APROBADO);
     }
@@ -321,7 +321,7 @@ class DashboardServiceTest {
     @Test
     @DisplayName("Análisis pendientes debe incluir todos los tipos de análisis")
     void listarAnalisisPendientes_debeIncluirTodosLosTipos() {
-        // ARRANGE
+        
         Pageable pageable = PageRequest.of(0, 10);
         Page<AnalisisPendienteProjection> proyeccionesPage = 
             new PageImpl<>(Arrays.asList(analisisPendienteProjection));
@@ -329,10 +329,10 @@ class DashboardServiceTest {
         when(analisisPendienteRepository.findAllPaginado(pageable))
             .thenReturn(proyeccionesPage);
 
-        // ACT
+        
         Page<AnalisisPendienteDTO> resultado = dashboardService.listarAnalisisPendientesPaginados(pageable);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertFalse(resultado.getContent().isEmpty());
         // Verificar que el tipo de análisis se mapea correctamente

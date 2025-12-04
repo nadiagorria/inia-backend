@@ -24,7 +24,7 @@ public interface EspecieRepository extends JpaRepository<Especie, Long> {
     
     Optional<Especie> findByNombreComun(String nombreComun);
     
-    // Búsqueda insensible a mayúsculas/minúsculas
+    
     Optional<Especie> findByNombreComunIgnoreCase(String nombreComun);
     
     /**
@@ -43,7 +43,7 @@ public interface EspecieRepository extends JpaRepository<Especie, Long> {
     @Query("SELECT e FROM Especie e WHERE LOWER(e.nombreComun) LIKE LOWER(CONCAT(:nombreComun, '%')) AND e.activo = true")
     List<Especie> buscarPorNombreComunInicio(@Param("nombreComun") String nombreComun);
     
-    // Métodos paginados para listado
+    
     Page<Especie> findByActivoTrueOrderByNombreComunAsc(Pageable pageable);
     
     Page<Especie> findByActivoFalseOrderByNombreComunAsc(Pageable pageable);

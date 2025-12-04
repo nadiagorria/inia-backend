@@ -15,7 +15,7 @@ public interface PmsRepository extends JpaRepository<Pms, Long>, JpaSpecificatio
     List<Pms> findByEstadoNot(Estado estado);
     List<Pms> findByEstado(Estado estado);
     
-    // Buscar por activo
+    
     List<Pms> findByActivoTrue();
 
     @Query("SELECT p FROM Pms p WHERE p.lote.loteID = :idLote")
@@ -23,14 +23,14 @@ public interface PmsRepository extends JpaRepository<Pms, Long>, JpaSpecificatio
     
     List<Pms> findByLoteLoteID(Long loteID);
     
-    // Métodos eficientes para validaciones
+    
     boolean existsByLoteLoteID(Long loteID);
     boolean existsByLoteLoteIDAndEstado(Long loteID, Estado estado);
 
-    // Pageable
+    
     Page<Pms> findByEstadoNotOrderByFechaInicioDesc(Estado estado, Pageable pageable);
     
-    // Filtrado por activo
+    
     Page<Pms> findByActivoTrueOrderByFechaInicioDesc(Pageable pageable);
     Page<Pms> findByActivoFalseOrderByFechaInicioDesc(Pageable pageable);
     Page<Pms> findAllByOrderByFechaInicioDesc(Pageable pageable);

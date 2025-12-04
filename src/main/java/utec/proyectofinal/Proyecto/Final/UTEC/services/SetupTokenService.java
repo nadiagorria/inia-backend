@@ -38,12 +38,12 @@ public class SetupTokenService {
     private static final int TOKEN_EXPIRY_MINUTES = 5;
     private static final long TOKEN_EXPIRY_MS = TOKEN_EXPIRY_MINUTES * 60 * 1000;
     
-    // Misma clave que JwtUtil para consistencia
+    
     private final String JWT_SECRET = "@Z9@vQ3!pL8#wX7^tR2&nG6*yM4$eB1(dF0)sH5%kJ3&uY8*rE4#wQ1@zX6^nM9$";
     private final SecretKey secretKey = Keys.hmacShaKeyFor(JWT_SECRET.getBytes(StandardCharsets.UTF_8));
     
     // Blacklist de tokens usados (previene reutilización)
-    // En producción multi-instancia, usar Redis o base de datos compartida
+    
     private final ConcurrentHashMap<String, Long> tokenBlacklist = new ConcurrentHashMap<>();
     
     /**
@@ -84,10 +84,10 @@ public class SetupTokenService {
         // Generar token JWT firmado
         String token = Jwts.builder()
                 .claims(claims)
-                .id(tokenId) // jti claim
-                .issuedAt(now) // iat claim
-                .expiration(expiration) // exp claim
-                .signWith(getSigningKey()) // Firma HMAC-SHA256
+                .id(tokenId) 
+                .issuedAt(now) 
+                .expiration(expiration) 
+                .signWith(getSigningKey()) 
                 .compact();
         
         System.out.println("🎫 [SetupToken] Token JWT creado para usuario: " + nombre);

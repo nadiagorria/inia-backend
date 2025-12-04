@@ -23,7 +23,7 @@ public class ValoresGermService {
     @Autowired
     private AnalisisService analisisService;
 
-    // Obtener valores por ID
+    
     public ValoresGermDTO obtenerValoresPorId(Long id) {
         Optional<ValoresGerm> valores = valoresGermRepository.findById(id);
         if (valores.isPresent()) {
@@ -33,14 +33,14 @@ public class ValoresGermService {
         }
     }
 
-    // Actualizar valores existentes
+    
     public ValoresGermDTO actualizarValores(Long id, ValoresGermRequestDTO solicitud) {
         Optional<ValoresGerm> valoresExistentes = valoresGermRepository.findById(id);
         
         if (valoresExistentes.isPresent()) {
             ValoresGerm valores = valoresExistentes.get();
             
-            // Manejar edición de análisis finalizado según rol
+            
             analisisService.manejarEdicionAnalisisFinalizado(valores.getTablaGerm().getGerminacion());
             
             actualizarEntidadDesdeSolicitud(valores, solicitud);
@@ -52,7 +52,7 @@ public class ValoresGermService {
         }
     }
 
-    // Obtener valores por tabla e instituto
+    
     public ValoresGermDTO obtenerValoresPorTablaEInstituto(Long tablaId, Instituto instituto) {
         Optional<ValoresGerm> valores = valoresGermRepository.findByTablaGermIdAndInstituto(tablaId, instituto);
         if (valores.isPresent()) {
@@ -62,7 +62,7 @@ public class ValoresGermService {
         }
     }
 
-    // Obtener todos los valores de una tabla
+    
     public List<ValoresGermDTO> obtenerValoresPorTabla(Long tablaId) {
         List<ValoresGerm> valores = valoresGermRepository.findByTablaGermId(tablaId);
         return valores.stream()
@@ -70,17 +70,17 @@ public class ValoresGermService {
                 .collect(Collectors.toList());
     }
 
-    // Obtener valores de INIA para una tabla
+    
     public ValoresGermDTO obtenerValoresIniaPorTabla(Long tablaId) {
         return obtenerValoresPorTablaEInstituto(tablaId, Instituto.INIA);
     }
 
-    // Obtener valores de INASE para una tabla
+    
     public ValoresGermDTO obtenerValoresInasePorTabla(Long tablaId) {
         return obtenerValoresPorTablaEInstituto(tablaId, Instituto.INASE);
     }
 
-    // Eliminar valores (eliminar realmente)
+    
     public void eliminarValores(Long id) {
         Optional<ValoresGerm> valoresExistentes = valoresGermRepository.findById(id);
         
@@ -93,9 +93,9 @@ public class ValoresGermService {
         }
     }
 
-    // Actualizar Entity desde RequestDTO
+    
     private void actualizarEntidadDesdeSolicitud(ValoresGerm valores, ValoresGermRequestDTO solicitud) {
-        // Validar que la suma no supere 100 (excluyendo el campo germinacion)
+        
         validarSumaValores(solicitud, valores.getInstituto());
         
         valores.setNormales(solicitud.getNormales());
@@ -104,7 +104,7 @@ public class ValoresGermService {
         valores.setFrescas(solicitud.getFrescas());
         valores.setMuertas(solicitud.getMuertas());
         valores.setGerminacion(solicitud.getGerminacion());
-        // El instituto y la tablaGerm asociada no se cambian en actualizaciones
+        
     }
     
     /**
@@ -136,7 +136,7 @@ public class ValoresGermService {
         }
     }
 
-    // Mapear de Entity a DTO
+    
     private ValoresGermDTO mapearEntidadADTO(ValoresGerm valores) {
         ValoresGermDTO dto = new ValoresGermDTO();
         dto.setValoresGermID(valores.getValoresGermID());
@@ -148,7 +148,7 @@ public class ValoresGermService {
         dto.setGerminacion(valores.getGerminacion());
         dto.setInstituto(valores.getInstituto());
         
-        // Incluir ID de la tabla asociada
+        
         if (valores.getTablaGerm() != null) {
             dto.setTablaGermId(valores.getTablaGerm().getTablaGermID());
         }

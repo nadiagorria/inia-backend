@@ -26,7 +26,7 @@ import java.util.Base64;
 @Service
 public class TotpService {
 
-    private static final String ISSUER = "INIA"; // Nombre que aparece en Google Authenticator
+    private static final String ISSUER = "INIA"; 
     private final SecretGenerator secretGenerator;
     private final TimeProvider timeProvider;
     private final CodeGenerator codeGenerator;

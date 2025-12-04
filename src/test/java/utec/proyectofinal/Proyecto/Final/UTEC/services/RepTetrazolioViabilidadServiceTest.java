@@ -74,14 +74,14 @@ class RepTetrazolioViabilidadServiceTest {
     @Test
     @DisplayName("Crear repetición - debe crear exitosamente")
     void crearRepeticion_debeCrearExitosamente() {
-        // ARRANGE
+        
         when(tetrazolioRepository.findById(1L)).thenReturn(Optional.of(tetrazolio));
         when(repeticionRepository.save(any(RepTetrazolioViabilidad.class))).thenReturn(repTetrazolio);
 
-        // ACT
+        
         RepTetrazolioViabilidadDTO resultado = repeticionService.crearRepeticion(1L, requestDTO);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertEquals(20L, resultado.getRepTetrazolioViabID());
         assertEquals(85, resultado.getViablesNum());
@@ -93,10 +93,10 @@ class RepTetrazolioViabilidadServiceTest {
     @Test
     @DisplayName("Crear repetición - debe lanzar excepción si tetrazolio no existe")
     void crearRepeticion_debeLanzarExcepcionSiTetrazolioNoExiste() {
-        // ARRANGE
+        
         when(tetrazolioRepository.findById(999L)).thenReturn(Optional.empty());
 
-        // ACT & ASSERT
+        
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             repeticionService.crearRepeticion(999L, requestDTO);
         });
@@ -108,13 +108,13 @@ class RepTetrazolioViabilidadServiceTest {
     @Test
     @DisplayName("Obtener repetición por ID - debe retornar si existe")
     void obtenerRepeticionPorId_debeRetornarSiExiste() {
-        // ARRANGE
+        
         when(repeticionRepository.findById(20L)).thenReturn(Optional.of(repTetrazolio));
 
-        // ACT
+        
         RepTetrazolioViabilidadDTO resultado = repeticionService.obtenerRepeticionPorId(20L);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertEquals(20L, resultado.getRepTetrazolioViabID());
         assertEquals(85, resultado.getViablesNum());
@@ -124,10 +124,10 @@ class RepTetrazolioViabilidadServiceTest {
     @Test
     @DisplayName("Obtener repetición por ID - debe lanzar excepción si no existe")
     void obtenerRepeticionPorId_debeLanzarExcepcionSiNoExiste() {
-        // ARRANGE
+        
         when(repeticionRepository.findById(999L)).thenReturn(Optional.empty());
 
-        // ACT & ASSERT
+        
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             repeticionService.obtenerRepeticionPorId(999L);
         });
@@ -138,7 +138,7 @@ class RepTetrazolioViabilidadServiceTest {
     @Test
     @DisplayName("Actualizar repetición - debe actualizar correctamente")
     void actualizarRepeticion_debeActualizarCorrectamente() {
-        // ARRANGE
+        
         RepTetrazolioViabilidadRequestDTO updateDTO = new RepTetrazolioViabilidadRequestDTO();
         updateDTO.setFecha(LocalDate.of(2024, 1, 16));
         updateDTO.setViablesNum(90);
@@ -148,10 +148,10 @@ class RepTetrazolioViabilidadServiceTest {
         when(repeticionRepository.findById(20L)).thenReturn(Optional.of(repTetrazolio));
         when(repeticionRepository.save(any(RepTetrazolioViabilidad.class))).thenReturn(repTetrazolio);
 
-        // ACT
+        
         RepTetrazolioViabilidadDTO resultado = repeticionService.actualizarRepeticion(20L, updateDTO);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         verify(repeticionRepository, times(1)).save(any(RepTetrazolioViabilidad.class));
     }
@@ -159,10 +159,10 @@ class RepTetrazolioViabilidadServiceTest {
     @Test
     @DisplayName("Actualizar repetición - debe lanzar excepción si no existe")
     void actualizarRepeticion_debeLanzarExcepcionSiNoExiste() {
-        // ARRANGE
+        
         when(repeticionRepository.findById(999L)).thenReturn(Optional.empty());
 
-        // ACT & ASSERT
+        
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             repeticionService.actualizarRepeticion(999L, requestDTO);
         });
@@ -174,24 +174,24 @@ class RepTetrazolioViabilidadServiceTest {
     @Test
     @DisplayName("Eliminar repetición - debe eliminar correctamente")
     void eliminarRepeticion_debeEliminarCorrectamente() {
-        // ARRANGE
+        
         when(repeticionRepository.findById(20L)).thenReturn(Optional.of(repTetrazolio));
         doNothing().when(repeticionRepository).deleteById(20L);
 
-        // ACT
+        
         repeticionService.eliminarRepeticion(20L);
 
-        // ASSERT
+        
         verify(repeticionRepository, times(1)).deleteById(20L);
     }
 
     @Test
     @DisplayName("Eliminar repetición - debe lanzar excepción si no existe")
     void eliminarRepeticion_debeLanzarExcepcionSiNoExiste() {
-        // ARRANGE
+        
         when(repeticionRepository.findById(999L)).thenReturn(Optional.empty());
 
-        // ACT & ASSERT
+        
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             repeticionService.eliminarRepeticion(999L);
         });
@@ -203,7 +203,7 @@ class RepTetrazolioViabilidadServiceTest {
     @Test
     @DisplayName("Obtener repeticiones por tetrazolio - debe retornar lista")
     void obtenerRepeticionesPorTetrazolio_debeRetornarLista() {
-        // ARRANGE
+        
         RepTetrazolioViabilidad rep2 = new RepTetrazolioViabilidad();
         rep2.setRepTetrazolioViabID(21L);
         rep2.setViablesNum(88);
@@ -213,11 +213,11 @@ class RepTetrazolioViabilidadServiceTest {
         when(repeticionRepository.findByTetrazolioId(1L))
             .thenReturn(Arrays.asList(repTetrazolio, rep2));
 
-        // ACT
+        
         List<RepTetrazolioViabilidadDTO> resultado = 
             repeticionService.obtenerRepeticionesPorTetrazolio(1L);
 
-        // ASSERT
+        
         assertNotNull(resultado);
         assertEquals(2, resultado.size());
         assertEquals(20L, resultado.get(0).getRepTetrazolioViabID());
@@ -227,13 +227,13 @@ class RepTetrazolioViabilidadServiceTest {
     @Test
     @DisplayName("Contar repeticiones por tetrazolio - debe retornar cantidad")
     void contarRepeticionesPorTetrazolio_debeRetornarCantidad() {
-        // ARRANGE
+        
         when(repeticionRepository.countByTetrazolioId(1L)).thenReturn(4L);
 
-        // ACT
+        
         Long resultado = repeticionService.contarRepeticionesPorTetrazolio(1L);
 
-        // ASSERT
+        
         assertEquals(4L, resultado);
         verify(repeticionRepository, times(1)).countByTetrazolioId(1L);
     }
@@ -241,20 +241,20 @@ class RepTetrazolioViabilidadServiceTest {
     @Test
     @DisplayName("Validar suma de semillas - viables + noViables + duras debe ser correcto")
     void crearRepeticion_debeValidarSumaSemillas() {
-        // ARRANGE
+        
         requestDTO.setViablesNum(85);
         requestDTO.setNoViablesNum(10);
-        requestDTO.setDuras(10); // suma = 105, podría ser inválido dependiendo de numSemillas
+        requestDTO.setDuras(10); 
         
         when(tetrazolioRepository.findById(1L)).thenReturn(Optional.of(tetrazolio));
         when(repeticionRepository.save(any(RepTetrazolioViabilidad.class))).thenReturn(repTetrazolio);
 
-        // ACT - aquí depende de tu lógica de validación
-        // Si validas la suma, debería lanzar excepción
-        // Si no validas, debería crear normalmente
+        
+        
+        
         RepTetrazolioViabilidadDTO resultado = repeticionService.crearRepeticion(1L, requestDTO);
 
-        // ASSERT
+        
         assertNotNull(resultado);
     }
 }

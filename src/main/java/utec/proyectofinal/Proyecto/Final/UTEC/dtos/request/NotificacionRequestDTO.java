@@ -8,6 +8,6 @@ public class NotificacionRequestDTO {
     private String nombre;
     private String mensaje;
     private Long usuarioId;
-    private Long analisisId; // Opcional
+    private Long analisisId; 
     private TipoNotificacion tipo;
 }

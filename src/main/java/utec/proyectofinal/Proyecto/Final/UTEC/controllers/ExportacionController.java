@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-// CORS configurado globalmente en WebSecurityConfig
+
 @RestController
 @RequestMapping("/api/exportaciones")
 @Tag(name = "Exportaciones", description = "API para exportar datos de análisis de semillas")
@@ -42,7 +42,7 @@ public class ExportacionController {
         try {
             byte[] excelBytes = exportacionExcelService.generarReporteExcel(loteIds);
             
-            // Generar nombre de archivo con timestamp
+            
             String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
             String filename = "analisis_semillas_" + timestamp + ".xlsx";
             
@@ -78,7 +78,7 @@ public class ExportacionController {
             List<Long> loteIds = List.of(loteId);
             byte[] excelBytes = exportacionExcelService.generarReporteExcel(loteIds);
             
-            // Generar nombre de archivo con el ID del lote
+            
             String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
             String filename = "analisis_lote_" + loteId + "_" + timestamp + ".xlsx";
             
@@ -117,7 +117,7 @@ public class ExportacionController {
             
             byte[] excelBytes = exportacionExcelService.generarReporteExcel(loteIds);
             
-            // Generar nombre de archivo con timestamp
+            
             String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
             String filename = "analisis_seleccionados_" + timestamp + ".xlsx";
             
@@ -152,7 +152,7 @@ public class ExportacionController {
         try {
             byte[] excelBytes = exportacionExcelService.generarReporteExcelAvanzado(solicitud);
             
-            // Generar nombre de archivo con timestamp
+            
             String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
             String filename = "analisis_filtrado_" + timestamp + ".xlsx";
             

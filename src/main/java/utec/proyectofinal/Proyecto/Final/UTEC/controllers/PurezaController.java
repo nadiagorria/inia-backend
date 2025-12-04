@@ -24,7 +24,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.dtos.response.PurezaDTO;
 import utec.proyectofinal.Proyecto.Final.UTEC.responses.ResponseListadoPureza;
 import utec.proyectofinal.Proyecto.Final.UTEC.services.PurezaService;
 
-// CORS configurado globalmente en WebSecurityConfig
+
 @RestController
 @RequestMapping("/api/purezas")
 @Tag(name = "Pureza", description = "API para gestión del análisis de pureza")
@@ -34,7 +34,7 @@ public class PurezaController {
     @Autowired
     private PurezaService purezaService;
 
-    // Crear nueva Pureza
+    
     @Operation(summary = "Crear análisis de pureza", 
               description = "Crea un nuevo análisis de pureza con numeroRepeticiones y numeroConteos definidos")
     @PreAuthorize("hasRole('ANALISTA') or hasRole('ADMIN')")
@@ -45,7 +45,7 @@ public class PurezaController {
     }
 
 
-    // Obtener Pureza por ID
+    
     @Operation(summary = "Obtener pureza por ID", 
               description = "Obtiene un análisis de pureza específico por su ID")
     @PreAuthorize("hasRole('ANALISTA') or hasRole('ADMIN') or hasRole('OBSERVADOR')")
@@ -55,7 +55,7 @@ public class PurezaController {
         return ResponseEntity.ok(pureza);
     }
 
-    // Actualizar Pureza
+    
     @Operation(summary = "Actualizar análisis de pureza", 
               description = "Actualiza un análisis de pureza existente")    
     @PreAuthorize("hasRole('ANALISTA') or hasRole('ADMIN')")
@@ -66,7 +66,7 @@ public class PurezaController {
     }
 
 
-    // Desactivar Pureza (soft delete)
+    
     @Operation(summary = "Desactivar análisis de pureza", 
               description = "Desactiva un análisis de pureza (cambiar activo a false)")
     @PreAuthorize("hasRole('ADMIN')")
@@ -76,7 +76,7 @@ public class PurezaController {
         return ResponseEntity.ok().build();
     }
 
-    // Reactivar Pureza
+    
     @Operation(summary = "Reactivar análisis de pureza", 
               description = "Reactiva un análisis de pureza desactivado (solo administradores)")
     @PreAuthorize("hasRole('ADMIN')")
@@ -86,7 +86,7 @@ public class PurezaController {
         return ResponseEntity.ok(purezaReactivada);
     }
 
-    // Obtener Purezas por Lote
+    
     @Operation(summary = "Obtener purezas por lote", 
               description = "Obtiene todos los análisis de pureza asociados a un lote específico")
     @PreAuthorize("hasRole('ANALISTA') or hasRole('ADMIN') or hasRole('OBSERVADOR')")
@@ -96,7 +96,7 @@ public class PurezaController {
         return ResponseEntity.ok(purezas);
     }
 
-    // Obtener Purezas con paginado para listado
+    
     @Operation(summary = "Obtener purezas paginadas", 
               description = "Obtiene la lista paginada de análisis de pureza para el listado")
     @PreAuthorize("hasRole('ANALISTA') or hasRole('ADMIN') or hasRole('OBSERVADOR')")
@@ -115,7 +115,7 @@ public class PurezaController {
     }
 
 
-    // Finalizar análisis de pureza
+    
     @Operation(summary = "Finalizar análisis de pureza", 
               description = "Finaliza un análisis de pureza cambiando su estado a FINALIZADO")
     @PreAuthorize("hasRole('ANALISTA') or hasRole('ADMIN')")
@@ -125,7 +125,7 @@ public class PurezaController {
         return ResponseEntity.ok(analisisFinalizado);
     }
 
-    // Aprobar análisis (solo admin)
+    
     @Operation(summary = "Aprobar análisis de pureza", 
               description = "Aprueba un análisis de pureza, cambiando su estado a APROBADO (solo administradores)")
     @PreAuthorize("hasRole('ADMIN')")
@@ -135,7 +135,7 @@ public class PurezaController {
         return ResponseEntity.ok(analisisAprobado);
     }
 
-    // Marcar análisis para repetir (solo admin)
+    
     @Operation(summary = "Marcar análisis de pureza para repetir", 
               description = "Marca un análisis de pureza para repetir - solo administradores")
     @PreAuthorize("hasRole('ADMIN')")

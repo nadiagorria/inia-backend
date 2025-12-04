@@ -21,7 +21,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.ImportacionLegadoService;
 /**
  * Controlador para la importación de datos legados desde Excel
  */
-// CORS configurado globalmente en WebSecurityConfig
+
 @RestController
 @RequestMapping("/api/importacion")
 @Tag(name = "Importación Legado", description = "API para importar datos históricos desde Excel")
@@ -50,7 +50,7 @@ public class ImportacionLegadoController {
         log.info("Iniciando validación de archivo: {}", archivo.getOriginalFilename());
         
         try {
-            // Validar que el archivo no esté vacío
+            
             if (archivo.isEmpty()) {
                 ImportacionLegadoResponseDTO response = new ImportacionLegadoResponseDTO();
                 response.setExitoso(false);
@@ -58,7 +58,7 @@ public class ImportacionLegadoController {
                 return ResponseEntity.badRequest().body(response);
             }
             
-            // Validar extensión del archivo
+            
             String nombreArchivo = archivo.getOriginalFilename();
             if (nombreArchivo == null || 
                 (!nombreArchivo.endsWith(".xlsx") && !nombreArchivo.endsWith(".xls"))) {
@@ -68,7 +68,7 @@ public class ImportacionLegadoController {
                 return ResponseEntity.badRequest().body(response);
             }
             
-            // Procesar validación
+            
             ImportacionLegadoResponseDTO resultado = importacionService.importarDesdeExcel(archivo, true);
             
             return ResponseEntity.ok(resultado);
@@ -102,7 +102,7 @@ public class ImportacionLegadoController {
         log.info("Iniciando importación de archivo: {}", archivo.getOriginalFilename());
         
         try {
-            // Validar que el archivo no esté vacío
+            
             if (archivo.isEmpty()) {
                 ImportacionLegadoResponseDTO response = new ImportacionLegadoResponseDTO();
                 response.setExitoso(false);
@@ -110,7 +110,7 @@ public class ImportacionLegadoController {
                 return ResponseEntity.badRequest().body(response);
             }
             
-            // Validar extensión del archivo
+            
             String nombreArchivo = archivo.getOriginalFilename();
             if (nombreArchivo == null || 
                 (!nombreArchivo.endsWith(".xlsx") && !nombreArchivo.endsWith(".xls"))) {
@@ -120,7 +120,7 @@ public class ImportacionLegadoController {
                 return ResponseEntity.badRequest().body(response);
             }
             
-            // Procesar importación
+            
             ImportacionLegadoResponseDTO resultado = importacionService.importarDesdeExcel(archivo, false);
             
             if (resultado.getExitoso()) {

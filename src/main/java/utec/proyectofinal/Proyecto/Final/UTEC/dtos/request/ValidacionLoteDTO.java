@@ -6,5 +6,5 @@ import lombok.Data;
 public class ValidacionLoteDTO {
     private String ficha;
     private String nomLote;
-    private Long loteID; // Para excluir el lote actual en caso de edición
+    private Long loteID; 
 }

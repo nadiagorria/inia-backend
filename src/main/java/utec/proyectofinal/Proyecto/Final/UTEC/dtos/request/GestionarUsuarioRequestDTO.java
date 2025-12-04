@@ -6,7 +6,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.enums.Rol;
 
 @Data
 public class GestionarUsuarioRequestDTO {
-    private Rol rol;                    // Nuevo rol (opcional)
-    private EstadoUsuario estado;       // Nuevo estado (opcional)
-    private Boolean activo;             // Estado activo/inactivo (opcional)
+    private Rol rol;                    
+    private EstadoUsuario estado;       
+    private Boolean activo;             
 }

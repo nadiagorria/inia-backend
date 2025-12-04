@@ -7,5 +7,5 @@ import lombok.Data;
  */
 @Data
 public class ForgotPasswordRequestDTO {
-    private String email;  // Email del usuario que olvidó su contraseña
+    private String email;  
 }

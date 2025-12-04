@@ -19,7 +19,7 @@ public class ContactoService {
     @Autowired
     private ContactoRepository contactoRepository;
 
-    // Obtener todos los contactos activos
+    
     public List<ContactoDTO> obtenerTodosLosContactos() {
         return contactoRepository.findByActivoTrue()
                 .stream()
@@ -27,7 +27,7 @@ public class ContactoService {
                 .collect(Collectors.toList());
     }
 
-    // Obtener contactos por tipo
+    
     public List<ContactoDTO> obtenerContactosPorTipo(TipoContacto tipo) {
         return contactoRepository.findByTipoAndActivoTrue(tipo)
                 .stream()
@@ -35,10 +35,10 @@ public class ContactoService {
                 .collect(Collectors.toList());
     }
 
-    // Obtener contactos por tipo con filtro de estado opcional
+    
     public List<ContactoDTO> obtenerContactosPorTipo(TipoContacto tipo, Boolean activo) {
         if (activo == null) {
-            // Devolver todos (activos e inactivos)
+            
             return contactoRepository.findByTipo(tipo)
                     .stream()
                     .map(this::mapearEntidadADTO)
@@ -56,34 +56,34 @@ public class ContactoService {
         }
     }
 
-    // Obtener solo clientes activos
+    
     public List<ContactoDTO> obtenerClientes() {
         return obtenerContactosPorTipo(TipoContacto.CLIENTE);
     }
 
-    // Obtener clientes con filtro de estado opcional
+    
     public List<ContactoDTO> obtenerClientes(Boolean activo) {
         return obtenerContactosPorTipo(TipoContacto.CLIENTE, activo);
     }
 
-    // Obtener solo empresas activas
+    
     public List<ContactoDTO> obtenerEmpresas() {
         return obtenerContactosPorTipo(TipoContacto.EMPRESA);
     }
 
-    // Obtener empresas con filtro de estado opcional
+    
     public List<ContactoDTO> obtenerEmpresas(Boolean activo) {
         return obtenerContactosPorTipo(TipoContacto.EMPRESA, activo);
     }
 
-    // Obtener contacto por ID
+    
     public ContactoDTO obtenerContactoPorId(Long contactoID) {
         Contacto contacto = contactoRepository.findByContactoIDAndActivoTrue(contactoID)
                 .orElseThrow(() -> new RuntimeException("Contacto no encontrado con ID: " + contactoID));
         return mapearEntidadADTO(contacto);
     }
 
-    // Crear nuevo contacto
+    
     public ContactoDTO crearContacto(ContactoRequestDTO contactoRequestDTO) {
         validarDatosContacto(contactoRequestDTO, null);
         
@@ -94,7 +94,7 @@ public class ContactoService {
         return mapearEntidadADTO(contactoGuardado);
     }
 
-    // Actualizar contacto existente
+    
     public ContactoDTO actualizarContacto(Long contactoID, ContactoRequestDTO contactoRequestDTO) {
         Contacto contacto = contactoRepository.findByContactoIDAndActivoTrue(contactoID)
                 .orElseThrow(() -> new RuntimeException("Contacto no encontrado con ID: " + contactoID));
@@ -107,7 +107,7 @@ public class ContactoService {
         return mapearEntidadADTO(contactoActualizado);
     }
 
-    // Eliminar contacto (soft delete)
+    
     public void eliminarContacto(Long contactoID) {
         Contacto contacto = contactoRepository.findByContactoIDAndActivoTrue(contactoID)
                 .orElseThrow(() -> new RuntimeException("Contacto no encontrado con ID: " + contactoID));
@@ -116,7 +116,7 @@ public class ContactoService {
         contactoRepository.save(contacto);
     }
 
-    // Reactivar contacto
+    
     public ContactoDTO reactivarContacto(Long contactoID) {
         Contacto contacto = contactoRepository.findById(contactoID)
                 .orElseThrow(() -> new RuntimeException("Contacto no encontrado con ID: " + contactoID));
@@ -130,7 +130,7 @@ public class ContactoService {
         return mapearEntidadADTO(contactoReactivado);
     }
 
-    // Buscar contactos por nombre
+    
     public List<ContactoDTO> buscarContactosPorNombre(String nombre) {
         return contactoRepository.findByNombreContainingIgnoreCaseAndActivoTrue(nombre)
                 .stream()
@@ -138,7 +138,7 @@ public class ContactoService {
                 .collect(Collectors.toList());
     }
 
-    // Buscar contactos por nombre y tipo
+    
     public List<ContactoDTO> buscarContactosPorNombreYTipo(String nombre, TipoContacto tipo) {
         return contactoRepository.findByNombreContainingIgnoreCaseAndTipoAndActivoTrue(nombre, tipo)
                 .stream()
@@ -146,34 +146,34 @@ public class ContactoService {
                 .collect(Collectors.toList());
     }
 
-    // Buscar clientes por nombre
+    
     public List<ContactoDTO> buscarClientes(String nombre) {
         return buscarContactosPorNombreYTipo(nombre, TipoContacto.CLIENTE);
     }
 
-    // Buscar empresas por nombre
+    
     public List<ContactoDTO> buscarEmpresas(String nombre) {
         return buscarContactosPorNombreYTipo(nombre, TipoContacto.EMPRESA);
     }
 
-    // Validar datos de contacto
+    
     private void validarDatosContacto(ContactoRequestDTO contactoRequestDTO, Long contactoIDExcluir) {
-        // Validar nombre requerido
+        
         if (contactoRequestDTO.getNombre() == null || contactoRequestDTO.getNombre().trim().isEmpty()) {
             throw new RuntimeException("El nombre del contacto es requerido");
         }
 
-        // Validar contacto requerido
+        
         if (contactoRequestDTO.getContacto() == null || contactoRequestDTO.getContacto().trim().isEmpty()) {
             throw new RuntimeException("La información de contacto es requerida");
         }
 
-        // Validar tipo requerido
+        
         if (contactoRequestDTO.getTipo() == null) {
             throw new RuntimeException("El tipo de contacto es requerido");
         }
 
-        // Validar unicidad del nombre para el tipo específico
+        
         if (contactoIDExcluir != null) {
             if (contactoRepository.existsByNombreIgnoreCaseAndTipoAndContactoIDNot(
                     contactoRequestDTO.getNombre(), contactoRequestDTO.getTipo(), contactoIDExcluir)) {
@@ -187,7 +187,7 @@ public class ContactoService {
         }
     }
 
-    // Mapear solicitud a entidad
+    
     private Contacto mapearSolicitudAEntidad(ContactoRequestDTO dto, Contacto contacto) {
         contacto.setNombre(dto.getNombre());
         contacto.setContacto(dto.getContacto());
@@ -195,7 +195,7 @@ public class ContactoService {
         return contacto;
     }
 
-    // Mapear entidad a DTO
+    
     private ContactoDTO mapearEntidadADTO(Contacto contacto) {
         ContactoDTO dto = new ContactoDTO();
         dto.setContactoID(contacto.getContactoID());
@@ -206,7 +206,7 @@ public class ContactoService {
         return dto;
     }
 
-    // Obtener entidad por ID para uso interno
+    
     public Contacto obtenerEntidadPorId(Long contactoID) {
         return contactoRepository.findByContactoIDAndActivoTrue(contactoID).orElse(null);
     }
@@ -229,9 +229,9 @@ public class ContactoService {
         
         Page<Contacto> contactoPage;
         
-        // Si hay tipo específico
+        
         if (tipo != null) {
-            // Si hay búsqueda
+            
             if (searchTerm != null && !searchTerm.trim().isEmpty()) {
                 List<Contacto> contactos;
                 if (activo == null) {
@@ -242,19 +242,19 @@ public class ContactoService {
                     contactos = contactoRepository.findByTipoAndActivoFalse(tipo);
                 }
                 
-                // Filtrar por término de búsqueda
+                
                 contactos = contactos.stream()
                     .filter(c -> (c.getNombre() != null && c.getNombre().toLowerCase().contains(searchTerm.toLowerCase())) ||
                                  (c.getContacto() != null && c.getContacto().toLowerCase().contains(searchTerm.toLowerCase())))
                     .collect(Collectors.toList());
                 
-                // Convertir lista a página
+                
                 int start = (int) pageable.getOffset();
                 int end = Math.min(start + pageable.getPageSize(), contactos.size());
                 List<Contacto> pageContent = contactos.subList(start, end);
                 contactoPage = new org.springframework.data.domain.PageImpl<>(pageContent, pageable, contactos.size());
             } else {
-                // Sin búsqueda, solo filtro de activo y tipo
+                
                 if (activo == null) {
                     contactoPage = contactoRepository.findByTipoOrderByNombreAsc(tipo, pageable);
                 } else if (activo) {
@@ -264,7 +264,7 @@ public class ContactoService {
                 }
             }
         } else {
-            // Sin tipo específico
+            
             if (searchTerm != null && !searchTerm.trim().isEmpty()) {
                 List<Contacto> contactos;
                 if (activo == null) {
@@ -277,19 +277,19 @@ public class ContactoService {
                         .collect(Collectors.toList());
                 }
                 
-                // Filtrar por término de búsqueda
+                
                 contactos = contactos.stream()
                     .filter(c -> (c.getNombre() != null && c.getNombre().toLowerCase().contains(searchTerm.toLowerCase())) ||
                                  (c.getContacto() != null && c.getContacto().toLowerCase().contains(searchTerm.toLowerCase())))
                     .collect(Collectors.toList());
                 
-                // Convertir lista a página
+                
                 int start = (int) pageable.getOffset();
                 int end = Math.min(start + pageable.getPageSize(), contactos.size());
                 List<Contacto> pageContent = contactos.subList(start, end);
                 contactoPage = new org.springframework.data.domain.PageImpl<>(pageContent, pageable, contactos.size());
             } else {
-                // Sin búsqueda ni tipo, solo filtro de activo
+                
                 if (activo == null) {
                     contactoPage = contactoRepository.findAllByOrderByNombreAsc(pageable);
                 } else if (activo) {

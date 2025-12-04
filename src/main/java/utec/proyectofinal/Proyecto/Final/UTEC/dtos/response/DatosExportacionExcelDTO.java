@@ -8,21 +8,21 @@ import java.math.BigDecimal;
 @Data
 public class DatosExportacionExcelDTO {
     
-    // Datos básicos del lote
+    
     private String especie;
     private String variedad;
     private String lote;
     private String deposito;
     private String numeroArticulo;
     private String numeroAnalisis;
-    private String numeroFicha;  // Mantener por compatibilidad
-    private String nombreLote;    //  NUEVO: Nombre del lote
+    private String numeroFicha;  
+    private String nombreLote;    
     private String kilos;
     
-    // Datos de humedad
+    
     private BigDecimal humedad;
     
-    // Datos de Pureza INIA
+    
     private BigDecimal purezaSemillaPura;
     private BigDecimal purezaMateriaInerte;
     private BigDecimal purezaOtrosCultivos;
@@ -30,7 +30,7 @@ public class DatosExportacionExcelDTO {
     private BigDecimal purezaMalezasToleradas;
     private BigDecimal purezaMalezasToleranciaC;
     
-    // Datos de Pureza INASE
+    
     private BigDecimal purezaInaseSemillaPura;
     private BigDecimal purezaInaseMateriaInerte;
     private BigDecimal purezaInaseOtrosCultivos;
@@ -38,40 +38,40 @@ public class DatosExportacionExcelDTO {
     private BigDecimal purezaInaseMalezasToleradas;
     private BigDecimal purezaInaseMalezasToleranciaC;
     
-    // Descripción de malezas y otros cultivos (INIA)
+    
     private String descripcionMalezas;
     private String descripcionOtrosCultivos;
     private String descripcionMalezasToleradas;
     private String descripcionMalezasToleranciaC;
     
-    // Descripción de malezas y otros cultivos (INASE)
+    
     private String descripcionInaseMalezas;
     private String descripcionInaseOtrosCultivos;
     private String descripcionInaseMalezasToleradas;
     private String descripcionInaseMalezasToleranciaC;
     
-    // DOSN (INIA)
-    private String dosnOtrosCultivos;           // OC
-    private String dosnMalezas;                 // M
-    private String dosnMalezasToleradas;        // MT
-    private String dosnMalezasToleranciaC;   // MTC (Malezas Tolerancia Cero)
-    private String dosnBrassica;                // DB (Brassica)
     
-    // DOSN-I (INASE)
-    private String dosnInaseOtrosCultivos;      // OC
-    private String dosnInaseMalezas;            // M
-    private String dosnInaseMalezasToleradas;   // MT
-    private String dosnInaseMalezasToleranciaC; // MTC (Malezas Tolerancia Cero)
-    private String dosnInaseBrassica;           // DB (Brassica)
+    private String dosnOtrosCultivos;           
+    private String dosnMalezas;                 
+    private String dosnMalezasToleradas;        
+    private String dosnMalezasToleranciaC;   
+    private String dosnBrassica;                
     
-    // PMS
+    
+    private String dosnInaseOtrosCultivos;      
+    private String dosnInaseMalezas;            
+    private String dosnInaseMalezasToleradas;   
+    private String dosnInaseMalezasToleranciaC; 
+    private String dosnInaseBrassica;           
+    
+    
     private BigDecimal pms;
     
-    // Fecha de análisis y tratamiento de semillas
+    
     private LocalDate fechaAnalisis;
     private String tratamientoSemillas;
     
-    // Datos de Germinación INIA
+    
     private BigDecimal germinacionPlantulasNormales;
     private BigDecimal germinacionPlantulasAnormales;
     private BigDecimal germinacionSemillasDeterioras;
@@ -79,7 +79,7 @@ public class DatosExportacionExcelDTO {
     private BigDecimal germinacionSemillasMuertas;
     private BigDecimal germinacionTotal;
     
-    // Datos de Germinación INASE
+    
     private BigDecimal germinacionInasePlantulasNormales;
     private BigDecimal germinacionInasePlantulasAnormales;
     private BigDecimal germinacionInaseSemillasDeterioras;
@@ -87,7 +87,7 @@ public class DatosExportacionExcelDTO {
     private BigDecimal germinacionInaseSemillasMuertas;
     private BigDecimal germinacionInaseTotal;
     
-    // Viabilidad tetrazolio
+    
     private BigDecimal viabilidadPorcentaje;
     private BigDecimal viabilidadInasePorcentaje;
 }

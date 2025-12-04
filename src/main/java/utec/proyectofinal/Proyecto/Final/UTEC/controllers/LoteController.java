@@ -30,7 +30,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.enums.TipoAnalisis;
 import utec.proyectofinal.Proyecto.Final.UTEC.responses.ResponseListadoLoteSimple;
 import utec.proyectofinal.Proyecto.Final.UTEC.services.LoteService;
 
-// CORS configurado globalmente en WebSecurityConfig
+
 @RestController
 @RequestMapping("/api/lotes")
 @Tag(name = "Lotes", description = "API para gestión de lotes de semillas")
@@ -40,7 +40,7 @@ public class LoteController {
     @Autowired
     private LoteService loteService;
 
-    // Validar campos únicos
+    
     @PostMapping("/validar-campos")
     @Operation(summary = "Validar campos únicos", description = "Valida si la ficha y nombre de lote ya existen")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA')")
@@ -49,7 +49,7 @@ public class LoteController {
         return ResponseEntity.ok(resultado);
     }
 
-    // Crear nuevo Lote
+    
     @PostMapping
     @Operation(summary = "Crear lote", description = "Crea un nuevo lote de semillas")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA')")
@@ -58,7 +58,7 @@ public class LoteController {
         return ResponseEntity.status(HttpStatus.CREATED).body(loteCreado);
     }
 
-    // Obtener todos los Lotes activos (listado simple)
+    
     @GetMapping("/activos")
     @Operation(summary = "Listar lotes activos", description = "Obtiene todos los lotes activos")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
@@ -67,7 +67,7 @@ public class LoteController {
         return ResponseEntity.ok(respuesta);
     }
 
-    // Obtener todos los Lotes inactivos (listado simple)
+    
     @GetMapping("/inactivos")
     @Operation(summary = "Listar lotes inactivos", description = "Obtiene todos los lotes inactivos")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
@@ -76,7 +76,7 @@ public class LoteController {
         return ResponseEntity.ok(respuesta);
     }
 
-    // Obtener Lote por ID (completo)
+    
     @GetMapping("/{id}")
     @Operation(summary = "Obtener lote por ID", description = "Obtiene un lote específico por su ID")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
@@ -85,7 +85,7 @@ public class LoteController {
         return ResponseEntity.ok(lote);
     }
 
-    // Obtener Lotes con paginado para listado
+    
     @GetMapping("/listado")
     @Operation(summary = "Obtener lotes paginadas con filtros", description = "Obtiene la lista paginada de lotes con soporte para búsqueda y filtros")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
@@ -98,7 +98,7 @@ public class LoteController {
         return ResponseEntity.ok(response);
     }
     
-    // Obtener estadísticas de lotes
+    
     @GetMapping("/estadisticas")
     @Operation(summary = "Obtener estadísticas de lotes", description = "Obtiene el conteo total de lotes, activos e inactivos")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
@@ -107,7 +107,7 @@ public class LoteController {
         return ResponseEntity.ok(stats);
     }
 
-    // Actualizar Lote
+    
     @PutMapping("/{id}")
     @Operation(summary = "Actualizar lote", description = "Actualiza un lote existente")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA')")
@@ -116,7 +116,7 @@ public class LoteController {
         return ResponseEntity.ok(loteActualizado);
     }
 
-    // Eliminar Lote (cambiar activo a false)
+    
     @DeleteMapping("/{id}")
     @Operation(summary = "Eliminar lote", description = "Desactiva un lote (cambiar activo a false)")
     @PreAuthorize("hasRole('ADMIN')")
@@ -125,7 +125,7 @@ public class LoteController {
         return ResponseEntity.ok().build();
     }
 
-    // Reactivar Lote (cambiar activo a true)
+    
     @PutMapping("/{id}/reactivar")
     @Operation(summary = "Reactivar lote", description = "Reactiva un lote desactivado (solo administradores)")
     @PreAuthorize("hasRole('ADMIN')")
@@ -134,7 +134,7 @@ public class LoteController {
         return ResponseEntity.ok(loteReactivado);
     }
     
-    // Obtener lotes elegibles para un tipo de análisis específico
+    
     @GetMapping("/elegibles/{tipoAnalisis}")
     @Operation(summary = "Obtener lotes elegibles para análisis", description = "Obtiene lotes que pueden tener análisis del tipo especificado")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')")
@@ -144,7 +144,7 @@ public class LoteController {
         return ResponseEntity.ok(lotes);
     }
     
-    // Verificar si se puede remover un tipo de análisis de un lote
+    
     @GetMapping("/{loteID}/puede-remover-tipo/{tipoAnalisis}")
     @Operation(summary = "Verificar si se puede remover tipo de análisis", description = "Verifica si un tipo de análisis puede ser removido de un lote específico")
     @PreAuthorize("hasRole('ADMIN') or hasRole('ANALISTA')")

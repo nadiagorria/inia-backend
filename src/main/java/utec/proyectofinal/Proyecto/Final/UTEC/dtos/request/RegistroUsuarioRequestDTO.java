@@ -4,9 +4,9 @@ import lombok.Data;
 
 @Data
 public class RegistroUsuarioRequestDTO {
-    private String nombre;         // username único
-    private String nombres;        // nombre(s) de pila
-    private String apellidos;      // apellidos
-    private String email;          // email único
-    private String contrasenia;    // contraseña
+    private String nombre;         
+    private String nombres;        
+    private String apellidos;      
+    private String email;          
+    private String contrasenia;    
 }
