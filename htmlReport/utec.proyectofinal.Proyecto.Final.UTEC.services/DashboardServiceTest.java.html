@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DashboardServiceTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">DashboardServiceTest.java</span></div><h1>DashboardServiceTest.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DashboardServiceTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">DashboardServiceTest.java</span></div><h1>DashboardServiceTest.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -7,8 +7,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import utec.proyectofinal.Proyecto.Final.UTEC.dtos.CursorPageResponse;
-import utec.proyectofinal.Proyecto.Final.UTEC.dtos.KeysetCursor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -34,21 +32,10 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
-/**
- * Tests unitarios para DashboardService
- * 
- * Funcionalidades testeadas:
- * - Obtención de estadísticas del dashboard
- * - Conteo de lotes activos
- * - Conteo de análisis pendientes
- * - Conteo de análisis completados hoy
- * - Conteo de análisis por aprobar
- * - Listado paginado de análisis pendientes
- * - Listado paginado de análisis por aprobar
- */
+
 @ExtendWith(MockitoExtension.class)
 @DisplayName(&quot;Tests de DashboardService&quot;)
-<span class="fc" id="L51">class DashboardServiceTest {</span>
+<span class="fc" id="L38">class DashboardServiceTest {</span>
 
     @Mock
     private LoteRepository loteRepository;
@@ -74,269 +61,237 @@ import static org.mockito.Mockito.*;
     @BeforeEach
     void setUp() {
         // ARRANGE: Preparar datos de prueba
-<span class="fc" id="L77">        analisisPendienteProjection = new AnalisisPendienteProjection() {</span>
+<span class="fc" id="L64">        analisisPendienteProjection = new AnalisisPendienteProjection() {</span>
             @Override
-<span class="fc" id="L79">            public Long getLoteID() { return 1L; }</span>
+<span class="fc" id="L66">            public Long getLoteID() { return 1L; }</span>
             
             @Override
-<span class="fc" id="L82">            public String getNomLote() { return &quot;LOTE-001&quot;; }</span>
+<span class="fc" id="L69">            public String getNomLote() { return &quot;LOTE-001&quot;; }</span>
             
             @Override
-<span class="fc" id="L85">            public String getFicha() { return &quot;F-001&quot;; }</span>
+<span class="fc" id="L72">            public String getFicha() { return &quot;F-001&quot;; }</span>
             
             @Override
-<span class="fc" id="L88">            public String getEspecieNombre() { return &quot;Trigo&quot;; }</span>
+<span class="fc" id="L75">            public String getEspecieNombre() { return &quot;Trigo&quot;; }</span>
             
             @Override
-<span class="fc" id="L91">            public String getCultivarNombre() { return &quot;Cultivar 1&quot;; }</span>
+<span class="fc" id="L78">            public String getCultivarNombre() { return &quot;Cultivar 1&quot;; }</span>
             
             @Override
-<span class="fc" id="L94">            public String getTipoAnalisis() { return &quot;PUREZA&quot;; }</span>
+<span class="fc" id="L81">            public String getTipoAnalisis() { return &quot;PUREZA&quot;; }</span>
         };
 
-<span class="fc" id="L97">        analisisPorAprobarProjection = new AnalisisPorAprobarProjection() {</span>
+<span class="fc" id="L84">        analisisPorAprobarProjection = new AnalisisPorAprobarProjection() {</span>
             @Override
-<span class="fc" id="L99">            public Long getAnalisisID() { return 1L; }</span>
+<span class="fc" id="L86">            public Long getAnalisisID() { return 1L; }</span>
             
             @Override
-<span class="fc" id="L102">            public String getTipoAnalisis() { return &quot;GERMINACION&quot;; }</span>
+<span class="fc" id="L89">            public String getTipoAnalisis() { return &quot;GERMINACION&quot;; }</span>
             
             @Override
-<span class="fc" id="L105">            public Long getLoteID() { return 1L; }</span>
+<span class="fc" id="L92">            public Long getLoteID() { return 1L; }</span>
             
             @Override
-<span class="fc" id="L108">            public String getNomLote() { return &quot;LOTE-001&quot;; }</span>
+<span class="fc" id="L95">            public String getNomLote() { return &quot;LOTE-001&quot;; }</span>
             
             @Override
-<span class="fc" id="L111">            public String getFicha() { return &quot;F-001&quot;; }</span>
+<span class="fc" id="L98">            public String getFicha() { return &quot;F-001&quot;; }</span>
             
             @Override
-<span class="fc" id="L114">            public String getFechaInicio() { return &quot;2024-01-01 10:00:00&quot;; }</span>
+<span class="fc" id="L101">            public String getFechaInicio() { return &quot;2024-01-01 10:00:00&quot;; }</span>
             
             @Override
-<span class="fc" id="L117">            public String getFechaFin() { return &quot;2024-01-08 10:00:00&quot;; }</span>
+<span class="fc" id="L104">            public String getFechaFin() { return &quot;2024-01-08 10:00:00&quot;; }</span>
             
             @Override
-<span class="nc" id="L120">            public String getEspecieNombre() { return &quot;Trigo&quot;; }</span>
+<span class="nc" id="L107">            public String getEspecieNombre() { return &quot;Trigo&quot;; }</span>
             
             @Override
-<span class="nc" id="L123">            public String getCultivarNombre() { return &quot;Cultivar 1&quot;; }</span>
+<span class="nc" id="L110">            public String getCultivarNombre() { return &quot;Cultivar 1&quot;; }</span>
         };
-<span class="fc" id="L125">    }</span>
-
-    @Test
-    @DisplayName(&quot;Keyset análisis pendientes - primera página y último page&quot;)
-    void keysetAnalisisPendientes_primerYUltimo() {
-        // Primera página (size=1, devolver 2 para hasMore true)
-<span class="fc" id="L131">        when(analisisPendienteRepository.findNextPageByCursor(0L, &quot;&quot;, 2))</span>
-<span class="fc" id="L132">            .thenReturn(java.util.Arrays.asList(analisisPendienteProjection, analisisPendienteProjection));</span>
-<span class="fc" id="L133">        CursorPageResponse&lt;?&gt; page1 = dashboardService.listarAnalisisPendientesKeyset(null, 1);</span>
-<span class="pc bpc" id="L134" title="2 of 4 branches missed.">        assertTrue(page1.getNextCursor() != null &amp;&amp; !page1.getItems().isEmpty());</span>
-
-        // Simular cursor decodificado - usar lastFecha y lastId correctamente
-<span class="fc" id="L137">        KeysetCursor cursor = new KeysetCursor(&quot;2024-01-01 10:00:00&quot;, 1L);</span>
-<span class="fc" id="L138">        String enc = cursor.encode();</span>
-<span class="fc" id="L139">        when(analisisPendienteRepository.findNextPageByCursor(1L, &quot;2024-01-01 10:00:00&quot;, 2))</span>
-<span class="fc" id="L140">            .thenReturn(java.util.Arrays.asList(analisisPendienteProjection)); // solo 1 -&gt; last page</span>
-<span class="fc" id="L141">        CursorPageResponse&lt;?&gt; last = dashboardService.listarAnalisisPendientesKeyset(enc, 1);</span>
-<span class="fc" id="L142">        assertNull(last.getNextCursor());</span>
-<span class="fc" id="L143">    }</span>
-
-    @Test
-    @DisplayName(&quot;Keyset análisis por aprobar - primera y siguiente página&quot;)
-    void keysetAnalisisPorAprobar_flujo() {
-<span class="fc" id="L148">        when(analisisPorAprobarRepository.findNextPageByCursor(&quot;9999-12-31 23:59:59&quot;, Long.MAX_VALUE, 2))</span>
-<span class="fc" id="L149">            .thenReturn(java.util.Arrays.asList(analisisPorAprobarProjection, analisisPorAprobarProjection));</span>
-<span class="fc" id="L150">        CursorPageResponse&lt;?&gt; first = dashboardService.listarAnalisisPorAprobarKeyset(null, 1);</span>
-<span class="fc" id="L151">        assertNotNull(first.getNextCursor());</span>
-<span class="fc" id="L152">        KeysetCursor cursor = KeysetCursor.decode(first.getNextCursor());</span>
-<span class="fc" id="L153">        when(analisisPorAprobarRepository.findNextPageByCursor(cursor.getLastFecha(), cursor.getLastId(), 2))</span>
-<span class="fc" id="L154">            .thenReturn(java.util.Arrays.asList(analisisPorAprobarProjection));</span>
-<span class="fc" id="L155">        CursorPageResponse&lt;?&gt; second = dashboardService.listarAnalisisPorAprobarKeyset(first.getNextCursor(), 1);</span>
-<span class="fc" id="L156">        assertNull(second.getNextCursor());</span>
-<span class="fc" id="L157">    }</span>
+<span class="fc" id="L112">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener estadísticas - debe retornar todas las métricas del dashboard&quot;)
     void obtenerEstadisticas_debeRetornarTodasLasMetricas() {
-        // ARRANGE
-<span class="fc" id="L163">        when(loteRepository.countLotesActivos()).thenReturn(25L);</span>
-<span class="fc" id="L164">        when(loteService.contarAnalisisPendientes()).thenReturn(12L);</span>
-<span class="fc" id="L165">        when(analisisRepository.countCompletadosEnFecha(any(LocalDate.class), eq(Estado.APROBADO)))</span>
-<span class="fc" id="L166">            .thenReturn(5L);</span>
-<span class="fc" id="L167">        when(analisisRepository.countByEstado(Estado.PENDIENTE_APROBACION)).thenReturn(8L);</span>
-
-        // ACT
-<span class="fc" id="L170">        DashboardStatsDTO resultado = dashboardService.obtenerEstadisticas();</span>
-
-        // ASSERT
-<span class="fc" id="L173">        assertNotNull(resultado);</span>
-<span class="fc" id="L174">        assertEquals(25L, resultado.getLotesActivos());</span>
-<span class="fc" id="L175">        assertEquals(12L, resultado.getAnalisisPendientes());</span>
-<span class="fc" id="L176">        assertEquals(5L, resultado.getCompletadosHoy());</span>
-<span class="fc" id="L177">        assertEquals(8L, resultado.getAnalisisPorAprobar());</span>
         
-<span class="fc" id="L179">        verify(loteRepository, times(1)).countLotesActivos();</span>
-<span class="fc" id="L180">        verify(loteService, times(1)).contarAnalisisPendientes();</span>
-<span class="fc" id="L181">        verify(analisisRepository, times(1)).countCompletadosEnFecha(any(LocalDate.class), eq(Estado.APROBADO));</span>
-<span class="fc" id="L182">        verify(analisisRepository, times(1)).countByEstado(Estado.PENDIENTE_APROBACION);</span>
-<span class="fc" id="L183">    }</span>
+<span class="fc" id="L118">        when(loteRepository.countLotesActivos()).thenReturn(25L);</span>
+<span class="fc" id="L119">        when(loteService.contarAnalisisPendientes()).thenReturn(12L);</span>
+<span class="fc" id="L120">        when(analisisRepository.countCompletadosEnFecha(any(LocalDate.class), eq(Estado.APROBADO)))</span>
+<span class="fc" id="L121">            .thenReturn(5L);</span>
+<span class="fc" id="L122">        when(analisisRepository.countByEstado(Estado.PENDIENTE_APROBACION)).thenReturn(8L);</span>
+
+        
+<span class="fc" id="L125">        DashboardStatsDTO resultado = dashboardService.obtenerEstadisticas();</span>
+
+        
+<span class="fc" id="L128">        assertNotNull(resultado);</span>
+<span class="fc" id="L129">        assertEquals(25L, resultado.getLotesActivos());</span>
+<span class="fc" id="L130">        assertEquals(12L, resultado.getAnalisisPendientes());</span>
+<span class="fc" id="L131">        assertEquals(5L, resultado.getCompletadosHoy());</span>
+<span class="fc" id="L132">        assertEquals(8L, resultado.getAnalisisPorAprobar());</span>
+        
+<span class="fc" id="L134">        verify(loteRepository, times(1)).countLotesActivos();</span>
+<span class="fc" id="L135">        verify(loteService, times(1)).contarAnalisisPendientes();</span>
+<span class="fc" id="L136">        verify(analisisRepository, times(1)).countCompletadosEnFecha(any(LocalDate.class), eq(Estado.APROBADO));</span>
+<span class="fc" id="L137">        verify(analisisRepository, times(1)).countByEstado(Estado.PENDIENTE_APROBACION);</span>
+<span class="fc" id="L138">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener estadísticas sin datos - debe retornar ceros&quot;)
     void obtenerEstadisticas_sinDatos_debeRetornarCeros() {
-        // ARRANGE
-<span class="fc" id="L189">        when(loteRepository.countLotesActivos()).thenReturn(0L);</span>
-<span class="fc" id="L190">        when(loteService.contarAnalisisPendientes()).thenReturn(0L);</span>
-<span class="fc" id="L191">        when(analisisRepository.countCompletadosEnFecha(any(LocalDate.class), eq(Estado.APROBADO)))</span>
-<span class="fc" id="L192">            .thenReturn(0L);</span>
-<span class="fc" id="L193">        when(analisisRepository.countByEstado(Estado.PENDIENTE_APROBACION)).thenReturn(0L);</span>
+        
+<span class="fc" id="L144">        when(loteRepository.countLotesActivos()).thenReturn(0L);</span>
+<span class="fc" id="L145">        when(loteService.contarAnalisisPendientes()).thenReturn(0L);</span>
+<span class="fc" id="L146">        when(analisisRepository.countCompletadosEnFecha(any(LocalDate.class), eq(Estado.APROBADO)))</span>
+<span class="fc" id="L147">            .thenReturn(0L);</span>
+<span class="fc" id="L148">        when(analisisRepository.countByEstado(Estado.PENDIENTE_APROBACION)).thenReturn(0L);</span>
 
-        // ACT
-<span class="fc" id="L196">        DashboardStatsDTO resultado = dashboardService.obtenerEstadisticas();</span>
+        
+<span class="fc" id="L151">        DashboardStatsDTO resultado = dashboardService.obtenerEstadisticas();</span>
 
-        // ASSERT
-<span class="fc" id="L199">        assertNotNull(resultado);</span>
-<span class="fc" id="L200">        assertEquals(0L, resultado.getLotesActivos());</span>
-<span class="fc" id="L201">        assertEquals(0L, resultado.getAnalisisPendientes());</span>
-<span class="fc" id="L202">        assertEquals(0L, resultado.getCompletadosHoy());</span>
-<span class="fc" id="L203">        assertEquals(0L, resultado.getAnalisisPorAprobar());</span>
-<span class="fc" id="L204">    }</span>
+        
+<span class="fc" id="L154">        assertNotNull(resultado);</span>
+<span class="fc" id="L155">        assertEquals(0L, resultado.getLotesActivos());</span>
+<span class="fc" id="L156">        assertEquals(0L, resultado.getAnalisisPendientes());</span>
+<span class="fc" id="L157">        assertEquals(0L, resultado.getCompletadosHoy());</span>
+<span class="fc" id="L158">        assertEquals(0L, resultado.getAnalisisPorAprobar());</span>
+<span class="fc" id="L159">    }</span>
 
     @Test
     @DisplayName(&quot;Listar análisis pendientes paginados - debe retornar página correcta&quot;)
     void listarAnalisisPendientesPaginados_debeRetornarPaginaCorrecta() {
-        // ARRANGE
-<span class="fc" id="L210">        Pageable pageable = PageRequest.of(0, 10);</span>
-<span class="fc" id="L211">        Page&lt;AnalisisPendienteProjection&gt; proyeccionesPage = </span>
-<span class="fc" id="L212">            new PageImpl&lt;&gt;(Arrays.asList(analisisPendienteProjection));</span>
         
-<span class="fc" id="L214">        when(analisisPendienteRepository.findAllPaginado(any(Pageable.class)))</span>
-<span class="fc" id="L215">            .thenReturn(proyeccionesPage);</span>
+<span class="fc" id="L165">        Pageable pageable = PageRequest.of(0, 10);</span>
+<span class="fc" id="L166">        Page&lt;AnalisisPendienteProjection&gt; proyeccionesPage = </span>
+<span class="fc" id="L167">            new PageImpl&lt;&gt;(Arrays.asList(analisisPendienteProjection));</span>
+        
+<span class="fc" id="L169">        when(analisisPendienteRepository.findAllPaginado(any(Pageable.class)))</span>
+<span class="fc" id="L170">            .thenReturn(proyeccionesPage);</span>
 
-        // ACT
-<span class="fc" id="L218">        Page&lt;AnalisisPendienteDTO&gt; resultado = dashboardService.listarAnalisisPendientesPaginados(pageable);</span>
+        
+<span class="fc" id="L173">        Page&lt;AnalisisPendienteDTO&gt; resultado = dashboardService.listarAnalisisPendientesPaginados(pageable);</span>
 
-        // ASSERT
-<span class="fc" id="L221">        assertNotNull(resultado);</span>
-<span class="fc" id="L222">        assertEquals(1, resultado.getTotalElements());</span>
-<span class="fc" id="L223">        assertEquals(1, resultado.getContent().size());</span>
         
-<span class="fc" id="L225">        AnalisisPendienteDTO dto = resultado.getContent().get(0);</span>
-<span class="fc" id="L226">        assertEquals(1L, dto.getLoteID());</span>
-<span class="fc" id="L227">        assertEquals(&quot;LOTE-001&quot;, dto.getNomLote());</span>
-<span class="fc" id="L228">        assertEquals(&quot;F-001&quot;, dto.getFicha());</span>
-<span class="fc" id="L229">        assertEquals(&quot;Trigo&quot;, dto.getEspecieNombre());</span>
-<span class="fc" id="L230">        assertEquals(&quot;Cultivar 1&quot;, dto.getCultivarNombre());</span>
-<span class="fc" id="L231">        assertEquals(TipoAnalisis.PUREZA, dto.getTipoAnalisis());</span>
+<span class="fc" id="L176">        assertNotNull(resultado);</span>
+<span class="fc" id="L177">        assertEquals(1, resultado.getTotalElements());</span>
+<span class="fc" id="L178">        assertEquals(1, resultado.getContent().size());</span>
         
-<span class="fc" id="L233">        verify(analisisPendienteRepository, times(1)).findAllPaginado(pageable);</span>
-<span class="fc" id="L234">    }</span>
+<span class="fc" id="L180">        AnalisisPendienteDTO dto = resultado.getContent().get(0);</span>
+<span class="fc" id="L181">        assertEquals(1L, dto.getLoteID());</span>
+<span class="fc" id="L182">        assertEquals(&quot;LOTE-001&quot;, dto.getNomLote());</span>
+<span class="fc" id="L183">        assertEquals(&quot;F-001&quot;, dto.getFicha());</span>
+<span class="fc" id="L184">        assertEquals(&quot;Trigo&quot;, dto.getEspecieNombre());</span>
+<span class="fc" id="L185">        assertEquals(&quot;Cultivar 1&quot;, dto.getCultivarNombre());</span>
+<span class="fc" id="L186">        assertEquals(TipoAnalisis.PUREZA, dto.getTipoAnalisis());</span>
+        
+<span class="fc" id="L188">        verify(analisisPendienteRepository, times(1)).findAllPaginado(pageable);</span>
+<span class="fc" id="L189">    }</span>
 
     @Test
     @DisplayName(&quot;Listar análisis pendientes vacío - debe retornar página vacía&quot;)
     void listarAnalisisPendientesPaginados_vacio_debeRetornarPaginaVacia() {
-        // ARRANGE
-<span class="fc" id="L240">        Pageable pageable = PageRequest.of(0, 10);</span>
-<span class="fc" id="L241">        Page&lt;AnalisisPendienteProjection&gt; proyeccionesPage = Page.empty();</span>
         
-<span class="fc" id="L243">        when(analisisPendienteRepository.findAllPaginado(any(Pageable.class)))</span>
-<span class="fc" id="L244">            .thenReturn(proyeccionesPage);</span>
+<span class="fc" id="L195">        Pageable pageable = PageRequest.of(0, 10);</span>
+<span class="fc" id="L196">        Page&lt;AnalisisPendienteProjection&gt; proyeccionesPage = Page.empty();</span>
+        
+<span class="fc" id="L198">        when(analisisPendienteRepository.findAllPaginado(any(Pageable.class)))</span>
+<span class="fc" id="L199">            .thenReturn(proyeccionesPage);</span>
 
-        // ACT
-<span class="fc" id="L247">        Page&lt;AnalisisPendienteDTO&gt; resultado = dashboardService.listarAnalisisPendientesPaginados(pageable);</span>
+        
+<span class="fc" id="L202">        Page&lt;AnalisisPendienteDTO&gt; resultado = dashboardService.listarAnalisisPendientesPaginados(pageable);</span>
 
-        // ASSERT
-<span class="fc" id="L250">        assertNotNull(resultado);</span>
-<span class="fc" id="L251">        assertEquals(0, resultado.getTotalElements());</span>
-<span class="fc" id="L252">        assertTrue(resultado.getContent().isEmpty());</span>
-<span class="fc" id="L253">    }</span>
+        
+<span class="fc" id="L205">        assertNotNull(resultado);</span>
+<span class="fc" id="L206">        assertEquals(0, resultado.getTotalElements());</span>
+<span class="fc" id="L207">        assertTrue(resultado.getContent().isEmpty());</span>
+<span class="fc" id="L208">    }</span>
 
     @Test
     @DisplayName(&quot;Listar análisis por aprobar paginados - debe retornar página correcta&quot;)
     void listarAnalisisPorAprobarPaginados_debeRetornarPaginaCorrecta() {
-        // ARRANGE
-<span class="fc" id="L259">        Pageable pageable = PageRequest.of(0, 10);</span>
-<span class="fc" id="L260">        Page&lt;AnalisisPorAprobarProjection&gt; proyeccionesPage = </span>
-<span class="fc" id="L261">            new PageImpl&lt;&gt;(Arrays.asList(analisisPorAprobarProjection));</span>
         
-<span class="fc" id="L263">        when(analisisPorAprobarRepository.findAllPaginado(any(Pageable.class)))</span>
-<span class="fc" id="L264">            .thenReturn(proyeccionesPage);</span>
+<span class="fc" id="L214">        Pageable pageable = PageRequest.of(0, 10);</span>
+<span class="fc" id="L215">        Page&lt;AnalisisPorAprobarProjection&gt; proyeccionesPage = </span>
+<span class="fc" id="L216">            new PageImpl&lt;&gt;(Arrays.asList(analisisPorAprobarProjection));</span>
+        
+<span class="fc" id="L218">        when(analisisPorAprobarRepository.findAllPaginado(any(Pageable.class)))</span>
+<span class="fc" id="L219">            .thenReturn(proyeccionesPage);</span>
 
-        // ACT
-<span class="fc" id="L267">        Page&lt;AnalisisPorAprobarDTO&gt; resultado = dashboardService.listarAnalisisPorAprobarPaginados(pageable);</span>
+        
+<span class="fc" id="L222">        Page&lt;AnalisisPorAprobarDTO&gt; resultado = dashboardService.listarAnalisisPorAprobarPaginados(pageable);</span>
 
-        // ASSERT
-<span class="fc" id="L270">        assertNotNull(resultado);</span>
-<span class="fc" id="L271">        assertEquals(1, resultado.getTotalElements());</span>
-<span class="fc" id="L272">        assertEquals(1, resultado.getContent().size());</span>
         
-<span class="fc" id="L274">        AnalisisPorAprobarDTO dto = resultado.getContent().get(0);</span>
-<span class="fc" id="L275">        assertEquals(1L, dto.getAnalisisID());</span>
-<span class="fc" id="L276">        assertEquals(TipoAnalisis.GERMINACION, dto.getTipo());</span>
-<span class="fc" id="L277">        assertEquals(1L, dto.getLoteID());</span>
-<span class="fc" id="L278">        assertEquals(&quot;LOTE-001&quot;, dto.getNomLote());</span>
-<span class="fc" id="L279">        assertEquals(&quot;F-001&quot;, dto.getFicha());</span>
+<span class="fc" id="L225">        assertNotNull(resultado);</span>
+<span class="fc" id="L226">        assertEquals(1, resultado.getTotalElements());</span>
+<span class="fc" id="L227">        assertEquals(1, resultado.getContent().size());</span>
         
-<span class="fc" id="L281">        verify(analisisPorAprobarRepository, times(1)).findAllPaginado(pageable);</span>
-<span class="fc" id="L282">    }</span>
+<span class="fc" id="L229">        AnalisisPorAprobarDTO dto = resultado.getContent().get(0);</span>
+<span class="fc" id="L230">        assertEquals(1L, dto.getAnalisisID());</span>
+<span class="fc" id="L231">        assertEquals(TipoAnalisis.GERMINACION, dto.getTipo());</span>
+<span class="fc" id="L232">        assertEquals(1L, dto.getLoteID());</span>
+<span class="fc" id="L233">        assertEquals(&quot;LOTE-001&quot;, dto.getNomLote());</span>
+<span class="fc" id="L234">        assertEquals(&quot;F-001&quot;, dto.getFicha());</span>
+        
+<span class="fc" id="L236">        verify(analisisPorAprobarRepository, times(1)).findAllPaginado(pageable);</span>
+<span class="fc" id="L237">    }</span>
 
     @Test
     @DisplayName(&quot;Listar análisis por aprobar vacío - debe retornar página vacía&quot;)
     void listarAnalisisPorAprobarPaginados_vacio_debeRetornarPaginaVacia() {
-        // ARRANGE
-<span class="fc" id="L288">        Pageable pageable = PageRequest.of(0, 10);</span>
-<span class="fc" id="L289">        Page&lt;AnalisisPorAprobarProjection&gt; proyeccionesPage = Page.empty();</span>
         
-<span class="fc" id="L291">        when(analisisPorAprobarRepository.findAllPaginado(any(Pageable.class)))</span>
-<span class="fc" id="L292">            .thenReturn(proyeccionesPage);</span>
+<span class="fc" id="L243">        Pageable pageable = PageRequest.of(0, 10);</span>
+<span class="fc" id="L244">        Page&lt;AnalisisPorAprobarProjection&gt; proyeccionesPage = Page.empty();</span>
+        
+<span class="fc" id="L246">        when(analisisPorAprobarRepository.findAllPaginado(any(Pageable.class)))</span>
+<span class="fc" id="L247">            .thenReturn(proyeccionesPage);</span>
 
-        // ACT
-<span class="fc" id="L295">        Page&lt;AnalisisPorAprobarDTO&gt; resultado = dashboardService.listarAnalisisPorAprobarPaginados(pageable);</span>
+        
+<span class="fc" id="L250">        Page&lt;AnalisisPorAprobarDTO&gt; resultado = dashboardService.listarAnalisisPorAprobarPaginados(pageable);</span>
 
-        // ASSERT
-<span class="fc" id="L298">        assertNotNull(resultado);</span>
-<span class="fc" id="L299">        assertEquals(0, resultado.getTotalElements());</span>
-<span class="fc" id="L300">        assertTrue(resultado.getContent().isEmpty());</span>
-<span class="fc" id="L301">    }</span>
+        
+<span class="fc" id="L253">        assertNotNull(resultado);</span>
+<span class="fc" id="L254">        assertEquals(0, resultado.getTotalElements());</span>
+<span class="fc" id="L255">        assertTrue(resultado.getContent().isEmpty());</span>
+<span class="fc" id="L256">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener estadísticas debe calcular correctamente completados hoy&quot;)
     void obtenerEstadisticas_debeCalcularCompletadosHoyCorrectamente() {
-        // ARRANGE
-<span class="fc" id="L307">        LocalDate hoy = LocalDate.now();</span>
-<span class="fc" id="L308">        when(loteRepository.countLotesActivos()).thenReturn(10L);</span>
-<span class="fc" id="L309">        when(loteService.contarAnalisisPendientes()).thenReturn(5L);</span>
-<span class="fc" id="L310">        when(analisisRepository.countCompletadosEnFecha(hoy, Estado.APROBADO)).thenReturn(3L);</span>
-<span class="fc" id="L311">        when(analisisRepository.countByEstado(Estado.PENDIENTE_APROBACION)).thenReturn(2L);</span>
+        
+<span class="fc" id="L262">        LocalDate hoy = LocalDate.now();</span>
+<span class="fc" id="L263">        when(loteRepository.countLotesActivos()).thenReturn(10L);</span>
+<span class="fc" id="L264">        when(loteService.contarAnalisisPendientes()).thenReturn(5L);</span>
+<span class="fc" id="L265">        when(analisisRepository.countCompletadosEnFecha(hoy, Estado.APROBADO)).thenReturn(3L);</span>
+<span class="fc" id="L266">        when(analisisRepository.countByEstado(Estado.PENDIENTE_APROBACION)).thenReturn(2L);</span>
 
-        // ACT
-<span class="fc" id="L314">        DashboardStatsDTO resultado = dashboardService.obtenerEstadisticas();</span>
+        
+<span class="fc" id="L269">        DashboardStatsDTO resultado = dashboardService.obtenerEstadisticas();</span>
 
-        // ASSERT
-<span class="fc" id="L317">        assertEquals(3L, resultado.getCompletadosHoy());</span>
-<span class="fc" id="L318">        verify(analisisRepository, times(1)).countCompletadosEnFecha(hoy, Estado.APROBADO);</span>
-<span class="fc" id="L319">    }</span>
+        
+<span class="fc" id="L272">        assertEquals(3L, resultado.getCompletadosHoy());</span>
+<span class="fc" id="L273">        verify(analisisRepository, times(1)).countCompletadosEnFecha(hoy, Estado.APROBADO);</span>
+<span class="fc" id="L274">    }</span>
 
     @Test
     @DisplayName(&quot;Análisis pendientes debe incluir todos los tipos de análisis&quot;)
     void listarAnalisisPendientes_debeIncluirTodosLosTipos() {
-        // ARRANGE
-<span class="fc" id="L325">        Pageable pageable = PageRequest.of(0, 10);</span>
-<span class="fc" id="L326">        Page&lt;AnalisisPendienteProjection&gt; proyeccionesPage = </span>
-<span class="fc" id="L327">            new PageImpl&lt;&gt;(Arrays.asList(analisisPendienteProjection));</span>
         
-<span class="fc" id="L329">        when(analisisPendienteRepository.findAllPaginado(pageable))</span>
-<span class="fc" id="L330">            .thenReturn(proyeccionesPage);</span>
+<span class="fc" id="L280">        Pageable pageable = PageRequest.of(0, 10);</span>
+<span class="fc" id="L281">        Page&lt;AnalisisPendienteProjection&gt; proyeccionesPage = </span>
+<span class="fc" id="L282">            new PageImpl&lt;&gt;(Arrays.asList(analisisPendienteProjection));</span>
+        
+<span class="fc" id="L284">        when(analisisPendienteRepository.findAllPaginado(pageable))</span>
+<span class="fc" id="L285">            .thenReturn(proyeccionesPage);</span>
 
-        // ACT
-<span class="fc" id="L333">        Page&lt;AnalisisPendienteDTO&gt; resultado = dashboardService.listarAnalisisPendientesPaginados(pageable);</span>
+        
+<span class="fc" id="L288">        Page&lt;AnalisisPendienteDTO&gt; resultado = dashboardService.listarAnalisisPendientesPaginados(pageable);</span>
 
-        // ASSERT
-<span class="fc" id="L336">        assertNotNull(resultado);</span>
-<span class="fc" id="L337">        assertFalse(resultado.getContent().isEmpty());</span>
+        
+<span class="fc" id="L291">        assertNotNull(resultado);</span>
+<span class="fc" id="L292">        assertFalse(resultado.getContent().isEmpty());</span>
         // Verificar que el tipo de análisis se mapea correctamente
-<span class="fc" id="L339">        assertEquals(TipoAnalisis.PUREZA, resultado.getContent().get(0).getTipoAnalisis());</span>
-<span class="fc" id="L340">    }</span>
+<span class="fc" id="L294">        assertEquals(TipoAnalisis.PUREZA, resultado.getContent().get(0).getTipoAnalisis());</span>
+<span class="fc" id="L295">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

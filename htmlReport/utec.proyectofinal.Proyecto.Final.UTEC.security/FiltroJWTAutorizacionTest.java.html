@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FiltroJWTAutorizacionTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.security</a> &gt; <span class="el_source">FiltroJWTAutorizacionTest.java</span></div><h1>FiltroJWTAutorizacionTest.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.security;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FiltroJWTAutorizacionTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.security</a> &gt; <span class="el_source">FiltroJWTAutorizacionTest.java</span></div><h1>FiltroJWTAutorizacionTest.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.security;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -30,20 +30,10 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-/**
- * Test completo para FiltroJWTAutorizacion
- * 
- * Cubre todas las funciones:
- * - extraerToken (desde cookies y header Authorization)
- * - doFilterInternal (flujo completo del filtro)
- * - crearAutenticacion (creación del contexto de seguridad)
- * - validarToken (validación de JWT)
- * 
- * Total de tests: 18
- */
+
 @ExtendWith(MockitoExtension.class)
 @DisplayName(&quot;FiltroJWTAutorizacion - Test Completo&quot;)
-<span class="fc" id="L46">class FiltroJWTAutorizacionTest {</span>
+<span class="fc" id="L36">class FiltroJWTAutorizacionTest {</span>
 
     private FiltroJWTAutorizacion filtro;
     
@@ -54,382 +44,376 @@ import static org.mockito.Mockito.*;
     private MockHttpServletResponse response;
     
     // Clave secreta (debe coincidir con la del filtro)
-<span class="fc" id="L57">    private final String CLAVE = &quot;@Z9@vQ3!pL8#wX7^tR2&amp;nG6*yM4$eB1(dF0)sH5%kJ3&amp;uY8*rE4#wQ1@zX6^nM9$&quot;;</span>
-<span class="fc" id="L58">    private final SecretKey secretKey = Keys.hmacShaKeyFor(CLAVE.getBytes(StandardCharsets.UTF_8));</span>
+<span class="fc" id="L47">    private final String CLAVE = &quot;@Z9@vQ3!pL8#wX7^tR2&amp;nG6*yM4$eB1(dF0)sH5%kJ3&amp;uY8*rE4#wQ1@zX6^nM9$&quot;;</span>
+<span class="fc" id="L48">    private final SecretKey secretKey = Keys.hmacShaKeyFor(CLAVE.getBytes(StandardCharsets.UTF_8));</span>
 
     @BeforeEach
     void setUp() {
-<span class="fc" id="L62">        filtro = new FiltroJWTAutorizacion();</span>
-<span class="fc" id="L63">        request = new MockHttpServletRequest();</span>
-<span class="fc" id="L64">        response = new MockHttpServletResponse();</span>
-<span class="fc" id="L65">        SecurityContextHolder.clearContext(); // Limpiar contexto antes de cada test</span>
-<span class="fc" id="L66">    }</span>
+<span class="fc" id="L52">        filtro = new FiltroJWTAutorizacion();</span>
+<span class="fc" id="L53">        request = new MockHttpServletRequest();</span>
+<span class="fc" id="L54">        response = new MockHttpServletResponse();</span>
+<span class="fc" id="L55">        SecurityContextHolder.clearContext(); // Limpiar contexto antes de cada test</span>
+<span class="fc" id="L56">    }</span>
 
     // ===== TESTS DE extraerToken =====
 
     @Test
     @DisplayName(&quot;extraerToken - Debe extraer token desde cookie accessToken&quot;)
     void extraerToken_desdeCookie_debeRetornarToken() throws ServletException, IOException {
-        // Arrange
-<span class="fc" id="L74">        String tokenEsperado = generarTokenValido(&quot;testuser&quot;, List.of(&quot;ADMIN&quot;));</span>
-<span class="fc" id="L75">        Cookie cookie = new Cookie(&quot;accessToken&quot;, tokenEsperado);</span>
-<span class="fc" id="L76">        request.setCookies(cookie);</span>
+        
+<span class="fc" id="L64">        String tokenEsperado = generarTokenValido(&quot;testuser&quot;, List.of(&quot;ADMIN&quot;));</span>
+<span class="fc" id="L65">        Cookie cookie = new Cookie(&quot;accessToken&quot;, tokenEsperado);</span>
+<span class="fc" id="L66">        request.setCookies(cookie);</span>
 
-        // Act
-<span class="fc" id="L79">        filtro.doFilterInternal(request, response, filterChain);</span>
+        
+<span class="fc" id="L69">        filtro.doFilterInternal(request, response, filterChain);</span>
 
-        // Assert
-<span class="fc" id="L82">        Authentication auth = SecurityContextHolder.getContext().getAuthentication();</span>
-<span class="fc" id="L83">        assertNotNull(auth, &quot;Debe crear autenticación&quot;);</span>
-<span class="fc" id="L84">        assertEquals(&quot;testuser&quot;, auth.getName());</span>
-<span class="fc" id="L85">        assertTrue(auth.getAuthorities().stream()</span>
-<span class="fc" id="L86">                .anyMatch(a -&gt; a.getAuthority().equals(&quot;ROLE_ADMIN&quot;)));</span>
-<span class="fc" id="L87">        verify(filterChain, times(1)).doFilter(request, response);</span>
-<span class="fc" id="L88">    }</span>
+        
+<span class="fc" id="L72">        Authentication auth = SecurityContextHolder.getContext().getAuthentication();</span>
+<span class="fc" id="L73">        assertNotNull(auth, &quot;Debe crear autenticación&quot;);</span>
+<span class="fc" id="L74">        assertEquals(&quot;testuser&quot;, auth.getName());</span>
+<span class="fc" id="L75">        assertTrue(auth.getAuthorities().stream()</span>
+<span class="fc" id="L76">                .anyMatch(a -&gt; a.getAuthority().equals(&quot;ROLE_ADMIN&quot;)));</span>
+<span class="fc" id="L77">        verify(filterChain, times(1)).doFilter(request, response);</span>
+<span class="fc" id="L78">    }</span>
 
     @Test
     @DisplayName(&quot;extraerToken - Debe extraer token desde header Authorization Bearer&quot;)
     void extraerToken_desdeHeaderBearer_debeRetornarToken() throws ServletException, IOException {
-        // Arrange
-<span class="fc" id="L94">        String tokenEsperado = generarTokenValido(&quot;analista&quot;, List.of(&quot;ANALISTA&quot;));</span>
-<span class="fc" id="L95">        request.addHeader(&quot;Authorization&quot;, &quot;Bearer &quot; + tokenEsperado);</span>
+        
+<span class="fc" id="L84">        String tokenEsperado = generarTokenValido(&quot;analista&quot;, List.of(&quot;ANALISTA&quot;));</span>
+<span class="fc" id="L85">        request.addHeader(&quot;Authorization&quot;, &quot;Bearer &quot; + tokenEsperado);</span>
 
-        // Act
-<span class="fc" id="L98">        filtro.doFilterInternal(request, response, filterChain);</span>
+        
+<span class="fc" id="L88">        filtro.doFilterInternal(request, response, filterChain);</span>
 
-        // Assert
-<span class="fc" id="L101">        Authentication auth = SecurityContextHolder.getContext().getAuthentication();</span>
-<span class="fc" id="L102">        assertNotNull(auth, &quot;Debe crear autenticación desde header&quot;);</span>
-<span class="fc" id="L103">        assertEquals(&quot;analista&quot;, auth.getName());</span>
-<span class="fc" id="L104">        assertTrue(auth.getAuthorities().stream()</span>
-<span class="fc" id="L105">                .anyMatch(a -&gt; a.getAuthority().equals(&quot;ROLE_ANALISTA&quot;)));</span>
-<span class="fc" id="L106">        verify(filterChain, times(1)).doFilter(request, response);</span>
-<span class="fc" id="L107">    }</span>
+        
+<span class="fc" id="L91">        Authentication auth = SecurityContextHolder.getContext().getAuthentication();</span>
+<span class="fc" id="L92">        assertNotNull(auth, &quot;Debe crear autenticación desde header&quot;);</span>
+<span class="fc" id="L93">        assertEquals(&quot;analista&quot;, auth.getName());</span>
+<span class="fc" id="L94">        assertTrue(auth.getAuthorities().stream()</span>
+<span class="fc" id="L95">                .anyMatch(a -&gt; a.getAuthority().equals(&quot;ROLE_ANALISTA&quot;)));</span>
+<span class="fc" id="L96">        verify(filterChain, times(1)).doFilter(request, response);</span>
+<span class="fc" id="L97">    }</span>
 
     @Test
     @DisplayName(&quot;extraerToken - Cookie tiene prioridad sobre header Authorization&quot;)
     void extraerToken_cookieTienePrioridad_debeUsarCookie() throws ServletException, IOException {
-        // Arrange
-<span class="fc" id="L113">        String tokenCookie = generarTokenValido(&quot;usuario_cookie&quot;, List.of(&quot;ADMIN&quot;));</span>
-<span class="fc" id="L114">        String tokenHeader = generarTokenValido(&quot;usuario_header&quot;, List.of(&quot;OBSERVADOR&quot;));</span>
         
-<span class="fc" id="L116">        Cookie cookie = new Cookie(&quot;accessToken&quot;, tokenCookie);</span>
-<span class="fc" id="L117">        request.setCookies(cookie);</span>
-<span class="fc" id="L118">        request.addHeader(&quot;Authorization&quot;, &quot;Bearer &quot; + tokenHeader);</span>
+<span class="fc" id="L103">        String tokenCookie = generarTokenValido(&quot;usuario_cookie&quot;, List.of(&quot;ADMIN&quot;));</span>
+<span class="fc" id="L104">        String tokenHeader = generarTokenValido(&quot;usuario_header&quot;, List.of(&quot;OBSERVADOR&quot;));</span>
+        
+<span class="fc" id="L106">        Cookie cookie = new Cookie(&quot;accessToken&quot;, tokenCookie);</span>
+<span class="fc" id="L107">        request.setCookies(cookie);</span>
+<span class="fc" id="L108">        request.addHeader(&quot;Authorization&quot;, &quot;Bearer &quot; + tokenHeader);</span>
 
-        // Act
-<span class="fc" id="L121">        filtro.doFilterInternal(request, response, filterChain);</span>
+        
+<span class="fc" id="L111">        filtro.doFilterInternal(request, response, filterChain);</span>
 
-        // Assert
-<span class="fc" id="L124">        Authentication auth = SecurityContextHolder.getContext().getAuthentication();</span>
-<span class="fc" id="L125">        assertNotNull(auth);</span>
-<span class="fc" id="L126">        assertEquals(&quot;usuario_cookie&quot;, auth.getName(), &quot;Debe usar el token de la cookie&quot;);</span>
-<span class="fc" id="L127">        assertTrue(auth.getAuthorities().stream()</span>
-<span class="fc" id="L128">                .anyMatch(a -&gt; a.getAuthority().equals(&quot;ROLE_ADMIN&quot;)));</span>
-<span class="fc" id="L129">        verify(filterChain, times(1)).doFilter(request, response);</span>
-<span class="fc" id="L130">    }</span>
+        
+<span class="fc" id="L114">        Authentication auth = SecurityContextHolder.getContext().getAuthentication();</span>
+<span class="fc" id="L115">        assertNotNull(auth);</span>
+<span class="fc" id="L116">        assertEquals(&quot;usuario_cookie&quot;, auth.getName(), &quot;Debe usar el token de la cookie&quot;);</span>
+<span class="fc" id="L117">        assertTrue(auth.getAuthorities().stream()</span>
+<span class="fc" id="L118">                .anyMatch(a -&gt; a.getAuthority().equals(&quot;ROLE_ADMIN&quot;)));</span>
+<span class="fc" id="L119">        verify(filterChain, times(1)).doFilter(request, response);</span>
+<span class="fc" id="L120">    }</span>
 
     @Test
     @DisplayName(&quot;extraerToken - Sin token debe limpiar contexto de seguridad&quot;)
     void extraerToken_sinToken_debeLimpiarContexto() throws ServletException, IOException {
-        // Arrange - sin cookies ni headers
+        
 
-        // Act
-<span class="fc" id="L138">        filtro.doFilterInternal(request, response, filterChain);</span>
+        
+<span class="fc" id="L128">        filtro.doFilterInternal(request, response, filterChain);</span>
 
-        // Assert
-<span class="fc" id="L141">        Authentication auth = SecurityContextHolder.getContext().getAuthentication();</span>
-<span class="fc" id="L142">        assertNull(auth, &quot;No debe crear autenticación sin token&quot;);</span>
-<span class="fc" id="L143">        verify(filterChain, times(1)).doFilter(request, response);</span>
-<span class="fc" id="L144">    }</span>
+        
+<span class="fc" id="L131">        Authentication auth = SecurityContextHolder.getContext().getAuthentication();</span>
+<span class="fc" id="L132">        assertNull(auth, &quot;No debe crear autenticación sin token&quot;);</span>
+<span class="fc" id="L133">        verify(filterChain, times(1)).doFilter(request, response);</span>
+<span class="fc" id="L134">    }</span>
 
     @Test
     @DisplayName(&quot;extraerToken - Header sin prefijo Bearer debe ignorarse&quot;)
     void extraerToken_headerSinBearer_debeIgnorarse() throws ServletException, IOException {
-        // Arrange
-<span class="fc" id="L150">        String token = generarTokenValido(&quot;user&quot;, List.of(&quot;ADMIN&quot;));</span>
-<span class="fc" id="L151">        request.addHeader(&quot;Authorization&quot;, token); // Sin &quot;Bearer &quot;</span>
+        
+<span class="fc" id="L140">        String token = generarTokenValido(&quot;user&quot;, List.of(&quot;ADMIN&quot;));</span>
+<span class="fc" id="L141">        request.addHeader(&quot;Authorization&quot;, token); </span>
 
-        // Act
-<span class="fc" id="L154">        filtro.doFilterInternal(request, response, filterChain);</span>
+        
+<span class="fc" id="L144">        filtro.doFilterInternal(request, response, filterChain);</span>
 
-        // Assert
-<span class="fc" id="L157">        Authentication auth = SecurityContextHolder.getContext().getAuthentication();</span>
-<span class="fc" id="L158">        assertNull(auth, &quot;No debe autenticar sin prefijo Bearer&quot;);</span>
-<span class="fc" id="L159">        verify(filterChain, times(1)).doFilter(request, response);</span>
-<span class="fc" id="L160">    }</span>
+        
+<span class="fc" id="L147">        Authentication auth = SecurityContextHolder.getContext().getAuthentication();</span>
+<span class="fc" id="L148">        assertNull(auth, &quot;No debe autenticar sin prefijo Bearer&quot;);</span>
+<span class="fc" id="L149">        verify(filterChain, times(1)).doFilter(request, response);</span>
+<span class="fc" id="L150">    }</span>
 
     @Test
     @DisplayName(&quot;extraerToken - Cookie con nombre incorrecto debe ignorarse&quot;)
     void extraerToken_cookieNombreIncorrecto_debeIgnorarse() throws ServletException, IOException {
-        // Arrange
-<span class="fc" id="L166">        String token = generarTokenValido(&quot;user&quot;, List.of(&quot;ADMIN&quot;));</span>
-<span class="fc" id="L167">        Cookie cookieIncorrecta = new Cookie(&quot;otherCookie&quot;, token);</span>
-<span class="fc" id="L168">        request.setCookies(cookieIncorrecta);</span>
+        
+<span class="fc" id="L156">        String token = generarTokenValido(&quot;user&quot;, List.of(&quot;ADMIN&quot;));</span>
+<span class="fc" id="L157">        Cookie cookieIncorrecta = new Cookie(&quot;otherCookie&quot;, token);</span>
+<span class="fc" id="L158">        request.setCookies(cookieIncorrecta);</span>
 
-        // Act
-<span class="fc" id="L171">        filtro.doFilterInternal(request, response, filterChain);</span>
+        
+<span class="fc" id="L161">        filtro.doFilterInternal(request, response, filterChain);</span>
 
-        // Assert
-<span class="fc" id="L174">        Authentication auth = SecurityContextHolder.getContext().getAuthentication();</span>
-<span class="fc" id="L175">        assertNull(auth, &quot;No debe autenticar con cookie incorrecta&quot;);</span>
-<span class="fc" id="L176">        verify(filterChain, times(1)).doFilter(request, response);</span>
-<span class="fc" id="L177">    }</span>
+        
+<span class="fc" id="L164">        Authentication auth = SecurityContextHolder.getContext().getAuthentication();</span>
+<span class="fc" id="L165">        assertNull(auth, &quot;No debe autenticar con cookie incorrecta&quot;);</span>
+<span class="fc" id="L166">        verify(filterChain, times(1)).doFilter(request, response);</span>
+<span class="fc" id="L167">    }</span>
 
     // ===== TESTS DE doFilterInternal =====
 
     @Test
     @DisplayName(&quot;doFilterInternal - Token válido debe crear autenticación y continuar filtro&quot;)
     void doFilterInternal_tokenValido_debeCrearAutenticacionYContinuar() throws ServletException, IOException {
-        // Arrange
-<span class="fc" id="L185">        String token = generarTokenValido(&quot;admin&quot;, List.of(&quot;ADMIN&quot;, &quot;ANALISTA&quot;));</span>
-<span class="fc" id="L186">        Cookie cookie = new Cookie(&quot;accessToken&quot;, token);</span>
-<span class="fc" id="L187">        request.setCookies(cookie);</span>
+        
+<span class="fc" id="L175">        String token = generarTokenValido(&quot;admin&quot;, List.of(&quot;ADMIN&quot;, &quot;ANALISTA&quot;));</span>
+<span class="fc" id="L176">        Cookie cookie = new Cookie(&quot;accessToken&quot;, token);</span>
+<span class="fc" id="L177">        request.setCookies(cookie);</span>
 
-        // Act
-<span class="fc" id="L190">        filtro.doFilterInternal(request, response, filterChain);</span>
+        
+<span class="fc" id="L180">        filtro.doFilterInternal(request, response, filterChain);</span>
 
-        // Assert
-<span class="fc" id="L193">        Authentication auth = SecurityContextHolder.getContext().getAuthentication();</span>
-<span class="fc" id="L194">        assertNotNull(auth, &quot;Debe crear autenticación&quot;);</span>
-<span class="fc" id="L195">        assertEquals(&quot;admin&quot;, auth.getName());</span>
-<span class="fc" id="L196">        assertEquals(2, auth.getAuthorities().size());</span>
-<span class="fc" id="L197">        verify(filterChain, times(1)).doFilter(request, response);</span>
-<span class="fc" id="L198">    }</span>
+        
+<span class="fc" id="L183">        Authentication auth = SecurityContextHolder.getContext().getAuthentication();</span>
+<span class="fc" id="L184">        assertNotNull(auth, &quot;Debe crear autenticación&quot;);</span>
+<span class="fc" id="L185">        assertEquals(&quot;admin&quot;, auth.getName());</span>
+<span class="fc" id="L186">        assertEquals(2, auth.getAuthorities().size());</span>
+<span class="fc" id="L187">        verify(filterChain, times(1)).doFilter(request, response);</span>
+<span class="fc" id="L188">    }</span>
 
     @Test
     @DisplayName(&quot;doFilterInternal - Token expirado debe limpiar contexto y continuar&quot;)
     void doFilterInternal_tokenExpirado_debeLimpiarContextoYContinuar() throws ServletException, IOException {
-        // Arrange
-<span class="fc" id="L204">        String tokenExpirado = generarTokenExpirado(&quot;user&quot;, List.of(&quot;ADMIN&quot;));</span>
-<span class="fc" id="L205">        Cookie cookie = new Cookie(&quot;accessToken&quot;, tokenExpirado);</span>
-<span class="fc" id="L206">        request.setCookies(cookie);</span>
+        
+<span class="fc" id="L194">        String tokenExpirado = generarTokenExpirado(&quot;user&quot;, List.of(&quot;ADMIN&quot;));</span>
+<span class="fc" id="L195">        Cookie cookie = new Cookie(&quot;accessToken&quot;, tokenExpirado);</span>
+<span class="fc" id="L196">        request.setCookies(cookie);</span>
 
-        // Act
-<span class="fc" id="L209">        filtro.doFilterInternal(request, response, filterChain);</span>
+        
+<span class="fc" id="L199">        filtro.doFilterInternal(request, response, filterChain);</span>
 
-        // Assert
-<span class="fc" id="L212">        Authentication auth = SecurityContextHolder.getContext().getAuthentication();</span>
-<span class="fc" id="L213">        assertNull(auth, &quot;Debe limpiar contexto con token expirado&quot;);</span>
-<span class="fc" id="L214">        verify(filterChain, times(1)).doFilter(request, response);</span>
-<span class="fc" id="L215">    }</span>
+        
+<span class="fc" id="L202">        Authentication auth = SecurityContextHolder.getContext().getAuthentication();</span>
+<span class="fc" id="L203">        assertNull(auth, &quot;Debe limpiar contexto con token expirado&quot;);</span>
+<span class="fc" id="L204">        verify(filterChain, times(1)).doFilter(request, response);</span>
+<span class="fc" id="L205">    }</span>
 
     @Test
     @DisplayName(&quot;doFilterInternal - Token malformado debe limpiar contexto y continuar&quot;)
     void doFilterInternal_tokenMalformado_debeLimpiarContextoYContinuar() throws ServletException, IOException {
-        // Arrange
-<span class="fc" id="L221">        String tokenMalformado = &quot;token.invalido.malformado&quot;;</span>
-<span class="fc" id="L222">        Cookie cookie = new Cookie(&quot;accessToken&quot;, tokenMalformado);</span>
-<span class="fc" id="L223">        request.setCookies(cookie);</span>
+        
+<span class="fc" id="L211">        String tokenMalformado = &quot;token.invalido.malformado&quot;;</span>
+<span class="fc" id="L212">        Cookie cookie = new Cookie(&quot;accessToken&quot;, tokenMalformado);</span>
+<span class="fc" id="L213">        request.setCookies(cookie);</span>
 
-        // Act
-<span class="fc" id="L226">        filtro.doFilterInternal(request, response, filterChain);</span>
+        
+<span class="fc" id="L216">        filtro.doFilterInternal(request, response, filterChain);</span>
 
-        // Assert
-<span class="fc" id="L229">        Authentication auth = SecurityContextHolder.getContext().getAuthentication();</span>
-<span class="fc" id="L230">        assertNull(auth, &quot;Debe limpiar contexto con token malformado&quot;);</span>
-<span class="fc" id="L231">        verify(filterChain, times(1)).doFilter(request, response);</span>
-<span class="fc" id="L232">    }</span>
+        
+<span class="fc" id="L219">        Authentication auth = SecurityContextHolder.getContext().getAuthentication();</span>
+<span class="fc" id="L220">        assertNull(auth, &quot;Debe limpiar contexto con token malformado&quot;);</span>
+<span class="fc" id="L221">        verify(filterChain, times(1)).doFilter(request, response);</span>
+<span class="fc" id="L222">    }</span>
 
     @Test
     @DisplayName(&quot;doFilterInternal - Token sin authorities debe limpiar contexto&quot;)
     void doFilterInternal_tokenSinAuthorities_debeLimpiarContexto() throws ServletException, IOException {
-        // Arrange
-<span class="fc" id="L238">        String tokenSinAuthorities = generarTokenSinAuthorities(&quot;user&quot;);</span>
-<span class="fc" id="L239">        Cookie cookie = new Cookie(&quot;accessToken&quot;, tokenSinAuthorities);</span>
-<span class="fc" id="L240">        request.setCookies(cookie);</span>
+        
+<span class="fc" id="L228">        String tokenSinAuthorities = generarTokenSinAuthorities(&quot;user&quot;);</span>
+<span class="fc" id="L229">        Cookie cookie = new Cookie(&quot;accessToken&quot;, tokenSinAuthorities);</span>
+<span class="fc" id="L230">        request.setCookies(cookie);</span>
 
-        // Act
-<span class="fc" id="L243">        filtro.doFilterInternal(request, response, filterChain);</span>
+        
+<span class="fc" id="L233">        filtro.doFilterInternal(request, response, filterChain);</span>
 
-        // Assert
-<span class="fc" id="L246">        Authentication auth = SecurityContextHolder.getContext().getAuthentication();</span>
-<span class="fc" id="L247">        assertNull(auth, &quot;No debe crear autenticación sin authorities&quot;);</span>
-<span class="fc" id="L248">        verify(filterChain, times(1)).doFilter(request, response);</span>
-<span class="fc" id="L249">    }</span>
+        
+<span class="fc" id="L236">        Authentication auth = SecurityContextHolder.getContext().getAuthentication();</span>
+<span class="fc" id="L237">        assertNull(auth, &quot;No debe crear autenticación sin authorities&quot;);</span>
+<span class="fc" id="L238">        verify(filterChain, times(1)).doFilter(request, response);</span>
+<span class="fc" id="L239">    }</span>
 
     @Test
     @DisplayName(&quot;doFilterInternal - Token vacío debe limpiar contexto&quot;)
     void doFilterInternal_tokenVacio_debeLimpiarContexto() throws ServletException, IOException {
-        // Arrange
-<span class="fc" id="L255">        Cookie cookie = new Cookie(&quot;accessToken&quot;, &quot;&quot;);</span>
-<span class="fc" id="L256">        request.setCookies(cookie);</span>
+        
+<span class="fc" id="L245">        Cookie cookie = new Cookie(&quot;accessToken&quot;, &quot;&quot;);</span>
+<span class="fc" id="L246">        request.setCookies(cookie);</span>
 
-        // Act
-<span class="fc" id="L259">        filtro.doFilterInternal(request, response, filterChain);</span>
+        
+<span class="fc" id="L249">        filtro.doFilterInternal(request, response, filterChain);</span>
 
-        // Assert
-<span class="fc" id="L262">        Authentication auth = SecurityContextHolder.getContext().getAuthentication();</span>
-<span class="fc" id="L263">        assertNull(auth, &quot;No debe crear autenticación con token vacío&quot;);</span>
-<span class="fc" id="L264">        verify(filterChain, times(1)).doFilter(request, response);</span>
-<span class="fc" id="L265">    }</span>
+        
+<span class="fc" id="L252">        Authentication auth = SecurityContextHolder.getContext().getAuthentication();</span>
+<span class="fc" id="L253">        assertNull(auth, &quot;No debe crear autenticación con token vacío&quot;);</span>
+<span class="fc" id="L254">        verify(filterChain, times(1)).doFilter(request, response);</span>
+<span class="fc" id="L255">    }</span>
 
     // ===== TESTS DE crearAutenticacion =====
 
     @Test
     @DisplayName(&quot;crearAutenticacion - Debe crear autenticación con rol único&quot;)
     void crearAutenticacion_rolUnico_debeCrearAutenticacion() throws ServletException, IOException {
-        // Arrange
-<span class="fc" id="L273">        String token = generarTokenValido(&quot;observador&quot;, List.of(&quot;OBSERVADOR&quot;));</span>
-<span class="fc" id="L274">        Cookie cookie = new Cookie(&quot;accessToken&quot;, token);</span>
-<span class="fc" id="L275">        request.setCookies(cookie);</span>
+        
+<span class="fc" id="L263">        String token = generarTokenValido(&quot;observador&quot;, List.of(&quot;OBSERVADOR&quot;));</span>
+<span class="fc" id="L264">        Cookie cookie = new Cookie(&quot;accessToken&quot;, token);</span>
+<span class="fc" id="L265">        request.setCookies(cookie);</span>
 
-        // Act
-<span class="fc" id="L278">        filtro.doFilterInternal(request, response, filterChain);</span>
+        
+<span class="fc" id="L268">        filtro.doFilterInternal(request, response, filterChain);</span>
 
-        // Assert
-<span class="fc" id="L281">        Authentication auth = SecurityContextHolder.getContext().getAuthentication();</span>
-<span class="fc" id="L282">        assertNotNull(auth);</span>
-<span class="fc" id="L283">        assertEquals(&quot;observador&quot;, auth.getName());</span>
-<span class="fc" id="L284">        assertEquals(1, auth.getAuthorities().size());</span>
-<span class="fc" id="L285">        assertTrue(auth.getAuthorities().stream()</span>
-<span class="fc" id="L286">                .anyMatch(a -&gt; a.getAuthority().equals(&quot;ROLE_OBSERVADOR&quot;)));</span>
-<span class="fc" id="L287">    }</span>
+        
+<span class="fc" id="L271">        Authentication auth = SecurityContextHolder.getContext().getAuthentication();</span>
+<span class="fc" id="L272">        assertNotNull(auth);</span>
+<span class="fc" id="L273">        assertEquals(&quot;observador&quot;, auth.getName());</span>
+<span class="fc" id="L274">        assertEquals(1, auth.getAuthorities().size());</span>
+<span class="fc" id="L275">        assertTrue(auth.getAuthorities().stream()</span>
+<span class="fc" id="L276">                .anyMatch(a -&gt; a.getAuthority().equals(&quot;ROLE_OBSERVADOR&quot;)));</span>
+<span class="fc" id="L277">    }</span>
 
     @Test
     @DisplayName(&quot;crearAutenticacion - Debe agregar prefijo ROLE_ a todas las authorities&quot;)
     void crearAutenticacion_multipleRoles_debeAgregarPrefijoRole() throws ServletException, IOException {
-        // Arrange
-<span class="fc" id="L293">        String token = generarTokenValido(&quot;superuser&quot;, List.of(&quot;ADMIN&quot;, &quot;ANALISTA&quot;, &quot;OBSERVADOR&quot;));</span>
-<span class="fc" id="L294">        Cookie cookie = new Cookie(&quot;accessToken&quot;, token);</span>
-<span class="fc" id="L295">        request.setCookies(cookie);</span>
-
-        // Act
-<span class="fc" id="L298">        filtro.doFilterInternal(request, response, filterChain);</span>
-
-        // Assert
-<span class="fc" id="L301">        Authentication auth = SecurityContextHolder.getContext().getAuthentication();</span>
-<span class="fc" id="L302">        assertNotNull(auth);</span>
-<span class="fc" id="L303">        assertEquals(3, auth.getAuthorities().size());</span>
         
-<span class="fc" id="L305">        Collection&lt;? extends GrantedAuthority&gt; authorities = auth.getAuthorities();</span>
-<span class="fc" id="L306">        assertTrue(authorities.contains(new SimpleGrantedAuthority(&quot;ROLE_ADMIN&quot;)));</span>
-<span class="fc" id="L307">        assertTrue(authorities.contains(new SimpleGrantedAuthority(&quot;ROLE_ANALISTA&quot;)));</span>
-<span class="fc" id="L308">        assertTrue(authorities.contains(new SimpleGrantedAuthority(&quot;ROLE_OBSERVADOR&quot;)));</span>
-<span class="fc" id="L309">    }</span>
+<span class="fc" id="L283">        String token = generarTokenValido(&quot;superuser&quot;, List.of(&quot;ADMIN&quot;, &quot;ANALISTA&quot;, &quot;OBSERVADOR&quot;));</span>
+<span class="fc" id="L284">        Cookie cookie = new Cookie(&quot;accessToken&quot;, token);</span>
+<span class="fc" id="L285">        request.setCookies(cookie);</span>
+
+        
+<span class="fc" id="L288">        filtro.doFilterInternal(request, response, filterChain);</span>
+
+        
+<span class="fc" id="L291">        Authentication auth = SecurityContextHolder.getContext().getAuthentication();</span>
+<span class="fc" id="L292">        assertNotNull(auth);</span>
+<span class="fc" id="L293">        assertEquals(3, auth.getAuthorities().size());</span>
+        
+<span class="fc" id="L295">        Collection&lt;? extends GrantedAuthority&gt; authorities = auth.getAuthorities();</span>
+<span class="fc" id="L296">        assertTrue(authorities.contains(new SimpleGrantedAuthority(&quot;ROLE_ADMIN&quot;)));</span>
+<span class="fc" id="L297">        assertTrue(authorities.contains(new SimpleGrantedAuthority(&quot;ROLE_ANALISTA&quot;)));</span>
+<span class="fc" id="L298">        assertTrue(authorities.contains(new SimpleGrantedAuthority(&quot;ROLE_OBSERVADOR&quot;)));</span>
+<span class="fc" id="L299">    }</span>
 
     @Test
     @DisplayName(&quot;crearAutenticacion - Debe establecer autenticación en SecurityContext&quot;)
     void crearAutenticacion_debeEstablecerEnSecurityContext() throws ServletException, IOException {
-        // Arrange
-<span class="fc" id="L315">        String token = generarTokenValido(&quot;testuser&quot;, List.of(&quot;ADMIN&quot;));</span>
-<span class="fc" id="L316">        Cookie cookie = new Cookie(&quot;accessToken&quot;, token);</span>
-<span class="fc" id="L317">        request.setCookies(cookie);</span>
         
-<span class="fc" id="L319">        assertNull(SecurityContextHolder.getContext().getAuthentication(), &quot;Contexto debe estar vacío inicialmente&quot;);</span>
+<span class="fc" id="L305">        String token = generarTokenValido(&quot;testuser&quot;, List.of(&quot;ADMIN&quot;));</span>
+<span class="fc" id="L306">        Cookie cookie = new Cookie(&quot;accessToken&quot;, token);</span>
+<span class="fc" id="L307">        request.setCookies(cookie);</span>
+        
+<span class="fc" id="L309">        assertNull(SecurityContextHolder.getContext().getAuthentication(), &quot;Contexto debe estar vacío inicialmente&quot;);</span>
 
-        // Act
-<span class="fc" id="L322">        filtro.doFilterInternal(request, response, filterChain);</span>
+        
+<span class="fc" id="L312">        filtro.doFilterInternal(request, response, filterChain);</span>
 
-        // Assert
-<span class="fc" id="L325">        Authentication auth = SecurityContextHolder.getContext().getAuthentication();</span>
-<span class="fc" id="L326">        assertNotNull(auth, &quot;Debe establecer autenticación en SecurityContext&quot;);</span>
-<span class="fc" id="L327">        assertEquals(&quot;testuser&quot;, auth.getPrincipal());</span>
-<span class="fc" id="L328">        assertNull(auth.getCredentials(), &quot;Credentials debe ser null&quot;);</span>
-<span class="fc" id="L329">    }</span>
+        
+<span class="fc" id="L315">        Authentication auth = SecurityContextHolder.getContext().getAuthentication();</span>
+<span class="fc" id="L316">        assertNotNull(auth, &quot;Debe establecer autenticación en SecurityContext&quot;);</span>
+<span class="fc" id="L317">        assertEquals(&quot;testuser&quot;, auth.getPrincipal());</span>
+<span class="fc" id="L318">        assertNull(auth.getCredentials(), &quot;Credentials debe ser null&quot;);</span>
+<span class="fc" id="L319">    }</span>
 
     // ===== TESTS DE validarToken =====
 
     @Test
     @DisplayName(&quot;validarToken - Token válido debe retornar claims correctos&quot;)
     void validarToken_tokenValido_debeRetornarClaims() throws ServletException, IOException {
-        // Arrange
-<span class="fc" id="L337">        String username = &quot;validuser&quot;;</span>
-<span class="fc" id="L338">        List&lt;String&gt; roles = List.of(&quot;ADMIN&quot;, &quot;ANALISTA&quot;);</span>
-<span class="fc" id="L339">        String token = generarTokenValido(username, roles);</span>
-<span class="fc" id="L340">        Cookie cookie = new Cookie(&quot;accessToken&quot;, token);</span>
-<span class="fc" id="L341">        request.setCookies(cookie);</span>
+        
+<span class="fc" id="L327">        String username = &quot;validuser&quot;;</span>
+<span class="fc" id="L328">        List&lt;String&gt; roles = List.of(&quot;ADMIN&quot;, &quot;ANALISTA&quot;);</span>
+<span class="fc" id="L329">        String token = generarTokenValido(username, roles);</span>
+<span class="fc" id="L330">        Cookie cookie = new Cookie(&quot;accessToken&quot;, token);</span>
+<span class="fc" id="L331">        request.setCookies(cookie);</span>
 
-        // Act
-<span class="fc" id="L344">        filtro.doFilterInternal(request, response, filterChain);</span>
+        
+<span class="fc" id="L334">        filtro.doFilterInternal(request, response, filterChain);</span>
 
-        // Assert
-<span class="fc" id="L347">        Authentication auth = SecurityContextHolder.getContext().getAuthentication();</span>
-<span class="fc" id="L348">        assertNotNull(auth);</span>
-<span class="fc" id="L349">        assertEquals(username, auth.getName());</span>
-<span class="fc" id="L350">        assertEquals(roles.size(), auth.getAuthorities().size());</span>
-<span class="fc" id="L351">    }</span>
+        
+<span class="fc" id="L337">        Authentication auth = SecurityContextHolder.getContext().getAuthentication();</span>
+<span class="fc" id="L338">        assertNotNull(auth);</span>
+<span class="fc" id="L339">        assertEquals(username, auth.getName());</span>
+<span class="fc" id="L340">        assertEquals(roles.size(), auth.getAuthorities().size());</span>
+<span class="fc" id="L341">    }</span>
 
     @Test
     @DisplayName(&quot;validarToken - Token con firma incorrecta debe lanzar excepción&quot;)
     void validarToken_firmaIncorrecta_debeLanzarExcepcion() throws ServletException, IOException {
-        // Arrange
-<span class="fc" id="L357">        SecretKey otraLlave = Keys.hmacShaKeyFor(&quot;otra_clave_secreta_diferente_muy_larga_123456789&quot;.getBytes(StandardCharsets.UTF_8));</span>
-<span class="fc" id="L358">        String tokenConOtraFirma = Jwts.builder()</span>
-<span class="fc" id="L359">                .subject(&quot;hacker&quot;)</span>
-<span class="fc" id="L360">                .claim(&quot;authorities&quot;, List.of(&quot;ADMIN&quot;))</span>
-<span class="fc" id="L361">                .issuedAt(new Date())</span>
-<span class="fc" id="L362">                .expiration(Date.from(Instant.now().plus(1, ChronoUnit.HOURS)))</span>
-<span class="fc" id="L363">                .signWith(otraLlave)</span>
-<span class="fc" id="L364">                .compact();</span>
         
-<span class="fc" id="L366">        Cookie cookie = new Cookie(&quot;accessToken&quot;, tokenConOtraFirma);</span>
-<span class="fc" id="L367">        request.setCookies(cookie);</span>
+<span class="fc" id="L347">        SecretKey otraLlave = Keys.hmacShaKeyFor(&quot;otra_clave_secreta_diferente_muy_larga_123456789&quot;.getBytes(StandardCharsets.UTF_8));</span>
+<span class="fc" id="L348">        String tokenConOtraFirma = Jwts.builder()</span>
+<span class="fc" id="L349">                .subject(&quot;hacker&quot;)</span>
+<span class="fc" id="L350">                .claim(&quot;authorities&quot;, List.of(&quot;ADMIN&quot;))</span>
+<span class="fc" id="L351">                .issuedAt(new Date())</span>
+<span class="fc" id="L352">                .expiration(Date.from(Instant.now().plus(1, ChronoUnit.HOURS)))</span>
+<span class="fc" id="L353">                .signWith(otraLlave)</span>
+<span class="fc" id="L354">                .compact();</span>
+        
+<span class="fc" id="L356">        Cookie cookie = new Cookie(&quot;accessToken&quot;, tokenConOtraFirma);</span>
+<span class="fc" id="L357">        request.setCookies(cookie);</span>
 
-        // Act
-<span class="fc" id="L370">        filtro.doFilterInternal(request, response, filterChain);</span>
+        
+<span class="fc" id="L360">        filtro.doFilterInternal(request, response, filterChain);</span>
 
-        // Assert
-<span class="fc" id="L373">        Authentication auth = SecurityContextHolder.getContext().getAuthentication();</span>
-<span class="fc" id="L374">        assertNull(auth, &quot;No debe autenticar con firma incorrecta&quot;);</span>
-<span class="fc" id="L375">        verify(filterChain, times(1)).doFilter(request, response);</span>
-<span class="fc" id="L376">    }</span>
+        
+<span class="fc" id="L363">        Authentication auth = SecurityContextHolder.getContext().getAuthentication();</span>
+<span class="fc" id="L364">        assertNull(auth, &quot;No debe autenticar con firma incorrecta&quot;);</span>
+<span class="fc" id="L365">        verify(filterChain, times(1)).doFilter(request, response);</span>
+<span class="fc" id="L366">    }</span>
 
     @Test
     @DisplayName(&quot;validarToken - Token expirado debe lanzar ExpiredJwtException&quot;)
     void validarToken_tokenExpirado_debeLanzarExpiredJwtException() throws ServletException, IOException {
-        // Arrange
-<span class="fc" id="L382">        String tokenExpirado = generarTokenExpirado(&quot;expireduser&quot;, List.of(&quot;ADMIN&quot;));</span>
-<span class="fc" id="L383">        Cookie cookie = new Cookie(&quot;accessToken&quot;, tokenExpirado);</span>
-<span class="fc" id="L384">        request.setCookies(cookie);</span>
+        
+<span class="fc" id="L372">        String tokenExpirado = generarTokenExpirado(&quot;expireduser&quot;, List.of(&quot;ADMIN&quot;));</span>
+<span class="fc" id="L373">        Cookie cookie = new Cookie(&quot;accessToken&quot;, tokenExpirado);</span>
+<span class="fc" id="L374">        request.setCookies(cookie);</span>
 
-        // Act
-<span class="fc" id="L387">        filtro.doFilterInternal(request, response, filterChain);</span>
+        
+<span class="fc" id="L377">        filtro.doFilterInternal(request, response, filterChain);</span>
 
-        // Assert
-<span class="fc" id="L390">        Authentication auth = SecurityContextHolder.getContext().getAuthentication();</span>
-<span class="fc" id="L391">        assertNull(auth, &quot;No debe autenticar con token expirado&quot;);</span>
-<span class="fc" id="L392">        verify(filterChain, times(1)).doFilter(request, response);</span>
-<span class="fc" id="L393">    }</span>
+        
+<span class="fc" id="L380">        Authentication auth = SecurityContextHolder.getContext().getAuthentication();</span>
+<span class="fc" id="L381">        assertNull(auth, &quot;No debe autenticar con token expirado&quot;);</span>
+<span class="fc" id="L382">        verify(filterChain, times(1)).doFilter(request, response);</span>
+<span class="fc" id="L383">    }</span>
 
     // ===== MÉTODOS AUXILIARES =====
 
-    /**
-     * Genera un token JWT válido con el username y roles proporcionados
-     */
+    
     private String generarTokenValido(String username, List&lt;String&gt; roles) {
-<span class="fc" id="L401">        return Jwts.builder()</span>
-<span class="fc" id="L402">                .subject(username)</span>
-<span class="fc" id="L403">                .claim(&quot;authorities&quot;, roles)</span>
-<span class="fc" id="L404">                .issuedAt(new Date())</span>
-<span class="fc" id="L405">                .expiration(Date.from(Instant.now().plus(1, ChronoUnit.HOURS)))</span>
-<span class="fc" id="L406">                .signWith(secretKey)</span>
-<span class="fc" id="L407">                .compact();</span>
+<span class="fc" id="L389">        return Jwts.builder()</span>
+<span class="fc" id="L390">                .subject(username)</span>
+<span class="fc" id="L391">                .claim(&quot;authorities&quot;, roles)</span>
+<span class="fc" id="L392">                .issuedAt(new Date())</span>
+<span class="fc" id="L393">                .expiration(Date.from(Instant.now().plus(1, ChronoUnit.HOURS)))</span>
+<span class="fc" id="L394">                .signWith(secretKey)</span>
+<span class="fc" id="L395">                .compact();</span>
     }
 
-    /**
-     * Genera un token JWT expirado
-     */
+    
     private String generarTokenExpirado(String username, List&lt;String&gt; roles) {
-<span class="fc" id="L414">        return Jwts.builder()</span>
-<span class="fc" id="L415">                .subject(username)</span>
-<span class="fc" id="L416">                .claim(&quot;authorities&quot;, roles)</span>
-<span class="fc" id="L417">                .issuedAt(Date.from(Instant.now().minus(2, ChronoUnit.HOURS)))</span>
-<span class="fc" id="L418">                .expiration(Date.from(Instant.now().minus(1, ChronoUnit.HOURS)))</span>
-<span class="fc" id="L419">                .signWith(secretKey)</span>
-<span class="fc" id="L420">                .compact();</span>
+<span class="fc" id="L400">        return Jwts.builder()</span>
+<span class="fc" id="L401">                .subject(username)</span>
+<span class="fc" id="L402">                .claim(&quot;authorities&quot;, roles)</span>
+<span class="fc" id="L403">                .issuedAt(Date.from(Instant.now().minus(2, ChronoUnit.HOURS)))</span>
+<span class="fc" id="L404">                .expiration(Date.from(Instant.now().minus(1, ChronoUnit.HOURS)))</span>
+<span class="fc" id="L405">                .signWith(secretKey)</span>
+<span class="fc" id="L406">                .compact();</span>
     }
 
-    /**
-     * Genera un token JWT sin el claim 'authorities'
-     */
+    
     private String generarTokenSinAuthorities(String username) {
-<span class="fc" id="L427">        return Jwts.builder()</span>
-<span class="fc" id="L428">                .subject(username)</span>
-<span class="fc" id="L429">                .issuedAt(new Date())</span>
-<span class="fc" id="L430">                .expiration(Date.from(Instant.now().plus(1, ChronoUnit.HOURS)))</span>
-<span class="fc" id="L431">                .signWith(secretKey)</span>
-<span class="fc" id="L432">                .compact();</span>
+<span class="fc" id="L411">        return Jwts.builder()</span>
+<span class="fc" id="L412">                .subject(username)</span>
+<span class="fc" id="L413">                .issuedAt(new Date())</span>
+<span class="fc" id="L414">                .expiration(Date.from(Instant.now().plus(1, ChronoUnit.HOURS)))</span>
+<span class="fc" id="L415">                .signWith(secretKey)</span>
+<span class="fc" id="L416">                .compact();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

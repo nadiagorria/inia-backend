@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DashboardService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">DashboardService.java</span></div><h1>DashboardService.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DashboardService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">DashboardService.java</span></div><h1>DashboardService.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -7,8 +7,6 @@ import org.springframework.stereotype.Service;
 import utec.proyectofinal.Proyecto.Final.UTEC.dtos.DashboardStatsDTO;
 import utec.proyectofinal.Proyecto.Final.UTEC.dtos.AnalisisPendienteDTO;
 import utec.proyectofinal.Proyecto.Final.UTEC.dtos.AnalisisPorAprobarDTO;
-import utec.proyectofinal.Proyecto.Final.UTEC.dtos.CursorPageResponse;
-import utec.proyectofinal.Proyecto.Final.UTEC.dtos.KeysetCursor;
 import utec.proyectofinal.Proyecto.Final.UTEC.business.repositories.AnalisisRepository;
 import utec.proyectofinal.Proyecto.Final.UTEC.business.repositories.AnalisisPendienteRepository;
 import utec.proyectofinal.Proyecto.Final.UTEC.business.repositories.AnalisisPorAprobarRepository;
@@ -24,7 +22,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-<span class="fc" id="L27">public class DashboardService {</span>
+<span class="fc" id="L25">public class DashboardService {</span>
 
     @Autowired
     private LoteRepository loteRepository;
@@ -42,202 +40,61 @@ import java.util.stream.Collectors;
     private LoteService loteService;
 
     public DashboardStatsDTO obtenerEstadisticas() {
-<span class="fc" id="L45">        DashboardStatsDTO stats = new DashboardStatsDTO();</span>
+<span class="fc" id="L43">        DashboardStatsDTO stats = new DashboardStatsDTO();</span>
         
-        // 1. Lotes activos
-<span class="fc" id="L48">        stats.setLotesActivos(loteRepository.countLotesActivos());</span>
         
-        // 2. Análisis pendientes (asignados pero no realizados o marcados como A_REPETIR)
-<span class="fc" id="L51">        stats.setAnalisisPendientes(loteService.contarAnalisisPendientes());</span>
+<span class="fc" id="L46">        stats.setLotesActivos(loteRepository.countLotesActivos());</span>
         
-        // 3. Completados hoy (finalizados en la fecha actual con estado APROBADO)
-<span class="fc" id="L54">        stats.setCompletadosHoy(analisisRepository.countCompletadosEnFecha(LocalDate.now(), Estado.APROBADO));</span>
         
-        // 4. Análisis por aprobar (estado PENDIENTE_APROBACION)
-<span class="fc" id="L57">        stats.setAnalisisPorAprobar(analisisRepository.countByEstado(Estado.PENDIENTE_APROBACION));</span>
+<span class="fc" id="L49">        stats.setAnalisisPendientes(loteService.contarAnalisisPendientes());</span>
         
-<span class="fc" id="L59">        return stats;</span>
+        
+<span class="fc" id="L52">        stats.setCompletadosHoy(analisisRepository.countCompletadosEnFecha(LocalDate.now(), Estado.APROBADO));</span>
+        
+        
+<span class="fc" id="L55">        stats.setAnalisisPorAprobar(analisisRepository.countByEstado(Estado.PENDIENTE_APROBACION));</span>
+        
+<span class="fc" id="L57">        return stats;</span>
     }
     
-    /**
-     * Paginación offset estándar para análisis pendientes.
-     * Mejor para navegación con números de página.
-     * 
-     * @param pageable Información de paginación (page, size, sort)
-     * @return Página de análisis pendientes
-     */
+    
     public Page&lt;AnalisisPendienteDTO&gt; listarAnalisisPendientesPaginados(Pageable pageable) {
-<span class="fc" id="L70">        Page&lt;AnalisisPendienteProjection&gt; proyecciones = analisisPendienteRepository.findAllPaginado(pageable);</span>
+<span class="fc" id="L62">        Page&lt;AnalisisPendienteProjection&gt; proyecciones = analisisPendienteRepository.findAllPaginado(pageable);</span>
         
-<span class="fc" id="L72">        return proyecciones.map(p -&gt; new AnalisisPendienteDTO(</span>
-<span class="fc" id="L73">            p.getLoteID(),</span>
-<span class="fc" id="L74">            p.getNomLote(),</span>
-<span class="fc" id="L75">            p.getFicha(),</span>
-<span class="fc" id="L76">            p.getEspecieNombre(),</span>
-<span class="fc" id="L77">            p.getCultivarNombre(),</span>
-<span class="fc" id="L78">            TipoAnalisis.valueOf(p.getTipoAnalisis())</span>
-<span class="fc" id="L79">        ));</span>
+<span class="fc" id="L64">        return proyecciones.map(p -&gt; new AnalisisPendienteDTO(</span>
+<span class="fc" id="L65">            p.getLoteID(),</span>
+<span class="fc" id="L66">            p.getNomLote(),</span>
+<span class="fc" id="L67">            p.getFicha(),</span>
+<span class="fc" id="L68">            p.getEspecieNombre(),</span>
+<span class="fc" id="L69">            p.getCultivarNombre(),</span>
+<span class="fc" id="L70">            TipoAnalisis.valueOf(p.getTipoAnalisis())</span>
+        ));
     }
     
-    /**
-     * Paginación offset estándar para análisis por aprobar.
-     * Mejor para navegación con números de página.
-     * 
-     * @param pageable Información de paginación (page, size, sort)
-     * @return Página de análisis por aprobar
-     */
+    
     public Page&lt;AnalisisPorAprobarDTO&gt; listarAnalisisPorAprobarPaginados(Pageable pageable) {
-<span class="fc" id="L90">        Page&lt;AnalisisPorAprobarProjection&gt; proyecciones = analisisPorAprobarRepository.findAllPaginado(pageable);</span>
+<span class="fc" id="L76">        Page&lt;AnalisisPorAprobarProjection&gt; proyecciones = analisisPorAprobarRepository.findAllPaginado(pageable);</span>
         
-<span class="fc" id="L92">        return proyecciones.map(p -&gt; {</span>
-<span class="fc" id="L93">            AnalisisPorAprobarDTO dto = new AnalisisPorAprobarDTO();</span>
-<span class="fc" id="L94">            dto.setAnalisisID(p.getAnalisisID());</span>
-<span class="fc" id="L95">            dto.setTipo(TipoAnalisis.valueOf(p.getTipoAnalisis()));</span>
-<span class="fc" id="L96">            dto.setLoteID(p.getLoteID());</span>
-<span class="fc" id="L97">            dto.setNomLote(p.getNomLote());</span>
-<span class="fc" id="L98">            dto.setFicha(p.getFicha());</span>
+<span class="fc" id="L78">        return proyecciones.map(p -&gt; {</span>
+<span class="fc" id="L79">            AnalisisPorAprobarDTO dto = new AnalisisPorAprobarDTO();</span>
+<span class="fc" id="L80">            dto.setAnalisisID(p.getAnalisisID());</span>
+<span class="fc" id="L81">            dto.setTipo(TipoAnalisis.valueOf(p.getTipoAnalisis()));</span>
+<span class="fc" id="L82">            dto.setLoteID(p.getLoteID());</span>
+<span class="fc" id="L83">            dto.setNomLote(p.getNomLote());</span>
+<span class="fc" id="L84">            dto.setFicha(p.getFicha());</span>
             
-            // Convertir fechas String a LocalDateTime
-<span class="pc bpc" id="L101" title="1 of 2 branches missed.">            if (p.getFechaInicio() != null) {</span>
-<span class="fc" id="L102">                dto.setFechaInicio(LocalDateTime.parse(p.getFechaInicio(), </span>
-<span class="fc" id="L103">                    java.time.format.DateTimeFormatter.ofPattern(&quot;yyyy-MM-dd HH:mm:ss&quot;)));</span>
+            
+<span class="pc bpc" id="L87" title="1 of 2 branches missed.">            if (p.getFechaInicio() != null) {</span>
+<span class="fc" id="L88">                dto.setFechaInicio(LocalDateTime.parse(p.getFechaInicio(), </span>
+<span class="fc" id="L89">                    java.time.format.DateTimeFormatter.ofPattern(&quot;yyyy-MM-dd HH:mm:ss&quot;)));</span>
             }
-<span class="pc bpc" id="L105" title="1 of 2 branches missed.">            if (p.getFechaFin() != null) {</span>
-<span class="fc" id="L106">                dto.setFechaFin(LocalDateTime.parse(p.getFechaFin(), </span>
-<span class="fc" id="L107">                    java.time.format.DateTimeFormatter.ofPattern(&quot;yyyy-MM-dd HH:mm:ss&quot;)));</span>
+<span class="pc bpc" id="L91" title="1 of 2 branches missed.">            if (p.getFechaFin() != null) {</span>
+<span class="fc" id="L92">                dto.setFechaFin(LocalDateTime.parse(p.getFechaFin(), </span>
+<span class="fc" id="L93">                    java.time.format.DateTimeFormatter.ofPattern(&quot;yyyy-MM-dd HH:mm:ss&quot;)));</span>
             }
             
-<span class="fc" id="L110">            return dto;</span>
+<span class="fc" id="L96">            return dto;</span>
         });
-    }
-    
-    /**
-     * Keyset pagination para análisis pendientes.
-     * 
-     * @param encodedCursor Cursor Base64 (null para primera página)
-     * @param size Número de items por página
-     * @return Página con items y nextCursor encoded
-     */
-    public CursorPageResponse&lt;AnalisisPendienteDTO&gt; listarAnalisisPendientesKeyset(
-            String encodedCursor, int size) {
-        
-        List&lt;AnalisisPendienteProjection&gt; proyecciones;
-        
-<span class="pc bpc" id="L126" title="1 of 4 branches missed.">        if (encodedCursor == null || encodedCursor.trim().isEmpty()) {</span>
-            // Primera página
-<span class="fc" id="L128">            proyecciones = analisisPendienteRepository.findNextPageByCursor(</span>
-<span class="fc" id="L129">                0L, &quot;&quot;, size + 1);</span>
-<span class="fc" id="L130">        } else {</span>
-            // Decodificar cursor (lanza InvalidCursorException si es inválido)
-<span class="fc" id="L132">            KeysetCursor cursor = KeysetCursor.decode(encodedCursor);</span>
-            
-            // Para analisis-pendientes, usamos lastId como loteId y lastFecha como tipo
-<span class="fc" id="L135">            Long lastLoteId = cursor.getLastId();</span>
-<span class="pc bpc" id="L136" title="1 of 2 branches missed.">            String lastTipo = cursor.getLastFecha() != null ? cursor.getLastFecha() : &quot;&quot;;</span>
-            
-<span class="fc" id="L138">            proyecciones = analisisPendienteRepository.findNextPageByCursor(</span>
-<span class="fc" id="L139">                lastLoteId, lastTipo, size + 1);</span>
-        }
-        
-        // Convertir a DTOs
-<span class="fc" id="L143">        List&lt;AnalisisPendienteDTO&gt; items = proyecciones.stream()</span>
-<span class="fc" id="L144">            .limit(size)</span>
-<span class="fc" id="L145">            .map(p -&gt; new AnalisisPendienteDTO(</span>
-<span class="fc" id="L146">                p.getLoteID(),</span>
-<span class="fc" id="L147">                p.getNomLote(),</span>
-<span class="fc" id="L148">                p.getFicha(),</span>
-<span class="fc" id="L149">                p.getEspecieNombre(),</span>
-<span class="fc" id="L150">                p.getCultivarNombre(),</span>
-<span class="fc" id="L151">                TipoAnalisis.valueOf(p.getTipoAnalisis())</span>
-<span class="fc" id="L152">            ))</span>
-<span class="fc" id="L153">            .collect(Collectors.toList());</span>
-        
-        // Verificar si hay más resultados
-<span class="fc bfc" id="L156" title="All 2 branches covered.">        boolean hasMore = proyecciones.size() &gt; size;</span>
-        
-<span class="pc bpc" id="L158" title="1 of 4 branches missed.">        if (hasMore &amp;&amp; !items.isEmpty()) {</span>
-<span class="fc" id="L159">            AnalisisPendienteDTO lastItem = items.get(items.size() - 1);</span>
-<span class="fc" id="L160">            KeysetCursor cursor = new KeysetCursor(</span>
-<span class="fc" id="L161">                lastItem.getTipoAnalisis().name(),  // Guardar tipo como &quot;fecha&quot;</span>
-<span class="fc" id="L162">                lastItem.getLoteID()</span>
-            );
-<span class="fc" id="L164">            return CursorPageResponse.of(items, cursor, size);</span>
-        } else {
-<span class="fc" id="L166">            return CursorPageResponse.lastPage(items, size);</span>
-        }
-    }
-    
-    /**
-     * Keyset pagination para análisis por aprobar.
-     * 
-     * @param encodedCursor Cursor Base64 (null para primera página)
-     * @param size Número de items por página
-     * @return Página con items y nextCursor encoded
-     */
-    public CursorPageResponse&lt;AnalisisPorAprobarDTO&gt; listarAnalisisPorAprobarKeyset(
-            String encodedCursor, int size) {
-        
-        List&lt;AnalisisPorAprobarProjection&gt; proyecciones;
-        
-<span class="pc bpc" id="L182" title="1 of 4 branches missed.">        if (encodedCursor == null || encodedCursor.trim().isEmpty()) {</span>
-            // Primera página
-<span class="fc" id="L184">            proyecciones = analisisPorAprobarRepository.findNextPageByCursor(</span>
-<span class="fc" id="L185">                &quot;9999-12-31 23:59:59&quot;, Long.MAX_VALUE, size + 1);</span>
-<span class="fc" id="L186">        } else {</span>
-            // Decodificar cursor (lanza InvalidCursorException si es inválido)
-<span class="fc" id="L188">            KeysetCursor cursor = KeysetCursor.decode(encodedCursor);</span>
-            
-<span class="fc" id="L190">            String lastFecha = cursor.getLastFecha();</span>
-<span class="fc" id="L191">            Long lastId = cursor.getLastId();</span>
-            
-<span class="fc" id="L193">            proyecciones = analisisPorAprobarRepository.findNextPageByCursor(</span>
-<span class="fc" id="L194">                lastFecha, lastId, size + 1);</span>
-        }
-        
-        // Convertir a DTOs
-<span class="fc" id="L198">        List&lt;AnalisisPorAprobarDTO&gt; items = proyecciones.stream()</span>
-<span class="fc" id="L199">            .limit(size)</span>
-<span class="fc" id="L200">            .map(p -&gt; {</span>
-<span class="fc" id="L201">                AnalisisPorAprobarDTO dto = new AnalisisPorAprobarDTO();</span>
-<span class="fc" id="L202">                dto.setAnalisisID(p.getAnalisisID());</span>
-<span class="fc" id="L203">                dto.setTipo(TipoAnalisis.valueOf(p.getTipoAnalisis()));</span>
-<span class="fc" id="L204">                dto.setLoteID(p.getLoteID());</span>
-<span class="fc" id="L205">                dto.setNomLote(p.getNomLote());</span>
-<span class="fc" id="L206">                dto.setFicha(p.getFicha());</span>
-                
-                // Convertir fechas String a LocalDateTime
-<span class="pc bpc" id="L209" title="1 of 2 branches missed.">                if (p.getFechaInicio() != null) {</span>
-<span class="fc" id="L210">                    dto.setFechaInicio(LocalDateTime.parse(p.getFechaInicio(), </span>
-<span class="fc" id="L211">                        java.time.format.DateTimeFormatter.ofPattern(&quot;yyyy-MM-dd HH:mm:ss&quot;)));</span>
-                }
-<span class="pc bpc" id="L213" title="1 of 2 branches missed.">                if (p.getFechaFin() != null) {</span>
-<span class="fc" id="L214">                    dto.setFechaFin(LocalDateTime.parse(p.getFechaFin(), </span>
-<span class="fc" id="L215">                        java.time.format.DateTimeFormatter.ofPattern(&quot;yyyy-MM-dd HH:mm:ss&quot;)));</span>
-                }
-                
-<span class="fc" id="L218">                return dto;</span>
-            })
-<span class="fc" id="L220">            .collect(Collectors.toList());</span>
-        
-        // Verificar si hay más resultados
-<span class="fc bfc" id="L223" title="All 2 branches covered.">        boolean hasMore = proyecciones.size() &gt; size;</span>
-        
-<span class="pc bpc" id="L225" title="1 of 4 branches missed.">        if (hasMore &amp;&amp; !items.isEmpty()) {</span>
-<span class="fc" id="L226">            AnalisisPorAprobarDTO lastItem = items.get(items.size() - 1);</span>
-            
-            // Formatear fecha para cursor (mismo formato que en la query)
-<span class="pc bpc" id="L229" title="1 of 2 branches missed.">            String fechaStr = lastItem.getFechaInicio() != null </span>
-<span class="fc" id="L230">                ? lastItem.getFechaInicio().format(java.time.format.DateTimeFormatter.ofPattern(&quot;yyyy-MM-dd HH:mm:ss&quot;))</span>
-<span class="nc" id="L231">                : null;</span>
-            
-<span class="fc" id="L233">            KeysetCursor cursor = new KeysetCursor(</span>
-<span class="fc" id="L234">                fechaStr,</span>
-<span class="fc" id="L235">                lastItem.getAnalisisID()</span>
-            );
-<span class="fc" id="L237">            return CursorPageResponse.of(items, cursor, size);</span>
-        } else {
-<span class="fc" id="L239">            return CursorPageResponse.lastPage(items, size);</span>
-        }
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

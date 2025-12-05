@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RepTetrazolioViabilidadService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">RepTetrazolioViabilidadService.java</span></div><h1>RepTetrazolioViabilidadService.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RepTetrazolioViabilidadService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">RepTetrazolioViabilidadService.java</span></div><h1>RepTetrazolioViabilidadService.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,12 +24,12 @@ import utec.proyectofinal.Proyecto.Final.UTEC.enums.Estado;
     @Autowired
     private TetrazolioRepository tetrazolioRepository;
 
-    // Crear nueva repetición asociada a un tetrazolio
+    
     public RepTetrazolioViabilidadDTO crearRepeticion(Long tetrazolioId, RepTetrazolioViabilidadRequestDTO solicitud) {
         try {
 <span class="fc" id="L30">            System.out.println(&quot;Creando repetición para tetrazolio ID: &quot; + tetrazolioId);</span>
             
-            // Validar que el tetrazolio existe
+            
 <span class="fc" id="L33">            Optional&lt;Tetrazolio&gt; tetrazolioOpt = tetrazolioRepository.findById(tetrazolioId);</span>
 <span class="fc bfc" id="L34" title="All 2 branches covered.">            if (tetrazolioOpt.isEmpty()) {</span>
 <span class="fc" id="L35">                throw new RuntimeException(&quot;Tetrazolio no encontrado con ID: &quot; + tetrazolioId);</span>
@@ -37,14 +37,14 @@ import utec.proyectofinal.Proyecto.Final.UTEC.enums.Estado;
             
 <span class="fc" id="L38">            Tetrazolio tetrazolio = tetrazolioOpt.get();</span>
             
-            // Validar límite de repeticiones
+            
 <span class="fc" id="L41">            validarLimiteRepeticiones(tetrazolio);</span>
             
-            // Crear la repetición
+            
 <span class="fc" id="L44">            RepTetrazolioViabilidad repeticion = mapearSolicitudAEntidad(solicitud, tetrazolio);</span>
 <span class="fc" id="L45">            RepTetrazolioViabilidad repeticionGuardada = repeticionRepository.save(repeticion);</span>
             
-            // Cambiar estado a EN_PROCESO si es la primera repetición
+            
 <span class="pc bpc" id="L48" title="1 of 2 branches missed.">            if (tetrazolio.getEstado() == Estado.REGISTRADO) {</span>
 <span class="nc" id="L49">                tetrazolio.setEstado(Estado.EN_PROCESO);</span>
 <span class="nc" id="L50">                tetrazolioRepository.save(tetrazolio);</span>
@@ -59,7 +59,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.enums.Estado;
         }
     }
 
-    // Obtener repetición por ID
+    
     public RepTetrazolioViabilidadDTO obtenerRepeticionPorId(Long id) {
 <span class="fc" id="L64">        Optional&lt;RepTetrazolioViabilidad&gt; repeticion = repeticionRepository.findById(id);</span>
 <span class="fc bfc" id="L65" title="All 2 branches covered.">        if (repeticion.isPresent()) {</span>
@@ -69,7 +69,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.enums.Estado;
         }
     }
 
-    // Actualizar repetición
+    
     public RepTetrazolioViabilidadDTO actualizarRepeticion(Long id, RepTetrazolioViabilidadRequestDTO solicitud) {
 <span class="fc" id="L74">        Optional&lt;RepTetrazolioViabilidad&gt; repeticionExistente = repeticionRepository.findById(id);</span>
         
@@ -83,19 +83,19 @@ import utec.proyectofinal.Proyecto.Final.UTEC.enums.Estado;
         }
     }
 
-    // Eliminar repetición (eliminar realmente, no cambio de estado)
+    
     public void eliminarRepeticion(Long id) {
 <span class="fc" id="L88">        Optional&lt;RepTetrazolioViabilidad&gt; repeticionExistente = repeticionRepository.findById(id);</span>
         
 <span class="fc bfc" id="L90" title="All 2 branches covered.">        if (repeticionExistente.isPresent()) {</span>
 <span class="fc" id="L91">            repeticionRepository.deleteById(id);</span>
 <span class="fc" id="L92">            System.out.println(&quot;Repetición eliminada con ID: &quot; + id);</span>
-<span class="fc" id="L93">        } else {</span>
+        } else {
 <span class="fc" id="L94">            throw new RuntimeException(&quot;Repetición no encontrada con ID: &quot; + id);</span>
         }
 <span class="fc" id="L96">    }</span>
 
-    // Obtener todas las repeticiones de un tetrazolio
+    
     public List&lt;RepTetrazolioViabilidadDTO&gt; obtenerRepeticionesPorTetrazolio(Long tetrazolioId) {
 <span class="fc" id="L100">        List&lt;RepTetrazolioViabilidad&gt; repeticiones = repeticionRepository.findByTetrazolioId(tetrazolioId);</span>
 <span class="fc" id="L101">        return repeticiones.stream()</span>
@@ -103,12 +103,12 @@ import utec.proyectofinal.Proyecto.Final.UTEC.enums.Estado;
 <span class="fc" id="L103">                .collect(Collectors.toList());</span>
     }
 
-    // Contar repeticiones de un tetrazolio
+    
     public Long contarRepeticionesPorTetrazolio(Long tetrazolioId) {
 <span class="fc" id="L108">        return repeticionRepository.countByTetrazolioId(tetrazolioId);</span>
     }
 
-    // Mapear de RequestDTO a Entity
+    
     private RepTetrazolioViabilidad mapearSolicitudAEntidad(RepTetrazolioViabilidadRequestDTO solicitud, Tetrazolio tetrazolio) {
 <span class="fc" id="L113">        RepTetrazolioViabilidad repeticion = new RepTetrazolioViabilidad();</span>
 <span class="fc" id="L114">        repeticion.setFecha(solicitud.getFecha());</span>
@@ -119,16 +119,16 @@ import utec.proyectofinal.Proyecto.Final.UTEC.enums.Estado;
 <span class="fc" id="L119">        return repeticion;</span>
     }
 
-    // Actualizar Entity desde RequestDTO
+    
     private void actualizarEntidadDesdeSolicitud(RepTetrazolioViabilidad repeticion, RepTetrazolioViabilidadRequestDTO solicitud) {
 <span class="fc" id="L124">        repeticion.setFecha(solicitud.getFecha());</span>
 <span class="fc" id="L125">        repeticion.setViablesNum(solicitud.getViablesNum());</span>
 <span class="fc" id="L126">        repeticion.setNoViablesNum(solicitud.getNoViablesNum());</span>
 <span class="fc" id="L127">        repeticion.setDuras(solicitud.getDuras());</span>
-        // El tetrazolio asociado no se cambia en actualizaciones
+        
 <span class="fc" id="L129">    }</span>
 
-    // Mapear de Entity a DTO
+    
     private RepTetrazolioViabilidadDTO mapearEntidadADTO(RepTetrazolioViabilidad repeticion) {
 <span class="fc" id="L133">        RepTetrazolioViabilidadDTO dto = new RepTetrazolioViabilidadDTO();</span>
 <span class="fc" id="L134">        dto.setRepTetrazolioViabID(repeticion.getRepTetrazolioViabID());</span>
@@ -139,7 +139,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.enums.Estado;
 <span class="fc" id="L139">        return dto;</span>
     }
     
-    // Validar que no se excedan las repeticiones esperadas
+    
     private void validarLimiteRepeticiones(Tetrazolio tetrazolio) {
 <span class="pc bpc" id="L144" title="2 of 4 branches missed.">        if (tetrazolio.getNumRepeticionesEsperadas() != null &amp;&amp; tetrazolio.getNumRepeticionesEsperadas() &gt; 0) {</span>
 <span class="fc" id="L145">            Long repeticionesExistentes = repeticionRepository.countByTetrazolioId(tetrazolio.getAnalisisID());</span>

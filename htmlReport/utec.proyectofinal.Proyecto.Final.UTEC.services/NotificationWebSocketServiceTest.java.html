@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NotificationWebSocketServiceTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">NotificationWebSocketServiceTest.java</span></div><h1>NotificationWebSocketServiceTest.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NotificationWebSocketServiceTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">NotificationWebSocketServiceTest.java</span></div><h1>NotificationWebSocketServiceTest.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -22,22 +22,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
-/**
- * Tests unitarios para NotificationWebSocketService
- * 
- * Funcionalidades testeadas:
- * - Envío de notificaciones a usuario específico
- * - Envío de notificaciones a múltiples usuarios
- * - Broadcast a rol específico (ADMIN, ANALISTA, OBSERVADOR)
- * - Broadcast global a todos los usuarios
- * - Envío de contador de notificaciones no leídas
- * - Envío de notificación marcada como leída
- * - Envío de notificación eliminada
- * - Manejo de errores en envíos
- */
+
 @ExtendWith(MockitoExtension.class)
 @DisplayName(&quot;Tests de NotificationWebSocketService&quot;)
-<span class="fc" id="L40">class NotificationWebSocketServiceTest {</span>
+<span class="fc" id="L28">class NotificationWebSocketServiceTest {</span>
 
     @Mock
     private SimpMessagingTemplate messagingTemplate;
@@ -49,571 +37,571 @@ import static org.mockito.Mockito.*;
 
     @BeforeEach
     void setUp() {
-        // ARRANGE: Preparar notificación de prueba
-<span class="fc" id="L53">        notificacion = new NotificacionDTO();</span>
-<span class="fc" id="L54">        notificacion.setId(1L);</span>
-<span class="fc" id="L55">        notificacion.setNombre(&quot;Análisis Aprobado&quot;);</span>
-<span class="fc" id="L56">        notificacion.setMensaje(&quot;El análisis de germinación ha sido aprobado&quot;);</span>
-<span class="fc" id="L57">        notificacion.setLeido(false);</span>
-<span class="fc" id="L58">        notificacion.setActivo(true);</span>
-<span class="fc" id="L59">        notificacion.setFechaCreacion(LocalDateTime.now());</span>
-<span class="fc" id="L60">        notificacion.setUsuarioId(123L);</span>
-<span class="fc" id="L61">        notificacion.setUsuarioNombre(&quot;Juan Pérez&quot;);</span>
-<span class="fc" id="L62">        notificacion.setAnalisisId(456L);</span>
-<span class="fc" id="L63">        notificacion.setTipo(TipoNotificacion.ANALISIS_APROBADO);</span>
-<span class="fc" id="L64">    }</span>
+        
+<span class="fc" id="L41">        notificacion = new NotificacionDTO();</span>
+<span class="fc" id="L42">        notificacion.setId(1L);</span>
+<span class="fc" id="L43">        notificacion.setNombre(&quot;Análisis Aprobado&quot;);</span>
+<span class="fc" id="L44">        notificacion.setMensaje(&quot;El análisis de germinación ha sido aprobado&quot;);</span>
+<span class="fc" id="L45">        notificacion.setLeido(false);</span>
+<span class="fc" id="L46">        notificacion.setActivo(true);</span>
+<span class="fc" id="L47">        notificacion.setFechaCreacion(LocalDateTime.now());</span>
+<span class="fc" id="L48">        notificacion.setUsuarioId(123L);</span>
+<span class="fc" id="L49">        notificacion.setUsuarioNombre(&quot;Juan Pérez&quot;);</span>
+<span class="fc" id="L50">        notificacion.setAnalisisId(456L);</span>
+<span class="fc" id="L51">        notificacion.setTipo(TipoNotificacion.ANALISIS_APROBADO);</span>
+<span class="fc" id="L52">    }</span>
 
     @Test
     @DisplayName(&quot;sendToUser - debe enviar notificación a usuario específico&quot;)
     void sendToUser_debeEnviarNotificacionAUsuario() {
-        // ARRANGE
-<span class="fc" id="L70">        Integer usuarioId = 123;</span>
-<span class="fc" id="L71">        ArgumentCaptor&lt;String&gt; userCaptor = ArgumentCaptor.forClass(String.class);</span>
-<span class="fc" id="L72">        ArgumentCaptor&lt;String&gt; destinationCaptor = ArgumentCaptor.forClass(String.class);</span>
-<span class="fc" id="L73">        ArgumentCaptor&lt;NotificacionDTO&gt; notificationCaptor = ArgumentCaptor.forClass(NotificacionDTO.class);</span>
+        
+<span class="fc" id="L58">        Integer usuarioId = 123;</span>
+<span class="fc" id="L59">        ArgumentCaptor&lt;String&gt; userCaptor = ArgumentCaptor.forClass(String.class);</span>
+<span class="fc" id="L60">        ArgumentCaptor&lt;String&gt; destinationCaptor = ArgumentCaptor.forClass(String.class);</span>
+<span class="fc" id="L61">        ArgumentCaptor&lt;NotificacionDTO&gt; notificationCaptor = ArgumentCaptor.forClass(NotificacionDTO.class);</span>
 
-<span class="fc" id="L75">        doNothing().when(messagingTemplate).convertAndSendToUser(</span>
-<span class="fc" id="L76">                anyString(),</span>
-<span class="fc" id="L77">                anyString(),</span>
-<span class="fc" id="L78">                any(NotificacionDTO.class)</span>
+<span class="fc" id="L63">        doNothing().when(messagingTemplate).convertAndSendToUser(</span>
+<span class="fc" id="L64">                anyString(),</span>
+<span class="fc" id="L65">                anyString(),</span>
+<span class="fc" id="L66">                any(NotificacionDTO.class)</span>
         );
 
-        // ACT
-<span class="fc" id="L82">        service.sendToUser(usuarioId, notificacion);</span>
+        
+<span class="fc" id="L70">        service.sendToUser(usuarioId, notificacion);</span>
 
-        // ASSERT
-<span class="fc" id="L85">        verify(messagingTemplate, times(1)).convertAndSendToUser(</span>
-<span class="fc" id="L86">                userCaptor.capture(),</span>
-<span class="fc" id="L87">                destinationCaptor.capture(),</span>
-<span class="fc" id="L88">                notificationCaptor.capture()</span>
+        
+<span class="fc" id="L73">        verify(messagingTemplate, times(1)).convertAndSendToUser(</span>
+<span class="fc" id="L74">                userCaptor.capture(),</span>
+<span class="fc" id="L75">                destinationCaptor.capture(),</span>
+<span class="fc" id="L76">                notificationCaptor.capture()</span>
         );
 
-<span class="fc" id="L91">        assertEquals(&quot;123&quot;, userCaptor.getValue(), &quot;El ID de usuario debe ser '123'&quot;);</span>
-<span class="fc" id="L92">        assertEquals(&quot;/queue/notifications&quot;, destinationCaptor.getValue(), </span>
-<span class="fc" id="L93">                &quot;El destino debe ser '/queue/notifications'&quot;);</span>
-<span class="fc" id="L94">        assertEquals(notificacion, notificationCaptor.getValue(), </span>
-<span class="fc" id="L95">                &quot;La notificación debe ser la misma&quot;);</span>
-<span class="fc" id="L96">    }</span>
+<span class="fc" id="L79">        assertEquals(&quot;123&quot;, userCaptor.getValue(), &quot;El ID de usuario debe ser '123'&quot;);</span>
+<span class="fc" id="L80">        assertEquals(&quot;/queue/notifications&quot;, destinationCaptor.getValue(), </span>
+                &quot;El destino debe ser '/queue/notifications'&quot;);
+<span class="fc" id="L82">        assertEquals(notificacion, notificationCaptor.getValue(), </span>
+                &quot;La notificación debe ser la misma&quot;);
+<span class="fc" id="L84">    }</span>
 
     @Test
     @DisplayName(&quot;sendToUser - debe enviar notificación con todos los campos correctos&quot;)
     void sendToUser_debeEnviarNotificacionConTodosLosCampos() {
-        // ARRANGE
-<span class="fc" id="L102">        Integer usuarioId = 456;</span>
-<span class="fc" id="L103">        ArgumentCaptor&lt;NotificacionDTO&gt; notificationCaptor = ArgumentCaptor.forClass(NotificacionDTO.class);</span>
+        
+<span class="fc" id="L90">        Integer usuarioId = 456;</span>
+<span class="fc" id="L91">        ArgumentCaptor&lt;NotificacionDTO&gt; notificationCaptor = ArgumentCaptor.forClass(NotificacionDTO.class);</span>
 
-<span class="fc" id="L105">        doNothing().when(messagingTemplate).convertAndSendToUser(</span>
-<span class="fc" id="L106">                anyString(),</span>
-<span class="fc" id="L107">                anyString(),</span>
-<span class="fc" id="L108">                any(NotificacionDTO.class)</span>
+<span class="fc" id="L93">        doNothing().when(messagingTemplate).convertAndSendToUser(</span>
+<span class="fc" id="L94">                anyString(),</span>
+<span class="fc" id="L95">                anyString(),</span>
+<span class="fc" id="L96">                any(NotificacionDTO.class)</span>
         );
 
-        // ACT
-<span class="fc" id="L112">        service.sendToUser(usuarioId, notificacion);</span>
+        
+<span class="fc" id="L100">        service.sendToUser(usuarioId, notificacion);</span>
 
-        // ASSERT
-<span class="fc" id="L115">        verify(messagingTemplate, times(1)).convertAndSendToUser(</span>
-<span class="fc" id="L116">                eq(&quot;456&quot;),</span>
-<span class="fc" id="L117">                eq(&quot;/queue/notifications&quot;),</span>
-<span class="fc" id="L118">                notificationCaptor.capture()</span>
+        
+<span class="fc" id="L103">        verify(messagingTemplate, times(1)).convertAndSendToUser(</span>
+<span class="fc" id="L104">                eq(&quot;456&quot;),</span>
+<span class="fc" id="L105">                eq(&quot;/queue/notifications&quot;),</span>
+<span class="fc" id="L106">                notificationCaptor.capture()</span>
         );
 
-<span class="fc" id="L121">        NotificacionDTO capturedNotification = notificationCaptor.getValue();</span>
-<span class="fc" id="L122">        assertEquals(1L, capturedNotification.getId(), &quot;El ID debe ser 1&quot;);</span>
-<span class="fc" id="L123">        assertEquals(&quot;Análisis Aprobado&quot;, capturedNotification.getNombre(), &quot;El nombre debe coincidir&quot;);</span>
-<span class="fc" id="L124">        assertEquals(&quot;El análisis de germinación ha sido aprobado&quot;, capturedNotification.getMensaje(), </span>
-<span class="fc" id="L125">                &quot;El mensaje debe coincidir&quot;);</span>
-<span class="fc" id="L126">        assertFalse(capturedNotification.getLeido(), &quot;Debe estar marcada como no leída&quot;);</span>
-<span class="fc" id="L127">        assertEquals(TipoNotificacion.ANALISIS_APROBADO, capturedNotification.getTipo(), </span>
-<span class="fc" id="L128">                &quot;El tipo debe ser ANALISIS_APROBADO&quot;);</span>
-<span class="fc" id="L129">    }</span>
+<span class="fc" id="L109">        NotificacionDTO capturedNotification = notificationCaptor.getValue();</span>
+<span class="fc" id="L110">        assertEquals(1L, capturedNotification.getId(), &quot;El ID debe ser 1&quot;);</span>
+<span class="fc" id="L111">        assertEquals(&quot;Análisis Aprobado&quot;, capturedNotification.getNombre(), &quot;El nombre debe coincidir&quot;);</span>
+<span class="fc" id="L112">        assertEquals(&quot;El análisis de germinación ha sido aprobado&quot;, capturedNotification.getMensaje(), </span>
+                &quot;El mensaje debe coincidir&quot;);
+<span class="fc" id="L114">        assertFalse(capturedNotification.getLeido(), &quot;Debe estar marcada como no leída&quot;);</span>
+<span class="fc" id="L115">        assertEquals(TipoNotificacion.ANALISIS_APROBADO, capturedNotification.getTipo(), </span>
+                &quot;El tipo debe ser ANALISIS_APROBADO&quot;);
+<span class="fc" id="L117">    }</span>
 
     @Test
     @DisplayName(&quot;sendToUser - debe manejar errores sin lanzar excepción&quot;)
     void sendToUser_debeManejarlErroresSinLanzarExcepcion() {
-        // ARRANGE
-<span class="fc" id="L135">        Integer usuarioId = 789;</span>
-<span class="fc" id="L136">        doThrow(new RuntimeException(&quot;Error de conexión WebSocket&quot;))</span>
-<span class="fc" id="L137">                .when(messagingTemplate).convertAndSendToUser(</span>
-<span class="fc" id="L138">                        anyString(),</span>
-<span class="fc" id="L139">                        anyString(),</span>
-<span class="fc" id="L140">                        any(NotificacionDTO.class)</span>
+        
+<span class="fc" id="L123">        Integer usuarioId = 789;</span>
+<span class="fc" id="L124">        doThrow(new RuntimeException(&quot;Error de conexión WebSocket&quot;))</span>
+<span class="fc" id="L125">                .when(messagingTemplate).convertAndSendToUser(</span>
+<span class="fc" id="L126">                        anyString(),</span>
+<span class="fc" id="L127">                        anyString(),</span>
+<span class="fc" id="L128">                        any(NotificacionDTO.class)</span>
                 );
 
-        // ACT &amp; ASSERT - No debe lanzar excepción
-<span class="fc" id="L144">        assertDoesNotThrow(() -&gt; service.sendToUser(usuarioId, notificacion),</span>
-<span class="fc" id="L145">                &quot;No debe lanzar excepción cuando hay error en el envío&quot;);</span>
+        
+<span class="fc" id="L132">        assertDoesNotThrow(() -&gt; service.sendToUser(usuarioId, notificacion),</span>
+                &quot;No debe lanzar excepción cuando hay error en el envío&quot;);
 
-<span class="fc" id="L147">        verify(messagingTemplate, times(1)).convertAndSendToUser(</span>
-<span class="fc" id="L148">                eq(&quot;789&quot;),</span>
-<span class="fc" id="L149">                eq(&quot;/queue/notifications&quot;),</span>
-<span class="fc" id="L150">                eq(notificacion)</span>
+<span class="fc" id="L135">        verify(messagingTemplate, times(1)).convertAndSendToUser(</span>
+<span class="fc" id="L136">                eq(&quot;789&quot;),</span>
+<span class="fc" id="L137">                eq(&quot;/queue/notifications&quot;),</span>
+<span class="fc" id="L138">                eq(notificacion)</span>
         );
-<span class="fc" id="L152">    }</span>
+<span class="fc" id="L140">    }</span>
 
     @Test
     @DisplayName(&quot;sendToUsers - debe enviar notificación a múltiples usuarios&quot;)
     void sendToUsers_debeEnviarAMultiplesUsuarios() {
-        // ARRANGE
-<span class="fc" id="L158">        List&lt;Integer&gt; usuarioIds = Arrays.asList(1, 2, 3, 4, 5);</span>
+        
+<span class="fc" id="L146">        List&lt;Integer&gt; usuarioIds = Arrays.asList(1, 2, 3, 4, 5);</span>
 
-<span class="fc" id="L160">        doNothing().when(messagingTemplate).convertAndSendToUser(</span>
-<span class="fc" id="L161">                anyString(),</span>
-<span class="fc" id="L162">                anyString(),</span>
-<span class="fc" id="L163">                any(NotificacionDTO.class)</span>
+<span class="fc" id="L148">        doNothing().when(messagingTemplate).convertAndSendToUser(</span>
+<span class="fc" id="L149">                anyString(),</span>
+<span class="fc" id="L150">                anyString(),</span>
+<span class="fc" id="L151">                any(NotificacionDTO.class)</span>
         );
 
-        // ACT
-<span class="fc" id="L167">        service.sendToUsers(usuarioIds, notificacion);</span>
+        
+<span class="fc" id="L155">        service.sendToUsers(usuarioIds, notificacion);</span>
 
-        // ASSERT
-<span class="fc" id="L170">        verify(messagingTemplate, times(5)).convertAndSendToUser(</span>
-<span class="fc" id="L171">                anyString(),</span>
-<span class="fc" id="L172">                eq(&quot;/queue/notifications&quot;),</span>
-<span class="fc" id="L173">                eq(notificacion)</span>
+        
+<span class="fc" id="L158">        verify(messagingTemplate, times(5)).convertAndSendToUser(</span>
+<span class="fc" id="L159">                anyString(),</span>
+<span class="fc" id="L160">                eq(&quot;/queue/notifications&quot;),</span>
+<span class="fc" id="L161">                eq(notificacion)</span>
         );
 
-        // Verificar que se envió a cada usuario específico
-<span class="fc" id="L177">        verify(messagingTemplate).convertAndSendToUser(&quot;1&quot;, &quot;/queue/notifications&quot;, notificacion);</span>
-<span class="fc" id="L178">        verify(messagingTemplate).convertAndSendToUser(&quot;2&quot;, &quot;/queue/notifications&quot;, notificacion);</span>
-<span class="fc" id="L179">        verify(messagingTemplate).convertAndSendToUser(&quot;3&quot;, &quot;/queue/notifications&quot;, notificacion);</span>
-<span class="fc" id="L180">        verify(messagingTemplate).convertAndSendToUser(&quot;4&quot;, &quot;/queue/notifications&quot;, notificacion);</span>
-<span class="fc" id="L181">        verify(messagingTemplate).convertAndSendToUser(&quot;5&quot;, &quot;/queue/notifications&quot;, notificacion);</span>
-<span class="fc" id="L182">    }</span>
+        
+<span class="fc" id="L165">        verify(messagingTemplate).convertAndSendToUser(&quot;1&quot;, &quot;/queue/notifications&quot;, notificacion);</span>
+<span class="fc" id="L166">        verify(messagingTemplate).convertAndSendToUser(&quot;2&quot;, &quot;/queue/notifications&quot;, notificacion);</span>
+<span class="fc" id="L167">        verify(messagingTemplate).convertAndSendToUser(&quot;3&quot;, &quot;/queue/notifications&quot;, notificacion);</span>
+<span class="fc" id="L168">        verify(messagingTemplate).convertAndSendToUser(&quot;4&quot;, &quot;/queue/notifications&quot;, notificacion);</span>
+<span class="fc" id="L169">        verify(messagingTemplate).convertAndSendToUser(&quot;5&quot;, &quot;/queue/notifications&quot;, notificacion);</span>
+<span class="fc" id="L170">    }</span>
 
     @Test
     @DisplayName(&quot;sendToUsers - debe enviar a un solo usuario si la lista tiene uno&quot;)
     void sendToUsers_debeEnviarAUnSoloUsuario() {
-        // ARRANGE
-<span class="fc" id="L188">        List&lt;Integer&gt; usuarioIds = Arrays.asList(100);</span>
+        
+<span class="fc" id="L176">        List&lt;Integer&gt; usuarioIds = Arrays.asList(100);</span>
 
-<span class="fc" id="L190">        doNothing().when(messagingTemplate).convertAndSendToUser(</span>
-<span class="fc" id="L191">                anyString(),</span>
-<span class="fc" id="L192">                anyString(),</span>
-<span class="fc" id="L193">                any(NotificacionDTO.class)</span>
+<span class="fc" id="L178">        doNothing().when(messagingTemplate).convertAndSendToUser(</span>
+<span class="fc" id="L179">                anyString(),</span>
+<span class="fc" id="L180">                anyString(),</span>
+<span class="fc" id="L181">                any(NotificacionDTO.class)</span>
         );
 
-        // ACT
-<span class="fc" id="L197">        service.sendToUsers(usuarioIds, notificacion);</span>
+        
+<span class="fc" id="L185">        service.sendToUsers(usuarioIds, notificacion);</span>
 
-        // ASSERT
-<span class="fc" id="L200">        verify(messagingTemplate, times(1)).convertAndSendToUser(</span>
-<span class="fc" id="L201">                eq(&quot;100&quot;),</span>
-<span class="fc" id="L202">                eq(&quot;/queue/notifications&quot;),</span>
-<span class="fc" id="L203">                eq(notificacion)</span>
+        
+<span class="fc" id="L188">        verify(messagingTemplate, times(1)).convertAndSendToUser(</span>
+<span class="fc" id="L189">                eq(&quot;100&quot;),</span>
+<span class="fc" id="L190">                eq(&quot;/queue/notifications&quot;),</span>
+<span class="fc" id="L191">                eq(notificacion)</span>
         );
-<span class="fc" id="L205">    }</span>
+<span class="fc" id="L193">    }</span>
 
     @Test
     @DisplayName(&quot;sendToUsers - no debe enviar nada si la lista está vacía&quot;)
     void sendToUsers_noDebeEnviarSiListaVacia() {
-        // ARRANGE
-<span class="fc" id="L211">        List&lt;Integer&gt; usuarioIds = Arrays.asList();</span>
+        
+<span class="fc" id="L199">        List&lt;Integer&gt; usuarioIds = Arrays.asList();</span>
 
-        // ACT
-<span class="fc" id="L214">        service.sendToUsers(usuarioIds, notificacion);</span>
+        
+<span class="fc" id="L202">        service.sendToUsers(usuarioIds, notificacion);</span>
 
-        // ASSERT
-<span class="fc" id="L217">        verify(messagingTemplate, never()).convertAndSendToUser(</span>
-<span class="fc" id="L218">                anyString(),</span>
-<span class="fc" id="L219">                anyString(),</span>
-<span class="fc" id="L220">                any(NotificacionDTO.class)</span>
+        
+<span class="fc" id="L205">        verify(messagingTemplate, never()).convertAndSendToUser(</span>
+<span class="fc" id="L206">                anyString(),</span>
+<span class="fc" id="L207">                anyString(),</span>
+<span class="fc" id="L208">                any(NotificacionDTO.class)</span>
         );
-<span class="fc" id="L222">    }</span>
+<span class="fc" id="L210">    }</span>
 
     @Test
     @DisplayName(&quot;broadcastToRole - debe enviar a rol ADMIN&quot;)
     void broadcastToRole_debeEnviarARolAdmin() {
-        // ARRANGE
-<span class="fc" id="L228">        ArgumentCaptor&lt;String&gt; destinationCaptor = ArgumentCaptor.forClass(String.class);</span>
-<span class="fc" id="L229">        ArgumentCaptor&lt;NotificacionDTO&gt; notificationCaptor = ArgumentCaptor.forClass(NotificacionDTO.class);</span>
+        
+<span class="fc" id="L216">        ArgumentCaptor&lt;String&gt; destinationCaptor = ArgumentCaptor.forClass(String.class);</span>
+<span class="fc" id="L217">        ArgumentCaptor&lt;NotificacionDTO&gt; notificationCaptor = ArgumentCaptor.forClass(NotificacionDTO.class);</span>
 
-<span class="fc" id="L231">        doNothing().when(messagingTemplate).convertAndSend(</span>
-<span class="fc" id="L232">                anyString(),</span>
-<span class="fc" id="L233">                any(NotificacionDTO.class)</span>
+<span class="fc" id="L219">        doNothing().when(messagingTemplate).convertAndSend(</span>
+<span class="fc" id="L220">                anyString(),</span>
+<span class="fc" id="L221">                any(NotificacionDTO.class)</span>
         );
 
-        // ACT
-<span class="fc" id="L237">        service.broadcastToRole(Rol.ADMIN, notificacion);</span>
+        
+<span class="fc" id="L225">        service.broadcastToRole(Rol.ADMIN, notificacion);</span>
 
-        // ASSERT
-<span class="fc" id="L240">        verify(messagingTemplate, times(1)).convertAndSend(</span>
-<span class="fc" id="L241">                destinationCaptor.capture(),</span>
-<span class="fc" id="L242">                notificationCaptor.capture()</span>
+        
+<span class="fc" id="L228">        verify(messagingTemplate, times(1)).convertAndSend(</span>
+<span class="fc" id="L229">                destinationCaptor.capture(),</span>
+<span class="fc" id="L230">                notificationCaptor.capture()</span>
         );
 
-<span class="fc" id="L245">        assertEquals(&quot;/topic/notifications/admin&quot;, destinationCaptor.getValue(),</span>
-<span class="fc" id="L246">                &quot;El destino debe ser '/topic/notifications/admin'&quot;);</span>
-<span class="fc" id="L247">        assertEquals(notificacion, notificationCaptor.getValue(),</span>
-<span class="fc" id="L248">                &quot;La notificación debe ser la misma&quot;);</span>
-<span class="fc" id="L249">    }</span>
+<span class="fc" id="L233">        assertEquals(&quot;/topic/notifications/admin&quot;, destinationCaptor.getValue(),</span>
+                &quot;El destino debe ser '/topic/notifications/admin'&quot;);
+<span class="fc" id="L235">        assertEquals(notificacion, notificationCaptor.getValue(),</span>
+                &quot;La notificación debe ser la misma&quot;);
+<span class="fc" id="L237">    }</span>
 
     @Test
     @DisplayName(&quot;broadcastToRole - debe enviar a rol ANALISTA&quot;)
     void broadcastToRole_debeEnviarARolAnalista() {
-        // ARRANGE
-<span class="fc" id="L255">        doNothing().when(messagingTemplate).convertAndSend(</span>
-<span class="fc" id="L256">                anyString(),</span>
-<span class="fc" id="L257">                any(NotificacionDTO.class)</span>
+        
+<span class="fc" id="L243">        doNothing().when(messagingTemplate).convertAndSend(</span>
+<span class="fc" id="L244">                anyString(),</span>
+<span class="fc" id="L245">                any(NotificacionDTO.class)</span>
         );
 
-        // ACT
-<span class="fc" id="L261">        service.broadcastToRole(Rol.ANALISTA, notificacion);</span>
+        
+<span class="fc" id="L249">        service.broadcastToRole(Rol.ANALISTA, notificacion);</span>
 
-        // ASSERT
-<span class="fc" id="L264">        verify(messagingTemplate, times(1)).convertAndSend(</span>
-<span class="fc" id="L265">                eq(&quot;/topic/notifications/analista&quot;),</span>
-<span class="fc" id="L266">                eq(notificacion)</span>
+        
+<span class="fc" id="L252">        verify(messagingTemplate, times(1)).convertAndSend(</span>
+<span class="fc" id="L253">                eq(&quot;/topic/notifications/analista&quot;),</span>
+<span class="fc" id="L254">                eq(notificacion)</span>
         );
-<span class="fc" id="L268">    }</span>
+<span class="fc" id="L256">    }</span>
 
     @Test
     @DisplayName(&quot;broadcastToRole - debe enviar a rol OBSERVADOR&quot;)
     void broadcastToRole_debeEnviarARolObservador() {
-        // ARRANGE
-<span class="fc" id="L274">        doNothing().when(messagingTemplate).convertAndSend(</span>
-<span class="fc" id="L275">                anyString(),</span>
-<span class="fc" id="L276">                any(NotificacionDTO.class)</span>
+        
+<span class="fc" id="L262">        doNothing().when(messagingTemplate).convertAndSend(</span>
+<span class="fc" id="L263">                anyString(),</span>
+<span class="fc" id="L264">                any(NotificacionDTO.class)</span>
         );
 
-        // ACT
-<span class="fc" id="L280">        service.broadcastToRole(Rol.OBSERVADOR, notificacion);</span>
+        
+<span class="fc" id="L268">        service.broadcastToRole(Rol.OBSERVADOR, notificacion);</span>
 
-        // ASSERT
-<span class="fc" id="L283">        verify(messagingTemplate, times(1)).convertAndSend(</span>
-<span class="fc" id="L284">                eq(&quot;/topic/notifications/observador&quot;),</span>
-<span class="fc" id="L285">                eq(notificacion)</span>
+        
+<span class="fc" id="L271">        verify(messagingTemplate, times(1)).convertAndSend(</span>
+<span class="fc" id="L272">                eq(&quot;/topic/notifications/observador&quot;),</span>
+<span class="fc" id="L273">                eq(notificacion)</span>
         );
-<span class="fc" id="L287">    }</span>
+<span class="fc" id="L275">    }</span>
 
     @Test
     @DisplayName(&quot;broadcastToRole - debe manejar errores sin lanzar excepción&quot;)
     void broadcastToRole_debeManejarlErroresSinLanzarExcepcion() {
-        // ARRANGE
-<span class="fc" id="L293">        doThrow(new RuntimeException(&quot;Error en broadcast&quot;))</span>
-<span class="fc" id="L294">                .when(messagingTemplate).convertAndSend(</span>
-<span class="fc" id="L295">                        anyString(),</span>
-<span class="fc" id="L296">                        any(NotificacionDTO.class)</span>
+        
+<span class="fc" id="L281">        doThrow(new RuntimeException(&quot;Error en broadcast&quot;))</span>
+<span class="fc" id="L282">                .when(messagingTemplate).convertAndSend(</span>
+<span class="fc" id="L283">                        anyString(),</span>
+<span class="fc" id="L284">                        any(NotificacionDTO.class)</span>
                 );
 
-        // ACT &amp; ASSERT - No debe lanzar excepción
-<span class="fc" id="L300">        assertDoesNotThrow(() -&gt; service.broadcastToRole(Rol.ADMIN, notificacion),</span>
-<span class="fc" id="L301">                &quot;No debe lanzar excepción cuando hay error en el broadcast&quot;);</span>
+        
+<span class="fc" id="L288">        assertDoesNotThrow(() -&gt; service.broadcastToRole(Rol.ADMIN, notificacion),</span>
+                &quot;No debe lanzar excepción cuando hay error en el broadcast&quot;);
 
-<span class="fc" id="L303">        verify(messagingTemplate, times(1)).convertAndSend(</span>
-<span class="fc" id="L304">                eq(&quot;/topic/notifications/admin&quot;),</span>
-<span class="fc" id="L305">                eq(notificacion)</span>
+<span class="fc" id="L291">        verify(messagingTemplate, times(1)).convertAndSend(</span>
+<span class="fc" id="L292">                eq(&quot;/topic/notifications/admin&quot;),</span>
+<span class="fc" id="L293">                eq(notificacion)</span>
         );
-<span class="fc" id="L307">    }</span>
+<span class="fc" id="L295">    }</span>
 
     @Test
     @DisplayName(&quot;broadcast - debe enviar notificación global a todos&quot;)
     void broadcast_debeEnviarGlobalATodos() {
-        // ARRANGE
-<span class="fc" id="L313">        ArgumentCaptor&lt;String&gt; destinationCaptor = ArgumentCaptor.forClass(String.class);</span>
-<span class="fc" id="L314">        ArgumentCaptor&lt;NotificacionDTO&gt; notificationCaptor = ArgumentCaptor.forClass(NotificacionDTO.class);</span>
+        
+<span class="fc" id="L301">        ArgumentCaptor&lt;String&gt; destinationCaptor = ArgumentCaptor.forClass(String.class);</span>
+<span class="fc" id="L302">        ArgumentCaptor&lt;NotificacionDTO&gt; notificationCaptor = ArgumentCaptor.forClass(NotificacionDTO.class);</span>
 
-<span class="fc" id="L316">        doNothing().when(messagingTemplate).convertAndSend(</span>
-<span class="fc" id="L317">                anyString(),</span>
-<span class="fc" id="L318">                any(NotificacionDTO.class)</span>
+<span class="fc" id="L304">        doNothing().when(messagingTemplate).convertAndSend(</span>
+<span class="fc" id="L305">                anyString(),</span>
+<span class="fc" id="L306">                any(NotificacionDTO.class)</span>
         );
 
-        // ACT
-<span class="fc" id="L322">        service.broadcast(notificacion);</span>
+        
+<span class="fc" id="L310">        service.broadcast(notificacion);</span>
 
-        // ASSERT
-<span class="fc" id="L325">        verify(messagingTemplate, times(1)).convertAndSend(</span>
-<span class="fc" id="L326">                destinationCaptor.capture(),</span>
-<span class="fc" id="L327">                notificationCaptor.capture()</span>
+        
+<span class="fc" id="L313">        verify(messagingTemplate, times(1)).convertAndSend(</span>
+<span class="fc" id="L314">                destinationCaptor.capture(),</span>
+<span class="fc" id="L315">                notificationCaptor.capture()</span>
         );
 
-<span class="fc" id="L330">        assertEquals(&quot;/topic/notifications/all&quot;, destinationCaptor.getValue(),</span>
-<span class="fc" id="L331">                &quot;El destino debe ser '/topic/notifications/all'&quot;);</span>
-<span class="fc" id="L332">        assertEquals(notificacion, notificationCaptor.getValue(),</span>
-<span class="fc" id="L333">                &quot;La notificación debe ser la misma&quot;);</span>
-<span class="fc" id="L334">    }</span>
+<span class="fc" id="L318">        assertEquals(&quot;/topic/notifications/all&quot;, destinationCaptor.getValue(),</span>
+                &quot;El destino debe ser '/topic/notifications/all'&quot;);
+<span class="fc" id="L320">        assertEquals(notificacion, notificationCaptor.getValue(),</span>
+                &quot;La notificación debe ser la misma&quot;);
+<span class="fc" id="L322">    }</span>
 
     @Test
     @DisplayName(&quot;broadcast - debe manejar errores sin lanzar excepción&quot;)
     void broadcast_debeManejarlErroresSinLanzarExcepcion() {
-        // ARRANGE
-<span class="fc" id="L340">        doThrow(new RuntimeException(&quot;Error en broadcast global&quot;))</span>
-<span class="fc" id="L341">                .when(messagingTemplate).convertAndSend(</span>
-<span class="fc" id="L342">                        anyString(),</span>
-<span class="fc" id="L343">                        any(NotificacionDTO.class)</span>
+        
+<span class="fc" id="L328">        doThrow(new RuntimeException(&quot;Error en broadcast global&quot;))</span>
+<span class="fc" id="L329">                .when(messagingTemplate).convertAndSend(</span>
+<span class="fc" id="L330">                        anyString(),</span>
+<span class="fc" id="L331">                        any(NotificacionDTO.class)</span>
                 );
 
-        // ACT &amp; ASSERT - No debe lanzar excepción
-<span class="fc" id="L347">        assertDoesNotThrow(() -&gt; service.broadcast(notificacion),</span>
-<span class="fc" id="L348">                &quot;No debe lanzar excepción cuando hay error en el broadcast global&quot;);</span>
+        
+<span class="fc" id="L335">        assertDoesNotThrow(() -&gt; service.broadcast(notificacion),</span>
+                &quot;No debe lanzar excepción cuando hay error en el broadcast global&quot;);
 
-<span class="fc" id="L350">        verify(messagingTemplate, times(1)).convertAndSend(</span>
-<span class="fc" id="L351">                eq(&quot;/topic/notifications/all&quot;),</span>
-<span class="fc" id="L352">                eq(notificacion)</span>
+<span class="fc" id="L338">        verify(messagingTemplate, times(1)).convertAndSend(</span>
+<span class="fc" id="L339">                eq(&quot;/topic/notifications/all&quot;),</span>
+<span class="fc" id="L340">                eq(notificacion)</span>
         );
-<span class="fc" id="L354">    }</span>
+<span class="fc" id="L342">    }</span>
 
     @Test
     @DisplayName(&quot;sendUnreadCount - debe enviar contador de no leídas a usuario&quot;)
     void sendUnreadCount_debeEnviarContador() {
-        // ARRANGE
-<span class="fc" id="L360">        Integer usuarioId = 123;</span>
-<span class="fc" id="L361">        Long count = 5L;</span>
-<span class="fc" id="L362">        ArgumentCaptor&lt;String&gt; userCaptor = ArgumentCaptor.forClass(String.class);</span>
-<span class="fc" id="L363">        ArgumentCaptor&lt;String&gt; destinationCaptor = ArgumentCaptor.forClass(String.class);</span>
-<span class="fc" id="L364">        ArgumentCaptor&lt;Long&gt; countCaptor = ArgumentCaptor.forClass(Long.class);</span>
+        
+<span class="fc" id="L348">        Integer usuarioId = 123;</span>
+<span class="fc" id="L349">        Long count = 5L;</span>
+<span class="fc" id="L350">        ArgumentCaptor&lt;String&gt; userCaptor = ArgumentCaptor.forClass(String.class);</span>
+<span class="fc" id="L351">        ArgumentCaptor&lt;String&gt; destinationCaptor = ArgumentCaptor.forClass(String.class);</span>
+<span class="fc" id="L352">        ArgumentCaptor&lt;Long&gt; countCaptor = ArgumentCaptor.forClass(Long.class);</span>
 
-<span class="fc" id="L366">        doNothing().when(messagingTemplate).convertAndSendToUser(</span>
-<span class="fc" id="L367">                anyString(),</span>
-<span class="fc" id="L368">                anyString(),</span>
-<span class="fc" id="L369">                any(Long.class)</span>
+<span class="fc" id="L354">        doNothing().when(messagingTemplate).convertAndSendToUser(</span>
+<span class="fc" id="L355">                anyString(),</span>
+<span class="fc" id="L356">                anyString(),</span>
+<span class="fc" id="L357">                any(Long.class)</span>
         );
 
-        // ACT
-<span class="fc" id="L373">        service.sendUnreadCount(usuarioId, count);</span>
+        
+<span class="fc" id="L361">        service.sendUnreadCount(usuarioId, count);</span>
 
-        // ASSERT
-<span class="fc" id="L376">        verify(messagingTemplate, times(1)).convertAndSendToUser(</span>
-<span class="fc" id="L377">                userCaptor.capture(),</span>
-<span class="fc" id="L378">                destinationCaptor.capture(),</span>
-<span class="fc" id="L379">                countCaptor.capture()</span>
+        
+<span class="fc" id="L364">        verify(messagingTemplate, times(1)).convertAndSendToUser(</span>
+<span class="fc" id="L365">                userCaptor.capture(),</span>
+<span class="fc" id="L366">                destinationCaptor.capture(),</span>
+<span class="fc" id="L367">                countCaptor.capture()</span>
         );
 
-<span class="fc" id="L382">        assertEquals(&quot;123&quot;, userCaptor.getValue(), &quot;El ID de usuario debe ser '123'&quot;);</span>
-<span class="fc" id="L383">        assertEquals(&quot;/queue/notifications/count&quot;, destinationCaptor.getValue(),</span>
-<span class="fc" id="L384">                &quot;El destino debe ser '/queue/notifications/count'&quot;);</span>
-<span class="fc" id="L385">        assertEquals(5L, countCaptor.getValue(), &quot;El contador debe ser 5&quot;);</span>
-<span class="fc" id="L386">    }</span>
+<span class="fc" id="L370">        assertEquals(&quot;123&quot;, userCaptor.getValue(), &quot;El ID de usuario debe ser '123'&quot;);</span>
+<span class="fc" id="L371">        assertEquals(&quot;/queue/notifications/count&quot;, destinationCaptor.getValue(),</span>
+                &quot;El destino debe ser '/queue/notifications/count'&quot;);
+<span class="fc" id="L373">        assertEquals(5L, countCaptor.getValue(), &quot;El contador debe ser 5&quot;);</span>
+<span class="fc" id="L374">    }</span>
 
     @Test
     @DisplayName(&quot;sendUnreadCount - debe enviar contador cero&quot;)
     void sendUnreadCount_debeEnviarContadorCero() {
-        // ARRANGE
-<span class="fc" id="L392">        Integer usuarioId = 456;</span>
-<span class="fc" id="L393">        Long count = 0L;</span>
+        
+<span class="fc" id="L380">        Integer usuarioId = 456;</span>
+<span class="fc" id="L381">        Long count = 0L;</span>
 
-<span class="fc" id="L395">        doNothing().when(messagingTemplate).convertAndSendToUser(</span>
-<span class="fc" id="L396">                anyString(),</span>
-<span class="fc" id="L397">                anyString(),</span>
-<span class="fc" id="L398">                any(Long.class)</span>
+<span class="fc" id="L383">        doNothing().when(messagingTemplate).convertAndSendToUser(</span>
+<span class="fc" id="L384">                anyString(),</span>
+<span class="fc" id="L385">                anyString(),</span>
+<span class="fc" id="L386">                any(Long.class)</span>
         );
 
-        // ACT
-<span class="fc" id="L402">        service.sendUnreadCount(usuarioId, count);</span>
+        
+<span class="fc" id="L390">        service.sendUnreadCount(usuarioId, count);</span>
 
-        // ASSERT
-<span class="fc" id="L405">        verify(messagingTemplate, times(1)).convertAndSendToUser(</span>
-<span class="fc" id="L406">                eq(&quot;456&quot;),</span>
-<span class="fc" id="L407">                eq(&quot;/queue/notifications/count&quot;),</span>
-<span class="fc" id="L408">                eq(0L)</span>
+        
+<span class="fc" id="L393">        verify(messagingTemplate, times(1)).convertAndSendToUser(</span>
+<span class="fc" id="L394">                eq(&quot;456&quot;),</span>
+<span class="fc" id="L395">                eq(&quot;/queue/notifications/count&quot;),</span>
+<span class="fc" id="L396">                eq(0L)</span>
         );
-<span class="fc" id="L410">    }</span>
+<span class="fc" id="L398">    }</span>
 
     @Test
     @DisplayName(&quot;sendUnreadCount - debe manejar errores sin lanzar excepción&quot;)
     void sendUnreadCount_debeManejarlErroresSinLanzarExcepcion() {
-        // ARRANGE
-<span class="fc" id="L416">        Integer usuarioId = 789;</span>
-<span class="fc" id="L417">        Long count = 10L;</span>
+        
+<span class="fc" id="L404">        Integer usuarioId = 789;</span>
+<span class="fc" id="L405">        Long count = 10L;</span>
 
-<span class="fc" id="L419">        doThrow(new RuntimeException(&quot;Error enviando contador&quot;))</span>
-<span class="fc" id="L420">                .when(messagingTemplate).convertAndSendToUser(</span>
-<span class="fc" id="L421">                        anyString(),</span>
-<span class="fc" id="L422">                        anyString(),</span>
-<span class="fc" id="L423">                        any(Long.class)</span>
+<span class="fc" id="L407">        doThrow(new RuntimeException(&quot;Error enviando contador&quot;))</span>
+<span class="fc" id="L408">                .when(messagingTemplate).convertAndSendToUser(</span>
+<span class="fc" id="L409">                        anyString(),</span>
+<span class="fc" id="L410">                        anyString(),</span>
+<span class="fc" id="L411">                        any(Long.class)</span>
                 );
 
-        // ACT &amp; ASSERT - No debe lanzar excepción
-<span class="fc" id="L427">        assertDoesNotThrow(() -&gt; service.sendUnreadCount(usuarioId, count),</span>
-<span class="fc" id="L428">                &quot;No debe lanzar excepción cuando hay error enviando el contador&quot;);</span>
+        
+<span class="fc" id="L415">        assertDoesNotThrow(() -&gt; service.sendUnreadCount(usuarioId, count),</span>
+                &quot;No debe lanzar excepción cuando hay error enviando el contador&quot;);
 
-<span class="fc" id="L430">        verify(messagingTemplate, times(1)).convertAndSendToUser(</span>
-<span class="fc" id="L431">                eq(&quot;789&quot;),</span>
-<span class="fc" id="L432">                eq(&quot;/queue/notifications/count&quot;),</span>
-<span class="fc" id="L433">                eq(10L)</span>
+<span class="fc" id="L418">        verify(messagingTemplate, times(1)).convertAndSendToUser(</span>
+<span class="fc" id="L419">                eq(&quot;789&quot;),</span>
+<span class="fc" id="L420">                eq(&quot;/queue/notifications/count&quot;),</span>
+<span class="fc" id="L421">                eq(10L)</span>
         );
-<span class="fc" id="L435">    }</span>
+<span class="fc" id="L423">    }</span>
 
     @Test
     @DisplayName(&quot;sendMarkAsRead - debe enviar evento de marcado como leído&quot;)
     void sendMarkAsRead_debeEnviarEvento() {
-        // ARRANGE
-<span class="fc" id="L441">        Integer usuarioId = 123;</span>
-<span class="fc" id="L442">        Long notificacionId = 456L;</span>
-<span class="fc" id="L443">        ArgumentCaptor&lt;String&gt; userCaptor = ArgumentCaptor.forClass(String.class);</span>
-<span class="fc" id="L444">        ArgumentCaptor&lt;String&gt; destinationCaptor = ArgumentCaptor.forClass(String.class);</span>
-<span class="fc" id="L445">        ArgumentCaptor&lt;Long&gt; idCaptor = ArgumentCaptor.forClass(Long.class);</span>
+        
+<span class="fc" id="L429">        Integer usuarioId = 123;</span>
+<span class="fc" id="L430">        Long notificacionId = 456L;</span>
+<span class="fc" id="L431">        ArgumentCaptor&lt;String&gt; userCaptor = ArgumentCaptor.forClass(String.class);</span>
+<span class="fc" id="L432">        ArgumentCaptor&lt;String&gt; destinationCaptor = ArgumentCaptor.forClass(String.class);</span>
+<span class="fc" id="L433">        ArgumentCaptor&lt;Long&gt; idCaptor = ArgumentCaptor.forClass(Long.class);</span>
 
-<span class="fc" id="L447">        doNothing().when(messagingTemplate).convertAndSendToUser(</span>
-<span class="fc" id="L448">                anyString(),</span>
-<span class="fc" id="L449">                anyString(),</span>
-<span class="fc" id="L450">                any(Long.class)</span>
+<span class="fc" id="L435">        doNothing().when(messagingTemplate).convertAndSendToUser(</span>
+<span class="fc" id="L436">                anyString(),</span>
+<span class="fc" id="L437">                anyString(),</span>
+<span class="fc" id="L438">                any(Long.class)</span>
         );
 
-        // ACT
-<span class="fc" id="L454">        service.sendMarkAsRead(usuarioId, notificacionId);</span>
+        
+<span class="fc" id="L442">        service.sendMarkAsRead(usuarioId, notificacionId);</span>
 
-        // ASSERT
-<span class="fc" id="L457">        verify(messagingTemplate, times(1)).convertAndSendToUser(</span>
-<span class="fc" id="L458">                userCaptor.capture(),</span>
-<span class="fc" id="L459">                destinationCaptor.capture(),</span>
-<span class="fc" id="L460">                idCaptor.capture()</span>
+        
+<span class="fc" id="L445">        verify(messagingTemplate, times(1)).convertAndSendToUser(</span>
+<span class="fc" id="L446">                userCaptor.capture(),</span>
+<span class="fc" id="L447">                destinationCaptor.capture(),</span>
+<span class="fc" id="L448">                idCaptor.capture()</span>
         );
 
-<span class="fc" id="L463">        assertEquals(&quot;123&quot;, userCaptor.getValue(), &quot;El ID de usuario debe ser '123'&quot;);</span>
-<span class="fc" id="L464">        assertEquals(&quot;/queue/notifications/mark-read&quot;, destinationCaptor.getValue(),</span>
-<span class="fc" id="L465">                &quot;El destino debe ser '/queue/notifications/mark-read'&quot;);</span>
-<span class="fc" id="L466">        assertEquals(456L, idCaptor.getValue(), &quot;El ID de notificación debe ser 456&quot;);</span>
-<span class="fc" id="L467">    }</span>
+<span class="fc" id="L451">        assertEquals(&quot;123&quot;, userCaptor.getValue(), &quot;El ID de usuario debe ser '123'&quot;);</span>
+<span class="fc" id="L452">        assertEquals(&quot;/queue/notifications/mark-read&quot;, destinationCaptor.getValue(),</span>
+                &quot;El destino debe ser '/queue/notifications/mark-read'&quot;);
+<span class="fc" id="L454">        assertEquals(456L, idCaptor.getValue(), &quot;El ID de notificación debe ser 456&quot;);</span>
+<span class="fc" id="L455">    }</span>
 
     @Test
     @DisplayName(&quot;sendMarkAsRead - debe manejar errores sin lanzar excepción&quot;)
     void sendMarkAsRead_debeManejarlErroresSinLanzarExcepcion() {
-        // ARRANGE
-<span class="fc" id="L473">        Integer usuarioId = 789;</span>
-<span class="fc" id="L474">        Long notificacionId = 999L;</span>
+        
+<span class="fc" id="L461">        Integer usuarioId = 789;</span>
+<span class="fc" id="L462">        Long notificacionId = 999L;</span>
 
-<span class="fc" id="L476">        doThrow(new RuntimeException(&quot;Error enviando mark-read&quot;))</span>
-<span class="fc" id="L477">                .when(messagingTemplate).convertAndSendToUser(</span>
-<span class="fc" id="L478">                        anyString(),</span>
-<span class="fc" id="L479">                        anyString(),</span>
-<span class="fc" id="L480">                        any(Long.class)</span>
+<span class="fc" id="L464">        doThrow(new RuntimeException(&quot;Error enviando mark-read&quot;))</span>
+<span class="fc" id="L465">                .when(messagingTemplate).convertAndSendToUser(</span>
+<span class="fc" id="L466">                        anyString(),</span>
+<span class="fc" id="L467">                        anyString(),</span>
+<span class="fc" id="L468">                        any(Long.class)</span>
                 );
 
-        // ACT &amp; ASSERT - No debe lanzar excepción
-<span class="fc" id="L484">        assertDoesNotThrow(() -&gt; service.sendMarkAsRead(usuarioId, notificacionId),</span>
-<span class="fc" id="L485">                &quot;No debe lanzar excepción cuando hay error enviando mark-read&quot;);</span>
+        
+<span class="fc" id="L472">        assertDoesNotThrow(() -&gt; service.sendMarkAsRead(usuarioId, notificacionId),</span>
+                &quot;No debe lanzar excepción cuando hay error enviando mark-read&quot;);
 
-<span class="fc" id="L487">        verify(messagingTemplate, times(1)).convertAndSendToUser(</span>
-<span class="fc" id="L488">                eq(&quot;789&quot;),</span>
-<span class="fc" id="L489">                eq(&quot;/queue/notifications/mark-read&quot;),</span>
-<span class="fc" id="L490">                eq(999L)</span>
+<span class="fc" id="L475">        verify(messagingTemplate, times(1)).convertAndSendToUser(</span>
+<span class="fc" id="L476">                eq(&quot;789&quot;),</span>
+<span class="fc" id="L477">                eq(&quot;/queue/notifications/mark-read&quot;),</span>
+<span class="fc" id="L478">                eq(999L)</span>
         );
-<span class="fc" id="L492">    }</span>
+<span class="fc" id="L480">    }</span>
 
     @Test
     @DisplayName(&quot;sendDeleted - debe enviar evento de notificación eliminada&quot;)
     void sendDeleted_debeEnviarEvento() {
-        // ARRANGE
-<span class="fc" id="L498">        Integer usuarioId = 123;</span>
-<span class="fc" id="L499">        Long notificacionId = 789L;</span>
-<span class="fc" id="L500">        ArgumentCaptor&lt;String&gt; userCaptor = ArgumentCaptor.forClass(String.class);</span>
-<span class="fc" id="L501">        ArgumentCaptor&lt;String&gt; destinationCaptor = ArgumentCaptor.forClass(String.class);</span>
-<span class="fc" id="L502">        ArgumentCaptor&lt;Long&gt; idCaptor = ArgumentCaptor.forClass(Long.class);</span>
+        
+<span class="fc" id="L486">        Integer usuarioId = 123;</span>
+<span class="fc" id="L487">        Long notificacionId = 789L;</span>
+<span class="fc" id="L488">        ArgumentCaptor&lt;String&gt; userCaptor = ArgumentCaptor.forClass(String.class);</span>
+<span class="fc" id="L489">        ArgumentCaptor&lt;String&gt; destinationCaptor = ArgumentCaptor.forClass(String.class);</span>
+<span class="fc" id="L490">        ArgumentCaptor&lt;Long&gt; idCaptor = ArgumentCaptor.forClass(Long.class);</span>
 
-<span class="fc" id="L504">        doNothing().when(messagingTemplate).convertAndSendToUser(</span>
-<span class="fc" id="L505">                anyString(),</span>
-<span class="fc" id="L506">                anyString(),</span>
-<span class="fc" id="L507">                any(Long.class)</span>
+<span class="fc" id="L492">        doNothing().when(messagingTemplate).convertAndSendToUser(</span>
+<span class="fc" id="L493">                anyString(),</span>
+<span class="fc" id="L494">                anyString(),</span>
+<span class="fc" id="L495">                any(Long.class)</span>
         );
 
-        // ACT
-<span class="fc" id="L511">        service.sendDeleted(usuarioId, notificacionId);</span>
+        
+<span class="fc" id="L499">        service.sendDeleted(usuarioId, notificacionId);</span>
 
-        // ASSERT
-<span class="fc" id="L514">        verify(messagingTemplate, times(1)).convertAndSendToUser(</span>
-<span class="fc" id="L515">                userCaptor.capture(),</span>
-<span class="fc" id="L516">                destinationCaptor.capture(),</span>
-<span class="fc" id="L517">                idCaptor.capture()</span>
+        
+<span class="fc" id="L502">        verify(messagingTemplate, times(1)).convertAndSendToUser(</span>
+<span class="fc" id="L503">                userCaptor.capture(),</span>
+<span class="fc" id="L504">                destinationCaptor.capture(),</span>
+<span class="fc" id="L505">                idCaptor.capture()</span>
         );
 
-<span class="fc" id="L520">        assertEquals(&quot;123&quot;, userCaptor.getValue(), &quot;El ID de usuario debe ser '123'&quot;);</span>
-<span class="fc" id="L521">        assertEquals(&quot;/queue/notifications/deleted&quot;, destinationCaptor.getValue(),</span>
-<span class="fc" id="L522">                &quot;El destino debe ser '/queue/notifications/deleted'&quot;);</span>
-<span class="fc" id="L523">        assertEquals(789L, idCaptor.getValue(), &quot;El ID de notificación debe ser 789&quot;);</span>
-<span class="fc" id="L524">    }</span>
+<span class="fc" id="L508">        assertEquals(&quot;123&quot;, userCaptor.getValue(), &quot;El ID de usuario debe ser '123'&quot;);</span>
+<span class="fc" id="L509">        assertEquals(&quot;/queue/notifications/deleted&quot;, destinationCaptor.getValue(),</span>
+                &quot;El destino debe ser '/queue/notifications/deleted'&quot;);
+<span class="fc" id="L511">        assertEquals(789L, idCaptor.getValue(), &quot;El ID de notificación debe ser 789&quot;);</span>
+<span class="fc" id="L512">    }</span>
 
     @Test
     @DisplayName(&quot;sendDeleted - debe manejar errores sin lanzar excepción&quot;)
     void sendDeleted_debeManejarlErroresSinLanzarExcepcion() {
-        // ARRANGE
-<span class="fc" id="L530">        Integer usuarioId = 456;</span>
-<span class="fc" id="L531">        Long notificacionId = 111L;</span>
+        
+<span class="fc" id="L518">        Integer usuarioId = 456;</span>
+<span class="fc" id="L519">        Long notificacionId = 111L;</span>
 
-<span class="fc" id="L533">        doThrow(new RuntimeException(&quot;Error enviando deleted&quot;))</span>
-<span class="fc" id="L534">                .when(messagingTemplate).convertAndSendToUser(</span>
-<span class="fc" id="L535">                        anyString(),</span>
-<span class="fc" id="L536">                        anyString(),</span>
-<span class="fc" id="L537">                        any(Long.class)</span>
+<span class="fc" id="L521">        doThrow(new RuntimeException(&quot;Error enviando deleted&quot;))</span>
+<span class="fc" id="L522">                .when(messagingTemplate).convertAndSendToUser(</span>
+<span class="fc" id="L523">                        anyString(),</span>
+<span class="fc" id="L524">                        anyString(),</span>
+<span class="fc" id="L525">                        any(Long.class)</span>
                 );
 
-        // ACT &amp; ASSERT - No debe lanzar excepción
-<span class="fc" id="L541">        assertDoesNotThrow(() -&gt; service.sendDeleted(usuarioId, notificacionId),</span>
-<span class="fc" id="L542">                &quot;No debe lanzar excepción cuando hay error enviando deleted&quot;);</span>
+        
+<span class="fc" id="L529">        assertDoesNotThrow(() -&gt; service.sendDeleted(usuarioId, notificacionId),</span>
+                &quot;No debe lanzar excepción cuando hay error enviando deleted&quot;);
 
-<span class="fc" id="L544">        verify(messagingTemplate, times(1)).convertAndSendToUser(</span>
-<span class="fc" id="L545">                eq(&quot;456&quot;),</span>
-<span class="fc" id="L546">                eq(&quot;/queue/notifications/deleted&quot;),</span>
-<span class="fc" id="L547">                eq(111L)</span>
+<span class="fc" id="L532">        verify(messagingTemplate, times(1)).convertAndSendToUser(</span>
+<span class="fc" id="L533">                eq(&quot;456&quot;),</span>
+<span class="fc" id="L534">                eq(&quot;/queue/notifications/deleted&quot;),</span>
+<span class="fc" id="L535">                eq(111L)</span>
         );
-<span class="fc" id="L549">    }</span>
+<span class="fc" id="L537">    }</span>
 
     @Test
     @DisplayName(&quot;Integración - debe enviar múltiples notificaciones a diferentes usuarios&quot;)
     void integracion_debeEnviarMultiplesNotificaciones() {
-        // ARRANGE
-<span class="fc" id="L555">        NotificacionDTO notif1 = new NotificacionDTO();</span>
-<span class="fc" id="L556">        notif1.setId(1L);</span>
-<span class="fc" id="L557">        notif1.setNombre(&quot;Notificación 1&quot;);</span>
+        
+<span class="fc" id="L543">        NotificacionDTO notif1 = new NotificacionDTO();</span>
+<span class="fc" id="L544">        notif1.setId(1L);</span>
+<span class="fc" id="L545">        notif1.setNombre(&quot;Notificación 1&quot;);</span>
 
-<span class="fc" id="L559">        NotificacionDTO notif2 = new NotificacionDTO();</span>
-<span class="fc" id="L560">        notif2.setId(2L);</span>
-<span class="fc" id="L561">        notif2.setNombre(&quot;Notificación 2&quot;);</span>
+<span class="fc" id="L547">        NotificacionDTO notif2 = new NotificacionDTO();</span>
+<span class="fc" id="L548">        notif2.setId(2L);</span>
+<span class="fc" id="L549">        notif2.setNombre(&quot;Notificación 2&quot;);</span>
 
-<span class="fc" id="L563">        doNothing().when(messagingTemplate).convertAndSendToUser(</span>
-<span class="fc" id="L564">                anyString(),</span>
+<span class="fc" id="L551">        doNothing().when(messagingTemplate).convertAndSendToUser(</span>
+<span class="fc" id="L552">                anyString(),</span>
+<span class="fc" id="L553">                anyString(),</span>
+<span class="fc" id="L554">                any()</span>
+        );
+
+        
+<span class="fc" id="L558">        service.sendToUser(100, notif1);</span>
+<span class="fc" id="L559">        service.sendToUser(200, notif2);</span>
+<span class="fc" id="L560">        service.sendUnreadCount(100, 1L);</span>
+<span class="fc" id="L561">        service.sendUnreadCount(200, 2L);</span>
+
+        
+<span class="fc" id="L564">        verify(messagingTemplate, times(4)).convertAndSendToUser(</span>
 <span class="fc" id="L565">                anyString(),</span>
-<span class="fc" id="L566">                any()</span>
+<span class="fc" id="L566">                anyString(),</span>
+<span class="fc" id="L567">                any()</span>
         );
 
-        // ACT
-<span class="fc" id="L570">        service.sendToUser(100, notif1);</span>
-<span class="fc" id="L571">        service.sendToUser(200, notif2);</span>
-<span class="fc" id="L572">        service.sendUnreadCount(100, 1L);</span>
-<span class="fc" id="L573">        service.sendUnreadCount(200, 2L);</span>
-
-        // ASSERT
-<span class="fc" id="L576">        verify(messagingTemplate, times(4)).convertAndSendToUser(</span>
-<span class="fc" id="L577">                anyString(),</span>
-<span class="fc" id="L578">                anyString(),</span>
-<span class="fc" id="L579">                any()</span>
-        );
-
-<span class="fc" id="L582">        verify(messagingTemplate).convertAndSendToUser(&quot;100&quot;, &quot;/queue/notifications&quot;, notif1);</span>
-<span class="fc" id="L583">        verify(messagingTemplate).convertAndSendToUser(&quot;200&quot;, &quot;/queue/notifications&quot;, notif2);</span>
-<span class="fc" id="L584">        verify(messagingTemplate).convertAndSendToUser(&quot;100&quot;, &quot;/queue/notifications/count&quot;, 1L);</span>
-<span class="fc" id="L585">        verify(messagingTemplate).convertAndSendToUser(&quot;200&quot;, &quot;/queue/notifications/count&quot;, 2L);</span>
-<span class="fc" id="L586">    }</span>
+<span class="fc" id="L570">        verify(messagingTemplate).convertAndSendToUser(&quot;100&quot;, &quot;/queue/notifications&quot;, notif1);</span>
+<span class="fc" id="L571">        verify(messagingTemplate).convertAndSendToUser(&quot;200&quot;, &quot;/queue/notifications&quot;, notif2);</span>
+<span class="fc" id="L572">        verify(messagingTemplate).convertAndSendToUser(&quot;100&quot;, &quot;/queue/notifications/count&quot;, 1L);</span>
+<span class="fc" id="L573">        verify(messagingTemplate).convertAndSendToUser(&quot;200&quot;, &quot;/queue/notifications/count&quot;, 2L);</span>
+<span class="fc" id="L574">    }</span>
 
     @Test
     @DisplayName(&quot;Integración - debe enviar broadcast y notificaciones individuales&quot;)
     void integracion_debeCombinarBroadcastYNotificacionesIndividuales() {
-        // ARRANGE
-<span class="fc" id="L592">        doNothing().when(messagingTemplate).convertAndSend(</span>
-<span class="fc" id="L593">                anyString(),</span>
-<span class="fc" id="L594">                any(NotificacionDTO.class)</span>
+        
+<span class="fc" id="L580">        doNothing().when(messagingTemplate).convertAndSend(</span>
+<span class="fc" id="L581">                anyString(),</span>
+<span class="fc" id="L582">                any(NotificacionDTO.class)</span>
         );
-<span class="fc" id="L596">        doNothing().when(messagingTemplate).convertAndSendToUser(</span>
+<span class="fc" id="L584">        doNothing().when(messagingTemplate).convertAndSendToUser(</span>
+<span class="fc" id="L585">                anyString(),</span>
+<span class="fc" id="L586">                anyString(),</span>
+<span class="fc" id="L587">                any(NotificacionDTO.class)</span>
+        );
+
+        
+<span class="fc" id="L591">        service.broadcast(notificacion);</span>
+<span class="fc" id="L592">        service.broadcastToRole(Rol.ADMIN, notificacion);</span>
+<span class="fc" id="L593">        service.sendToUser(123, notificacion);</span>
+
+        
+<span class="fc" id="L596">        verify(messagingTemplate, times(2)).convertAndSend(</span>
 <span class="fc" id="L597">                anyString(),</span>
-<span class="fc" id="L598">                anyString(),</span>
-<span class="fc" id="L599">                any(NotificacionDTO.class)</span>
+<span class="fc" id="L598">                eq(notificacion)</span>
         );
-
-        // ACT
-<span class="fc" id="L603">        service.broadcast(notificacion);</span>
-<span class="fc" id="L604">        service.broadcastToRole(Rol.ADMIN, notificacion);</span>
-<span class="fc" id="L605">        service.sendToUser(123, notificacion);</span>
-
-        // ASSERT
-<span class="fc" id="L608">        verify(messagingTemplate, times(2)).convertAndSend(</span>
-<span class="fc" id="L609">                anyString(),</span>
-<span class="fc" id="L610">                eq(notificacion)</span>
+<span class="fc" id="L600">        verify(messagingTemplate, times(1)).convertAndSendToUser(</span>
+<span class="fc" id="L601">                anyString(),</span>
+<span class="fc" id="L602">                anyString(),</span>
+<span class="fc" id="L603">                eq(notificacion)</span>
         );
-<span class="fc" id="L612">        verify(messagingTemplate, times(1)).convertAndSendToUser(</span>
-<span class="fc" id="L613">                anyString(),</span>
-<span class="fc" id="L614">                anyString(),</span>
-<span class="fc" id="L615">                eq(notificacion)</span>
-        );
-<span class="fc" id="L617">    }</span>
+<span class="fc" id="L605">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

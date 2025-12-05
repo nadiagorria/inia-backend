@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ReporteServiceTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">ReporteServiceTest.java</span></div><h1>ReporteServiceTest.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ReporteServiceTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">ReporteServiceTest.java</span></div><h1>ReporteServiceTest.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -20,20 +20,10 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-/**
- * Tests unitarios para ReporteService
- * 
- * Funcionalidades testeadas:
- * - Reportes generales de análisis
- * - Reportes específicos por tipo (Germinación, PMS, Pureza, Tetrazolio, DOSN)
- * - Cálculo de estadísticas y métricas
- * - Filtrado por fechas
- * - Agregación de datos por período
- * - Top de análisis con problemas
- */
+
 @ExtendWith(MockitoExtension.class)
 @DisplayName(&quot;Tests de ReporteService&quot;)
-<span class="fc" id="L36">class ReporteServiceTest {</span>
+<span class="fc" id="L26">class ReporteServiceTest {</span>
 
     @Mock
     private GerminacionRepository germinacionRepository;
@@ -61,385 +51,389 @@ import static org.mockito.Mockito.*;
 
     @BeforeEach
     void setUp() {
-<span class="fc" id="L64">        fechaInicio = LocalDate.of(2024, 1, 1);</span>
-<span class="fc" id="L65">        fechaFin = LocalDate.of(2024, 12, 31);</span>
+<span class="fc" id="L54">        fechaInicio = LocalDate.of(2024, 1, 1);</span>
+<span class="fc" id="L55">        fechaFin = LocalDate.of(2024, 12, 31);</span>
 
-        // Configurar entidades mock base
-<span class="fc" id="L68">        especieMock = new Especie();</span>
-<span class="fc" id="L69">        especieMock.setNombreComun(&quot;Soja&quot;);</span>
+        
+<span class="fc" id="L58">        especieMock = new Especie();</span>
+<span class="fc" id="L59">        especieMock.setNombreComun(&quot;Soja&quot;);</span>
 
-<span class="fc" id="L71">        cultivarMock = new Cultivar();</span>
-<span class="fc" id="L72">        cultivarMock.setEspecie(especieMock);</span>
+<span class="fc" id="L61">        cultivarMock = new Cultivar();</span>
+<span class="fc" id="L62">        cultivarMock.setEspecie(especieMock);</span>
 
-<span class="fc" id="L74">        loteMock = new Lote();</span>
-<span class="fc" id="L75">        loteMock.setCultivar(cultivarMock);</span>
-<span class="fc" id="L76">    }</span>
+<span class="fc" id="L64">        loteMock = new Lote();</span>
+<span class="fc" id="L65">        loteMock.setCultivar(cultivarMock);</span>
+<span class="fc" id="L66">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener reporte general - sin análisis debe retornar reporte vacío&quot;)
     void obtenerReporteGeneral_sinAnalisis_debeRetornarReporteVacio() {
-        // ARRANGE
-<span class="fc" id="L82">        when(germinacionRepository.findAll()).thenReturn(Collections.emptyList());</span>
-<span class="fc" id="L83">        when(purezaRepository.findAll()).thenReturn(Collections.emptyList());</span>
-<span class="fc" id="L84">        when(pmsRepository.findAll()).thenReturn(Collections.emptyList());</span>
-<span class="fc" id="L85">        when(tetrazolioRepository.findAll()).thenReturn(Collections.emptyList());</span>
-<span class="fc" id="L86">        when(dosnRepository.findAll()).thenReturn(Collections.emptyList());</span>
+        
+<span class="fc" id="L72">        when(germinacionRepository.findAll()).thenReturn(Collections.emptyList());</span>
+<span class="fc" id="L73">        when(purezaRepository.findAll()).thenReturn(Collections.emptyList());</span>
+<span class="fc" id="L74">        when(pmsRepository.findAll()).thenReturn(Collections.emptyList());</span>
+<span class="fc" id="L75">        when(tetrazolioRepository.findAll()).thenReturn(Collections.emptyList());</span>
+<span class="fc" id="L76">        when(dosnRepository.findAll()).thenReturn(Collections.emptyList());</span>
 
-        // ACT
-<span class="fc" id="L89">        ReporteGeneralDTO reporte = reporteService.obtenerReporteGeneral(fechaInicio, fechaFin);</span>
+        
+<span class="fc" id="L79">        ReporteGeneralDTO reporte = reporteService.obtenerReporteGeneral(fechaInicio, fechaFin);</span>
 
-        // ASSERT
-<span class="fc" id="L92">        assertNotNull(reporte);</span>
-<span class="fc" id="L93">        assertEquals(0L, reporte.getTotalAnalisis());</span>
-<span class="fc" id="L94">        assertTrue(reporte.getAnalisisPorPeriodo().isEmpty());</span>
-<span class="fc" id="L95">        assertTrue(reporte.getAnalisisPorEstado().isEmpty());</span>
-        // Nota: findAll() se llama múltiples veces (en obtenerReporteGeneral y calcularTopAnalisisProblemas)
-<span class="fc" id="L97">        verify(germinacionRepository, atLeastOnce()).findAll();</span>
-<span class="fc" id="L98">        verify(purezaRepository, atLeastOnce()).findAll();</span>
-<span class="fc" id="L99">    }</span>
+        
+<span class="fc" id="L82">        assertNotNull(reporte);</span>
+<span class="fc" id="L83">        assertEquals(0L, reporte.getTotalAnalisis());</span>
+<span class="fc" id="L84">        assertTrue(reporte.getAnalisisPorPeriodo().isEmpty());</span>
+<span class="fc" id="L85">        assertTrue(reporte.getAnalisisPorEstado().isEmpty());</span>
+        
+<span class="fc" id="L87">        verify(germinacionRepository, atLeastOnce()).findAll();</span>
+<span class="fc" id="L88">        verify(purezaRepository, atLeastOnce()).findAll();</span>
+<span class="fc" id="L89">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener reporte general - con análisis debe calcular métricas correctamente&quot;)
     void obtenerReporteGeneral_conAnalisis_debeCalcularMetricas() {
-        // ARRANGE
-<span class="fc" id="L105">        Germinacion germ = crearGerminacion(Estado.APROBADO, LocalDateTime.of(2024, 6, 15, 10, 0));</span>
-<span class="fc" id="L106">        Pureza pureza = crearPureza(Estado.EN_PROCESO, LocalDateTime.of(2024, 6, 20, 14, 0));</span>
+        
+<span class="fc" id="L95">        Germinacion germ = crearGerminacion(Estado.APROBADO, LocalDateTime.of(2024, 6, 15, 10, 0));</span>
+<span class="fc" id="L96">        Pureza pureza = crearPureza(Estado.EN_PROCESO, LocalDateTime.of(2024, 6, 20, 14, 0));</span>
 
-<span class="fc" id="L108">        when(germinacionRepository.findAll()).thenReturn(Collections.singletonList(germ));</span>
-<span class="fc" id="L109">        when(purezaRepository.findAll()).thenReturn(Collections.singletonList(pureza));</span>
-<span class="fc" id="L110">        when(pmsRepository.findAll()).thenReturn(Collections.emptyList());</span>
-<span class="fc" id="L111">        when(tetrazolioRepository.findAll()).thenReturn(Collections.emptyList());</span>
-<span class="fc" id="L112">        when(dosnRepository.findAll()).thenReturn(Collections.emptyList());</span>
+<span class="fc" id="L98">        when(germinacionRepository.findAll()).thenReturn(Collections.singletonList(germ));</span>
+<span class="fc" id="L99">        when(purezaRepository.findAll()).thenReturn(Collections.singletonList(pureza));</span>
+<span class="fc" id="L100">        when(pmsRepository.findAll()).thenReturn(Collections.emptyList());</span>
+<span class="fc" id="L101">        when(tetrazolioRepository.findAll()).thenReturn(Collections.emptyList());</span>
+<span class="fc" id="L102">        when(dosnRepository.findAll()).thenReturn(Collections.emptyList());</span>
 
-        // ACT
-<span class="fc" id="L115">        ReporteGeneralDTO reporte = reporteService.obtenerReporteGeneral(fechaInicio, fechaFin);</span>
+        
+<span class="fc" id="L105">        ReporteGeneralDTO reporte = reporteService.obtenerReporteGeneral(fechaInicio, fechaFin);</span>
 
-        // ASSERT
-<span class="fc" id="L118">        assertNotNull(reporte);</span>
-<span class="fc" id="L119">        assertEquals(2L, reporte.getTotalAnalisis());</span>
-<span class="fc" id="L120">        assertFalse(reporte.getAnalisisPorPeriodo().isEmpty());</span>
-<span class="fc" id="L121">        assertFalse(reporte.getAnalisisPorEstado().isEmpty());</span>
-<span class="fc" id="L122">        assertTrue(reporte.getAnalisisPorEstado().containsKey(&quot;APROBADO&quot;));</span>
-<span class="fc" id="L123">        assertTrue(reporte.getAnalisisPorEstado().containsKey(&quot;EN_PROCESO&quot;));</span>
-<span class="fc" id="L124">    }</span>
+        
+<span class="fc" id="L108">        assertNotNull(reporte);</span>
+<span class="fc" id="L109">        assertEquals(2L, reporte.getTotalAnalisis());</span>
+<span class="fc" id="L110">        assertFalse(reporte.getAnalisisPorPeriodo().isEmpty());</span>
+<span class="fc" id="L111">        assertFalse(reporte.getAnalisisPorEstado().isEmpty());</span>
+<span class="fc" id="L112">        assertTrue(reporte.getAnalisisPorEstado().containsKey(&quot;APROBADO&quot;));</span>
+<span class="fc" id="L113">        assertTrue(reporte.getAnalisisPorEstado().containsKey(&quot;EN_PROCESO&quot;));</span>
+<span class="fc" id="L114">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener reporte germinación - debe calcular media por especie&quot;)
     void obtenerReporteGerminacion_debeCalcularMediaPorEspecie() {
-        // ARRANGE
-<span class="fc" id="L130">        Germinacion germ = crearGerminacion(Estado.APROBADO, LocalDateTime.of(2024, 6, 15, 10, 0));</span>
         
-<span class="fc" id="L132">        TablaGerm tablaGerm = new TablaGerm();</span>
-<span class="fc" id="L133">        tablaGerm.setPorcentajeNormalesConRedondeo(BigDecimal.valueOf(85.5));</span>
-<span class="fc" id="L134">        tablaGerm.setFechaGerminacion(LocalDate.of(2024, 6, 10));</span>
-<span class="fc" id="L135">        tablaGerm.setFechaConteos(Arrays.asList(</span>
-<span class="fc" id="L136">            LocalDate.of(2024, 6, 12),</span>
-<span class="fc" id="L137">            LocalDate.of(2024, 6, 14)</span>
+<span class="fc" id="L120">        Germinacion germ = crearGerminacion(Estado.APROBADO, LocalDateTime.of(2024, 6, 15, 10, 0));</span>
+        
+<span class="fc" id="L122">        TablaGerm tablaGerm = new TablaGerm();</span>
+<span class="fc" id="L123">        tablaGerm.setPorcentajeNormalesConRedondeo(BigDecimal.valueOf(85.5));</span>
+<span class="fc" id="L124">        tablaGerm.setFechaGerminacion(LocalDate.of(2024, 6, 10));</span>
+<span class="fc" id="L125">        tablaGerm.setFechaConteos(Arrays.asList(</span>
+<span class="fc" id="L126">            LocalDate.of(2024, 6, 12),</span>
+<span class="fc" id="L127">            LocalDate.of(2024, 6, 14)</span>
         ));
-<span class="fc" id="L139">        tablaGerm.setFechaUltConteo(LocalDate.of(2024, 6, 14));</span>
+<span class="fc" id="L129">        tablaGerm.setFechaUltConteo(LocalDate.of(2024, 6, 14));</span>
         
-<span class="fc" id="L141">        germ.setTablaGerm(Collections.singletonList(tablaGerm));</span>
+<span class="fc" id="L131">        germ.setTablaGerm(Collections.singletonList(tablaGerm));</span>
 
-<span class="fc" id="L143">        when(germinacionRepository.findAll()).thenReturn(Collections.singletonList(germ));</span>
+<span class="fc" id="L133">        when(germinacionRepository.findAll()).thenReturn(Collections.singletonList(germ));</span>
 
-        // ACT
-<span class="fc" id="L146">        ReporteGerminacionDTO reporte = reporteService.obtenerReporteGerminacion(fechaInicio, fechaFin);</span>
+        
+<span class="fc" id="L136">        ReporteGerminacionDTO reporte = reporteService.obtenerReporteGerminacion(fechaInicio, fechaFin);</span>
 
-        // ASSERT
-<span class="fc" id="L149">        assertNotNull(reporte);</span>
-<span class="fc" id="L150">        assertEquals(1L, reporte.getTotalGerminaciones());</span>
-<span class="fc" id="L151">        assertFalse(reporte.getMediaGerminacionPorEspecie().isEmpty());</span>
-<span class="fc" id="L152">        assertTrue(reporte.getMediaGerminacionPorEspecie().containsKey(&quot;Soja&quot;));</span>
-<span class="fc" id="L153">    }</span>
+        
+<span class="fc" id="L139">        assertNotNull(reporte);</span>
+<span class="fc" id="L140">        assertEquals(1L, reporte.getTotalGerminaciones());</span>
+<span class="fc" id="L141">        assertFalse(reporte.getMediaGerminacionPorEspecie().isEmpty());</span>
+<span class="fc" id="L142">        assertTrue(reporte.getMediaGerminacionPorEspecie().containsKey(&quot;Soja&quot;));</span>
+<span class="fc" id="L143">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener reporte PMS - debe calcular muestras con CV superado&quot;)
     void obtenerReportePms_debeCalcularMuestrasConCVSuperado() {
-        // ARRANGE
-<span class="fc" id="L159">        Pms pms1 = crearPms(BigDecimal.valueOf(7.5), 10); // CV &gt; 6%</span>
-<span class="fc" id="L160">        Pms pms2 = crearPms(BigDecimal.valueOf(4.2), 8);  // CV &lt; 6%</span>
-<span class="fc" id="L161">        Pms pms3 = crearPms(BigDecimal.valueOf(8.1), 16); // CV &gt; 6% y rep máximas</span>
+        
+<span class="fc" id="L149">        Pms pms1 = crearPms(BigDecimal.valueOf(7.5), 10); </span>
+<span class="fc" id="L150">        Pms pms2 = crearPms(BigDecimal.valueOf(4.2), 8);  </span>
+<span class="fc" id="L151">        Pms pms3 = crearPms(BigDecimal.valueOf(8.1), 16); </span>
 
-<span class="fc" id="L163">        when(pmsRepository.findAll()).thenReturn(Arrays.asList(pms1, pms2, pms3));</span>
+<span class="fc" id="L153">        when(pmsRepository.findAll()).thenReturn(Arrays.asList(pms1, pms2, pms3));</span>
 
-        // ACT
-<span class="fc" id="L166">        ReportePMSDTO reporte = reporteService.obtenerReportePms(fechaInicio, fechaFin);</span>
+        
+<span class="fc" id="L156">        ReportePMSDTO reporte = reporteService.obtenerReportePms(fechaInicio, fechaFin);</span>
 
-        // ASSERT
-<span class="fc" id="L169">        assertNotNull(reporte);</span>
-<span class="fc" id="L170">        assertEquals(3L, reporte.getTotalPms());</span>
-<span class="fc" id="L171">        assertEquals(2L, reporte.getMuestrasConCVSuperado());</span>
-<span class="pc bpc" id="L172" title="1 of 2 branches missed.">        assertTrue(reporte.getPorcentajeMuestrasConCVSuperado() &gt; 66.0);</span>
-<span class="pc bpc" id="L173" title="1 of 2 branches missed.">        assertTrue(reporte.getPorcentajeMuestrasConCVSuperado() &lt; 67.0);</span>
-<span class="fc" id="L174">        assertEquals(1L, reporte.getMuestrasConRepeticionesMaximas());</span>
-<span class="fc" id="L175">    }</span>
+        
+<span class="fc" id="L159">        assertNotNull(reporte);</span>
+<span class="fc" id="L160">        assertEquals(3L, reporte.getTotalPms());</span>
+<span class="fc" id="L161">        assertEquals(2L, reporte.getMuestrasConCVSuperado());</span>
+<span class="pc bpc" id="L162" title="1 of 2 branches missed.">        assertTrue(reporte.getPorcentajeMuestrasConCVSuperado() &gt; 66.0);</span>
+<span class="pc bpc" id="L163" title="1 of 2 branches missed.">        assertTrue(reporte.getPorcentajeMuestrasConCVSuperado() &lt; 67.0);</span>
+<span class="fc" id="L164">        assertEquals(1L, reporte.getMuestrasConRepeticionesMaximas());</span>
+<span class="fc" id="L165">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener reporte Pureza - debe calcular porcentajes por especie&quot;)
     void obtenerReportePureza_debeCalcularPorcentajesPorEspecie() {
-        // ARRANGE
-<span class="fc" id="L181">        Pureza pureza1 = crearPureza(</span>
-<span class="fc" id="L182">            BigDecimal.valueOf(100.0),</span>
-<span class="fc" id="L183">            BigDecimal.valueOf(2.5),</span>
-<span class="fc" id="L184">            BigDecimal.valueOf(1.2),</span>
-<span class="fc" id="L185">            true</span>
+        
+<span class="fc" id="L171">        Pureza pureza1 = crearPureza(</span>
+<span class="fc" id="L172">            BigDecimal.valueOf(100.0),</span>
+<span class="fc" id="L173">            BigDecimal.valueOf(2.5),</span>
+<span class="fc" id="L174">            BigDecimal.valueOf(1.2),</span>
+            true
         );
-<span class="fc" id="L187">        Pureza pureza2 = crearPureza(</span>
-<span class="fc" id="L188">            BigDecimal.valueOf(100.0),</span>
-<span class="fc" id="L189">            BigDecimal.valueOf(3.0),</span>
-<span class="fc" id="L190">            BigDecimal.valueOf(0.8),</span>
-<span class="fc" id="L191">            false</span>
+<span class="fc" id="L177">        Pureza pureza2 = crearPureza(</span>
+<span class="fc" id="L178">            BigDecimal.valueOf(100.0),</span>
+<span class="fc" id="L179">            BigDecimal.valueOf(3.0),</span>
+<span class="fc" id="L180">            BigDecimal.valueOf(0.8),</span>
+            false
         );
 
-<span class="fc" id="L194">        when(purezaRepository.findAll()).thenReturn(Arrays.asList(pureza1, pureza2));</span>
+<span class="fc" id="L184">        when(purezaRepository.findAll()).thenReturn(Arrays.asList(pureza1, pureza2));</span>
 
-        // ACT
-<span class="fc" id="L197">        ReportePurezaDTO reporte = reporteService.obtenerReportePureza(fechaInicio, fechaFin);</span>
+        
+<span class="fc" id="L187">        ReportePurezaDTO reporte = reporteService.obtenerReportePureza(fechaInicio, fechaFin);</span>
 
-        // ASSERT
-<span class="fc" id="L200">        assertNotNull(reporte);</span>
-<span class="fc" id="L201">        assertEquals(2L, reporte.getTotalPurezas());</span>
-<span class="fc" id="L202">        assertFalse(reporte.getContaminantesPorEspecie().isEmpty());</span>
-<span class="fc" id="L203">        assertTrue(reporte.getContaminantesPorEspecie().containsKey(&quot;Soja&quot;));</span>
-<span class="fc" id="L204">        assertTrue(reporte.getPorcentajeCumpleEstandar().containsKey(&quot;Soja&quot;));</span>
-<span class="fc" id="L205">        assertEquals(50.0, reporte.getPorcentajeCumpleEstandar().get(&quot;Soja&quot;));</span>
-<span class="fc" id="L206">    }</span>
+        
+<span class="fc" id="L190">        assertNotNull(reporte);</span>
+<span class="fc" id="L191">        assertEquals(2L, reporte.getTotalPurezas());</span>
+<span class="fc" id="L192">        assertFalse(reporte.getContaminantesPorEspecie().isEmpty());</span>
+<span class="fc" id="L193">        assertTrue(reporte.getContaminantesPorEspecie().containsKey(&quot;Soja&quot;));</span>
+<span class="fc" id="L194">        assertTrue(reporte.getPorcentajeCumpleEstandar().containsKey(&quot;Soja&quot;));</span>
+<span class="fc" id="L195">        assertEquals(50.0, reporte.getPorcentajeCumpleEstandar().get(&quot;Soja&quot;));</span>
+<span class="fc" id="L196">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener reporte Tetrazolio - debe calcular viabilidad por especie&quot;)
     void obtenerReporteTetrazolio_debeCalcularViabilidadPorEspecie() {
-        // ARRANGE
-<span class="fc" id="L212">        Tetrazolio tetra1 = crearTetrazolio(BigDecimal.valueOf(92.5));</span>
-<span class="fc" id="L213">        Tetrazolio tetra2 = crearTetrazolio(BigDecimal.valueOf(88.3));</span>
+        
+<span class="fc" id="L202">        Tetrazolio tetra1 = crearTetrazolio(BigDecimal.valueOf(92.5));</span>
+<span class="fc" id="L203">        Tetrazolio tetra2 = crearTetrazolio(BigDecimal.valueOf(88.3));</span>
 
-<span class="fc" id="L215">        when(tetrazolioRepository.findAll()).thenReturn(Arrays.asList(tetra1, tetra2));</span>
+<span class="fc" id="L205">        when(tetrazolioRepository.findAll()).thenReturn(Arrays.asList(tetra1, tetra2));</span>
 
-        // ACT
-<span class="fc" id="L218">        ReporteTetrazolioDTO reporte = reporteService.obtenerReporteTetrazolio(fechaInicio, fechaFin);</span>
+        
+<span class="fc" id="L208">        ReporteTetrazolioDTO reporte = reporteService.obtenerReporteTetrazolio(fechaInicio, fechaFin);</span>
 
-        // ASSERT
-<span class="fc" id="L221">        assertNotNull(reporte);</span>
-<span class="fc" id="L222">        assertEquals(2L, reporte.getTotalTetrazolios());</span>
-<span class="fc" id="L223">        assertFalse(reporte.getViabilidadPorEspecie().isEmpty());</span>
-<span class="fc" id="L224">        assertTrue(reporte.getViabilidadPorEspecie().containsKey(&quot;Soja&quot;));</span>
-<span class="pc bpc" id="L225" title="1 of 2 branches missed.">        assertTrue(reporte.getViabilidadPorEspecie().get(&quot;Soja&quot;) &gt; 90.0);</span>
-<span class="fc" id="L226">    }</span>
+        
+<span class="fc" id="L211">        assertNotNull(reporte);</span>
+<span class="fc" id="L212">        assertEquals(2L, reporte.getTotalTetrazolios());</span>
+<span class="fc" id="L213">        assertFalse(reporte.getViabilidadIniaPorEspecie().isEmpty());</span>
+<span class="fc" id="L214">        assertTrue(reporte.getViabilidadIniaPorEspecie().containsKey(&quot;Soja&quot;));</span>
+<span class="pc bpc" id="L215" title="1 of 2 branches missed.">        assertTrue(reporte.getViabilidadIniaPorEspecie().get(&quot;Soja&quot;) &gt; 90.0);</span>
+<span class="fc" id="L216">        assertFalse(reporte.getViabilidadInasePorEspecie().isEmpty());</span>
+<span class="fc" id="L217">        assertTrue(reporte.getViabilidadInasePorEspecie().containsKey(&quot;Soja&quot;));</span>
+<span class="pc bpc" id="L218" title="1 of 2 branches missed.">        assertTrue(reporte.getViabilidadInasePorEspecie().get(&quot;Soja&quot;) &gt; 90.0);</span>
+<span class="fc" id="L219">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener reporte DOSN - debe retornar estructura correcta&quot;)
     void obtenerReporteDosn_debeRetornarEstructuraCorrecta() {
-        // ARRANGE
-<span class="fc" id="L232">        Dosn dosn = crearDosn(true);</span>
+        
+<span class="fc" id="L225">        Dosn dosn = crearDosn(true);</span>
 
-<span class="fc" id="L234">        when(dosnRepository.findAll()).thenReturn(Collections.singletonList(dosn));</span>
+<span class="fc" id="L227">        when(dosnRepository.findAll()).thenReturn(Collections.singletonList(dosn));</span>
 
-        // ACT
-<span class="fc" id="L237">        ReportePurezaDTO reporte = reporteService.obtenerReporteDosn(fechaInicio, fechaFin);</span>
+        
+<span class="fc" id="L230">        ReportePurezaDTO reporte = reporteService.obtenerReporteDosn(fechaInicio, fechaFin);</span>
 
-        // ASSERT
-<span class="fc" id="L240">        assertNotNull(reporte);</span>
-<span class="fc" id="L241">        assertEquals(1L, reporte.getTotalPurezas());</span>
-<span class="fc" id="L242">        assertFalse(reporte.getContaminantesPorEspecie().isEmpty());</span>
-<span class="fc" id="L243">        assertTrue(reporte.getPorcentajeCumpleEstandar().containsKey(&quot;Soja&quot;));</span>
-<span class="fc" id="L244">    }</span>
+        
+<span class="fc" id="L233">        assertNotNull(reporte);</span>
+<span class="fc" id="L234">        assertEquals(1L, reporte.getTotalPurezas());</span>
+<span class="fc" id="L235">        assertFalse(reporte.getContaminantesPorEspecie().isEmpty());</span>
+<span class="fc" id="L236">        assertTrue(reporte.getPorcentajeCumpleEstandar().containsKey(&quot;Soja&quot;));</span>
+<span class="fc" id="L237">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener contaminantes por especie Pureza - debe listar detalle de contaminantes&quot;)
     void obtenerContaminantesPorEspeciePureza_debeListarDetalle() {
-        // ARRANGE
-<span class="fc" id="L250">        Pureza pureza = crearPurezaConListados();</span>
+        
+<span class="fc" id="L243">        Pureza pureza = crearPurezaConListados();</span>
 
-<span class="fc" id="L252">        when(purezaRepository.findAll()).thenReturn(Collections.singletonList(pureza));</span>
+<span class="fc" id="L245">        when(purezaRepository.findAll()).thenReturn(Collections.singletonList(pureza));</span>
 
-        // ACT
-<span class="fc" id="L255">        Map&lt;String, Double&gt; contaminantes = reporteService.obtenerContaminantesPorEspeciePureza(&quot;Soja&quot;, fechaInicio, fechaFin);</span>
+        
+<span class="fc" id="L248">        Map&lt;String, Double&gt; contaminantes = reporteService.obtenerContaminantesPorEspeciePureza(&quot;Soja&quot;, fechaInicio, fechaFin);</span>
 
-        // ASSERT
-<span class="fc" id="L258">        assertNotNull(contaminantes);</span>
-        // El mapa puede estar vacío si no hay listados con datos
-        // Solo verificamos que no sea nulo y que el método se ejecute sin errores
-<span class="fc" id="L261">    }</span>
+        
+<span class="fc" id="L251">        assertNotNull(contaminantes);</span>
+        
+        
+<span class="fc" id="L254">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener contaminantes por especie DOSN - debe listar detalle de contaminantes&quot;)
     void obtenerContaminantesPorEspecieDosn_debeListarDetalle() {
-        // ARRANGE
-<span class="fc" id="L267">        Dosn dosn = crearDosnConListados();</span>
+        
+<span class="fc" id="L260">        Dosn dosn = crearDosnConListados();</span>
 
-<span class="fc" id="L269">        when(dosnRepository.findAll()).thenReturn(Collections.singletonList(dosn));</span>
+<span class="fc" id="L262">        when(dosnRepository.findAll()).thenReturn(Collections.singletonList(dosn));</span>
 
-        // ACT
-<span class="fc" id="L272">        Map&lt;String, Double&gt; contaminantes = reporteService.obtenerContaminantesPorEspecieDosn(&quot;Soja&quot;, fechaInicio, fechaFin);</span>
+        
+<span class="fc" id="L265">        Map&lt;String, Double&gt; contaminantes = reporteService.obtenerContaminantesPorEspecieDosn(&quot;Soja&quot;, fechaInicio, fechaFin);</span>
 
-        // ASSERT
-<span class="fc" id="L275">        assertNotNull(contaminantes);</span>
-        // El mapa puede estar vacío si no hay listados con datos
-        // Solo verificamos que no sea nulo y que el método se ejecute sin errores
-<span class="fc" id="L278">    }</span>
+        
+<span class="fc" id="L268">        assertNotNull(contaminantes);</span>
+        
+        
+<span class="fc" id="L271">    }</span>
 
     @Test
     @DisplayName(&quot;Filtrado por fechas - debe excluir análisis fuera del rango&quot;)
     void filtradoPorFechas_debeExcluirAnalisisFueraDelRango() {
-        // ARRANGE
-<span class="fc" id="L284">        Germinacion germDentro = crearGerminacion(Estado.APROBADO, LocalDateTime.of(2024, 6, 15, 10, 0));</span>
-<span class="fc" id="L285">        Germinacion germFuera = crearGerminacion(Estado.APROBADO, LocalDateTime.of(2023, 12, 31, 10, 0));</span>
+        
+<span class="fc" id="L277">        Germinacion germDentro = crearGerminacion(Estado.APROBADO, LocalDateTime.of(2024, 6, 15, 10, 0));</span>
+<span class="fc" id="L278">        Germinacion germFuera = crearGerminacion(Estado.APROBADO, LocalDateTime.of(2023, 12, 31, 10, 0));</span>
 
-<span class="fc" id="L287">        when(germinacionRepository.findAll()).thenReturn(Arrays.asList(germDentro, germFuera));</span>
-<span class="fc" id="L288">        when(purezaRepository.findAll()).thenReturn(Collections.emptyList());</span>
-<span class="fc" id="L289">        when(pmsRepository.findAll()).thenReturn(Collections.emptyList());</span>
-<span class="fc" id="L290">        when(tetrazolioRepository.findAll()).thenReturn(Collections.emptyList());</span>
-<span class="fc" id="L291">        when(dosnRepository.findAll()).thenReturn(Collections.emptyList());</span>
+<span class="fc" id="L280">        when(germinacionRepository.findAll()).thenReturn(Arrays.asList(germDentro, germFuera));</span>
+<span class="fc" id="L281">        when(purezaRepository.findAll()).thenReturn(Collections.emptyList());</span>
+<span class="fc" id="L282">        when(pmsRepository.findAll()).thenReturn(Collections.emptyList());</span>
+<span class="fc" id="L283">        when(tetrazolioRepository.findAll()).thenReturn(Collections.emptyList());</span>
+<span class="fc" id="L284">        when(dosnRepository.findAll()).thenReturn(Collections.emptyList());</span>
 
-        // ACT
-<span class="fc" id="L294">        ReporteGeneralDTO reporte = reporteService.obtenerReporteGeneral(fechaInicio, fechaFin);</span>
+        
+<span class="fc" id="L287">        ReporteGeneralDTO reporte = reporteService.obtenerReporteGeneral(fechaInicio, fechaFin);</span>
 
-        // ASSERT
-<span class="fc" id="L297">        assertNotNull(reporte);</span>
-<span class="fc" id="L298">        assertEquals(1L, reporte.getTotalAnalisis()); // Solo cuenta el que está dentro del rango</span>
-<span class="fc" id="L299">    }</span>
+        
+<span class="fc" id="L290">        assertNotNull(reporte);</span>
+<span class="fc" id="L291">        assertEquals(1L, reporte.getTotalAnalisis()); </span>
+<span class="fc" id="L292">    }</span>
 
     @Test
     @DisplayName(&quot;Análisis inactivos - no deben incluirse en reportes&quot;)
     void analisisInactivos_noDebenIncluirse() {
-        // ARRANGE
-<span class="fc" id="L305">        Pureza purezaActiva = crearPureza(Estado.APROBADO, LocalDateTime.of(2024, 6, 15, 10, 0));</span>
-<span class="fc" id="L306">        purezaActiva.setActivo(true);</span>
         
-<span class="fc" id="L308">        Pureza purezaInactiva = crearPureza(Estado.APROBADO, LocalDateTime.of(2024, 6, 16, 10, 0));</span>
-<span class="fc" id="L309">        purezaInactiva.setActivo(false);</span>
+<span class="fc" id="L298">        Pureza purezaActiva = crearPureza(Estado.APROBADO, LocalDateTime.of(2024, 6, 15, 10, 0));</span>
+<span class="fc" id="L299">        purezaActiva.setActivo(true);</span>
+        
+<span class="fc" id="L301">        Pureza purezaInactiva = crearPureza(Estado.APROBADO, LocalDateTime.of(2024, 6, 16, 10, 0));</span>
+<span class="fc" id="L302">        purezaInactiva.setActivo(false);</span>
 
-<span class="fc" id="L311">        when(germinacionRepository.findAll()).thenReturn(Collections.emptyList());</span>
-<span class="fc" id="L312">        when(purezaRepository.findAll()).thenReturn(Arrays.asList(purezaActiva, purezaInactiva));</span>
-<span class="fc" id="L313">        when(pmsRepository.findAll()).thenReturn(Collections.emptyList());</span>
-<span class="fc" id="L314">        when(tetrazolioRepository.findAll()).thenReturn(Collections.emptyList());</span>
-<span class="fc" id="L315">        when(dosnRepository.findAll()).thenReturn(Collections.emptyList());</span>
+<span class="fc" id="L304">        when(germinacionRepository.findAll()).thenReturn(Collections.emptyList());</span>
+<span class="fc" id="L305">        when(purezaRepository.findAll()).thenReturn(Arrays.asList(purezaActiva, purezaInactiva));</span>
+<span class="fc" id="L306">        when(pmsRepository.findAll()).thenReturn(Collections.emptyList());</span>
+<span class="fc" id="L307">        when(tetrazolioRepository.findAll()).thenReturn(Collections.emptyList());</span>
+<span class="fc" id="L308">        when(dosnRepository.findAll()).thenReturn(Collections.emptyList());</span>
 
-        // ACT
-<span class="fc" id="L318">        ReporteGeneralDTO reporte = reporteService.obtenerReporteGeneral(fechaInicio, fechaFin);</span>
+        
+<span class="fc" id="L311">        ReporteGeneralDTO reporte = reporteService.obtenerReporteGeneral(fechaInicio, fechaFin);</span>
 
-        // ASSERT
-<span class="fc" id="L321">        assertNotNull(reporte);</span>
-<span class="fc" id="L322">        assertEquals(1L, reporte.getTotalAnalisis()); // Solo cuenta el activo</span>
-<span class="fc" id="L323">    }</span>
+        
+<span class="fc" id="L314">        assertNotNull(reporte);</span>
+<span class="fc" id="L315">        assertEquals(1L, reporte.getTotalAnalisis()); </span>
+<span class="fc" id="L316">    }</span>
 
     @Test
     @DisplayName(&quot;Reporte con fechas nulas - debe incluir todos los análisis&quot;)
     void reporteConFechasNulas_debeIncluirTodos() {
-        // ARRANGE
-<span class="fc" id="L329">        Germinacion germ = crearGerminacion(Estado.APROBADO, LocalDateTime.of(2020, 1, 1, 10, 0));</span>
+        
+<span class="fc" id="L322">        Germinacion germ = crearGerminacion(Estado.APROBADO, LocalDateTime.of(2020, 1, 1, 10, 0));</span>
 
-<span class="fc" id="L331">        when(germinacionRepository.findAll()).thenReturn(Collections.singletonList(germ));</span>
-<span class="fc" id="L332">        when(purezaRepository.findAll()).thenReturn(Collections.emptyList());</span>
-<span class="fc" id="L333">        when(pmsRepository.findAll()).thenReturn(Collections.emptyList());</span>
-<span class="fc" id="L334">        when(tetrazolioRepository.findAll()).thenReturn(Collections.emptyList());</span>
-<span class="fc" id="L335">        when(dosnRepository.findAll()).thenReturn(Collections.emptyList());</span>
+<span class="fc" id="L324">        when(germinacionRepository.findAll()).thenReturn(Collections.singletonList(germ));</span>
+<span class="fc" id="L325">        when(purezaRepository.findAll()).thenReturn(Collections.emptyList());</span>
+<span class="fc" id="L326">        when(pmsRepository.findAll()).thenReturn(Collections.emptyList());</span>
+<span class="fc" id="L327">        when(tetrazolioRepository.findAll()).thenReturn(Collections.emptyList());</span>
+<span class="fc" id="L328">        when(dosnRepository.findAll()).thenReturn(Collections.emptyList());</span>
 
-        // ACT
-<span class="fc" id="L338">        ReporteGeneralDTO reporte = reporteService.obtenerReporteGeneral(null, null);</span>
+        
+<span class="fc" id="L331">        ReporteGeneralDTO reporte = reporteService.obtenerReporteGeneral(null, null);</span>
 
-        // ASSERT
-<span class="fc" id="L341">        assertNotNull(reporte);</span>
-<span class="fc" id="L342">        assertEquals(1L, reporte.getTotalAnalisis());</span>
-<span class="fc" id="L343">    }</span>
+        
+<span class="fc" id="L334">        assertNotNull(reporte);</span>
+<span class="fc" id="L335">        assertEquals(1L, reporte.getTotalAnalisis());</span>
+<span class="fc" id="L336">    }</span>
 
     @Test
     @DisplayName(&quot;Top análisis con problemas - debe ordenar por cantidad&quot;)
     void topAnalisisConProblemas_debeOrdenarPorCantidad() {
-        // ARRANGE
-<span class="fc" id="L349">        Germinacion germ1 = crearGerminacion(Estado.A_REPETIR, LocalDateTime.of(2024, 6, 15, 10, 0));</span>
-<span class="fc" id="L350">        Germinacion germ2 = crearGerminacion(Estado.A_REPETIR, LocalDateTime.of(2024, 6, 16, 10, 0));</span>
-<span class="fc" id="L351">        Pureza pureza = crearPureza(Estado.A_REPETIR, LocalDateTime.of(2024, 6, 17, 10, 0));</span>
+        
+<span class="fc" id="L342">        Germinacion germ1 = crearGerminacion(Estado.A_REPETIR, LocalDateTime.of(2024, 6, 15, 10, 0));</span>
+<span class="fc" id="L343">        Germinacion germ2 = crearGerminacion(Estado.A_REPETIR, LocalDateTime.of(2024, 6, 16, 10, 0));</span>
+<span class="fc" id="L344">        Pureza pureza = crearPureza(Estado.A_REPETIR, LocalDateTime.of(2024, 6, 17, 10, 0));</span>
 
-<span class="fc" id="L353">        when(germinacionRepository.findAll()).thenReturn(Arrays.asList(germ1, germ2));</span>
-<span class="fc" id="L354">        when(purezaRepository.findAll()).thenReturn(Collections.singletonList(pureza));</span>
-<span class="fc" id="L355">        when(pmsRepository.findAll()).thenReturn(Collections.emptyList());</span>
-<span class="fc" id="L356">        when(tetrazolioRepository.findAll()).thenReturn(Collections.emptyList());</span>
-<span class="fc" id="L357">        when(dosnRepository.findAll()).thenReturn(Collections.emptyList());</span>
+<span class="fc" id="L346">        when(germinacionRepository.findAll()).thenReturn(Arrays.asList(germ1, germ2));</span>
+<span class="fc" id="L347">        when(purezaRepository.findAll()).thenReturn(Collections.singletonList(pureza));</span>
+<span class="fc" id="L348">        when(pmsRepository.findAll()).thenReturn(Collections.emptyList());</span>
+<span class="fc" id="L349">        when(tetrazolioRepository.findAll()).thenReturn(Collections.emptyList());</span>
+<span class="fc" id="L350">        when(dosnRepository.findAll()).thenReturn(Collections.emptyList());</span>
 
-        // ACT
-<span class="fc" id="L360">        ReporteGeneralDTO reporte = reporteService.obtenerReporteGeneral(fechaInicio, fechaFin);</span>
+        
+<span class="fc" id="L353">        ReporteGeneralDTO reporte = reporteService.obtenerReporteGeneral(fechaInicio, fechaFin);</span>
 
-        // ASSERT
-<span class="fc" id="L363">        assertNotNull(reporte);</span>
-<span class="fc" id="L364">        assertNotNull(reporte.getTopAnalisisProblemas());</span>
-<span class="fc" id="L365">        assertTrue(reporte.getTopAnalisisProblemas().containsKey(&quot;GERMINACION&quot;));</span>
-<span class="fc" id="L366">    }</span>
+        
+<span class="fc" id="L356">        assertNotNull(reporte);</span>
+<span class="fc" id="L357">        assertNotNull(reporte.getTopAnalisisProblemas());</span>
+<span class="fc" id="L358">        assertTrue(reporte.getTopAnalisisProblemas().containsKey(&quot;GERMINACION&quot;));</span>
+<span class="fc" id="L359">    }</span>
 
-    // Métodos auxiliares para crear entidades mock
+    
 
     private Germinacion crearGerminacion(Estado estado, LocalDateTime fechaInicio) {
-<span class="fc" id="L371">        Germinacion germ = new Germinacion();</span>
-<span class="fc" id="L372">        germ.setEstado(estado);</span>
-<span class="fc" id="L373">        germ.setFechaInicio(fechaInicio);</span>
-<span class="fc" id="L374">        germ.setActivo(true);</span>
-<span class="fc" id="L375">        germ.setLote(loteMock);</span>
-<span class="fc" id="L376">        return germ;</span>
+<span class="fc" id="L364">        Germinacion germ = new Germinacion();</span>
+<span class="fc" id="L365">        germ.setEstado(estado);</span>
+<span class="fc" id="L366">        germ.setFechaInicio(fechaInicio);</span>
+<span class="fc" id="L367">        germ.setActivo(true);</span>
+<span class="fc" id="L368">        germ.setLote(loteMock);</span>
+<span class="fc" id="L369">        return germ;</span>
     }
 
     private Pureza crearPureza(Estado estado, LocalDateTime fechaInicio) {
-<span class="fc" id="L380">        Pureza pureza = new Pureza();</span>
-<span class="fc" id="L381">        pureza.setEstado(estado);</span>
-<span class="fc" id="L382">        pureza.setFechaInicio(fechaInicio);</span>
-<span class="fc" id="L383">        pureza.setActivo(true);</span>
-<span class="fc" id="L384">        pureza.setLote(loteMock);</span>
-<span class="fc" id="L385">        return pureza;</span>
+<span class="fc" id="L373">        Pureza pureza = new Pureza();</span>
+<span class="fc" id="L374">        pureza.setEstado(estado);</span>
+<span class="fc" id="L375">        pureza.setFechaInicio(fechaInicio);</span>
+<span class="fc" id="L376">        pureza.setActivo(true);</span>
+<span class="fc" id="L377">        pureza.setLote(loteMock);</span>
+<span class="fc" id="L378">        return pureza;</span>
     }
 
     private Pureza crearPureza(BigDecimal pesoInicial, BigDecimal malezas, BigDecimal otrosCultivos, boolean cumpleEstandar) {
-<span class="fc" id="L389">        Pureza pureza = new Pureza();</span>
-<span class="fc" id="L390">        pureza.setEstado(Estado.APROBADO);</span>
-<span class="fc" id="L391">        pureza.setFechaInicio(LocalDateTime.of(2024, 6, 15, 10, 0));</span>
-<span class="fc" id="L392">        pureza.setActivo(true);</span>
-<span class="fc" id="L393">        pureza.setLote(loteMock);</span>
-<span class="fc" id="L394">        pureza.setPesoInicial_g(pesoInicial);</span>
-<span class="fc" id="L395">        pureza.setMalezas_g(malezas);</span>
-<span class="fc" id="L396">        pureza.setOtrosCultivos_g(otrosCultivos);</span>
-<span class="fc" id="L397">        pureza.setCumpleEstandar(cumpleEstandar);</span>
-<span class="fc" id="L398">        return pureza;</span>
+<span class="fc" id="L382">        Pureza pureza = new Pureza();</span>
+<span class="fc" id="L383">        pureza.setEstado(Estado.APROBADO);</span>
+<span class="fc" id="L384">        pureza.setFechaInicio(LocalDateTime.of(2024, 6, 15, 10, 0));</span>
+<span class="fc" id="L385">        pureza.setActivo(true);</span>
+<span class="fc" id="L386">        pureza.setLote(loteMock);</span>
+<span class="fc" id="L387">        pureza.setPesoInicial_g(pesoInicial);</span>
+<span class="fc" id="L388">        pureza.setMalezas_g(malezas);</span>
+<span class="fc" id="L389">        pureza.setOtrosCultivos_g(otrosCultivos);</span>
+<span class="fc" id="L390">        pureza.setCumpleEstandar(cumpleEstandar);</span>
+<span class="fc" id="L391">        return pureza;</span>
     }
 
     private Pureza crearPurezaConListados() {
-<span class="fc" id="L402">        Pureza pureza = crearPureza(Estado.APROBADO, LocalDateTime.of(2024, 6, 15, 10, 0));</span>
-<span class="fc" id="L403">        pureza.setListados(Collections.emptyList());</span>
-<span class="fc" id="L404">        return pureza;</span>
+<span class="fc" id="L395">        Pureza pureza = crearPureza(Estado.APROBADO, LocalDateTime.of(2024, 6, 15, 10, 0));</span>
+<span class="fc" id="L396">        pureza.setListados(Collections.emptyList());</span>
+<span class="fc" id="L397">        return pureza;</span>
     }
 
     private Pms crearPms(BigDecimal coefVariacion, int numRepeticiones) {
-<span class="fc" id="L408">        Pms pms = new Pms();</span>
-<span class="fc" id="L409">        pms.setEstado(Estado.APROBADO);</span>
-<span class="fc" id="L410">        pms.setFechaInicio(LocalDateTime.of(2024, 6, 15, 10, 0));</span>
-<span class="fc" id="L411">        pms.setActivo(true);</span>
-<span class="fc" id="L412">        pms.setLote(loteMock);</span>
-<span class="fc" id="L413">        pms.setCoefVariacion(coefVariacion);</span>
-<span class="fc" id="L414">        pms.setNumRepeticionesEsperadas(numRepeticiones);</span>
-<span class="fc" id="L415">        return pms;</span>
+<span class="fc" id="L401">        Pms pms = new Pms();</span>
+<span class="fc" id="L402">        pms.setEstado(Estado.APROBADO);</span>
+<span class="fc" id="L403">        pms.setFechaInicio(LocalDateTime.of(2024, 6, 15, 10, 0));</span>
+<span class="fc" id="L404">        pms.setActivo(true);</span>
+<span class="fc" id="L405">        pms.setLote(loteMock);</span>
+<span class="fc" id="L406">        pms.setCoefVariacion(coefVariacion);</span>
+<span class="fc" id="L407">        pms.setNumRepeticionesEsperadas(numRepeticiones);</span>
+<span class="fc" id="L408">        return pms;</span>
     }
 
     private Tetrazolio crearTetrazolio(BigDecimal viabilidad) {
-<span class="fc" id="L419">        Tetrazolio tetra = new Tetrazolio();</span>
-<span class="fc" id="L420">        tetra.setEstado(Estado.APROBADO);</span>
-<span class="fc" id="L421">        tetra.setFechaInicio(LocalDateTime.of(2024, 6, 15, 10, 0));</span>
-<span class="fc" id="L422">        tetra.setActivo(true);</span>
-<span class="fc" id="L423">        tetra.setLote(loteMock);</span>
-<span class="fc" id="L424">        tetra.setViabilidadInase(viabilidad);</span>
-<span class="fc" id="L425">        return tetra;</span>
+<span class="fc" id="L412">        Tetrazolio tetra = new Tetrazolio();</span>
+<span class="fc" id="L413">        tetra.setEstado(Estado.APROBADO);</span>
+<span class="fc" id="L414">        tetra.setFechaInicio(LocalDateTime.of(2024, 6, 15, 10, 0));</span>
+<span class="fc" id="L415">        tetra.setActivo(true);</span>
+<span class="fc" id="L416">        tetra.setLote(loteMock);</span>
+<span class="fc" id="L417">        tetra.setPorcViablesRedondeo(viabilidad);</span>
+<span class="fc" id="L418">        tetra.setViabilidadInase(viabilidad);</span>
+<span class="fc" id="L419">        return tetra;</span>
     }
 
     private Dosn crearDosn(boolean cumpleEstandar) {
-<span class="fc" id="L429">        Dosn dosn = new Dosn();</span>
-<span class="fc" id="L430">        dosn.setEstado(Estado.APROBADO);</span>
-<span class="fc" id="L431">        dosn.setFechaInicio(LocalDateTime.of(2024, 6, 15, 10, 0));</span>
-<span class="fc" id="L432">        dosn.setActivo(true);</span>
-<span class="fc" id="L433">        dosn.setLote(loteMock);</span>
-<span class="fc" id="L434">        dosn.setCumpleEstandar(cumpleEstandar);</span>
-<span class="fc" id="L435">        return dosn;</span>
+<span class="fc" id="L423">        Dosn dosn = new Dosn();</span>
+<span class="fc" id="L424">        dosn.setEstado(Estado.APROBADO);</span>
+<span class="fc" id="L425">        dosn.setFechaInicio(LocalDateTime.of(2024, 6, 15, 10, 0));</span>
+<span class="fc" id="L426">        dosn.setActivo(true);</span>
+<span class="fc" id="L427">        dosn.setLote(loteMock);</span>
+<span class="fc" id="L428">        dosn.setCumpleEstandar(cumpleEstandar);</span>
+<span class="fc" id="L429">        return dosn;</span>
     }
 
     private Dosn crearDosnConListados() {
-<span class="fc" id="L439">        Dosn dosn = crearDosn(true);</span>
-<span class="fc" id="L440">        dosn.setListados(Collections.emptyList());</span>
-<span class="fc" id="L441">        dosn.setCuscutaRegistros(Collections.emptyList());</span>
-<span class="fc" id="L442">        return dosn;</span>
+<span class="fc" id="L433">        Dosn dosn = crearDosn(true);</span>
+<span class="fc" id="L434">        dosn.setListados(Collections.emptyList());</span>
+<span class="fc" id="L435">        dosn.setCuscutaRegistros(Collections.emptyList());</span>
+<span class="fc" id="L436">        return dosn;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

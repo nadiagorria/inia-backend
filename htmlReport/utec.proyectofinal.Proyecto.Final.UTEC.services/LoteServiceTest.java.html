@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LoteServiceTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">LoteServiceTest.java</span></div><h1>LoteServiceTest.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LoteServiceTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">LoteServiceTest.java</span></div><h1>LoteServiceTest.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -48,17 +48,10 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
-/**
- * Tests unitarios para LoteService
- * 
- * ¿Qué estamos testeando?
- * - La lógica de negocio del servicio de lotes
- * - Validaciones y transformaciones de datos
- * - Interacciones con el repositorio
- */
+
 @ExtendWith(MockitoExtension.class)
 @DisplayName(&quot;Tests de LoteService&quot;)
-<span class="fc" id="L61">class LoteServiceTest {</span>
+<span class="fc" id="L54">class LoteServiceTest {</span>
 
     @Mock
     private LoteRepository loteRepository;
@@ -101,1152 +94,1152 @@ import static org.mockito.Mockito.*;
     @BeforeEach
     void setUp() {
         // ARRANGE: Preparar datos de prueba que usaremos en varios tests
-<span class="fc" id="L104">        loteRequestDTO = new LoteRequestDTO();</span>
-<span class="fc" id="L105">        loteRequestDTO.setNomLote(&quot;LOTE-TEST-001&quot;);</span>
-<span class="fc" id="L106">        loteRequestDTO.setFicha(&quot;FICHA-001&quot;);</span>
-<span class="fc" id="L107">        loteRequestDTO.setFechaRecibo(LocalDate.now());</span>
-<span class="fc" id="L108">        loteRequestDTO.setCultivarID(1L);</span>
+<span class="fc" id="L97">        loteRequestDTO = new LoteRequestDTO();</span>
+<span class="fc" id="L98">        loteRequestDTO.setNomLote(&quot;LOTE-TEST-001&quot;);</span>
+<span class="fc" id="L99">        loteRequestDTO.setFicha(&quot;FICHA-001&quot;);</span>
+<span class="fc" id="L100">        loteRequestDTO.setFechaRecibo(LocalDate.now());</span>
+<span class="fc" id="L101">        loteRequestDTO.setCultivarID(1L);</span>
         
-<span class="fc" id="L110">        especie = new Especie();</span>
-<span class="fc" id="L111">        especie.setEspecieID(1L);</span>
-<span class="fc" id="L112">        especie.setNombreCientifico(&quot;Triticum aestivum&quot;);</span>
-<span class="fc" id="L113">        especie.setNombreComun(&quot;Trigo&quot;);</span>
+<span class="fc" id="L103">        especie = new Especie();</span>
+<span class="fc" id="L104">        especie.setEspecieID(1L);</span>
+<span class="fc" id="L105">        especie.setNombreCientifico(&quot;Triticum aestivum&quot;);</span>
+<span class="fc" id="L106">        especie.setNombreComun(&quot;Trigo&quot;);</span>
         
-<span class="fc" id="L115">        cultivar = new Cultivar();</span>
-<span class="fc" id="L116">        cultivar.setCultivarID(1L);</span>
-<span class="fc" id="L117">        cultivar.setNombre(&quot;Cultivar Test&quot;);</span>
-<span class="fc" id="L118">        cultivar.setEspecie(especie);</span>
+<span class="fc" id="L108">        cultivar = new Cultivar();</span>
+<span class="fc" id="L109">        cultivar.setCultivarID(1L);</span>
+<span class="fc" id="L110">        cultivar.setNombre(&quot;Cultivar Test&quot;);</span>
+<span class="fc" id="L111">        cultivar.setEspecie(especie);</span>
         
-<span class="fc" id="L120">        lote = new Lote();</span>
-<span class="fc" id="L121">        lote.setLoteID(1L);</span>
-<span class="fc" id="L122">        lote.setNomLote(&quot;LOTE-TEST-001&quot;);</span>
-<span class="fc" id="L123">        lote.setFicha(&quot;FICHA-001&quot;);</span>
-<span class="fc" id="L124">        lote.setActivo(true);</span>
-<span class="fc" id="L125">        lote.setCultivar(cultivar);</span>
+<span class="fc" id="L113">        lote = new Lote();</span>
+<span class="fc" id="L114">        lote.setLoteID(1L);</span>
+<span class="fc" id="L115">        lote.setNomLote(&quot;LOTE-TEST-001&quot;);</span>
+<span class="fc" id="L116">        lote.setFicha(&quot;FICHA-001&quot;);</span>
+<span class="fc" id="L117">        lote.setActivo(true);</span>
+<span class="fc" id="L118">        lote.setCultivar(cultivar);</span>
         
-<span class="fc" id="L127">        empresa = new Contacto();</span>
-<span class="fc" id="L128">        empresa.setContactoID(1L);</span>
-<span class="fc" id="L129">        empresa.setNombre(&quot;Empresa Test&quot;);</span>
+<span class="fc" id="L120">        empresa = new Contacto();</span>
+<span class="fc" id="L121">        empresa.setContactoID(1L);</span>
+<span class="fc" id="L122">        empresa.setNombre(&quot;Empresa Test&quot;);</span>
         
-<span class="fc" id="L131">        cliente = new Contacto();</span>
-<span class="fc" id="L132">        cliente.setContactoID(2L);</span>
-<span class="fc" id="L133">        cliente.setNombre(&quot;Cliente Test&quot;);</span>
+<span class="fc" id="L124">        cliente = new Contacto();</span>
+<span class="fc" id="L125">        cliente.setContactoID(2L);</span>
+<span class="fc" id="L126">        cliente.setNombre(&quot;Cliente Test&quot;);</span>
         
-<span class="fc" id="L135">        catalogo = new Catalogo();</span>
-<span class="fc" id="L136">        catalogo.setId(1L);</span>
-<span class="fc" id="L137">        catalogo.setValor(&quot;Test Catalogo&quot;);</span>
-<span class="fc" id="L138">    }</span>
+<span class="fc" id="L128">        catalogo = new Catalogo();</span>
+<span class="fc" id="L129">        catalogo.setId(1L);</span>
+<span class="fc" id="L130">        catalogo.setValor(&quot;Test Catalogo&quot;);</span>
+<span class="fc" id="L131">    }</span>
 
     @Test
     @DisplayName(&quot;Crear lote - debe asignar activo=true automáticamente&quot;)
     void crearLote_debeAsignarActivoTrue() {
         // ARRANGE: Configurar el mock para que devuelva el lote cuando se guarde
-<span class="fc" id="L144">        when(cultivarRepository.findById(1L)).thenReturn(Optional.of(cultivar));</span>
-<span class="fc" id="L145">        when(loteRepository.save(any(Lote.class))).thenReturn(lote);</span>
+<span class="fc" id="L137">        when(cultivarRepository.findById(1L)).thenReturn(Optional.of(cultivar));</span>
+<span class="fc" id="L138">        when(loteRepository.save(any(Lote.class))).thenReturn(lote);</span>
 
         // ACT: Ejecutar el método que queremos probar
-<span class="fc" id="L148">        LoteDTO resultado = loteService.crearLote(loteRequestDTO);</span>
+<span class="fc" id="L141">        LoteDTO resultado = loteService.crearLote(loteRequestDTO);</span>
 
         // ASSERT: Verificar que el lote se creó correctamente
-<span class="fc" id="L151">        assertNotNull(resultado, &quot;El lote creado no debe ser nulo&quot;);</span>
-<span class="fc" id="L152">        assertEquals(&quot;LOTE-TEST-001&quot;, resultado.getNomLote(), &quot;El nombre del lote debe coincidir&quot;);</span>
+<span class="fc" id="L144">        assertNotNull(resultado, &quot;El lote creado no debe ser nulo&quot;);</span>
+<span class="fc" id="L145">        assertEquals(&quot;LOTE-TEST-001&quot;, resultado.getNomLote(), &quot;El nombre del lote debe coincidir&quot;);</span>
         
         // Verificar que se llamó al método save exactamente 1 vez
-<span class="fc" id="L155">        verify(loteRepository, times(1)).save(any(Lote.class));</span>
-<span class="fc" id="L156">    }</span>
+<span class="fc" id="L148">        verify(loteRepository, times(1)).save(any(Lote.class));</span>
+<span class="fc" id="L149">    }</span>
 
     @Test
     @DisplayName(&quot;Crear lote con fecha recibo futura - debe lanzar excepción&quot;)
     void crearLote_fechaReciboFutura_lanzaExcepcion() {
-<span class="fc" id="L161">        loteRequestDTO.setFechaRecibo(LocalDate.now().plusDays(1));</span>
+<span class="fc" id="L154">        loteRequestDTO.setFechaRecibo(LocalDate.now().plusDays(1));</span>
         
-<span class="pc" id="L163">        assertThrows(RuntimeException.class, () -&gt; loteService.crearLote(loteRequestDTO));</span>
-<span class="fc" id="L164">        verify(loteRepository, never()).save(any(Lote.class));</span>
-<span class="fc" id="L165">    }</span>
+<span class="pc" id="L156">        assertThrows(RuntimeException.class, () -&gt; loteService.crearLote(loteRequestDTO));</span>
+<span class="fc" id="L157">        verify(loteRepository, never()).save(any(Lote.class));</span>
+<span class="fc" id="L158">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener lote por ID - debe retornar el lote si existe&quot;)
     void obtenerLotePorId_cuandoExiste_debeRetornarLote() {
-        // ARRANGE
-<span class="fc" id="L171">        when(loteRepository.findByIdWithCultivarAndEspecie(1L)).thenReturn(Optional.of(lote));</span>
+        
+<span class="fc" id="L164">        when(loteRepository.findByIdWithCultivarAndEspecie(1L)).thenReturn(Optional.of(lote));</span>
 
-        // ACT
-<span class="fc" id="L174">        LoteDTO resultado = loteService.obtenerLotePorId(1L);</span>
+        
+<span class="fc" id="L167">        LoteDTO resultado = loteService.obtenerLotePorId(1L);</span>
 
-        // ASSERT
-<span class="fc" id="L177">        assertNotNull(resultado);</span>
-<span class="fc" id="L178">        assertEquals(1L, resultado.getLoteID());</span>
-<span class="fc" id="L179">        assertEquals(&quot;LOTE-TEST-001&quot;, resultado.getNomLote());</span>
-<span class="fc" id="L180">        verify(loteRepository, times(1)).findByIdWithCultivarAndEspecie(1L);</span>
-<span class="fc" id="L181">    }</span>
+        
+<span class="fc" id="L170">        assertNotNull(resultado);</span>
+<span class="fc" id="L171">        assertEquals(1L, resultado.getLoteID());</span>
+<span class="fc" id="L172">        assertEquals(&quot;LOTE-TEST-001&quot;, resultado.getNomLote());</span>
+<span class="fc" id="L173">        verify(loteRepository, times(1)).findByIdWithCultivarAndEspecie(1L);</span>
+<span class="fc" id="L174">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener lote por ID inexistente - debe lanzar excepción&quot;)
     void obtenerLotePorId_cuandoNoExiste_debeLanzarExcepcion() {
-        // ARRANGE
-<span class="fc" id="L187">        when(loteRepository.findByIdWithCultivarAndEspecie(999L)).thenReturn(Optional.empty());</span>
+        
+<span class="fc" id="L180">        when(loteRepository.findByIdWithCultivarAndEspecie(999L)).thenReturn(Optional.empty());</span>
 
-        // ACT &amp; ASSERT
-<span class="fc" id="L190">        assertThrows(RuntimeException.class, () -&gt; {</span>
-<span class="nc" id="L191">            loteService.obtenerLotePorId(999L);</span>
-<span class="pc" id="L192">        }, &quot;Debe lanzar excepción cuando el lote no existe&quot;);</span>
+        
+<span class="fc" id="L183">        assertThrows(RuntimeException.class, () -&gt; {</span>
+<span class="nc" id="L184">            loteService.obtenerLotePorId(999L);</span>
+<span class="nc" id="L185">        }, &quot;Debe lanzar excepción cuando el lote no existe&quot;);</span>
 
-<span class="fc" id="L194">        verify(loteRepository, times(1)).findByIdWithCultivarAndEspecie(999L);</span>
-<span class="fc" id="L195">    }</span>
+<span class="fc" id="L187">        verify(loteRepository, times(1)).findByIdWithCultivarAndEspecie(999L);</span>
+<span class="fc" id="L188">    }</span>
 
     @Test
     @DisplayName(&quot;Actualizar lote - debe actualizar correctamente&quot;)
     void actualizarLote_debeActualizarCorrectamente() {
-<span class="fc" id="L200">        loteRequestDTO.setNomLote(&quot;LOTE-ACTUALIZADO&quot;);</span>
-<span class="fc" id="L201">        when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));</span>
-<span class="fc" id="L202">        when(cultivarRepository.findById(1L)).thenReturn(Optional.of(cultivar));</span>
-<span class="fc" id="L203">        when(loteRepository.save(any(Lote.class))).thenReturn(lote);</span>
+<span class="fc" id="L193">        loteRequestDTO.setNomLote(&quot;LOTE-ACTUALIZADO&quot;);</span>
+<span class="fc" id="L194">        when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));</span>
+<span class="fc" id="L195">        when(cultivarRepository.findById(1L)).thenReturn(Optional.of(cultivar));</span>
+<span class="fc" id="L196">        when(loteRepository.save(any(Lote.class))).thenReturn(lote);</span>
         
-<span class="fc" id="L205">        LoteDTO resultado = loteService.actualizarLote(1L, loteRequestDTO);</span>
+<span class="fc" id="L198">        LoteDTO resultado = loteService.actualizarLote(1L, loteRequestDTO);</span>
         
-<span class="fc" id="L207">        assertNotNull(resultado);</span>
-<span class="fc" id="L208">        verify(loteRepository, times(1)).save(any(Lote.class));</span>
-<span class="fc" id="L209">    }</span>
+<span class="fc" id="L200">        assertNotNull(resultado);</span>
+<span class="fc" id="L201">        verify(loteRepository, times(1)).save(any(Lote.class));</span>
+<span class="fc" id="L202">    }</span>
 
     @Test
     @DisplayName(&quot;Eliminar lote - debe cambiar activo a false&quot;)
     void eliminarLote_debeCambiarActivoAFalse() {
-        // ARRANGE
-<span class="fc" id="L215">        when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));</span>
-<span class="fc" id="L216">        when(loteRepository.save(any(Lote.class))).thenReturn(lote);</span>
+        
+<span class="fc" id="L208">        when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));</span>
+<span class="fc" id="L209">        when(loteRepository.save(any(Lote.class))).thenReturn(lote);</span>
 
-        // ACT
-<span class="fc" id="L219">        loteService.eliminarLote(1L);</span>
+        
+<span class="fc" id="L212">        loteService.eliminarLote(1L);</span>
 
-        // ASSERT
-<span class="fc" id="L222">        verify(loteRepository, times(1)).findById(1L);</span>
-<span class="fc" id="L223">        verify(loteRepository, times(1)).save(any(Lote.class));</span>
-<span class="fc" id="L224">    }</span>
+        
+<span class="fc" id="L215">        verify(loteRepository, times(1)).findById(1L);</span>
+<span class="fc" id="L216">        verify(loteRepository, times(1)).save(any(Lote.class));</span>
+<span class="fc" id="L217">    }</span>
 
     @Test
     @DisplayName(&quot;Eliminar lote inexistente - lanza excepción&quot;)
     void eliminarLote_inexistente_lanzaExcepcion() {
-<span class="fc" id="L229">        when(loteRepository.findById(99L)).thenReturn(Optional.empty());</span>
-<span class="pc" id="L230">        assertThrows(RuntimeException.class, () -&gt; loteService.eliminarLote(99L));</span>
-<span class="fc" id="L231">    }</span>
+<span class="fc" id="L222">        when(loteRepository.findById(99L)).thenReturn(Optional.empty());</span>
+<span class="pc" id="L223">        assertThrows(RuntimeException.class, () -&gt; loteService.eliminarLote(99L));</span>
+<span class="fc" id="L224">    }</span>
 
     @Test
     @DisplayName(&quot;Reactivar lote - debe cambiar activo a true&quot;)
     void reactivarLote_debeCambiarActivoATrue() {
-        // ARRANGE
-<span class="fc" id="L237">        lote.setActivo(false); // Lote inicialmente inactivo</span>
-<span class="fc" id="L238">        when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));</span>
-<span class="fc" id="L239">        when(loteRepository.save(any(Lote.class))).thenReturn(lote);</span>
+        
+<span class="fc" id="L230">        lote.setActivo(false); </span>
+<span class="fc" id="L231">        when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));</span>
+<span class="fc" id="L232">        when(loteRepository.save(any(Lote.class))).thenReturn(lote);</span>
 
-        // ACT
-<span class="fc" id="L242">        LoteDTO resultado = loteService.reactivarLote(1L);</span>
+        
+<span class="fc" id="L235">        LoteDTO resultado = loteService.reactivarLote(1L);</span>
 
-        // ASSERT
-<span class="fc" id="L245">        assertNotNull(resultado);</span>
-<span class="fc" id="L246">        verify(loteRepository, times(1)).findById(1L);</span>
-<span class="fc" id="L247">        verify(loteRepository, times(1)).save(any(Lote.class));</span>
-<span class="fc" id="L248">    }</span>
+        
+<span class="fc" id="L238">        assertNotNull(resultado);</span>
+<span class="fc" id="L239">        verify(loteRepository, times(1)).findById(1L);</span>
+<span class="fc" id="L240">        verify(loteRepository, times(1)).save(any(Lote.class));</span>
+<span class="fc" id="L241">    }</span>
 
     @Test
     @DisplayName(&quot;Reactivar lote ya activo - lanza excepción&quot;)
     void reactivarLote_yaActivo_lanzaExcepcion() {
-<span class="fc" id="L253">        lote.setActivo(true);</span>
-<span class="fc" id="L254">        when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));</span>
-<span class="pc" id="L255">        assertThrows(RuntimeException.class, () -&gt; loteService.reactivarLote(1L));</span>
-<span class="fc" id="L256">    }</span>
+<span class="fc" id="L246">        lote.setActivo(true);</span>
+<span class="fc" id="L247">        when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));</span>
+<span class="pc" id="L248">        assertThrows(RuntimeException.class, () -&gt; loteService.reactivarLote(1L));</span>
+<span class="fc" id="L249">    }</span>
 
     @Test
     @DisplayName(&quot;Actualizar lote inactivo - debe lanzar excepción&quot;)
     void actualizarLote_inactivo_lanzaExcepcion() {
-<span class="fc" id="L261">        lote.setActivo(false);</span>
-<span class="fc" id="L262">        when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));</span>
-<span class="fc" id="L263">        LoteRequestDTO req = new LoteRequestDTO();</span>
-<span class="fc" id="L264">        req.setFechaRecibo(LocalDate.now());</span>
-<span class="pc" id="L265">        assertThrows(RuntimeException.class, () -&gt; loteService.actualizarLote(1L, req));</span>
-<span class="fc" id="L266">    }</span>
+<span class="fc" id="L254">        lote.setActivo(false);</span>
+<span class="fc" id="L255">        when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));</span>
+<span class="fc" id="L256">        LoteRequestDTO req = new LoteRequestDTO();</span>
+<span class="fc" id="L257">        req.setFechaRecibo(LocalDate.now());</span>
+<span class="pc" id="L258">        assertThrows(RuntimeException.class, () -&gt; loteService.actualizarLote(1L, req));</span>
+<span class="fc" id="L259">    }</span>
 
     @Test
     @DisplayName(&quot;Actualizar lote cambiando tipos con análisis existente - bloquea remoción&quot;)
     void actualizarLote_removerTipoNoPermitido_lanza() {
-<span class="fc" id="L271">        lote.setActivo(true);</span>
-<span class="fc" id="L272">        lote.setTiposAnalisisAsignados(List.of(TipoAnalisis.PMS));</span>
-<span class="fc" id="L273">        when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));</span>
-<span class="fc" id="L274">        when(pmsRepository.existsByLoteLoteID(1L)).thenReturn(true);</span>
-<span class="fc" id="L275">        LoteRequestDTO req = new LoteRequestDTO();</span>
-<span class="fc" id="L276">        req.setTiposAnalisisAsignados(List.of()); // intentar remover PMS</span>
-<span class="fc" id="L277">        req.setFechaRecibo(LocalDate.now());</span>
-<span class="pc" id="L278">        assertThrows(RuntimeException.class, () -&gt; loteService.actualizarLote(1L, req));</span>
-<span class="fc" id="L279">    }</span>
+<span class="fc" id="L264">        lote.setActivo(true);</span>
+<span class="fc" id="L265">        lote.setTiposAnalisisAsignados(List.of(TipoAnalisis.PMS));</span>
+<span class="fc" id="L266">        when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));</span>
+<span class="fc" id="L267">        when(pmsRepository.existsByLoteLoteID(1L)).thenReturn(true);</span>
+<span class="fc" id="L268">        LoteRequestDTO req = new LoteRequestDTO();</span>
+<span class="fc" id="L269">        req.setTiposAnalisisAsignados(List.of()); // intentar remover PMS</span>
+<span class="fc" id="L270">        req.setFechaRecibo(LocalDate.now());</span>
+<span class="pc" id="L271">        assertThrows(RuntimeException.class, () -&gt; loteService.actualizarLote(1L, req));</span>
+<span class="fc" id="L272">    }</span>
 
     @Test
     @DisplayName(&quot;Puede remover tipo analisis cuando no hay análisis creados&quot;)
     void puedeRemoverTipoAnalisis_sinAnalisis_true() {
-<span class="fc" id="L284">        when(pmsRepository.existsByLoteLoteID(1L)).thenReturn(false);</span>
-<span class="fc" id="L285">        boolean result = loteService.puedeRemoverTipoAnalisis(1L, TipoAnalisis.PMS);</span>
-<span class="fc" id="L286">        assertTrue(result);</span>
-<span class="fc" id="L287">    }</span>
+<span class="fc" id="L277">        when(pmsRepository.existsByLoteLoteID(1L)).thenReturn(false);</span>
+<span class="fc" id="L278">        boolean result = loteService.puedeRemoverTipoAnalisis(1L, TipoAnalisis.PMS);</span>
+<span class="fc" id="L279">        assertTrue(result);</span>
+<span class="fc" id="L280">    }</span>
 
     @Test
     @DisplayName(&quot;No puede remover tipo analisis cuando hay análisis creados&quot;)
     void puedeRemoverTipoAnalisis_conAnalisis_false() {
-<span class="fc" id="L292">        when(germinacionRepository.existsByLoteLoteID(1L)).thenReturn(true);</span>
-<span class="fc" id="L293">        boolean result = loteService.puedeRemoverTipoAnalisis(1L, TipoAnalisis.GERMINACION);</span>
-<span class="fc" id="L294">        assertFalse(result);</span>
-<span class="fc" id="L295">    }</span>
+<span class="fc" id="L285">        when(germinacionRepository.existsByLoteLoteID(1L)).thenReturn(true);</span>
+<span class="fc" id="L286">        boolean result = loteService.puedeRemoverTipoAnalisis(1L, TipoAnalisis.GERMINACION);</span>
+<span class="fc" id="L287">        assertFalse(result);</span>
+<span class="fc" id="L288">    }</span>
 
     @Test
     @DisplayName(&quot;esLoteElegibleParaTipoAnalisis - requiere activo, tipo asignado y puede crear&quot;)
     void esLoteElegible_paraCrear() {
-<span class="fc" id="L300">        lote.setActivo(true);</span>
-<span class="fc" id="L301">        lote.setTiposAnalisisAsignados(List.of(TipoAnalisis.PMS));</span>
-<span class="fc" id="L302">        when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));</span>
-<span class="fc" id="L303">        when(pmsRepository.existsByLoteLoteID(1L)).thenReturn(false); // permite crear</span>
-<span class="fc" id="L304">        assertTrue(loteService.esLoteElegibleParaTipoAnalisis(1L, TipoAnalisis.PMS));</span>
-<span class="fc" id="L305">    }</span>
+<span class="fc" id="L293">        lote.setActivo(true);</span>
+<span class="fc" id="L294">        lote.setTiposAnalisisAsignados(List.of(TipoAnalisis.PMS));</span>
+<span class="fc" id="L295">        when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));</span>
+<span class="fc" id="L296">        when(pmsRepository.existsByLoteLoteID(1L)).thenReturn(false); // permite crear</span>
+<span class="fc" id="L297">        assertTrue(loteService.esLoteElegibleParaTipoAnalisis(1L, TipoAnalisis.PMS));</span>
+<span class="fc" id="L298">    }</span>
 
     @Test
     @DisplayName(&quot;esLoteElegibleParaTipoAnalisis - falso si lote inactivo&quot;)
     void esLoteElegible_inactivo_false() {
-<span class="fc" id="L310">        lote.setActivo(false);</span>
-<span class="fc" id="L311">        when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));</span>
-<span class="fc" id="L312">        assertFalse(loteService.esLoteElegibleParaTipoAnalisis(1L, TipoAnalisis.PMS));</span>
-<span class="fc" id="L313">    }</span>
+<span class="fc" id="L303">        lote.setActivo(false);</span>
+<span class="fc" id="L304">        when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));</span>
+<span class="fc" id="L305">        assertFalse(loteService.esLoteElegibleParaTipoAnalisis(1L, TipoAnalisis.PMS));</span>
+<span class="fc" id="L306">    }</span>
 
     @Test
     @DisplayName(&quot;esLoteElegibleParaTipoAnalisis - falso si tipo no asignado&quot;)
     void esLoteElegible_tipoNoAsignado_false() {
-<span class="fc" id="L318">        lote.setActivo(true);</span>
-<span class="fc" id="L319">        lote.setTiposAnalisisAsignados(List.of(TipoAnalisis.GERMINACION));</span>
-<span class="fc" id="L320">        when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));</span>
-<span class="fc" id="L321">        assertFalse(loteService.esLoteElegibleParaTipoAnalisis(1L, TipoAnalisis.PMS));</span>
-<span class="fc" id="L322">    }</span>
+<span class="fc" id="L311">        lote.setActivo(true);</span>
+<span class="fc" id="L312">        lote.setTiposAnalisisAsignados(List.of(TipoAnalisis.GERMINACION));</span>
+<span class="fc" id="L313">        when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));</span>
+<span class="fc" id="L314">        assertFalse(loteService.esLoteElegibleParaTipoAnalisis(1L, TipoAnalisis.PMS));</span>
+<span class="fc" id="L315">    }</span>
 
     @Test
     @DisplayName(&quot;esLoteElegibleParaTipoAnalisis - falso si lote no existe&quot;)
     void esLoteElegible_loteNoExiste_false() {
-<span class="fc" id="L327">        when(loteRepository.findById(999L)).thenReturn(Optional.empty());</span>
-<span class="fc" id="L328">        assertFalse(loteService.esLoteElegibleParaTipoAnalisis(999L, TipoAnalisis.PMS));</span>
-<span class="fc" id="L329">    }</span>
+<span class="fc" id="L320">        when(loteRepository.findById(999L)).thenReturn(Optional.empty());</span>
+<span class="fc" id="L321">        assertFalse(loteService.esLoteElegibleParaTipoAnalisis(999L, TipoAnalisis.PMS));</span>
+<span class="fc" id="L322">    }</span>
 
     @Test
     @DisplayName(&quot;contarAnalisisPendientes - cuenta tipos sin análisis&quot;)
     void contarAnalisisPendientes_casos() {
-<span class="fc" id="L334">        Lote lote2 = new Lote();</span>
-<span class="fc" id="L335">        lote2.setLoteID(2L);</span>
-<span class="fc" id="L336">        lote2.setActivo(true);</span>
-<span class="fc" id="L337">        lote.setTiposAnalisisAsignados(List.of(TipoAnalisis.PMS));</span>
-<span class="fc" id="L338">        lote2.setTiposAnalisisAsignados(List.of(TipoAnalisis.GERMINACION));</span>
-<span class="fc" id="L339">        when(loteRepository.findByActivoTrue()).thenReturn(List.of(lote, lote2));</span>
-<span class="fc" id="L340">        when(pmsRepository.existsByLoteLoteID(1L)).thenReturn(false);</span>
-<span class="fc" id="L341">        when(germinacionRepository.existsByLoteLoteID(2L)).thenReturn(false);</span>
-<span class="fc" id="L342">        long count = loteService.contarAnalisisPendientes();</span>
-<span class="fc" id="L343">        assertEquals(2L, count);</span>
-<span class="fc" id="L344">    }</span>
+<span class="fc" id="L327">        Lote lote2 = new Lote();</span>
+<span class="fc" id="L328">        lote2.setLoteID(2L);</span>
+<span class="fc" id="L329">        lote2.setActivo(true);</span>
+<span class="fc" id="L330">        lote.setTiposAnalisisAsignados(List.of(TipoAnalisis.PMS));</span>
+<span class="fc" id="L331">        lote2.setTiposAnalisisAsignados(List.of(TipoAnalisis.GERMINACION));</span>
+<span class="fc" id="L332">        when(loteRepository.findByActivoTrue()).thenReturn(List.of(lote, lote2));</span>
+<span class="fc" id="L333">        when(pmsRepository.existsByLoteLoteID(1L)).thenReturn(false);</span>
+<span class="fc" id="L334">        when(germinacionRepository.existsByLoteLoteID(2L)).thenReturn(false);</span>
+<span class="fc" id="L335">        long count = loteService.contarAnalisisPendientes();</span>
+<span class="fc" id="L336">        assertEquals(2L, count);</span>
+<span class="fc" id="L337">    }</span>
 
     @Test
     @DisplayName(&quot;obtenerEstadisticasLotes - retorna mapa con claves esperadas&quot;)
     void obtenerEstadisticasLotes_ok() {
-<span class="fc" id="L349">        when(loteRepository.count()).thenReturn(10L);</span>
-<span class="fc" id="L350">        when(loteRepository.countLotesActivos()).thenReturn(7L);</span>
-<span class="fc" id="L351">        when(loteRepository.countLotesInactivos()).thenReturn(3L);</span>
-<span class="fc" id="L352">        Map&lt;String, Long&gt; stats = loteService.obtenerEstadisticasLotes();</span>
-<span class="fc" id="L353">        assertEquals(10L, stats.get(&quot;total&quot;));</span>
-<span class="fc" id="L354">        assertEquals(7L, stats.get(&quot;activos&quot;));</span>
-<span class="fc" id="L355">        assertEquals(3L, stats.get(&quot;inactivos&quot;));</span>
-<span class="fc" id="L356">    }</span>
+<span class="fc" id="L342">        when(loteRepository.count()).thenReturn(10L);</span>
+<span class="fc" id="L343">        when(loteRepository.countLotesActivos()).thenReturn(7L);</span>
+<span class="fc" id="L344">        when(loteRepository.countLotesInactivos()).thenReturn(3L);</span>
+<span class="fc" id="L345">        Map&lt;String, Long&gt; stats = loteService.obtenerEstadisticasLotes();</span>
+<span class="fc" id="L346">        assertEquals(10L, stats.get(&quot;total&quot;));</span>
+<span class="fc" id="L347">        assertEquals(7L, stats.get(&quot;activos&quot;));</span>
+<span class="fc" id="L348">        assertEquals(3L, stats.get(&quot;inactivos&quot;));</span>
+<span class="fc" id="L349">    }</span>
 
     @Test
     @DisplayName(&quot;obtenerTodosLotesActivos - retorna lista de lotes activos&quot;)
     void obtenerTodosLotesActivos_ok() {
-<span class="fc" id="L361">        when(loteRepository.findByActivoTrue()).thenReturn(List.of(lote));</span>
-<span class="fc" id="L362">        ResponseListadoLoteSimple response = loteService.obtenerTodosLotesActivos();</span>
-<span class="fc" id="L363">        assertNotNull(response);</span>
-<span class="fc" id="L364">        assertEquals(1, response.getLotes().size());</span>
-<span class="fc" id="L365">    }</span>
+<span class="fc" id="L354">        when(loteRepository.findByActivoTrue()).thenReturn(List.of(lote));</span>
+<span class="fc" id="L355">        ResponseListadoLoteSimple response = loteService.obtenerTodosLotesActivos();</span>
+<span class="fc" id="L356">        assertNotNull(response);</span>
+<span class="fc" id="L357">        assertEquals(1, response.getLotes().size());</span>
+<span class="fc" id="L358">    }</span>
 
     @Test
     @DisplayName(&quot;obtenerTodosLotesInactivos - retorna lista de lotes inactivos&quot;)
     void obtenerTodosLotesInactivos_ok() {
-<span class="fc" id="L370">        lote.setActivo(false);</span>
-<span class="fc" id="L371">        when(loteRepository.findByActivoFalse()).thenReturn(List.of(lote));</span>
-<span class="fc" id="L372">        ResponseListadoLoteSimple response = loteService.obtenerTodosLotesInactivos();</span>
-<span class="fc" id="L373">        assertNotNull(response);</span>
-<span class="fc" id="L374">        assertEquals(1, response.getLotes().size());</span>
-<span class="fc" id="L375">    }</span>
+<span class="fc" id="L363">        lote.setActivo(false);</span>
+<span class="fc" id="L364">        when(loteRepository.findByActivoFalse()).thenReturn(List.of(lote));</span>
+<span class="fc" id="L365">        ResponseListadoLoteSimple response = loteService.obtenerTodosLotesInactivos();</span>
+<span class="fc" id="L366">        assertNotNull(response);</span>
+<span class="fc" id="L367">        assertEquals(1, response.getLotes().size());</span>
+<span class="fc" id="L368">    }</span>
 
     @Test
     @DisplayName(&quot;obtenerLotesPaginadas - retorna página de lotes para listado&quot;)
     void obtenerLotesPaginadas_ok() {
-<span class="fc" id="L380">        Pageable pageable = PageRequest.of(0, 10);</span>
-<span class="fc" id="L381">        Page&lt;Lote&gt; page = new PageImpl&lt;&gt;(List.of(lote));</span>
-<span class="fc" id="L382">        when(loteRepository.findByActivo(true, pageable)).thenReturn(page);</span>
+<span class="fc" id="L373">        Pageable pageable = PageRequest.of(0, 10);</span>
+<span class="fc" id="L374">        Page&lt;Lote&gt; page = new PageImpl&lt;&gt;(List.of(lote));</span>
+<span class="fc" id="L375">        when(loteRepository.findByActivo(true, pageable)).thenReturn(page);</span>
         
-<span class="fc" id="L384">        Page&lt;LoteListadoDTO&gt; result = loteService.obtenerLotesPaginadas(pageable);</span>
-<span class="fc" id="L385">        assertNotNull(result);</span>
-<span class="fc" id="L386">        assertEquals(1, result.getContent().size());</span>
-<span class="fc" id="L387">    }</span>
+<span class="fc" id="L377">        Page&lt;LoteListadoDTO&gt; result = loteService.obtenerLotesPaginadas(pageable);</span>
+<span class="fc" id="L378">        assertNotNull(result);</span>
+<span class="fc" id="L379">        assertEquals(1, result.getContent().size());</span>
+<span class="fc" id="L380">    }</span>
 
     @Test
     @DisplayName(&quot;obtenerLotesSimplePaginadas - retorna página de lotes simples&quot;)
     void obtenerLotesSimplePaginadas_ok() {
-<span class="fc" id="L392">        Pageable pageable = PageRequest.of(0, 10);</span>
-<span class="fc" id="L393">        Page&lt;Lote&gt; page = new PageImpl&lt;&gt;(List.of(lote));</span>
-<span class="fc" id="L394">        when(loteRepository.findAll(pageable)).thenReturn(page);</span>
+<span class="fc" id="L385">        Pageable pageable = PageRequest.of(0, 10);</span>
+<span class="fc" id="L386">        Page&lt;Lote&gt; page = new PageImpl&lt;&gt;(List.of(lote));</span>
+<span class="fc" id="L387">        when(loteRepository.findAll(pageable)).thenReturn(page);</span>
         
-<span class="fc" id="L396">        Page&lt;LoteSimpleDTO&gt; result = loteService.obtenerLotesSimplePaginadas(pageable);</span>
-<span class="fc" id="L397">        assertNotNull(result);</span>
-<span class="fc" id="L398">        assertEquals(1, result.getContent().size());</span>
-<span class="fc" id="L399">    }</span>
+<span class="fc" id="L389">        Page&lt;LoteSimpleDTO&gt; result = loteService.obtenerLotesSimplePaginadas(pageable);</span>
+<span class="fc" id="L390">        assertNotNull(result);</span>
+<span class="fc" id="L391">        assertEquals(1, result.getContent().size());</span>
+<span class="fc" id="L392">    }</span>
 
     @Test
     @DisplayName(&quot;obtenerLotesSimplePaginadasConFiltros - retorna página filtrada&quot;)
     void obtenerLotesSimplePaginadasConFiltros_ok() {
-<span class="fc" id="L404">        Pageable pageable = PageRequest.of(0, 10);</span>
-<span class="fc" id="L405">        Page&lt;Lote&gt; page = new PageImpl&lt;&gt;(List.of(lote));</span>
+<span class="fc" id="L397">        Pageable pageable = PageRequest.of(0, 10);</span>
+<span class="fc" id="L398">        Page&lt;Lote&gt; page = new PageImpl&lt;&gt;(List.of(lote));</span>
         @SuppressWarnings(&quot;unchecked&quot;)
-<span class="fc" id="L407">        Specification&lt;Lote&gt; anySpec = any(Specification.class);</span>
-<span class="fc" id="L408">        when(loteRepository.findAll(anySpec, eq(pageable))).thenReturn(page);</span>
+<span class="fc" id="L400">        Specification&lt;Lote&gt; anySpec = any(Specification.class);</span>
+<span class="fc" id="L401">        when(loteRepository.findAll(anySpec, eq(pageable))).thenReturn(page);</span>
         
-<span class="fc" id="L410">        Page&lt;LoteSimpleDTO&gt; result = loteService.obtenerLotesSimplePaginadasConFiltros(</span>
-<span class="fc" id="L411">            pageable, &quot;test&quot;, true, &quot;Cultivar Test&quot;);</span>
-<span class="fc" id="L412">        assertNotNull(result);</span>
-<span class="fc" id="L413">        assertEquals(1, result.getContent().size());</span>
-<span class="fc" id="L414">    }</span>
+<span class="fc" id="L403">        Page&lt;LoteSimpleDTO&gt; result = loteService.obtenerLotesSimplePaginadasConFiltros(</span>
+<span class="fc" id="L404">            pageable, &quot;test&quot;, true, &quot;Cultivar Test&quot;);</span>
+<span class="fc" id="L405">        assertNotNull(result);</span>
+<span class="fc" id="L406">        assertEquals(1, result.getContent().size());</span>
+<span class="fc" id="L407">    }</span>
 
     @Test
     @DisplayName(&quot;validarCamposUnicos - ficha existe&quot;)
     void validarCamposUnicos_fichaExiste() {
-<span class="fc" id="L419">        ValidacionLoteDTO validacion = new ValidacionLoteDTO();</span>
-<span class="fc" id="L420">        validacion.setFicha(&quot;FICHA-001&quot;);</span>
-<span class="fc" id="L421">        validacion.setLoteID(2L);</span>
+<span class="fc" id="L412">        ValidacionLoteDTO validacion = new ValidacionLoteDTO();</span>
+<span class="fc" id="L413">        validacion.setFicha(&quot;FICHA-001&quot;);</span>
+<span class="fc" id="L414">        validacion.setLoteID(2L);</span>
         
-<span class="fc" id="L423">        when(loteRepository.findByFicha(&quot;FICHA-001&quot;)).thenReturn(Optional.of(lote));</span>
+<span class="fc" id="L416">        when(loteRepository.findByFicha(&quot;FICHA-001&quot;)).thenReturn(Optional.of(lote));</span>
         
-<span class="fc" id="L425">        ValidacionLoteResponseDTO response = loteService.validarCamposUnicos(validacion);</span>
-<span class="fc" id="L426">        assertTrue(response.isFichaExiste());</span>
-<span class="fc" id="L427">    }</span>
+<span class="fc" id="L418">        ValidacionLoteResponseDTO response = loteService.validarCamposUnicos(validacion);</span>
+<span class="fc" id="L419">        assertTrue(response.isFichaExiste());</span>
+<span class="fc" id="L420">    }</span>
 
     @Test
     @DisplayName(&quot;validarCamposUnicos - nombre lote existe&quot;)
     void validarCamposUnicos_nomLoteExiste() {
-<span class="fc" id="L432">        ValidacionLoteDTO validacion = new ValidacionLoteDTO();</span>
-<span class="fc" id="L433">        validacion.setNomLote(&quot;LOTE-TEST-001&quot;);</span>
-<span class="fc" id="L434">        validacion.setLoteID(2L);</span>
+<span class="fc" id="L425">        ValidacionLoteDTO validacion = new ValidacionLoteDTO();</span>
+<span class="fc" id="L426">        validacion.setNomLote(&quot;LOTE-TEST-001&quot;);</span>
+<span class="fc" id="L427">        validacion.setLoteID(2L);</span>
         
-<span class="fc" id="L436">        when(loteRepository.findByNomLote(&quot;LOTE-TEST-001&quot;)).thenReturn(Optional.of(lote));</span>
+<span class="fc" id="L429">        when(loteRepository.findByNomLote(&quot;LOTE-TEST-001&quot;)).thenReturn(Optional.of(lote));</span>
         
-<span class="fc" id="L438">        ValidacionLoteResponseDTO response = loteService.validarCamposUnicos(validacion);</span>
-<span class="fc" id="L439">        assertTrue(response.isNomLoteExiste());</span>
-<span class="fc" id="L440">    }</span>
+<span class="fc" id="L431">        ValidacionLoteResponseDTO response = loteService.validarCamposUnicos(validacion);</span>
+<span class="fc" id="L432">        assertTrue(response.isNomLoteExiste());</span>
+<span class="fc" id="L433">    }</span>
 
     @Test
     @DisplayName(&quot;validarCamposUnicos - mismo lote no cuenta como duplicado&quot;)
     void validarCamposUnicos_mismoLote_noEsDuplicado() {
-<span class="fc" id="L445">        ValidacionLoteDTO validacion = new ValidacionLoteDTO();</span>
-<span class="fc" id="L446">        validacion.setFicha(&quot;FICHA-001&quot;);</span>
-<span class="fc" id="L447">        validacion.setNomLote(&quot;LOTE-TEST-001&quot;);</span>
-<span class="fc" id="L448">        validacion.setLoteID(1L);</span>
+<span class="fc" id="L438">        ValidacionLoteDTO validacion = new ValidacionLoteDTO();</span>
+<span class="fc" id="L439">        validacion.setFicha(&quot;FICHA-001&quot;);</span>
+<span class="fc" id="L440">        validacion.setNomLote(&quot;LOTE-TEST-001&quot;);</span>
+<span class="fc" id="L441">        validacion.setLoteID(1L);</span>
         
-<span class="fc" id="L450">        when(loteRepository.findByFicha(&quot;FICHA-001&quot;)).thenReturn(Optional.of(lote));</span>
-<span class="fc" id="L451">        when(loteRepository.findByNomLote(&quot;LOTE-TEST-001&quot;)).thenReturn(Optional.of(lote));</span>
+<span class="fc" id="L443">        when(loteRepository.findByFicha(&quot;FICHA-001&quot;)).thenReturn(Optional.of(lote));</span>
+<span class="fc" id="L444">        when(loteRepository.findByNomLote(&quot;LOTE-TEST-001&quot;)).thenReturn(Optional.of(lote));</span>
         
-<span class="fc" id="L453">        ValidacionLoteResponseDTO response = loteService.validarCamposUnicos(validacion);</span>
-<span class="fc" id="L454">        assertFalse(response.isFichaExiste());</span>
-<span class="fc" id="L455">        assertFalse(response.isNomLoteExiste());</span>
-<span class="fc" id="L456">    }</span>
+<span class="fc" id="L446">        ValidacionLoteResponseDTO response = loteService.validarCamposUnicos(validacion);</span>
+<span class="fc" id="L447">        assertFalse(response.isFichaExiste());</span>
+<span class="fc" id="L448">        assertFalse(response.isNomLoteExiste());</span>
+<span class="fc" id="L449">    }</span>
 
     @Test
     @DisplayName(&quot;obtenerLotesElegiblesParaTipoAnalisis - retorna lotes elegibles&quot;)
     void obtenerLotesElegiblesParaTipoAnalisis_ok() {
         // Crear lote con toda la estructura de cultivar y especie correctamente configurada
-<span class="fc" id="L462">        Lote loteElegible = new Lote();</span>
-<span class="fc" id="L463">        loteElegible.setLoteID(1L);</span>
-<span class="fc" id="L464">        loteElegible.setActivo(true);</span>
-<span class="fc" id="L465">        loteElegible.setNomLote(&quot;LOTE-TEST-001&quot;);</span>
-<span class="fc" id="L466">        loteElegible.setFicha(&quot;FICHA-001&quot;);</span>
-<span class="fc" id="L467">        loteElegible.setCultivar(cultivar); // cultivar ya tiene especie asignada en setUp()</span>
-<span class="fc" id="L468">        loteElegible.setTiposAnalisisAsignados(List.of(TipoAnalisis.PMS));</span>
+<span class="fc" id="L455">        Lote loteElegible = new Lote();</span>
+<span class="fc" id="L456">        loteElegible.setLoteID(1L);</span>
+<span class="fc" id="L457">        loteElegible.setActivo(true);</span>
+<span class="fc" id="L458">        loteElegible.setNomLote(&quot;LOTE-TEST-001&quot;);</span>
+<span class="fc" id="L459">        loteElegible.setFicha(&quot;FICHA-001&quot;);</span>
+<span class="fc" id="L460">        loteElegible.setCultivar(cultivar); // cultivar ya tiene especie asignada en setUp()</span>
+<span class="fc" id="L461">        loteElegible.setTiposAnalisisAsignados(List.of(TipoAnalisis.PMS));</span>
         
-<span class="fc" id="L470">        when(loteRepository.findByActivoTrue()).thenReturn(List.of(loteElegible));</span>
-<span class="fc" id="L471">        when(loteRepository.findById(1L)).thenReturn(Optional.of(loteElegible));</span>
-<span class="fc" id="L472">        when(pmsRepository.existsByLoteLoteID(1L)).thenReturn(false);</span>
+<span class="fc" id="L463">        when(loteRepository.findByActivoTrue()).thenReturn(List.of(loteElegible));</span>
+<span class="fc" id="L464">        when(loteRepository.findById(1L)).thenReturn(Optional.of(loteElegible));</span>
+<span class="fc" id="L465">        when(pmsRepository.existsByLoteLoteID(1L)).thenReturn(false);</span>
         
-<span class="fc" id="L474">        ResponseListadoLoteSimple response = loteService.obtenerLotesElegiblesParaTipoAnalisis(TipoAnalisis.PMS);</span>
+<span class="fc" id="L467">        ResponseListadoLoteSimple response = loteService.obtenerLotesElegiblesParaTipoAnalisis(TipoAnalisis.PMS);</span>
         
-<span class="fc" id="L476">        assertNotNull(response);</span>
-<span class="fc" id="L477">        assertNotNull(response.getLotes());</span>
-<span class="fc" id="L478">        assertEquals(1, response.getLotes().size());</span>
-<span class="fc" id="L479">        assertEquals(&quot;LOTE-TEST-001&quot;, response.getLotes().get(0).getNomLote());</span>
-<span class="fc" id="L480">    }</span>
+<span class="fc" id="L469">        assertNotNull(response);</span>
+<span class="fc" id="L470">        assertNotNull(response.getLotes());</span>
+<span class="fc" id="L471">        assertEquals(1, response.getLotes().size());</span>
+<span class="fc" id="L472">        assertEquals(&quot;LOTE-TEST-001&quot;, response.getLotes().get(0).getNomLote());</span>
+<span class="fc" id="L473">    }</span>
 
     @Test
     @DisplayName(&quot;puedeCrearAnalisisDelTipo - todos los tipos&quot;)
     void puedeCrearAnalisisDelTipo_todosLosTipos() {
         // PMS
-<span class="fc" id="L486">        when(pmsRepository.existsByLoteLoteID(1L)).thenReturn(false);</span>
-<span class="fc" id="L487">        assertTrue(loteService.puedeCrearAnalisisDelTipo(1L, TipoAnalisis.PMS));</span>
+<span class="fc" id="L479">        when(pmsRepository.existsByLoteLoteID(1L)).thenReturn(false);</span>
+<span class="fc" id="L480">        assertTrue(loteService.puedeCrearAnalisisDelTipo(1L, TipoAnalisis.PMS));</span>
         
         // GERMINACION
-<span class="fc" id="L490">        when(germinacionRepository.existsByLoteLoteID(1L)).thenReturn(false);</span>
-<span class="fc" id="L491">        assertTrue(loteService.puedeCrearAnalisisDelTipo(1L, TipoAnalisis.GERMINACION));</span>
+<span class="fc" id="L483">        when(germinacionRepository.existsByLoteLoteID(1L)).thenReturn(false);</span>
+<span class="fc" id="L484">        assertTrue(loteService.puedeCrearAnalisisDelTipo(1L, TipoAnalisis.GERMINACION));</span>
         
         // DOSN
-<span class="fc" id="L494">        when(dosnRepository.existsByLoteLoteID(1L)).thenReturn(false);</span>
-<span class="fc" id="L495">        assertTrue(loteService.puedeCrearAnalisisDelTipo(1L, TipoAnalisis.DOSN));</span>
+<span class="fc" id="L487">        when(dosnRepository.existsByLoteLoteID(1L)).thenReturn(false);</span>
+<span class="fc" id="L488">        assertTrue(loteService.puedeCrearAnalisisDelTipo(1L, TipoAnalisis.DOSN));</span>
         
         // TETRAZOLIO
-<span class="fc" id="L498">        when(tetrazolioRepository.existsByLoteLoteID(1L)).thenReturn(false);</span>
-<span class="fc" id="L499">        assertTrue(loteService.puedeCrearAnalisisDelTipo(1L, TipoAnalisis.TETRAZOLIO));</span>
+<span class="fc" id="L491">        when(tetrazolioRepository.existsByLoteLoteID(1L)).thenReturn(false);</span>
+<span class="fc" id="L492">        assertTrue(loteService.puedeCrearAnalisisDelTipo(1L, TipoAnalisis.TETRAZOLIO));</span>
         
         // PUREZA
-<span class="fc" id="L502">        when(purezaRepository.existsByLoteLoteID(1L)).thenReturn(false);</span>
-<span class="fc" id="L503">        assertTrue(loteService.puedeCrearAnalisisDelTipo(1L, TipoAnalisis.PUREZA));</span>
-<span class="fc" id="L504">    }</span>
+<span class="fc" id="L495">        when(purezaRepository.existsByLoteLoteID(1L)).thenReturn(false);</span>
+<span class="fc" id="L496">        assertTrue(loteService.puedeCrearAnalisisDelTipo(1L, TipoAnalisis.PUREZA));</span>
+<span class="fc" id="L497">    }</span>
 
     // ===== TESTS PARA FUNCIONES DE MAPEO =====
     
     @Test
     @DisplayName(&quot;mapearSolicitudAEntidad - mapea cultivar correctamente&quot;)
     void crearLote_mapeaCultivarCorrectamente() {
-<span class="fc" id="L511">        loteRequestDTO.setCultivarID(1L);</span>
-<span class="fc" id="L512">        when(cultivarRepository.findById(1L)).thenReturn(Optional.of(cultivar));</span>
-<span class="fc" id="L513">        when(loteRepository.save(any(Lote.class))).thenReturn(lote);</span>
+<span class="fc" id="L504">        loteRequestDTO.setCultivarID(1L);</span>
+<span class="fc" id="L505">        when(cultivarRepository.findById(1L)).thenReturn(Optional.of(cultivar));</span>
+<span class="fc" id="L506">        when(loteRepository.save(any(Lote.class))).thenReturn(lote);</span>
         
-<span class="fc" id="L515">        LoteDTO resultado = loteService.crearLote(loteRequestDTO);</span>
+<span class="fc" id="L508">        LoteDTO resultado = loteService.crearLote(loteRequestDTO);</span>
         
-<span class="fc" id="L517">        assertNotNull(resultado);</span>
-<span class="fc" id="L518">        verify(cultivarRepository, times(1)).findById(1L);</span>
-<span class="fc" id="L519">    }</span>
+<span class="fc" id="L510">        assertNotNull(resultado);</span>
+<span class="fc" id="L511">        verify(cultivarRepository, times(1)).findById(1L);</span>
+<span class="fc" id="L512">    }</span>
 
     @Test
     @DisplayName(&quot;mapearSolicitudAEntidad - mapea empresa cuando se proporciona&quot;)
     void crearLote_mapeaEmpresa() {
-<span class="fc" id="L524">        loteRequestDTO.setEmpresaID(1L);</span>
-<span class="fc" id="L525">        when(cultivarRepository.findById(1L)).thenReturn(Optional.of(cultivar));</span>
-<span class="fc" id="L526">        when(contactoRepository.findById(1L)).thenReturn(Optional.of(empresa));</span>
-<span class="fc" id="L527">        when(loteRepository.save(any(Lote.class))).thenReturn(lote);</span>
+<span class="fc" id="L517">        loteRequestDTO.setEmpresaID(1L);</span>
+<span class="fc" id="L518">        when(cultivarRepository.findById(1L)).thenReturn(Optional.of(cultivar));</span>
+<span class="fc" id="L519">        when(contactoRepository.findById(1L)).thenReturn(Optional.of(empresa));</span>
+<span class="fc" id="L520">        when(loteRepository.save(any(Lote.class))).thenReturn(lote);</span>
         
-<span class="fc" id="L529">        LoteDTO resultado = loteService.crearLote(loteRequestDTO);</span>
+<span class="fc" id="L522">        LoteDTO resultado = loteService.crearLote(loteRequestDTO);</span>
         
-<span class="fc" id="L531">        assertNotNull(resultado);</span>
-<span class="fc" id="L532">        verify(contactoRepository, times(1)).findById(1L);</span>
-<span class="fc" id="L533">    }</span>
+<span class="fc" id="L524">        assertNotNull(resultado);</span>
+<span class="fc" id="L525">        verify(contactoRepository, times(1)).findById(1L);</span>
+<span class="fc" id="L526">    }</span>
 
     @Test
     @DisplayName(&quot;mapearSolicitudAEntidad - mapea cliente cuando se proporciona&quot;)
     void crearLote_mapeaCliente() {
-<span class="fc" id="L538">        loteRequestDTO.setClienteID(2L);</span>
-<span class="fc" id="L539">        when(cultivarRepository.findById(1L)).thenReturn(Optional.of(cultivar));</span>
-<span class="fc" id="L540">        when(contactoRepository.findById(2L)).thenReturn(Optional.of(cliente));</span>
-<span class="fc" id="L541">        when(loteRepository.save(any(Lote.class))).thenReturn(lote);</span>
+<span class="fc" id="L531">        loteRequestDTO.setClienteID(2L);</span>
+<span class="fc" id="L532">        when(cultivarRepository.findById(1L)).thenReturn(Optional.of(cultivar));</span>
+<span class="fc" id="L533">        when(contactoRepository.findById(2L)).thenReturn(Optional.of(cliente));</span>
+<span class="fc" id="L534">        when(loteRepository.save(any(Lote.class))).thenReturn(lote);</span>
         
-<span class="fc" id="L543">        LoteDTO resultado = loteService.crearLote(loteRequestDTO);</span>
+<span class="fc" id="L536">        LoteDTO resultado = loteService.crearLote(loteRequestDTO);</span>
         
-<span class="fc" id="L545">        assertNotNull(resultado);</span>
-<span class="fc" id="L546">        verify(contactoRepository, times(1)).findById(2L);</span>
-<span class="fc" id="L547">    }</span>
+<span class="fc" id="L538">        assertNotNull(resultado);</span>
+<span class="fc" id="L539">        verify(contactoRepository, times(1)).findById(2L);</span>
+<span class="fc" id="L540">    }</span>
 
     @Test
     @DisplayName(&quot;mapearSolicitudAEntidad - mapea depósito cuando se proporciona&quot;)
     void crearLote_mapeaDeposito() {
-<span class="fc" id="L552">        loteRequestDTO.setDepositoID(1L);</span>
-<span class="fc" id="L553">        when(cultivarRepository.findById(1L)).thenReturn(Optional.of(cultivar));</span>
-<span class="fc" id="L554">        when(catalogoService.obtenerEntidadPorId(1L)).thenReturn(catalogo);</span>
-<span class="fc" id="L555">        when(loteRepository.save(any(Lote.class))).thenReturn(lote);</span>
+<span class="fc" id="L545">        loteRequestDTO.setDepositoID(1L);</span>
+<span class="fc" id="L546">        when(cultivarRepository.findById(1L)).thenReturn(Optional.of(cultivar));</span>
+<span class="fc" id="L547">        when(catalogoService.obtenerEntidadPorId(1L)).thenReturn(catalogo);</span>
+<span class="fc" id="L548">        when(loteRepository.save(any(Lote.class))).thenReturn(lote);</span>
         
-<span class="fc" id="L557">        LoteDTO resultado = loteService.crearLote(loteRequestDTO);</span>
+<span class="fc" id="L550">        LoteDTO resultado = loteService.crearLote(loteRequestDTO);</span>
         
-<span class="fc" id="L559">        assertNotNull(resultado);</span>
-<span class="fc" id="L560">        verify(catalogoService, atLeastOnce()).obtenerEntidadPorId(1L);</span>
-<span class="fc" id="L561">    }</span>
+<span class="fc" id="L552">        assertNotNull(resultado);</span>
+<span class="fc" id="L553">        verify(catalogoService, atLeastOnce()).obtenerEntidadPorId(1L);</span>
+<span class="fc" id="L554">    }</span>
 
     @Test
     @DisplayName(&quot;mapearSolicitudAEntidad - mapea origen cuando se proporciona&quot;)
     void crearLote_mapeaOrigen() {
-<span class="fc" id="L566">        loteRequestDTO.setOrigenID(1L);</span>
-<span class="fc" id="L567">        when(cultivarRepository.findById(1L)).thenReturn(Optional.of(cultivar));</span>
-<span class="fc" id="L568">        when(catalogoService.obtenerEntidadPorId(1L)).thenReturn(catalogo);</span>
-<span class="fc" id="L569">        when(loteRepository.save(any(Lote.class))).thenReturn(lote);</span>
+<span class="fc" id="L559">        loteRequestDTO.setOrigenID(1L);</span>
+<span class="fc" id="L560">        when(cultivarRepository.findById(1L)).thenReturn(Optional.of(cultivar));</span>
+<span class="fc" id="L561">        when(catalogoService.obtenerEntidadPorId(1L)).thenReturn(catalogo);</span>
+<span class="fc" id="L562">        when(loteRepository.save(any(Lote.class))).thenReturn(lote);</span>
         
-<span class="fc" id="L571">        LoteDTO resultado = loteService.crearLote(loteRequestDTO);</span>
+<span class="fc" id="L564">        LoteDTO resultado = loteService.crearLote(loteRequestDTO);</span>
         
-<span class="fc" id="L573">        assertNotNull(resultado);</span>
-<span class="fc" id="L574">        verify(catalogoService, atLeastOnce()).obtenerEntidadPorId(1L);</span>
-<span class="fc" id="L575">    }</span>
+<span class="fc" id="L566">        assertNotNull(resultado);</span>
+<span class="fc" id="L567">        verify(catalogoService, atLeastOnce()).obtenerEntidadPorId(1L);</span>
+<span class="fc" id="L568">    }</span>
 
     @Test
     @DisplayName(&quot;mapearSolicitudAEntidad - mapea estado cuando se proporciona&quot;)
     void crearLote_mapeaEstado() {
-<span class="fc" id="L580">        loteRequestDTO.setEstadoID(1L);</span>
-<span class="fc" id="L581">        when(cultivarRepository.findById(1L)).thenReturn(Optional.of(cultivar));</span>
-<span class="fc" id="L582">        when(catalogoService.obtenerEntidadPorId(1L)).thenReturn(catalogo);</span>
-<span class="fc" id="L583">        when(loteRepository.save(any(Lote.class))).thenReturn(lote);</span>
+<span class="fc" id="L573">        loteRequestDTO.setEstadoID(1L);</span>
+<span class="fc" id="L574">        when(cultivarRepository.findById(1L)).thenReturn(Optional.of(cultivar));</span>
+<span class="fc" id="L575">        when(catalogoService.obtenerEntidadPorId(1L)).thenReturn(catalogo);</span>
+<span class="fc" id="L576">        when(loteRepository.save(any(Lote.class))).thenReturn(lote);</span>
         
-<span class="fc" id="L585">        LoteDTO resultado = loteService.crearLote(loteRequestDTO);</span>
+<span class="fc" id="L578">        LoteDTO resultado = loteService.crearLote(loteRequestDTO);</span>
         
-<span class="fc" id="L587">        assertNotNull(resultado);</span>
-<span class="fc" id="L588">        verify(catalogoService, atLeastOnce()).obtenerEntidadPorId(1L);</span>
-<span class="fc" id="L589">    }</span>
+<span class="fc" id="L580">        assertNotNull(resultado);</span>
+<span class="fc" id="L581">        verify(catalogoService, atLeastOnce()).obtenerEntidadPorId(1L);</span>
+<span class="fc" id="L582">    }</span>
 
     @Test
     @DisplayName(&quot;mapearSolicitudAEntidad - mapea numero articulo cuando se proporciona&quot;)
     void crearLote_mapeaNumeroArticulo() {
-<span class="fc" id="L594">        loteRequestDTO.setNumeroArticuloID(1L);</span>
-<span class="fc" id="L595">        when(cultivarRepository.findById(1L)).thenReturn(Optional.of(cultivar));</span>
-<span class="fc" id="L596">        when(catalogoService.obtenerEntidadPorId(1L)).thenReturn(catalogo);</span>
-<span class="fc" id="L597">        when(loteRepository.save(any(Lote.class))).thenReturn(lote);</span>
+<span class="fc" id="L587">        loteRequestDTO.setNumeroArticuloID(1L);</span>
+<span class="fc" id="L588">        when(cultivarRepository.findById(1L)).thenReturn(Optional.of(cultivar));</span>
+<span class="fc" id="L589">        when(catalogoService.obtenerEntidadPorId(1L)).thenReturn(catalogo);</span>
+<span class="fc" id="L590">        when(loteRepository.save(any(Lote.class))).thenReturn(lote);</span>
         
-<span class="fc" id="L599">        LoteDTO resultado = loteService.crearLote(loteRequestDTO);</span>
+<span class="fc" id="L592">        LoteDTO resultado = loteService.crearLote(loteRequestDTO);</span>
         
-<span class="fc" id="L601">        assertNotNull(resultado);</span>
-<span class="fc" id="L602">        verify(catalogoService, atLeastOnce()).obtenerEntidadPorId(1L);</span>
-<span class="fc" id="L603">    }</span>
+<span class="fc" id="L594">        assertNotNull(resultado);</span>
+<span class="fc" id="L595">        verify(catalogoService, atLeastOnce()).obtenerEntidadPorId(1L);</span>
+<span class="fc" id="L596">    }</span>
 
     @Test
     @DisplayName(&quot;mapearSolicitudAEntidad - mapea tipo lote correctamente&quot;)
     void crearLote_mapeaTipoLote() {
-<span class="fc" id="L608">        loteRequestDTO.setTipo(&quot;INTERNO&quot;);</span>
-<span class="fc" id="L609">        when(cultivarRepository.findById(1L)).thenReturn(Optional.of(cultivar));</span>
-<span class="fc" id="L610">        when(loteRepository.save(any(Lote.class))).thenReturn(lote);</span>
+<span class="fc" id="L601">        loteRequestDTO.setTipo(&quot;INTERNO&quot;);</span>
+<span class="fc" id="L602">        when(cultivarRepository.findById(1L)).thenReturn(Optional.of(cultivar));</span>
+<span class="fc" id="L603">        when(loteRepository.save(any(Lote.class))).thenReturn(lote);</span>
         
-<span class="fc" id="L612">        LoteDTO resultado = loteService.crearLote(loteRequestDTO);</span>
+<span class="fc" id="L605">        LoteDTO resultado = loteService.crearLote(loteRequestDTO);</span>
         
-<span class="fc" id="L614">        assertNotNull(resultado);</span>
-<span class="fc" id="L615">        verify(loteRepository, times(1)).save(any(Lote.class));</span>
-<span class="fc" id="L616">    }</span>
+<span class="fc" id="L607">        assertNotNull(resultado);</span>
+<span class="fc" id="L608">        verify(loteRepository, times(1)).save(any(Lote.class));</span>
+<span class="fc" id="L609">    }</span>
 
     @Test
     @DisplayName(&quot;mapearSolicitudAEntidad - mapea tipos análisis correctamente&quot;)
     void crearLote_mapeaTiposAnalisis() {
-<span class="fc" id="L621">        loteRequestDTO.setTiposAnalisisAsignados(List.of(TipoAnalisis.PMS, TipoAnalisis.GERMINACION));</span>
-<span class="fc" id="L622">        when(cultivarRepository.findById(1L)).thenReturn(Optional.of(cultivar));</span>
-<span class="fc" id="L623">        when(loteRepository.save(any(Lote.class))).thenReturn(lote);</span>
+<span class="fc" id="L614">        loteRequestDTO.setTiposAnalisisAsignados(List.of(TipoAnalisis.PMS, TipoAnalisis.GERMINACION));</span>
+<span class="fc" id="L615">        when(cultivarRepository.findById(1L)).thenReturn(Optional.of(cultivar));</span>
+<span class="fc" id="L616">        when(loteRepository.save(any(Lote.class))).thenReturn(lote);</span>
         
-<span class="fc" id="L625">        LoteDTO resultado = loteService.crearLote(loteRequestDTO);</span>
+<span class="fc" id="L618">        LoteDTO resultado = loteService.crearLote(loteRequestDTO);</span>
         
-<span class="fc" id="L627">        assertNotNull(resultado);</span>
-<span class="fc" id="L628">        verify(loteRepository, times(1)).save(any(Lote.class));</span>
-<span class="fc" id="L629">    }</span>
+<span class="fc" id="L620">        assertNotNull(resultado);</span>
+<span class="fc" id="L621">        verify(loteRepository, times(1)).save(any(Lote.class));</span>
+<span class="fc" id="L622">    }</span>
 
     @Test
     @DisplayName(&quot;mapearSolicitudAEntidad - maneja cultivar no encontrado&quot;)
     void crearLote_cultivarNoEncontrado() {
-<span class="fc" id="L634">        loteRequestDTO.setCultivarID(999L);</span>
-<span class="fc" id="L635">        when(cultivarRepository.findById(999L)).thenReturn(Optional.empty());</span>
-<span class="fc" id="L636">        when(loteRepository.save(any(Lote.class))).thenReturn(lote);</span>
+<span class="fc" id="L627">        loteRequestDTO.setCultivarID(999L);</span>
+<span class="fc" id="L628">        when(cultivarRepository.findById(999L)).thenReturn(Optional.empty());</span>
+<span class="fc" id="L629">        when(loteRepository.save(any(Lote.class))).thenReturn(lote);</span>
         
-<span class="fc" id="L638">        LoteDTO resultado = loteService.crearLote(loteRequestDTO);</span>
+<span class="fc" id="L631">        LoteDTO resultado = loteService.crearLote(loteRequestDTO);</span>
         
-<span class="fc" id="L640">        assertNotNull(resultado);</span>
-<span class="fc" id="L641">        verify(cultivarRepository, times(1)).findById(999L);</span>
-<span class="fc" id="L642">    }</span>
+<span class="fc" id="L633">        assertNotNull(resultado);</span>
+<span class="fc" id="L634">        verify(cultivarRepository, times(1)).findById(999L);</span>
+<span class="fc" id="L635">    }</span>
 
     @Test
     @DisplayName(&quot;actualizarEntidadDesdeSolicitud - actualiza todos los campos básicos&quot;)
     void actualizarLote_actualizaCamposBasicos() {
-<span class="fc" id="L647">        loteRequestDTO.setNomLote(&quot;LOTE-ACTUALIZADO&quot;);</span>
-<span class="fc" id="L648">        loteRequestDTO.setFicha(&quot;FICHA-002&quot;);</span>
-<span class="fc" id="L649">        loteRequestDTO.setRemitente(&quot;Remitente Test&quot;);</span>
-<span class="fc" id="L650">        loteRequestDTO.setObservaciones(&quot;Observaciones Test&quot;);</span>
+<span class="fc" id="L640">        loteRequestDTO.setNomLote(&quot;LOTE-ACTUALIZADO&quot;);</span>
+<span class="fc" id="L641">        loteRequestDTO.setFicha(&quot;FICHA-002&quot;);</span>
+<span class="fc" id="L642">        loteRequestDTO.setRemitente(&quot;Remitente Test&quot;);</span>
+<span class="fc" id="L643">        loteRequestDTO.setObservaciones(&quot;Observaciones Test&quot;);</span>
         
-<span class="fc" id="L652">        when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));</span>
-<span class="fc" id="L653">        when(cultivarRepository.findById(1L)).thenReturn(Optional.of(cultivar));</span>
-<span class="fc" id="L654">        when(loteRepository.save(any(Lote.class))).thenReturn(lote);</span>
+<span class="fc" id="L645">        when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));</span>
+<span class="fc" id="L646">        when(cultivarRepository.findById(1L)).thenReturn(Optional.of(cultivar));</span>
+<span class="fc" id="L647">        when(loteRepository.save(any(Lote.class))).thenReturn(lote);</span>
         
-<span class="fc" id="L656">        LoteDTO resultado = loteService.actualizarLote(1L, loteRequestDTO);</span>
+<span class="fc" id="L649">        LoteDTO resultado = loteService.actualizarLote(1L, loteRequestDTO);</span>
         
-<span class="fc" id="L658">        assertNotNull(resultado);</span>
-<span class="fc" id="L659">        verify(loteRepository, times(1)).save(any(Lote.class));</span>
-<span class="fc" id="L660">    }</span>
+<span class="fc" id="L651">        assertNotNull(resultado);</span>
+<span class="fc" id="L652">        verify(loteRepository, times(1)).save(any(Lote.class));</span>
+<span class="fc" id="L653">    }</span>
 
     @Test
     @DisplayName(&quot;actualizarEntidadDesdeSolicitud - actualiza empresa&quot;)
     void actualizarLote_actualizaEmpresa() {
-<span class="fc" id="L665">        loteRequestDTO.setEmpresaID(1L);</span>
-<span class="fc" id="L666">        when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));</span>
-<span class="fc" id="L667">        when(cultivarRepository.findById(1L)).thenReturn(Optional.of(cultivar));</span>
-<span class="fc" id="L668">        when(contactoRepository.findById(1L)).thenReturn(Optional.of(empresa));</span>
-<span class="fc" id="L669">        when(loteRepository.save(any(Lote.class))).thenReturn(lote);</span>
+<span class="fc" id="L658">        loteRequestDTO.setEmpresaID(1L);</span>
+<span class="fc" id="L659">        when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));</span>
+<span class="fc" id="L660">        when(cultivarRepository.findById(1L)).thenReturn(Optional.of(cultivar));</span>
+<span class="fc" id="L661">        when(contactoRepository.findById(1L)).thenReturn(Optional.of(empresa));</span>
+<span class="fc" id="L662">        when(loteRepository.save(any(Lote.class))).thenReturn(lote);</span>
         
-<span class="fc" id="L671">        LoteDTO resultado = loteService.actualizarLote(1L, loteRequestDTO);</span>
+<span class="fc" id="L664">        LoteDTO resultado = loteService.actualizarLote(1L, loteRequestDTO);</span>
         
-<span class="fc" id="L673">        assertNotNull(resultado);</span>
-<span class="fc" id="L674">        verify(contactoRepository, times(1)).findById(1L);</span>
-<span class="fc" id="L675">    }</span>
+<span class="fc" id="L666">        assertNotNull(resultado);</span>
+<span class="fc" id="L667">        verify(contactoRepository, times(1)).findById(1L);</span>
+<span class="fc" id="L668">    }</span>
 
     @Test
     @DisplayName(&quot;mapearSolicitudAEntidad - mapea datos de humedad correctamente&quot;)
     void crearLote_mapeaDatosHumedad() {
-<span class="fc" id="L680">        DatosHumedadRequestDTO datosHumedadDTO = new DatosHumedadRequestDTO();</span>
-<span class="fc" id="L681">        datosHumedadDTO.setTipoHumedadID(1L);</span>
-<span class="fc" id="L682">        datosHumedadDTO.setValor(new BigDecimal(&quot;12.5&quot;));</span>
-<span class="fc" id="L683">        loteRequestDTO.setDatosHumedad(List.of(datosHumedadDTO));</span>
+<span class="fc" id="L673">        DatosHumedadRequestDTO datosHumedadDTO = new DatosHumedadRequestDTO();</span>
+<span class="fc" id="L674">        datosHumedadDTO.setTipoHumedadID(1L);</span>
+<span class="fc" id="L675">        datosHumedadDTO.setValor(new BigDecimal(&quot;12.5&quot;));</span>
+<span class="fc" id="L676">        loteRequestDTO.setDatosHumedad(List.of(datosHumedadDTO));</span>
         
-<span class="fc" id="L685">        when(cultivarRepository.findById(1L)).thenReturn(Optional.of(cultivar));</span>
-<span class="fc" id="L686">        when(catalogoService.obtenerEntidadPorId(1L)).thenReturn(catalogo);</span>
-<span class="fc" id="L687">        when(loteRepository.save(any(Lote.class))).thenReturn(lote);</span>
+<span class="fc" id="L678">        when(cultivarRepository.findById(1L)).thenReturn(Optional.of(cultivar));</span>
+<span class="fc" id="L679">        when(catalogoService.obtenerEntidadPorId(1L)).thenReturn(catalogo);</span>
+<span class="fc" id="L680">        when(loteRepository.save(any(Lote.class))).thenReturn(lote);</span>
         
-<span class="fc" id="L689">        LoteDTO resultado = loteService.crearLote(loteRequestDTO);</span>
+<span class="fc" id="L682">        LoteDTO resultado = loteService.crearLote(loteRequestDTO);</span>
         
-<span class="fc" id="L691">        assertNotNull(resultado);</span>
-<span class="fc" id="L692">        verify(catalogoService, atLeastOnce()).obtenerEntidadPorId(1L);</span>
-<span class="fc" id="L693">    }</span>
+<span class="fc" id="L684">        assertNotNull(resultado);</span>
+<span class="fc" id="L685">        verify(catalogoService, atLeastOnce()).obtenerEntidadPorId(1L);</span>
+<span class="fc" id="L686">    }</span>
 
     @Test
     @DisplayName(&quot;mapearSolicitudAEntidad - maneja múltiples datos de humedad&quot;)
     void crearLote_mapeaMultiplesDatosHumedad() {
-<span class="fc" id="L698">        DatosHumedadRequestDTO datos1 = new DatosHumedadRequestDTO();</span>
-<span class="fc" id="L699">        datos1.setTipoHumedadID(1L);</span>
-<span class="fc" id="L700">        datos1.setValor(new BigDecimal(&quot;12.5&quot;));</span>
+<span class="fc" id="L691">        DatosHumedadRequestDTO datos1 = new DatosHumedadRequestDTO();</span>
+<span class="fc" id="L692">        datos1.setTipoHumedadID(1L);</span>
+<span class="fc" id="L693">        datos1.setValor(new BigDecimal(&quot;12.5&quot;));</span>
         
-<span class="fc" id="L702">        DatosHumedadRequestDTO datos2 = new DatosHumedadRequestDTO();</span>
-<span class="fc" id="L703">        datos2.setTipoHumedadID(2L);</span>
-<span class="fc" id="L704">        datos2.setValor(new BigDecimal(&quot;13.2&quot;));</span>
+<span class="fc" id="L695">        DatosHumedadRequestDTO datos2 = new DatosHumedadRequestDTO();</span>
+<span class="fc" id="L696">        datos2.setTipoHumedadID(2L);</span>
+<span class="fc" id="L697">        datos2.setValor(new BigDecimal(&quot;13.2&quot;));</span>
         
-<span class="fc" id="L706">        loteRequestDTO.setDatosHumedad(List.of(datos1, datos2));</span>
+<span class="fc" id="L699">        loteRequestDTO.setDatosHumedad(List.of(datos1, datos2));</span>
         
-<span class="fc" id="L708">        Catalogo tipoHumedad1 = new Catalogo();</span>
-<span class="fc" id="L709">        tipoHumedad1.setId(1L);</span>
-<span class="fc" id="L710">        Catalogo tipoHumedad2 = new Catalogo();</span>
-<span class="fc" id="L711">        tipoHumedad2.setId(2L);</span>
+<span class="fc" id="L701">        Catalogo tipoHumedad1 = new Catalogo();</span>
+<span class="fc" id="L702">        tipoHumedad1.setId(1L);</span>
+<span class="fc" id="L703">        Catalogo tipoHumedad2 = new Catalogo();</span>
+<span class="fc" id="L704">        tipoHumedad2.setId(2L);</span>
         
-<span class="fc" id="L713">        when(cultivarRepository.findById(1L)).thenReturn(Optional.of(cultivar));</span>
-<span class="fc" id="L714">        when(catalogoService.obtenerEntidadPorId(1L)).thenReturn(tipoHumedad1);</span>
-<span class="fc" id="L715">        when(catalogoService.obtenerEntidadPorId(2L)).thenReturn(tipoHumedad2);</span>
-<span class="fc" id="L716">        when(loteRepository.save(any(Lote.class))).thenReturn(lote);</span>
+<span class="fc" id="L706">        when(cultivarRepository.findById(1L)).thenReturn(Optional.of(cultivar));</span>
+<span class="fc" id="L707">        when(catalogoService.obtenerEntidadPorId(1L)).thenReturn(tipoHumedad1);</span>
+<span class="fc" id="L708">        when(catalogoService.obtenerEntidadPorId(2L)).thenReturn(tipoHumedad2);</span>
+<span class="fc" id="L709">        when(loteRepository.save(any(Lote.class))).thenReturn(lote);</span>
         
-<span class="fc" id="L718">        LoteDTO resultado = loteService.crearLote(loteRequestDTO);</span>
+<span class="fc" id="L711">        LoteDTO resultado = loteService.crearLote(loteRequestDTO);</span>
         
-<span class="fc" id="L720">        assertNotNull(resultado);</span>
-<span class="fc" id="L721">        verify(catalogoService, times(1)).obtenerEntidadPorId(1L);</span>
-<span class="fc" id="L722">        verify(catalogoService, times(1)).obtenerEntidadPorId(2L);</span>
-<span class="fc" id="L723">    }</span>
+<span class="fc" id="L713">        assertNotNull(resultado);</span>
+<span class="fc" id="L714">        verify(catalogoService, times(1)).obtenerEntidadPorId(1L);</span>
+<span class="fc" id="L715">        verify(catalogoService, times(1)).obtenerEntidadPorId(2L);</span>
+<span class="fc" id="L716">    }</span>
 
     @Test
     @DisplayName(&quot;puedeRemoverTipoAnalisis - no puede remover GERMINACION con análisis&quot;)
     void puedeRemoverTipoAnalisis_germinacionConAnalisis_false() {
-<span class="fc" id="L728">        when(germinacionRepository.existsByLoteLoteID(1L)).thenReturn(true);</span>
-<span class="fc" id="L729">        boolean result = loteService.puedeRemoverTipoAnalisis(1L, TipoAnalisis.GERMINACION);</span>
-<span class="fc" id="L730">        assertFalse(result);</span>
-<span class="fc" id="L731">    }</span>
+<span class="fc" id="L721">        when(germinacionRepository.existsByLoteLoteID(1L)).thenReturn(true);</span>
+<span class="fc" id="L722">        boolean result = loteService.puedeRemoverTipoAnalisis(1L, TipoAnalisis.GERMINACION);</span>
+<span class="fc" id="L723">        assertFalse(result);</span>
+<span class="fc" id="L724">    }</span>
 
     @Test
     @DisplayName(&quot;puedeRemoverTipoAnalisis - no puede remover DOSN con análisis&quot;)
     void puedeRemoverTipoAnalisis_dosnConAnalisis_false() {
-<span class="fc" id="L736">        when(dosnRepository.existsByLoteLoteID(1L)).thenReturn(true);</span>
-<span class="fc" id="L737">        boolean result = loteService.puedeRemoverTipoAnalisis(1L, TipoAnalisis.DOSN);</span>
-<span class="fc" id="L738">        assertFalse(result);</span>
-<span class="fc" id="L739">    }</span>
+<span class="fc" id="L729">        when(dosnRepository.existsByLoteLoteID(1L)).thenReturn(true);</span>
+<span class="fc" id="L730">        boolean result = loteService.puedeRemoverTipoAnalisis(1L, TipoAnalisis.DOSN);</span>
+<span class="fc" id="L731">        assertFalse(result);</span>
+<span class="fc" id="L732">    }</span>
 
     @Test
     @DisplayName(&quot;puedeRemoverTipoAnalisis - no puede remover TETRAZOLIO con análisis&quot;)
     void puedeRemoverTipoAnalisis_tetrazolioConAnalisis_false() {
-<span class="fc" id="L744">        when(tetrazolioRepository.existsByLoteLoteID(1L)).thenReturn(true);</span>
-<span class="fc" id="L745">        boolean result = loteService.puedeRemoverTipoAnalisis(1L, TipoAnalisis.TETRAZOLIO);</span>
-<span class="fc" id="L746">        assertFalse(result);</span>
-<span class="fc" id="L747">    }</span>
+<span class="fc" id="L737">        when(tetrazolioRepository.existsByLoteLoteID(1L)).thenReturn(true);</span>
+<span class="fc" id="L738">        boolean result = loteService.puedeRemoverTipoAnalisis(1L, TipoAnalisis.TETRAZOLIO);</span>
+<span class="fc" id="L739">        assertFalse(result);</span>
+<span class="fc" id="L740">    }</span>
 
     @Test
     @DisplayName(&quot;puedeRemoverTipoAnalisis - no puede remover PUREZA con análisis&quot;)
     void puedeRemoverTipoAnalisis_purezaConAnalisis_false() {
-<span class="fc" id="L752">        when(purezaRepository.existsByLoteLoteID(1L)).thenReturn(true);</span>
-<span class="fc" id="L753">        boolean result = loteService.puedeRemoverTipoAnalisis(1L, TipoAnalisis.PUREZA);</span>
-<span class="fc" id="L754">        assertFalse(result);</span>
-<span class="fc" id="L755">    }</span>
+<span class="fc" id="L745">        when(purezaRepository.existsByLoteLoteID(1L)).thenReturn(true);</span>
+<span class="fc" id="L746">        boolean result = loteService.puedeRemoverTipoAnalisis(1L, TipoAnalisis.PUREZA);</span>
+<span class="fc" id="L747">        assertFalse(result);</span>
+<span class="fc" id="L748">    }</span>
 
     @Test
     @DisplayName(&quot;puedeCrearAnalisisDelTipo - no puede crear PMS si existe&quot;)
     void puedeCrearAnalisisDelTipo_pmsExiste_false() {
-<span class="fc" id="L760">        when(pmsRepository.existsByLoteLoteID(1L)).thenReturn(true);</span>
-<span class="fc" id="L761">        boolean result = loteService.puedeCrearAnalisisDelTipo(1L, TipoAnalisis.PMS);</span>
-<span class="fc" id="L762">        assertFalse(result);</span>
-<span class="fc" id="L763">    }</span>
+<span class="fc" id="L753">        when(pmsRepository.existsByLoteLoteID(1L)).thenReturn(true);</span>
+<span class="fc" id="L754">        boolean result = loteService.puedeCrearAnalisisDelTipo(1L, TipoAnalisis.PMS);</span>
+<span class="fc" id="L755">        assertFalse(result);</span>
+<span class="fc" id="L756">    }</span>
 
     @Test
     @DisplayName(&quot;puedeCrearAnalisisDelTipo - no puede crear GERMINACION si existe&quot;)
     void puedeCrearAnalisisDelTipo_germinacionExiste_false() {
-<span class="fc" id="L768">        when(germinacionRepository.existsByLoteLoteID(1L)).thenReturn(true);</span>
-<span class="fc" id="L769">        boolean result = loteService.puedeCrearAnalisisDelTipo(1L, TipoAnalisis.GERMINACION);</span>
-<span class="fc" id="L770">        assertFalse(result);</span>
-<span class="fc" id="L771">    }</span>
+<span class="fc" id="L761">        when(germinacionRepository.existsByLoteLoteID(1L)).thenReturn(true);</span>
+<span class="fc" id="L762">        boolean result = loteService.puedeCrearAnalisisDelTipo(1L, TipoAnalisis.GERMINACION);</span>
+<span class="fc" id="L763">        assertFalse(result);</span>
+<span class="fc" id="L764">    }</span>
 
     @Test
     @DisplayName(&quot;puedeCrearAnalisisDelTipo - no puede crear DOSN si existe&quot;)
     void puedeCrearAnalisisDelTipo_dosnExiste_false() {
-<span class="fc" id="L776">        when(dosnRepository.existsByLoteLoteID(1L)).thenReturn(true);</span>
-<span class="fc" id="L777">        boolean result = loteService.puedeCrearAnalisisDelTipo(1L, TipoAnalisis.DOSN);</span>
-<span class="fc" id="L778">        assertFalse(result);</span>
-<span class="fc" id="L779">    }</span>
+<span class="fc" id="L769">        when(dosnRepository.existsByLoteLoteID(1L)).thenReturn(true);</span>
+<span class="fc" id="L770">        boolean result = loteService.puedeCrearAnalisisDelTipo(1L, TipoAnalisis.DOSN);</span>
+<span class="fc" id="L771">        assertFalse(result);</span>
+<span class="fc" id="L772">    }</span>
 
     @Test
     @DisplayName(&quot;puedeCrearAnalisisDelTipo - no puede crear TETRAZOLIO si existe&quot;)
     void puedeCrearAnalisisDelTipo_tetrazolioExiste_false() {
-<span class="fc" id="L784">        when(tetrazolioRepository.existsByLoteLoteID(1L)).thenReturn(true);</span>
-<span class="fc" id="L785">        boolean result = loteService.puedeCrearAnalisisDelTipo(1L, TipoAnalisis.TETRAZOLIO);</span>
-<span class="fc" id="L786">        assertFalse(result);</span>
-<span class="fc" id="L787">    }</span>
+<span class="fc" id="L777">        when(tetrazolioRepository.existsByLoteLoteID(1L)).thenReturn(true);</span>
+<span class="fc" id="L778">        boolean result = loteService.puedeCrearAnalisisDelTipo(1L, TipoAnalisis.TETRAZOLIO);</span>
+<span class="fc" id="L779">        assertFalse(result);</span>
+<span class="fc" id="L780">    }</span>
 
     @Test
     @DisplayName(&quot;puedeCrearAnalisisDelTipo - no puede crear PUREZA si existe&quot;)
     void puedeCrearAnalisisDelTipo_purezaExiste_false() {
-<span class="fc" id="L792">        when(purezaRepository.existsByLoteLoteID(1L)).thenReturn(true);</span>
-<span class="fc" id="L793">        boolean result = loteService.puedeCrearAnalisisDelTipo(1L, TipoAnalisis.PUREZA);</span>
-<span class="fc" id="L794">        assertFalse(result);</span>
-<span class="fc" id="L795">    }</span>
+<span class="fc" id="L785">        when(purezaRepository.existsByLoteLoteID(1L)).thenReturn(true);</span>
+<span class="fc" id="L786">        boolean result = loteService.puedeCrearAnalisisDelTipo(1L, TipoAnalisis.PUREZA);</span>
+<span class="fc" id="L787">        assertFalse(result);</span>
+<span class="fc" id="L788">    }</span>
 
     @Test
     @DisplayName(&quot;mapearSolicitudAEntidad - mapea todos los tipos de lote&quot;)
     void crearLote_mapeaTodosTiposLote() {
         // INTERNO
-<span class="fc" id="L801">        loteRequestDTO.setTipo(&quot;INTERNO&quot;);</span>
-<span class="fc" id="L802">        when(cultivarRepository.findById(1L)).thenReturn(Optional.of(cultivar));</span>
-<span class="fc" id="L803">        when(loteRepository.save(any(Lote.class))).thenReturn(lote);</span>
-<span class="fc" id="L804">        assertNotNull(loteService.crearLote(loteRequestDTO));</span>
+<span class="fc" id="L794">        loteRequestDTO.setTipo(&quot;INTERNO&quot;);</span>
+<span class="fc" id="L795">        when(cultivarRepository.findById(1L)).thenReturn(Optional.of(cultivar));</span>
+<span class="fc" id="L796">        when(loteRepository.save(any(Lote.class))).thenReturn(lote);</span>
+<span class="fc" id="L797">        assertNotNull(loteService.crearLote(loteRequestDTO));</span>
         
         // OTROS_CENTROS_COSTOS
-<span class="fc" id="L807">        loteRequestDTO.setTipo(&quot;OTROS_CENTROS_COSTOS&quot;);</span>
-<span class="fc" id="L808">        assertNotNull(loteService.crearLote(loteRequestDTO));</span>
+<span class="fc" id="L800">        loteRequestDTO.setTipo(&quot;OTROS_CENTROS_COSTOS&quot;);</span>
+<span class="fc" id="L801">        assertNotNull(loteService.crearLote(loteRequestDTO));</span>
         
         // EXTERNOS
-<span class="fc" id="L811">        loteRequestDTO.setTipo(&quot;EXTERNOS&quot;);</span>
-<span class="fc" id="L812">        assertNotNull(loteService.crearLote(loteRequestDTO));</span>
-<span class="fc" id="L813">    }</span>
+<span class="fc" id="L804">        loteRequestDTO.setTipo(&quot;EXTERNOS&quot;);</span>
+<span class="fc" id="L805">        assertNotNull(loteService.crearLote(loteRequestDTO));</span>
+<span class="fc" id="L806">    }</span>
 
     @Test
     @DisplayName(&quot;actualizarEntidadDesdeSolicitud - actualiza datos de humedad&quot;)
     void actualizarLote_actualizaDatosHumedad() {
-<span class="fc" id="L818">        DatosHumedadRequestDTO datosHumedadDTO = new DatosHumedadRequestDTO();</span>
-<span class="fc" id="L819">        datosHumedadDTO.setTipoHumedadID(1L);</span>
-<span class="fc" id="L820">        datosHumedadDTO.setValor(new BigDecimal(&quot;15.0&quot;));</span>
-<span class="fc" id="L821">        loteRequestDTO.setDatosHumedad(List.of(datosHumedadDTO));</span>
+<span class="fc" id="L811">        DatosHumedadRequestDTO datosHumedadDTO = new DatosHumedadRequestDTO();</span>
+<span class="fc" id="L812">        datosHumedadDTO.setTipoHumedadID(1L);</span>
+<span class="fc" id="L813">        datosHumedadDTO.setValor(new BigDecimal(&quot;15.0&quot;));</span>
+<span class="fc" id="L814">        loteRequestDTO.setDatosHumedad(List.of(datosHumedadDTO));</span>
         
-<span class="fc" id="L823">        when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));</span>
-<span class="fc" id="L824">        when(cultivarRepository.findById(1L)).thenReturn(Optional.of(cultivar));</span>
-<span class="fc" id="L825">        when(catalogoService.obtenerEntidadPorId(1L)).thenReturn(catalogo);</span>
-<span class="fc" id="L826">        when(loteRepository.save(any(Lote.class))).thenReturn(lote);</span>
+<span class="fc" id="L816">        when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));</span>
+<span class="fc" id="L817">        when(cultivarRepository.findById(1L)).thenReturn(Optional.of(cultivar));</span>
+<span class="fc" id="L818">        when(catalogoService.obtenerEntidadPorId(1L)).thenReturn(catalogo);</span>
+<span class="fc" id="L819">        when(loteRepository.save(any(Lote.class))).thenReturn(lote);</span>
         
-<span class="fc" id="L828">        LoteDTO resultado = loteService.actualizarLote(1L, loteRequestDTO);</span>
+<span class="fc" id="L821">        LoteDTO resultado = loteService.actualizarLote(1L, loteRequestDTO);</span>
         
-<span class="fc" id="L830">        assertNotNull(resultado);</span>
-<span class="fc" id="L831">        verify(catalogoService, atLeastOnce()).obtenerEntidadPorId(1L);</span>
-<span class="fc" id="L832">    }</span>
+<span class="fc" id="L823">        assertNotNull(resultado);</span>
+<span class="fc" id="L824">        verify(catalogoService, atLeastOnce()).obtenerEntidadPorId(1L);</span>
+<span class="fc" id="L825">    }</span>
 
     @Test
     @DisplayName(&quot;validarCamposUnicos - ambos campos únicos ya existen&quot;)
     void validarCamposUnicos_ambosExisten() {
-<span class="fc" id="L837">        ValidacionLoteDTO validacion = new ValidacionLoteDTO();</span>
-<span class="fc" id="L838">        validacion.setFicha(&quot;FICHA-001&quot;);</span>
-<span class="fc" id="L839">        validacion.setNomLote(&quot;LOTE-TEST-001&quot;);</span>
-<span class="fc" id="L840">        validacion.setLoteID(2L);</span>
+<span class="fc" id="L830">        ValidacionLoteDTO validacion = new ValidacionLoteDTO();</span>
+<span class="fc" id="L831">        validacion.setFicha(&quot;FICHA-001&quot;);</span>
+<span class="fc" id="L832">        validacion.setNomLote(&quot;LOTE-TEST-001&quot;);</span>
+<span class="fc" id="L833">        validacion.setLoteID(2L);</span>
         
-<span class="fc" id="L842">        when(loteRepository.findByFicha(&quot;FICHA-001&quot;)).thenReturn(Optional.of(lote));</span>
-<span class="fc" id="L843">        when(loteRepository.findByNomLote(&quot;LOTE-TEST-001&quot;)).thenReturn(Optional.of(lote));</span>
+<span class="fc" id="L835">        when(loteRepository.findByFicha(&quot;FICHA-001&quot;)).thenReturn(Optional.of(lote));</span>
+<span class="fc" id="L836">        when(loteRepository.findByNomLote(&quot;LOTE-TEST-001&quot;)).thenReturn(Optional.of(lote));</span>
         
-<span class="fc" id="L845">        ValidacionLoteResponseDTO response = loteService.validarCamposUnicos(validacion);</span>
+<span class="fc" id="L838">        ValidacionLoteResponseDTO response = loteService.validarCamposUnicos(validacion);</span>
         
-<span class="fc" id="L847">        assertTrue(response.isFichaExiste());</span>
-<span class="fc" id="L848">        assertTrue(response.isNomLoteExiste());</span>
-<span class="fc" id="L849">    }</span>
+<span class="fc" id="L840">        assertTrue(response.isFichaExiste());</span>
+<span class="fc" id="L841">        assertTrue(response.isNomLoteExiste());</span>
+<span class="fc" id="L842">    }</span>
 
     @Test
     @DisplayName(&quot;validarCamposUnicos - campos vacíos no se validan&quot;)
     void validarCamposUnicos_camposVacios() {
-<span class="fc" id="L854">        ValidacionLoteDTO validacion = new ValidacionLoteDTO();</span>
-<span class="fc" id="L855">        validacion.setFicha(&quot;&quot;);</span>
-<span class="fc" id="L856">        validacion.setNomLote(null);</span>
+<span class="fc" id="L847">        ValidacionLoteDTO validacion = new ValidacionLoteDTO();</span>
+<span class="fc" id="L848">        validacion.setFicha(&quot;&quot;);</span>
+<span class="fc" id="L849">        validacion.setNomLote(null);</span>
         
-<span class="fc" id="L858">        ValidacionLoteResponseDTO response = loteService.validarCamposUnicos(validacion);</span>
+<span class="fc" id="L851">        ValidacionLoteResponseDTO response = loteService.validarCamposUnicos(validacion);</span>
         
-<span class="fc" id="L860">        assertFalse(response.isFichaExiste());</span>
-<span class="fc" id="L861">        assertFalse(response.isNomLoteExiste());</span>
-<span class="fc" id="L862">    }</span>
+<span class="fc" id="L853">        assertFalse(response.isFichaExiste());</span>
+<span class="fc" id="L854">        assertFalse(response.isNomLoteExiste());</span>
+<span class="fc" id="L855">    }</span>
 
     @Test
     @DisplayName(&quot;mapearSolicitudAEntidad - mapea todos los campos opcionales juntos&quot;)
     void crearLote_mapeaTodosCamposOpcionales() {
-<span class="fc" id="L867">        loteRequestDTO.setEmpresaID(1L);</span>
-<span class="fc" id="L868">        loteRequestDTO.setClienteID(2L);</span>
-<span class="fc" id="L869">        loteRequestDTO.setDepositoID(1L);</span>
-<span class="fc" id="L870">        loteRequestDTO.setOrigenID(1L);</span>
-<span class="fc" id="L871">        loteRequestDTO.setEstadoID(1L);</span>
-<span class="fc" id="L872">        loteRequestDTO.setNumeroArticuloID(1L);</span>
-<span class="fc" id="L873">        loteRequestDTO.setTipo(&quot;EXTERNOS&quot;);</span>
-<span class="fc" id="L874">        loteRequestDTO.setCodigoCC(&quot;CC-001&quot;);</span>
-<span class="fc" id="L875">        loteRequestDTO.setCodigoFF(&quot;FF-001&quot;);</span>
-<span class="fc" id="L876">        loteRequestDTO.setFechaEntrega(LocalDate.now().plusDays(5));</span>
-<span class="fc" id="L877">        loteRequestDTO.setUnidadEmbolsado(&quot;Bolsas 50kg&quot;);</span>
-<span class="fc" id="L878">        loteRequestDTO.setRemitente(&quot;Remitente Test&quot;);</span>
-<span class="fc" id="L879">        loteRequestDTO.setObservaciones(&quot;Observaciones completas&quot;);</span>
-<span class="fc" id="L880">        loteRequestDTO.setKilosLimpios(new BigDecimal(&quot;1000.0&quot;));</span>
-<span class="fc" id="L881">        loteRequestDTO.setFechaCosecha(LocalDate.now().minusMonths(1));</span>
-<span class="fc" id="L882">        loteRequestDTO.setTiposAnalisisAsignados(List.of(TipoAnalisis.PMS, TipoAnalisis.GERMINACION, TipoAnalisis.PUREZA));</span>
+<span class="fc" id="L860">        loteRequestDTO.setEmpresaID(1L);</span>
+<span class="fc" id="L861">        loteRequestDTO.setClienteID(2L);</span>
+<span class="fc" id="L862">        loteRequestDTO.setDepositoID(1L);</span>
+<span class="fc" id="L863">        loteRequestDTO.setOrigenID(1L);</span>
+<span class="fc" id="L864">        loteRequestDTO.setEstadoID(1L);</span>
+<span class="fc" id="L865">        loteRequestDTO.setNumeroArticuloID(1L);</span>
+<span class="fc" id="L866">        loteRequestDTO.setTipo(&quot;EXTERNOS&quot;);</span>
+<span class="fc" id="L867">        loteRequestDTO.setCodigoCC(&quot;CC-001&quot;);</span>
+<span class="fc" id="L868">        loteRequestDTO.setCodigoFF(&quot;FF-001&quot;);</span>
+<span class="fc" id="L869">        loteRequestDTO.setFechaEntrega(LocalDate.now().plusDays(5));</span>
+<span class="fc" id="L870">        loteRequestDTO.setUnidadEmbolsado(&quot;Bolsas 50kg&quot;);</span>
+<span class="fc" id="L871">        loteRequestDTO.setRemitente(&quot;Remitente Test&quot;);</span>
+<span class="fc" id="L872">        loteRequestDTO.setObservaciones(&quot;Observaciones completas&quot;);</span>
+<span class="fc" id="L873">        loteRequestDTO.setKilosLimpios(new BigDecimal(&quot;1000.0&quot;));</span>
+<span class="fc" id="L874">        loteRequestDTO.setFechaCosecha(LocalDate.now().minusMonths(1));</span>
+<span class="fc" id="L875">        loteRequestDTO.setTiposAnalisisAsignados(List.of(TipoAnalisis.PMS, TipoAnalisis.GERMINACION, TipoAnalisis.PUREZA));</span>
         
-<span class="fc" id="L884">        DatosHumedadRequestDTO humedad = new DatosHumedadRequestDTO();</span>
-<span class="fc" id="L885">        humedad.setTipoHumedadID(1L);</span>
-<span class="fc" id="L886">        humedad.setValor(new BigDecimal(&quot;14.5&quot;));</span>
-<span class="fc" id="L887">        loteRequestDTO.setDatosHumedad(List.of(humedad));</span>
+<span class="fc" id="L877">        DatosHumedadRequestDTO humedad = new DatosHumedadRequestDTO();</span>
+<span class="fc" id="L878">        humedad.setTipoHumedadID(1L);</span>
+<span class="fc" id="L879">        humedad.setValor(new BigDecimal(&quot;14.5&quot;));</span>
+<span class="fc" id="L880">        loteRequestDTO.setDatosHumedad(List.of(humedad));</span>
         
-<span class="fc" id="L889">        when(cultivarRepository.findById(1L)).thenReturn(Optional.of(cultivar));</span>
-<span class="fc" id="L890">        when(contactoRepository.findById(1L)).thenReturn(Optional.of(empresa));</span>
-<span class="fc" id="L891">        when(contactoRepository.findById(2L)).thenReturn(Optional.of(cliente));</span>
-<span class="fc" id="L892">        when(catalogoService.obtenerEntidadPorId(1L)).thenReturn(catalogo);</span>
-<span class="fc" id="L893">        when(loteRepository.save(any(Lote.class))).thenReturn(lote);</span>
+<span class="fc" id="L882">        when(cultivarRepository.findById(1L)).thenReturn(Optional.of(cultivar));</span>
+<span class="fc" id="L883">        when(contactoRepository.findById(1L)).thenReturn(Optional.of(empresa));</span>
+<span class="fc" id="L884">        when(contactoRepository.findById(2L)).thenReturn(Optional.of(cliente));</span>
+<span class="fc" id="L885">        when(catalogoService.obtenerEntidadPorId(1L)).thenReturn(catalogo);</span>
+<span class="fc" id="L886">        when(loteRepository.save(any(Lote.class))).thenReturn(lote);</span>
         
-<span class="fc" id="L895">        LoteDTO resultado = loteService.crearLote(loteRequestDTO);</span>
+<span class="fc" id="L888">        LoteDTO resultado = loteService.crearLote(loteRequestDTO);</span>
         
-<span class="fc" id="L897">        assertNotNull(resultado);</span>
-<span class="fc" id="L898">        verify(cultivarRepository, times(1)).findById(1L);</span>
-<span class="fc" id="L899">        verify(contactoRepository, times(1)).findById(1L);</span>
-<span class="fc" id="L900">        verify(contactoRepository, times(1)).findById(2L);</span>
-<span class="fc" id="L901">        verify(catalogoService, atLeast(4)).obtenerEntidadPorId(1L);</span>
-<span class="fc" id="L902">        verify(loteRepository, times(1)).save(any(Lote.class));</span>
-<span class="fc" id="L903">    }</span>
+<span class="fc" id="L890">        assertNotNull(resultado);</span>
+<span class="fc" id="L891">        verify(cultivarRepository, times(1)).findById(1L);</span>
+<span class="fc" id="L892">        verify(contactoRepository, times(1)).findById(1L);</span>
+<span class="fc" id="L893">        verify(contactoRepository, times(1)).findById(2L);</span>
+<span class="fc" id="L894">        verify(catalogoService, atLeast(4)).obtenerEntidadPorId(1L);</span>
+<span class="fc" id="L895">        verify(loteRepository, times(1)).save(any(Lote.class));</span>
+<span class="fc" id="L896">    }</span>
 
     @Test
     @DisplayName(&quot;esLoteElegibleParaTipoAnalisis - tipo no asignado aunque no haya análisis&quot;)
     void esLoteElegible_tipoNoAsignadoSinAnalisis_false() {
-<span class="fc" id="L908">        lote.setActivo(true);</span>
-<span class="fc" id="L909">        lote.setTiposAnalisisAsignados(List.of(TipoAnalisis.GERMINACION));</span>
-<span class="fc" id="L910">        when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));</span>
+<span class="fc" id="L901">        lote.setActivo(true);</span>
+<span class="fc" id="L902">        lote.setTiposAnalisisAsignados(List.of(TipoAnalisis.GERMINACION));</span>
+<span class="fc" id="L903">        when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));</span>
         // No mockeamos pmsRepository porque no debe ser llamado cuando el tipo no está asignado
         
-<span class="fc" id="L913">        assertFalse(loteService.esLoteElegibleParaTipoAnalisis(1L, TipoAnalisis.PMS));</span>
-<span class="fc" id="L914">    }</span>
+<span class="fc" id="L906">        assertFalse(loteService.esLoteElegibleParaTipoAnalisis(1L, TipoAnalisis.PMS));</span>
+<span class="fc" id="L907">    }</span>
 
     @Test
     @DisplayName(&quot;esLoteElegibleParaTipoAnalisis - falso si ya existe análisis del tipo&quot;)
     void esLoteElegible_analisisYaExiste_false() {
-<span class="fc" id="L919">        lote.setActivo(true);</span>
-<span class="fc" id="L920">        lote.setTiposAnalisisAsignados(List.of(TipoAnalisis.PMS));</span>
-<span class="fc" id="L921">        when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));</span>
-<span class="fc" id="L922">        when(pmsRepository.existsByLoteLoteID(1L)).thenReturn(true);</span>
+<span class="fc" id="L912">        lote.setActivo(true);</span>
+<span class="fc" id="L913">        lote.setTiposAnalisisAsignados(List.of(TipoAnalisis.PMS));</span>
+<span class="fc" id="L914">        when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));</span>
+<span class="fc" id="L915">        when(pmsRepository.existsByLoteLoteID(1L)).thenReturn(true);</span>
         
-<span class="fc" id="L924">        assertFalse(loteService.esLoteElegibleParaTipoAnalisis(1L, TipoAnalisis.PMS));</span>
-<span class="fc" id="L925">    }</span>
+<span class="fc" id="L917">        assertFalse(loteService.esLoteElegibleParaTipoAnalisis(1L, TipoAnalisis.PMS));</span>
+<span class="fc" id="L918">    }</span>
 
     @Test
     @DisplayName(&quot;obtenerLotesElegiblesParaTipoAnalisis - filtra lotes inactivos&quot;)
     void obtenerLotesElegibles_filtraInactivos() {
-<span class="fc" id="L930">        Lote loteInactivo = new Lote();</span>
-<span class="fc" id="L931">        loteInactivo.setLoteID(2L);</span>
-<span class="fc" id="L932">        loteInactivo.setActivo(false);</span>
-<span class="fc" id="L933">        loteInactivo.setCultivar(cultivar);</span>
-<span class="fc" id="L934">        loteInactivo.setTiposAnalisisAsignados(List.of(TipoAnalisis.PMS));</span>
+<span class="fc" id="L923">        Lote loteInactivo = new Lote();</span>
+<span class="fc" id="L924">        loteInactivo.setLoteID(2L);</span>
+<span class="fc" id="L925">        loteInactivo.setActivo(false);</span>
+<span class="fc" id="L926">        loteInactivo.setCultivar(cultivar);</span>
+<span class="fc" id="L927">        loteInactivo.setTiposAnalisisAsignados(List.of(TipoAnalisis.PMS));</span>
         
-<span class="fc" id="L936">        when(loteRepository.findByActivoTrue()).thenReturn(List.of());</span>
+<span class="fc" id="L929">        when(loteRepository.findByActivoTrue()).thenReturn(List.of());</span>
         
-<span class="fc" id="L938">        ResponseListadoLoteSimple response = loteService.obtenerLotesElegiblesParaTipoAnalisis(TipoAnalisis.PMS);</span>
+<span class="fc" id="L931">        ResponseListadoLoteSimple response = loteService.obtenerLotesElegiblesParaTipoAnalisis(TipoAnalisis.PMS);</span>
         
-<span class="fc" id="L940">        assertNotNull(response);</span>
-<span class="fc" id="L941">        assertEquals(0, response.getLotes().size());</span>
-<span class="fc" id="L942">    }</span>
+<span class="fc" id="L933">        assertNotNull(response);</span>
+<span class="fc" id="L934">        assertEquals(0, response.getLotes().size());</span>
+<span class="fc" id="L935">    }</span>
 
     @Test
     @DisplayName(&quot;obtenerLotesElegiblesParaTipoAnalisis - filtra lotes sin tipo asignado&quot;)
     void obtenerLotesElegibles_filtraSinTipoAsignado() {
-<span class="fc" id="L947">        Lote loteSinTipo = new Lote();</span>
-<span class="fc" id="L948">        loteSinTipo.setLoteID(3L);</span>
-<span class="fc" id="L949">        loteSinTipo.setActivo(true);</span>
-<span class="fc" id="L950">        loteSinTipo.setCultivar(cultivar);</span>
-<span class="fc" id="L951">        loteSinTipo.setTiposAnalisisAsignados(List.of(TipoAnalisis.GERMINACION));</span>
+<span class="fc" id="L940">        Lote loteSinTipo = new Lote();</span>
+<span class="fc" id="L941">        loteSinTipo.setLoteID(3L);</span>
+<span class="fc" id="L942">        loteSinTipo.setActivo(true);</span>
+<span class="fc" id="L943">        loteSinTipo.setCultivar(cultivar);</span>
+<span class="fc" id="L944">        loteSinTipo.setTiposAnalisisAsignados(List.of(TipoAnalisis.GERMINACION));</span>
         
-<span class="fc" id="L953">        when(loteRepository.findByActivoTrue()).thenReturn(List.of(loteSinTipo));</span>
-<span class="fc" id="L954">        when(loteRepository.findById(3L)).thenReturn(Optional.of(loteSinTipo));</span>
+<span class="fc" id="L946">        when(loteRepository.findByActivoTrue()).thenReturn(List.of(loteSinTipo));</span>
+<span class="fc" id="L947">        when(loteRepository.findById(3L)).thenReturn(Optional.of(loteSinTipo));</span>
         
-<span class="fc" id="L956">        ResponseListadoLoteSimple response = loteService.obtenerLotesElegiblesParaTipoAnalisis(TipoAnalisis.PMS);</span>
+<span class="fc" id="L949">        ResponseListadoLoteSimple response = loteService.obtenerLotesElegiblesParaTipoAnalisis(TipoAnalisis.PMS);</span>
         
-<span class="fc" id="L958">        assertNotNull(response);</span>
-<span class="fc" id="L959">        assertEquals(0, response.getLotes().size());</span>
-<span class="fc" id="L960">    }</span>
+<span class="fc" id="L951">        assertNotNull(response);</span>
+<span class="fc" id="L952">        assertEquals(0, response.getLotes().size());</span>
+<span class="fc" id="L953">    }</span>
 
     @Test
     @DisplayName(&quot;actualizarLote - actualiza empresa cuando se proporciona nueva&quot;)
     void actualizarLote_nuevaEmpresa() {
-<span class="fc" id="L965">        loteRequestDTO.setEmpresaID(1L);</span>
-<span class="fc" id="L966">        when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));</span>
-<span class="fc" id="L967">        when(cultivarRepository.findById(1L)).thenReturn(Optional.of(cultivar));</span>
-<span class="fc" id="L968">        when(contactoRepository.findById(1L)).thenReturn(Optional.of(empresa));</span>
-<span class="fc" id="L969">        when(loteRepository.save(any(Lote.class))).thenReturn(lote);</span>
+<span class="fc" id="L958">        loteRequestDTO.setEmpresaID(1L);</span>
+<span class="fc" id="L959">        when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));</span>
+<span class="fc" id="L960">        when(cultivarRepository.findById(1L)).thenReturn(Optional.of(cultivar));</span>
+<span class="fc" id="L961">        when(contactoRepository.findById(1L)).thenReturn(Optional.of(empresa));</span>
+<span class="fc" id="L962">        when(loteRepository.save(any(Lote.class))).thenReturn(lote);</span>
         
-<span class="fc" id="L971">        LoteDTO resultado = loteService.actualizarLote(1L, loteRequestDTO);</span>
+<span class="fc" id="L964">        LoteDTO resultado = loteService.actualizarLote(1L, loteRequestDTO);</span>
         
-<span class="fc" id="L973">        assertNotNull(resultado);</span>
-<span class="fc" id="L974">        verify(contactoRepository, times(1)).findById(1L);</span>
-<span class="fc" id="L975">    }</span>
+<span class="fc" id="L966">        assertNotNull(resultado);</span>
+<span class="fc" id="L967">        verify(contactoRepository, times(1)).findById(1L);</span>
+<span class="fc" id="L968">    }</span>
 
     @Test
     @DisplayName(&quot;actualizarLote - lanza excepción si empresa no existe&quot;)
     void actualizarLote_empresaNoExiste_lanzaExcepcion() {
-<span class="fc" id="L980">        loteRequestDTO.setEmpresaID(999L);</span>
-<span class="fc" id="L981">        when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));</span>
-<span class="fc" id="L982">        when(contactoRepository.findById(999L)).thenReturn(Optional.empty());</span>
+<span class="fc" id="L973">        loteRequestDTO.setEmpresaID(999L);</span>
+<span class="fc" id="L974">        when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));</span>
+<span class="fc" id="L975">        when(contactoRepository.findById(999L)).thenReturn(Optional.empty());</span>
         
-<span class="pc" id="L984">        assertThrows(RuntimeException.class, () -&gt; loteService.actualizarLote(1L, loteRequestDTO));</span>
-<span class="fc" id="L985">    }</span>
+<span class="pc" id="L977">        assertThrows(RuntimeException.class, () -&gt; loteService.actualizarLote(1L, loteRequestDTO));</span>
+<span class="fc" id="L978">    }</span>
 
     // ======================= TESTS DE CONTEO DE ANÁLISIS PENDIENTES =======================
 
     @Test
     @DisplayName(&quot;contarAnalisisPendientes - sin lotes activos devuelve 0&quot;)
     void contarAnalisisPendientes_sinLotesActivos() {
-<span class="fc" id="L992">        when(loteRepository.findByActivoTrue()).thenReturn(List.of());</span>
+<span class="fc" id="L985">        when(loteRepository.findByActivoTrue()).thenReturn(List.of());</span>
         
-<span class="fc" id="L994">        long resultado = loteService.contarAnalisisPendientes();</span>
+<span class="fc" id="L987">        long resultado = loteService.contarAnalisisPendientes();</span>
         
-<span class="fc" id="L996">        assertEquals(0, resultado);</span>
-<span class="fc" id="L997">    }</span>
+<span class="fc" id="L989">        assertEquals(0, resultado);</span>
+<span class="fc" id="L990">    }</span>
 
     @Test
     @DisplayName(&quot;contarAnalisisPendientes - lotes sin tipos asignados no cuenta nada&quot;)
     void contarAnalisisPendientes_sinTiposAsignados() {
-<span class="fc" id="L1002">        Lote loteSinTipos = new Lote();</span>
-<span class="fc" id="L1003">        loteSinTipos.setLoteID(1L);</span>
-<span class="fc" id="L1004">        loteSinTipos.setActivo(true);</span>
-<span class="fc" id="L1005">        loteSinTipos.setTiposAnalisisAsignados(null);</span>
+<span class="fc" id="L995">        Lote loteSinTipos = new Lote();</span>
+<span class="fc" id="L996">        loteSinTipos.setLoteID(1L);</span>
+<span class="fc" id="L997">        loteSinTipos.setActivo(true);</span>
+<span class="fc" id="L998">        loteSinTipos.setTiposAnalisisAsignados(null);</span>
         
-<span class="fc" id="L1007">        when(loteRepository.findByActivoTrue()).thenReturn(List.of(loteSinTipos));</span>
+<span class="fc" id="L1000">        when(loteRepository.findByActivoTrue()).thenReturn(List.of(loteSinTipos));</span>
         
-<span class="fc" id="L1009">        long resultado = loteService.contarAnalisisPendientes();</span>
+<span class="fc" id="L1002">        long resultado = loteService.contarAnalisisPendientes();</span>
         
-<span class="fc" id="L1011">        assertEquals(0, resultado);</span>
-<span class="fc" id="L1012">    }</span>
+<span class="fc" id="L1004">        assertEquals(0, resultado);</span>
+<span class="fc" id="L1005">    }</span>
 
     @Test
     @DisplayName(&quot;contarAnalisisPendientes - PMS sin análisis cuenta como pendiente&quot;)
     void contarAnalisisPendientes_pmsSinAnalisis() {
-<span class="fc" id="L1017">        lote.setActivo(true);</span>
-<span class="fc" id="L1018">        lote.setTiposAnalisisAsignados(List.of(TipoAnalisis.PMS));</span>
+<span class="fc" id="L1010">        lote.setActivo(true);</span>
+<span class="fc" id="L1011">        lote.setTiposAnalisisAsignados(List.of(TipoAnalisis.PMS));</span>
         
-<span class="fc" id="L1020">        when(loteRepository.findByActivoTrue()).thenReturn(List.of(lote));</span>
-<span class="fc" id="L1021">        when(pmsRepository.existsByLoteLoteID(1L)).thenReturn(false);</span>
+<span class="fc" id="L1013">        when(loteRepository.findByActivoTrue()).thenReturn(List.of(lote));</span>
+<span class="fc" id="L1014">        when(pmsRepository.existsByLoteLoteID(1L)).thenReturn(false);</span>
         
-<span class="fc" id="L1023">        long resultado = loteService.contarAnalisisPendientes();</span>
+<span class="fc" id="L1016">        long resultado = loteService.contarAnalisisPendientes();</span>
         
-<span class="fc" id="L1025">        assertEquals(1, resultado);</span>
-<span class="fc" id="L1026">    }</span>
+<span class="fc" id="L1018">        assertEquals(1, resultado);</span>
+<span class="fc" id="L1019">    }</span>
 
     @Test
     @DisplayName(&quot;contarAnalisisPendientes - GERMINACION sin análisis cuenta como pendiente&quot;)
     void contarAnalisisPendientes_germinacionSinAnalisis() {
-<span class="fc" id="L1031">        lote.setActivo(true);</span>
-<span class="fc" id="L1032">        lote.setTiposAnalisisAsignados(List.of(TipoAnalisis.GERMINACION));</span>
+<span class="fc" id="L1024">        lote.setActivo(true);</span>
+<span class="fc" id="L1025">        lote.setTiposAnalisisAsignados(List.of(TipoAnalisis.GERMINACION));</span>
         
-<span class="fc" id="L1034">        when(loteRepository.findByActivoTrue()).thenReturn(List.of(lote));</span>
-<span class="fc" id="L1035">        when(germinacionRepository.existsByLoteLoteID(1L)).thenReturn(false);</span>
+<span class="fc" id="L1027">        when(loteRepository.findByActivoTrue()).thenReturn(List.of(lote));</span>
+<span class="fc" id="L1028">        when(germinacionRepository.existsByLoteLoteID(1L)).thenReturn(false);</span>
         
-<span class="fc" id="L1037">        long resultado = loteService.contarAnalisisPendientes();</span>
+<span class="fc" id="L1030">        long resultado = loteService.contarAnalisisPendientes();</span>
         
-<span class="fc" id="L1039">        assertEquals(1, resultado);</span>
-<span class="fc" id="L1040">    }</span>
+<span class="fc" id="L1032">        assertEquals(1, resultado);</span>
+<span class="fc" id="L1033">    }</span>
 
     @Test
     @DisplayName(&quot;contarAnalisisPendientes - DOSN sin análisis cuenta como pendiente&quot;)
     void contarAnalisisPendientes_dosnSinAnalisis() {
-<span class="fc" id="L1045">        lote.setActivo(true);</span>
-<span class="fc" id="L1046">        lote.setTiposAnalisisAsignados(List.of(TipoAnalisis.DOSN));</span>
+<span class="fc" id="L1038">        lote.setActivo(true);</span>
+<span class="fc" id="L1039">        lote.setTiposAnalisisAsignados(List.of(TipoAnalisis.DOSN));</span>
         
-<span class="fc" id="L1048">        when(loteRepository.findByActivoTrue()).thenReturn(List.of(lote));</span>
-<span class="fc" id="L1049">        when(dosnRepository.existsByLoteLoteID(1L)).thenReturn(false);</span>
+<span class="fc" id="L1041">        when(loteRepository.findByActivoTrue()).thenReturn(List.of(lote));</span>
+<span class="fc" id="L1042">        when(dosnRepository.existsByLoteLoteID(1L)).thenReturn(false);</span>
         
-<span class="fc" id="L1051">        long resultado = loteService.contarAnalisisPendientes();</span>
+<span class="fc" id="L1044">        long resultado = loteService.contarAnalisisPendientes();</span>
         
-<span class="fc" id="L1053">        assertEquals(1, resultado);</span>
-<span class="fc" id="L1054">    }</span>
+<span class="fc" id="L1046">        assertEquals(1, resultado);</span>
+<span class="fc" id="L1047">    }</span>
 
     @Test
     @DisplayName(&quot;contarAnalisisPendientes - TETRAZOLIO sin análisis cuenta como pendiente&quot;)
     void contarAnalisisPendientes_tetrazolioSinAnalisis() {
-<span class="fc" id="L1059">        lote.setActivo(true);</span>
-<span class="fc" id="L1060">        lote.setTiposAnalisisAsignados(List.of(TipoAnalisis.TETRAZOLIO));</span>
+<span class="fc" id="L1052">        lote.setActivo(true);</span>
+<span class="fc" id="L1053">        lote.setTiposAnalisisAsignados(List.of(TipoAnalisis.TETRAZOLIO));</span>
         
-<span class="fc" id="L1062">        when(loteRepository.findByActivoTrue()).thenReturn(List.of(lote));</span>
-<span class="fc" id="L1063">        when(tetrazolioRepository.existsByLoteLoteID(1L)).thenReturn(false);</span>
+<span class="fc" id="L1055">        when(loteRepository.findByActivoTrue()).thenReturn(List.of(lote));</span>
+<span class="fc" id="L1056">        when(tetrazolioRepository.existsByLoteLoteID(1L)).thenReturn(false);</span>
         
-<span class="fc" id="L1065">        long resultado = loteService.contarAnalisisPendientes();</span>
+<span class="fc" id="L1058">        long resultado = loteService.contarAnalisisPendientes();</span>
         
-<span class="fc" id="L1067">        assertEquals(1, resultado);</span>
-<span class="fc" id="L1068">    }</span>
+<span class="fc" id="L1060">        assertEquals(1, resultado);</span>
+<span class="fc" id="L1061">    }</span>
 
     @Test
     @DisplayName(&quot;contarAnalisisPendientes - PUREZA sin análisis cuenta como pendiente&quot;)
     void contarAnalisisPendientes_purezaSinAnalisis() {
-<span class="fc" id="L1073">        lote.setActivo(true);</span>
-<span class="fc" id="L1074">        lote.setTiposAnalisisAsignados(List.of(TipoAnalisis.PUREZA));</span>
+<span class="fc" id="L1066">        lote.setActivo(true);</span>
+<span class="fc" id="L1067">        lote.setTiposAnalisisAsignados(List.of(TipoAnalisis.PUREZA));</span>
         
-<span class="fc" id="L1076">        when(loteRepository.findByActivoTrue()).thenReturn(List.of(lote));</span>
-<span class="fc" id="L1077">        when(purezaRepository.existsByLoteLoteID(1L)).thenReturn(false);</span>
+<span class="fc" id="L1069">        when(loteRepository.findByActivoTrue()).thenReturn(List.of(lote));</span>
+<span class="fc" id="L1070">        when(purezaRepository.existsByLoteLoteID(1L)).thenReturn(false);</span>
         
-<span class="fc" id="L1079">        long resultado = loteService.contarAnalisisPendientes();</span>
+<span class="fc" id="L1072">        long resultado = loteService.contarAnalisisPendientes();</span>
         
-<span class="fc" id="L1081">        assertEquals(1, resultado);</span>
-<span class="fc" id="L1082">    }</span>
+<span class="fc" id="L1074">        assertEquals(1, resultado);</span>
+<span class="fc" id="L1075">    }</span>
 
     @Test
     @DisplayName(&quot;contarAnalisisPendientes - PMS con todos en A_REPETIR cuenta como pendiente&quot;)
     void contarAnalisisPendientes_pmsTodosARepetir() {
-<span class="fc" id="L1087">        lote.setActivo(true);</span>
-<span class="fc" id="L1088">        lote.setTiposAnalisisAsignados(List.of(TipoAnalisis.PMS));</span>
+<span class="fc" id="L1080">        lote.setActivo(true);</span>
+<span class="fc" id="L1081">        lote.setTiposAnalisisAsignados(List.of(TipoAnalisis.PMS));</span>
         
-<span class="fc" id="L1090">        utec.proyectofinal.Proyecto.Final.UTEC.business.entities.Pms pms1 = new utec.proyectofinal.Proyecto.Final.UTEC.business.entities.Pms();</span>
-<span class="fc" id="L1091">        pms1.setEstado(Estado.A_REPETIR);</span>
-<span class="fc" id="L1092">        utec.proyectofinal.Proyecto.Final.UTEC.business.entities.Pms pms2 = new utec.proyectofinal.Proyecto.Final.UTEC.business.entities.Pms();</span>
-<span class="fc" id="L1093">        pms2.setEstado(Estado.A_REPETIR);</span>
+<span class="fc" id="L1083">        utec.proyectofinal.Proyecto.Final.UTEC.business.entities.Pms pms1 = new utec.proyectofinal.Proyecto.Final.UTEC.business.entities.Pms();</span>
+<span class="fc" id="L1084">        pms1.setEstado(Estado.A_REPETIR);</span>
+<span class="fc" id="L1085">        utec.proyectofinal.Proyecto.Final.UTEC.business.entities.Pms pms2 = new utec.proyectofinal.Proyecto.Final.UTEC.business.entities.Pms();</span>
+<span class="fc" id="L1086">        pms2.setEstado(Estado.A_REPETIR);</span>
         
-<span class="fc" id="L1095">        when(loteRepository.findByActivoTrue()).thenReturn(List.of(lote));</span>
-<span class="fc" id="L1096">        when(pmsRepository.existsByLoteLoteID(1L)).thenReturn(true);</span>
-<span class="fc" id="L1097">        when(pmsRepository.findByLoteLoteID(1L)).thenReturn(List.of(pms1, pms2));</span>
+<span class="fc" id="L1088">        when(loteRepository.findByActivoTrue()).thenReturn(List.of(lote));</span>
+<span class="fc" id="L1089">        when(pmsRepository.existsByLoteLoteID(1L)).thenReturn(true);</span>
+<span class="fc" id="L1090">        when(pmsRepository.findByLoteLoteID(1L)).thenReturn(List.of(pms1, pms2));</span>
         
-<span class="fc" id="L1099">        long resultado = loteService.contarAnalisisPendientes();</span>
+<span class="fc" id="L1092">        long resultado = loteService.contarAnalisisPendientes();</span>
         
-<span class="fc" id="L1101">        assertEquals(1, resultado);</span>
-<span class="fc" id="L1102">    }</span>
+<span class="fc" id="L1094">        assertEquals(1, resultado);</span>
+<span class="fc" id="L1095">    }</span>
 
     @Test
     @DisplayName(&quot;contarAnalisisPendientes - GERMINACION con todos en A_REPETIR cuenta como pendiente&quot;)
     void contarAnalisisPendientes_germinacionTodosARepetir() {
-<span class="fc" id="L1107">        lote.setActivo(true);</span>
-<span class="fc" id="L1108">        lote.setTiposAnalisisAsignados(List.of(TipoAnalisis.GERMINACION));</span>
+<span class="fc" id="L1100">        lote.setActivo(true);</span>
+<span class="fc" id="L1101">        lote.setTiposAnalisisAsignados(List.of(TipoAnalisis.GERMINACION));</span>
         
-<span class="fc" id="L1110">        utec.proyectofinal.Proyecto.Final.UTEC.business.entities.Germinacion ger1 = new utec.proyectofinal.Proyecto.Final.UTEC.business.entities.Germinacion();</span>
-<span class="fc" id="L1111">        ger1.setEstado(Estado.A_REPETIR);</span>
+<span class="fc" id="L1103">        utec.proyectofinal.Proyecto.Final.UTEC.business.entities.Germinacion ger1 = new utec.proyectofinal.Proyecto.Final.UTEC.business.entities.Germinacion();</span>
+<span class="fc" id="L1104">        ger1.setEstado(Estado.A_REPETIR);</span>
         
-<span class="fc" id="L1113">        when(loteRepository.findByActivoTrue()).thenReturn(List.of(lote));</span>
-<span class="fc" id="L1114">        when(germinacionRepository.existsByLoteLoteID(1L)).thenReturn(true);</span>
-<span class="fc" id="L1115">        when(germinacionRepository.findByLoteLoteID(1L)).thenReturn(List.of(ger1));</span>
+<span class="fc" id="L1106">        when(loteRepository.findByActivoTrue()).thenReturn(List.of(lote));</span>
+<span class="fc" id="L1107">        when(germinacionRepository.existsByLoteLoteID(1L)).thenReturn(true);</span>
+<span class="fc" id="L1108">        when(germinacionRepository.findByLoteLoteID(1L)).thenReturn(List.of(ger1));</span>
         
-<span class="fc" id="L1117">        long resultado = loteService.contarAnalisisPendientes();</span>
+<span class="fc" id="L1110">        long resultado = loteService.contarAnalisisPendientes();</span>
         
-<span class="fc" id="L1119">        assertEquals(1, resultado);</span>
-<span class="fc" id="L1120">    }</span>
+<span class="fc" id="L1112">        assertEquals(1, resultado);</span>
+<span class="fc" id="L1113">    }</span>
 
     @Test
     @DisplayName(&quot;contarAnalisisPendientes - DOSN con todos en A_REPETIR cuenta como pendiente&quot;)
     void contarAnalisisPendientes_dosnTodosARepetir() {
-<span class="fc" id="L1125">        lote.setActivo(true);</span>
-<span class="fc" id="L1126">        lote.setTiposAnalisisAsignados(List.of(TipoAnalisis.DOSN));</span>
+<span class="fc" id="L1118">        lote.setActivo(true);</span>
+<span class="fc" id="L1119">        lote.setTiposAnalisisAsignados(List.of(TipoAnalisis.DOSN));</span>
         
-<span class="fc" id="L1128">        utec.proyectofinal.Proyecto.Final.UTEC.business.entities.Dosn dosn1 = new utec.proyectofinal.Proyecto.Final.UTEC.business.entities.Dosn();</span>
-<span class="fc" id="L1129">        dosn1.setEstado(Estado.A_REPETIR);</span>
+<span class="fc" id="L1121">        utec.proyectofinal.Proyecto.Final.UTEC.business.entities.Dosn dosn1 = new utec.proyectofinal.Proyecto.Final.UTEC.business.entities.Dosn();</span>
+<span class="fc" id="L1122">        dosn1.setEstado(Estado.A_REPETIR);</span>
         
-<span class="fc" id="L1131">        when(loteRepository.findByActivoTrue()).thenReturn(List.of(lote));</span>
-<span class="fc" id="L1132">        when(dosnRepository.existsByLoteLoteID(1L)).thenReturn(true);</span>
-<span class="fc" id="L1133">        when(dosnRepository.findByLoteLoteID(1L)).thenReturn(List.of(dosn1));</span>
+<span class="fc" id="L1124">        when(loteRepository.findByActivoTrue()).thenReturn(List.of(lote));</span>
+<span class="fc" id="L1125">        when(dosnRepository.existsByLoteLoteID(1L)).thenReturn(true);</span>
+<span class="fc" id="L1126">        when(dosnRepository.findByLoteLoteID(1L)).thenReturn(List.of(dosn1));</span>
         
-<span class="fc" id="L1135">        long resultado = loteService.contarAnalisisPendientes();</span>
+<span class="fc" id="L1128">        long resultado = loteService.contarAnalisisPendientes();</span>
         
-<span class="fc" id="L1137">        assertEquals(1, resultado);</span>
-<span class="fc" id="L1138">    }</span>
+<span class="fc" id="L1130">        assertEquals(1, resultado);</span>
+<span class="fc" id="L1131">    }</span>
 
     @Test
     @DisplayName(&quot;contarAnalisisPendientes - TETRAZOLIO con todos en A_REPETIR cuenta como pendiente&quot;)
     void contarAnalisisPendientes_tetrazolioTodosARepetir() {
-<span class="fc" id="L1143">        lote.setActivo(true);</span>
-<span class="fc" id="L1144">        lote.setTiposAnalisisAsignados(List.of(TipoAnalisis.TETRAZOLIO));</span>
+<span class="fc" id="L1136">        lote.setActivo(true);</span>
+<span class="fc" id="L1137">        lote.setTiposAnalisisAsignados(List.of(TipoAnalisis.TETRAZOLIO));</span>
         
-<span class="fc" id="L1146">        utec.proyectofinal.Proyecto.Final.UTEC.business.entities.Tetrazolio tet1 = new utec.proyectofinal.Proyecto.Final.UTEC.business.entities.Tetrazolio();</span>
-<span class="fc" id="L1147">        tet1.setEstado(Estado.A_REPETIR);</span>
+<span class="fc" id="L1139">        utec.proyectofinal.Proyecto.Final.UTEC.business.entities.Tetrazolio tet1 = new utec.proyectofinal.Proyecto.Final.UTEC.business.entities.Tetrazolio();</span>
+<span class="fc" id="L1140">        tet1.setEstado(Estado.A_REPETIR);</span>
         
-<span class="fc" id="L1149">        when(loteRepository.findByActivoTrue()).thenReturn(List.of(lote));</span>
-<span class="fc" id="L1150">        when(tetrazolioRepository.existsByLoteLoteID(1L)).thenReturn(true);</span>
-<span class="fc" id="L1151">        when(tetrazolioRepository.findByLoteLoteID(1L)).thenReturn(List.of(tet1));</span>
+<span class="fc" id="L1142">        when(loteRepository.findByActivoTrue()).thenReturn(List.of(lote));</span>
+<span class="fc" id="L1143">        when(tetrazolioRepository.existsByLoteLoteID(1L)).thenReturn(true);</span>
+<span class="fc" id="L1144">        when(tetrazolioRepository.findByLoteLoteID(1L)).thenReturn(List.of(tet1));</span>
         
-<span class="fc" id="L1153">        long resultado = loteService.contarAnalisisPendientes();</span>
+<span class="fc" id="L1146">        long resultado = loteService.contarAnalisisPendientes();</span>
         
-<span class="fc" id="L1155">        assertEquals(1, resultado);</span>
-<span class="fc" id="L1156">    }</span>
+<span class="fc" id="L1148">        assertEquals(1, resultado);</span>
+<span class="fc" id="L1149">    }</span>
 
     @Test
     @DisplayName(&quot;contarAnalisisPendientes - PUREZA con todos en A_REPETIR cuenta como pendiente&quot;)
     void contarAnalisisPendientes_purezaTodosARepetir() {
-<span class="fc" id="L1161">        lote.setActivo(true);</span>
-<span class="fc" id="L1162">        lote.setTiposAnalisisAsignados(List.of(TipoAnalisis.PUREZA));</span>
+<span class="fc" id="L1154">        lote.setActivo(true);</span>
+<span class="fc" id="L1155">        lote.setTiposAnalisisAsignados(List.of(TipoAnalisis.PUREZA));</span>
         
-<span class="fc" id="L1164">        utec.proyectofinal.Proyecto.Final.UTEC.business.entities.Pureza pureza1 = new utec.proyectofinal.Proyecto.Final.UTEC.business.entities.Pureza();</span>
-<span class="fc" id="L1165">        pureza1.setEstado(Estado.A_REPETIR);</span>
+<span class="fc" id="L1157">        utec.proyectofinal.Proyecto.Final.UTEC.business.entities.Pureza pureza1 = new utec.proyectofinal.Proyecto.Final.UTEC.business.entities.Pureza();</span>
+<span class="fc" id="L1158">        pureza1.setEstado(Estado.A_REPETIR);</span>
         
-<span class="fc" id="L1167">        when(loteRepository.findByActivoTrue()).thenReturn(List.of(lote));</span>
-<span class="fc" id="L1168">        when(purezaRepository.existsByLoteLoteID(1L)).thenReturn(true);</span>
-<span class="fc" id="L1169">        when(purezaRepository.findByLoteLoteID(1L)).thenReturn(List.of(pureza1));</span>
+<span class="fc" id="L1160">        when(loteRepository.findByActivoTrue()).thenReturn(List.of(lote));</span>
+<span class="fc" id="L1161">        when(purezaRepository.existsByLoteLoteID(1L)).thenReturn(true);</span>
+<span class="fc" id="L1162">        when(purezaRepository.findByLoteLoteID(1L)).thenReturn(List.of(pureza1));</span>
         
-<span class="fc" id="L1171">        long resultado = loteService.contarAnalisisPendientes();</span>
+<span class="fc" id="L1164">        long resultado = loteService.contarAnalisisPendientes();</span>
         
-<span class="fc" id="L1173">        assertEquals(1, resultado);</span>
-<span class="fc" id="L1174">    }</span>
+<span class="fc" id="L1166">        assertEquals(1, resultado);</span>
+<span class="fc" id="L1167">    }</span>
 
     @Test
     @DisplayName(&quot;contarAnalisisPendientes - análisis con estado diferente a A_REPETIR no cuenta&quot;)
     void contarAnalisisPendientes_analisisConOtroEstado() {
-<span class="fc" id="L1179">        lote.setActivo(true);</span>
-<span class="fc" id="L1180">        lote.setTiposAnalisisAsignados(List.of(TipoAnalisis.PMS));</span>
+<span class="fc" id="L1172">        lote.setActivo(true);</span>
+<span class="fc" id="L1173">        lote.setTiposAnalisisAsignados(List.of(TipoAnalisis.PMS));</span>
         
-<span class="fc" id="L1182">        utec.proyectofinal.Proyecto.Final.UTEC.business.entities.Pms pms1 = new utec.proyectofinal.Proyecto.Final.UTEC.business.entities.Pms();</span>
-<span class="fc" id="L1183">        pms1.setEstado(Estado.PENDIENTE_APROBACION);</span>
+<span class="fc" id="L1175">        utec.proyectofinal.Proyecto.Final.UTEC.business.entities.Pms pms1 = new utec.proyectofinal.Proyecto.Final.UTEC.business.entities.Pms();</span>
+<span class="fc" id="L1176">        pms1.setEstado(Estado.PENDIENTE_APROBACION);</span>
         
-<span class="fc" id="L1185">        when(loteRepository.findByActivoTrue()).thenReturn(List.of(lote));</span>
-<span class="fc" id="L1186">        when(pmsRepository.existsByLoteLoteID(1L)).thenReturn(true);</span>
-<span class="fc" id="L1187">        when(pmsRepository.findByLoteLoteID(1L)).thenReturn(List.of(pms1));</span>
+<span class="fc" id="L1178">        when(loteRepository.findByActivoTrue()).thenReturn(List.of(lote));</span>
+<span class="fc" id="L1179">        when(pmsRepository.existsByLoteLoteID(1L)).thenReturn(true);</span>
+<span class="fc" id="L1180">        when(pmsRepository.findByLoteLoteID(1L)).thenReturn(List.of(pms1));</span>
         
-<span class="fc" id="L1189">        long resultado = loteService.contarAnalisisPendientes();</span>
+<span class="fc" id="L1182">        long resultado = loteService.contarAnalisisPendientes();</span>
         
-<span class="fc" id="L1191">        assertEquals(0, resultado);</span>
-<span class="fc" id="L1192">    }</span>
+<span class="fc" id="L1184">        assertEquals(0, resultado);</span>
+<span class="fc" id="L1185">    }</span>
 
     @Test
     @DisplayName(&quot;contarAnalisisPendientes - múltiples tipos asignados cuenta correctamente&quot;)
     void contarAnalisisPendientes_multipleTipos() {
-<span class="fc" id="L1197">        lote.setActivo(true);</span>
-<span class="fc" id="L1198">        lote.setTiposAnalisisAsignados(List.of(TipoAnalisis.PMS, TipoAnalisis.GERMINACION, TipoAnalisis.DOSN));</span>
+<span class="fc" id="L1190">        lote.setActivo(true);</span>
+<span class="fc" id="L1191">        lote.setTiposAnalisisAsignados(List.of(TipoAnalisis.PMS, TipoAnalisis.GERMINACION, TipoAnalisis.DOSN));</span>
         
-<span class="fc" id="L1200">        when(loteRepository.findByActivoTrue()).thenReturn(List.of(lote));</span>
-<span class="fc" id="L1201">        when(pmsRepository.existsByLoteLoteID(1L)).thenReturn(false);</span>
-<span class="fc" id="L1202">        when(germinacionRepository.existsByLoteLoteID(1L)).thenReturn(false);</span>
-<span class="fc" id="L1203">        when(dosnRepository.existsByLoteLoteID(1L)).thenReturn(false);</span>
+<span class="fc" id="L1193">        when(loteRepository.findByActivoTrue()).thenReturn(List.of(lote));</span>
+<span class="fc" id="L1194">        when(pmsRepository.existsByLoteLoteID(1L)).thenReturn(false);</span>
+<span class="fc" id="L1195">        when(germinacionRepository.existsByLoteLoteID(1L)).thenReturn(false);</span>
+<span class="fc" id="L1196">        when(dosnRepository.existsByLoteLoteID(1L)).thenReturn(false);</span>
         
-<span class="fc" id="L1205">        long resultado = loteService.contarAnalisisPendientes();</span>
+<span class="fc" id="L1198">        long resultado = loteService.contarAnalisisPendientes();</span>
         
-<span class="fc" id="L1207">        assertEquals(3, resultado);</span>
-<span class="fc" id="L1208">    }</span>
+<span class="fc" id="L1200">        assertEquals(3, resultado);</span>
+<span class="fc" id="L1201">    }</span>
 
     @Test
     @DisplayName(&quot;contarAnalisisPendientes - múltiples lotes suma correctamente&quot;)
     void contarAnalisisPendientes_multipleLotes() {
-<span class="fc" id="L1213">        Lote lote1 = new Lote();</span>
-<span class="fc" id="L1214">        lote1.setLoteID(1L);</span>
-<span class="fc" id="L1215">        lote1.setActivo(true);</span>
-<span class="fc" id="L1216">        lote1.setTiposAnalisisAsignados(List.of(TipoAnalisis.PMS));</span>
+<span class="fc" id="L1206">        Lote lote1 = new Lote();</span>
+<span class="fc" id="L1207">        lote1.setLoteID(1L);</span>
+<span class="fc" id="L1208">        lote1.setActivo(true);</span>
+<span class="fc" id="L1209">        lote1.setTiposAnalisisAsignados(List.of(TipoAnalisis.PMS));</span>
         
-<span class="fc" id="L1218">        Lote lote2 = new Lote();</span>
-<span class="fc" id="L1219">        lote2.setLoteID(2L);</span>
-<span class="fc" id="L1220">        lote2.setActivo(true);</span>
-<span class="fc" id="L1221">        lote2.setTiposAnalisisAsignados(List.of(TipoAnalisis.GERMINACION, TipoAnalisis.DOSN));</span>
+<span class="fc" id="L1211">        Lote lote2 = new Lote();</span>
+<span class="fc" id="L1212">        lote2.setLoteID(2L);</span>
+<span class="fc" id="L1213">        lote2.setActivo(true);</span>
+<span class="fc" id="L1214">        lote2.setTiposAnalisisAsignados(List.of(TipoAnalisis.GERMINACION, TipoAnalisis.DOSN));</span>
         
-<span class="fc" id="L1223">        when(loteRepository.findByActivoTrue()).thenReturn(List.of(lote1, lote2));</span>
-<span class="fc" id="L1224">        when(pmsRepository.existsByLoteLoteID(1L)).thenReturn(false);</span>
-<span class="fc" id="L1225">        when(germinacionRepository.existsByLoteLoteID(2L)).thenReturn(false);</span>
-<span class="fc" id="L1226">        when(dosnRepository.existsByLoteLoteID(2L)).thenReturn(false);</span>
+<span class="fc" id="L1216">        when(loteRepository.findByActivoTrue()).thenReturn(List.of(lote1, lote2));</span>
+<span class="fc" id="L1217">        when(pmsRepository.existsByLoteLoteID(1L)).thenReturn(false);</span>
+<span class="fc" id="L1218">        when(germinacionRepository.existsByLoteLoteID(2L)).thenReturn(false);</span>
+<span class="fc" id="L1219">        when(dosnRepository.existsByLoteLoteID(2L)).thenReturn(false);</span>
         
-<span class="fc" id="L1228">        long resultado = loteService.contarAnalisisPendientes();</span>
+<span class="fc" id="L1221">        long resultado = loteService.contarAnalisisPendientes();</span>
         
-<span class="fc" id="L1230">        assertEquals(3, resultado);</span>
-<span class="fc" id="L1231">    }</span>
+<span class="fc" id="L1223">        assertEquals(3, resultado);</span>
+<span class="fc" id="L1224">    }</span>
 
     @Test
     @DisplayName(&quot;contarAnalisisPendientes - mezcla análisis completos y pendientes&quot;)
     void contarAnalisisPendientes_mezclaPendientesYCompletos() {
-<span class="fc" id="L1236">        lote.setActivo(true);</span>
-<span class="fc" id="L1237">        lote.setTiposAnalisisAsignados(List.of(TipoAnalisis.PMS, TipoAnalisis.GERMINACION));</span>
+<span class="fc" id="L1229">        lote.setActivo(true);</span>
+<span class="fc" id="L1230">        lote.setTiposAnalisisAsignados(List.of(TipoAnalisis.PMS, TipoAnalisis.GERMINACION));</span>
         
-<span class="fc" id="L1239">        utec.proyectofinal.Proyecto.Final.UTEC.business.entities.Pms pms1 = new utec.proyectofinal.Proyecto.Final.UTEC.business.entities.Pms();</span>
-<span class="fc" id="L1240">        pms1.setEstado(Estado.APROBADO);</span>
+<span class="fc" id="L1232">        utec.proyectofinal.Proyecto.Final.UTEC.business.entities.Pms pms1 = new utec.proyectofinal.Proyecto.Final.UTEC.business.entities.Pms();</span>
+<span class="fc" id="L1233">        pms1.setEstado(Estado.APROBADO);</span>
         
-<span class="fc" id="L1242">        when(loteRepository.findByActivoTrue()).thenReturn(List.of(lote));</span>
-<span class="fc" id="L1243">        when(pmsRepository.existsByLoteLoteID(1L)).thenReturn(true);</span>
-<span class="fc" id="L1244">        when(pmsRepository.findByLoteLoteID(1L)).thenReturn(List.of(pms1));</span>
-<span class="fc" id="L1245">        when(germinacionRepository.existsByLoteLoteID(1L)).thenReturn(false);</span>
+<span class="fc" id="L1235">        when(loteRepository.findByActivoTrue()).thenReturn(List.of(lote));</span>
+<span class="fc" id="L1236">        when(pmsRepository.existsByLoteLoteID(1L)).thenReturn(true);</span>
+<span class="fc" id="L1237">        when(pmsRepository.findByLoteLoteID(1L)).thenReturn(List.of(pms1));</span>
+<span class="fc" id="L1238">        when(germinacionRepository.existsByLoteLoteID(1L)).thenReturn(false);</span>
         
-<span class="fc" id="L1247">        long resultado = loteService.contarAnalisisPendientes();</span>
+<span class="fc" id="L1240">        long resultado = loteService.contarAnalisisPendientes();</span>
         
-<span class="fc" id="L1249">        assertEquals(1, resultado); // Solo GERMINACION está pendiente</span>
-<span class="fc" id="L1250">    }</span>
+<span class="fc" id="L1242">        assertEquals(1, resultado); // Solo GERMINACION está pendiente</span>
+<span class="fc" id="L1243">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

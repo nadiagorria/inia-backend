@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TetrazolioService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">TetrazolioService.java</span></div><h1>TetrazolioService.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TetrazolioService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">TetrazolioService.java</span></div><h1>TetrazolioService.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
 
 import java.util.List;
 import java.util.Optional;
@@ -43,22 +43,22 @@ import org.springframework.data.domain.Pageable;
     @Autowired
     private AnalisisService analisisService;
 
-    // Crear Tetrazolio con estado REGISTRADO
+    
     @Transactional
     public TetrazolioDTO crearTetrazolio(TetrazolioRequestDTO solicitud) {
         try {
-        //    if (solicitud.getViabilidadInase() == null || solicitud.getViabilidadInase().compareTo(BigDecimal.ZERO) &lt; 0) {
-          //      throw new IllegalArgumentException(&quot;El campo viabilidadInase debe ser un valor positivo.&quot;);
-           // }
+        
+          
+           
 <span class="fc" id="L53">            Tetrazolio tetrazolio = mapearSolicitudAEntidad(solicitud);</span>
 <span class="fc" id="L54">            tetrazolio.setEstado(Estado.REGISTRADO);</span>
             
-            // Establecer fecha de inicio automáticamente
+            
 <span class="fc" id="L57">            analisisService.establecerFechaInicio(tetrazolio);</span>
             
 <span class="fc" id="L59">            Tetrazolio tetrazolioGuardado = tetrazolioRepository.save(tetrazolio);</span>
             
-            // Registrar automáticamente en el historial
+            
 <span class="fc" id="L62">            analisisHistorialService.registrarCreacion(tetrazolioGuardado);</span>
             
 <span class="fc" id="L64">            return mapearEntidadADTO(tetrazolioGuardado);</span>
@@ -67,45 +67,45 @@ import org.springframework.data.domain.Pageable;
         }
     }
 
-    // Editar Tetrazolio
+    
     @Transactional
     public TetrazolioDTO actualizarTetrazolio(Long id, TetrazolioRequestDTO solicitud) {
 <span class="fc" id="L73">        Tetrazolio tetrazolio = tetrazolioRepository.findById(id)</span>
 <span class="pc" id="L74">                .orElseThrow(() -&gt; new RuntimeException(&quot;Análisis de tetrazolio no encontrado con ID: &quot; + id));</span>
         
-        // Manejar cambios de estado según rol del usuario
+        
 <span class="fc" id="L77">        Estado estadoOriginal = tetrazolio.getEstado();</span>
         
 <span class="pc bpc" id="L79" title="2 of 4 branches missed.">        if (estadoOriginal == Estado.APROBADO &amp;&amp; analisisService.esAnalista()) {</span>
-            // Si es ANALISTA editando un análisis APROBADO, cambiar a PENDIENTE_APROBACION
+            
 <span class="fc" id="L81">            tetrazolio.setEstado(Estado.PENDIENTE_APROBACION);</span>
         }
-        // Si es ADMIN editando análisis APROBADO, mantiene el estado APROBADO
-        // Para otros estados se mantiene igual
         
-        // Actualizar los campos del tetrazolio con los datos de la solicitud
+        
+        
+        
 <span class="fc" id="L87">        actualizarEntidadDesdeSolicitud(tetrazolio, solicitud);</span>
         
 <span class="fc" id="L89">        Tetrazolio tetrazolioActualizado = tetrazolioRepository.save(tetrazolio);</span>
         
-        // Registrar automáticamente en el historial
+        
 <span class="fc" id="L92">        analisisHistorialService.registrarModificacion(tetrazolioActualizado);</span>
         
 <span class="fc" id="L94">        return mapearEntidadADTO(tetrazolioActualizado);</span>
     }
 
 
-    // Desactivar Tetrazolio (cambiar activo a false)
+    
     public void desactivarTetrazolio(Long id) {
 <span class="fc" id="L100">        analisisService.desactivarAnalisis(id, tetrazolioRepository);</span>
 <span class="fc" id="L101">    }</span>
 
-    // Reactivar Tetrazolio (cambiar activo a true)
+    
     public TetrazolioDTO reactivarTetrazolio(Long id) {
 <span class="fc" id="L105">        return analisisService.reactivarAnalisis(id, tetrazolioRepository, this::mapearEntidadADTO);</span>
     }
 
-    // Listar todos los Tetrazolios activos usando ResponseListadoTetrazolio
+    
     public ResponseListadoTetrazolio obtenerTodosTetrazolio() {
 <span class="nc" id="L110">        List&lt;Tetrazolio&gt; tetrazoliosActivos = tetrazolioRepository.findByActivoTrue();</span>
 <span class="nc" id="L111">        List&lt;TetrazolioDTO&gt; tetrazoliosDTO = tetrazoliosActivos.stream()</span>
@@ -117,7 +117,7 @@ import org.springframework.data.domain.Pageable;
 <span class="nc" id="L117">        return response;</span>
     }
 
-    // Obtener Tetrazolio por ID
+    
     public TetrazolioDTO obtenerTetrazolioPorId(Long id) {
 <span class="fc" id="L122">        Tetrazolio tetrazolio = tetrazolioRepository.findById(id)</span>
 <span class="pc" id="L123">                .orElseThrow(() -&gt; new RuntimeException(&quot;Análisis de tetrazolio no encontrado con ID: &quot; + id));</span>
@@ -125,7 +125,7 @@ import org.springframework.data.domain.Pageable;
 <span class="fc" id="L125">        return mapearEntidadADTO(tetrazolio);</span>
     }
 
-    // Obtener Tetrazolios por Lote
+    
     public List&lt;TetrazolioDTO&gt; obtenerTetrazoliosPorIdLote(Long idLote) {
 <span class="nc" id="L130">        List&lt;Tetrazolio&gt; tetrazolios = tetrazolioRepository.findByIdLote(idLote);</span>
 <span class="nc" id="L131">        return tetrazolios.stream()</span>
@@ -133,13 +133,13 @@ import org.springframework.data.domain.Pageable;
 <span class="nc" id="L133">                .collect(Collectors.toList());</span>
     }
 
-    // Listar Tetrazolio con paginado (para listado)
+    
     public Page&lt;TetrazolioListadoDTO&gt; obtenerTetrazoliosPaginadas(Pageable pageable) {
 <span class="nc" id="L138">        Page&lt;Tetrazolio&gt; tetrazolioPage = tetrazolioRepository.findByActivoTrueOrderByFechaInicioDesc(pageable);</span>
 <span class="nc" id="L139">        return tetrazolioPage.map(this::mapearEntidadAListadoDTO);</span>
     }
 
-    // Listar Tetrazolio con paginado y filtro de activo
+    
     public Page&lt;TetrazolioListadoDTO&gt; obtenerTetrazoliosPaginadasConFiltro(Pageable pageable, String filtroActivo) {
         Page&lt;Tetrazolio&gt; tetrazolioPage;
         
@@ -150,7 +150,7 @@ import org.springframework.data.domain.Pageable;
             case &quot;inactivos&quot;:
 <span class="fc" id="L151">                tetrazolioPage = tetrazolioRepository.findByActivoFalseOrderByFechaInicioDesc(pageable);</span>
 <span class="fc" id="L152">                break;</span>
-            default: // &quot;todos&quot;
+            default: 
 <span class="fc" id="L154">                tetrazolioPage = tetrazolioRepository.findAllByOrderByFechaInicioDesc(pageable);</span>
                 break;
         }
@@ -158,9 +158,7 @@ import org.springframework.data.domain.Pageable;
 <span class="fc" id="L158">        return tetrazolioPage.map(this::mapearEntidadAListadoDTO);</span>
     }
 
-    /**
-     * Listar Tetrazolio con paginado y filtros dinámicos
-     */
+    
     public Page&lt;TetrazolioListadoDTO&gt; obtenerTetrazoliosPaginadasConFiltros(
             Pageable pageable,
             String searchTerm,
@@ -168,272 +166,268 @@ import org.springframework.data.domain.Pageable;
             String estado,
             Long loteId) {
         
-<span class="fc" id="L171">        Specification&lt;Tetrazolio&gt; spec = TetrazolioSpecification.conFiltros(searchTerm, activo, estado, loteId);</span>
-<span class="fc" id="L172">        Page&lt;Tetrazolio&gt; tetrazolioPage = tetrazolioRepository.findAll(spec, pageable);</span>
-<span class="fc" id="L173">        return tetrazolioPage.map(this::mapearEntidadAListadoDTO);</span>
+<span class="fc" id="L169">        Specification&lt;Tetrazolio&gt; spec = TetrazolioSpecification.conFiltros(searchTerm, activo, estado, loteId);</span>
+<span class="fc" id="L170">        Page&lt;Tetrazolio&gt; tetrazolioPage = tetrazolioRepository.findAll(spec, pageable);</span>
+<span class="fc" id="L171">        return tetrazolioPage.map(this::mapearEntidadAListadoDTO);</span>
     }
 
-    // Mapear entidad a DTO de listado simple
+    
     private TetrazolioListadoDTO mapearEntidadAListadoDTO(Tetrazolio tetrazolio) {
-<span class="fc" id="L178">        TetrazolioListadoDTO dto = new TetrazolioListadoDTO();</span>
-<span class="fc" id="L179">        dto.setAnalisisID(tetrazolio.getAnalisisID());</span>
-<span class="fc" id="L180">        dto.setEstado(tetrazolio.getEstado());</span>
-<span class="fc" id="L181">        dto.setFechaInicio(tetrazolio.getFechaInicio());</span>
-<span class="fc" id="L182">        dto.setFechaFin(tetrazolio.getFechaFin());</span>
-<span class="fc" id="L183">        dto.setActivo(tetrazolio.getActivo());</span>
-<span class="fc" id="L184">        dto.setFecha(tetrazolio.getFecha());</span>
+<span class="fc" id="L176">        TetrazolioListadoDTO dto = new TetrazolioListadoDTO();</span>
+<span class="fc" id="L177">        dto.setAnalisisID(tetrazolio.getAnalisisID());</span>
+<span class="fc" id="L178">        dto.setEstado(tetrazolio.getEstado());</span>
+<span class="fc" id="L179">        dto.setFechaInicio(tetrazolio.getFechaInicio());</span>
+<span class="fc" id="L180">        dto.setFechaFin(tetrazolio.getFechaFin());</span>
+<span class="fc" id="L181">        dto.setActivo(tetrazolio.getActivo());</span>
+<span class="fc" id="L182">        dto.setFecha(tetrazolio.getFecha());</span>
         
-        // Viabilidad con redondeo (Viabilidad INIA %)
-<span class="fc" id="L187">        dto.setViabilidadConRedondeo(tetrazolio.getPorcViablesRedondeo());</span>
         
-        // Viabilidad INASE %
-<span class="fc" id="L190">        dto.setViabilidadInase(tetrazolio.getViabilidadInase());</span>
+<span class="fc" id="L185">        dto.setViabilidadConRedondeo(tetrazolio.getPorcViablesRedondeo());</span>
         
-<span class="pc bpc" id="L192" title="1 of 2 branches missed.">        if (tetrazolio.getLote() != null) {</span>
-<span class="fc" id="L193">            dto.setIdLote(tetrazolio.getLote().getLoteID());</span>
-<span class="fc" id="L194">            dto.setLote(tetrazolio.getLote().getNomLote()); // Usar nomLote en lugar de ficha</span>
+        
+<span class="fc" id="L188">        dto.setViabilidadInase(tetrazolio.getViabilidadInase());</span>
+        
+<span class="pc bpc" id="L190" title="1 of 2 branches missed.">        if (tetrazolio.getLote() != null) {</span>
+<span class="fc" id="L191">            dto.setIdLote(tetrazolio.getLote().getLoteID());</span>
+<span class="fc" id="L192">            dto.setLote(tetrazolio.getLote().getNomLote()); </span>
             
-            // Obtener especie del lote - Usar nombreComun primero, luego nombreCientifico
-<span class="pc bpc" id="L197" title="1 of 4 branches missed.">            if (tetrazolio.getLote().getCultivar() != null &amp;&amp; tetrazolio.getLote().getCultivar().getEspecie() != null) {</span>
-<span class="fc" id="L198">                String nombreEspecie = tetrazolio.getLote().getCultivar().getEspecie().getNombreComun();</span>
-                // Si nombreComun está vacío, intentar con nombreCientifico
-<span class="pc bpc" id="L200" title="1 of 4 branches missed.">                if (nombreEspecie == null || nombreEspecie.trim().isEmpty()) {</span>
-<span class="fc" id="L201">                    nombreEspecie = tetrazolio.getLote().getCultivar().getEspecie().getNombreCientifico();</span>
+            
+<span class="pc bpc" id="L195" title="1 of 4 branches missed.">            if (tetrazolio.getLote().getCultivar() != null &amp;&amp; tetrazolio.getLote().getCultivar().getEspecie() != null) {</span>
+<span class="fc" id="L196">                String nombreEspecie = tetrazolio.getLote().getCultivar().getEspecie().getNombreComun();</span>
+                
+<span class="pc bpc" id="L198" title="1 of 4 branches missed.">                if (nombreEspecie == null || nombreEspecie.trim().isEmpty()) {</span>
+<span class="fc" id="L199">                    nombreEspecie = tetrazolio.getLote().getCultivar().getEspecie().getNombreCientifico();</span>
                 }
-<span class="fc" id="L203">                dto.setEspecie(nombreEspecie);</span>
+<span class="fc" id="L201">                dto.setEspecie(nombreEspecie);</span>
             }
         }
         
-<span class="pc bpc" id="L207" title="1 of 2 branches missed.">        if (tetrazolio.getAnalisisID() != null) {</span>
-<span class="fc" id="L208">            var historial = analisisHistorialService.obtenerHistorialAnalisis(tetrazolio.getAnalisisID());</span>
-<span class="fc bfc" id="L209" title="All 2 branches covered.">            if (!historial.isEmpty()) {</span>
-<span class="fc" id="L210">                var primerRegistro = historial.get(historial.size() - 1);</span>
-<span class="fc" id="L211">                dto.setUsuarioCreador(primerRegistro.getUsuario());</span>
-<span class="fc" id="L212">                var ultimoRegistro = historial.get(0);</span>
-<span class="fc" id="L213">                dto.setUsuarioModificador(ultimoRegistro.getUsuario());</span>
+<span class="pc bpc" id="L205" title="1 of 2 branches missed.">        if (tetrazolio.getAnalisisID() != null) {</span>
+<span class="fc" id="L206">            var historial = analisisHistorialService.obtenerHistorialAnalisis(tetrazolio.getAnalisisID());</span>
+<span class="fc bfc" id="L207" title="All 2 branches covered.">            if (!historial.isEmpty()) {</span>
+<span class="fc" id="L208">                var primerRegistro = historial.get(historial.size() - 1);</span>
+<span class="fc" id="L209">                dto.setUsuarioCreador(primerRegistro.getUsuario());</span>
+<span class="fc" id="L210">                var ultimoRegistro = historial.get(0);</span>
+<span class="fc" id="L211">                dto.setUsuarioModificador(ultimoRegistro.getUsuario());</span>
             }
         }
-<span class="fc" id="L216">        return dto;</span>
+<span class="fc" id="L214">        return dto;</span>
     }
 
-    // Actualizar porcentajes redondeados (solo cuando todas las repeticiones estén completas)
+    
     @Transactional
     public TetrazolioDTO actualizarPorcentajesRedondeados(Long id, PorcentajesRedondeadosRequestDTO solicitud) {
-<span class="fc" id="L222">        Tetrazolio tetrazolio = tetrazolioRepository.findById(id)</span>
-<span class="pc" id="L223">                .orElseThrow(() -&gt; new RuntimeException(&quot;Análisis de tetrazolio no encontrado con ID: &quot; + id));</span>
+<span class="fc" id="L220">        Tetrazolio tetrazolio = tetrazolioRepository.findById(id)</span>
+<span class="pc" id="L221">                .orElseThrow(() -&gt; new RuntimeException(&quot;Análisis de tetrazolio no encontrado con ID: &quot; + id));</span>
         
-        // Validación específica de tetrazolio: completitud de repeticiones antes de actualizar porcentajes
-<span class="fc" id="L226">        validarCompletitudRepeticiones(tetrazolio);</span>
         
-        // Actualizar solo los porcentajes
-<span class="fc" id="L229">        tetrazolio.setPorcViablesRedondeo(solicitud.getPorcViablesRedondeo());</span>
-<span class="fc" id="L230">        tetrazolio.setPorcNoViablesRedondeo(solicitud.getPorcNoViablesRedondeo());</span>
-<span class="fc" id="L231">        tetrazolio.setPorcDurasRedondeo(solicitud.getPorcDurasRedondeo());</span>
+<span class="fc" id="L224">        validarCompletitudRepeticiones(tetrazolio);</span>
         
-<span class="fc" id="L233">        Tetrazolio tetrazolioActualizado = tetrazolioRepository.save(tetrazolio);</span>
-<span class="fc" id="L234">        System.out.println(&quot;Porcentajes redondeados actualizados exitosamente para tetrazolio ID: &quot; + id);</span>
-<span class="fc" id="L235">        return mapearEntidadADTO(tetrazolioActualizado);</span>
+        
+<span class="fc" id="L227">        tetrazolio.setPorcViablesRedondeo(solicitud.getPorcViablesRedondeo());</span>
+<span class="fc" id="L228">        tetrazolio.setPorcNoViablesRedondeo(solicitud.getPorcNoViablesRedondeo());</span>
+<span class="fc" id="L229">        tetrazolio.setPorcDurasRedondeo(solicitud.getPorcDurasRedondeo());</span>
+        
+<span class="fc" id="L231">        Tetrazolio tetrazolioActualizado = tetrazolioRepository.save(tetrazolio);</span>
+<span class="fc" id="L232">        System.out.println(&quot;Porcentajes redondeados actualizados exitosamente para tetrazolio ID: &quot; + id);</span>
+<span class="fc" id="L233">        return mapearEntidadADTO(tetrazolioActualizado);</span>
     }
 
-    // Mapear de RequestDTO a Entity para creación
+    
     private Tetrazolio mapearSolicitudAEntidad(TetrazolioRequestDTO solicitud) {
-<span class="fc" id="L240">        System.out.println(&quot;Mapeando solicitud a entidad tetrazolio&quot;);</span>
+<span class="fc" id="L238">        System.out.println(&quot;Mapeando solicitud a entidad tetrazolio&quot;);</span>
         
-        // Validar que se especifique el número de repeticiones esperadas
-<span class="fc bfc" id="L243" title="All 4 branches covered.">        if (solicitud.getNumRepeticionesEsperadas() == null || solicitud.getNumRepeticionesEsperadas() &lt;= 0) {</span>
-<span class="fc" id="L244">            throw new RuntimeException(&quot;Debe especificar un número válido de repeticiones esperadas (mayor a 0).&quot;);</span>
+        
+<span class="fc bfc" id="L241" title="All 4 branches covered.">        if (solicitud.getNumRepeticionesEsperadas() == null || solicitud.getNumRepeticionesEsperadas() &lt;= 0) {</span>
+<span class="fc" id="L242">            throw new RuntimeException(&quot;Debe especificar un número válido de repeticiones esperadas (mayor a 0).&quot;);</span>
         }
         
-<span class="fc" id="L247">        Tetrazolio tetrazolio = new Tetrazolio();</span>
+<span class="fc" id="L245">        Tetrazolio tetrazolio = new Tetrazolio();</span>
         
-        // Datos del análisis base (fechaInicio y fechaFin son automáticas)
-<span class="fc" id="L250">        tetrazolio.setComentarios(solicitud.getComentarios());</span>
         
-        // Validar y establecer lote
-<span class="pc bpc" id="L253" title="1 of 2 branches missed.">        if (solicitud.getIdLote() != null) {</span>
-<span class="fc" id="L254">            System.out.println(&quot;Buscando lote con ID: &quot; + solicitud.getIdLote());</span>
-<span class="fc" id="L255">            Optional&lt;Lote&gt; loteOpt = loteRepository.findById(solicitud.getIdLote());</span>
-<span class="pc bpc" id="L256" title="1 of 2 branches missed.">            if (loteOpt.isPresent()) {</span>
-<span class="fc" id="L257">                Lote lote = loteOpt.get();</span>
+<span class="fc" id="L248">        tetrazolio.setComentarios(solicitud.getComentarios());</span>
+        
+        
+<span class="pc bpc" id="L251" title="1 of 2 branches missed.">        if (solicitud.getIdLote() != null) {</span>
+<span class="fc" id="L252">            System.out.println(&quot;Buscando lote con ID: &quot; + solicitud.getIdLote());</span>
+<span class="fc" id="L253">            Optional&lt;Lote&gt; loteOpt = loteRepository.findById(solicitud.getIdLote());</span>
+<span class="pc bpc" id="L254" title="1 of 2 branches missed.">            if (loteOpt.isPresent()) {</span>
+<span class="fc" id="L255">                Lote lote = loteOpt.get();</span>
                 
-                // Validar que el lote esté activo
-<span class="fc bfc" id="L260" title="All 2 branches covered.">                if (!lote.getActivo()) {</span>
-<span class="fc" id="L261">                    throw new RuntimeException(&quot;No se puede crear un análisis para un lote inactivo&quot;);</span>
+                
+<span class="fc bfc" id="L258" title="All 2 branches covered.">                if (!lote.getActivo()) {</span>
+<span class="fc" id="L259">                    throw new RuntimeException(&quot;No se puede crear un análisis para un lote inactivo&quot;);</span>
                 }
                 
-<span class="fc" id="L264">                tetrazolio.setLote(lote);</span>
-<span class="fc" id="L265">                System.out.println(&quot;Lote encontrado y asignado: &quot; + lote.getLoteID());</span>
-<span class="fc" id="L266">            } else {</span>
-<span class="nc" id="L267">                throw new RuntimeException(&quot;Lote no encontrado con ID: &quot; + solicitud.getIdLote());</span>
+<span class="fc" id="L262">                tetrazolio.setLote(lote);</span>
+<span class="fc" id="L263">                System.out.println(&quot;Lote encontrado y asignado: &quot; + lote.getLoteID());</span>
+<span class="fc" id="L264">            } else {</span>
+<span class="nc" id="L265">                throw new RuntimeException(&quot;Lote no encontrado con ID: &quot; + solicitud.getIdLote());</span>
             }
         }
         
-        // Datos específicos de Tetrazolio
-<span class="fc" id="L272">        tetrazolio.setNumSemillasPorRep(solicitud.getNumSemillasPorRep());</span>
-<span class="fc" id="L273">        tetrazolio.setPretratamiento(solicitud.getPretratamiento());</span>
-<span class="fc" id="L274">        tetrazolio.setConcentracion(solicitud.getConcentracion());</span>
-<span class="fc" id="L275">        tetrazolio.setTincionHs(solicitud.getTincionHs());</span>
-<span class="fc" id="L276">        tetrazolio.setTincionTemp(solicitud.getTincionTemp());</span>
-<span class="fc" id="L277">        tetrazolio.setFecha(solicitud.getFecha());</span>
-<span class="fc" id="L278">        tetrazolio.setNumRepeticionesEsperadas(solicitud.getNumRepeticionesEsperadas());</span>
-<span class="fc" id="L279">        tetrazolio.setViabilidadInase(solicitud.getViabilidadInase());</span>
-<span class="fc" id="L280">        System.out.println(&quot;Viabilidad INASE asignada: &quot; + solicitud.getViabilidadInase());</span>
         
-<span class="fc" id="L282">        System.out.println(&quot;Tetrazolio mapeado exitosamente&quot;);</span>
-<span class="fc" id="L283">        return tetrazolio;</span>
+<span class="fc" id="L270">        tetrazolio.setNumSemillasPorRep(solicitud.getNumSemillasPorRep());</span>
+<span class="fc" id="L271">        tetrazolio.setPretratamiento(solicitud.getPretratamiento());</span>
+<span class="fc" id="L272">        tetrazolio.setConcentracion(solicitud.getConcentracion());</span>
+<span class="fc" id="L273">        tetrazolio.setTincionHs(solicitud.getTincionHs());</span>
+<span class="fc" id="L274">        tetrazolio.setTincionTemp(solicitud.getTincionTemp());</span>
+<span class="fc" id="L275">        tetrazolio.setFecha(solicitud.getFecha());</span>
+<span class="fc" id="L276">        tetrazolio.setNumRepeticionesEsperadas(solicitud.getNumRepeticionesEsperadas());</span>
+<span class="fc" id="L277">        tetrazolio.setViabilidadInase(solicitud.getViabilidadInase());</span>
+<span class="fc" id="L278">        System.out.println(&quot;Viabilidad INASE asignada: &quot; + solicitud.getViabilidadInase());</span>
+        
+<span class="fc" id="L280">        System.out.println(&quot;Tetrazolio mapeado exitosamente&quot;);</span>
+<span class="fc" id="L281">        return tetrazolio;</span>
     }
 
-    // Actualizar Entity desde RequestDTO para edición
+    
     private void actualizarEntidadDesdeSolicitud(Tetrazolio tetrazolio, TetrazolioRequestDTO solicitud) {
-<span class="fc" id="L288">        System.out.println(&quot;Actualizando tetrazolio desde solicitud&quot;);</span>
+<span class="fc" id="L286">        System.out.println(&quot;Actualizando tetrazolio desde solicitud&quot;);</span>
         
-        // Datos del análisis base
-<span class="fc" id="L291">        tetrazolio.setComentarios(solicitud.getComentarios());</span>
         
-        // Validar y establecer lote si se proporciona
-<span class="pc bpc" id="L294" title="1 of 2 branches missed.">        if (solicitud.getIdLote() != null) {</span>
-<span class="fc" id="L295">            Optional&lt;Lote&gt; loteOpt = loteRepository.findById(solicitud.getIdLote());</span>
-<span class="pc bpc" id="L296" title="1 of 2 branches missed.">            if (loteOpt.isPresent()) {</span>
-<span class="fc" id="L297">                tetrazolio.setLote(loteOpt.get());</span>
-<span class="fc" id="L298">            } else {</span>
-<span class="nc" id="L299">                throw new RuntimeException(&quot;Lote no encontrado con ID: &quot; + solicitud.getIdLote());</span>
+<span class="fc" id="L289">        tetrazolio.setComentarios(solicitud.getComentarios());</span>
+        
+        
+<span class="pc bpc" id="L292" title="1 of 2 branches missed.">        if (solicitud.getIdLote() != null) {</span>
+<span class="fc" id="L293">            Optional&lt;Lote&gt; loteOpt = loteRepository.findById(solicitud.getIdLote());</span>
+<span class="pc bpc" id="L294" title="1 of 2 branches missed.">            if (loteOpt.isPresent()) {</span>
+<span class="fc" id="L295">                tetrazolio.setLote(loteOpt.get());</span>
+            } else {
+<span class="nc" id="L297">                throw new RuntimeException(&quot;Lote no encontrado con ID: &quot; + solicitud.getIdLote());</span>
             }
         }
         
-        // Datos específicos de Tetrazolio
-<span class="fc" id="L304">        tetrazolio.setNumSemillasPorRep(solicitud.getNumSemillasPorRep());</span>
-<span class="fc" id="L305">        tetrazolio.setPretratamiento(solicitud.getPretratamiento());</span>
-<span class="fc" id="L306">        tetrazolio.setConcentracion(solicitud.getConcentracion());</span>
-<span class="fc" id="L307">        tetrazolio.setTincionHs(solicitud.getTincionHs());</span>
-<span class="fc" id="L308">        tetrazolio.setTincionTemp(solicitud.getTincionTemp());</span>
-<span class="fc" id="L309">        tetrazolio.setFecha(solicitud.getFecha());</span>
-<span class="fc" id="L310">        tetrazolio.setViabilidadInase(solicitud.getViabilidadInase());</span>
-        // El número de repeticiones esperadas NO se puede editar una vez creado
         
-<span class="fc" id="L313">        System.out.println(&quot;Tetrazolio actualizado exitosamente&quot;);</span>
-<span class="fc" id="L314">    }</span>
+<span class="fc" id="L302">        tetrazolio.setNumSemillasPorRep(solicitud.getNumSemillasPorRep());</span>
+<span class="fc" id="L303">        tetrazolio.setPretratamiento(solicitud.getPretratamiento());</span>
+<span class="fc" id="L304">        tetrazolio.setConcentracion(solicitud.getConcentracion());</span>
+<span class="fc" id="L305">        tetrazolio.setTincionHs(solicitud.getTincionHs());</span>
+<span class="fc" id="L306">        tetrazolio.setTincionTemp(solicitud.getTincionTemp());</span>
+<span class="fc" id="L307">        tetrazolio.setFecha(solicitud.getFecha());</span>
+<span class="fc" id="L308">        tetrazolio.setViabilidadInase(solicitud.getViabilidadInase());</span>
+        
+        
+<span class="fc" id="L311">        System.out.println(&quot;Tetrazolio actualizado exitosamente&quot;);</span>
+<span class="fc" id="L312">    }</span>
 
-    // Mapear de Entity a DTO
+    
     private TetrazolioDTO mapearEntidadADTO(Tetrazolio tetrazolio) {
-<span class="fc" id="L318">        TetrazolioDTO dto = new TetrazolioDTO();</span>
+<span class="fc" id="L316">        TetrazolioDTO dto = new TetrazolioDTO();</span>
         
-        // Datos del análisis base
-<span class="fc" id="L321">        dto.setAnalisisID(tetrazolio.getAnalisisID());</span>
-<span class="fc" id="L322">        dto.setEstado(tetrazolio.getEstado());</span>
-<span class="fc" id="L323">        dto.setFechaInicio(tetrazolio.getFechaInicio());</span>
-<span class="fc" id="L324">        dto.setFechaFin(tetrazolio.getFechaFin());</span>
-<span class="fc" id="L325">        dto.setComentarios(tetrazolio.getComentarios());</span>
         
-        // Datos completos del lote si existe
-<span class="pc bpc" id="L328" title="1 of 2 branches missed.">        if (tetrazolio.getLote() != null) {</span>
-<span class="fc" id="L329">            dto.setIdLote(tetrazolio.getLote().getLoteID());</span>
-<span class="fc" id="L330">            dto.setLote(tetrazolio.getLote().getNomLote());</span>
-<span class="fc" id="L331">            dto.setFicha(tetrazolio.getLote().getFicha());</span>
+<span class="fc" id="L319">        dto.setAnalisisID(tetrazolio.getAnalisisID());</span>
+<span class="fc" id="L320">        dto.setEstado(tetrazolio.getEstado());</span>
+<span class="fc" id="L321">        dto.setFechaInicio(tetrazolio.getFechaInicio());</span>
+<span class="fc" id="L322">        dto.setFechaFin(tetrazolio.getFechaFin());</span>
+<span class="fc" id="L323">        dto.setComentarios(tetrazolio.getComentarios());</span>
+        
+        
+<span class="pc bpc" id="L326" title="1 of 2 branches missed.">        if (tetrazolio.getLote() != null) {</span>
+<span class="fc" id="L327">            dto.setIdLote(tetrazolio.getLote().getLoteID());</span>
+<span class="fc" id="L328">            dto.setLote(tetrazolio.getLote().getNomLote());</span>
+<span class="fc" id="L329">            dto.setFicha(tetrazolio.getLote().getFicha());</span>
             
-            // Información del cultivar y especie
-<span class="pc bpc" id="L334" title="1 of 2 branches missed.">            if (tetrazolio.getLote().getCultivar() != null) {</span>
-<span class="nc" id="L335">                dto.setCultivarNombre(tetrazolio.getLote().getCultivar().getNombre());</span>
+            
+<span class="pc bpc" id="L332" title="1 of 2 branches missed.">            if (tetrazolio.getLote().getCultivar() != null) {</span>
+<span class="nc" id="L333">                dto.setCultivarNombre(tetrazolio.getLote().getCultivar().getNombre());</span>
                 
-<span class="nc bnc" id="L337" title="All 2 branches missed.">                if (tetrazolio.getLote().getCultivar().getEspecie() != null) {</span>
-<span class="nc" id="L338">                    dto.setEspecieNombre(tetrazolio.getLote().getCultivar().getEspecie().getNombreComun());</span>
+<span class="nc bnc" id="L335" title="All 2 branches missed.">                if (tetrazolio.getLote().getCultivar().getEspecie() != null) {</span>
+<span class="nc" id="L336">                    dto.setEspecieNombre(tetrazolio.getLote().getCultivar().getEspecie().getNombreComun());</span>
                 }
             }
         }
         
-        // Datos específicos de Tetrazolio
-<span class="fc" id="L344">        dto.setNumSemillasPorRep(tetrazolio.getNumSemillasPorRep());</span>
-<span class="fc" id="L345">        dto.setPretratamiento(tetrazolio.getPretratamiento());</span>
-<span class="fc" id="L346">        dto.setConcentracion(tetrazolio.getConcentracion());</span>
-<span class="fc" id="L347">        dto.setTincionHs(tetrazolio.getTincionHs());</span>
-<span class="fc" id="L348">        dto.setTincionTemp(tetrazolio.getTincionTemp());</span>
-<span class="fc" id="L349">        dto.setFecha(tetrazolio.getFecha());</span>
-<span class="fc" id="L350">        dto.setNumRepeticionesEsperadas(tetrazolio.getNumRepeticionesEsperadas());</span>
-<span class="fc" id="L351">        dto.setPorcViablesRedondeo(tetrazolio.getPorcViablesRedondeo());</span>
-<span class="fc" id="L352">        dto.setPorcNoViablesRedondeo(tetrazolio.getPorcNoViablesRedondeo());</span>
-<span class="fc" id="L353">        dto.setPorcDurasRedondeo(tetrazolio.getPorcDurasRedondeo());</span>
-<span class="fc" id="L354">        dto.setViabilidadInase(tetrazolio.getViabilidadInase());</span>
-        // Mapear historial de análisis
-<span class="fc" id="L356">        dto.setHistorial(analisisHistorialService.obtenerHistorialAnalisis(tetrazolio.getAnalisisID()));</span>
         
-<span class="fc" id="L358">        return dto;</span>
+<span class="fc" id="L342">        dto.setNumSemillasPorRep(tetrazolio.getNumSemillasPorRep());</span>
+<span class="fc" id="L343">        dto.setPretratamiento(tetrazolio.getPretratamiento());</span>
+<span class="fc" id="L344">        dto.setConcentracion(tetrazolio.getConcentracion());</span>
+<span class="fc" id="L345">        dto.setTincionHs(tetrazolio.getTincionHs());</span>
+<span class="fc" id="L346">        dto.setTincionTemp(tetrazolio.getTincionTemp());</span>
+<span class="fc" id="L347">        dto.setFecha(tetrazolio.getFecha());</span>
+<span class="fc" id="L348">        dto.setNumRepeticionesEsperadas(tetrazolio.getNumRepeticionesEsperadas());</span>
+<span class="fc" id="L349">        dto.setPorcViablesRedondeo(tetrazolio.getPorcViablesRedondeo());</span>
+<span class="fc" id="L350">        dto.setPorcNoViablesRedondeo(tetrazolio.getPorcNoViablesRedondeo());</span>
+<span class="fc" id="L351">        dto.setPorcDurasRedondeo(tetrazolio.getPorcDurasRedondeo());</span>
+<span class="fc" id="L352">        dto.setViabilidadInase(tetrazolio.getViabilidadInase());</span>
+        
+<span class="fc" id="L354">        dto.setHistorial(analisisHistorialService.obtenerHistorialAnalisis(tetrazolio.getAnalisisID()));</span>
+        
+<span class="fc" id="L356">        return dto;</span>
     }
     
-    // Validar que se hayan completado todas las repeticiones esperadas
+    
     private void validarCompletitudRepeticiones(Tetrazolio tetrazolio) {
-<span class="pc bpc" id="L363" title="2 of 4 branches missed.">        if (tetrazolio.getNumRepeticionesEsperadas() != null &amp;&amp; tetrazolio.getNumRepeticionesEsperadas() &gt; 0) {</span>
-<span class="fc" id="L364">            Long repeticionesCreadas = repeticionRepository.countByTetrazolioId(tetrazolio.getAnalisisID());</span>
+<span class="pc bpc" id="L361" title="2 of 4 branches missed.">        if (tetrazolio.getNumRepeticionesEsperadas() != null &amp;&amp; tetrazolio.getNumRepeticionesEsperadas() &gt; 0) {</span>
+<span class="fc" id="L362">            Long repeticionesCreadas = repeticionRepository.countByTetrazolioId(tetrazolio.getAnalisisID());</span>
             
-<span class="fc bfc" id="L366" title="All 2 branches covered.">            if (repeticionesCreadas &lt; tetrazolio.getNumRepeticionesEsperadas()) {</span>
-<span class="fc" id="L367">                throw new RuntimeException(</span>
-<span class="fc" id="L368">                    String.format(&quot;No se puede finalizar el análisis. Se esperan %d repeticiones pero solo hay %d creadas. &quot; +</span>
+<span class="fc bfc" id="L364" title="All 2 branches covered.">            if (repeticionesCreadas &lt; tetrazolio.getNumRepeticionesEsperadas()) {</span>
+<span class="fc" id="L365">                throw new RuntimeException(</span>
+<span class="fc" id="L366">                    String.format(&quot;No se puede finalizar el análisis. Se esperan %d repeticiones pero solo hay %d creadas. &quot; +</span>
                                 &quot;Complete todas las repeticiones antes de finalizar o actualizar porcentajes.&quot;, 
-<span class="fc" id="L370">                                tetrazolio.getNumRepeticionesEsperadas(), repeticionesCreadas));</span>
+<span class="fc" id="L368">                                tetrazolio.getNumRepeticionesEsperadas(), repeticionesCreadas));</span>
             }
         }
-<span class="fc" id="L373">    }</span>
+<span class="fc" id="L371">    }</span>
 
-    /**
-     * Validación mínima previa a la finalización de un Tetrazolio.
-     * Requiere al menos una forma de evidencia: repeticiones creadas o porcentajes calculados
-     * (porcViablesRedondeo, porcNoViablesRedondeo, porcDurasRedondeo) mayores a 0.
-     */
-    private void validarEvidenciaAntesDeFinalizar(Tetrazolio tetrazolio) {
-<span class="pc bpc" id="L381" title="1 of 4 branches missed.">    boolean tieneRepeticiones = tetrazolio.getRepeticiones() != null &amp;&amp; !tetrazolio.getRepeticiones().isEmpty();</span>
-
-<span class="pc bpc" id="L383" title="1 of 4 branches missed.">    boolean tienePorcViables = tetrazolio.getPorcViablesRedondeo() != null</span>
-<span class="fc" id="L384">        &amp;&amp; tetrazolio.getPorcViablesRedondeo().compareTo(BigDecimal.ZERO) &gt; 0;</span>
-<span class="pc bpc" id="L385" title="3 of 4 branches missed.">    boolean tienePorcNoViables = tetrazolio.getPorcNoViablesRedondeo() != null</span>
-<span class="nc" id="L386">        &amp;&amp; tetrazolio.getPorcNoViablesRedondeo().compareTo(BigDecimal.ZERO) &gt; 0;</span>
-<span class="pc bpc" id="L387" title="3 of 4 branches missed.">    boolean tienePorcDuras = tetrazolio.getPorcDurasRedondeo() != null</span>
-<span class="nc" id="L388">        &amp;&amp; tetrazolio.getPorcDurasRedondeo().compareTo(BigDecimal.ZERO) &gt; 0;</span>
-
-<span class="pc bpc" id="L390" title="2 of 8 branches missed.">    if (!tieneRepeticiones &amp;&amp; !tienePorcViables &amp;&amp; !tienePorcNoViables &amp;&amp; !tienePorcDuras) {</span>
-<span class="fc" id="L391">        throw new RuntimeException(&quot;No se puede finalizar: el Tetrazolio carece de evidencia. Agregue repeticiones o porcentajes calculados antes de finalizar.&quot;);</span>
-    }
-<span class="fc" id="L393">    }</span>
     
-    // Finalizar análisis Tetrazolio - cambia estado según rol del usuario
-    // Finalizar análisis (solo cuando todas las repeticiones estén completas)
+    private void validarEvidenciaAntesDeFinalizar(Tetrazolio tetrazolio) {
+<span class="pc bpc" id="L375" title="1 of 4 branches missed.">    boolean tieneRepeticiones = tetrazolio.getRepeticiones() != null &amp;&amp; !tetrazolio.getRepeticiones().isEmpty();</span>
+
+<span class="fc bfc" id="L377" title="All 2 branches covered.">    boolean tienePorcViables = tetrazolio.getPorcViablesRedondeo() != null</span>
+<span class="pc bpc" id="L378" title="1 of 2 branches missed.">        &amp;&amp; tetrazolio.getPorcViablesRedondeo().compareTo(BigDecimal.ZERO) &gt; 0;</span>
+<span class="pc bpc" id="L379" title="1 of 2 branches missed.">    boolean tienePorcNoViables = tetrazolio.getPorcNoViablesRedondeo() != null</span>
+<span class="pc bnc" id="L380" title="All 2 branches missed.">        &amp;&amp; tetrazolio.getPorcNoViablesRedondeo().compareTo(BigDecimal.ZERO) &gt; 0;</span>
+<span class="pc bpc" id="L381" title="1 of 2 branches missed.">    boolean tienePorcDuras = tetrazolio.getPorcDurasRedondeo() != null</span>
+<span class="pc bnc" id="L382" title="All 2 branches missed.">        &amp;&amp; tetrazolio.getPorcDurasRedondeo().compareTo(BigDecimal.ZERO) &gt; 0;</span>
+
+<span class="pc bpc" id="L384" title="2 of 8 branches missed.">    if (!tieneRepeticiones &amp;&amp; !tienePorcViables &amp;&amp; !tienePorcNoViables &amp;&amp; !tienePorcDuras) {</span>
+<span class="fc" id="L385">        throw new RuntimeException(&quot;No se puede finalizar: el Tetrazolio carece de evidencia. Agregue repeticiones o porcentajes calculados antes de finalizar.&quot;);</span>
+    }
+<span class="fc" id="L387">    }</span>
+    
+    
+    
     public TetrazolioDTO finalizarAnalisis(Long id) {
-        // Run both: completitud de repeticiones and evidence validator before finalizing
-<span class="fc" id="L399">        return analisisService.finalizarAnalisisGenerico(</span>
-<span class="fc" id="L400">            id,</span>
-<span class="fc" id="L401">            tetrazolioRepository,</span>
-<span class="fc" id="L402">            this::mapearEntidadADTO,</span>
-<span class="fc" id="L403">            (tetrazolio) -&gt; {</span>
-                // Primero validar completitud de repeticiones
-<span class="fc" id="L405">                this.validarCompletitudRepeticiones(tetrazolio);</span>
-                // Luego validar que exista algún dato/evidencia relevante (adaptado desde DOSN)
-<span class="fc" id="L407">                this.validarEvidenciaAntesDeFinalizar(tetrazolio);</span>
-<span class="fc" id="L408">            }</span>
+        
+<span class="fc" id="L393">        return analisisService.finalizarAnalisisGenerico(</span>
+            id,
+            tetrazolioRepository,
+            this::mapearEntidadADTO,
+            (tetrazolio) -&gt; {
+                
+<span class="fc" id="L399">                this.validarCompletitudRepeticiones(tetrazolio);</span>
+                
+<span class="fc" id="L401">                this.validarEvidenciaAntesDeFinalizar(tetrazolio);</span>
+<span class="fc" id="L402">            }</span>
         );
     }
 
-    // Aprobar análisis (solo para administradores)
+    
     public TetrazolioDTO aprobarAnalisis(Long id) {
-<span class="fc" id="L414">        return analisisService.aprobarAnalisisGenerico(</span>
-<span class="fc" id="L415">            id,</span>
-<span class="fc" id="L416">            tetrazolioRepository,</span>
-<span class="fc" id="L417">            this::mapearEntidadADTO,</span>
-<span class="fc" id="L418">            (tetrazolio) -&gt; {</span>
-<span class="nc" id="L419">                this.validarCompletitudRepeticiones(tetrazolio);</span>
-<span class="nc" id="L420">                this.validarEvidenciaAntesDeFinalizar(tetrazolio);</span>
-<span class="nc" id="L421">            },</span>
-<span class="fc" id="L422">            tetrazolioRepository::findByIdLote // Función para buscar por lote</span>
+<span class="fc" id="L408">        return analisisService.aprobarAnalisisGenerico(</span>
+            id,
+            tetrazolioRepository,
+            this::mapearEntidadADTO,
+            (tetrazolio) -&gt; {
+<span class="nc" id="L413">                this.validarCompletitudRepeticiones(tetrazolio);</span>
+<span class="nc" id="L414">                this.validarEvidenciaAntesDeFinalizar(tetrazolio);</span>
+<span class="nc" id="L415">            },</span>
+<span class="fc" id="L416">            tetrazolioRepository::findByIdLote </span>
         );
     }
 
-    // Marcar análisis para repetir (solo administradores)
+    
     public TetrazolioDTO marcarParaRepetir(Long id) {
-<span class="fc" id="L428">        return analisisService.marcarParaRepetirGenerico(</span>
-<span class="fc" id="L429">            id,</span>
-<span class="fc" id="L430">            tetrazolioRepository,</span>
-<span class="fc" id="L431">            this::mapearEntidadADTO,</span>
-<span class="fc" id="L432">            (tetrazolio) -&gt; {</span>
-                // Mismas validaciones que finalizar: completitud y evidencia
-<span class="nc" id="L434">                this.validarCompletitudRepeticiones(tetrazolio);</span>
-<span class="nc" id="L435">                this.validarEvidenciaAntesDeFinalizar(tetrazolio);</span>
-<span class="nc" id="L436">            }</span>
+<span class="fc" id="L422">        return analisisService.marcarParaRepetirGenerico(</span>
+            id,
+            tetrazolioRepository,
+            this::mapearEntidadADTO,
+            (tetrazolio) -&gt; {
+                
+<span class="nc" id="L428">                this.validarCompletitudRepeticiones(tetrazolio);</span>
+<span class="nc" id="L429">                this.validarEvidenciaAntesDeFinalizar(tetrazolio);</span>
+<span class="nc" id="L430">            }</span>
         );
     }
 }

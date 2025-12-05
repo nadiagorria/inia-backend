@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TrustedDeviceServiceTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">TrustedDeviceServiceTest.java</span></div><h1>TrustedDeviceServiceTest.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TrustedDeviceServiceTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">TrustedDeviceServiceTest.java</span></div><h1>TrustedDeviceServiceTest.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,21 +23,10 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
-/**
- * Tests unitarios para TrustedDeviceService
- * 
- * Funcionalidades testeadas:
- * - Hashing de fingerprints con SHA-256
- * - Verificación de dispositivos de confianza
- * - Registro de nuevos dispositivos
- * - Límite de dispositivos por usuario (5 máximo)
- * - Revocación de dispositivos
- * - Limpieza de dispositivos expirados
- * - Actualización de último uso
- */
+
 @ExtendWith(MockitoExtension.class)
 @DisplayName(&quot;Tests de TrustedDeviceService (Dispositivos de Confianza)&quot;)
-<span class="fc" id="L40">class TrustedDeviceServiceTest {</span>
+<span class="fc" id="L29">class TrustedDeviceServiceTest {</span>
 
     @Mock
     private TrustedDeviceRepository trustedDeviceRepository;
@@ -50,399 +39,399 @@ import static org.mockito.Mockito.*;
 
     @BeforeEach
     void setUp() {
-        // Los mocks se configuran individualmente en cada test según sea necesario
-<span class="fc" id="L54">    }</span>
+        
+<span class="fc" id="L43">    }</span>
 
     @Test
     @DisplayName(&quot;Hashear fingerprint - debe retornar hash SHA-256 de 64 caracteres&quot;)
     void hashFingerprint_debeRetornarHashSHA256() {
-        // ARRANGE
-<span class="fc" id="L60">        String fingerprint = &quot;test-fingerprint-123&quot;;</span>
+        
+<span class="fc" id="L49">        String fingerprint = &quot;test-fingerprint-123&quot;;</span>
 
-        // ACT
-<span class="fc" id="L63">        String hash = trustedDeviceService.hashFingerprint(fingerprint);</span>
+        
+<span class="fc" id="L52">        String hash = trustedDeviceService.hashFingerprint(fingerprint);</span>
 
-        // ASSERT
-<span class="fc" id="L66">        assertNotNull(hash, &quot;El hash no debe ser nulo&quot;);</span>
-<span class="fc" id="L67">        assertEquals(64, hash.length(), &quot;El hash SHA-256 debe tener 64 caracteres hexadecimales&quot;);</span>
-<span class="fc" id="L68">        assertTrue(hash.matches(&quot;[0-9a-f]{64}&quot;), &quot;El hash debe ser hexadecimal&quot;);</span>
-<span class="fc" id="L69">    }</span>
+        
+<span class="fc" id="L55">        assertNotNull(hash, &quot;El hash no debe ser nulo&quot;);</span>
+<span class="fc" id="L56">        assertEquals(64, hash.length(), &quot;El hash SHA-256 debe tener 64 caracteres hexadecimales&quot;);</span>
+<span class="fc" id="L57">        assertTrue(hash.matches(&quot;[0-9a-f]{64}&quot;), &quot;El hash debe ser hexadecimal&quot;);</span>
+<span class="fc" id="L58">    }</span>
 
     @Test
     @DisplayName(&quot;Hashear mismo fingerprint dos veces - debe generar mismo hash&quot;)
     void hashFingerprint_mismoFingerprint_debeDevolverMismoHash() {
-        // ARRANGE
-<span class="fc" id="L75">        String fingerprint = &quot;consistent-fingerprint&quot;;</span>
+        
+<span class="fc" id="L64">        String fingerprint = &quot;consistent-fingerprint&quot;;</span>
 
-        // ACT
-<span class="fc" id="L78">        String hash1 = trustedDeviceService.hashFingerprint(fingerprint);</span>
-<span class="fc" id="L79">        String hash2 = trustedDeviceService.hashFingerprint(fingerprint);</span>
+        
+<span class="fc" id="L67">        String hash1 = trustedDeviceService.hashFingerprint(fingerprint);</span>
+<span class="fc" id="L68">        String hash2 = trustedDeviceService.hashFingerprint(fingerprint);</span>
 
-        // ASSERT
-<span class="fc" id="L82">        assertEquals(hash1, hash2, &quot;El hash debe ser consistente para el mismo fingerprint&quot;);</span>
-<span class="fc" id="L83">    }</span>
+        
+<span class="fc" id="L71">        assertEquals(hash1, hash2, &quot;El hash debe ser consistente para el mismo fingerprint&quot;);</span>
+<span class="fc" id="L72">    }</span>
 
     @Test
     @DisplayName(&quot;Hashear fingerprints diferentes - debe generar hashes diferentes&quot;)
     void hashFingerprint_fingerprintsDiferentes_debeGenerarHashesDiferentes() {
-        // ARRANGE
-<span class="fc" id="L89">        String fingerprint1 = &quot;fingerprint-1&quot;;</span>
-<span class="fc" id="L90">        String fingerprint2 = &quot;fingerprint-2&quot;;</span>
+        
+<span class="fc" id="L78">        String fingerprint1 = &quot;fingerprint-1&quot;;</span>
+<span class="fc" id="L79">        String fingerprint2 = &quot;fingerprint-2&quot;;</span>
 
-        // ACT
-<span class="fc" id="L93">        String hash1 = trustedDeviceService.hashFingerprint(fingerprint1);</span>
-<span class="fc" id="L94">        String hash2 = trustedDeviceService.hashFingerprint(fingerprint2);</span>
+        
+<span class="fc" id="L82">        String hash1 = trustedDeviceService.hashFingerprint(fingerprint1);</span>
+<span class="fc" id="L83">        String hash2 = trustedDeviceService.hashFingerprint(fingerprint2);</span>
 
-        // ASSERT
-<span class="fc" id="L97">        assertNotEquals(hash1, hash2, &quot;Fingerprints diferentes deben generar hashes diferentes&quot;);</span>
-<span class="fc" id="L98">    }</span>
+        
+<span class="fc" id="L86">        assertNotEquals(hash1, hash2, &quot;Fingerprints diferentes deben generar hashes diferentes&quot;);</span>
+<span class="fc" id="L87">    }</span>
 
     @Test
     @DisplayName(&quot;Verificar dispositivo de confianza - dispositivo existente y activo debe retornar true&quot;)
     void isTrustedDevice_dispositivoExistenteYActivo_debeRetornarTrue() {
-        // ARRANGE
-<span class="fc" id="L104">        Integer usuarioId = 1;</span>
-<span class="fc" id="L105">        String fingerprint = &quot;valid-fingerprint&quot;;</span>
-<span class="fc" id="L106">        String fingerprintHash = trustedDeviceService.hashFingerprint(fingerprint);</span>
+        
+<span class="fc" id="L93">        Integer usuarioId = 1;</span>
+<span class="fc" id="L94">        String fingerprint = &quot;valid-fingerprint&quot;;</span>
+<span class="fc" id="L95">        String fingerprintHash = trustedDeviceService.hashFingerprint(fingerprint);</span>
 
-<span class="fc" id="L108">        TrustedDevice device = new TrustedDevice();</span>
-<span class="fc" id="L109">        device.setUsuarioId(usuarioId);</span>
-<span class="fc" id="L110">        device.setDeviceFingerprintHash(fingerprintHash);</span>
-<span class="fc" id="L111">        device.setActive(true);</span>
-<span class="fc" id="L112">        device.setExpiresAt(LocalDateTime.now().plusDays(30));</span>
-<span class="fc" id="L113">        device.setLastUsedAt(LocalDateTime.now());</span>
+<span class="fc" id="L97">        TrustedDevice device = new TrustedDevice();</span>
+<span class="fc" id="L98">        device.setUsuarioId(usuarioId);</span>
+<span class="fc" id="L99">        device.setDeviceFingerprintHash(fingerprintHash);</span>
+<span class="fc" id="L100">        device.setActive(true);</span>
+<span class="fc" id="L101">        device.setExpiresAt(LocalDateTime.now().plusDays(30));</span>
+<span class="fc" id="L102">        device.setLastUsedAt(LocalDateTime.now());</span>
 
-<span class="fc" id="L115">        when(trustedDeviceRepository.findByUsuarioIdAndDeviceFingerprintHashAndActiveTrue(usuarioId, fingerprintHash))</span>
-<span class="fc" id="L116">            .thenReturn(Optional.of(device));</span>
-<span class="fc" id="L117">        when(trustedDeviceRepository.save(any(TrustedDevice.class))).thenReturn(device);</span>
+<span class="fc" id="L104">        when(trustedDeviceRepository.findByUsuarioIdAndDeviceFingerprintHashAndActiveTrue(usuarioId, fingerprintHash))</span>
+<span class="fc" id="L105">            .thenReturn(Optional.of(device));</span>
+<span class="fc" id="L106">        when(trustedDeviceRepository.save(any(TrustedDevice.class))).thenReturn(device);</span>
 
-        // ACT
-<span class="fc" id="L120">        boolean isTrusted = trustedDeviceService.isTrustedDevice(usuarioId, fingerprint);</span>
+        
+<span class="fc" id="L109">        boolean isTrusted = trustedDeviceService.isTrustedDevice(usuarioId, fingerprint);</span>
 
-        // ASSERT
-<span class="fc" id="L123">        assertTrue(isTrusted, &quot;El dispositivo existente y activo debe ser de confianza&quot;);</span>
-<span class="fc" id="L124">        verify(trustedDeviceRepository).save(device); // Debe actualizar lastUsedAt</span>
-<span class="fc" id="L125">    }</span>
+        
+<span class="fc" id="L112">        assertTrue(isTrusted, &quot;El dispositivo existente y activo debe ser de confianza&quot;);</span>
+<span class="fc" id="L113">        verify(trustedDeviceRepository).save(device); </span>
+<span class="fc" id="L114">    }</span>
 
     @Test
     @DisplayName(&quot;Verificar dispositivo de confianza - dispositivo no existente debe retornar false&quot;)
     void isTrustedDevice_dispositivoNoExistente_debeRetornarFalse() {
-        // ARRANGE
-<span class="fc" id="L131">        Integer usuarioId = 1;</span>
-<span class="fc" id="L132">        String fingerprint = &quot;unknown-fingerprint&quot;;</span>
-<span class="fc" id="L133">        String fingerprintHash = trustedDeviceService.hashFingerprint(fingerprint);</span>
+        
+<span class="fc" id="L120">        Integer usuarioId = 1;</span>
+<span class="fc" id="L121">        String fingerprint = &quot;unknown-fingerprint&quot;;</span>
+<span class="fc" id="L122">        String fingerprintHash = trustedDeviceService.hashFingerprint(fingerprint);</span>
 
-<span class="fc" id="L135">        when(trustedDeviceRepository.findByUsuarioIdAndDeviceFingerprintHashAndActiveTrue(usuarioId, fingerprintHash))</span>
-<span class="fc" id="L136">            .thenReturn(Optional.empty());</span>
+<span class="fc" id="L124">        when(trustedDeviceRepository.findByUsuarioIdAndDeviceFingerprintHashAndActiveTrue(usuarioId, fingerprintHash))</span>
+<span class="fc" id="L125">            .thenReturn(Optional.empty());</span>
 
-        // ACT
-<span class="fc" id="L139">        boolean isTrusted = trustedDeviceService.isTrustedDevice(usuarioId, fingerprint);</span>
+        
+<span class="fc" id="L128">        boolean isTrusted = trustedDeviceService.isTrustedDevice(usuarioId, fingerprint);</span>
 
-        // ASSERT
-<span class="fc" id="L142">        assertFalse(isTrusted, &quot;Un dispositivo no registrado no debe ser de confianza&quot;);</span>
-<span class="fc" id="L143">    }</span>
+        
+<span class="fc" id="L131">        assertFalse(isTrusted, &quot;Un dispositivo no registrado no debe ser de confianza&quot;);</span>
+<span class="fc" id="L132">    }</span>
 
     @Test
     @DisplayName(&quot;Verificar dispositivo de confianza - dispositivo expirado debe retornar false&quot;)
     void isTrustedDevice_dispositivoExpirado_debeRetornarFalse() {
-        // ARRANGE
-<span class="fc" id="L149">        Integer usuarioId = 1;</span>
-<span class="fc" id="L150">        String fingerprint = &quot;expired-fingerprint&quot;;</span>
-<span class="fc" id="L151">        String fingerprintHash = trustedDeviceService.hashFingerprint(fingerprint);</span>
+        
+<span class="fc" id="L138">        Integer usuarioId = 1;</span>
+<span class="fc" id="L139">        String fingerprint = &quot;expired-fingerprint&quot;;</span>
+<span class="fc" id="L140">        String fingerprintHash = trustedDeviceService.hashFingerprint(fingerprint);</span>
 
-<span class="fc" id="L153">        TrustedDevice device = new TrustedDevice();</span>
-<span class="fc" id="L154">        device.setUsuarioId(usuarioId);</span>
-<span class="fc" id="L155">        device.setDeviceFingerprintHash(fingerprintHash);</span>
-<span class="fc" id="L156">        device.setActive(true);</span>
-<span class="fc" id="L157">        device.setExpiresAt(LocalDateTime.now().minusDays(1)); // Expirado</span>
+<span class="fc" id="L142">        TrustedDevice device = new TrustedDevice();</span>
+<span class="fc" id="L143">        device.setUsuarioId(usuarioId);</span>
+<span class="fc" id="L144">        device.setDeviceFingerprintHash(fingerprintHash);</span>
+<span class="fc" id="L145">        device.setActive(true);</span>
+<span class="fc" id="L146">        device.setExpiresAt(LocalDateTime.now().minusDays(1)); </span>
 
-<span class="fc" id="L159">        when(trustedDeviceRepository.findByUsuarioIdAndDeviceFingerprintHashAndActiveTrue(usuarioId, fingerprintHash))</span>
-<span class="fc" id="L160">            .thenReturn(Optional.of(device));</span>
-<span class="fc" id="L161">        when(trustedDeviceRepository.save(any(TrustedDevice.class))).thenReturn(device);</span>
+<span class="fc" id="L148">        when(trustedDeviceRepository.findByUsuarioIdAndDeviceFingerprintHashAndActiveTrue(usuarioId, fingerprintHash))</span>
+<span class="fc" id="L149">            .thenReturn(Optional.of(device));</span>
+<span class="fc" id="L150">        when(trustedDeviceRepository.save(any(TrustedDevice.class))).thenReturn(device);</span>
 
-        // ACT
-<span class="fc" id="L164">        boolean isTrusted = trustedDeviceService.isTrustedDevice(usuarioId, fingerprint);</span>
+        
+<span class="fc" id="L153">        boolean isTrusted = trustedDeviceService.isTrustedDevice(usuarioId, fingerprint);</span>
 
-        // ASSERT
-<span class="fc" id="L167">        assertFalse(isTrusted, &quot;Un dispositivo expirado no debe ser de confianza&quot;);</span>
-<span class="fc" id="L168">        assertFalse(device.getActive(), &quot;El dispositivo expirado debe ser desactivado&quot;);</span>
-<span class="fc" id="L169">        verify(trustedDeviceRepository).save(device);</span>
-<span class="fc" id="L170">    }</span>
+        
+<span class="fc" id="L156">        assertFalse(isTrusted, &quot;Un dispositivo expirado no debe ser de confianza&quot;);</span>
+<span class="fc" id="L157">        assertFalse(device.getActive(), &quot;El dispositivo expirado debe ser desactivado&quot;);</span>
+<span class="fc" id="L158">        verify(trustedDeviceRepository).save(device);</span>
+<span class="fc" id="L159">    }</span>
 
     @Test
     @DisplayName(&quot;Verificar dispositivo con fingerprint vacío - debe retornar false&quot;)
     void isTrustedDevice_fingerprintVacio_debeRetornarFalse() {
-        // ACT
-<span class="fc" id="L176">        boolean isTrusted = trustedDeviceService.isTrustedDevice(1, &quot;&quot;);</span>
+        
+<span class="fc" id="L165">        boolean isTrusted = trustedDeviceService.isTrustedDevice(1, &quot;&quot;);</span>
 
-        // ASSERT
-<span class="fc" id="L179">        assertFalse(isTrusted, &quot;Un fingerprint vacío debe retornar false&quot;);</span>
-<span class="fc" id="L180">        verify(trustedDeviceRepository, never()).findByUsuarioIdAndDeviceFingerprintHashAndActiveTrue(anyInt(), anyString());</span>
-<span class="fc" id="L181">    }</span>
+        
+<span class="fc" id="L168">        assertFalse(isTrusted, &quot;Un fingerprint vacío debe retornar false&quot;);</span>
+<span class="fc" id="L169">        verify(trustedDeviceRepository, never()).findByUsuarioIdAndDeviceFingerprintHashAndActiveTrue(anyInt(), anyString());</span>
+<span class="fc" id="L170">    }</span>
 
     @Test
     @DisplayName(&quot;Registrar nuevo dispositivo - debe crear dispositivo correctamente&quot;)
     void trustDevice_nuevoDispositivo_debeCrearCorrectamente() {
-        // ARRANGE
-<span class="fc" id="L187">        Integer usuarioId = 1;</span>
-<span class="fc" id="L188">        String fingerprint = &quot;new-device-fingerprint&quot;;</span>
-<span class="fc" id="L189">        String fingerprintHash = trustedDeviceService.hashFingerprint(fingerprint);</span>
+        
+<span class="fc" id="L176">        Integer usuarioId = 1;</span>
+<span class="fc" id="L177">        String fingerprint = &quot;new-device-fingerprint&quot;;</span>
+<span class="fc" id="L178">        String fingerprintHash = trustedDeviceService.hashFingerprint(fingerprint);</span>
 
-<span class="fc" id="L191">        when(request.getHeader(&quot;User-Agent&quot;)).thenReturn(&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0&quot;);</span>
-<span class="fc" id="L192">        when(request.getRemoteAddr()).thenReturn(&quot;192.168.1.100&quot;);</span>
-<span class="fc" id="L193">        when(trustedDeviceRepository.findByUsuarioIdAndDeviceFingerprintHashAndActiveTrue(usuarioId, fingerprintHash))</span>
-<span class="fc" id="L194">            .thenReturn(Optional.empty());</span>
-<span class="fc" id="L195">        when(trustedDeviceRepository.countByUsuarioIdAndActiveTrue(usuarioId)).thenReturn(2L);</span>
-<span class="fc" id="L196">        when(trustedDeviceRepository.save(any(TrustedDevice.class))).thenAnswer(invocation -&gt; invocation.getArgument(0));</span>
+<span class="fc" id="L180">        when(request.getHeader(&quot;User-Agent&quot;)).thenReturn(&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0&quot;);</span>
+<span class="fc" id="L181">        when(request.getRemoteAddr()).thenReturn(&quot;192.168.1.100&quot;);</span>
+<span class="fc" id="L182">        when(trustedDeviceRepository.findByUsuarioIdAndDeviceFingerprintHashAndActiveTrue(usuarioId, fingerprintHash))</span>
+<span class="fc" id="L183">            .thenReturn(Optional.empty());</span>
+<span class="fc" id="L184">        when(trustedDeviceRepository.countByUsuarioIdAndActiveTrue(usuarioId)).thenReturn(2L);</span>
+<span class="fc" id="L185">        when(trustedDeviceRepository.save(any(TrustedDevice.class))).thenAnswer(invocation -&gt; invocation.getArgument(0));</span>
 
-        // ACT
-<span class="fc" id="L199">        TrustedDevice device = trustedDeviceService.trustDevice(usuarioId, fingerprint, request);</span>
+        
+<span class="fc" id="L188">        TrustedDevice device = trustedDeviceService.trustDevice(usuarioId, fingerprint, request);</span>
 
-        // ASSERT
-<span class="fc" id="L202">        assertNotNull(device);</span>
-<span class="fc" id="L203">        assertEquals(usuarioId, device.getUsuarioId());</span>
-<span class="fc" id="L204">        assertEquals(fingerprintHash, device.getDeviceFingerprintHash());</span>
-<span class="fc" id="L205">        assertTrue(device.getActive());</span>
-<span class="fc" id="L206">        verify(trustedDeviceRepository).save(any(TrustedDevice.class));</span>
-<span class="fc" id="L207">    }</span>
+        
+<span class="fc" id="L191">        assertNotNull(device);</span>
+<span class="fc" id="L192">        assertEquals(usuarioId, device.getUsuarioId());</span>
+<span class="fc" id="L193">        assertEquals(fingerprintHash, device.getDeviceFingerprintHash());</span>
+<span class="fc" id="L194">        assertTrue(device.getActive());</span>
+<span class="fc" id="L195">        verify(trustedDeviceRepository).save(any(TrustedDevice.class));</span>
+<span class="fc" id="L196">    }</span>
 
     @Test
     @DisplayName(&quot;Registrar dispositivo existente - debe actualizar lastUsedAt&quot;)
     void trustDevice_dispositivoExistente_debeActualizarLastUsedAt() {
-        // ARRANGE
-<span class="fc" id="L213">        Integer usuarioId = 1;</span>
-<span class="fc" id="L214">        String fingerprint = &quot;existing-fingerprint&quot;;</span>
-<span class="fc" id="L215">        String fingerprintHash = trustedDeviceService.hashFingerprint(fingerprint);</span>
+        
+<span class="fc" id="L202">        Integer usuarioId = 1;</span>
+<span class="fc" id="L203">        String fingerprint = &quot;existing-fingerprint&quot;;</span>
+<span class="fc" id="L204">        String fingerprintHash = trustedDeviceService.hashFingerprint(fingerprint);</span>
 
-<span class="fc" id="L217">        TrustedDevice existingDevice = new TrustedDevice();</span>
-<span class="fc" id="L218">        existingDevice.setUsuarioId(usuarioId);</span>
-<span class="fc" id="L219">        existingDevice.setDeviceFingerprintHash(fingerprintHash);</span>
-<span class="fc" id="L220">        existingDevice.setActive(true);</span>
-<span class="fc" id="L221">        existingDevice.setLastUsedAt(LocalDateTime.now().minusDays(5));</span>
-<span class="fc" id="L222">        existingDevice.setExpiresAt(LocalDateTime.now().plusDays(55));</span>
+<span class="fc" id="L206">        TrustedDevice existingDevice = new TrustedDevice();</span>
+<span class="fc" id="L207">        existingDevice.setUsuarioId(usuarioId);</span>
+<span class="fc" id="L208">        existingDevice.setDeviceFingerprintHash(fingerprintHash);</span>
+<span class="fc" id="L209">        existingDevice.setActive(true);</span>
+<span class="fc" id="L210">        existingDevice.setLastUsedAt(LocalDateTime.now().minusDays(5));</span>
+<span class="fc" id="L211">        existingDevice.setExpiresAt(LocalDateTime.now().plusDays(55));</span>
 
-        // No se necesitan mocks del request porque el método sale antes de usarlo (dispositivo existente)
-<span class="fc" id="L225">        when(trustedDeviceRepository.findByUsuarioIdAndDeviceFingerprintHashAndActiveTrue(usuarioId, fingerprintHash))</span>
-<span class="fc" id="L226">            .thenReturn(Optional.of(existingDevice));</span>
-<span class="fc" id="L227">        when(trustedDeviceRepository.save(any(TrustedDevice.class))).thenAnswer(invocation -&gt; invocation.getArgument(0));</span>
+        
+<span class="fc" id="L214">        when(trustedDeviceRepository.findByUsuarioIdAndDeviceFingerprintHashAndActiveTrue(usuarioId, fingerprintHash))</span>
+<span class="fc" id="L215">            .thenReturn(Optional.of(existingDevice));</span>
+<span class="fc" id="L216">        when(trustedDeviceRepository.save(any(TrustedDevice.class))).thenAnswer(invocation -&gt; invocation.getArgument(0));</span>
 
-        // ACT
-<span class="fc" id="L230">        TrustedDevice device = trustedDeviceService.trustDevice(usuarioId, fingerprint, request);</span>
+        
+<span class="fc" id="L219">        TrustedDevice device = trustedDeviceService.trustDevice(usuarioId, fingerprint, request);</span>
 
-        // ASSERT
-<span class="fc" id="L233">        assertNotNull(device);</span>
-<span class="fc" id="L234">        verify(trustedDeviceRepository).save(existingDevice);</span>
-<span class="fc" id="L235">    }</span>
+        
+<span class="fc" id="L222">        assertNotNull(device);</span>
+<span class="fc" id="L223">        verify(trustedDeviceRepository).save(existingDevice);</span>
+<span class="fc" id="L224">    }</span>
 
     @Test
     @DisplayName(&quot;Registrar dispositivo - límite alcanzado debe lanzar excepción&quot;)
     void trustDevice_limiteAlcanzado_debeLanzarExcepcion() {
-        // ARRANGE
-<span class="fc" id="L241">        Integer usuarioId = 1;</span>
-<span class="fc" id="L242">        String fingerprint = &quot;new-fingerprint&quot;;</span>
-<span class="fc" id="L243">        String fingerprintHash = trustedDeviceService.hashFingerprint(fingerprint);</span>
+        
+<span class="fc" id="L230">        Integer usuarioId = 1;</span>
+<span class="fc" id="L231">        String fingerprint = &quot;new-fingerprint&quot;;</span>
+<span class="fc" id="L232">        String fingerprintHash = trustedDeviceService.hashFingerprint(fingerprint);</span>
 
-        // No se necesitan mocks del request porque falla antes de usarlo (límite alcanzado)
-<span class="fc" id="L246">        when(trustedDeviceRepository.findByUsuarioIdAndDeviceFingerprintHashAndActiveTrue(usuarioId, fingerprintHash))</span>
-<span class="fc" id="L247">            .thenReturn(Optional.empty());</span>
-<span class="fc" id="L248">        when(trustedDeviceRepository.countByUsuarioIdAndActiveTrue(usuarioId)).thenReturn(5L); // Límite alcanzado</span>
+        
+<span class="fc" id="L235">        when(trustedDeviceRepository.findByUsuarioIdAndDeviceFingerprintHashAndActiveTrue(usuarioId, fingerprintHash))</span>
+<span class="fc" id="L236">            .thenReturn(Optional.empty());</span>
+<span class="fc" id="L237">        when(trustedDeviceRepository.countByUsuarioIdAndActiveTrue(usuarioId)).thenReturn(5L); </span>
 
-        // ACT &amp; ASSERT
-<span class="fc" id="L251">        RuntimeException exception = assertThrows(RuntimeException.class, </span>
-<span class="pc" id="L252">            () -&gt; trustedDeviceService.trustDevice(usuarioId, fingerprint, request));</span>
-<span class="fc" id="L253">        assertTrue(exception.getMessage().contains(&quot;Límite de dispositivos&quot;));</span>
-<span class="fc" id="L254">        verify(trustedDeviceRepository, never()).save(any(TrustedDevice.class));</span>
-<span class="fc" id="L255">    }</span>
+        
+<span class="fc" id="L240">        RuntimeException exception = assertThrows(RuntimeException.class, </span>
+<span class="nc" id="L241">            () -&gt; trustedDeviceService.trustDevice(usuarioId, fingerprint, request));</span>
+<span class="fc" id="L242">        assertTrue(exception.getMessage().contains(&quot;Límite de dispositivos&quot;));</span>
+<span class="fc" id="L243">        verify(trustedDeviceRepository, never()).save(any(TrustedDevice.class));</span>
+<span class="fc" id="L244">    }</span>
 
     @Test
     @DisplayName(&quot;Registrar dispositivo con fingerprint vacío - debe lanzar excepción&quot;)
     void trustDevice_fingerprintVacio_debeLanzarExcepcion() {
-        // ARRANGE
-        // No se necesitan mocks porque falla inmediatamente en validación
+        
+        
 
-        // ACT &amp; ASSERT
-<span class="fc" id="L264">        assertThrows(IllegalArgumentException.class, </span>
-<span class="pc" id="L265">            () -&gt; trustedDeviceService.trustDevice(1, &quot;&quot;, request));</span>
-<span class="fc" id="L266">        verify(trustedDeviceRepository, never()).save(any(TrustedDevice.class));</span>
-<span class="fc" id="L267">    }</span>
+        
+<span class="fc" id="L253">        assertThrows(IllegalArgumentException.class, </span>
+<span class="nc" id="L254">            () -&gt; trustedDeviceService.trustDevice(1, &quot;&quot;, request));</span>
+<span class="fc" id="L255">        verify(trustedDeviceRepository, never()).save(any(TrustedDevice.class));</span>
+<span class="fc" id="L256">    }</span>
 
     @Test
     @DisplayName(&quot;Listar dispositivos del usuario - debe retornar lista de DTOs&quot;)
     void listUserDevices_debeRetornarListaDeDTOs() {
-        // ARRANGE
-<span class="fc" id="L273">        Integer usuarioId = 1;</span>
         
-<span class="fc" id="L275">        TrustedDevice device1 = new TrustedDevice();</span>
-<span class="fc" id="L276">        device1.setId(1L);</span>
-<span class="fc" id="L277">        device1.setUsuarioId(usuarioId);</span>
-<span class="fc" id="L278">        device1.setDeviceName(&quot;Chrome en Windows&quot;);</span>
-<span class="fc" id="L279">        device1.setActive(true);</span>
-<span class="fc" id="L280">        device1.setCreatedAt(LocalDateTime.now().minusDays(10));</span>
-<span class="fc" id="L281">        device1.setLastUsedAt(LocalDateTime.now());</span>
-<span class="fc" id="L282">        device1.setExpiresAt(LocalDateTime.now().plusDays(50));</span>
+<span class="fc" id="L262">        Integer usuarioId = 1;</span>
+        
+<span class="fc" id="L264">        TrustedDevice device1 = new TrustedDevice();</span>
+<span class="fc" id="L265">        device1.setId(1L);</span>
+<span class="fc" id="L266">        device1.setUsuarioId(usuarioId);</span>
+<span class="fc" id="L267">        device1.setDeviceName(&quot;Chrome en Windows&quot;);</span>
+<span class="fc" id="L268">        device1.setActive(true);</span>
+<span class="fc" id="L269">        device1.setCreatedAt(LocalDateTime.now().minusDays(10));</span>
+<span class="fc" id="L270">        device1.setLastUsedAt(LocalDateTime.now());</span>
+<span class="fc" id="L271">        device1.setExpiresAt(LocalDateTime.now().plusDays(50));</span>
 
-<span class="fc" id="L284">        TrustedDevice device2 = new TrustedDevice();</span>
-<span class="fc" id="L285">        device2.setId(2L);</span>
-<span class="fc" id="L286">        device2.setUsuarioId(usuarioId);</span>
-<span class="fc" id="L287">        device2.setDeviceName(&quot;Safari en iPhone&quot;);</span>
-<span class="fc" id="L288">        device2.setActive(true);</span>
-<span class="fc" id="L289">        device2.setCreatedAt(LocalDateTime.now().minusDays(5));</span>
-<span class="fc" id="L290">        device2.setLastUsedAt(LocalDateTime.now().minusDays(1));</span>
-<span class="fc" id="L291">        device2.setExpiresAt(LocalDateTime.now().plusDays(55));</span>
+<span class="fc" id="L273">        TrustedDevice device2 = new TrustedDevice();</span>
+<span class="fc" id="L274">        device2.setId(2L);</span>
+<span class="fc" id="L275">        device2.setUsuarioId(usuarioId);</span>
+<span class="fc" id="L276">        device2.setDeviceName(&quot;Safari en iPhone&quot;);</span>
+<span class="fc" id="L277">        device2.setActive(true);</span>
+<span class="fc" id="L278">        device2.setCreatedAt(LocalDateTime.now().minusDays(5));</span>
+<span class="fc" id="L279">        device2.setLastUsedAt(LocalDateTime.now().minusDays(1));</span>
+<span class="fc" id="L280">        device2.setExpiresAt(LocalDateTime.now().plusDays(55));</span>
 
-<span class="fc" id="L293">        when(trustedDeviceRepository.findByUsuarioIdAndActiveTrueOrderByLastUsedAtDesc(usuarioId))</span>
-<span class="fc" id="L294">            .thenReturn(Arrays.asList(device1, device2));</span>
+<span class="fc" id="L282">        when(trustedDeviceRepository.findByUsuarioIdAndActiveTrueOrderByLastUsedAtDesc(usuarioId))</span>
+<span class="fc" id="L283">            .thenReturn(Arrays.asList(device1, device2));</span>
 
-        // ACT
-<span class="fc" id="L297">        List&lt;TrustedDeviceDTO&gt; devices = trustedDeviceService.listUserDevices(usuarioId);</span>
+        
+<span class="fc" id="L286">        List&lt;TrustedDeviceDTO&gt; devices = trustedDeviceService.listUserDevices(usuarioId);</span>
 
-        // ASSERT
-<span class="fc" id="L300">        assertNotNull(devices);</span>
-<span class="fc" id="L301">        assertEquals(2, devices.size());</span>
-<span class="fc" id="L302">        assertEquals(&quot;Chrome en Windows&quot;, devices.get(0).getDeviceName());</span>
-<span class="fc" id="L303">        assertEquals(&quot;Safari en iPhone&quot;, devices.get(1).getDeviceName());</span>
-<span class="fc" id="L304">    }</span>
+        
+<span class="fc" id="L289">        assertNotNull(devices);</span>
+<span class="fc" id="L290">        assertEquals(2, devices.size());</span>
+<span class="fc" id="L291">        assertEquals(&quot;Chrome en Windows&quot;, devices.get(0).getDeviceName());</span>
+<span class="fc" id="L292">        assertEquals(&quot;Safari en iPhone&quot;, devices.get(1).getDeviceName());</span>
+<span class="fc" id="L293">    }</span>
 
     @Test
     @DisplayName(&quot;Revocar dispositivo - usuario autorizado debe revocar correctamente&quot;)
     void revokeDevice_usuarioAutorizado_debeRevocarCorrectamente() {
-        // ARRANGE
-<span class="fc" id="L310">        Long deviceId = 1L;</span>
-<span class="fc" id="L311">        Integer usuarioId = 1;</span>
+        
+<span class="fc" id="L299">        Long deviceId = 1L;</span>
+<span class="fc" id="L300">        Integer usuarioId = 1;</span>
 
-<span class="fc" id="L313">        TrustedDevice device = new TrustedDevice();</span>
-<span class="fc" id="L314">        device.setId(deviceId);</span>
-<span class="fc" id="L315">        device.setUsuarioId(usuarioId);</span>
-<span class="fc" id="L316">        device.setActive(true);</span>
+<span class="fc" id="L302">        TrustedDevice device = new TrustedDevice();</span>
+<span class="fc" id="L303">        device.setId(deviceId);</span>
+<span class="fc" id="L304">        device.setUsuarioId(usuarioId);</span>
+<span class="fc" id="L305">        device.setActive(true);</span>
 
-<span class="fc" id="L318">        when(trustedDeviceRepository.findById(deviceId)).thenReturn(Optional.of(device));</span>
-<span class="fc" id="L319">        when(trustedDeviceRepository.save(any(TrustedDevice.class))).thenReturn(device);</span>
+<span class="fc" id="L307">        when(trustedDeviceRepository.findById(deviceId)).thenReturn(Optional.of(device));</span>
+<span class="fc" id="L308">        when(trustedDeviceRepository.save(any(TrustedDevice.class))).thenReturn(device);</span>
 
-        // ACT
-<span class="fc" id="L322">        trustedDeviceService.revokeDevice(deviceId, usuarioId);</span>
+        
+<span class="fc" id="L311">        trustedDeviceService.revokeDevice(deviceId, usuarioId);</span>
 
-        // ASSERT
-<span class="fc" id="L325">        assertFalse(device.getActive(), &quot;El dispositivo debe ser desactivado&quot;);</span>
-<span class="fc" id="L326">        verify(trustedDeviceRepository).save(device);</span>
-<span class="fc" id="L327">    }</span>
+        
+<span class="fc" id="L314">        assertFalse(device.getActive(), &quot;El dispositivo debe ser desactivado&quot;);</span>
+<span class="fc" id="L315">        verify(trustedDeviceRepository).save(device);</span>
+<span class="fc" id="L316">    }</span>
 
     @Test
     @DisplayName(&quot;Revocar dispositivo - usuario no autorizado debe lanzar excepción&quot;)
     void revokeDevice_usuarioNoAutorizado_debeLanzarExcepcion() {
-        // ARRANGE
-<span class="fc" id="L333">        Long deviceId = 1L;</span>
-<span class="fc" id="L334">        Integer usuarioId = 1;</span>
-<span class="fc" id="L335">        Integer otroUsuarioId = 2;</span>
+        
+<span class="fc" id="L322">        Long deviceId = 1L;</span>
+<span class="fc" id="L323">        Integer usuarioId = 1;</span>
+<span class="fc" id="L324">        Integer otroUsuarioId = 2;</span>
 
-<span class="fc" id="L337">        TrustedDevice device = new TrustedDevice();</span>
-<span class="fc" id="L338">        device.setId(deviceId);</span>
-<span class="fc" id="L339">        device.setUsuarioId(otroUsuarioId); // Pertenece a otro usuario</span>
-<span class="fc" id="L340">        device.setActive(true);</span>
+<span class="fc" id="L326">        TrustedDevice device = new TrustedDevice();</span>
+<span class="fc" id="L327">        device.setId(deviceId);</span>
+<span class="fc" id="L328">        device.setUsuarioId(otroUsuarioId); </span>
+<span class="fc" id="L329">        device.setActive(true);</span>
 
-<span class="fc" id="L342">        when(trustedDeviceRepository.findById(deviceId)).thenReturn(Optional.of(device));</span>
+<span class="fc" id="L331">        when(trustedDeviceRepository.findById(deviceId)).thenReturn(Optional.of(device));</span>
 
-        // ACT &amp; ASSERT
-<span class="fc" id="L345">        RuntimeException exception = assertThrows(RuntimeException.class, </span>
-<span class="pc" id="L346">            () -&gt; trustedDeviceService.revokeDevice(deviceId, usuarioId));</span>
-<span class="fc" id="L347">        assertTrue(exception.getMessage().contains(&quot;No autorizado&quot;));</span>
-<span class="fc" id="L348">        verify(trustedDeviceRepository, never()).save(any(TrustedDevice.class));</span>
-<span class="fc" id="L349">    }</span>
+        
+<span class="fc" id="L334">        RuntimeException exception = assertThrows(RuntimeException.class, </span>
+<span class="nc" id="L335">            () -&gt; trustedDeviceService.revokeDevice(deviceId, usuarioId));</span>
+<span class="fc" id="L336">        assertTrue(exception.getMessage().contains(&quot;No autorizado&quot;));</span>
+<span class="fc" id="L337">        verify(trustedDeviceRepository, never()).save(any(TrustedDevice.class));</span>
+<span class="fc" id="L338">    }</span>
 
     @Test
     @DisplayName(&quot;Revocar dispositivo inexistente - debe lanzar excepción&quot;)
     void revokeDevice_dispositivoInexistente_debeLanzarExcepcion() {
-        // ARRANGE
-<span class="fc" id="L355">        Long deviceId = 999L;</span>
-<span class="fc" id="L356">        when(trustedDeviceRepository.findById(deviceId)).thenReturn(Optional.empty());</span>
+        
+<span class="fc" id="L344">        Long deviceId = 999L;</span>
+<span class="fc" id="L345">        when(trustedDeviceRepository.findById(deviceId)).thenReturn(Optional.empty());</span>
 
-        // ACT &amp; ASSERT
-<span class="fc" id="L359">        assertThrows(RuntimeException.class, </span>
-<span class="pc" id="L360">            () -&gt; trustedDeviceService.revokeDevice(deviceId, 1));</span>
-<span class="fc" id="L361">    }</span>
+        
+<span class="fc" id="L348">        assertThrows(RuntimeException.class, </span>
+<span class="nc" id="L349">            () -&gt; trustedDeviceService.revokeDevice(deviceId, 1));</span>
+<span class="fc" id="L350">    }</span>
 
     @Test
     @DisplayName(&quot;Revocar todos los dispositivos del usuario - debe desactivar todos&quot;)
     void revokeAllUserDevices_debeDesactivarTodos() {
-        // ARRANGE
-<span class="fc" id="L367">        Integer usuarioId = 1;</span>
-<span class="fc" id="L368">        when(trustedDeviceRepository.deactivateAllUserDevices(usuarioId)).thenReturn(3);</span>
+        
+<span class="fc" id="L356">        Integer usuarioId = 1;</span>
+<span class="fc" id="L357">        when(trustedDeviceRepository.deactivateAllUserDevices(usuarioId)).thenReturn(3);</span>
 
-        // ACT
-<span class="fc" id="L371">        trustedDeviceService.revokeAllUserDevices(usuarioId);</span>
+        
+<span class="fc" id="L360">        trustedDeviceService.revokeAllUserDevices(usuarioId);</span>
 
-        // ASSERT
-<span class="fc" id="L374">        verify(trustedDeviceRepository).deactivateAllUserDevices(usuarioId);</span>
-<span class="fc" id="L375">    }</span>
+        
+<span class="fc" id="L363">        verify(trustedDeviceRepository).deactivateAllUserDevices(usuarioId);</span>
+<span class="fc" id="L364">    }</span>
 
     @Test
     @DisplayName(&quot;Limpiar dispositivos expirados - debe desactivar dispositivos expirados&quot;)
     void cleanupExpiredDevices_debeDesactivarExpirados() {
-        // ARRANGE
-<span class="fc" id="L381">        when(trustedDeviceRepository.deactivateExpiredDevices(any(LocalDateTime.class))).thenReturn(5);</span>
+        
+<span class="fc" id="L370">        when(trustedDeviceRepository.deactivateExpiredDevices(any(LocalDateTime.class))).thenReturn(5);</span>
 
-        // ACT
-<span class="fc" id="L384">        trustedDeviceService.cleanupExpiredDevices();</span>
+        
+<span class="fc" id="L373">        trustedDeviceService.cleanupExpiredDevices();</span>
 
-        // ASSERT
-<span class="fc" id="L387">        verify(trustedDeviceRepository).deactivateExpiredDevices(any(LocalDateTime.class));</span>
-<span class="fc" id="L388">    }</span>
+        
+<span class="fc" id="L376">        verify(trustedDeviceRepository).deactivateExpiredDevices(any(LocalDateTime.class));</span>
+<span class="fc" id="L377">    }</span>
 
     @Test
     @DisplayName(&quot;Extraer nombre de dispositivo - Chrome en Windows&quot;)
     void extractDeviceName_ChromeEnWindows() {
-        // ARRANGE
-<span class="fc" id="L394">        when(request.getHeader(&quot;User-Agent&quot;))</span>
-<span class="fc" id="L395">            .thenReturn(&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36&quot;);</span>
-<span class="fc" id="L396">        when(request.getRemoteAddr()).thenReturn(&quot;192.168.1.100&quot;);</span>
-<span class="fc" id="L397">        when(trustedDeviceRepository.findByUsuarioIdAndDeviceFingerprintHashAndActiveTrue(anyInt(), anyString()))</span>
-<span class="fc" id="L398">            .thenReturn(Optional.empty());</span>
-<span class="fc" id="L399">        when(trustedDeviceRepository.countByUsuarioIdAndActiveTrue(anyInt())).thenReturn(0L);</span>
-<span class="fc" id="L400">        when(trustedDeviceRepository.save(any(TrustedDevice.class))).thenAnswer(invocation -&gt; invocation.getArgument(0));</span>
+        
+<span class="fc" id="L383">        when(request.getHeader(&quot;User-Agent&quot;))</span>
+<span class="fc" id="L384">            .thenReturn(&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36&quot;);</span>
+<span class="fc" id="L385">        when(request.getRemoteAddr()).thenReturn(&quot;192.168.1.100&quot;);</span>
+<span class="fc" id="L386">        when(trustedDeviceRepository.findByUsuarioIdAndDeviceFingerprintHashAndActiveTrue(anyInt(), anyString()))</span>
+<span class="fc" id="L387">            .thenReturn(Optional.empty());</span>
+<span class="fc" id="L388">        when(trustedDeviceRepository.countByUsuarioIdAndActiveTrue(anyInt())).thenReturn(0L);</span>
+<span class="fc" id="L389">        when(trustedDeviceRepository.save(any(TrustedDevice.class))).thenAnswer(invocation -&gt; invocation.getArgument(0));</span>
 
-        // ACT
-<span class="fc" id="L403">        TrustedDevice device = trustedDeviceService.trustDevice(1, &quot;fingerprint&quot;, request);</span>
+        
+<span class="fc" id="L392">        TrustedDevice device = trustedDeviceService.trustDevice(1, &quot;fingerprint&quot;, request);</span>
 
-        // ASSERT
-<span class="fc" id="L406">        assertTrue(device.getDeviceName().contains(&quot;Chrome&quot;));</span>
-<span class="fc" id="L407">        assertTrue(device.getDeviceName().contains(&quot;Windows&quot;));</span>
-<span class="fc" id="L408">    }</span>
+        
+<span class="fc" id="L395">        assertTrue(device.getDeviceName().contains(&quot;Chrome&quot;));</span>
+<span class="fc" id="L396">        assertTrue(device.getDeviceName().contains(&quot;Windows&quot;));</span>
+<span class="fc" id="L397">    }</span>
 
     @Test
     @DisplayName(&quot;Extraer nombre de dispositivo - Firefox en Linux&quot;)
     void extractDeviceName_FirefoxEnLinux() {
-        // ARRANGE
-<span class="fc" id="L414">        when(request.getHeader(&quot;User-Agent&quot;))</span>
-<span class="fc" id="L415">            .thenReturn(&quot;Mozilla/5.0 (X11; Linux x86_64; rv:120.0) Gecko/20100101 Firefox/120.0&quot;);</span>
-<span class="fc" id="L416">        when(request.getRemoteAddr()).thenReturn(&quot;192.168.1.100&quot;);</span>
-<span class="fc" id="L417">        when(trustedDeviceRepository.findByUsuarioIdAndDeviceFingerprintHashAndActiveTrue(anyInt(), anyString()))</span>
-<span class="fc" id="L418">            .thenReturn(Optional.empty());</span>
-<span class="fc" id="L419">        when(trustedDeviceRepository.countByUsuarioIdAndActiveTrue(anyInt())).thenReturn(0L);</span>
-<span class="fc" id="L420">        when(trustedDeviceRepository.save(any(TrustedDevice.class))).thenAnswer(invocation -&gt; invocation.getArgument(0));</span>
+        
+<span class="fc" id="L403">        when(request.getHeader(&quot;User-Agent&quot;))</span>
+<span class="fc" id="L404">            .thenReturn(&quot;Mozilla/5.0 (X11; Linux x86_64; rv:120.0) Gecko/20100101 Firefox/120.0&quot;);</span>
+<span class="fc" id="L405">        when(request.getRemoteAddr()).thenReturn(&quot;192.168.1.100&quot;);</span>
+<span class="fc" id="L406">        when(trustedDeviceRepository.findByUsuarioIdAndDeviceFingerprintHashAndActiveTrue(anyInt(), anyString()))</span>
+<span class="fc" id="L407">            .thenReturn(Optional.empty());</span>
+<span class="fc" id="L408">        when(trustedDeviceRepository.countByUsuarioIdAndActiveTrue(anyInt())).thenReturn(0L);</span>
+<span class="fc" id="L409">        when(trustedDeviceRepository.save(any(TrustedDevice.class))).thenAnswer(invocation -&gt; invocation.getArgument(0));</span>
 
-        // ACT
-<span class="fc" id="L423">        TrustedDevice device = trustedDeviceService.trustDevice(1, &quot;fingerprint&quot;, request);</span>
+        
+<span class="fc" id="L412">        TrustedDevice device = trustedDeviceService.trustDevice(1, &quot;fingerprint&quot;, request);</span>
 
-        // ASSERT
-<span class="fc" id="L426">        assertTrue(device.getDeviceName().contains(&quot;Firefox&quot;));</span>
-<span class="fc" id="L427">        assertTrue(device.getDeviceName().contains(&quot;Linux&quot;));</span>
-<span class="fc" id="L428">    }</span>
+        
+<span class="fc" id="L415">        assertTrue(device.getDeviceName().contains(&quot;Firefox&quot;));</span>
+<span class="fc" id="L416">        assertTrue(device.getDeviceName().contains(&quot;Linux&quot;));</span>
+<span class="fc" id="L417">    }</span>
 
     @Test
     @DisplayName(&quot;Extraer IP de request - debe obtener IP correctamente&quot;)
     void extractIpAddress_debeObtenerIPCorrectamente() {
-        // ARRANGE
-<span class="fc" id="L434">        when(request.getHeader(&quot;User-Agent&quot;)).thenReturn(&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0&quot;);</span>
-<span class="fc" id="L435">        when(request.getRemoteAddr()).thenReturn(&quot;203.0.113.42&quot;);</span>
-<span class="fc" id="L436">        when(trustedDeviceRepository.findByUsuarioIdAndDeviceFingerprintHashAndActiveTrue(anyInt(), anyString()))</span>
-<span class="fc" id="L437">            .thenReturn(Optional.empty());</span>
-<span class="fc" id="L438">        when(trustedDeviceRepository.countByUsuarioIdAndActiveTrue(anyInt())).thenReturn(0L);</span>
-<span class="fc" id="L439">        when(trustedDeviceRepository.save(any(TrustedDevice.class))).thenAnswer(invocation -&gt; invocation.getArgument(0));</span>
+        
+<span class="fc" id="L423">        when(request.getHeader(&quot;User-Agent&quot;)).thenReturn(&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0&quot;);</span>
+<span class="fc" id="L424">        when(request.getRemoteAddr()).thenReturn(&quot;203.0.113.42&quot;);</span>
+<span class="fc" id="L425">        when(trustedDeviceRepository.findByUsuarioIdAndDeviceFingerprintHashAndActiveTrue(anyInt(), anyString()))</span>
+<span class="fc" id="L426">            .thenReturn(Optional.empty());</span>
+<span class="fc" id="L427">        when(trustedDeviceRepository.countByUsuarioIdAndActiveTrue(anyInt())).thenReturn(0L);</span>
+<span class="fc" id="L428">        when(trustedDeviceRepository.save(any(TrustedDevice.class))).thenAnswer(invocation -&gt; invocation.getArgument(0));</span>
 
-        // ACT
-<span class="fc" id="L442">        TrustedDevice device = trustedDeviceService.trustDevice(1, &quot;fingerprint&quot;, request);</span>
+        
+<span class="fc" id="L431">        TrustedDevice device = trustedDeviceService.trustDevice(1, &quot;fingerprint&quot;, request);</span>
 
-        // ASSERT
-<span class="fc" id="L445">        assertEquals(&quot;203.0.113.42&quot;, device.getIpAddress());</span>
-<span class="fc" id="L446">    }</span>
+        
+<span class="fc" id="L434">        assertEquals(&quot;203.0.113.42&quot;, device.getIpAddress());</span>
+<span class="fc" id="L435">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

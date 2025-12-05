@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CatalogoService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">CatalogoService.java</span></div><h1>CatalogoService.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CatalogoService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">CatalogoService.java</span></div><h1>CatalogoService.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,14 +21,14 @@ import utec.proyectofinal.Proyecto.Final.UTEC.enums.TipoCatalogo;
     @Autowired
     private CatalogoCrudRepository catalogoRepository;
 
-    // Obtener todos los catálogos activos
+    
     public List&lt;CatalogoDTO&gt; obtenerTodos() {
 <span class="fc" id="L26">        return catalogoRepository.findByActivoTrue().stream()</span>
 <span class="fc" id="L27">                .map(this::mapearEntidadADTO)</span>
 <span class="fc" id="L28">                .collect(Collectors.toList());</span>
     }
 
-    // Obtener catálogos por tipo
+    
     public List&lt;CatalogoDTO&gt; obtenerPorTipo(String tipo) {
 <span class="fc" id="L33">        TipoCatalogo tipoCatalogo = TipoCatalogo.valueOf(tipo.toUpperCase());</span>
 <span class="fc" id="L34">        return catalogoRepository.findByTipoAndActivoTrue(tipoCatalogo).stream()</span>
@@ -36,22 +36,22 @@ import utec.proyectofinal.Proyecto.Final.UTEC.enums.TipoCatalogo;
 <span class="fc" id="L36">                .collect(Collectors.toList());</span>
     }
 
-    // Obtener catálogos por tipo con filtro de estado opcional
+    
     public List&lt;CatalogoDTO&gt; obtenerPorTipo(String tipo, Boolean activo) {
 <span class="fc" id="L41">        TipoCatalogo tipoCatalogo = TipoCatalogo.valueOf(tipo.toUpperCase());</span>
         
 <span class="fc bfc" id="L43" title="All 2 branches covered.">        if (activo == null) {</span>
-            // Si no se especifica, devolver todos (activos e inactivos)
+            
 <span class="fc" id="L45">            return catalogoRepository.findByTipo(tipoCatalogo).stream()</span>
 <span class="fc" id="L46">                    .map(this::mapearEntidadADTO)</span>
 <span class="fc" id="L47">                    .collect(Collectors.toList());</span>
 <span class="fc bfc" id="L48" title="All 2 branches covered.">        } else if (activo) {</span>
-            // Solo activos
+            
 <span class="fc" id="L50">            return catalogoRepository.findByTipoAndActivoTrue(tipoCatalogo).stream()</span>
 <span class="fc" id="L51">                    .map(this::mapearEntidadADTO)</span>
 <span class="fc" id="L52">                    .collect(Collectors.toList());</span>
         } else {
-            // Solo inactivos
+            
 <span class="fc" id="L55">            return catalogoRepository.findByTipoAndActivoFalse(tipoCatalogo).stream()</span>
 <span class="fc" id="L56">                    .map(this::mapearEntidadADTO)</span>
 <span class="fc" id="L57">                    .collect(Collectors.toList());</span>
@@ -59,16 +59,16 @@ import utec.proyectofinal.Proyecto.Final.UTEC.enums.TipoCatalogo;
     }
     
 
-    // Obtener por ID
+    
     public CatalogoDTO obtenerPorId(Long id) {
 <span class="fc" id="L64">        return catalogoRepository.findById(id)</span>
 <span class="fc" id="L65">                .map(this::mapearEntidadADTO)</span>
 <span class="fc" id="L66">                .orElse(null);</span>
     }
 
-    // Crear nuevo catálogo
+    
     public CatalogoDTO crear(CatalogoRequestDTO solicitud) {
-        // Verificar si ya existe el mismo valor para el mismo tipo
+        
 <span class="fc" id="L72">        TipoCatalogo tipo = TipoCatalogo.valueOf(solicitud.getTipo().toUpperCase());</span>
 <span class="fc" id="L73">        Optional&lt;Catalogo&gt; existente = catalogoRepository.findByTipoAndValor(tipo, solicitud.getValor());</span>
         
@@ -79,17 +79,17 @@ import utec.proyectofinal.Proyecto.Final.UTEC.enums.TipoCatalogo;
 <span class="fc" id="L79">        Catalogo catalogo = new Catalogo();</span>
 <span class="fc" id="L80">        catalogo.setTipo(tipo);</span>
 <span class="fc" id="L81">        catalogo.setValor(solicitud.getValor());</span>
-<span class="fc" id="L82">        catalogo.setActivo(true); // Siempre activo al crear</span>
+<span class="fc" id="L82">        catalogo.setActivo(true); </span>
 
 <span class="fc" id="L84">        Catalogo guardado = catalogoRepository.save(catalogo);</span>
 <span class="fc" id="L85">        return mapearEntidadADTO(guardado);</span>
     }
 
-    // Actualizar catálogo
+    
     public CatalogoDTO actualizar(Long id, CatalogoRequestDTO solicitud) {
 <span class="fc" id="L90">        return catalogoRepository.findById(id)</span>
 <span class="fc" id="L91">                .map(catalogo -&gt; {</span>
-                    // Verificar si el nuevo valor ya existe para otro registro del mismo tipo
+                    
 <span class="fc" id="L93">                    TipoCatalogo tipo = TipoCatalogo.valueOf(solicitud.getTipo().toUpperCase());</span>
 <span class="fc" id="L94">                    Optional&lt;Catalogo&gt; existente = catalogoRepository.findByTipoAndValor(tipo, solicitud.getValor());</span>
                     
@@ -106,7 +106,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.enums.TipoCatalogo;
 <span class="fc" id="L106">                .orElse(null);</span>
     }
 
-    // Eliminar (desactivar)
+    
     public void eliminar(Long id) {
 <span class="fc" id="L111">        catalogoRepository.findById(id)</span>
 <span class="fc" id="L112">                .ifPresent(catalogo -&gt; {</span>
@@ -115,7 +115,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.enums.TipoCatalogo;
 <span class="fc" id="L115">                });</span>
 <span class="fc" id="L116">    }</span>
 
-    // Reactivar catálogo
+    
     public CatalogoDTO reactivar(Long id) {
 <span class="fc" id="L120">        return catalogoRepository.findById(id)</span>
 <span class="fc" id="L121">                .map(catalogo -&gt; {</span>
@@ -126,12 +126,12 @@ import utec.proyectofinal.Proyecto.Final.UTEC.enums.TipoCatalogo;
 <span class="fc" id="L126">                .orElse(null);</span>
     }
 
-    // Eliminar físicamente
+    
     public void eliminarFisicamente(Long id) {
 <span class="fc" id="L131">        catalogoRepository.deleteById(id);</span>
 <span class="fc" id="L132">    }</span>
 
-    // Mapeo de entidad a DTO
+    
     private CatalogoDTO mapearEntidadADTO(Catalogo catalogo) {
 <span class="fc" id="L136">        CatalogoDTO dto = new CatalogoDTO();</span>
 <span class="fc" id="L137">        dto.setId(catalogo.getId());</span>
@@ -141,18 +141,18 @@ import utec.proyectofinal.Proyecto.Final.UTEC.enums.TipoCatalogo;
 <span class="fc" id="L141">        return dto;</span>
     }
 
-    // Obtener catálogo por ID para uso interno
+    
     public Catalogo obtenerEntidadPorId(Long id) {
 <span class="fc" id="L146">        return catalogoRepository.findById(id).orElse(null);</span>
     }
 
-    // Listar Catálogos con paginado (para listado)
+    
     public Page&lt;CatalogoDTO&gt; obtenerCatalogosPaginados(Pageable pageable) {
 <span class="fc" id="L151">        Page&lt;Catalogo&gt; catalogoPage = catalogoRepository.findByActivoTrueOrderByTipoAscValorAsc(pageable);</span>
 <span class="fc" id="L152">        return catalogoPage.map(this::mapearEntidadADTO);</span>
     }
 
-    // Listar Catálogos con paginado y filtro por activo
+    
     public Page&lt;CatalogoDTO&gt; obtenerCatalogosPaginadosConFiltro(Pageable pageable, String filtroActivo) {
         Page&lt;Catalogo&gt; catalogoPage;
         
@@ -160,22 +160,15 @@ import utec.proyectofinal.Proyecto.Final.UTEC.enums.TipoCatalogo;
 <span class="fc" id="L160">            catalogoPage = catalogoRepository.findByActivoTrueOrderByTipoAscValorAsc(pageable);</span>
 <span class="fc bfc" id="L161" title="All 2 branches covered.">        } else if (&quot;inactivos&quot;.equalsIgnoreCase(filtroActivo)) {</span>
 <span class="fc" id="L162">            catalogoPage = catalogoRepository.findByActivoFalseOrderByTipoAscValorAsc(pageable);</span>
-<span class="fc" id="L163">        } else {</span>
-            // &quot;todos&quot; o cualquier otro valor
+        } else {
+            
 <span class="fc" id="L165">            catalogoPage = catalogoRepository.findAllByOrderByTipoAscValorAsc(pageable);</span>
         }
         
 <span class="fc" id="L168">        return catalogoPage.map(this::mapearEntidadADTO);</span>
     }
 
-    /**
-     * Listar Catálogos con paginado y filtros dinámicos
-     * @param pageable Información de paginación
-     * @param searchTerm Término de búsqueda (opcional)
-     * @param activo Filtro por estado activo (opcional)
-     * @param tipo Filtro por tipo de catálogo (opcional)
-     * @return Página de CatalogoDTO filtrados
-     */
+    
     public Page&lt;CatalogoDTO&gt; obtenerCatalogosPaginadosConFiltros(
             Pageable pageable,
             String searchTerm,
@@ -184,83 +177,83 @@ import utec.proyectofinal.Proyecto.Final.UTEC.enums.TipoCatalogo;
         
         Page&lt;Catalogo&gt; catalogoPage;
         
-        // Si hay tipo específico
-<span class="pc bpc" id="L188" title="1 of 4 branches missed.">        if (tipo != null &amp;&amp; !tipo.trim().isEmpty()) {</span>
+        
+<span class="pc bpc" id="L181" title="1 of 4 branches missed.">        if (tipo != null &amp;&amp; !tipo.trim().isEmpty()) {</span>
             try {
-<span class="fc" id="L190">                TipoCatalogo tipoCatalogo = TipoCatalogo.valueOf(tipo.toUpperCase());</span>
+<span class="fc" id="L183">                TipoCatalogo tipoCatalogo = TipoCatalogo.valueOf(tipo.toUpperCase());</span>
                 
-                // Si hay búsqueda
-<span class="pc bpc" id="L193" title="1 of 4 branches missed.">                if (searchTerm != null &amp;&amp; !searchTerm.trim().isEmpty()) {</span>
+                
+<span class="pc bpc" id="L186" title="1 of 4 branches missed.">                if (searchTerm != null &amp;&amp; !searchTerm.trim().isEmpty()) {</span>
                     List&lt;Catalogo&gt; catalogos;
-<span class="fc bfc" id="L195" title="All 2 branches covered.">                    if (activo == null) {</span>
-<span class="fc" id="L196">                        catalogos = catalogoRepository.findByTipo(tipoCatalogo);</span>
-<span class="fc bfc" id="L197" title="All 2 branches covered.">                    } else if (activo) {</span>
-<span class="fc" id="L198">                        catalogos = catalogoRepository.findByTipoAndActivoTrue(tipoCatalogo);</span>
-<span class="fc" id="L199">                    } else {</span>
-<span class="fc" id="L200">                        catalogos = catalogoRepository.findByTipoAndActivoFalse(tipoCatalogo);</span>
+<span class="fc bfc" id="L188" title="All 2 branches covered.">                    if (activo == null) {</span>
+<span class="fc" id="L189">                        catalogos = catalogoRepository.findByTipo(tipoCatalogo);</span>
+<span class="fc bfc" id="L190" title="All 2 branches covered.">                    } else if (activo) {</span>
+<span class="fc" id="L191">                        catalogos = catalogoRepository.findByTipoAndActivoTrue(tipoCatalogo);</span>
+                    } else {
+<span class="fc" id="L193">                        catalogos = catalogoRepository.findByTipoAndActivoFalse(tipoCatalogo);</span>
                     }
                     
-                    // Filtrar por término de búsqueda
-<span class="fc" id="L204">                    catalogos = catalogos.stream()</span>
-<span class="pc bpc" id="L205" title="2 of 4 branches missed.">                        .filter(c -&gt; c.getValor() != null &amp;&amp; c.getValor().toLowerCase().contains(searchTerm.toLowerCase()))</span>
-<span class="fc" id="L206">                        .collect(Collectors.toList());</span>
                     
-                    // Convertir lista a página
-<span class="fc" id="L209">                    int start = (int) pageable.getOffset();</span>
-<span class="fc" id="L210">                    int end = Math.min(start + pageable.getPageSize(), catalogos.size());</span>
-<span class="fc" id="L211">                    List&lt;Catalogo&gt; pageContent = catalogos.subList(start, end);</span>
-<span class="fc" id="L212">                    catalogoPage = new org.springframework.data.domain.PageImpl&lt;&gt;(pageContent, pageable, catalogos.size());</span>
-<span class="fc" id="L213">                } else {</span>
-                    // Sin búsqueda, solo filtro de activo y tipo
-<span class="fc bfc" id="L215" title="All 2 branches covered.">                    if (activo == null) {</span>
-<span class="fc" id="L216">                        catalogoPage = catalogoRepository.findByTipoOrderByValorAsc(tipoCatalogo, pageable);</span>
-<span class="fc bfc" id="L217" title="All 2 branches covered.">                    } else if (activo) {</span>
-<span class="fc" id="L218">                        catalogoPage = catalogoRepository.findByTipoAndActivoTrueOrderByValorAsc(tipoCatalogo, pageable);</span>
-<span class="fc" id="L219">                    } else {</span>
-<span class="fc" id="L220">                        catalogoPage = catalogoRepository.findByTipoAndActivoFalseOrderByValorAsc(tipoCatalogo, pageable);</span>
+<span class="fc" id="L197">                    catalogos = catalogos.stream()</span>
+<span class="pc bpc" id="L198" title="2 of 4 branches missed.">                        .filter(c -&gt; c.getValor() != null &amp;&amp; c.getValor().toLowerCase().contains(searchTerm.toLowerCase()))</span>
+<span class="fc" id="L199">                        .collect(Collectors.toList());</span>
+                    
+                    
+<span class="fc" id="L202">                    int start = (int) pageable.getOffset();</span>
+<span class="fc" id="L203">                    int end = Math.min(start + pageable.getPageSize(), catalogos.size());</span>
+<span class="fc" id="L204">                    List&lt;Catalogo&gt; pageContent = catalogos.subList(start, end);</span>
+<span class="fc" id="L205">                    catalogoPage = new org.springframework.data.domain.PageImpl&lt;&gt;(pageContent, pageable, catalogos.size());</span>
+<span class="fc" id="L206">                } else {</span>
+                    
+<span class="fc bfc" id="L208" title="All 2 branches covered.">                    if (activo == null) {</span>
+<span class="fc" id="L209">                        catalogoPage = catalogoRepository.findByTipoOrderByValorAsc(tipoCatalogo, pageable);</span>
+<span class="fc bfc" id="L210" title="All 2 branches covered.">                    } else if (activo) {</span>
+<span class="fc" id="L211">                        catalogoPage = catalogoRepository.findByTipoAndActivoTrueOrderByValorAsc(tipoCatalogo, pageable);</span>
+                    } else {
+<span class="fc" id="L213">                        catalogoPage = catalogoRepository.findByTipoAndActivoFalseOrderByValorAsc(tipoCatalogo, pageable);</span>
                     }
                 }
-<span class="fc" id="L223">            } catch (IllegalArgumentException e) {</span>
-                // Tipo inválido, devolver página vacía
-<span class="fc" id="L225">                catalogoPage = Page.empty(pageable);</span>
-            }
-<span class="fc" id="L227">        } else {</span>
-            // Sin tipo específico
-<span class="pc bpc" id="L229" title="1 of 4 branches missed.">            if (searchTerm != null &amp;&amp; !searchTerm.trim().isEmpty()) {</span>
+<span class="fc" id="L216">            } catch (IllegalArgumentException e) {</span>
+                
+<span class="fc" id="L218">                catalogoPage = Page.empty(pageable);</span>
+<span class="fc" id="L219">            }</span>
+        } else {
+            
+<span class="pc bpc" id="L222" title="1 of 4 branches missed.">            if (searchTerm != null &amp;&amp; !searchTerm.trim().isEmpty()) {</span>
                 List&lt;Catalogo&gt; catalogos;
-<span class="fc bfc" id="L231" title="All 2 branches covered.">                if (activo == null) {</span>
-<span class="fc" id="L232">                    catalogos = catalogoRepository.findAll();</span>
-<span class="fc bfc" id="L233" title="All 2 branches covered.">                } else if (activo) {</span>
-<span class="fc" id="L234">                    catalogos = catalogoRepository.findByActivoTrue();</span>
-<span class="fc" id="L235">                } else {</span>
-<span class="fc" id="L236">                    catalogos = catalogoRepository.findAll().stream()</span>
-<span class="pc bpc" id="L237" title="1 of 2 branches missed.">                        .filter(c -&gt; !c.getActivo())</span>
-<span class="fc" id="L238">                        .collect(Collectors.toList());</span>
+<span class="fc bfc" id="L224" title="All 2 branches covered.">                if (activo == null) {</span>
+<span class="fc" id="L225">                    catalogos = catalogoRepository.findAll();</span>
+<span class="fc bfc" id="L226" title="All 2 branches covered.">                } else if (activo) {</span>
+<span class="fc" id="L227">                    catalogos = catalogoRepository.findByActivoTrue();</span>
+                } else {
+<span class="fc" id="L229">                    catalogos = catalogoRepository.findAll().stream()</span>
+<span class="pc bpc" id="L230" title="1 of 2 branches missed.">                        .filter(c -&gt; !c.getActivo())</span>
+<span class="fc" id="L231">                        .collect(Collectors.toList());</span>
                 }
                 
-                // Filtrar por término de búsqueda
-<span class="fc" id="L242">                catalogos = catalogos.stream()</span>
-<span class="pc bpc" id="L243" title="1 of 4 branches missed.">                    .filter(c -&gt; c.getValor() != null &amp;&amp; c.getValor().toLowerCase().contains(searchTerm.toLowerCase()))</span>
-<span class="fc" id="L244">                    .collect(Collectors.toList());</span>
                 
-                // Convertir lista a página
-<span class="fc" id="L247">                int start = (int) pageable.getOffset();</span>
-<span class="fc" id="L248">                int end = Math.min(start + pageable.getPageSize(), catalogos.size());</span>
-<span class="fc" id="L249">                List&lt;Catalogo&gt; pageContent = catalogos.subList(start, end);</span>
-<span class="fc" id="L250">                catalogoPage = new org.springframework.data.domain.PageImpl&lt;&gt;(pageContent, pageable, catalogos.size());</span>
-<span class="fc" id="L251">            } else {</span>
-                // Sin búsqueda ni tipo, solo filtro de activo
-<span class="fc bfc" id="L253" title="All 2 branches covered.">                if (activo == null) {</span>
-<span class="fc" id="L254">                    catalogoPage = catalogoRepository.findAllByOrderByTipoAscValorAsc(pageable);</span>
-<span class="fc bfc" id="L255" title="All 2 branches covered.">                } else if (activo) {</span>
-<span class="fc" id="L256">                    catalogoPage = catalogoRepository.findByActivoTrueOrderByTipoAscValorAsc(pageable);</span>
-<span class="fc" id="L257">                } else {</span>
-<span class="fc" id="L258">                    catalogoPage = catalogoRepository.findByActivoFalseOrderByTipoAscValorAsc(pageable);</span>
+<span class="fc" id="L235">                catalogos = catalogos.stream()</span>
+<span class="pc bpc" id="L236" title="1 of 4 branches missed.">                    .filter(c -&gt; c.getValor() != null &amp;&amp; c.getValor().toLowerCase().contains(searchTerm.toLowerCase()))</span>
+<span class="fc" id="L237">                    .collect(Collectors.toList());</span>
+                
+                
+<span class="fc" id="L240">                int start = (int) pageable.getOffset();</span>
+<span class="fc" id="L241">                int end = Math.min(start + pageable.getPageSize(), catalogos.size());</span>
+<span class="fc" id="L242">                List&lt;Catalogo&gt; pageContent = catalogos.subList(start, end);</span>
+<span class="fc" id="L243">                catalogoPage = new org.springframework.data.domain.PageImpl&lt;&gt;(pageContent, pageable, catalogos.size());</span>
+<span class="fc" id="L244">            } else {</span>
+                
+<span class="fc bfc" id="L246" title="All 2 branches covered.">                if (activo == null) {</span>
+<span class="fc" id="L247">                    catalogoPage = catalogoRepository.findAllByOrderByTipoAscValorAsc(pageable);</span>
+<span class="fc bfc" id="L248" title="All 2 branches covered.">                } else if (activo) {</span>
+<span class="fc" id="L249">                    catalogoPage = catalogoRepository.findByActivoTrueOrderByTipoAscValorAsc(pageable);</span>
+                } else {
+<span class="fc" id="L251">                    catalogoPage = catalogoRepository.findByActivoFalseOrderByTipoAscValorAsc(pageable);</span>
                 }
             }
         }
         
-<span class="fc" id="L263">        return catalogoPage.map(this::mapearEntidadADTO);</span>
+<span class="fc" id="L256">        return catalogoPage.map(this::mapearEntidadADTO);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

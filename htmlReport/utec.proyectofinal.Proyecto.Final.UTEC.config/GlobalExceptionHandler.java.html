@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GlobalExceptionHandler.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.config</a> &gt; <span class="el_source">GlobalExceptionHandler.java</span></div><h1>GlobalExceptionHandler.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.config;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GlobalExceptionHandler.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.config</a> &gt; <span class="el_source">GlobalExceptionHandler.java</span></div><h1>GlobalExceptionHandler.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.config;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -11,184 +11,158 @@ import utec.proyectofinal.Proyecto.Final.UTEC.exceptions.BadRequestException;
 import utec.proyectofinal.Proyecto.Final.UTEC.exceptions.ConflictException;
 import utec.proyectofinal.Proyecto.Final.UTEC.exceptions.NotFoundException;
 
-/**
- * Manejador global de excepciones para todos los controladores REST
- * Proporciona respuestas de error consistentes en toda la API
- */
-@RestControllerAdvice
-<span class="fc" id="L19">public class GlobalExceptionHandler {</span>
 
-    /**
-     * Maneja BadRequestException - validaciones de negocio fallidas
-     * HTTP 400 Bad Request
-     */
+@RestControllerAdvice
+<span class="fc" id="L16">public class GlobalExceptionHandler {</span>
+
+    
     @ExceptionHandler(BadRequestException.class)
     public ResponseEntity&lt;ErrorResponse&gt; handleBadRequestException(
             BadRequestException ex,
             HttpServletRequest request) {
         
-<span class="fc" id="L30">        ErrorResponse error = new ErrorResponse(</span>
-<span class="fc" id="L31">            ex.getMessage(),</span>
-<span class="fc" id="L32">            HttpStatus.BAD_REQUEST.value(),</span>
-<span class="fc" id="L33">            request.getRequestURI()</span>
+<span class="fc" id="L24">        ErrorResponse error = new ErrorResponse(</span>
+<span class="fc" id="L25">            ex.getMessage(),</span>
+<span class="fc" id="L26">            HttpStatus.BAD_REQUEST.value(),</span>
+<span class="fc" id="L27">            request.getRequestURI()</span>
         );
         
-<span class="fc" id="L36">        return ResponseEntity</span>
-<span class="fc" id="L37">            .status(HttpStatus.BAD_REQUEST)</span>
-<span class="fc" id="L38">            .body(error);</span>
+<span class="fc" id="L30">        return ResponseEntity</span>
+<span class="fc" id="L31">            .status(HttpStatus.BAD_REQUEST)</span>
+<span class="fc" id="L32">            .body(error);</span>
     }
 
-    /**
-     * Maneja NotFoundException - recurso no encontrado
-     * HTTP 404 Not Found
-     */
+    
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity&lt;ErrorResponse&gt; handleNotFoundException(
             NotFoundException ex,
             HttpServletRequest request) {
         
-<span class="nc" id="L50">        ErrorResponse error = new ErrorResponse(</span>
-<span class="nc" id="L51">            ex.getMessage(),</span>
-<span class="nc" id="L52">            HttpStatus.NOT_FOUND.value(),</span>
-<span class="nc" id="L53">            request.getRequestURI()</span>
+<span class="nc" id="L41">        ErrorResponse error = new ErrorResponse(</span>
+<span class="nc" id="L42">            ex.getMessage(),</span>
+<span class="nc" id="L43">            HttpStatus.NOT_FOUND.value(),</span>
+<span class="nc" id="L44">            request.getRequestURI()</span>
         );
         
-<span class="nc" id="L56">        return ResponseEntity</span>
-<span class="nc" id="L57">            .status(HttpStatus.NOT_FOUND)</span>
-<span class="nc" id="L58">            .body(error);</span>
+<span class="nc" id="L47">        return ResponseEntity</span>
+<span class="nc" id="L48">            .status(HttpStatus.NOT_FOUND)</span>
+<span class="nc" id="L49">            .body(error);</span>
     }
 
-    /**
-     * Maneja ConflictException - conflictos de estado o recursos duplicados
-     * HTTP 409 Conflict
-     */
+    
     @ExceptionHandler(ConflictException.class)
     public ResponseEntity&lt;ErrorResponse&gt; handleConflictException(
             ConflictException ex,
             HttpServletRequest request) {
         
-<span class="nc" id="L70">        ErrorResponse error = new ErrorResponse(</span>
-<span class="nc" id="L71">            ex.getMessage(),</span>
-<span class="nc" id="L72">            HttpStatus.CONFLICT.value(),</span>
-<span class="nc" id="L73">            request.getRequestURI()</span>
+<span class="nc" id="L58">        ErrorResponse error = new ErrorResponse(</span>
+<span class="nc" id="L59">            ex.getMessage(),</span>
+<span class="nc" id="L60">            HttpStatus.CONFLICT.value(),</span>
+<span class="nc" id="L61">            request.getRequestURI()</span>
         );
         
-<span class="nc" id="L76">        return ResponseEntity</span>
-<span class="nc" id="L77">            .status(HttpStatus.CONFLICT)</span>
-<span class="nc" id="L78">            .body(error);</span>
+<span class="nc" id="L64">        return ResponseEntity</span>
+<span class="nc" id="L65">            .status(HttpStatus.CONFLICT)</span>
+<span class="nc" id="L66">            .body(error);</span>
     }
 
-    /**
-     * Maneja excepciones de acceso denegado (403 Forbidden)
-     */
+    
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity&lt;ErrorResponse&gt; handleAccessDeniedException(
             AccessDeniedException ex,
             HttpServletRequest request) {
         
-<span class="nc" id="L89">        ErrorResponse error = new ErrorResponse(</span>
+<span class="nc" id="L75">        ErrorResponse error = new ErrorResponse(</span>
             &quot;No tienes permisos para realizar esta operación&quot;,
-<span class="nc" id="L91">            HttpStatus.FORBIDDEN.value(),</span>
-<span class="nc" id="L92">            request.getRequestURI()</span>
+<span class="nc" id="L77">            HttpStatus.FORBIDDEN.value(),</span>
+<span class="nc" id="L78">            request.getRequestURI()</span>
         );
         
-<span class="nc" id="L95">        return ResponseEntity</span>
-<span class="nc" id="L96">            .status(HttpStatus.FORBIDDEN)</span>
-<span class="nc" id="L97">            .body(error);</span>
+<span class="nc" id="L81">        return ResponseEntity</span>
+<span class="nc" id="L82">            .status(HttpStatus.FORBIDDEN)</span>
+<span class="nc" id="L83">            .body(error);</span>
     }
 
-    /**
-     * Maneja IllegalStateException - errores de estado interno del sistema
-     * HTTP 500 Internal Server Error
-     */
+    
     @ExceptionHandler(IllegalStateException.class)
     public ResponseEntity&lt;ErrorResponse&gt; handleIllegalStateException(
             IllegalStateException ex,
             HttpServletRequest request) {
         
-<span class="fc" id="L109">        ErrorResponse error = new ErrorResponse(</span>
-<span class="fc" id="L110">            ex.getMessage(),</span>
-<span class="fc" id="L111">            HttpStatus.INTERNAL_SERVER_ERROR.value(),</span>
-<span class="fc" id="L112">            request.getRequestURI()</span>
+<span class="fc" id="L92">        ErrorResponse error = new ErrorResponse(</span>
+<span class="fc" id="L93">            ex.getMessage(),</span>
+<span class="fc" id="L94">            HttpStatus.INTERNAL_SERVER_ERROR.value(),</span>
+<span class="fc" id="L95">            request.getRequestURI()</span>
         );
         
-<span class="fc" id="L115">        return ResponseEntity</span>
-<span class="fc" id="L116">            .status(HttpStatus.INTERNAL_SERVER_ERROR)</span>
-<span class="fc" id="L117">            .body(error);</span>
+<span class="fc" id="L98">        return ResponseEntity</span>
+<span class="fc" id="L99">            .status(HttpStatus.INTERNAL_SERVER_ERROR)</span>
+<span class="fc" id="L100">            .body(error);</span>
     }
 
-    /**
-     * Maneja IllegalArgumentException (argumentos inválidos)
-     */
+    
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity&lt;ErrorResponse&gt; handleIllegalArgumentException(
             IllegalArgumentException ex,
             HttpServletRequest request) {
         
-<span class="nc" id="L128">        ErrorResponse error = new ErrorResponse(</span>
-<span class="nc" id="L129">            ex.getMessage(),</span>
-<span class="nc" id="L130">            HttpStatus.BAD_REQUEST.value(),</span>
-<span class="nc" id="L131">            request.getRequestURI()</span>
+<span class="nc" id="L109">        ErrorResponse error = new ErrorResponse(</span>
+<span class="nc" id="L110">            ex.getMessage(),</span>
+<span class="nc" id="L111">            HttpStatus.BAD_REQUEST.value(),</span>
+<span class="nc" id="L112">            request.getRequestURI()</span>
         );
         
-<span class="nc" id="L134">        return ResponseEntity</span>
-<span class="nc" id="L135">            .status(HttpStatus.BAD_REQUEST)</span>
-<span class="nc" id="L136">            .body(error);</span>
+<span class="nc" id="L115">        return ResponseEntity</span>
+<span class="nc" id="L116">            .status(HttpStatus.BAD_REQUEST)</span>
+<span class="nc" id="L117">            .body(error);</span>
     }
 
-    /**
-     * Maneja excepciones de RuntimeException lanzadas por la lógica de negocio
-     * Si el mensaje contiene palabras clave de &quot;no encontrado&quot;, retorna 404
-     * De lo contrario, retorna 400 Bad Request
-     * Nota: IllegalStateException se maneja en su propio handler específico
-     */
+    
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity&lt;ErrorResponse&gt; handleRuntimeException(
             RuntimeException ex, 
             HttpServletRequest request) {
         
-        // IllegalStateException tiene su propio handler, ignorar aquí
-<span class="pc bpc" id="L151" title="1 of 2 branches missed.">        if (ex instanceof IllegalStateException) {</span>
-<span class="nc" id="L152">            throw ex; // Re-lanzar para que sea capturada por su handler específico</span>
+        
+<span class="pc bpc" id="L127" title="1 of 2 branches missed.">        if (ex instanceof IllegalStateException) {</span>
+<span class="nc" id="L128">            throw ex; </span>
         }
         
-<span class="fc" id="L155">        String mensaje = ex.getMessage();</span>
-<span class="fc" id="L156">        HttpStatus status = HttpStatus.BAD_REQUEST;</span>
+<span class="fc" id="L131">        String mensaje = ex.getMessage();</span>
+<span class="fc" id="L132">        HttpStatus status = HttpStatus.BAD_REQUEST;</span>
         
-        // Si el mensaje indica que algo no fue encontrado, retornar 404
-<span class="fc bfc" id="L159" title="All 4 branches covered.">        if (mensaje != null &amp;&amp; (mensaje.toLowerCase().contains(&quot;no encontrad&quot;) || </span>
-<span class="pc bpc" id="L160" title="1 of 2 branches missed.">                                mensaje.toLowerCase().contains(&quot;not found&quot;))) {</span>
-<span class="fc" id="L161">            status = HttpStatus.NOT_FOUND;</span>
+        
+<span class="fc bfc" id="L135" title="All 4 branches covered.">        if (mensaje != null &amp;&amp; (mensaje.toLowerCase().contains(&quot;no encontrad&quot;) || </span>
+<span class="pc bpc" id="L136" title="1 of 2 branches missed.">                                mensaje.toLowerCase().contains(&quot;not found&quot;))) {</span>
+<span class="fc" id="L137">            status = HttpStatus.NOT_FOUND;</span>
         }
         
-<span class="fc" id="L164">        ErrorResponse error = new ErrorResponse(</span>
+<span class="fc" id="L140">        ErrorResponse error = new ErrorResponse(</span>
             mensaje,
-<span class="fc" id="L166">            status.value(),</span>
-<span class="fc" id="L167">            request.getRequestURI()</span>
+<span class="fc" id="L142">            status.value(),</span>
+<span class="fc" id="L143">            request.getRequestURI()</span>
         );
         
-<span class="fc" id="L170">        return ResponseEntity</span>
-<span class="fc" id="L171">            .status(status)</span>
-<span class="fc" id="L172">            .body(error);</span>
+<span class="fc" id="L146">        return ResponseEntity</span>
+<span class="fc" id="L147">            .status(status)</span>
+<span class="fc" id="L148">            .body(error);</span>
     }
 
-    /**
-     * Maneja cualquier otra excepción no capturada (500 Internal Server Error)
-     */
+    
     @ExceptionHandler(Exception.class)
     public ResponseEntity&lt;ErrorResponse&gt; handleGenericException(
             Exception ex,
             HttpServletRequest request) {
         
-<span class="fc" id="L183">        ErrorResponse error = new ErrorResponse(</span>
-<span class="fc" id="L184">            &quot;Error interno del servidor: &quot; + ex.getMessage(),</span>
-<span class="fc" id="L185">            HttpStatus.INTERNAL_SERVER_ERROR.value(),</span>
-<span class="fc" id="L186">            request.getRequestURI()</span>
+<span class="fc" id="L157">        ErrorResponse error = new ErrorResponse(</span>
+<span class="fc" id="L158">            &quot;Error interno del servidor: &quot; + ex.getMessage(),</span>
+<span class="fc" id="L159">            HttpStatus.INTERNAL_SERVER_ERROR.value(),</span>
+<span class="fc" id="L160">            request.getRequestURI()</span>
         );
         
-<span class="fc" id="L189">        return ResponseEntity</span>
-<span class="fc" id="L190">            .status(HttpStatus.INTERNAL_SERVER_ERROR)</span>
-<span class="fc" id="L191">            .body(error);</span>
+<span class="fc" id="L163">        return ResponseEntity</span>
+<span class="fc" id="L164">            .status(HttpStatus.INTERNAL_SERVER_ERROR)</span>
+<span class="fc" id="L165">            .body(error);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

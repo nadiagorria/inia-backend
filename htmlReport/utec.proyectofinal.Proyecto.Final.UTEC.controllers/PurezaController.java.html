@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PurezaController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.controllers</a> &gt; <span class="el_source">PurezaController.java</span></div><h1>PurezaController.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.controllers;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PurezaController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.controllers</a> &gt; <span class="el_source">PurezaController.java</span></div><h1>PurezaController.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.controllers;
 
 import java.util.List;
 
@@ -24,7 +24,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.dtos.response.PurezaDTO;
 import utec.proyectofinal.Proyecto.Final.UTEC.responses.ResponseListadoPureza;
 import utec.proyectofinal.Proyecto.Final.UTEC.services.PurezaService;
 
-// CORS configurado globalmente en WebSecurityConfig
+
 @RestController
 @RequestMapping(&quot;/api/purezas&quot;)
 @Tag(name = &quot;Pureza&quot;, description = &quot;API para gestión del análisis de pureza&quot;)
@@ -34,7 +34,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.PurezaService;
     @Autowired
     private PurezaService purezaService;
 
-    // Crear nueva Pureza
+    
     @Operation(summary = &quot;Crear análisis de pureza&quot;, 
               description = &quot;Crea un nuevo análisis de pureza con numeroRepeticiones y numeroConteos definidos&quot;)
     @PreAuthorize(&quot;hasRole('ANALISTA') or hasRole('ADMIN')&quot;)
@@ -44,77 +44,59 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.PurezaService;
 <span class="fc" id="L44">        return ResponseEntity.status(HttpStatus.CREATED).body(purezaCreada);</span>
     }
 
-    // Obtener todas las Purezas activas
-    @Operation(summary = &quot;Listar todas las purezas&quot;, 
-              description = &quot;Obtiene todos los análisis de pureza activos&quot;)
-    @PreAuthorize(&quot;hasRole('ANALISTA') or hasRole('ADMIN') or hasRole('OBSERVADOR')&quot;)
-    @GetMapping
-    public ResponseEntity&lt;ResponseListadoPureza&gt; obtenerTodasPurezasActivas() {
-<span class="fc" id="L53">        ResponseListadoPureza respuesta = purezaService.obtenerTodasPurezasActivas();</span>
-<span class="fc" id="L54">        return ResponseEntity.ok(respuesta);</span>
-    }
 
-    // Obtener Pureza por ID
+    
     @Operation(summary = &quot;Obtener pureza por ID&quot;, 
               description = &quot;Obtiene un análisis de pureza específico por su ID&quot;)
     @PreAuthorize(&quot;hasRole('ANALISTA') or hasRole('ADMIN') or hasRole('OBSERVADOR')&quot;)
     @GetMapping(&quot;/{id}&quot;)
     public ResponseEntity&lt;PurezaDTO&gt; obtenerPurezaPorId(@PathVariable Long id) {
-<span class="fc" id="L63">        PurezaDTO pureza = purezaService.obtenerPurezaPorId(id);</span>
-<span class="fc" id="L64">        return ResponseEntity.ok(pureza);</span>
+<span class="fc" id="L54">        PurezaDTO pureza = purezaService.obtenerPurezaPorId(id);</span>
+<span class="fc" id="L55">        return ResponseEntity.ok(pureza);</span>
     }
 
-    // Actualizar Pureza
+    
     @Operation(summary = &quot;Actualizar análisis de pureza&quot;, 
               description = &quot;Actualiza un análisis de pureza existente&quot;)    
     @PreAuthorize(&quot;hasRole('ANALISTA') or hasRole('ADMIN')&quot;)
     @PutMapping(&quot;/{id}&quot;)
     public ResponseEntity&lt;PurezaDTO&gt; actualizarPureza(@PathVariable Long id, @RequestBody PurezaRequestDTO solicitud) {
-<span class="fc" id="L73">        PurezaDTO purezaActualizada = purezaService.actualizarPureza(id, solicitud);</span>
-<span class="fc" id="L74">        return ResponseEntity.ok(purezaActualizada);</span>
+<span class="fc" id="L64">        PurezaDTO purezaActualizada = purezaService.actualizarPureza(id, solicitud);</span>
+<span class="fc" id="L65">        return ResponseEntity.ok(purezaActualizada);</span>
     }
 
-    // Eliminar Pureza (cambiar estado a INACTIVO)
-    @Operation(summary = &quot;Eliminar análisis de pureza&quot;, 
-              description = &quot;Elimina un análisis de pureza cambiando su estado a INACTIVO&quot;)
-    @PreAuthorize(&quot;hasRole('ANALISTA') or hasRole('ADMIN')&quot;)
-    @DeleteMapping(&quot;/{id}&quot;)
-    public ResponseEntity&lt;Void&gt; eliminarPureza(@PathVariable Long id) {
-<span class="fc" id="L83">        purezaService.eliminarPureza(id);</span>
-<span class="fc" id="L84">        return ResponseEntity.noContent().build();</span>
-    }
 
-    // Desactivar Pureza (soft delete)
+    
     @Operation(summary = &quot;Desactivar análisis de pureza&quot;, 
               description = &quot;Desactiva un análisis de pureza (cambiar activo a false)&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN')&quot;)
     @PutMapping(&quot;/{id}/desactivar&quot;)
     public ResponseEntity&lt;Void&gt; desactivarPureza(@PathVariable Long id) {
-<span class="fc" id="L93">        purezaService.desactivarPureza(id);</span>
-<span class="fc" id="L94">        return ResponseEntity.ok().build();</span>
+<span class="fc" id="L75">        purezaService.desactivarPureza(id);</span>
+<span class="fc" id="L76">        return ResponseEntity.ok().build();</span>
     }
 
-    // Reactivar Pureza
+    
     @Operation(summary = &quot;Reactivar análisis de pureza&quot;, 
               description = &quot;Reactiva un análisis de pureza desactivado (solo administradores)&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN')&quot;)
     @PutMapping(&quot;/{id}/reactivar&quot;)
     public ResponseEntity&lt;PurezaDTO&gt; reactivarPureza(@PathVariable Long id) {
-<span class="fc" id="L103">        PurezaDTO purezaReactivada = purezaService.reactivarPureza(id);</span>
-<span class="fc" id="L104">        return ResponseEntity.ok(purezaReactivada);</span>
+<span class="fc" id="L85">        PurezaDTO purezaReactivada = purezaService.reactivarPureza(id);</span>
+<span class="fc" id="L86">        return ResponseEntity.ok(purezaReactivada);</span>
     }
 
-    // Obtener Purezas por Lote
+    
     @Operation(summary = &quot;Obtener purezas por lote&quot;, 
               description = &quot;Obtiene todos los análisis de pureza asociados a un lote específico&quot;)
     @PreAuthorize(&quot;hasRole('ANALISTA') or hasRole('ADMIN') or hasRole('OBSERVADOR')&quot;)
     @GetMapping(&quot;/lote/{idLote}&quot;)
     public ResponseEntity&lt;List&lt;PurezaDTO&gt;&gt; obtenerPurezasPorIdLote(@PathVariable Long idLote) {
-<span class="fc" id="L113">        List&lt;PurezaDTO&gt; purezas = purezaService.obtenerPurezasPorIdLote(idLote);</span>
-<span class="fc" id="L114">        return ResponseEntity.ok(purezas);</span>
+<span class="fc" id="L95">        List&lt;PurezaDTO&gt; purezas = purezaService.obtenerPurezasPorIdLote(idLote);</span>
+<span class="fc" id="L96">        return ResponseEntity.ok(purezas);</span>
     }
 
-    // Obtener Purezas con paginado para listado
+    
     @Operation(summary = &quot;Obtener purezas paginadas&quot;, 
               description = &quot;Obtiene la lista paginada de análisis de pureza para el listado&quot;)
     @PreAuthorize(&quot;hasRole('ANALISTA') or hasRole('ADMIN') or hasRole('OBSERVADOR')&quot;)
@@ -126,50 +108,41 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.PurezaService;
             @org.springframework.web.bind.annotation.RequestParam(required = false) Boolean activo,
             @org.springframework.web.bind.annotation.RequestParam(required = false) String estado,
             @org.springframework.web.bind.annotation.RequestParam(required = false) Long loteId) {
-<span class="fc" id="L129">        org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(page, size);</span>
-<span class="fc" id="L130">        org.springframework.data.domain.Page&lt;utec.proyectofinal.Proyecto.Final.UTEC.dtos.response.PurezaListadoDTO&gt; response = </span>
-<span class="fc" id="L131">            purezaService.obtenerPurezaPaginadasConFiltros(pageable, search, activo, estado, loteId);</span>
-<span class="fc" id="L132">        return ResponseEntity.ok(response);</span>
+<span class="fc" id="L111">        org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(page, size);</span>
+<span class="fc" id="L112">        org.springframework.data.domain.Page&lt;utec.proyectofinal.Proyecto.Final.UTEC.dtos.response.PurezaListadoDTO&gt; response = </span>
+<span class="fc" id="L113">            purezaService.obtenerPurezaPaginadasConFiltros(pageable, search, activo, estado, loteId);</span>
+<span class="fc" id="L114">        return ResponseEntity.ok(response);</span>
     }
 
-    // Obtener todos los catálogos para el select de otras semillas
-    @Operation(summary = &quot;Listar todos los catálogos&quot;, 
-              description = &quot;Obtiene todos los catálogos necesarios para el análisis de pureza&quot;)
-    @PreAuthorize(&quot;hasRole('ANALISTA') or hasRole('ADMIN') or hasRole('OBSERVADOR')&quot;)
-    @GetMapping(&quot;/catalogos&quot;)
-    public ResponseEntity&lt;List&lt;MalezasCatalogoDTO&gt;&gt; obtenerTodosCatalogos() {
-<span class="fc" id="L141">        List&lt;MalezasCatalogoDTO&gt; catalogos = purezaService.obtenerTodosCatalogos();</span>
-<span class="fc" id="L142">        return ResponseEntity.ok(catalogos);</span>
-    }
 
-    // Finalizar análisis de pureza
+    
     @Operation(summary = &quot;Finalizar análisis de pureza&quot;, 
               description = &quot;Finaliza un análisis de pureza cambiando su estado a FINALIZADO&quot;)
     @PreAuthorize(&quot;hasRole('ANALISTA') or hasRole('ADMIN')&quot;)
     @PutMapping(&quot;/{id}/finalizar&quot;)
     public ResponseEntity&lt;PurezaDTO&gt; finalizarAnalisis(@PathVariable Long id) {
-<span class="fc" id="L151">        PurezaDTO analisisFinalizado = purezaService.finalizarAnalisis(id);</span>
-<span class="fc" id="L152">        return ResponseEntity.ok(analisisFinalizado);</span>
+<span class="fc" id="L124">        PurezaDTO analisisFinalizado = purezaService.finalizarAnalisis(id);</span>
+<span class="fc" id="L125">        return ResponseEntity.ok(analisisFinalizado);</span>
     }
 
-    // Aprobar análisis (solo admin)
+    
     @Operation(summary = &quot;Aprobar análisis de pureza&quot;, 
               description = &quot;Aprueba un análisis de pureza, cambiando su estado a APROBADO (solo administradores)&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN')&quot;)
     @PutMapping(&quot;/{id}/aprobar&quot;)
     public ResponseEntity&lt;PurezaDTO&gt; aprobarAnalisis(@PathVariable Long id) {
-<span class="fc" id="L161">        PurezaDTO analisisAprobado = purezaService.aprobarAnalisis(id);</span>
-<span class="fc" id="L162">        return ResponseEntity.ok(analisisAprobado);</span>
+<span class="fc" id="L134">        PurezaDTO analisisAprobado = purezaService.aprobarAnalisis(id);</span>
+<span class="fc" id="L135">        return ResponseEntity.ok(analisisAprobado);</span>
     }
 
-    // Marcar análisis para repetir (solo admin)
+    
     @Operation(summary = &quot;Marcar análisis de pureza para repetir&quot;, 
               description = &quot;Marca un análisis de pureza para repetir - solo administradores&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN')&quot;)
     @PutMapping(&quot;/{id}/repetir&quot;)
     public ResponseEntity&lt;PurezaDTO&gt; marcarParaRepetir(@PathVariable Long id) {
-<span class="fc" id="L171">        PurezaDTO analisisRepetir = purezaService.marcarParaRepetir(id);</span>
-<span class="fc" id="L172">        return ResponseEntity.ok(analisisRepetir);</span>
+<span class="fc" id="L144">        PurezaDTO analisisRepetir = purezaService.marcarParaRepetir(id);</span>
+<span class="fc" id="L145">        return ResponseEntity.ok(analisisRepetir);</span>
     }
     }
 

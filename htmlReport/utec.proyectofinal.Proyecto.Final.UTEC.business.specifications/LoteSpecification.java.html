@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LoteSpecification.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.business.specifications</a> &gt; <span class="el_source">LoteSpecification.java</span></div><h1>LoteSpecification.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.business.specifications;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LoteSpecification.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.business.specifications</a> &gt; <span class="el_source">LoteSpecification.java</span></div><h1>LoteSpecification.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.business.specifications;
 
 import org.springframework.data.jpa.domain.Specification;
 import utec.proyectofinal.Proyecto.Final.UTEC.business.entities.Lote;
@@ -8,48 +8,41 @@ import java.util.List;
 
 <span class="nc" id="L9">public class LoteSpecification {</span>
 
-    /**
-     * Crea una especificación para filtrar lotes basándose en múltiples criterios
-     * 
-     * @param searchTerm Término de búsqueda (ficha, nombre, cultivar, especie)
-     * @param activo Estado del lote (true/false/null para todos)
-     * @param cultivarNombre Nombre del cultivar para filtrar
-     * @return Specification para usar con el repositorio
-     */
+    
     public static Specification&lt;Lote&gt; conFiltros(String searchTerm, Boolean activo, String cultivarNombre) {
-<span class="fc" id="L20">        return (root, query, criteriaBuilder) -&gt; {</span>
-<span class="nc" id="L21">            List&lt;Predicate&gt; predicates = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L13">        return (root, query, criteriaBuilder) -&gt; {</span>
+<span class="nc" id="L14">            List&lt;Predicate&gt; predicates = new ArrayList&lt;&gt;();</span>
 
             // Filtro de búsqueda: busca en ficha, nomLote, cultivar.nombre, especie.nombreCientifico, especie.nombreComun
-<span class="nc bnc" id="L24" title="All 4 branches missed.">            if (searchTerm != null &amp;&amp; !searchTerm.trim().isEmpty()) {</span>
-<span class="nc" id="L25">                String searchPattern = &quot;%&quot; + searchTerm.toLowerCase() + &quot;%&quot;;</span>
-<span class="nc" id="L26">                Predicate fichaPredicate = criteriaBuilder.like(</span>
-<span class="nc" id="L27">                    criteriaBuilder.lower(root.get(&quot;ficha&quot;)), searchPattern);</span>
-<span class="nc" id="L28">                Predicate nombrePredicate = criteriaBuilder.like(</span>
-<span class="nc" id="L29">                    criteriaBuilder.lower(root.get(&quot;nomLote&quot;)), searchPattern);</span>
-<span class="nc" id="L30">                Predicate cultivarPredicate = criteriaBuilder.like(</span>
-<span class="nc" id="L31">                    criteriaBuilder.lower(root.get(&quot;cultivar&quot;).get(&quot;nombre&quot;)), searchPattern);</span>
-<span class="nc" id="L32">                Predicate especieCientificoPredicate = criteriaBuilder.like(</span>
-<span class="nc" id="L33">                    criteriaBuilder.lower(root.get(&quot;cultivar&quot;).get(&quot;especie&quot;).get(&quot;nombreCientifico&quot;)), searchPattern);</span>
-<span class="nc" id="L34">                Predicate especieComunPredicate = criteriaBuilder.like(</span>
-<span class="nc" id="L35">                    criteriaBuilder.lower(root.get(&quot;cultivar&quot;).get(&quot;especie&quot;).get(&quot;nombreComun&quot;)), searchPattern);</span>
+<span class="nc bnc" id="L17" title="All 4 branches missed.">            if (searchTerm != null &amp;&amp; !searchTerm.trim().isEmpty()) {</span>
+<span class="nc" id="L18">                String searchPattern = &quot;%&quot; + searchTerm.toLowerCase() + &quot;%&quot;;</span>
+<span class="nc" id="L19">                Predicate fichaPredicate = criteriaBuilder.like(</span>
+<span class="nc" id="L20">                    criteriaBuilder.lower(root.get(&quot;ficha&quot;)), searchPattern);</span>
+<span class="nc" id="L21">                Predicate nombrePredicate = criteriaBuilder.like(</span>
+<span class="nc" id="L22">                    criteriaBuilder.lower(root.get(&quot;nomLote&quot;)), searchPattern);</span>
+<span class="nc" id="L23">                Predicate cultivarPredicate = criteriaBuilder.like(</span>
+<span class="nc" id="L24">                    criteriaBuilder.lower(root.get(&quot;cultivar&quot;).get(&quot;nombre&quot;)), searchPattern);</span>
+<span class="nc" id="L25">                Predicate especieCientificoPredicate = criteriaBuilder.like(</span>
+<span class="nc" id="L26">                    criteriaBuilder.lower(root.get(&quot;cultivar&quot;).get(&quot;especie&quot;).get(&quot;nombreCientifico&quot;)), searchPattern);</span>
+<span class="nc" id="L27">                Predicate especieComunPredicate = criteriaBuilder.like(</span>
+<span class="nc" id="L28">                    criteriaBuilder.lower(root.get(&quot;cultivar&quot;).get(&quot;especie&quot;).get(&quot;nombreComun&quot;)), searchPattern);</span>
                 
-<span class="nc" id="L37">                predicates.add(criteriaBuilder.or(</span>
-<span class="nc" id="L38">                    fichaPredicate, nombrePredicate, cultivarPredicate, especieCientificoPredicate, especieComunPredicate</span>
+<span class="nc" id="L30">                predicates.add(criteriaBuilder.or(</span>
+                    fichaPredicate, nombrePredicate, cultivarPredicate, especieCientificoPredicate, especieComunPredicate
                 ));
             }
 
             // Filtro por estado activo
-<span class="nc bnc" id="L43" title="All 2 branches missed.">            if (activo != null) {</span>
-<span class="nc" id="L44">                predicates.add(criteriaBuilder.equal(root.get(&quot;activo&quot;), activo));</span>
+<span class="nc bnc" id="L36" title="All 2 branches missed.">            if (activo != null) {</span>
+<span class="nc" id="L37">                predicates.add(criteriaBuilder.equal(root.get(&quot;activo&quot;), activo));</span>
             }
 
             // Filtro por nombre de cultivar
-<span class="nc bnc" id="L48" title="All 6 branches missed.">            if (cultivarNombre != null &amp;&amp; !cultivarNombre.trim().isEmpty() &amp;&amp; !&quot;todos&quot;.equals(cultivarNombre)) {</span>
-<span class="nc" id="L49">                predicates.add(criteriaBuilder.equal(root.get(&quot;cultivar&quot;).get(&quot;nombre&quot;), cultivarNombre));</span>
+<span class="nc bnc" id="L41" title="All 6 branches missed.">            if (cultivarNombre != null &amp;&amp; !cultivarNombre.trim().isEmpty() &amp;&amp; !&quot;todos&quot;.equals(cultivarNombre)) {</span>
+<span class="nc" id="L42">                predicates.add(criteriaBuilder.equal(root.get(&quot;cultivar&quot;).get(&quot;nombre&quot;), cultivarNombre));</span>
             }
 
-<span class="nc" id="L52">            return criteriaBuilder.and(predicates.toArray(new Predicate[0]));</span>
+<span class="nc" id="L45">            return criteriaBuilder.and(predicates.toArray(new Predicate[0]));</span>
         };
     }
 }

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ContactoService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">ContactoService.java</span></div><h1>ContactoService.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ContactoService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">ContactoService.java</span></div><h1>ContactoService.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
     @Autowired
     private ContactoRepository contactoRepository;
 
-    // Obtener todos los contactos activos
+    
     public List&lt;ContactoDTO&gt; obtenerTodosLosContactos() {
 <span class="fc" id="L24">        return contactoRepository.findByActivoTrue()</span>
 <span class="fc" id="L25">                .stream()</span>
@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 <span class="fc" id="L27">                .collect(Collectors.toList());</span>
     }
 
-    // Obtener contactos por tipo
+    
     public List&lt;ContactoDTO&gt; obtenerContactosPorTipo(TipoContacto tipo) {
 <span class="fc" id="L32">        return contactoRepository.findByTipoAndActivoTrue(tipo)</span>
 <span class="fc" id="L33">                .stream()</span>
@@ -35,10 +35,10 @@ import java.util.stream.Collectors;
 <span class="fc" id="L35">                .collect(Collectors.toList());</span>
     }
 
-    // Obtener contactos por tipo con filtro de estado opcional
+    
     public List&lt;ContactoDTO&gt; obtenerContactosPorTipo(TipoContacto tipo, Boolean activo) {
 <span class="fc bfc" id="L40" title="All 2 branches covered.">        if (activo == null) {</span>
-            // Devolver todos (activos e inactivos)
+            
 <span class="fc" id="L42">            return contactoRepository.findByTipo(tipo)</span>
 <span class="fc" id="L43">                    .stream()</span>
 <span class="fc" id="L44">                    .map(this::mapearEntidadADTO)</span>
@@ -56,34 +56,34 @@ import java.util.stream.Collectors;
         }
     }
 
-    // Obtener solo clientes activos
+    
     public List&lt;ContactoDTO&gt; obtenerClientes() {
 <span class="fc" id="L61">        return obtenerContactosPorTipo(TipoContacto.CLIENTE);</span>
     }
 
-    // Obtener clientes con filtro de estado opcional
+    
     public List&lt;ContactoDTO&gt; obtenerClientes(Boolean activo) {
 <span class="fc" id="L66">        return obtenerContactosPorTipo(TipoContacto.CLIENTE, activo);</span>
     }
 
-    // Obtener solo empresas activas
+    
     public List&lt;ContactoDTO&gt; obtenerEmpresas() {
 <span class="fc" id="L71">        return obtenerContactosPorTipo(TipoContacto.EMPRESA);</span>
     }
 
-    // Obtener empresas con filtro de estado opcional
+    
     public List&lt;ContactoDTO&gt; obtenerEmpresas(Boolean activo) {
 <span class="fc" id="L76">        return obtenerContactosPorTipo(TipoContacto.EMPRESA, activo);</span>
     }
 
-    // Obtener contacto por ID
+    
     public ContactoDTO obtenerContactoPorId(Long contactoID) {
 <span class="fc" id="L81">        Contacto contacto = contactoRepository.findByContactoIDAndActivoTrue(contactoID)</span>
 <span class="fc" id="L82">                .orElseThrow(() -&gt; new RuntimeException(&quot;Contacto no encontrado con ID: &quot; + contactoID));</span>
 <span class="fc" id="L83">        return mapearEntidadADTO(contacto);</span>
     }
 
-    // Crear nuevo contacto
+    
     public ContactoDTO crearContacto(ContactoRequestDTO contactoRequestDTO) {
 <span class="fc" id="L88">        validarDatosContacto(contactoRequestDTO, null);</span>
         
@@ -94,7 +94,7 @@ import java.util.stream.Collectors;
 <span class="fc" id="L94">        return mapearEntidadADTO(contactoGuardado);</span>
     }
 
-    // Actualizar contacto existente
+    
     public ContactoDTO actualizarContacto(Long contactoID, ContactoRequestDTO contactoRequestDTO) {
 <span class="fc" id="L99">        Contacto contacto = contactoRepository.findByContactoIDAndActivoTrue(contactoID)</span>
 <span class="pc" id="L100">                .orElseThrow(() -&gt; new RuntimeException(&quot;Contacto no encontrado con ID: &quot; + contactoID));</span>
@@ -107,7 +107,7 @@ import java.util.stream.Collectors;
 <span class="fc" id="L107">        return mapearEntidadADTO(contactoActualizado);</span>
     }
 
-    // Eliminar contacto (soft delete)
+    
     public void eliminarContacto(Long contactoID) {
 <span class="fc" id="L112">        Contacto contacto = contactoRepository.findByContactoIDAndActivoTrue(contactoID)</span>
 <span class="pc" id="L113">                .orElseThrow(() -&gt; new RuntimeException(&quot;Contacto no encontrado con ID: &quot; + contactoID));</span>
@@ -116,7 +116,7 @@ import java.util.stream.Collectors;
 <span class="fc" id="L116">        contactoRepository.save(contacto);</span>
 <span class="fc" id="L117">    }</span>
 
-    // Reactivar contacto
+    
     public ContactoDTO reactivarContacto(Long contactoID) {
 <span class="fc" id="L121">        Contacto contacto = contactoRepository.findById(contactoID)</span>
 <span class="pc" id="L122">                .orElseThrow(() -&gt; new RuntimeException(&quot;Contacto no encontrado con ID: &quot; + contactoID));</span>
@@ -130,7 +130,7 @@ import java.util.stream.Collectors;
 <span class="fc" id="L130">        return mapearEntidadADTO(contactoReactivado);</span>
     }
 
-    // Buscar contactos por nombre
+    
     public List&lt;ContactoDTO&gt; buscarContactosPorNombre(String nombre) {
 <span class="fc" id="L135">        return contactoRepository.findByNombreContainingIgnoreCaseAndActivoTrue(nombre)</span>
 <span class="fc" id="L136">                .stream()</span>
@@ -138,7 +138,7 @@ import java.util.stream.Collectors;
 <span class="fc" id="L138">                .collect(Collectors.toList());</span>
     }
 
-    // Buscar contactos por nombre y tipo
+    
     public List&lt;ContactoDTO&gt; buscarContactosPorNombreYTipo(String nombre, TipoContacto tipo) {
 <span class="fc" id="L143">        return contactoRepository.findByNombreContainingIgnoreCaseAndTipoAndActivoTrue(nombre, tipo)</span>
 <span class="fc" id="L144">                .stream()</span>
@@ -146,48 +146,48 @@ import java.util.stream.Collectors;
 <span class="fc" id="L146">                .collect(Collectors.toList());</span>
     }
 
-    // Buscar clientes por nombre
+    
     public List&lt;ContactoDTO&gt; buscarClientes(String nombre) {
 <span class="fc" id="L151">        return buscarContactosPorNombreYTipo(nombre, TipoContacto.CLIENTE);</span>
     }
 
-    // Buscar empresas por nombre
+    
     public List&lt;ContactoDTO&gt; buscarEmpresas(String nombre) {
 <span class="fc" id="L156">        return buscarContactosPorNombreYTipo(nombre, TipoContacto.EMPRESA);</span>
     }
 
-    // Validar datos de contacto
+    
     private void validarDatosContacto(ContactoRequestDTO contactoRequestDTO, Long contactoIDExcluir) {
-        // Validar nombre requerido
+        
 <span class="pc bpc" id="L162" title="1 of 4 branches missed.">        if (contactoRequestDTO.getNombre() == null || contactoRequestDTO.getNombre().trim().isEmpty()) {</span>
 <span class="fc" id="L163">            throw new RuntimeException(&quot;El nombre del contacto es requerido&quot;);</span>
         }
 
-        // Validar contacto requerido
+        
 <span class="pc bpc" id="L167" title="2 of 4 branches missed.">        if (contactoRequestDTO.getContacto() == null || contactoRequestDTO.getContacto().trim().isEmpty()) {</span>
 <span class="nc" id="L168">            throw new RuntimeException(&quot;La información de contacto es requerida&quot;);</span>
         }
 
-        // Validar tipo requerido
+        
 <span class="pc bpc" id="L172" title="1 of 2 branches missed.">        if (contactoRequestDTO.getTipo() == null) {</span>
 <span class="nc" id="L173">            throw new RuntimeException(&quot;El tipo de contacto es requerido&quot;);</span>
         }
 
-        // Validar unicidad del nombre para el tipo específico
+        
 <span class="fc bfc" id="L177" title="All 2 branches covered.">        if (contactoIDExcluir != null) {</span>
-<span class="fc" id="L178">            if (contactoRepository.existsByNombreIgnoreCaseAndTipoAndContactoIDNot(</span>
-<span class="pc bpc" id="L179" title="1 of 2 branches missed.">                    contactoRequestDTO.getNombre(), contactoRequestDTO.getTipo(), contactoIDExcluir)) {</span>
+<span class="pc bpc" id="L178" title="1 of 2 branches missed.">            if (contactoRepository.existsByNombreIgnoreCaseAndTipoAndContactoIDNot(</span>
+<span class="fc" id="L179">                    contactoRequestDTO.getNombre(), contactoRequestDTO.getTipo(), contactoIDExcluir)) {</span>
 <span class="nc" id="L180">                throw new RuntimeException(&quot;Ya existe un &quot; + contactoRequestDTO.getTipo().name().toLowerCase() + &quot; con ese nombre&quot;);</span>
             }
         } else {
-<span class="fc" id="L183">            if (contactoRepository.existsByNombreIgnoreCaseAndTipo(</span>
-<span class="fc bfc" id="L184" title="All 2 branches covered.">                    contactoRequestDTO.getNombre(), contactoRequestDTO.getTipo())) {</span>
+<span class="fc bfc" id="L183" title="All 2 branches covered.">            if (contactoRepository.existsByNombreIgnoreCaseAndTipo(</span>
+<span class="fc" id="L184">                    contactoRequestDTO.getNombre(), contactoRequestDTO.getTipo())) {</span>
 <span class="fc" id="L185">                throw new RuntimeException(&quot;Ya existe un &quot; + contactoRequestDTO.getTipo().name().toLowerCase() + &quot; con ese nombre&quot;);</span>
             }
         }
 <span class="fc" id="L188">    }</span>
 
-    // Mapear solicitud a entidad
+    
     private Contacto mapearSolicitudAEntidad(ContactoRequestDTO dto, Contacto contacto) {
 <span class="fc" id="L192">        contacto.setNombre(dto.getNombre());</span>
 <span class="fc" id="L193">        contacto.setContacto(dto.getContacto());</span>
@@ -195,7 +195,7 @@ import java.util.stream.Collectors;
 <span class="fc" id="L195">        return contacto;</span>
     }
 
-    // Mapear entidad a DTO
+    
     private ContactoDTO mapearEntidadADTO(Contacto contacto) {
 <span class="fc" id="L200">        ContactoDTO dto = new ContactoDTO();</span>
 <span class="fc" id="L201">        dto.setContactoID(contacto.getContactoID());</span>
@@ -206,21 +206,14 @@ import java.util.stream.Collectors;
 <span class="fc" id="L206">        return dto;</span>
     }
 
-    // Obtener entidad por ID para uso interno
+    
     public Contacto obtenerEntidadPorId(Long contactoID) {
 <span class="nc" id="L211">        return contactoRepository.findByContactoIDAndActivoTrue(contactoID).orElse(null);</span>
     }
 
 
 
-    /**
-     * Listar Contactos con paginado y filtros dinámicos
-     * @param pageable Información de paginación
-     * @param searchTerm Término de búsqueda (opcional)
-     * @param activo Filtro por estado activo (opcional)
-     * @param tipo Filtro por tipo de contacto (opcional)
-     * @return Página de ContactoDTO filtrados
-     */
+    
     public Page&lt;ContactoDTO&gt; obtenerContactosPaginadosConFiltros(
             Pageable pageable,
             String searchTerm,
@@ -229,78 +222,78 @@ import java.util.stream.Collectors;
         
         Page&lt;Contacto&gt; contactoPage;
         
-        // Si hay tipo específico
-<span class="fc bfc" id="L233" title="All 2 branches covered.">        if (tipo != null) {</span>
-            // Si hay búsqueda
-<span class="pc bpc" id="L235" title="1 of 4 branches missed.">            if (searchTerm != null &amp;&amp; !searchTerm.trim().isEmpty()) {</span>
+        
+<span class="fc bfc" id="L226" title="All 2 branches covered.">        if (tipo != null) {</span>
+            
+<span class="pc bpc" id="L228" title="1 of 4 branches missed.">            if (searchTerm != null &amp;&amp; !searchTerm.trim().isEmpty()) {</span>
                 List&lt;Contacto&gt; contactos;
-<span class="pc bpc" id="L237" title="1 of 2 branches missed.">                if (activo == null) {</span>
-<span class="nc" id="L238">                    contactos = contactoRepository.findByTipo(tipo);</span>
-<span class="pc bpc" id="L239" title="1 of 2 branches missed.">                } else if (activo) {</span>
-<span class="fc" id="L240">                    contactos = contactoRepository.findByTipoAndActivoTrue(tipo);</span>
-<span class="fc" id="L241">                } else {</span>
-<span class="nc" id="L242">                    contactos = contactoRepository.findByTipoAndActivoFalse(tipo);</span>
+<span class="pc bpc" id="L230" title="1 of 2 branches missed.">                if (activo == null) {</span>
+<span class="nc" id="L231">                    contactos = contactoRepository.findByTipo(tipo);</span>
+<span class="pc bpc" id="L232" title="1 of 2 branches missed.">                } else if (activo) {</span>
+<span class="fc" id="L233">                    contactos = contactoRepository.findByTipoAndActivoTrue(tipo);</span>
+                } else {
+<span class="nc" id="L235">                    contactos = contactoRepository.findByTipoAndActivoFalse(tipo);</span>
                 }
                 
-                // Filtrar por término de búsqueda
-<span class="fc" id="L246">                contactos = contactos.stream()</span>
-<span class="pc bpc" id="L247" title="2 of 4 branches missed.">                    .filter(c -&gt; (c.getNombre() != null &amp;&amp; c.getNombre().toLowerCase().contains(searchTerm.toLowerCase())) ||</span>
-<span class="pc bnc" id="L248" title="All 4 branches missed.">                                 (c.getContacto() != null &amp;&amp; c.getContacto().toLowerCase().contains(searchTerm.toLowerCase())))</span>
-<span class="fc" id="L249">                    .collect(Collectors.toList());</span>
                 
-                // Convertir lista a página
-<span class="fc" id="L252">                int start = (int) pageable.getOffset();</span>
-<span class="fc" id="L253">                int end = Math.min(start + pageable.getPageSize(), contactos.size());</span>
-<span class="fc" id="L254">                List&lt;Contacto&gt; pageContent = contactos.subList(start, end);</span>
-<span class="fc" id="L255">                contactoPage = new org.springframework.data.domain.PageImpl&lt;&gt;(pageContent, pageable, contactos.size());</span>
-<span class="fc" id="L256">            } else {</span>
-                // Sin búsqueda, solo filtro de activo y tipo
-<span class="pc bpc" id="L258" title="1 of 2 branches missed.">                if (activo == null) {</span>
-<span class="nc" id="L259">                    contactoPage = contactoRepository.findByTipoOrderByNombreAsc(tipo, pageable);</span>
-<span class="pc bpc" id="L260" title="1 of 2 branches missed.">                } else if (activo) {</span>
-<span class="fc" id="L261">                    contactoPage = contactoRepository.findByTipoAndActivoTrueOrderByNombreAsc(tipo, pageable);</span>
-<span class="fc" id="L262">                } else {</span>
-<span class="nc" id="L263">                    contactoPage = contactoRepository.findByTipoAndActivoFalseOrderByNombreAsc(tipo, pageable);</span>
+<span class="fc" id="L239">                contactos = contactos.stream()</span>
+<span class="pc bpc" id="L240" title="2 of 4 branches missed.">                    .filter(c -&gt; (c.getNombre() != null &amp;&amp; c.getNombre().toLowerCase().contains(searchTerm.toLowerCase())) ||</span>
+<span class="pc bnc" id="L241" title="All 4 branches missed.">                                 (c.getContacto() != null &amp;&amp; c.getContacto().toLowerCase().contains(searchTerm.toLowerCase())))</span>
+<span class="fc" id="L242">                    .collect(Collectors.toList());</span>
+                
+                
+<span class="fc" id="L245">                int start = (int) pageable.getOffset();</span>
+<span class="fc" id="L246">                int end = Math.min(start + pageable.getPageSize(), contactos.size());</span>
+<span class="fc" id="L247">                List&lt;Contacto&gt; pageContent = contactos.subList(start, end);</span>
+<span class="fc" id="L248">                contactoPage = new org.springframework.data.domain.PageImpl&lt;&gt;(pageContent, pageable, contactos.size());</span>
+<span class="fc" id="L249">            } else {</span>
+                
+<span class="pc bpc" id="L251" title="1 of 2 branches missed.">                if (activo == null) {</span>
+<span class="nc" id="L252">                    contactoPage = contactoRepository.findByTipoOrderByNombreAsc(tipo, pageable);</span>
+<span class="pc bpc" id="L253" title="1 of 2 branches missed.">                } else if (activo) {</span>
+<span class="fc" id="L254">                    contactoPage = contactoRepository.findByTipoAndActivoTrueOrderByNombreAsc(tipo, pageable);</span>
+                } else {
+<span class="nc" id="L256">                    contactoPage = contactoRepository.findByTipoAndActivoFalseOrderByNombreAsc(tipo, pageable);</span>
                 }
             }
-<span class="nc" id="L266">        } else {</span>
-            // Sin tipo específico
-<span class="pc bpc" id="L268" title="1 of 4 branches missed.">            if (searchTerm != null &amp;&amp; !searchTerm.trim().isEmpty()) {</span>
+        } else {
+            
+<span class="pc bpc" id="L261" title="1 of 4 branches missed.">            if (searchTerm != null &amp;&amp; !searchTerm.trim().isEmpty()) {</span>
                 List&lt;Contacto&gt; contactos;
-<span class="pc bpc" id="L270" title="1 of 2 branches missed.">                if (activo == null) {</span>
-<span class="nc" id="L271">                    contactos = contactoRepository.findAll();</span>
-<span class="pc bpc" id="L272" title="1 of 2 branches missed.">                } else if (activo) {</span>
-<span class="fc" id="L273">                    contactos = contactoRepository.findByActivoTrue();</span>
-<span class="fc" id="L274">                } else {</span>
-<span class="nc" id="L275">                    contactos = contactoRepository.findAll().stream()</span>
-<span class="nc bnc" id="L276" title="All 2 branches missed.">                        .filter(c -&gt; !c.getActivo())</span>
-<span class="nc" id="L277">                        .collect(Collectors.toList());</span>
+<span class="pc bpc" id="L263" title="1 of 2 branches missed.">                if (activo == null) {</span>
+<span class="nc" id="L264">                    contactos = contactoRepository.findAll();</span>
+<span class="pc bpc" id="L265" title="1 of 2 branches missed.">                } else if (activo) {</span>
+<span class="fc" id="L266">                    contactos = contactoRepository.findByActivoTrue();</span>
+                } else {
+<span class="nc" id="L268">                    contactos = contactoRepository.findAll().stream()</span>
+<span class="nc bnc" id="L269" title="All 2 branches missed.">                        .filter(c -&gt; !c.getActivo())</span>
+<span class="nc" id="L270">                        .collect(Collectors.toList());</span>
                 }
                 
-                // Filtrar por término de búsqueda
-<span class="fc" id="L281">                contactos = contactos.stream()</span>
-<span class="pc bpc" id="L282" title="1 of 4 branches missed.">                    .filter(c -&gt; (c.getNombre() != null &amp;&amp; c.getNombre().toLowerCase().contains(searchTerm.toLowerCase())) ||</span>
-<span class="pc bpc" id="L283" title="2 of 4 branches missed.">                                 (c.getContacto() != null &amp;&amp; c.getContacto().toLowerCase().contains(searchTerm.toLowerCase())))</span>
-<span class="fc" id="L284">                    .collect(Collectors.toList());</span>
                 
-                // Convertir lista a página
-<span class="fc" id="L287">                int start = (int) pageable.getOffset();</span>
-<span class="fc" id="L288">                int end = Math.min(start + pageable.getPageSize(), contactos.size());</span>
-<span class="fc" id="L289">                List&lt;Contacto&gt; pageContent = contactos.subList(start, end);</span>
-<span class="fc" id="L290">                contactoPage = new org.springframework.data.domain.PageImpl&lt;&gt;(pageContent, pageable, contactos.size());</span>
-<span class="fc" id="L291">            } else {</span>
-                // Sin búsqueda ni tipo, solo filtro de activo
-<span class="fc bfc" id="L293" title="All 2 branches covered.">                if (activo == null) {</span>
-<span class="fc" id="L294">                    contactoPage = contactoRepository.findAllByOrderByNombreAsc(pageable);</span>
-<span class="fc bfc" id="L295" title="All 2 branches covered.">                } else if (activo) {</span>
-<span class="fc" id="L296">                    contactoPage = contactoRepository.findByActivoTrueOrderByNombreAsc(pageable);</span>
-<span class="fc" id="L297">                } else {</span>
-<span class="fc" id="L298">                    contactoPage = contactoRepository.findByActivoFalseOrderByNombreAsc(pageable);</span>
+<span class="fc" id="L274">                contactos = contactos.stream()</span>
+<span class="pc bpc" id="L275" title="1 of 4 branches missed.">                    .filter(c -&gt; (c.getNombre() != null &amp;&amp; c.getNombre().toLowerCase().contains(searchTerm.toLowerCase())) ||</span>
+<span class="pc bpc" id="L276" title="2 of 4 branches missed.">                                 (c.getContacto() != null &amp;&amp; c.getContacto().toLowerCase().contains(searchTerm.toLowerCase())))</span>
+<span class="fc" id="L277">                    .collect(Collectors.toList());</span>
+                
+                
+<span class="fc" id="L280">                int start = (int) pageable.getOffset();</span>
+<span class="fc" id="L281">                int end = Math.min(start + pageable.getPageSize(), contactos.size());</span>
+<span class="fc" id="L282">                List&lt;Contacto&gt; pageContent = contactos.subList(start, end);</span>
+<span class="fc" id="L283">                contactoPage = new org.springframework.data.domain.PageImpl&lt;&gt;(pageContent, pageable, contactos.size());</span>
+<span class="fc" id="L284">            } else {</span>
+                
+<span class="fc bfc" id="L286" title="All 2 branches covered.">                if (activo == null) {</span>
+<span class="fc" id="L287">                    contactoPage = contactoRepository.findAllByOrderByNombreAsc(pageable);</span>
+<span class="fc bfc" id="L288" title="All 2 branches covered.">                } else if (activo) {</span>
+<span class="fc" id="L289">                    contactoPage = contactoRepository.findByActivoTrueOrderByNombreAsc(pageable);</span>
+                } else {
+<span class="fc" id="L291">                    contactoPage = contactoRepository.findByActivoFalseOrderByNombreAsc(pageable);</span>
                 }
             }
         }
         
-<span class="fc" id="L303">        return contactoPage.map(this::mapearEntidadADTO);</span>
+<span class="fc" id="L296">        return contactoPage.map(this::mapearEntidadADTO);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

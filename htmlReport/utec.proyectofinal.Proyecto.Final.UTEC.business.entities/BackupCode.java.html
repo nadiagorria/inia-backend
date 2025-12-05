@@ -1,21 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BackupCode.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.business.entities</a> &gt; <span class="el_source">BackupCode.java</span></div><h1>BackupCode.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.business.entities;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BackupCode.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.business.entities</a> &gt; <span class="el_source">BackupCode.java</span></div><h1>BackupCode.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.business.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDateTime;
 
-/**
- * Entidad para códigos de respaldo (backup codes) de 2FA
- * 
- * Permite a los usuarios acceder a su cuenta si pierden su dispositivo 2FA.
- * 
- * SEGURIDAD:
- * - Cada código se puede usar UNA SOLA VEZ
- * - Los códigos se hashean con BCrypt antes de almacenar
- * - Formato: XXXX-XXXX-XXXX (12 caracteres alfanuméricos)
- * - Se generan 10 códigos al activar 2FA
- * - Se pueden regenerar (invalida códigos anteriores)
- */
+
 @Entity
 @Table(name = &quot;backup_codes&quot;, indexes = {
     @Index(name = &quot;idx_backup_codes_user_unused&quot;, columnList = &quot;usuario_id,used&quot;)
@@ -27,61 +16,45 @@ public class BackupCode {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    /**
-     * ID del usuario al que pertenece este código
-     */
+    
     @Column(name = &quot;usuario_id&quot;, nullable = false)
     private Integer usuarioId;
 
-    /**
-     * Hash BCrypt del código de respaldo
-     * El código original nunca se almacena, solo su hash
-     */
+    
     @Column(name = &quot;code_hash&quot;, nullable = false, length = 60)
     private String codeHash;
 
-    /**
-     * Si el código ya fue utilizado
-     * Los códigos son de un solo uso
-     */
+    
     @Column(name = &quot;used&quot;, nullable = false)
     private Boolean used = false;
 
-    /**
-     * Fecha y hora en que se usó el código
-     */
+    
     @Column(name = &quot;used_at&quot;)
     private LocalDateTime usedAt;
 
-    /**
-     * Fecha de creación del código
-     */
+    
     @Column(name = &quot;created_at&quot;, nullable = false)
     private LocalDateTime createdAt;
 
     @PrePersist
     protected void onCreate() {
-<span class="nc bnc" id="L64" title="All 2 branches missed.">        if (createdAt == null) {</span>
-<span class="nc" id="L65">            createdAt = LocalDateTime.now();</span>
+<span class="nc bnc" id="L41" title="All 2 branches missed.">        if (createdAt == null) {</span>
+<span class="nc" id="L42">            createdAt = LocalDateTime.now();</span>
         }
-<span class="nc bnc" id="L67" title="All 2 branches missed.">        if (used == null) {</span>
-<span class="nc" id="L68">            used = false;</span>
+<span class="nc bnc" id="L44" title="All 2 branches missed.">        if (used == null) {</span>
+<span class="nc" id="L45">            used = false;</span>
         }
-<span class="nc" id="L70">    }</span>
+<span class="nc" id="L47">    }</span>
 
-    /**
-     * Marca el código como usado
-     */
+    
     public void markAsUsed() {
-<span class="fc" id="L76">        this.used = true;</span>
-<span class="fc" id="L77">        this.usedAt = LocalDateTime.now();</span>
-<span class="fc" id="L78">    }</span>
+<span class="fc" id="L51">        this.used = true;</span>
+<span class="fc" id="L52">        this.usedAt = LocalDateTime.now();</span>
+<span class="fc" id="L53">    }</span>
 
-    /**
-     * Verifica si el código está disponible (no usado)
-     */
+    
     public boolean isAvailable() {
-<span class="nc bnc" id="L84" title="All 2 branches missed.">        return !used;</span>
+<span class="nc bnc" id="L57" title="All 2 branches missed.">        return !used;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

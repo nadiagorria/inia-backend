@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PmsServiceTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">PmsServiceTest.java</span></div><h1>PmsServiceTest.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PmsServiceTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">PmsServiceTest.java</span></div><h1>PmsServiceTest.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -40,21 +40,11 @@ import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
-/**
- * Tests unitarios para PmsService (Peso de Mil Semillas)
- * 
- * Funcionalidades testeadas:
- * - Creación de análisis PMS con estado REGISTRADO
- * - Validación de número de repeticiones esperadas (1-16)
- * - Validación de pesos y cálculos
- * - Gestión de tandas y repeticiones
- * - Cálculos de peso promedio de mil semillas
- * - Validación de límites de repeticiones
- */
+
 @ExtendWith(MockitoExtension.class)
 @org.mockito.junit.jupiter.MockitoSettings(strictness = org.mockito.quality.Strictness.LENIENT)
 @DisplayName(&quot;Tests de PmsService&quot;)
-<span class="fc" id="L57">class PmsServiceTest {</span>
+<span class="fc" id="L47">class PmsServiceTest {</span>
 
     @Mock
     private PmsRepository pmsRepository;
@@ -81,1028 +71,1028 @@ import static org.mockito.Mockito.*;
     @BeforeEach
     void setUp() {
         // ARRANGE: Preparar datos de prueba
-<span class="fc" id="L84">        lote = new Lote();</span>
-<span class="fc" id="L85">        lote.setLoteID(1L);</span>
-<span class="fc" id="L86">        lote.setNomLote(&quot;LOTE-PMS-001&quot;);</span>
-<span class="fc" id="L87">        lote.setActivo(true);</span>
+<span class="fc" id="L74">        lote = new Lote();</span>
+<span class="fc" id="L75">        lote.setLoteID(1L);</span>
+<span class="fc" id="L76">        lote.setNomLote(&quot;LOTE-PMS-001&quot;);</span>
+<span class="fc" id="L77">        lote.setActivo(true);</span>
 
-<span class="fc" id="L89">        pmsRequestDTO = new PmsRequestDTO();</span>
-<span class="fc" id="L90">        pmsRequestDTO.setIdLote(1L);</span>
-<span class="fc" id="L91">        pmsRequestDTO.setNumRepeticionesEsperadas(8);</span>
-<span class="fc" id="L92">        pmsRequestDTO.setEsSemillaBrozosa(false);</span>
-<span class="fc" id="L93">        pmsRequestDTO.setComentarios(&quot;Test PMS&quot;);</span>
+<span class="fc" id="L79">        pmsRequestDTO = new PmsRequestDTO();</span>
+<span class="fc" id="L80">        pmsRequestDTO.setIdLote(1L);</span>
+<span class="fc" id="L81">        pmsRequestDTO.setNumRepeticionesEsperadas(8);</span>
+<span class="fc" id="L82">        pmsRequestDTO.setEsSemillaBrozosa(false);</span>
+<span class="fc" id="L83">        pmsRequestDTO.setComentarios(&quot;Test PMS&quot;);</span>
 
-<span class="fc" id="L95">        pms = new Pms();</span>
-<span class="fc" id="L96">        pms.setAnalisisID(1L);</span>
-<span class="fc" id="L97">        pms.setLote(lote);</span>
-<span class="fc" id="L98">        pms.setNumRepeticionesEsperadas(8);</span>
-<span class="fc" id="L99">        pms.setEstado(Estado.REGISTRADO);</span>
-<span class="fc" id="L100">        pms.setActivo(true);</span>
-<span class="fc" id="L101">        pms.setNumTandas(1); // asegurar valor inicial para las validaciones internas</span>
-<span class="fc" id="L102">    }</span>
+<span class="fc" id="L85">        pms = new Pms();</span>
+<span class="fc" id="L86">        pms.setAnalisisID(1L);</span>
+<span class="fc" id="L87">        pms.setLote(lote);</span>
+<span class="fc" id="L88">        pms.setNumRepeticionesEsperadas(8);</span>
+<span class="fc" id="L89">        pms.setEstado(Estado.REGISTRADO);</span>
+<span class="fc" id="L90">        pms.setActivo(true);</span>
+<span class="fc" id="L91">        pms.setNumTandas(1); // asegurar valor inicial para las validaciones internas</span>
+<span class="fc" id="L92">    }</span>
 
     @Test
     @DisplayName(&quot;Crear PMS - debe asignar estado REGISTRADO&quot;)
     void crearPms_debeAsignarEstadoRegistrado() {
-        // ARRANGE
-<span class="fc" id="L108">        when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));</span>
-<span class="fc" id="L109">        when(pmsRepository.save(any(Pms.class))).thenReturn(pms);</span>
-<span class="fc" id="L110">        doNothing().when(analisisHistorialService).registrarCreacion(any(Pms.class));</span>
+        
+<span class="fc" id="L98">        when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));</span>
+<span class="fc" id="L99">        when(pmsRepository.save(any(Pms.class))).thenReturn(pms);</span>
+<span class="fc" id="L100">        doNothing().when(analisisHistorialService).registrarCreacion(any(Pms.class));</span>
 
-        // ACT
-<span class="fc" id="L113">        PmsDTO resultado = pmsService.crearPms(pmsRequestDTO);</span>
+        
+<span class="fc" id="L103">        PmsDTO resultado = pmsService.crearPms(pmsRequestDTO);</span>
 
-        // ASSERT
-<span class="fc" id="L116">        assertNotNull(resultado, &quot;El resultado no debe ser nulo&quot;);</span>
-<span class="fc" id="L117">        verify(pmsRepository, times(1)).save(any(Pms.class));</span>
-<span class="fc" id="L118">        verify(analisisHistorialService, times(1)).registrarCreacion(any(Pms.class));</span>
-<span class="fc" id="L119">    }</span>
+        
+<span class="fc" id="L106">        assertNotNull(resultado, &quot;El resultado no debe ser nulo&quot;);</span>
+<span class="fc" id="L107">        verify(pmsRepository, times(1)).save(any(Pms.class));</span>
+<span class="fc" id="L108">        verify(analisisHistorialService, times(1)).registrarCreacion(any(Pms.class));</span>
+<span class="fc" id="L109">    }</span>
 
     @Test
     @DisplayName(&quot;Crear PMS sin repeticiones esperadas - debe lanzar excepción&quot;)
     void crearPms_sinRepeticionesEsperadas_debeLanzarExcepcion() {
-        // ARRANGE
-<span class="fc" id="L125">        pmsRequestDTO.setNumRepeticionesEsperadas(null);</span>
-
-        // ACT &amp; ASSERT
-<span class="fc" id="L128">        RuntimeException exception = assertThrows(RuntimeException.class, () -&gt; {</span>
-<span class="nc" id="L129">            pmsService.crearPms(pmsRequestDTO);</span>
-<span class="nc" id="L130">        });</span>
         
-<span class="fc" id="L132">        assertTrue(exception.getMessage().contains(&quot;repeticiones esperadas&quot;));</span>
-<span class="fc" id="L133">        verify(pmsRepository, never()).save(any(Pms.class));</span>
-<span class="fc" id="L134">    }</span>
+<span class="fc" id="L115">        pmsRequestDTO.setNumRepeticionesEsperadas(null);</span>
+
+        
+<span class="fc" id="L118">        RuntimeException exception = assertThrows(RuntimeException.class, () -&gt; {</span>
+<span class="nc" id="L119">            pmsService.crearPms(pmsRequestDTO);</span>
+<span class="nc" id="L120">        });</span>
+        
+<span class="fc" id="L122">        assertTrue(exception.getMessage().contains(&quot;repeticiones esperadas&quot;));</span>
+<span class="fc" id="L123">        verify(pmsRepository, never()).save(any(Pms.class));</span>
+<span class="fc" id="L124">    }</span>
 
     @Test
     @DisplayName(&quot;Crear PMS con repeticiones = 0 - debe lanzar excepción&quot;)
     void crearPms_conRepeticionesCero_debeLanzarExcepcion() {
-        // ARRANGE
-<span class="fc" id="L140">        pmsRequestDTO.setNumRepeticionesEsperadas(0);</span>
-
-        // ACT &amp; ASSERT
-<span class="fc" id="L143">        RuntimeException exception = assertThrows(RuntimeException.class, () -&gt; {</span>
-<span class="nc" id="L144">            pmsService.crearPms(pmsRequestDTO);</span>
-<span class="nc" id="L145">        });</span>
         
-<span class="fc" id="L147">        assertTrue(exception.getMessage().contains(&quot;mayor a 0&quot;));</span>
-<span class="fc" id="L148">        verify(pmsRepository, never()).save(any(Pms.class));</span>
-<span class="fc" id="L149">    }</span>
+<span class="fc" id="L130">        pmsRequestDTO.setNumRepeticionesEsperadas(0);</span>
+
+        
+<span class="fc" id="L133">        RuntimeException exception = assertThrows(RuntimeException.class, () -&gt; {</span>
+<span class="nc" id="L134">            pmsService.crearPms(pmsRequestDTO);</span>
+<span class="nc" id="L135">        });</span>
+        
+<span class="fc" id="L137">        assertTrue(exception.getMessage().contains(&quot;mayor a 0&quot;));</span>
+<span class="fc" id="L138">        verify(pmsRepository, never()).save(any(Pms.class));</span>
+<span class="fc" id="L139">    }</span>
 
     @Test
     @DisplayName(&quot;Crear PMS con más de 16 repeticiones - debe lanzar excepción&quot;)
     void crearPms_conMasDe16Repeticiones_debeLanzarExcepcion() {
-        // ARRANGE
-<span class="fc" id="L155">        pmsRequestDTO.setNumRepeticionesEsperadas(17);</span>
-
-        // ACT &amp; ASSERT
-<span class="fc" id="L158">        RuntimeException exception = assertThrows(RuntimeException.class, () -&gt; {</span>
-<span class="nc" id="L159">            pmsService.crearPms(pmsRequestDTO);</span>
-<span class="nc" id="L160">        });</span>
         
-<span class="fc" id="L162">        assertTrue(exception.getMessage().contains(&quot;no puede superar 16&quot;));</span>
-<span class="fc" id="L163">        verify(pmsRepository, never()).save(any(Pms.class));</span>
-<span class="fc" id="L164">    }</span>
+<span class="fc" id="L145">        pmsRequestDTO.setNumRepeticionesEsperadas(17);</span>
+
+        
+<span class="fc" id="L148">        RuntimeException exception = assertThrows(RuntimeException.class, () -&gt; {</span>
+<span class="nc" id="L149">            pmsService.crearPms(pmsRequestDTO);</span>
+<span class="nc" id="L150">        });</span>
+        
+<span class="fc" id="L152">        assertTrue(exception.getMessage().contains(&quot;no puede superar 16&quot;));</span>
+<span class="fc" id="L153">        verify(pmsRepository, never()).save(any(Pms.class));</span>
+<span class="fc" id="L154">    }</span>
 
     @Test
     @DisplayName(&quot;Crear PMS con 8 repeticiones - debe ser válido&quot;)
     void crearPms_con8Repeticiones_debeSerValido() {
-        // ARRANGE
-<span class="fc" id="L170">        pmsRequestDTO.setNumRepeticionesEsperadas(8);</span>
-<span class="fc" id="L171">        when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));</span>
-<span class="fc" id="L172">        when(pmsRepository.save(any(Pms.class))).thenReturn(pms);</span>
-<span class="fc" id="L173">        doNothing().when(analisisHistorialService).registrarCreacion(any(Pms.class));</span>
+        
+<span class="fc" id="L160">        pmsRequestDTO.setNumRepeticionesEsperadas(8);</span>
+<span class="fc" id="L161">        when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));</span>
+<span class="fc" id="L162">        when(pmsRepository.save(any(Pms.class))).thenReturn(pms);</span>
+<span class="fc" id="L163">        doNothing().when(analisisHistorialService).registrarCreacion(any(Pms.class));</span>
 
-        // ACT
-<span class="fc" id="L176">        PmsDTO resultado = pmsService.crearPms(pmsRequestDTO);</span>
+        
+<span class="fc" id="L166">        PmsDTO resultado = pmsService.crearPms(pmsRequestDTO);</span>
 
-        // ASSERT
-<span class="fc" id="L179">        assertNotNull(resultado);</span>
-<span class="fc" id="L180">        verify(pmsRepository, times(1)).save(any(Pms.class));</span>
-<span class="fc" id="L181">    }</span>
+        
+<span class="fc" id="L169">        assertNotNull(resultado);</span>
+<span class="fc" id="L170">        verify(pmsRepository, times(1)).save(any(Pms.class));</span>
+<span class="fc" id="L171">    }</span>
 
     @Test
     @DisplayName(&quot;Crear PMS con lote inexistente - debe lanzar excepción&quot;)
     void crearPms_conLoteInexistente_debeLanzarExcepcion() {
-        // ARRANGE
-<span class="fc" id="L187">        when(loteRepository.findById(999L)).thenReturn(Optional.empty());</span>
-<span class="fc" id="L188">        pmsRequestDTO.setIdLote(999L);</span>
+        
+<span class="fc" id="L177">        when(loteRepository.findById(999L)).thenReturn(Optional.empty());</span>
+<span class="fc" id="L178">        pmsRequestDTO.setIdLote(999L);</span>
 
-        // ACT &amp; ASSERT
-<span class="fc" id="L191">        assertThrows(RuntimeException.class, () -&gt; {</span>
-<span class="nc" id="L192">            pmsService.crearPms(pmsRequestDTO);</span>
-<span class="pc" id="L193">        }, &quot;Debe lanzar excepción cuando el lote no existe&quot;);</span>
-<span class="fc" id="L194">    }</span>
+        
+<span class="fc" id="L181">        assertThrows(RuntimeException.class, () -&gt; {</span>
+<span class="nc" id="L182">            pmsService.crearPms(pmsRequestDTO);</span>
+<span class="nc" id="L183">        }, &quot;Debe lanzar excepción cuando el lote no existe&quot;);</span>
+<span class="fc" id="L184">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener PMS por ID - debe retornar el análisis si existe&quot;)
     void obtenerPorId_cuandoExiste_debeRetornarPms() {
-        // ARRANGE
-<span class="fc" id="L200">        when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));</span>
+        
+<span class="fc" id="L190">        when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));</span>
 
-        // ACT
-<span class="fc" id="L203">        PmsDTO resultado = pmsService.obtenerPorId(1L);</span>
+        
+<span class="fc" id="L193">        PmsDTO resultado = pmsService.obtenerPorId(1L);</span>
 
-        // ASSERT
-<span class="fc" id="L206">        assertNotNull(resultado);</span>
-<span class="fc" id="L207">        assertEquals(1L, resultado.getAnalisisID());</span>
-<span class="fc" id="L208">        assertEquals(8, resultado.getNumRepeticionesEsperadas());</span>
-<span class="fc" id="L209">        verify(pmsRepository, times(1)).findById(1L);</span>
-<span class="fc" id="L210">    }</span>
+        
+<span class="fc" id="L196">        assertNotNull(resultado);</span>
+<span class="fc" id="L197">        assertEquals(1L, resultado.getAnalisisID());</span>
+<span class="fc" id="L198">        assertEquals(8, resultado.getNumRepeticionesEsperadas());</span>
+<span class="fc" id="L199">        verify(pmsRepository, times(1)).findById(1L);</span>
+<span class="fc" id="L200">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener PMS por ID inexistente - debe lanzar excepción&quot;)
     void obtenerPorId_cuandoNoExiste_debeLanzarExcepcion() {
-        // ARRANGE
-<span class="fc" id="L216">        when(pmsRepository.findById(999L)).thenReturn(Optional.empty());</span>
-
-        // ACT &amp; ASSERT
-<span class="fc" id="L219">        RuntimeException exception = assertThrows(RuntimeException.class, () -&gt; {</span>
-<span class="nc" id="L220">            pmsService.obtenerPorId(999L);</span>
-<span class="nc" id="L221">        });</span>
         
-<span class="fc" id="L223">        assertTrue(exception.getMessage().contains(&quot;no encontrado&quot;));</span>
-<span class="fc" id="L224">    }</span>
+<span class="fc" id="L206">        when(pmsRepository.findById(999L)).thenReturn(Optional.empty());</span>
+
+        
+<span class="fc" id="L209">        RuntimeException exception = assertThrows(RuntimeException.class, () -&gt; {</span>
+<span class="nc" id="L210">            pmsService.obtenerPorId(999L);</span>
+<span class="nc" id="L211">        });</span>
+        
+<span class="fc" id="L213">        assertTrue(exception.getMessage().contains(&quot;no encontrado&quot;));</span>
+<span class="fc" id="L214">    }</span>
 
     @Test
     @DisplayName(&quot;Actualizar PMS - debe actualizar correctamente&quot;)
     void actualizarPms_debeActualizarCorrectamente() {
-        // ARRANGE
-<span class="fc" id="L230">        pmsRequestDTO.setComentarios(&quot;Comentarios actualizados&quot;);</span>
         
-<span class="fc" id="L232">        when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));</span>
-<span class="fc" id="L233">        when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));</span>
-<span class="fc" id="L234">        when(pmsRepository.save(any(Pms.class))).thenReturn(pms);</span>
-<span class="fc" id="L235">        doNothing().when(analisisService).manejarEdicionAnalisisFinalizado(any(Pms.class));</span>
-<span class="fc" id="L236">        doNothing().when(analisisHistorialService).registrarModificacion(any(Pms.class));</span>
+<span class="fc" id="L220">        pmsRequestDTO.setComentarios(&quot;Comentarios actualizados&quot;);</span>
+        
+<span class="fc" id="L222">        when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));</span>
+<span class="fc" id="L223">        when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));</span>
+<span class="fc" id="L224">        when(pmsRepository.save(any(Pms.class))).thenReturn(pms);</span>
+<span class="fc" id="L225">        doNothing().when(analisisService).manejarEdicionAnalisisFinalizado(any(Pms.class));</span>
+<span class="fc" id="L226">        doNothing().when(analisisHistorialService).registrarModificacion(any(Pms.class));</span>
 
-        // ACT
-<span class="fc" id="L239">        PmsDTO resultado = pmsService.actualizarPms(1L, pmsRequestDTO);</span>
+        
+<span class="fc" id="L229">        PmsDTO resultado = pmsService.actualizarPms(1L, pmsRequestDTO);</span>
 
-        // ASSERT
-<span class="fc" id="L242">        assertNotNull(resultado);</span>
-<span class="fc" id="L243">        verify(pmsRepository, times(1)).save(any(Pms.class));</span>
-<span class="fc" id="L244">        verify(analisisHistorialService, times(1)).registrarModificacion(any(Pms.class));</span>
-<span class="fc" id="L245">        verify(analisisService, times(1)).manejarEdicionAnalisisFinalizado(any(Pms.class));</span>
-<span class="fc" id="L246">    }</span>
+        
+<span class="fc" id="L232">        assertNotNull(resultado);</span>
+<span class="fc" id="L233">        verify(pmsRepository, times(1)).save(any(Pms.class));</span>
+<span class="fc" id="L234">        verify(analisisHistorialService, times(1)).registrarModificacion(any(Pms.class));</span>
+<span class="fc" id="L235">        verify(analisisService, times(1)).manejarEdicionAnalisisFinalizado(any(Pms.class));</span>
+<span class="fc" id="L236">    }</span>
 
     @Test
     @DisplayName(&quot;Actualizar PMS inexistente - debe lanzar excepción&quot;)
     void actualizarPms_noExistente_debeLanzarExcepcion() {
-        // ARRANGE
-<span class="fc" id="L252">        when(pmsRepository.findById(999L)).thenReturn(Optional.empty());</span>
-
-        // ACT &amp; ASSERT
-<span class="fc" id="L255">        assertThrows(RuntimeException.class, () -&gt; {</span>
-<span class="nc" id="L256">            pmsService.actualizarPms(999L, pmsRequestDTO);</span>
-<span class="nc" id="L257">        });</span>
         
-<span class="fc" id="L259">        verify(pmsRepository, never()).save(any(Pms.class));</span>
-<span class="fc" id="L260">    }</span>
+<span class="fc" id="L242">        when(pmsRepository.findById(999L)).thenReturn(Optional.empty());</span>
+
+        
+<span class="fc" id="L245">        assertThrows(RuntimeException.class, () -&gt; {</span>
+<span class="nc" id="L246">            pmsService.actualizarPms(999L, pmsRequestDTO);</span>
+<span class="nc" id="L247">        });</span>
+        
+<span class="fc" id="L249">        verify(pmsRepository, never()).save(any(Pms.class));</span>
+<span class="fc" id="L250">    }</span>
 
     @Test
     @DisplayName(&quot;Desactivar PMS - debe cambiar activo a false&quot;)
     void desactivarPms_debeCambiarActivoAFalse() {
-        // ARRANGE
-<span class="fc" id="L266">        doNothing().when(analisisService).desactivarAnalisis(eq(1L), any());</span>
+        
+<span class="fc" id="L256">        doNothing().when(analisisService).desactivarAnalisis(eq(1L), any());</span>
 
-        // ACT
-<span class="fc" id="L269">        pmsService.desactivarPms(1L);</span>
+        
+<span class="fc" id="L259">        pmsService.desactivarPms(1L);</span>
 
-        // ASSERT
-<span class="fc" id="L272">        verify(analisisService, times(1)).desactivarAnalisis(eq(1L), any());</span>
-<span class="fc" id="L273">    }</span>
+        
+<span class="fc" id="L262">        verify(analisisService, times(1)).desactivarAnalisis(eq(1L), any());</span>
+<span class="fc" id="L263">    }</span>
 
     @Test
     @DisplayName(&quot;Reactivar PMS - debe cambiar activo a true&quot;)
     void reactivarPms_debeCambiarActivoATrue() {
-        // ARRANGE
-<span class="fc" id="L279">        pms.setActivo(false);</span>
-<span class="fc" id="L280">        PmsDTO pmsDTO = new PmsDTO();</span>
-<span class="fc" id="L281">        pmsDTO.setAnalisisID(1L);</span>
-<span class="fc" id="L282">        pmsDTO.setActivo(true);</span>
         
-<span class="fc" id="L284">        when(analisisService.reactivarAnalisis(any(Long.class), any(), any())).thenReturn(pmsDTO);</span>
+<span class="fc" id="L269">        pms.setActivo(false);</span>
+<span class="fc" id="L270">        PmsDTO pmsDTO = new PmsDTO();</span>
+<span class="fc" id="L271">        pmsDTO.setAnalisisID(1L);</span>
+<span class="fc" id="L272">        pmsDTO.setActivo(true);</span>
+        
+<span class="fc" id="L274">        when(analisisService.reactivarAnalisis(any(Long.class), any(), any())).thenReturn(pmsDTO);</span>
 
-        // ACT
-<span class="fc" id="L287">        pmsService.reactivarPms(1L);</span>
+        
+<span class="fc" id="L277">        pmsService.reactivarPms(1L);</span>
 
-        // ASSERT
-<span class="fc" id="L290">        verify(analisisService, times(1)).reactivarAnalisis(any(Long.class), any(), any());</span>
-<span class="fc" id="L291">    }</span>
+        
+<span class="fc" id="L280">        verify(analisisService, times(1)).reactivarAnalisis(any(Long.class), any(), any());</span>
+<span class="fc" id="L281">    }</span>
 
     @Test
     @DisplayName(&quot;Eliminar PMS - debe desactivar el análisis&quot;)
     void eliminarPms_debeDesactivarAnalisis() {
-        // ARRANGE
-<span class="fc" id="L297">        when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));</span>
-<span class="fc" id="L298">        when(pmsRepository.save(any(Pms.class))).thenReturn(pms);</span>
+        
+<span class="fc" id="L287">        when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));</span>
+<span class="fc" id="L288">        when(pmsRepository.save(any(Pms.class))).thenReturn(pms);</span>
 
-        // ACT
-<span class="fc" id="L301">        pmsService.eliminarPms(1L);</span>
+        
+<span class="fc" id="L291">        pmsService.eliminarPms(1L);</span>
 
-        // ASSERT
-<span class="fc" id="L304">        verify(pmsRepository, times(1)).findById(1L);</span>
-<span class="fc" id="L305">        verify(pmsRepository, times(1)).save(any(Pms.class));</span>
-<span class="fc" id="L306">    }</span>
+        
+<span class="fc" id="L294">        verify(pmsRepository, times(1)).findById(1L);</span>
+<span class="fc" id="L295">        verify(pmsRepository, times(1)).save(any(Pms.class));</span>
+<span class="fc" id="L296">    }</span>
 
     @Test
     @DisplayName(&quot;Listar PMS activos - debe retornar solo activos&quot;)
     void obtenerTodos_debeRetornarSoloActivos() {
-        // ARRANGE
-<span class="fc" id="L312">        Pms pms2 = new Pms();</span>
-<span class="fc" id="L313">        pms2.setAnalisisID(2L);</span>
-<span class="fc" id="L314">        pms2.setActivo(true);</span>
         
-<span class="fc" id="L316">        when(pmsRepository.findByActivoTrue()).thenReturn(Arrays.asList(pms, pms2));</span>
+<span class="fc" id="L302">        Pms pms2 = new Pms();</span>
+<span class="fc" id="L303">        pms2.setAnalisisID(2L);</span>
+<span class="fc" id="L304">        pms2.setActivo(true);</span>
+        
+<span class="fc" id="L306">        when(pmsRepository.findByActivoTrue()).thenReturn(Arrays.asList(pms, pms2));</span>
 
-        // ACT
-<span class="fc" id="L319">        List&lt;PmsDTO&gt; resultado = pmsService.obtenerTodos();</span>
+        
+<span class="fc" id="L309">        List&lt;PmsDTO&gt; resultado = pmsService.obtenerTodos();</span>
 
-        // ASSERT
-<span class="fc" id="L322">        assertNotNull(resultado);</span>
-<span class="fc" id="L323">        assertEquals(2, resultado.size());</span>
-<span class="fc" id="L324">        verify(pmsRepository, times(1)).findByActivoTrue();</span>
-<span class="fc" id="L325">    }</span>
+        
+<span class="fc" id="L312">        assertNotNull(resultado);</span>
+<span class="fc" id="L313">        assertEquals(2, resultado.size());</span>
+<span class="fc" id="L314">        verify(pmsRepository, times(1)).findByActivoTrue();</span>
+<span class="fc" id="L315">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener PMS por ID de lote - debe retornar análisis del lote&quot;)
     void obtenerPmsPorIdLote_debeRetornarAnalisisDelLote() {
-        // ARRANGE
-<span class="fc" id="L331">        when(pmsRepository.findByIdLote(1)).thenReturn(Arrays.asList(pms));</span>
+        
+<span class="fc" id="L321">        when(pmsRepository.findByIdLote(1)).thenReturn(Arrays.asList(pms));</span>
 
-        // ACT
-<span class="fc" id="L334">        List&lt;PmsDTO&gt; resultado = pmsService.obtenerPmsPorIdLote(1L);</span>
+        
+<span class="fc" id="L324">        List&lt;PmsDTO&gt; resultado = pmsService.obtenerPmsPorIdLote(1L);</span>
 
-        // ASSERT
-<span class="fc" id="L337">        assertNotNull(resultado);</span>
-<span class="fc" id="L338">        assertEquals(1, resultado.size());</span>
-<span class="fc" id="L339">        verify(pmsRepository, times(1)).findByIdLote(1);</span>
-<span class="fc" id="L340">    }</span>
+        
+<span class="fc" id="L327">        assertNotNull(resultado);</span>
+<span class="fc" id="L328">        assertEquals(1, resultado.size());</span>
+<span class="fc" id="L329">        verify(pmsRepository, times(1)).findByIdLote(1);</span>
+<span class="fc" id="L330">    }</span>
 
     @Test
     @DisplayName(&quot;Listar PMS paginadas - debe retornar página correcta&quot;)
     void obtenerPmsPaginadas_debeRetornarPaginaCorrecta() {
-        // ARRANGE
-<span class="fc" id="L346">        Pageable pageable = PageRequest.of(0, 10);</span>
-<span class="fc" id="L347">        Page&lt;Pms&gt; pmsPage = new PageImpl&lt;&gt;(Arrays.asList(pms));</span>
         
-<span class="fc" id="L349">        when(pmsRepository.findByActivoTrueOrderByFechaInicioDesc(any(Pageable.class)))</span>
-<span class="fc" id="L350">            .thenReturn(pmsPage);</span>
+<span class="fc" id="L336">        Pageable pageable = PageRequest.of(0, 10);</span>
+<span class="fc" id="L337">        Page&lt;Pms&gt; pmsPage = new PageImpl&lt;&gt;(Arrays.asList(pms));</span>
+        
+<span class="fc" id="L339">        when(pmsRepository.findByActivoTrueOrderByFechaInicioDesc(any(Pageable.class)))</span>
+<span class="fc" id="L340">            .thenReturn(pmsPage);</span>
 
-        // ACT
-<span class="fc" id="L353">        var resultado = pmsService.obtenerPmsPaginadas(pageable);</span>
+        
+<span class="fc" id="L343">        var resultado = pmsService.obtenerPmsPaginadas(pageable);</span>
 
-        // ASSERT
-<span class="fc" id="L356">        assertNotNull(resultado);</span>
-<span class="fc" id="L357">        assertEquals(1, resultado.getTotalElements());</span>
-<span class="fc" id="L358">    }</span>
+        
+<span class="fc" id="L346">        assertNotNull(resultado);</span>
+<span class="fc" id="L347">        assertEquals(1, resultado.getTotalElements());</span>
+<span class="fc" id="L348">    }</span>
 
     @Test
     @DisplayName(&quot;Validar esSemillaBrozosa - debe aceptar true o false&quot;)
     void crearPms_conSemillaBrozosaTrue_debeCrearse() {
-        // ARRANGE
-<span class="fc" id="L364">        pmsRequestDTO.setEsSemillaBrozosa(true);</span>
-<span class="fc" id="L365">        when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));</span>
-<span class="fc" id="L366">        when(pmsRepository.save(any(Pms.class))).thenReturn(pms);</span>
-<span class="fc" id="L367">        doNothing().when(analisisHistorialService).registrarCreacion(any(Pms.class));</span>
+        
+<span class="fc" id="L354">        pmsRequestDTO.setEsSemillaBrozosa(true);</span>
+<span class="fc" id="L355">        when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));</span>
+<span class="fc" id="L356">        when(pmsRepository.save(any(Pms.class))).thenReturn(pms);</span>
+<span class="fc" id="L357">        doNothing().when(analisisHistorialService).registrarCreacion(any(Pms.class));</span>
 
-        // ACT
-<span class="fc" id="L370">        PmsDTO resultado = pmsService.crearPms(pmsRequestDTO);</span>
+        
+<span class="fc" id="L360">        PmsDTO resultado = pmsService.crearPms(pmsRequestDTO);</span>
 
-        // ASSERT
-<span class="fc" id="L373">        assertNotNull(resultado);</span>
-<span class="fc" id="L374">        verify(pmsRepository, times(1)).save(any(Pms.class));</span>
-<span class="fc" id="L375">    }</span>
+        
+<span class="fc" id="L363">        assertNotNull(resultado);</span>
+<span class="fc" id="L364">        verify(pmsRepository, times(1)).save(any(Pms.class));</span>
+<span class="fc" id="L365">    }</span>
 
     @Test
     @DisplayName(&quot;finalizarAnalisis PMS - valida y llama al método genérico sin fallar si datos ok&quot;)
     void finalizarAnalisisPms_conDatosCompletos_noFalla() {
         // Configurar para que pase las validaciones
-<span class="fc" id="L381">        pms.setNumTandas(1);</span>
-<span class="fc" id="L382">        pms.setPmsconRedon(new BigDecimal(&quot;10.50&quot;));</span>
-<span class="fc" id="L383">        pms.setEstado(Estado.EN_PROCESO);</span>
+<span class="fc" id="L371">        pms.setNumTandas(1);</span>
+<span class="fc" id="L372">        pms.setPmsconRedon(new BigDecimal(&quot;10.50&quot;));</span>
+<span class="fc" id="L373">        pms.setEstado(Estado.EN_PROCESO);</span>
         
         // Mock AnalisisService.finalizarAnalisisGenerico
-<span class="fc" id="L386">        when(analisisService.finalizarAnalisisGenerico(</span>
-<span class="fc" id="L387">            eq(1L),</span>
-<span class="fc" id="L388">            eq(pmsRepository),</span>
-<span class="fc" id="L389">            any(),</span>
-<span class="fc" id="L390">            any()</span>
-<span class="fc" id="L391">        )).thenAnswer(invocation -&gt; {</span>
+<span class="fc" id="L376">        when(analisisService.finalizarAnalisisGenerico(</span>
+<span class="fc" id="L377">            eq(1L),</span>
+<span class="fc" id="L378">            eq(pmsRepository),</span>
+<span class="fc" id="L379">            any(),</span>
+<span class="fc" id="L380">            any()</span>
+<span class="fc" id="L381">        )).thenAnswer(invocation -&gt; {</span>
             // Obtener el mapper (tercer argumento) y aplicarlo al pms
-<span class="fc" id="L393">            java.util.function.Function&lt;Pms, PmsDTO&gt; mapper = invocation.getArgument(2);</span>
-<span class="fc" id="L394">            return mapper.apply(pms);</span>
+<span class="fc" id="L383">            java.util.function.Function&lt;Pms, PmsDTO&gt; mapper = invocation.getArgument(2);</span>
+<span class="fc" id="L384">            return mapper.apply(pms);</span>
         });
         
         // Debería finalizar sin lanzar excepción
-<span class="fc" id="L398">        PmsDTO result = pmsService.finalizarAnalisis(1L);</span>
-<span class="fc" id="L399">        assertNotNull(result);</span>
-<span class="fc" id="L400">    }</span>
+<span class="fc" id="L388">        PmsDTO result = pmsService.finalizarAnalisis(1L);</span>
+<span class="fc" id="L389">        assertNotNull(result);</span>
+<span class="fc" id="L390">    }</span>
 
     @Test
     @DisplayName(&quot;aprobarAnalisis PMS - con datos completos no falla&quot;)
     void aprobarAnalisisPms_conDatos_noFalla() {
-<span class="fc" id="L405">        pms.setEstado(Estado.PENDIENTE_APROBACION);</span>
-<span class="fc" id="L406">        pms.setPmsconRedon(new BigDecimal(&quot;10.50&quot;));</span>
-<span class="fc" id="L407">        pms.setNumTandas(1);</span>
+<span class="fc" id="L395">        pms.setEstado(Estado.PENDIENTE_APROBACION);</span>
+<span class="fc" id="L396">        pms.setPmsconRedon(new BigDecimal(&quot;10.50&quot;));</span>
+<span class="fc" id="L397">        pms.setNumTandas(1);</span>
         
         // Mock AnalisisService.aprobarAnalisisGenerico
-<span class="fc" id="L410">        when(analisisService.aprobarAnalisisGenerico(</span>
-<span class="fc" id="L411">            eq(1L),</span>
-<span class="fc" id="L412">            eq(pmsRepository),</span>
-<span class="fc" id="L413">            any(),</span>
-<span class="fc" id="L414">            any(),</span>
-<span class="fc" id="L415">            any()</span>
-<span class="fc" id="L416">        )).thenAnswer(invocation -&gt; {</span>
+<span class="fc" id="L400">        when(analisisService.aprobarAnalisisGenerico(</span>
+<span class="fc" id="L401">            eq(1L),</span>
+<span class="fc" id="L402">            eq(pmsRepository),</span>
+<span class="fc" id="L403">            any(),</span>
+<span class="fc" id="L404">            any(),</span>
+<span class="fc" id="L405">            any()</span>
+<span class="fc" id="L406">        )).thenAnswer(invocation -&gt; {</span>
             // Obtener el mapper y aplicarlo al pms
-<span class="fc" id="L418">            java.util.function.Function&lt;Pms, PmsDTO&gt; mapper = invocation.getArgument(2);</span>
-<span class="fc" id="L419">            return mapper.apply(pms);</span>
+<span class="fc" id="L408">            java.util.function.Function&lt;Pms, PmsDTO&gt; mapper = invocation.getArgument(2);</span>
+<span class="fc" id="L409">            return mapper.apply(pms);</span>
         });
         
-<span class="fc" id="L422">        PmsDTO result = pmsService.aprobarAnalisis(1L);</span>
-<span class="fc" id="L423">        assertNotNull(result);</span>
-<span class="fc" id="L424">    }</span>
+<span class="fc" id="L412">        PmsDTO result = pmsService.aprobarAnalisis(1L);</span>
+<span class="fc" id="L413">        assertNotNull(result);</span>
+<span class="fc" id="L414">    }</span>
 
     @Test
     @DisplayName(&quot;marcarParaRepetir PMS - con datos completos no falla&quot;)
     void marcarParaRepetirPms_conDatos_noFalla() {
-<span class="fc" id="L429">        pms.setEstado(Estado.APROBADO);</span>
-<span class="fc" id="L430">        pms.setPmsconRedon(new BigDecimal(&quot;10.50&quot;));</span>
-<span class="fc" id="L431">        pms.setNumTandas(1);</span>
+<span class="fc" id="L419">        pms.setEstado(Estado.APROBADO);</span>
+<span class="fc" id="L420">        pms.setPmsconRedon(new BigDecimal(&quot;10.50&quot;));</span>
+<span class="fc" id="L421">        pms.setNumTandas(1);</span>
         
         // Mock AnalisisService.marcarParaRepetirGenerico
-<span class="fc" id="L434">        when(analisisService.marcarParaRepetirGenerico(</span>
-<span class="fc" id="L435">            eq(1L),</span>
-<span class="fc" id="L436">            eq(pmsRepository),</span>
-<span class="fc" id="L437">            any(),</span>
-<span class="fc" id="L438">            any()</span>
-<span class="fc" id="L439">        )).thenAnswer(invocation -&gt; {</span>
+<span class="fc" id="L424">        when(analisisService.marcarParaRepetirGenerico(</span>
+<span class="fc" id="L425">            eq(1L),</span>
+<span class="fc" id="L426">            eq(pmsRepository),</span>
+<span class="fc" id="L427">            any(),</span>
+<span class="fc" id="L428">            any()</span>
+<span class="fc" id="L429">        )).thenAnswer(invocation -&gt; {</span>
             // Obtener el mapper y aplicarlo al pms
-<span class="fc" id="L441">            pms.setEstado(Estado.A_REPETIR); // Simular cambio de estado</span>
-<span class="fc" id="L442">            java.util.function.Function&lt;Pms, PmsDTO&gt; mapper = invocation.getArgument(2);</span>
-<span class="fc" id="L443">            return mapper.apply(pms);</span>
+<span class="fc" id="L431">            pms.setEstado(Estado.A_REPETIR); // Simular cambio de estado</span>
+<span class="fc" id="L432">            java.util.function.Function&lt;Pms, PmsDTO&gt; mapper = invocation.getArgument(2);</span>
+<span class="fc" id="L433">            return mapper.apply(pms);</span>
         });
         
-<span class="fc" id="L446">        PmsDTO result = pmsService.marcarParaRepetir(1L);</span>
-<span class="fc" id="L447">        assertNotNull(result);</span>
-<span class="fc" id="L448">        assertEquals(Estado.A_REPETIR, result.getEstado());</span>
-<span class="fc" id="L449">    }</span>
+<span class="fc" id="L436">        PmsDTO result = pmsService.marcarParaRepetir(1L);</span>
+<span class="fc" id="L437">        assertNotNull(result);</span>
+<span class="fc" id="L438">        assertEquals(Estado.A_REPETIR, result.getEstado());</span>
+<span class="fc" id="L439">    }</span>
 
     @Test
     @DisplayName(&quot;desactivarPms cambia activo a false usando servicio genérico&quot;)
     void desactivarPms_llamaServicioGenerico() {
-<span class="fc" id="L454">        pms.setActivo(true);</span>
+<span class="fc" id="L444">        pms.setActivo(true);</span>
         
         // Mock AnalisisService.desactivarAnalisis - debe modificar el pms en memoria
-<span class="fc" id="L457">        doAnswer(invocation -&gt; {</span>
-<span class="fc" id="L458">            pms.setActivo(false); // Simular desactivación</span>
-<span class="fc" id="L459">            return null;</span>
-<span class="fc" id="L460">        }).when(analisisService).desactivarAnalisis(eq(1L), eq(pmsRepository));</span>
+<span class="fc" id="L447">        doAnswer(invocation -&gt; {</span>
+<span class="fc" id="L448">            pms.setActivo(false); // Simular desactivación</span>
+<span class="fc" id="L449">            return null;</span>
+<span class="fc" id="L450">        }).when(analisisService).desactivarAnalisis(eq(1L), eq(pmsRepository));</span>
         
-<span class="fc" id="L462">        pmsService.desactivarPms(1L);</span>
+<span class="fc" id="L452">        pmsService.desactivarPms(1L);</span>
         
         // Verificar que el servicio de análisis fue llamado
-<span class="fc" id="L465">        verify(analisisService, times(1)).desactivarAnalisis(eq(1L), eq(pmsRepository));</span>
-<span class="fc" id="L466">        assertFalse(pms.getActivo());</span>
-<span class="fc" id="L467">    }</span>
+<span class="fc" id="L455">        verify(analisisService, times(1)).desactivarAnalisis(eq(1L), eq(pmsRepository));</span>
+<span class="fc" id="L456">        assertFalse(pms.getActivo());</span>
+<span class="fc" id="L457">    }</span>
 
     @Test
     @DisplayName(&quot;reactivarPms - éxito cuando estaba inactivo y error si ya activo&quot;)
     void reactivarPms_casos() {
         // Caso 1: Reactivar PMS inactivo - debe funcionar
-<span class="fc" id="L473">        Pms pmsInactivo = new Pms();</span>
-<span class="fc" id="L474">        pmsInactivo.setAnalisisID(1L);</span>
-<span class="fc" id="L475">        pmsInactivo.setActivo(false);</span>
-<span class="fc" id="L476">        pmsInactivo.setLote(lote);</span>
-<span class="fc" id="L477">        pmsInactivo.setNumRepeticionesEsperadas(8);</span>
-<span class="fc" id="L478">        pmsInactivo.setNumTandas(1);</span>
+<span class="fc" id="L463">        Pms pmsInactivo = new Pms();</span>
+<span class="fc" id="L464">        pmsInactivo.setAnalisisID(1L);</span>
+<span class="fc" id="L465">        pmsInactivo.setActivo(false);</span>
+<span class="fc" id="L466">        pmsInactivo.setLote(lote);</span>
+<span class="fc" id="L467">        pmsInactivo.setNumRepeticionesEsperadas(8);</span>
+<span class="fc" id="L468">        pmsInactivo.setNumTandas(1);</span>
         
         // Mock AnalisisService.reactivarAnalisis
-<span class="fc" id="L481">        when(analisisService.reactivarAnalisis(</span>
-<span class="fc" id="L482">            eq(1L),</span>
-<span class="fc" id="L483">            eq(pmsRepository),</span>
-<span class="fc" id="L484">            any()</span>
-<span class="fc" id="L485">        )).thenAnswer(invocation -&gt; {</span>
-<span class="fc" id="L486">            pmsInactivo.setActivo(true); // Simular reactivación</span>
-<span class="fc" id="L487">            java.util.function.Function&lt;Pms, PmsDTO&gt; mapper = invocation.getArgument(2);</span>
-<span class="fc" id="L488">            PmsDTO dto = mapper.apply(pmsInactivo);</span>
+<span class="fc" id="L471">        when(analisisService.reactivarAnalisis(</span>
+<span class="fc" id="L472">            eq(1L),</span>
+<span class="fc" id="L473">            eq(pmsRepository),</span>
+<span class="fc" id="L474">            any()</span>
+<span class="fc" id="L475">        )).thenAnswer(invocation -&gt; {</span>
+<span class="fc" id="L476">            pmsInactivo.setActivo(true); // Simular reactivación</span>
+<span class="fc" id="L477">            java.util.function.Function&lt;Pms, PmsDTO&gt; mapper = invocation.getArgument(2);</span>
+<span class="fc" id="L478">            PmsDTO dto = mapper.apply(pmsInactivo);</span>
             // Asegurar que activo esté seteado
-<span class="pc bpc" id="L490" title="2 of 4 branches missed.">            if (dto != null &amp;&amp; dto.getActivo() == null) {</span>
-<span class="fc" id="L491">                dto.setActivo(true);</span>
+<span class="pc bpc" id="L480" title="2 of 4 branches missed.">            if (dto != null &amp;&amp; dto.getActivo() == null) {</span>
+<span class="fc" id="L481">                dto.setActivo(true);</span>
             }
-<span class="fc" id="L493">            return dto;</span>
+<span class="fc" id="L483">            return dto;</span>
         });
         
-<span class="fc" id="L496">        PmsDTO dto = pmsService.reactivarPms(1L);</span>
-<span class="fc" id="L497">        assertNotNull(dto);</span>
-<span class="fc" id="L498">        assertTrue(dto.getActivo());</span>
+<span class="fc" id="L486">        PmsDTO dto = pmsService.reactivarPms(1L);</span>
+<span class="fc" id="L487">        assertNotNull(dto);</span>
+<span class="fc" id="L488">        assertTrue(dto.getActivo());</span>
         
         // Caso 2: Intentar reactivar PMS ya activo - debe lanzar excepción
-<span class="fc" id="L501">        when(analisisService.reactivarAnalisis(</span>
-<span class="fc" id="L502">            eq(2L),</span>
-<span class="fc" id="L503">            eq(pmsRepository),</span>
-<span class="fc" id="L504">            any()</span>
-<span class="fc" id="L505">        )).thenThrow(new RuntimeException(&quot;El análisis ya está activo&quot;));</span>
+<span class="fc" id="L491">        when(analisisService.reactivarAnalisis(</span>
+<span class="fc" id="L492">            eq(2L),</span>
+<span class="fc" id="L493">            eq(pmsRepository),</span>
+<span class="fc" id="L494">            any()</span>
+<span class="fc" id="L495">        )).thenThrow(new RuntimeException(&quot;El análisis ya está activo&quot;));</span>
         
-<span class="pc" id="L507">        assertThrows(RuntimeException.class, () -&gt; pmsService.reactivarPms(2L));</span>
-<span class="fc" id="L508">    }</span>
+<span class="pc" id="L497">        assertThrows(RuntimeException.class, () -&gt; pmsService.reactivarPms(2L));</span>
+<span class="fc" id="L498">    }</span>
 
     @Test
     @DisplayName(&quot;procesarCalculosTanda - tanda incompleta solo actualiza estadísticas&quot;)
     void procesarCalculosTanda_tandaIncompleta_soloActualizaEstadisticas() {
-        // ARRANGE
-<span class="fc" id="L514">        pms.setNumRepeticionesEsperadas(8);</span>
-<span class="fc" id="L515">        pms.setNumTandas(1);</span>
-<span class="fc" id="L516">        pms.setEsSemillaBrozosa(false);</span>
+        
+<span class="fc" id="L504">        pms.setNumRepeticionesEsperadas(8);</span>
+<span class="fc" id="L505">        pms.setNumTandas(1);</span>
+<span class="fc" id="L506">        pms.setEsSemillaBrozosa(false);</span>
         
         // Crear solo 4 repeticiones (menos de las esperadas)
-<span class="fc" id="L519">        List&lt;RepPms&gt; repeticiones = new ArrayList&lt;&gt;();</span>
-<span class="fc bfc" id="L520" title="All 2 branches covered.">        for (int i = 1; i &lt;= 4; i++) {</span>
-<span class="fc" id="L521">            RepPms rep = new RepPms();</span>
-<span class="fc" id="L522">            rep.setNumRep(i);</span>
-<span class="fc" id="L523">            rep.setNumTanda(1);</span>
-<span class="fc" id="L524">            rep.setPeso(new BigDecimal(&quot;10.0&quot;));</span>
-<span class="fc" id="L525">            rep.setValido(true);</span>
-<span class="fc" id="L526">            repeticiones.add(rep);</span>
+<span class="fc" id="L509">        List&lt;RepPms&gt; repeticiones = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L510" title="All 2 branches covered.">        for (int i = 1; i &lt;= 4; i++) {</span>
+<span class="fc" id="L511">            RepPms rep = new RepPms();</span>
+<span class="fc" id="L512">            rep.setNumRep(i);</span>
+<span class="fc" id="L513">            rep.setNumTanda(1);</span>
+<span class="fc" id="L514">            rep.setPeso(new BigDecimal(&quot;10.0&quot;));</span>
+<span class="fc" id="L515">            rep.setValido(true);</span>
+<span class="fc" id="L516">            repeticiones.add(rep);</span>
         }
         
-<span class="fc" id="L529">        when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));</span>
-<span class="fc" id="L530">        when(repPmsRepository.findByPmsId(1L)).thenReturn(repeticiones);</span>
-<span class="fc" id="L531">        when(pmsRepository.save(any(Pms.class))).thenReturn(pms);</span>
+<span class="fc" id="L519">        when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));</span>
+<span class="fc" id="L520">        when(repPmsRepository.findByPmsId(1L)).thenReturn(repeticiones);</span>
+<span class="fc" id="L521">        when(pmsRepository.save(any(Pms.class))).thenReturn(pms);</span>
         
-        // ACT
-<span class="fc" id="L534">        pmsService.procesarCalculosTanda(1L, 1);</span>
         
-        // ASSERT
-<span class="fc" id="L537">        verify(pmsRepository, times(1)).save(any(Pms.class));</span>
-<span class="fc" id="L538">        verify(repPmsRepository, never()).saveAll(anyList());</span>
-<span class="fc" id="L539">    }</span>
+<span class="fc" id="L524">        pmsService.procesarCalculosTanda(1L, 1);</span>
+        
+        
+<span class="fc" id="L527">        verify(pmsRepository, times(1)).save(any(Pms.class));</span>
+<span class="fc" id="L528">        verify(repPmsRepository, never()).saveAll(anyList());</span>
+<span class="fc" id="L529">    }</span>
 
     @Test
     @DisplayName(&quot;procesarCalculosTanda - tanda completa con CV aceptable&quot;)
     void procesarCalculosTanda_tandaCompleta_CVAceptable() {
-        // ARRANGE
-<span class="fc" id="L545">        pms.setNumRepeticionesEsperadas(4);</span>
-<span class="fc" id="L546">        pms.setNumTandas(1);</span>
-<span class="fc" id="L547">        pms.setEsSemillaBrozosa(false); // Umbral CV = 4.0</span>
+        
+<span class="fc" id="L535">        pms.setNumRepeticionesEsperadas(4);</span>
+<span class="fc" id="L536">        pms.setNumTandas(1);</span>
+<span class="fc" id="L537">        pms.setEsSemillaBrozosa(false); // Umbral CV = 4.0</span>
         
         // Crear 4 repeticiones válidas con pesos similares
-<span class="fc" id="L550">        List&lt;RepPms&gt; repeticiones = new ArrayList&lt;&gt;();</span>
-<span class="fc bfc" id="L551" title="All 2 branches covered.">        for (int i = 1; i &lt;= 4; i++) {</span>
-<span class="fc" id="L552">            RepPms rep = new RepPms();</span>
-<span class="fc" id="L553">            rep.setNumRep(i);</span>
-<span class="fc" id="L554">            rep.setNumTanda(1);</span>
-<span class="fc" id="L555">            rep.setPeso(new BigDecimal(&quot;10.&quot; + i)); // 10.1, 10.2, 10.3, 10.4</span>
-<span class="fc" id="L556">            rep.setValido(null);</span>
-<span class="fc" id="L557">            repeticiones.add(rep);</span>
+<span class="fc" id="L540">        List&lt;RepPms&gt; repeticiones = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L541" title="All 2 branches covered.">        for (int i = 1; i &lt;= 4; i++) {</span>
+<span class="fc" id="L542">            RepPms rep = new RepPms();</span>
+<span class="fc" id="L543">            rep.setNumRep(i);</span>
+<span class="fc" id="L544">            rep.setNumTanda(1);</span>
+<span class="fc" id="L545">            rep.setPeso(new BigDecimal(&quot;10.&quot; + i)); // 10.1, 10.2, 10.3, 10.4</span>
+<span class="fc" id="L546">            rep.setValido(null);</span>
+<span class="fc" id="L547">            repeticiones.add(rep);</span>
         }
         
-<span class="fc" id="L560">        when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));</span>
-<span class="fc" id="L561">        when(repPmsRepository.findByPmsId(1L)).thenReturn(repeticiones);</span>
-<span class="fc" id="L562">        when(repPmsRepository.saveAll(anyList())).thenReturn(repeticiones);</span>
-<span class="fc" id="L563">        when(pmsRepository.save(any(Pms.class))).thenReturn(pms);</span>
+<span class="fc" id="L550">        when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));</span>
+<span class="fc" id="L551">        when(repPmsRepository.findByPmsId(1L)).thenReturn(repeticiones);</span>
+<span class="fc" id="L552">        when(repPmsRepository.saveAll(anyList())).thenReturn(repeticiones);</span>
+<span class="fc" id="L553">        when(pmsRepository.save(any(Pms.class))).thenReturn(pms);</span>
         
-        // ACT
-<span class="fc" id="L566">        pmsService.procesarCalculosTanda(1L, 1);</span>
         
-        // ASSERT
-<span class="fc" id="L569">        verify(repPmsRepository, times(1)).saveAll(anyList());</span>
-<span class="fc" id="L570">        verify(pmsRepository, times(1)).save(any(Pms.class));</span>
-<span class="fc" id="L571">    }</span>
+<span class="fc" id="L556">        pmsService.procesarCalculosTanda(1L, 1);</span>
+        
+        
+<span class="fc" id="L559">        verify(repPmsRepository, times(1)).saveAll(anyList());</span>
+<span class="fc" id="L560">        verify(pmsRepository, times(1)).save(any(Pms.class));</span>
+<span class="fc" id="L561">    }</span>
 
     @Test
     @DisplayName(&quot;procesarCalculosTanda - tanda completa con CV no aceptable incrementa tandas&quot;)
     void procesarCalculosTanda_CVNoAceptable_incrementaTandas() {
-        // ARRANGE
-<span class="fc" id="L577">        pms.setNumRepeticionesEsperadas(4);</span>
-<span class="fc" id="L578">        pms.setNumTandas(1);</span>
-<span class="fc" id="L579">        pms.setEsSemillaBrozosa(false); // Umbral CV = 4.0</span>
+        
+<span class="fc" id="L567">        pms.setNumRepeticionesEsperadas(4);</span>
+<span class="fc" id="L568">        pms.setNumTandas(1);</span>
+<span class="fc" id="L569">        pms.setEsSemillaBrozosa(false); // Umbral CV = 4.0</span>
         
         // Crear repeticiones con mucha variación para CV alto
-<span class="fc" id="L582">        List&lt;RepPms&gt; repeticiones = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L583">        BigDecimal[] pesos = {new BigDecimal(&quot;8.0&quot;), new BigDecimal(&quot;10.0&quot;), </span>
-<span class="fc" id="L584">                             new BigDecimal(&quot;12.0&quot;), new BigDecimal(&quot;14.0&quot;)};</span>
-<span class="fc bfc" id="L585" title="All 2 branches covered.">        for (int i = 0; i &lt; 4; i++) {</span>
-<span class="fc" id="L586">            RepPms rep = new RepPms();</span>
-<span class="fc" id="L587">            rep.setNumRep(i + 1);</span>
-<span class="fc" id="L588">            rep.setNumTanda(1);</span>
-<span class="fc" id="L589">            rep.setPeso(pesos[i]);</span>
-<span class="fc" id="L590">            rep.setValido(null);</span>
-<span class="fc" id="L591">            repeticiones.add(rep);</span>
+<span class="fc" id="L572">        List&lt;RepPms&gt; repeticiones = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L573">        BigDecimal[] pesos = {new BigDecimal(&quot;8.0&quot;), new BigDecimal(&quot;10.0&quot;), </span>
+                             new BigDecimal(&quot;12.0&quot;), new BigDecimal(&quot;14.0&quot;)};
+<span class="fc bfc" id="L575" title="All 2 branches covered.">        for (int i = 0; i &lt; 4; i++) {</span>
+<span class="fc" id="L576">            RepPms rep = new RepPms();</span>
+<span class="fc" id="L577">            rep.setNumRep(i + 1);</span>
+<span class="fc" id="L578">            rep.setNumTanda(1);</span>
+<span class="fc" id="L579">            rep.setPeso(pesos[i]);</span>
+<span class="fc" id="L580">            rep.setValido(null);</span>
+<span class="fc" id="L581">            repeticiones.add(rep);</span>
         }
         
-<span class="fc" id="L594">        when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));</span>
-<span class="fc" id="L595">        when(repPmsRepository.findByPmsId(1L)).thenReturn(repeticiones);</span>
-<span class="fc" id="L596">        when(repPmsRepository.saveAll(anyList())).thenReturn(repeticiones);</span>
-<span class="fc" id="L597">        when(repPmsRepository.countByPmsId(1L)).thenReturn(4L);</span>
-<span class="fc" id="L598">        when(pmsRepository.save(any(Pms.class))).thenReturn(pms);</span>
+<span class="fc" id="L584">        when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));</span>
+<span class="fc" id="L585">        when(repPmsRepository.findByPmsId(1L)).thenReturn(repeticiones);</span>
+<span class="fc" id="L586">        when(repPmsRepository.saveAll(anyList())).thenReturn(repeticiones);</span>
+<span class="fc" id="L587">        when(repPmsRepository.countByPmsId(1L)).thenReturn(4L);</span>
+<span class="fc" id="L588">        when(pmsRepository.save(any(Pms.class))).thenReturn(pms);</span>
         
-        // ACT
-<span class="fc" id="L601">        pmsService.procesarCalculosTanda(1L, 1);</span>
         
-        // ASSERT
-<span class="fc" id="L604">        verify(pmsRepository, times(1)).save(any(Pms.class));</span>
-<span class="fc" id="L605">    }</span>
+<span class="fc" id="L591">        pmsService.procesarCalculosTanda(1L, 1);</span>
+        
+        
+<span class="fc" id="L594">        verify(pmsRepository, times(1)).save(any(Pms.class));</span>
+<span class="fc" id="L595">    }</span>
 
     @Test
     @DisplayName(&quot;procesarCalculosTanda - sin repeticiones válidas incrementa tandas&quot;)
     void procesarCalculosTanda_sinRepeticionesValidas_incrementaTandas() {
-        // ARRANGE
-<span class="fc" id="L611">        pms.setNumRepeticionesEsperadas(4);</span>
-<span class="fc" id="L612">        pms.setNumTandas(1);</span>
-<span class="fc" id="L613">        pms.setEsSemillaBrozosa(false);</span>
+        
+<span class="fc" id="L601">        pms.setNumRepeticionesEsperadas(4);</span>
+<span class="fc" id="L602">        pms.setNumTandas(1);</span>
+<span class="fc" id="L603">        pms.setEsSemillaBrozosa(false);</span>
         
         // Crear repeticiones que serán marcadas como inválidas
-<span class="fc" id="L616">        List&lt;RepPms&gt; repeticiones = new ArrayList&lt;&gt;();</span>
-<span class="fc bfc" id="L617" title="All 2 branches covered.">        for (int i = 1; i &lt;= 4; i++) {</span>
-<span class="fc" id="L618">            RepPms rep = new RepPms();</span>
-<span class="fc" id="L619">            rep.setNumRep(i);</span>
-<span class="fc" id="L620">            rep.setNumTanda(1);</span>
-<span class="fc" id="L621">            rep.setPeso(new BigDecimal(&quot;100.0&quot;)); // Outlier extremo</span>
-<span class="fc" id="L622">            rep.setValido(false);</span>
-<span class="fc" id="L623">            repeticiones.add(rep);</span>
+<span class="fc" id="L606">        List&lt;RepPms&gt; repeticiones = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L607" title="All 2 branches covered.">        for (int i = 1; i &lt;= 4; i++) {</span>
+<span class="fc" id="L608">            RepPms rep = new RepPms();</span>
+<span class="fc" id="L609">            rep.setNumRep(i);</span>
+<span class="fc" id="L610">            rep.setNumTanda(1);</span>
+<span class="fc" id="L611">            rep.setPeso(new BigDecimal(&quot;100.0&quot;)); // Outlier extremo</span>
+<span class="fc" id="L612">            rep.setValido(false);</span>
+<span class="fc" id="L613">            repeticiones.add(rep);</span>
         }
         
-<span class="fc" id="L626">        when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));</span>
-<span class="fc" id="L627">        when(repPmsRepository.findByPmsId(1L)).thenReturn(repeticiones);</span>
-<span class="fc" id="L628">        when(repPmsRepository.saveAll(anyList())).thenReturn(repeticiones);</span>
-<span class="fc" id="L629">        when(repPmsRepository.countByPmsId(1L)).thenReturn(4L);</span>
-<span class="fc" id="L630">        when(pmsRepository.save(any(Pms.class))).thenReturn(pms);</span>
+<span class="fc" id="L616">        when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));</span>
+<span class="fc" id="L617">        when(repPmsRepository.findByPmsId(1L)).thenReturn(repeticiones);</span>
+<span class="fc" id="L618">        when(repPmsRepository.saveAll(anyList())).thenReturn(repeticiones);</span>
+<span class="fc" id="L619">        when(repPmsRepository.countByPmsId(1L)).thenReturn(4L);</span>
+<span class="fc" id="L620">        when(pmsRepository.save(any(Pms.class))).thenReturn(pms);</span>
         
-        // ACT
-<span class="fc" id="L633">        pmsService.procesarCalculosTanda(1L, 1);</span>
         
-        // ASSERT
-<span class="fc" id="L636">        verify(pmsRepository, times(1)).save(any(Pms.class));</span>
-<span class="fc" id="L637">    }</span>
+<span class="fc" id="L623">        pmsService.procesarCalculosTanda(1L, 1);</span>
+        
+        
+<span class="fc" id="L626">        verify(pmsRepository, times(1)).save(any(Pms.class));</span>
+<span class="fc" id="L627">    }</span>
 
     @Test
     @DisplayName(&quot;validarTodasLasRepeticiones - sin repeticiones no hace nada&quot;)
     void validarTodasLasRepeticiones_sinRepeticiones_noHaceNada() {
-        // ARRANGE
-<span class="fc" id="L643">        when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));</span>
-<span class="fc" id="L644">        when(repPmsRepository.findByPmsId(1L)).thenReturn(Collections.emptyList());</span>
         
-        // ACT
-<span class="fc" id="L647">        pmsService.validarTodasLasRepeticiones(1L);</span>
+<span class="fc" id="L633">        when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));</span>
+<span class="fc" id="L634">        when(repPmsRepository.findByPmsId(1L)).thenReturn(Collections.emptyList());</span>
         
-        // ASSERT
-<span class="fc" id="L650">        verify(repPmsRepository, never()).saveAll(anyList());</span>
-<span class="fc" id="L651">    }</span>
+        
+<span class="fc" id="L637">        pmsService.validarTodasLasRepeticiones(1L);</span>
+        
+        
+<span class="fc" id="L640">        verify(repPmsRepository, never()).saveAll(anyList());</span>
+<span class="fc" id="L641">    }</span>
 
     @Test
     @DisplayName(&quot;validarTodasLasRepeticiones - repeticiones insuficientes marca como indeterminadas&quot;)
     void validarTodasLasRepeticiones_repeticionesInsuficientes_marcaIndeterminadas() {
-        // ARRANGE
-<span class="fc" id="L657">        pms.setNumRepeticionesEsperadas(8);</span>
         
-<span class="fc" id="L659">        List&lt;RepPms&gt; repeticiones = new ArrayList&lt;&gt;();</span>
-<span class="fc bfc" id="L660" title="All 2 branches covered.">        for (int i = 1; i &lt;= 4; i++) { // Menos de las esperadas</span>
-<span class="fc" id="L661">            RepPms rep = new RepPms();</span>
-<span class="fc" id="L662">            rep.setNumRep(i);</span>
-<span class="fc" id="L663">            rep.setPeso(new BigDecimal(&quot;10.0&quot;));</span>
-<span class="fc" id="L664">            repeticiones.add(rep);</span>
+<span class="fc" id="L647">        pms.setNumRepeticionesEsperadas(8);</span>
+        
+<span class="fc" id="L649">        List&lt;RepPms&gt; repeticiones = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L650" title="All 2 branches covered.">        for (int i = 1; i &lt;= 4; i++) { // Menos de las esperadas</span>
+<span class="fc" id="L651">            RepPms rep = new RepPms();</span>
+<span class="fc" id="L652">            rep.setNumRep(i);</span>
+<span class="fc" id="L653">            rep.setPeso(new BigDecimal(&quot;10.0&quot;));</span>
+<span class="fc" id="L654">            repeticiones.add(rep);</span>
         }
         
-<span class="fc" id="L667">        when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));</span>
-<span class="fc" id="L668">        when(repPmsRepository.findByPmsId(1L)).thenReturn(repeticiones);</span>
-<span class="fc" id="L669">        when(repPmsRepository.saveAll(anyList())).thenReturn(repeticiones);</span>
-<span class="fc" id="L670">        when(pmsRepository.save(any(Pms.class))).thenReturn(pms);</span>
+<span class="fc" id="L657">        when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));</span>
+<span class="fc" id="L658">        when(repPmsRepository.findByPmsId(1L)).thenReturn(repeticiones);</span>
+<span class="fc" id="L659">        when(repPmsRepository.saveAll(anyList())).thenReturn(repeticiones);</span>
+<span class="fc" id="L660">        when(pmsRepository.save(any(Pms.class))).thenReturn(pms);</span>
         
-        // ACT
-<span class="fc" id="L673">        pmsService.validarTodasLasRepeticiones(1L);</span>
         
-        // ASSERT
-<span class="fc" id="L676">        verify(repPmsRepository, times(1)).saveAll(anyList());</span>
-<span class="fc" id="L677">        verify(pmsRepository, times(1)).save(any(Pms.class));</span>
-<span class="fc" id="L678">    }</span>
+<span class="fc" id="L663">        pmsService.validarTodasLasRepeticiones(1L);</span>
+        
+        
+<span class="fc" id="L666">        verify(repPmsRepository, times(1)).saveAll(anyList());</span>
+<span class="fc" id="L667">        verify(pmsRepository, times(1)).save(any(Pms.class));</span>
+<span class="fc" id="L668">    }</span>
 
     @Test
     @DisplayName(&quot;validarTodasLasRepeticiones - con repeticiones suficientes valida correctamente&quot;)
     void validarTodasLasRepeticiones_repeticionesSuficientes_validaCorrectamente() {
-        // ARRANGE
-<span class="fc" id="L684">        pms.setNumRepeticionesEsperadas(4);</span>
-<span class="fc" id="L685">        pms.setNumTandas(1);</span>
-<span class="fc" id="L686">        pms.setEsSemillaBrozosa(false);</span>
         
-<span class="fc" id="L688">        List&lt;RepPms&gt; repeticiones = new ArrayList&lt;&gt;();</span>
-<span class="fc bfc" id="L689" title="All 2 branches covered.">        for (int i = 1; i &lt;= 4; i++) {</span>
-<span class="fc" id="L690">            RepPms rep = new RepPms();</span>
-<span class="fc" id="L691">            rep.setNumRep(i);</span>
-<span class="fc" id="L692">            rep.setNumTanda(1);</span>
-<span class="fc" id="L693">            rep.setPeso(new BigDecimal(&quot;10.&quot; + i));</span>
-<span class="fc" id="L694">            repeticiones.add(rep);</span>
+<span class="fc" id="L674">        pms.setNumRepeticionesEsperadas(4);</span>
+<span class="fc" id="L675">        pms.setNumTandas(1);</span>
+<span class="fc" id="L676">        pms.setEsSemillaBrozosa(false);</span>
+        
+<span class="fc" id="L678">        List&lt;RepPms&gt; repeticiones = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L679" title="All 2 branches covered.">        for (int i = 1; i &lt;= 4; i++) {</span>
+<span class="fc" id="L680">            RepPms rep = new RepPms();</span>
+<span class="fc" id="L681">            rep.setNumRep(i);</span>
+<span class="fc" id="L682">            rep.setNumTanda(1);</span>
+<span class="fc" id="L683">            rep.setPeso(new BigDecimal(&quot;10.&quot; + i));</span>
+<span class="fc" id="L684">            repeticiones.add(rep);</span>
         }
         
-<span class="fc" id="L697">        when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));</span>
-<span class="fc" id="L698">        when(repPmsRepository.findByPmsId(1L)).thenReturn(repeticiones);</span>
-<span class="fc" id="L699">        when(repPmsRepository.saveAll(anyList())).thenReturn(repeticiones);</span>
-<span class="fc" id="L700">        when(repPmsRepository.countByPmsId(1L)).thenReturn(4L);</span>
-<span class="fc" id="L701">        when(pmsRepository.save(any(Pms.class))).thenReturn(pms);</span>
+<span class="fc" id="L687">        when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));</span>
+<span class="fc" id="L688">        when(repPmsRepository.findByPmsId(1L)).thenReturn(repeticiones);</span>
+<span class="fc" id="L689">        when(repPmsRepository.saveAll(anyList())).thenReturn(repeticiones);</span>
+<span class="fc" id="L690">        when(repPmsRepository.countByPmsId(1L)).thenReturn(4L);</span>
+<span class="fc" id="L691">        when(pmsRepository.save(any(Pms.class))).thenReturn(pms);</span>
         
-        // ACT
-<span class="fc" id="L704">        pmsService.validarTodasLasRepeticiones(1L);</span>
         
-        // ASSERT
-<span class="fc" id="L707">        verify(repPmsRepository, times(1)).saveAll(anyList());</span>
-<span class="fc" id="L708">        verify(pmsRepository, times(1)).save(any(Pms.class));</span>
-<span class="fc" id="L709">    }</span>
+<span class="fc" id="L694">        pmsService.validarTodasLasRepeticiones(1L);</span>
+        
+        
+<span class="fc" id="L697">        verify(repPmsRepository, times(1)).saveAll(anyList());</span>
+<span class="fc" id="L698">        verify(pmsRepository, times(1)).save(any(Pms.class));</span>
+<span class="fc" id="L699">    }</span>
 
     @Test
     @DisplayName(&quot;actualizarPmsConRedondeo - actualiza correctamente en estado EN_PROCESO&quot;)
     void actualizarPmsConRedondeo_estadoEnProceso_actualizaCorrectamente() {
-        // ARRANGE
-<span class="fc" id="L715">        pms.setEstado(Estado.EN_PROCESO);</span>
-<span class="fc" id="L716">        pms.setNumRepeticionesEsperadas(4);</span>
-<span class="fc" id="L717">        pms.setNumTandas(1);</span>
-<span class="fc" id="L718">        pms.setEsSemillaBrozosa(false);</span>
         
-        // Crear repeticiones válidas completas
-<span class="fc" id="L721">        List&lt;RepPms&gt; repeticiones = new ArrayList&lt;&gt;();</span>
-<span class="fc bfc" id="L722" title="All 2 branches covered.">        for (int i = 1; i &lt;= 4; i++) {</span>
-<span class="fc" id="L723">            RepPms rep = new RepPms();</span>
-<span class="fc" id="L724">            rep.setNumRep(i);</span>
-<span class="fc" id="L725">            rep.setNumTanda(1);</span>
-<span class="fc" id="L726">            rep.setPeso(new BigDecimal(&quot;10.0&quot;));</span>
-<span class="fc" id="L727">            rep.setValido(true);</span>
-<span class="fc" id="L728">            repeticiones.add(rep);</span>
+<span class="fc" id="L705">        pms.setEstado(Estado.EN_PROCESO);</span>
+<span class="fc" id="L706">        pms.setNumRepeticionesEsperadas(4);</span>
+<span class="fc" id="L707">        pms.setNumTandas(1);</span>
+<span class="fc" id="L708">        pms.setEsSemillaBrozosa(false);</span>
+        
+        
+<span class="fc" id="L711">        List&lt;RepPms&gt; repeticiones = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L712" title="All 2 branches covered.">        for (int i = 1; i &lt;= 4; i++) {</span>
+<span class="fc" id="L713">            RepPms rep = new RepPms();</span>
+<span class="fc" id="L714">            rep.setNumRep(i);</span>
+<span class="fc" id="L715">            rep.setNumTanda(1);</span>
+<span class="fc" id="L716">            rep.setPeso(new BigDecimal(&quot;10.0&quot;));</span>
+<span class="fc" id="L717">            rep.setValido(true);</span>
+<span class="fc" id="L718">            repeticiones.add(rep);</span>
         }
         
-<span class="fc" id="L731">        PmsRedondeoRequestDTO request = new PmsRedondeoRequestDTO();</span>
-<span class="fc" id="L732">        request.setPmsconRedon(new BigDecimal(&quot;100.5&quot;));</span>
+<span class="fc" id="L721">        PmsRedondeoRequestDTO request = new PmsRedondeoRequestDTO();</span>
+<span class="fc" id="L722">        request.setPmsconRedon(new BigDecimal(&quot;100.5&quot;));</span>
         
-<span class="fc" id="L734">        when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));</span>
-<span class="fc" id="L735">        when(repPmsRepository.findByPmsId(1L)).thenReturn(repeticiones);</span>
-<span class="fc" id="L736">        when(pmsRepository.save(any(Pms.class))).thenReturn(pms);</span>
+<span class="fc" id="L724">        when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));</span>
+<span class="fc" id="L725">        when(repPmsRepository.findByPmsId(1L)).thenReturn(repeticiones);</span>
+<span class="fc" id="L726">        when(pmsRepository.save(any(Pms.class))).thenReturn(pms);</span>
         
-        // ACT
-<span class="fc" id="L739">        PmsDTO resultado = pmsService.actualizarPmsConRedondeo(1L, request);</span>
         
-        // ASSERT
-<span class="fc" id="L742">        assertNotNull(resultado);</span>
-<span class="fc" id="L743">        verify(pmsRepository, times(1)).save(any(Pms.class));</span>
-<span class="fc" id="L744">    }</span>
+<span class="fc" id="L729">        PmsDTO resultado = pmsService.actualizarPmsConRedondeo(1L, request);</span>
+        
+        
+<span class="fc" id="L732">        assertNotNull(resultado);</span>
+<span class="fc" id="L733">        verify(pmsRepository, times(1)).save(any(Pms.class));</span>
+<span class="fc" id="L734">    }</span>
 
     @Test
     @DisplayName(&quot;actualizarPmsConRedondeo - falla con estado REGISTRADO&quot;)
     void actualizarPmsConRedondeo_estadoRegistrado_lanzaExcepcion() {
-        // ARRANGE
-<span class="fc" id="L750">        pms.setEstado(Estado.REGISTRADO);</span>
         
-<span class="fc" id="L752">        PmsRedondeoRequestDTO request = new PmsRedondeoRequestDTO();</span>
-<span class="fc" id="L753">        request.setPmsconRedon(new BigDecimal(&quot;100.5&quot;));</span>
+<span class="fc" id="L740">        pms.setEstado(Estado.REGISTRADO);</span>
         
-<span class="fc" id="L755">        when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));</span>
+<span class="fc" id="L742">        PmsRedondeoRequestDTO request = new PmsRedondeoRequestDTO();</span>
+<span class="fc" id="L743">        request.setPmsconRedon(new BigDecimal(&quot;100.5&quot;));</span>
         
-        // ACT &amp; ASSERT
-<span class="fc" id="L758">        RuntimeException exception = assertThrows(RuntimeException.class, () -&gt; {</span>
-<span class="nc" id="L759">            pmsService.actualizarPmsConRedondeo(1L, request);</span>
-<span class="nc" id="L760">        });</span>
+<span class="fc" id="L745">        when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));</span>
         
-<span class="fc" id="L762">        assertTrue(exception.getMessage().contains(&quot;EN_PROCESO&quot;));</span>
-<span class="fc" id="L763">        verify(pmsRepository, never()).save(any(Pms.class));</span>
-<span class="fc" id="L764">    }</span>
+        
+<span class="fc" id="L748">        RuntimeException exception = assertThrows(RuntimeException.class, () -&gt; {</span>
+<span class="nc" id="L749">            pmsService.actualizarPmsConRedondeo(1L, request);</span>
+<span class="nc" id="L750">        });</span>
+        
+<span class="fc" id="L752">        assertTrue(exception.getMessage().contains(&quot;EN_PROCESO&quot;));</span>
+<span class="fc" id="L753">        verify(pmsRepository, never()).save(any(Pms.class));</span>
+<span class="fc" id="L754">    }</span>
 
     @Test
     @DisplayName(&quot;actualizarPmsConRedondeo - falla si repeticiones incompletas&quot;)
     void actualizarPmsConRedondeo_repeticionesIncompletas_lanzaExcepcion() {
-        // ARRANGE
-<span class="fc" id="L770">        pms.setEstado(Estado.EN_PROCESO);</span>
-<span class="fc" id="L771">        pms.setNumRepeticionesEsperadas(8);</span>
-<span class="fc" id="L772">        pms.setNumTandas(1);</span>
         
-        // Solo 4 repeticiones (incompletas)
-<span class="fc" id="L775">        List&lt;RepPms&gt; repeticiones = new ArrayList&lt;&gt;();</span>
-<span class="fc bfc" id="L776" title="All 2 branches covered.">        for (int i = 1; i &lt;= 4; i++) {</span>
-<span class="fc" id="L777">            RepPms rep = new RepPms();</span>
-<span class="fc" id="L778">            rep.setNumRep(i);</span>
-<span class="fc" id="L779">            rep.setNumTanda(1);</span>
-<span class="fc" id="L780">            rep.setPeso(new BigDecimal(&quot;10.0&quot;));</span>
-<span class="fc" id="L781">            rep.setValido(true);</span>
-<span class="fc" id="L782">            repeticiones.add(rep);</span>
+<span class="fc" id="L760">        pms.setEstado(Estado.EN_PROCESO);</span>
+<span class="fc" id="L761">        pms.setNumRepeticionesEsperadas(8);</span>
+<span class="fc" id="L762">        pms.setNumTandas(1);</span>
+        
+        
+<span class="fc" id="L765">        List&lt;RepPms&gt; repeticiones = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L766" title="All 2 branches covered.">        for (int i = 1; i &lt;= 4; i++) {</span>
+<span class="fc" id="L767">            RepPms rep = new RepPms();</span>
+<span class="fc" id="L768">            rep.setNumRep(i);</span>
+<span class="fc" id="L769">            rep.setNumTanda(1);</span>
+<span class="fc" id="L770">            rep.setPeso(new BigDecimal(&quot;10.0&quot;));</span>
+<span class="fc" id="L771">            rep.setValido(true);</span>
+<span class="fc" id="L772">            repeticiones.add(rep);</span>
         }
         
-<span class="fc" id="L785">        PmsRedondeoRequestDTO request = new PmsRedondeoRequestDTO();</span>
-<span class="fc" id="L786">        request.setPmsconRedon(new BigDecimal(&quot;100.5&quot;));</span>
+<span class="fc" id="L775">        PmsRedondeoRequestDTO request = new PmsRedondeoRequestDTO();</span>
+<span class="fc" id="L776">        request.setPmsconRedon(new BigDecimal(&quot;100.5&quot;));</span>
         
-<span class="fc" id="L788">        when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));</span>
-<span class="fc" id="L789">        when(repPmsRepository.findByPmsId(1L)).thenReturn(repeticiones);</span>
+<span class="fc" id="L778">        when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));</span>
+<span class="fc" id="L779">        when(repPmsRepository.findByPmsId(1L)).thenReturn(repeticiones);</span>
         
-        // ACT &amp; ASSERT
-<span class="fc" id="L792">        RuntimeException exception = assertThrows(RuntimeException.class, () -&gt; {</span>
-<span class="nc" id="L793">            pmsService.actualizarPmsConRedondeo(1L, request);</span>
-<span class="nc" id="L794">        });</span>
         
-<span class="fc" id="L796">        assertTrue(exception.getMessage().contains(&quot;repeticiones válidas&quot;));</span>
-<span class="fc" id="L797">        verify(pmsRepository, never()).save(any(Pms.class));</span>
-<span class="fc" id="L798">    }</span>
+<span class="fc" id="L782">        RuntimeException exception = assertThrows(RuntimeException.class, () -&gt; {</span>
+<span class="nc" id="L783">            pmsService.actualizarPmsConRedondeo(1L, request);</span>
+<span class="nc" id="L784">        });</span>
+        
+<span class="fc" id="L786">        assertTrue(exception.getMessage().contains(&quot;repeticiones válidas&quot;));</span>
+<span class="fc" id="L787">        verify(pmsRepository, never()).save(any(Pms.class));</span>
+<span class="fc" id="L788">    }</span>
 
     @Test
     @DisplayName(&quot;actualizarEstadisticasPms - actualiza estadísticas públicamente&quot;)
     void actualizarEstadisticasPms_actualizaCorrectamente() {
-        // ARRANGE
-<span class="fc" id="L804">        when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));</span>
-<span class="fc" id="L805">        when(repPmsRepository.findByPmsId(1L)).thenReturn(Collections.emptyList());</span>
-<span class="fc" id="L806">        when(pmsRepository.save(any(Pms.class))).thenReturn(pms);</span>
         
-        // ACT
-<span class="fc" id="L809">        pmsService.actualizarEstadisticasPms(1L);</span>
+<span class="fc" id="L794">        when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));</span>
+<span class="fc" id="L795">        when(repPmsRepository.findByPmsId(1L)).thenReturn(Collections.emptyList());</span>
+<span class="fc" id="L796">        when(pmsRepository.save(any(Pms.class))).thenReturn(pms);</span>
         
-        // ASSERT
-<span class="fc" id="L812">        verify(pmsRepository, times(1)).save(any(Pms.class));</span>
-<span class="fc" id="L813">    }</span>
+        
+<span class="fc" id="L799">        pmsService.actualizarEstadisticasPms(1L);</span>
+        
+        
+<span class="fc" id="L802">        verify(pmsRepository, times(1)).save(any(Pms.class));</span>
+<span class="fc" id="L803">    }</span>
 
     @Test
     @DisplayName(&quot;obtenerPmsPaginadasConFiltro - filtro 'activos'&quot;)
     void obtenerPmsPaginadasConFiltro_activos() {
-        // ARRANGE
-<span class="fc" id="L819">        Pageable pageable = PageRequest.of(0, 10);</span>
-<span class="fc" id="L820">        Page&lt;Pms&gt; pmsPage = new PageImpl&lt;&gt;(Arrays.asList(pms));</span>
         
-<span class="fc" id="L822">        when(pmsRepository.findByActivoTrueOrderByFechaInicioDesc(pageable))</span>
-<span class="fc" id="L823">            .thenReturn(pmsPage);</span>
+<span class="fc" id="L809">        Pageable pageable = PageRequest.of(0, 10);</span>
+<span class="fc" id="L810">        Page&lt;Pms&gt; pmsPage = new PageImpl&lt;&gt;(Arrays.asList(pms));</span>
         
-        // ACT
-<span class="fc" id="L826">        var resultado = pmsService.obtenerPmsPaginadasConFiltro(pageable, &quot;activos&quot;);</span>
+<span class="fc" id="L812">        when(pmsRepository.findByActivoTrueOrderByFechaInicioDesc(pageable))</span>
+<span class="fc" id="L813">            .thenReturn(pmsPage);</span>
         
-        // ASSERT
-<span class="fc" id="L829">        assertNotNull(resultado);</span>
-<span class="fc" id="L830">        assertEquals(1, resultado.getTotalElements());</span>
-<span class="fc" id="L831">        verify(pmsRepository, times(1)).findByActivoTrueOrderByFechaInicioDesc(pageable);</span>
-<span class="fc" id="L832">    }</span>
+        
+<span class="fc" id="L816">        var resultado = pmsService.obtenerPmsPaginadasConFiltro(pageable, &quot;activos&quot;);</span>
+        
+        
+<span class="fc" id="L819">        assertNotNull(resultado);</span>
+<span class="fc" id="L820">        assertEquals(1, resultado.getTotalElements());</span>
+<span class="fc" id="L821">        verify(pmsRepository, times(1)).findByActivoTrueOrderByFechaInicioDesc(pageable);</span>
+<span class="fc" id="L822">    }</span>
 
     @Test
     @DisplayName(&quot;obtenerPmsPaginadasConFiltro - filtro 'inactivos'&quot;)
     void obtenerPmsPaginadasConFiltro_inactivos() {
-        // ARRANGE
-<span class="fc" id="L838">        Pageable pageable = PageRequest.of(0, 10);</span>
-<span class="fc" id="L839">        pms.setActivo(false);</span>
-<span class="fc" id="L840">        Page&lt;Pms&gt; pmsPage = new PageImpl&lt;&gt;(Arrays.asList(pms));</span>
         
-<span class="fc" id="L842">        when(pmsRepository.findByActivoFalseOrderByFechaInicioDesc(pageable))</span>
-<span class="fc" id="L843">            .thenReturn(pmsPage);</span>
+<span class="fc" id="L828">        Pageable pageable = PageRequest.of(0, 10);</span>
+<span class="fc" id="L829">        pms.setActivo(false);</span>
+<span class="fc" id="L830">        Page&lt;Pms&gt; pmsPage = new PageImpl&lt;&gt;(Arrays.asList(pms));</span>
         
-        // ACT
-<span class="fc" id="L846">        var resultado = pmsService.obtenerPmsPaginadasConFiltro(pageable, &quot;inactivos&quot;);</span>
+<span class="fc" id="L832">        when(pmsRepository.findByActivoFalseOrderByFechaInicioDesc(pageable))</span>
+<span class="fc" id="L833">            .thenReturn(pmsPage);</span>
         
-        // ASSERT
-<span class="fc" id="L849">        assertNotNull(resultado);</span>
-<span class="fc" id="L850">        assertEquals(1, resultado.getTotalElements());</span>
-<span class="fc" id="L851">        verify(pmsRepository, times(1)).findByActivoFalseOrderByFechaInicioDesc(pageable);</span>
-<span class="fc" id="L852">    }</span>
+        
+<span class="fc" id="L836">        var resultado = pmsService.obtenerPmsPaginadasConFiltro(pageable, &quot;inactivos&quot;);</span>
+        
+        
+<span class="fc" id="L839">        assertNotNull(resultado);</span>
+<span class="fc" id="L840">        assertEquals(1, resultado.getTotalElements());</span>
+<span class="fc" id="L841">        verify(pmsRepository, times(1)).findByActivoFalseOrderByFechaInicioDesc(pageable);</span>
+<span class="fc" id="L842">    }</span>
 
     @Test
     @DisplayName(&quot;obtenerPmsPaginadasConFiltro - filtro 'todos'&quot;)
     void obtenerPmsPaginadasConFiltro_todos() {
-        // ARRANGE
-<span class="fc" id="L858">        Pageable pageable = PageRequest.of(0, 10);</span>
-<span class="fc" id="L859">        Page&lt;Pms&gt; pmsPage = new PageImpl&lt;&gt;(Arrays.asList(pms));</span>
         
-<span class="fc" id="L861">        when(pmsRepository.findAllByOrderByFechaInicioDesc(pageable))</span>
-<span class="fc" id="L862">            .thenReturn(pmsPage);</span>
+<span class="fc" id="L848">        Pageable pageable = PageRequest.of(0, 10);</span>
+<span class="fc" id="L849">        Page&lt;Pms&gt; pmsPage = new PageImpl&lt;&gt;(Arrays.asList(pms));</span>
         
-        // ACT
-<span class="fc" id="L865">        var resultado = pmsService.obtenerPmsPaginadasConFiltro(pageable, &quot;todos&quot;);</span>
+<span class="fc" id="L851">        when(pmsRepository.findAllByOrderByFechaInicioDesc(pageable))</span>
+<span class="fc" id="L852">            .thenReturn(pmsPage);</span>
         
-        // ASSERT
-<span class="fc" id="L868">        assertNotNull(resultado);</span>
-<span class="fc" id="L869">        assertEquals(1, resultado.getTotalElements());</span>
-<span class="fc" id="L870">        verify(pmsRepository, times(1)).findAllByOrderByFechaInicioDesc(pageable);</span>
-<span class="fc" id="L871">    }</span>
+        
+<span class="fc" id="L855">        var resultado = pmsService.obtenerPmsPaginadasConFiltro(pageable, &quot;todos&quot;);</span>
+        
+        
+<span class="fc" id="L858">        assertNotNull(resultado);</span>
+<span class="fc" id="L859">        assertEquals(1, resultado.getTotalElements());</span>
+<span class="fc" id="L860">        verify(pmsRepository, times(1)).findAllByOrderByFechaInicioDesc(pageable);</span>
+<span class="fc" id="L861">    }</span>
 
     @Test
     @DisplayName(&quot;obtenerPmsPaginadasConFiltros - con filtros dinámicos&quot;)
     void obtenerPmsPaginadasConFiltros_conFiltrosDinamicos() {
-        // ARRANGE
-<span class="fc" id="L877">        Pageable pageable = PageRequest.of(0, 10);</span>
-<span class="fc" id="L878">        Page&lt;Pms&gt; pmsPage = new PageImpl&lt;&gt;(Arrays.asList(pms));</span>
+        
+<span class="fc" id="L867">        Pageable pageable = PageRequest.of(0, 10);</span>
+<span class="fc" id="L868">        Page&lt;Pms&gt; pmsPage = new PageImpl&lt;&gt;(Arrays.asList(pms));</span>
         
         @SuppressWarnings(&quot;unchecked&quot;)
-<span class="fc" id="L881">        Specification&lt;Pms&gt; anySpec = any(Specification.class);</span>
-<span class="fc" id="L882">        when(pmsRepository.findAll(anySpec, eq(pageable)))</span>
-<span class="fc" id="L883">            .thenReturn(pmsPage);</span>
+<span class="fc" id="L871">        Specification&lt;Pms&gt; anySpec = any(Specification.class);</span>
+<span class="fc" id="L872">        when(pmsRepository.findAll(anySpec, eq(pageable)))</span>
+<span class="fc" id="L873">            .thenReturn(pmsPage);</span>
         
-        // ACT
-<span class="fc" id="L886">        var resultado = pmsService.obtenerPmsPaginadasConFiltros(</span>
-<span class="fc" id="L887">            pageable, &quot;LOTE-001&quot;, true, &quot;EN_PROCESO&quot;, 1L);</span>
         
-        // ASSERT
-<span class="fc" id="L890">        assertNotNull(resultado);</span>
-<span class="fc" id="L891">        assertEquals(1, resultado.getTotalElements());</span>
-<span class="fc" id="L892">    }</span>
+<span class="fc" id="L876">        var resultado = pmsService.obtenerPmsPaginadasConFiltros(</span>
+<span class="fc" id="L877">            pageable, &quot;LOTE-001&quot;, true, &quot;EN_PROCESO&quot;, 1L);</span>
+        
+        
+<span class="fc" id="L880">        assertNotNull(resultado);</span>
+<span class="fc" id="L881">        assertEquals(1, resultado.getTotalElements());</span>
+<span class="fc" id="L882">    }</span>
 
     @Test
     @DisplayName(&quot;crear PMS con lote inactivo - debe lanzar excepción&quot;)
     void crearPms_conLoteInactivo_debeLanzarExcepcion() {
-        // ARRANGE
-<span class="fc" id="L898">        lote.setActivo(false);</span>
-<span class="fc" id="L899">        when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));</span>
         
-        // ACT &amp; ASSERT
-<span class="fc" id="L902">        RuntimeException exception = assertThrows(RuntimeException.class, () -&gt; {</span>
-<span class="nc" id="L903">            pmsService.crearPms(pmsRequestDTO);</span>
-<span class="nc" id="L904">        });</span>
+<span class="fc" id="L888">        lote.setActivo(false);</span>
+<span class="fc" id="L889">        when(loteRepository.findById(1L)).thenReturn(Optional.of(lote));</span>
         
-<span class="fc" id="L906">        assertTrue(exception.getMessage().contains(&quot;activo&quot;));</span>
-<span class="fc" id="L907">        verify(pmsRepository, never()).save(any(Pms.class));</span>
-<span class="fc" id="L908">    }</span>
+        
+<span class="fc" id="L892">        RuntimeException exception = assertThrows(RuntimeException.class, () -&gt; {</span>
+<span class="nc" id="L893">            pmsService.crearPms(pmsRequestDTO);</span>
+<span class="nc" id="L894">        });</span>
+        
+<span class="fc" id="L896">        assertTrue(exception.getMessage().contains(&quot;activo&quot;));</span>
+<span class="fc" id="L897">        verify(pmsRepository, never()).save(any(Pms.class));</span>
+<span class="fc" id="L898">    }</span>
 
     @Test
     @DisplayName(&quot;mapeo DTO completo - con cultivar y especie&quot;)
     void mapeoDTO_conCultivarYEspecie() {
-        // ARRANGE
-<span class="fc" id="L914">        Especie especie = new Especie();</span>
-<span class="fc" id="L915">        especie.setNombreComun(&quot;Trigo&quot;);</span>
-<span class="fc" id="L916">        especie.setNombreCientifico(&quot;Triticum aestivum&quot;);</span>
         
-<span class="fc" id="L918">        Cultivar cultivar = new Cultivar();</span>
-<span class="fc" id="L919">        cultivar.setNombre(&quot;Cultivar Test&quot;);</span>
-<span class="fc" id="L920">        cultivar.setEspecie(especie);</span>
+<span class="fc" id="L904">        Especie especie = new Especie();</span>
+<span class="fc" id="L905">        especie.setNombreComun(&quot;Trigo&quot;);</span>
+<span class="fc" id="L906">        especie.setNombreCientifico(&quot;Triticum aestivum&quot;);</span>
         
-<span class="fc" id="L922">        lote.setCultivar(cultivar);</span>
-<span class="fc" id="L923">        lote.setFicha(&quot;FICHA-001&quot;);</span>
+<span class="fc" id="L908">        Cultivar cultivar = new Cultivar();</span>
+<span class="fc" id="L909">        cultivar.setNombre(&quot;Cultivar Test&quot;);</span>
+<span class="fc" id="L910">        cultivar.setEspecie(especie);</span>
         
-<span class="fc" id="L925">        pms.setLote(lote);</span>
-<span class="fc" id="L926">        pms.setPromedio100g(new BigDecimal(&quot;10.5&quot;));</span>
-<span class="fc" id="L927">        pms.setDesvioStd(new BigDecimal(&quot;0.5&quot;));</span>
-<span class="fc" id="L928">        pms.setCoefVariacion(new BigDecimal(&quot;4.76&quot;));</span>
-<span class="fc" id="L929">        pms.setPmssinRedon(new BigDecimal(&quot;105.0&quot;));</span>
-<span class="fc" id="L930">        pms.setPmsconRedon(new BigDecimal(&quot;105&quot;));</span>
+<span class="fc" id="L912">        lote.setCultivar(cultivar);</span>
+<span class="fc" id="L913">        lote.setFicha(&quot;FICHA-001&quot;);</span>
         
-<span class="fc" id="L932">        List&lt;AnalisisHistorialDTO&gt; historial = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L933">        when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));</span>
-<span class="fc" id="L934">        when(analisisHistorialService.obtenerHistorialAnalisis(1L)).thenReturn(historial);</span>
+<span class="fc" id="L915">        pms.setLote(lote);</span>
+<span class="fc" id="L916">        pms.setPromedio100g(new BigDecimal(&quot;10.5&quot;));</span>
+<span class="fc" id="L917">        pms.setDesvioStd(new BigDecimal(&quot;0.5&quot;));</span>
+<span class="fc" id="L918">        pms.setCoefVariacion(new BigDecimal(&quot;4.76&quot;));</span>
+<span class="fc" id="L919">        pms.setPmssinRedon(new BigDecimal(&quot;105.0&quot;));</span>
+<span class="fc" id="L920">        pms.setPmsconRedon(new BigDecimal(&quot;105&quot;));</span>
         
-        // ACT
-<span class="fc" id="L937">        PmsDTO resultado = pmsService.obtenerPorId(1L);</span>
+<span class="fc" id="L922">        List&lt;AnalisisHistorialDTO&gt; historial = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L923">        when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));</span>
+<span class="fc" id="L924">        when(analisisHistorialService.obtenerHistorialAnalisis(1L)).thenReturn(historial);</span>
         
-        // ASSERT
-<span class="fc" id="L940">        assertNotNull(resultado);</span>
-<span class="fc" id="L941">        assertEquals(&quot;Cultivar Test&quot;, resultado.getCultivarNombre());</span>
-<span class="fc" id="L942">        assertEquals(&quot;Trigo&quot;, resultado.getEspecieNombre());</span>
-<span class="fc" id="L943">        assertEquals(&quot;FICHA-001&quot;, resultado.getFicha());</span>
-<span class="fc" id="L944">    }</span>
+        
+<span class="fc" id="L927">        PmsDTO resultado = pmsService.obtenerPorId(1L);</span>
+        
+        
+<span class="fc" id="L930">        assertNotNull(resultado);</span>
+<span class="fc" id="L931">        assertEquals(&quot;Cultivar Test&quot;, resultado.getCultivarNombre());</span>
+<span class="fc" id="L932">        assertEquals(&quot;Trigo&quot;, resultado.getEspecieNombre());</span>
+<span class="fc" id="L933">        assertEquals(&quot;FICHA-001&quot;, resultado.getFicha());</span>
+<span class="fc" id="L934">    }</span>
 
     @Test
     @DisplayName(&quot;actualizarPmsConRedondeo - con estado PENDIENTE_APROBACION&quot;)
     void actualizarPmsConRedondeo_estadoPendienteAprobacion() {
-        // ARRANGE
-<span class="fc" id="L950">        pms.setEstado(Estado.PENDIENTE_APROBACION);</span>
-<span class="fc" id="L951">        pms.setNumRepeticionesEsperadas(4);</span>
-<span class="fc" id="L952">        pms.setNumTandas(1);</span>
-<span class="fc" id="L953">        pms.setEsSemillaBrozosa(false);</span>
         
-<span class="fc" id="L955">        List&lt;RepPms&gt; repeticiones = new ArrayList&lt;&gt;();</span>
-<span class="fc bfc" id="L956" title="All 2 branches covered.">        for (int i = 1; i &lt;= 4; i++) {</span>
-<span class="fc" id="L957">            RepPms rep = new RepPms();</span>
-<span class="fc" id="L958">            rep.setNumRep(i);</span>
-<span class="fc" id="L959">            rep.setNumTanda(1);</span>
-<span class="fc" id="L960">            rep.setPeso(new BigDecimal(&quot;10.0&quot;));</span>
-<span class="fc" id="L961">            rep.setValido(true);</span>
-<span class="fc" id="L962">            repeticiones.add(rep);</span>
+<span class="fc" id="L940">        pms.setEstado(Estado.PENDIENTE_APROBACION);</span>
+<span class="fc" id="L941">        pms.setNumRepeticionesEsperadas(4);</span>
+<span class="fc" id="L942">        pms.setNumTandas(1);</span>
+<span class="fc" id="L943">        pms.setEsSemillaBrozosa(false);</span>
+        
+<span class="fc" id="L945">        List&lt;RepPms&gt; repeticiones = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L946" title="All 2 branches covered.">        for (int i = 1; i &lt;= 4; i++) {</span>
+<span class="fc" id="L947">            RepPms rep = new RepPms();</span>
+<span class="fc" id="L948">            rep.setNumRep(i);</span>
+<span class="fc" id="L949">            rep.setNumTanda(1);</span>
+<span class="fc" id="L950">            rep.setPeso(new BigDecimal(&quot;10.0&quot;));</span>
+<span class="fc" id="L951">            rep.setValido(true);</span>
+<span class="fc" id="L952">            repeticiones.add(rep);</span>
         }
         
-<span class="fc" id="L965">        PmsRedondeoRequestDTO request = new PmsRedondeoRequestDTO();</span>
-<span class="fc" id="L966">        request.setPmsconRedon(new BigDecimal(&quot;100.0&quot;));</span>
+<span class="fc" id="L955">        PmsRedondeoRequestDTO request = new PmsRedondeoRequestDTO();</span>
+<span class="fc" id="L956">        request.setPmsconRedon(new BigDecimal(&quot;100.0&quot;));</span>
         
-<span class="fc" id="L968">        when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));</span>
-<span class="fc" id="L969">        when(repPmsRepository.findByPmsId(1L)).thenReturn(repeticiones);</span>
-<span class="fc" id="L970">        when(pmsRepository.save(any(Pms.class))).thenReturn(pms);</span>
+<span class="fc" id="L958">        when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));</span>
+<span class="fc" id="L959">        when(repPmsRepository.findByPmsId(1L)).thenReturn(repeticiones);</span>
+<span class="fc" id="L960">        when(pmsRepository.save(any(Pms.class))).thenReturn(pms);</span>
         
-        // ACT
-<span class="fc" id="L973">        PmsDTO resultado = pmsService.actualizarPmsConRedondeo(1L, request);</span>
         
-        // ASSERT
-<span class="fc" id="L976">        assertNotNull(resultado);</span>
-<span class="fc" id="L977">        verify(pmsRepository, times(1)).save(any(Pms.class));</span>
-<span class="fc" id="L978">    }</span>
+<span class="fc" id="L963">        PmsDTO resultado = pmsService.actualizarPmsConRedondeo(1L, request);</span>
+        
+        
+<span class="fc" id="L966">        assertNotNull(resultado);</span>
+<span class="fc" id="L967">        verify(pmsRepository, times(1)).save(any(Pms.class));</span>
+<span class="fc" id="L968">    }</span>
 
     @Test
     @DisplayName(&quot;actualizarPmsConRedondeo - con estado APROBADO&quot;)
     void actualizarPmsConRedondeo_estadoAprobado() {
-        // ARRANGE
-<span class="fc" id="L984">        pms.setEstado(Estado.APROBADO);</span>
-<span class="fc" id="L985">        pms.setNumRepeticionesEsperadas(4);</span>
-<span class="fc" id="L986">        pms.setNumTandas(1);</span>
-<span class="fc" id="L987">        pms.setEsSemillaBrozosa(false);</span>
         
-<span class="fc" id="L989">        List&lt;RepPms&gt; repeticiones = new ArrayList&lt;&gt;();</span>
-<span class="fc bfc" id="L990" title="All 2 branches covered.">        for (int i = 1; i &lt;= 4; i++) {</span>
-<span class="fc" id="L991">            RepPms rep = new RepPms();</span>
-<span class="fc" id="L992">            rep.setNumRep(i);</span>
-<span class="fc" id="L993">            rep.setNumTanda(1);</span>
-<span class="fc" id="L994">            rep.setPeso(new BigDecimal(&quot;10.0&quot;));</span>
-<span class="fc" id="L995">            rep.setValido(true);</span>
-<span class="fc" id="L996">            repeticiones.add(rep);</span>
+<span class="fc" id="L974">        pms.setEstado(Estado.APROBADO);</span>
+<span class="fc" id="L975">        pms.setNumRepeticionesEsperadas(4);</span>
+<span class="fc" id="L976">        pms.setNumTandas(1);</span>
+<span class="fc" id="L977">        pms.setEsSemillaBrozosa(false);</span>
+        
+<span class="fc" id="L979">        List&lt;RepPms&gt; repeticiones = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L980" title="All 2 branches covered.">        for (int i = 1; i &lt;= 4; i++) {</span>
+<span class="fc" id="L981">            RepPms rep = new RepPms();</span>
+<span class="fc" id="L982">            rep.setNumRep(i);</span>
+<span class="fc" id="L983">            rep.setNumTanda(1);</span>
+<span class="fc" id="L984">            rep.setPeso(new BigDecimal(&quot;10.0&quot;));</span>
+<span class="fc" id="L985">            rep.setValido(true);</span>
+<span class="fc" id="L986">            repeticiones.add(rep);</span>
         }
         
-<span class="fc" id="L999">        PmsRedondeoRequestDTO request = new PmsRedondeoRequestDTO();</span>
-<span class="fc" id="L1000">        request.setPmsconRedon(new BigDecimal(&quot;100.0&quot;));</span>
+<span class="fc" id="L989">        PmsRedondeoRequestDTO request = new PmsRedondeoRequestDTO();</span>
+<span class="fc" id="L990">        request.setPmsconRedon(new BigDecimal(&quot;100.0&quot;));</span>
         
-<span class="fc" id="L1002">        when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));</span>
-<span class="fc" id="L1003">        when(repPmsRepository.findByPmsId(1L)).thenReturn(repeticiones);</span>
-<span class="fc" id="L1004">        when(pmsRepository.save(any(Pms.class))).thenReturn(pms);</span>
+<span class="fc" id="L992">        when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));</span>
+<span class="fc" id="L993">        when(repPmsRepository.findByPmsId(1L)).thenReturn(repeticiones);</span>
+<span class="fc" id="L994">        when(pmsRepository.save(any(Pms.class))).thenReturn(pms);</span>
         
-        // ACT
-<span class="fc" id="L1007">        PmsDTO resultado = pmsService.actualizarPmsConRedondeo(1L, request);</span>
         
-        // ASSERT
-<span class="fc" id="L1010">        assertNotNull(resultado);</span>
-<span class="fc" id="L1011">        verify(pmsRepository, times(1)).save(any(Pms.class));</span>
-<span class="fc" id="L1012">    }</span>
+<span class="fc" id="L997">        PmsDTO resultado = pmsService.actualizarPmsConRedondeo(1L, request);</span>
+        
+        
+<span class="fc" id="L1000">        assertNotNull(resultado);</span>
+<span class="fc" id="L1001">        verify(pmsRepository, times(1)).save(any(Pms.class));</span>
+<span class="fc" id="L1002">    }</span>
 
     @Test
     @DisplayName(&quot;validarTodasLasRepeticiones - con CV alto incrementa tandas&quot;)
     void validarTodasLasRepeticiones_CVAlto_incrementaTandas() {
-        // ARRANGE
-<span class="fc" id="L1018">        pms.setNumRepeticionesEsperadas(4);</span>
-<span class="fc" id="L1019">        pms.setNumTandas(1);</span>
-<span class="fc" id="L1020">        pms.setEsSemillaBrozosa(false);</span>
         
-        // Crear repeticiones con mucha variación
-<span class="fc" id="L1023">        List&lt;RepPms&gt; repeticiones = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L1024">        BigDecimal[] pesos = {new BigDecimal(&quot;8.0&quot;), new BigDecimal(&quot;10.0&quot;), </span>
-<span class="fc" id="L1025">                             new BigDecimal(&quot;12.0&quot;), new BigDecimal(&quot;14.0&quot;)};</span>
-<span class="fc bfc" id="L1026" title="All 2 branches covered.">        for (int i = 0; i &lt; 4; i++) {</span>
-<span class="fc" id="L1027">            RepPms rep = new RepPms();</span>
-<span class="fc" id="L1028">            rep.setNumRep(i + 1);</span>
-<span class="fc" id="L1029">            rep.setNumTanda(1);</span>
-<span class="fc" id="L1030">            rep.setPeso(pesos[i]);</span>
-<span class="fc" id="L1031">            repeticiones.add(rep);</span>
+<span class="fc" id="L1008">        pms.setNumRepeticionesEsperadas(4);</span>
+<span class="fc" id="L1009">        pms.setNumTandas(1);</span>
+<span class="fc" id="L1010">        pms.setEsSemillaBrozosa(false);</span>
+        
+        
+<span class="fc" id="L1013">        List&lt;RepPms&gt; repeticiones = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L1014">        BigDecimal[] pesos = {new BigDecimal(&quot;8.0&quot;), new BigDecimal(&quot;10.0&quot;), </span>
+                             new BigDecimal(&quot;12.0&quot;), new BigDecimal(&quot;14.0&quot;)};
+<span class="fc bfc" id="L1016" title="All 2 branches covered.">        for (int i = 0; i &lt; 4; i++) {</span>
+<span class="fc" id="L1017">            RepPms rep = new RepPms();</span>
+<span class="fc" id="L1018">            rep.setNumRep(i + 1);</span>
+<span class="fc" id="L1019">            rep.setNumTanda(1);</span>
+<span class="fc" id="L1020">            rep.setPeso(pesos[i]);</span>
+<span class="fc" id="L1021">            repeticiones.add(rep);</span>
         }
         
-<span class="fc" id="L1034">        when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));</span>
-<span class="fc" id="L1035">        when(repPmsRepository.findByPmsId(1L)).thenReturn(repeticiones);</span>
-<span class="fc" id="L1036">        when(repPmsRepository.saveAll(anyList())).thenReturn(repeticiones);</span>
-<span class="fc" id="L1037">        when(repPmsRepository.countByPmsId(1L)).thenReturn(4L);</span>
-<span class="fc" id="L1038">        when(pmsRepository.save(any(Pms.class))).thenReturn(pms);</span>
+<span class="fc" id="L1024">        when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));</span>
+<span class="fc" id="L1025">        when(repPmsRepository.findByPmsId(1L)).thenReturn(repeticiones);</span>
+<span class="fc" id="L1026">        when(repPmsRepository.saveAll(anyList())).thenReturn(repeticiones);</span>
+<span class="fc" id="L1027">        when(repPmsRepository.countByPmsId(1L)).thenReturn(4L);</span>
+<span class="fc" id="L1028">        when(pmsRepository.save(any(Pms.class))).thenReturn(pms);</span>
         
-        // ACT
-<span class="fc" id="L1041">        pmsService.validarTodasLasRepeticiones(1L);</span>
         
-        // ASSERT
-<span class="fc" id="L1044">        verify(pmsRepository, times(1)).save(any(Pms.class));</span>
-<span class="fc" id="L1045">    }</span>
+<span class="fc" id="L1031">        pmsService.validarTodasLasRepeticiones(1L);</span>
+        
+        
+<span class="fc" id="L1034">        verify(pmsRepository, times(1)).save(any(Pms.class));</span>
+<span class="fc" id="L1035">    }</span>
 
     @Test
     @DisplayName(&quot;procesarCalculosTanda - con semilla brozosa usa umbral CV 6.0&quot;)
     void procesarCalculosTanda_semillaBrozosa_umbralCV6() {
-        // ARRANGE
-<span class="fc" id="L1051">        pms.setNumRepeticionesEsperadas(4);</span>
-<span class="fc" id="L1052">        pms.setNumTandas(1);</span>
-<span class="fc" id="L1053">        pms.setEsSemillaBrozosa(true); // Umbral CV = 6.0</span>
         
-<span class="fc" id="L1055">        List&lt;RepPms&gt; repeticiones = new ArrayList&lt;&gt;();</span>
-<span class="fc bfc" id="L1056" title="All 2 branches covered.">        for (int i = 1; i &lt;= 4; i++) {</span>
-<span class="fc" id="L1057">            RepPms rep = new RepPms();</span>
-<span class="fc" id="L1058">            rep.setNumRep(i);</span>
-<span class="fc" id="L1059">            rep.setNumTanda(1);</span>
-<span class="fc" id="L1060">            rep.setPeso(new BigDecimal(&quot;10.&quot; + i));</span>
-<span class="fc" id="L1061">            repeticiones.add(rep);</span>
+<span class="fc" id="L1041">        pms.setNumRepeticionesEsperadas(4);</span>
+<span class="fc" id="L1042">        pms.setNumTandas(1);</span>
+<span class="fc" id="L1043">        pms.setEsSemillaBrozosa(true); </span>
+        
+<span class="fc" id="L1045">        List&lt;RepPms&gt; repeticiones = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L1046" title="All 2 branches covered.">        for (int i = 1; i &lt;= 4; i++) {</span>
+<span class="fc" id="L1047">            RepPms rep = new RepPms();</span>
+<span class="fc" id="L1048">            rep.setNumRep(i);</span>
+<span class="fc" id="L1049">            rep.setNumTanda(1);</span>
+<span class="fc" id="L1050">            rep.setPeso(new BigDecimal(&quot;10.&quot; + i));</span>
+<span class="fc" id="L1051">            repeticiones.add(rep);</span>
         }
         
-<span class="fc" id="L1064">        when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));</span>
-<span class="fc" id="L1065">        when(repPmsRepository.findByPmsId(1L)).thenReturn(repeticiones);</span>
-<span class="fc" id="L1066">        when(repPmsRepository.saveAll(anyList())).thenReturn(repeticiones);</span>
-<span class="fc" id="L1067">        when(pmsRepository.save(any(Pms.class))).thenReturn(pms);</span>
+<span class="fc" id="L1054">        when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));</span>
+<span class="fc" id="L1055">        when(repPmsRepository.findByPmsId(1L)).thenReturn(repeticiones);</span>
+<span class="fc" id="L1056">        when(repPmsRepository.saveAll(anyList())).thenReturn(repeticiones);</span>
+<span class="fc" id="L1057">        when(pmsRepository.save(any(Pms.class))).thenReturn(pms);</span>
         
-        // ACT
-<span class="fc" id="L1070">        pmsService.procesarCalculosTanda(1L, 1);</span>
         
-        // ASSERT
-<span class="fc" id="L1073">        verify(pmsRepository, times(1)).save(any(Pms.class));</span>
-<span class="fc" id="L1074">    }</span>
+<span class="fc" id="L1060">        pmsService.procesarCalculosTanda(1L, 1);</span>
+        
+        
+<span class="fc" id="L1063">        verify(pmsRepository, times(1)).save(any(Pms.class));</span>
+<span class="fc" id="L1064">    }</span>
 
     @Test
     @DisplayName(&quot;procesarCalculosTanda - alcanza límite de 16 repeticiones&quot;)
     void procesarCalculosTanda_alcanzaLimite16_noIncrementaTandas() {
-        // ARRANGE
-<span class="fc" id="L1080">        pms.setNumRepeticionesEsperadas(4);</span>
-<span class="fc" id="L1081">        pms.setNumTandas(4);</span>
-<span class="fc" id="L1082">        pms.setEsSemillaBrozosa(false);</span>
         
-<span class="fc" id="L1084">        List&lt;RepPms&gt; repeticiones = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L1085">        BigDecimal[] pesos = {new BigDecimal(&quot;8.0&quot;), new BigDecimal(&quot;10.0&quot;), </span>
-<span class="fc" id="L1086">                             new BigDecimal(&quot;12.0&quot;), new BigDecimal(&quot;14.0&quot;)};</span>
-<span class="fc bfc" id="L1087" title="All 2 branches covered.">        for (int i = 0; i &lt; 4; i++) {</span>
-<span class="fc" id="L1088">            RepPms rep = new RepPms();</span>
-<span class="fc" id="L1089">            rep.setNumRep(i + 1);</span>
-<span class="fc" id="L1090">            rep.setNumTanda(4);</span>
-<span class="fc" id="L1091">            rep.setPeso(pesos[i]);</span>
-<span class="fc" id="L1092">            repeticiones.add(rep);</span>
+<span class="fc" id="L1070">        pms.setNumRepeticionesEsperadas(4);</span>
+<span class="fc" id="L1071">        pms.setNumTandas(4);</span>
+<span class="fc" id="L1072">        pms.setEsSemillaBrozosa(false);</span>
+        
+<span class="fc" id="L1074">        List&lt;RepPms&gt; repeticiones = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L1075">        BigDecimal[] pesos = {new BigDecimal(&quot;8.0&quot;), new BigDecimal(&quot;10.0&quot;), </span>
+                             new BigDecimal(&quot;12.0&quot;), new BigDecimal(&quot;14.0&quot;)};
+<span class="fc bfc" id="L1077" title="All 2 branches covered.">        for (int i = 0; i &lt; 4; i++) {</span>
+<span class="fc" id="L1078">            RepPms rep = new RepPms();</span>
+<span class="fc" id="L1079">            rep.setNumRep(i + 1);</span>
+<span class="fc" id="L1080">            rep.setNumTanda(4);</span>
+<span class="fc" id="L1081">            rep.setPeso(pesos[i]);</span>
+<span class="fc" id="L1082">            repeticiones.add(rep);</span>
         }
         
-<span class="fc" id="L1095">        when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));</span>
-<span class="fc" id="L1096">        when(repPmsRepository.findByPmsId(1L)).thenReturn(repeticiones);</span>
-<span class="fc" id="L1097">        when(repPmsRepository.saveAll(anyList())).thenReturn(repeticiones);</span>
-<span class="fc" id="L1098">        when(repPmsRepository.countByPmsId(1L)).thenReturn(16L); // 16 repeticiones totales</span>
-<span class="fc" id="L1099">        when(pmsRepository.save(any(Pms.class))).thenReturn(pms);</span>
+<span class="fc" id="L1085">        when(pmsRepository.findById(1L)).thenReturn(Optional.of(pms));</span>
+<span class="fc" id="L1086">        when(repPmsRepository.findByPmsId(1L)).thenReturn(repeticiones);</span>
+<span class="fc" id="L1087">        when(repPmsRepository.saveAll(anyList())).thenReturn(repeticiones);</span>
+<span class="fc" id="L1088">        when(repPmsRepository.countByPmsId(1L)).thenReturn(16L); </span>
+<span class="fc" id="L1089">        when(pmsRepository.save(any(Pms.class))).thenReturn(pms);</span>
         
-        // ACT
-<span class="fc" id="L1102">        pmsService.procesarCalculosTanda(1L, 4);</span>
         
-        // ASSERT
-<span class="fc" id="L1105">        verify(pmsRepository, times(1)).save(any(Pms.class));</span>
-<span class="fc" id="L1106">    }</span>
+<span class="fc" id="L1092">        pmsService.procesarCalculosTanda(1L, 4);</span>
+        
+        
+<span class="fc" id="L1095">        verify(pmsRepository, times(1)).save(any(Pms.class));</span>
+<span class="fc" id="L1096">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

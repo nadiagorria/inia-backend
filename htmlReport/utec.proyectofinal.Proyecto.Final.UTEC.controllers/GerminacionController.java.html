@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GerminacionController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.controllers</a> &gt; <span class="el_source">GerminacionController.java</span></div><h1>GerminacionController.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.controllers;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GerminacionController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.controllers</a> &gt; <span class="el_source">GerminacionController.java</span></div><h1>GerminacionController.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.controllers;
 
 import java.util.List;
 
@@ -31,7 +31,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.dtos.response.GerminacionListadoDT
 import utec.proyectofinal.Proyecto.Final.UTEC.responses.ResponseListadoGerminacion;
 import utec.proyectofinal.Proyecto.Final.UTEC.services.GerminacionService;
 
-// CORS configurado globalmente en WebSecurityConfig
+
 @RestController
 @RequestMapping(&quot;/api/germinaciones&quot;)
 @Tag(name = &quot;Germinación&quot;, description = &quot;API para gestión del análisis de germinación&quot;)
@@ -41,7 +41,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.GerminacionService;
     @Autowired
     private GerminacionService germinacionService;
 
-    // Crear nueva Germinación
+    
     @Operation(summary = &quot;Crear análisis de germinación&quot;, 
               description = &quot;Crea un nuevo análisis de germinación con numeroRepeticiones y numeroConteos definidos&quot;)
     @ApiResponses(value = {
@@ -56,7 +56,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.GerminacionService;
 <span class="fc" id="L56">        return ResponseEntity.status(HttpStatus.CREATED).body(germinacionCreada);</span>
     }
 
-    // Obtener todas las Germinaciones activas
+    
     @Operation(summary = &quot;Obtener todas las germinaciones&quot;, 
               description = &quot;Obtiene la lista de todos los análisis de germinación activos&quot;)
     @ApiResponses(value = {
@@ -70,7 +70,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.GerminacionService;
 <span class="fc" id="L70">        return ResponseEntity.ok(response);</span>
     }
 
-    // Obtener germinaciones con paginado para listado
+    
     @Operation(summary = &quot;Obtener germinaciones paginadas&quot;, 
               description = &quot;Obtiene la lista paginada de análisis de germinación para el listado&quot;)
     @ApiResponses(value = {
@@ -91,7 +91,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.GerminacionService;
 <span class="fc" id="L91">        return ResponseEntity.ok(response);</span>
     }
 
-    // Obtener Germinación por ID
+    
     @Operation(summary = &quot;Obtener germinación por ID&quot;, 
               description = &quot;Obtiene los detalles de un análisis de germinación específico&quot;)
     @ApiResponses(value = {
@@ -106,7 +106,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.GerminacionService;
 <span class="fc" id="L106">        return ResponseEntity.ok(germinacion);</span>
     }
 
-    // Actualizar Germinación
+    
     @Operation(summary = &quot;Actualizar germinación&quot;, 
               description = &quot;Actualiza solo los campos editables de una germinación existente. &quot; +
                           &quot;Las fechas no se pueden modificar por seguridad.&quot;)
@@ -122,7 +122,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.GerminacionService;
 <span class="fc" id="L122">        return ResponseEntity.ok(germinacionActualizada);</span>
     }
 
-    // Eliminar Germinación (cambiar estado a INACTIVO)
+    
     @Operation(summary = &quot;Eliminar germinación&quot;, description = &quot;Cambia el estado de la germinación a INACTIVO&quot;)
     @PreAuthorize(&quot;hasRole('ANALISTA') or hasRole('ADMIN')&quot;)
     @DeleteMapping(&quot;/{id}&quot;)
@@ -131,7 +131,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.GerminacionService;
 <span class="fc" id="L131">        return ResponseEntity.noContent().build();</span>
     }
 
-    // Desactivar Germinacion (soft delete)
+    
     @Operation(summary = &quot;Desactivar análisis Germinación&quot;, 
               description = &quot;Desactiva un análisis de Germinación (cambiar activo a false)&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN')&quot;)
@@ -141,7 +141,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.GerminacionService;
 <span class="fc" id="L141">        return ResponseEntity.ok().build();</span>
     }
 
-    // Reactivar Germinacion
+    
     @Operation(summary = &quot;Reactivar análisis Germinación&quot;, 
               description = &quot;Reactiva un análisis de Germinación desactivado (solo administradores)&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN')&quot;)
@@ -151,7 +151,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.GerminacionService;
 <span class="fc" id="L151">        return ResponseEntity.ok(germinacionReactivada);</span>
     }
 
-    // Obtener Germinaciones por Lote
+    
     @Operation(summary = &quot;Obtener germinaciones por lote&quot;, description = &quot;Devuelve una lista de germinaciones asociadas a un lote específico&quot;)
     @PreAuthorize(&quot;hasRole('ANALISTA') or hasRole('ADMIN') or hasRole('OBSERVADOR')&quot;)
     @GetMapping(&quot;/lote/{idLote}&quot;)
@@ -160,7 +160,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.GerminacionService;
 <span class="fc" id="L160">        return ResponseEntity.ok(germinaciones);</span>
     }
 
-    // Finalizar análisis de germinación
+    
     @Operation(summary = &quot;Finalizar análisis de germinación&quot;, description = &quot;Marca el análisis como FINALIZADO, impidiendo más modificaciones&quot;)
     @PreAuthorize(&quot;hasRole('ANALISTA') or hasRole('ADMIN')&quot;)
     @PutMapping(&quot;/{id}/finalizar&quot;)
@@ -169,7 +169,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.GerminacionService;
 <span class="fc" id="L169">        return ResponseEntity.ok(analisisFinalizado);</span>
     }
 
-    // Aprobar análisis (solo admin)
+    
     @Operation(summary = &quot;Aprobar análisis de germinación&quot;, description = &quot;Solo administradores pueden aprobar análisis&quot;)
     @ApiResponses(value = {
         @ApiResponse(responseCode = &quot;200&quot;, description = &quot;Análisis aprobado exitosamente&quot;),
@@ -183,7 +183,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.GerminacionService;
 <span class="fc" id="L183">        return ResponseEntity.ok(analisisAprobado);</span>
     }
 
-    // Marcar análisis para repetir (solo admin)
+    
     @Operation(summary = &quot;Marcar análisis de germinación para repetir&quot;, 
               description = &quot;Marca un análisis de germinación para repetir - solo administradores&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN')&quot;)

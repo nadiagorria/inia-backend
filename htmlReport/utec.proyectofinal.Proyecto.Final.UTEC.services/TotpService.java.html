@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TotpService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">TotpService.java</span></div><h1>TotpService.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TotpService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">TotpService.java</span></div><h1>TotpService.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
 
 import dev.samstevens.totp.code.*;
 import dev.samstevens.totp.exceptions.QrGenerationException;
@@ -13,185 +13,145 @@ import org.springframework.stereotype.Service;
 
 import java.util.Base64;
 
-/**
- * Servicio para gestionar códigos TOTP (Time-based One-Time Password)
- * Compatible con Google Authenticator, Microsoft Authenticator, Authy, etc.
- * 
- * SEGURIDAD:
- * - Usa algoritmo HMAC-SHA1 (estándar RFC 6238)
- * - Códigos de 6 dígitos
- * - Ventana de tiempo de 30 segundos
- * - Permite discrepancia de 1 período (30s antes/después) para tolerancia de reloj
- */
+
 @Service
 public class TotpService {
 
-    private static final String ISSUER = &quot;INIA&quot;; // Nombre que aparece en Google Authenticator
+    private static final String ISSUER = &quot;INIA&quot;; 
     private final SecretGenerator secretGenerator;
     private final TimeProvider timeProvider;
     private final CodeGenerator codeGenerator;
     private final CodeVerifier codeVerifier;
 
-<span class="fc" id="L35">    public TotpService() {</span>
-<span class="fc" id="L36">        this.secretGenerator = new DefaultSecretGenerator();</span>
-<span class="fc" id="L37">        this.timeProvider = new SystemTimeProvider();</span>
-<span class="fc" id="L38">        this.codeGenerator = new DefaultCodeGenerator();</span>
+<span class="fc" id="L26">    public TotpService() {</span>
+<span class="fc" id="L27">        this.secretGenerator = new DefaultSecretGenerator();</span>
+<span class="fc" id="L28">        this.timeProvider = new SystemTimeProvider();</span>
+<span class="fc" id="L29">        this.codeGenerator = new DefaultCodeGenerator();</span>
         
         // Configurar verificador con discrepancia de 1 período (tolera hasta 30s de diferencia)
-<span class="fc" id="L41">        DefaultCodeVerifier verifier = new DefaultCodeVerifier(codeGenerator, timeProvider);</span>
-<span class="fc" id="L42">        verifier.setTimePeriod(30);        // Período de 30 segundos</span>
-<span class="fc" id="L43">        verifier.setAllowedTimePeriodDiscrepancy(1); // Tolera 1 período de diferencia (30s antes/después)</span>
-<span class="fc" id="L44">        this.codeVerifier = verifier;</span>
-<span class="fc" id="L45">    }</span>
+<span class="fc" id="L32">        DefaultCodeVerifier verifier = new DefaultCodeVerifier(codeGenerator, timeProvider);</span>
+<span class="fc" id="L33">        verifier.setTimePeriod(30);        // Período de 30 segundos</span>
+<span class="fc" id="L34">        verifier.setAllowedTimePeriodDiscrepancy(1); // Tolera 1 período de diferencia (30s antes/después)</span>
+<span class="fc" id="L35">        this.codeVerifier = verifier;</span>
+<span class="fc" id="L36">    }</span>
 
-    /**
-     * Genera un nuevo secret key para TOTP
-     * 
-     * @return Secret en formato Base32 (compatible con Google Authenticator)
-     */
+    
     public String generateSecret() {
-<span class="fc" id="L53">        return secretGenerator.generate();</span>
+<span class="fc" id="L40">        return secretGenerator.generate();</span>
     }
 
-    /**
-     * Genera un QR code para configurar Google Authenticator
-     * 
-     * @param secret El secret key del usuario
-     * @param accountName Nombre de la cuenta (generalmente el email o username)
-     * @return QR code en formato Base64 Data URL (para mostrar en &lt;img src=&quot;&quot;&gt;)
-     */
+    
     public String generateQrCodeDataUrl(String secret, String accountName) {
         try {
-<span class="fc" id="L65">            System.out.println(&quot; [TOTP-QR] Generando QR code...&quot;);</span>
-<span class="fc" id="L66">            System.out.println(&quot; [TOTP-QR] Secret usado para QR: &quot; + secret);</span>
-<span class="fc" id="L67">            System.out.println(&quot; [TOTP-QR] Account name: &quot; + accountName);</span>
+<span class="fc" id="L46">            System.out.println(&quot; [TOTP-QR] Generando QR code...&quot;);</span>
+<span class="fc" id="L47">            System.out.println(&quot; [TOTP-QR] Secret usado para QR: &quot; + secret);</span>
+<span class="fc" id="L48">            System.out.println(&quot; [TOTP-QR] Account name: &quot; + accountName);</span>
             
-<span class="fc" id="L69">            QrData data = new QrData.Builder()</span>
-<span class="fc" id="L70">                .label(accountName)</span>
-<span class="fc" id="L71">                .secret(secret)</span>
-<span class="fc" id="L72">                .issuer(ISSUER)</span>
-<span class="fc" id="L73">                .algorithm(HashingAlgorithm.SHA1) // Google Authenticator usa SHA1</span>
-<span class="fc" id="L74">                .digits(6)                         // Códigos de 6 dígitos</span>
-<span class="fc" id="L75">                .period(30)                        // 30 segundos por código</span>
-<span class="fc" id="L76">                .build();</span>
+<span class="fc" id="L50">            QrData data = new QrData.Builder()</span>
+<span class="fc" id="L51">                .label(accountName)</span>
+<span class="fc" id="L52">                .secret(secret)</span>
+<span class="fc" id="L53">                .issuer(ISSUER)</span>
+<span class="fc" id="L54">                .algorithm(HashingAlgorithm.SHA1) // Google Authenticator usa SHA1</span>
+<span class="fc" id="L55">                .digits(6)                         // Códigos de 6 dígitos</span>
+<span class="fc" id="L56">                .period(30)                        // 30 segundos por código</span>
+<span class="fc" id="L57">                .build();</span>
 
-<span class="fc" id="L78">            QrGenerator generator = new ZxingPngQrGenerator();</span>
-<span class="fc" id="L79">            byte[] imageData = generator.generate(data);</span>
-<span class="fc" id="L80">            String mimeType = generator.getImageMimeType();</span>
+<span class="fc" id="L59">            QrGenerator generator = new ZxingPngQrGenerator();</span>
+<span class="fc" id="L60">            byte[] imageData = generator.generate(data);</span>
+<span class="fc" id="L61">            String mimeType = generator.getImageMimeType();</span>
             
-<span class="fc" id="L82">            String base64Image = Base64.getEncoder().encodeToString(imageData);</span>
-<span class="fc" id="L83">            String dataUrl = String.format(&quot;data:%s;base64,%s&quot;, mimeType, base64Image);</span>
+<span class="fc" id="L63">            String base64Image = Base64.getEncoder().encodeToString(imageData);</span>
+<span class="fc" id="L64">            String dataUrl = String.format(&quot;data:%s;base64,%s&quot;, mimeType, base64Image);</span>
             
-<span class="fc" id="L85">            System.out.println(&quot; [TOTP-QR] QR code generado exitosamente&quot;);</span>
+<span class="fc" id="L66">            System.out.println(&quot; [TOTP-QR] QR code generado exitosamente&quot;);</span>
             
-<span class="fc" id="L87">            return dataUrl;</span>
+<span class="fc" id="L68">            return dataUrl;</span>
             
-<span class="nc" id="L89">        } catch (QrGenerationException e) {</span>
-<span class="nc" id="L90">            throw new RuntimeException(&quot;Error generando QR code para 2FA: &quot; + e.getMessage(), e);</span>
+<span class="nc" id="L70">        } catch (QrGenerationException e) {</span>
+<span class="nc" id="L71">            throw new RuntimeException(&quot;Error generando QR code para 2FA: &quot; + e.getMessage(), e);</span>
         }
     }
 
-    /**
-     * Verifica un código TOTP ingresado por el usuario
-     * 
-     * @param secret El secret key del usuario
-     * @param code El código de 6 dígitos ingresado
-     * @return true si el código es válido, false en caso contrario
-     */
+    
     public boolean verifyCode(String secret, String code) {
-<span class="fc bfc" id="L102" title="All 4 branches covered.">        if (secret == null || code == null) {</span>
-<span class="fc" id="L103">            return false;</span>
+<span class="fc bfc" id="L77" title="All 4 branches covered.">        if (secret == null || code == null) {</span>
+<span class="fc" id="L78">            return false;</span>
         }
         
         // Limpiar el código (remover espacios, guiones, etc.)
-<span class="fc" id="L107">        String cleanCode = code.replaceAll(&quot;[^0-9]&quot;, &quot;&quot;);</span>
+<span class="fc" id="L82">        String cleanCode = code.replaceAll(&quot;[^0-9]&quot;, &quot;&quot;);</span>
         
-<span class="fc bfc" id="L109" title="All 2 branches covered.">        if (cleanCode.length() != 6) {</span>
-<span class="fc" id="L110">            return false;</span>
+<span class="fc bfc" id="L84" title="All 2 branches covered.">        if (cleanCode.length() != 6) {</span>
+<span class="fc" id="L85">            return false;</span>
         }
         
         try {
-<span class="fc" id="L114">            boolean isValid = codeVerifier.isValidCode(secret, cleanCode);</span>
+<span class="fc" id="L89">            boolean isValid = codeVerifier.isValidCode(secret, cleanCode);</span>
             
             // DEBUG: Generar código actual para comparar
-<span class="fc bfc" id="L117" title="All 2 branches covered.">            if (!isValid) {</span>
+<span class="fc bfc" id="L92" title="All 2 branches covered.">            if (!isValid) {</span>
                 try {
-<span class="fc" id="L119">                    long currentTimeMillis = System.currentTimeMillis();</span>
-<span class="fc" id="L120">                    long currentBucket = Math.floorDiv(currentTimeMillis, 30000);</span>
-<span class="fc" id="L121">                    String currentCode = codeGenerator.generate(secret, currentBucket);</span>
+<span class="fc" id="L94">                    long currentTimeMillis = System.currentTimeMillis();</span>
+<span class="fc" id="L95">                    long currentBucket = Math.floorDiv(currentTimeMillis, 30000);</span>
+<span class="fc" id="L96">                    String currentCode = codeGenerator.generate(secret, currentBucket);</span>
                     
-<span class="fc" id="L123">                    System.err.println(&quot; [TOTP] ===== DEBUG TOTP =====&quot;);</span>
-<span class="fc" id="L124">                    System.err.println(&quot; [TOTP] Timestamp actual (ms): &quot; + currentTimeMillis);</span>
-<span class="fc" id="L125">                    System.err.println(&quot; [TOTP] Time bucket calculado: &quot; + currentBucket);</span>
-<span class="fc" id="L126">                    System.err.println(&quot; [TOTP] Código esperado (actual): &quot; + currentCode);</span>
-<span class="fc" id="L127">                    System.err.println(&quot; [TOTP] Código recibido: &quot; + cleanCode);</span>
+<span class="fc" id="L98">                    System.err.println(&quot; [TOTP] ===== DEBUG TOTP =====&quot;);</span>
+<span class="fc" id="L99">                    System.err.println(&quot; [TOTP] Timestamp actual (ms): &quot; + currentTimeMillis);</span>
+<span class="fc" id="L100">                    System.err.println(&quot; [TOTP] Time bucket calculado: &quot; + currentBucket);</span>
+<span class="fc" id="L101">                    System.err.println(&quot; [TOTP] Código esperado (actual): &quot; + currentCode);</span>
+<span class="fc" id="L102">                    System.err.println(&quot; [TOTP] Código recibido: &quot; + cleanCode);</span>
                     
                     // Probar con buckets anteriores y posteriores (ventana de tolerancia)
-<span class="fc" id="L130">                    System.err.println(&quot; [TOTP] Probando ventana de tiempo:&quot;);</span>
-<span class="fc bfc" id="L131" title="All 2 branches covered.">                    for (int i = -3; i &lt;= 3; i++) {</span>
-<span class="fc" id="L132">                        long testBucket = currentBucket + i;</span>
-<span class="fc" id="L133">                        String testCode = codeGenerator.generate(secret, testBucket);</span>
-<span class="pc bpc" id="L134" title="1 of 2 branches missed.">                        String status = testCode.equals(cleanCode) ? &quot; MATCH!&quot; : &quot;  &quot;;</span>
-<span class="fc" id="L135">                        System.err.println(&quot; [TOTP]   Bucket &quot; + testBucket + &quot; (offset &quot; + i + &quot;): &quot; + testCode + &quot; &quot; + status);</span>
+<span class="fc" id="L105">                    System.err.println(&quot; [TOTP] Probando ventana de tiempo:&quot;);</span>
+<span class="fc bfc" id="L106" title="All 2 branches covered.">                    for (int i = -3; i &lt;= 3; i++) {</span>
+<span class="fc" id="L107">                        long testBucket = currentBucket + i;</span>
+<span class="fc" id="L108">                        String testCode = codeGenerator.generate(secret, testBucket);</span>
+<span class="pc bpc" id="L109" title="1 of 2 branches missed.">                        String status = testCode.equals(cleanCode) ? &quot; MATCH!&quot; : &quot;  &quot;;</span>
+<span class="fc" id="L110">                        System.err.println(&quot; [TOTP]   Bucket &quot; + testBucket + &quot; (offset &quot; + i + &quot;): &quot; + testCode + &quot; &quot; + status);</span>
                     }
                     
-<span class="fc" id="L138">                    System.err.println(&quot; [TOTP] ========================&quot;);</span>
-<span class="pc" id="L139">                } catch (Exception e) {</span>
-<span class="nc" id="L140">                    System.err.println(&quot; [TOTP] No se pudo generar código de debug: &quot; + e.getMessage());</span>
-                }
+<span class="fc" id="L113">                    System.err.println(&quot; [TOTP] ========================&quot;);</span>
+<span class="nc" id="L114">                } catch (Exception e) {</span>
+<span class="nc" id="L115">                    System.err.println(&quot; [TOTP] No se pudo generar código de debug: &quot; + e.getMessage());</span>
+<span class="fc" id="L116">                }</span>
             }
             
-<span class="fc" id="L144">            return isValid;</span>
-<span class="nc" id="L145">        } catch (Exception e) {</span>
-<span class="nc" id="L146">            System.err.println(&quot; Error verificando código TOTP: &quot; + e.getMessage());</span>
-<span class="nc" id="L147">            return false;</span>
+<span class="fc" id="L119">            return isValid;</span>
+<span class="nc" id="L120">        } catch (Exception e) {</span>
+<span class="nc" id="L121">            System.err.println(&quot; Error verificando código TOTP: &quot; + e.getMessage());</span>
+<span class="nc" id="L122">            return false;</span>
         }
     }
 
-    /**
-     * Genera el código actual (útil para testing o debugging)
-     * NO usar en producción para mostrar al usuario
-     * 
-     * @param secret El secret key
-     * @return El código de 6 dígitos actual
-     */
+    
     public String getCurrentCode(String secret) {
         try {
-<span class="nc" id="L160">            long currentBucket = Math.floorDiv(timeProvider.getTime(), 30);</span>
-<span class="nc" id="L161">            return codeGenerator.generate(secret, currentBucket);</span>
-<span class="nc" id="L162">        } catch (Exception e) {</span>
-<span class="nc" id="L163">            throw new RuntimeException(&quot;Error generando código TOTP: &quot; + e.getMessage(), e);</span>
+<span class="nc" id="L129">            long currentBucket = Math.floorDiv(timeProvider.getTime(), 30);</span>
+<span class="nc" id="L130">            return codeGenerator.generate(secret, currentBucket);</span>
+<span class="nc" id="L131">        } catch (Exception e) {</span>
+<span class="nc" id="L132">            throw new RuntimeException(&quot;Error generando código TOTP: &quot; + e.getMessage(), e);</span>
         }
     }
 
-    /**
-     * Obtiene el tiempo restante (en segundos) hasta que el código actual expire
-     * 
-     * @return Segundos restantes (0-30)
-     */
+    
     public int getRemainingSeconds() {
-<span class="fc" id="L173">        long currentTime = timeProvider.getTime();</span>
-<span class="fc" id="L174">        return (int) (30 - (currentTime % 30));</span>
+<span class="fc" id="L138">        long currentTime = timeProvider.getTime();</span>
+<span class="fc" id="L139">        return (int) (30 - (currentTime % 30));</span>
     }
 
-    /**
-     * Verifica que un secret sea válido (formato Base32 correcto)
-     * 
-     * @param secret El secret a validar
-     * @return true si es válido
-     */
+    
     public boolean isValidSecret(String secret) {
-<span class="fc bfc" id="L184" title="All 4 branches covered.">        if (secret == null || secret.isEmpty()) {</span>
-<span class="fc" id="L185">            return false;</span>
+<span class="fc bfc" id="L144" title="All 4 branches covered.">        if (secret == null || secret.isEmpty()) {</span>
+<span class="fc" id="L145">            return false;</span>
         }
         
         // Debe tener entre 16-32 caracteres
-<span class="fc bfc" id="L189" title="All 4 branches covered.">        if (secret.length() &lt; 16 || secret.length() &gt; 32) {</span>
-<span class="fc" id="L190">            return false;</span>
+<span class="fc bfc" id="L149" title="All 4 branches covered.">        if (secret.length() &lt; 16 || secret.length() &gt; 32) {</span>
+<span class="fc" id="L150">            return false;</span>
         }
         
         // Solo debe contener caracteres Base32 válidos (A-Z, 2-7)
-<span class="fc" id="L194">        return secret.matches(&quot;^[A-Z2-7]+$&quot;);</span>
+<span class="fc" id="L154">        return secret.matches(&quot;^[A-Z2-7]+$&quot;);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

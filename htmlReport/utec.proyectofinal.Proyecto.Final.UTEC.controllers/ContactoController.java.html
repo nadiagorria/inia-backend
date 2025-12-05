@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ContactoController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.controllers</a> &gt; <span class="el_source">ContactoController.java</span></div><h1>ContactoController.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.controllers;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ContactoController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.controllers</a> &gt; <span class="el_source">ContactoController.java</span></div><h1>ContactoController.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,7 +20,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.ContactoService;
 
 import java.util.List;
 
-// CORS configurado globalmente en WebSecurityConfig
+
 @RestController
 @RequestMapping(&quot;/api/contactos&quot;)
 @Tag(name = &quot;Contactos&quot;, description = &quot;API para gestión de contactos y empresas&quot;)
@@ -30,7 +30,7 @@ import java.util.List;
     @Autowired
     private ContactoService contactoService;
 
-    // Obtener todos los contactos activos
+    
     @Operation(summary = &quot;Listar todos los contactos&quot;, 
               description = &quot;Obtiene todos los contactos activos, incluyendo clientes y empresas&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')&quot;)
@@ -44,7 +44,7 @@ import java.util.List;
         }
     }
 
-    // Obtener solo clientes
+    
     @Operation(summary = &quot;Listar todos los clientes&quot;, 
               description = &quot;Obtiene todos los contactos que son clientes con filtro opcional de estado&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')&quot;)
@@ -59,7 +59,7 @@ import java.util.List;
         }
     }
 
-    // Obtener solo empresas
+    
     @Operation(summary = &quot;Listar todas las empresas&quot;, 
               description = &quot;Obtiene todos los contactos que son empresas con filtro opcional de estado&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')&quot;)
@@ -74,7 +74,7 @@ import java.util.List;
         }
     }
 
-    // Obtener contacto por ID
+    
     @Operation(summary = &quot;Obtener contacto por ID&quot;, 
               description = &quot;Obtiene un contacto específico por su ID&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')&quot;)
@@ -90,7 +90,7 @@ import java.util.List;
         }
     }
 
-    // Crear nuevo contacto
+    
     @Operation(summary = &quot;Crear nuevo contacto&quot;, 
               description = &quot;Crea un nuevo contacto o empresa (solo administradores)&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN')&quot;)
@@ -107,7 +107,7 @@ import java.util.List;
         }
     }
 
-    // Actualizar contacto existente
+    
     @Operation(summary = &quot;Actualizar contacto&quot;, 
               description = &quot;Actualiza un contacto o empresa existente (solo administradores)&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN')&quot;)
@@ -128,7 +128,7 @@ import java.util.List;
         }
     }
 
-    // Eliminar contacto (soft delete)
+    
     @Operation(summary = &quot;Eliminar contacto&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN')&quot;)
     @DeleteMapping(&quot;/{contactoID}&quot;)
@@ -144,7 +144,7 @@ import java.util.List;
         }
     }
 
-    // Reactivar contacto
+    
     @Operation(summary = &quot;Reactivar contacto&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN')&quot;)
     @PutMapping(&quot;/{contactoID}/reactivar&quot;)
@@ -163,7 +163,7 @@ import java.util.List;
         }
     }
 
-    // Buscar contactos por nombre
+    
     @Operation(summary = &quot;Buscar contactos por nombre&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')&quot;)
     @GetMapping(&quot;/buscar&quot;)
@@ -176,7 +176,7 @@ import java.util.List;
         }
     }
 
-    // Buscar clientes por nombre
+    
     @Operation(summary = &quot;Buscar clientes por nombre&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')&quot;)
     @GetMapping(&quot;/clientes/buscar&quot;)
@@ -189,7 +189,7 @@ import java.util.List;
         }
     }
 
-    // Buscar empresas por nombre
+    
     @Operation(summary = &quot;Buscar empresas por nombre&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')&quot;)
     @GetMapping(&quot;/empresas/buscar&quot;)
@@ -202,7 +202,7 @@ import java.util.List;
         }
     }
 
-    // Obtener Contactos con paginado para listado
+    
     @Operation(summary = &quot;Obtener contactos paginados&quot;, 
               description = &quot;Obtiene la lista paginada de contactos para el listado&quot;)
     @PreAuthorize(&quot;hasRole('ANALISTA') or hasRole('ADMIN') or hasRole('OBSERVADOR')&quot;)
@@ -219,8 +219,8 @@ import java.util.List;
             try {
 <span class="fc" id="L220">                tipoContacto = TipoContacto.valueOf(tipo.toUpperCase());</span>
 <span class="fc" id="L221">            } catch (IllegalArgumentException e) {</span>
-                // Tipo inválido, se ignorará
-            }
+                
+<span class="fc" id="L223">            }</span>
         }
 <span class="fc" id="L225">        Page&lt;ContactoDTO&gt; response = contactoService.obtenerContactosPaginadosConFiltros(pageable, search, activo, tipoContacto);</span>
 <span class="fc" id="L226">        return ResponseEntity.ok(response);</span>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TrustedDeviceService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">TrustedDeviceService.java</span></div><h1>TrustedDeviceService.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TrustedDeviceService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">TrustedDeviceService.java</span></div><h1>TrustedDeviceService.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,264 +16,205 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-/**
- * Servicio para gestionar dispositivos de confianza (Trusted Devices)
- * 
- * SEGURIDAD:
- * - El fingerprint del dispositivo se hashea con SHA-256 antes de almacenar
- * - Los dispositivos expiran automáticamente después de 30 días de inactividad
- * - El fingerprint combina User-Agent + IP + otros headers para identificar únicamente
- * - El admin puede revocar manualmente cualquier dispositivo
- */
+
 @Service
-<span class="fc" id="L29">public class TrustedDeviceService {</span>
+<span class="fc" id="L21">public class TrustedDeviceService {</span>
 
     @Autowired
     private TrustedDeviceRepository trustedDeviceRepository;
 
     private static final int MAX_DEVICES_PER_USER = 5; // Máximo 5 dispositivos de confianza
 
-    /**
-     * Genera un hash SHA-256 del fingerprint del dispositivo
-     * 
-     * NUNCA almacenamos el fingerprint original, solo su hash
-     * 
-     * @param fingerprint Fingerprint del dispositivo (generado en el cliente)
-     * @return Hash SHA-256 en hexadecimal
-     */
+    
     public String hashFingerprint(String fingerprint) {
         try {
-<span class="fc" id="L46">            MessageDigest digest = MessageDigest.getInstance(&quot;SHA-256&quot;);</span>
-<span class="fc" id="L47">            byte[] hash = digest.digest(fingerprint.getBytes(StandardCharsets.UTF_8));</span>
+<span class="fc" id="L31">            MessageDigest digest = MessageDigest.getInstance(&quot;SHA-256&quot;);</span>
+<span class="fc" id="L32">            byte[] hash = digest.digest(fingerprint.getBytes(StandardCharsets.UTF_8));</span>
             
             // Convertir a hexadecimal
-<span class="fc" id="L50">            StringBuilder hexString = new StringBuilder();</span>
-<span class="fc bfc" id="L51" title="All 2 branches covered.">            for (byte b : hash) {</span>
-<span class="fc" id="L52">                String hex = Integer.toHexString(0xff &amp; b);</span>
-<span class="fc bfc" id="L53" title="All 2 branches covered.">                if (hex.length() == 1) hexString.append('0');</span>
-<span class="fc" id="L54">                hexString.append(hex);</span>
+<span class="fc" id="L35">            StringBuilder hexString = new StringBuilder();</span>
+<span class="fc bfc" id="L36" title="All 2 branches covered.">            for (byte b : hash) {</span>
+<span class="fc" id="L37">                String hex = Integer.toHexString(0xff &amp; b);</span>
+<span class="fc bfc" id="L38" title="All 2 branches covered.">                if (hex.length() == 1) hexString.append('0');</span>
+<span class="fc" id="L39">                hexString.append(hex);</span>
             }
-<span class="fc" id="L56">            return hexString.toString();</span>
+<span class="fc" id="L41">            return hexString.toString();</span>
             
-<span class="nc" id="L58">        } catch (NoSuchAlgorithmException e) {</span>
-<span class="nc" id="L59">            throw new RuntimeException(&quot;Error generando hash SHA-256: &quot; + e.getMessage(), e);</span>
+<span class="nc" id="L43">        } catch (NoSuchAlgorithmException e) {</span>
+<span class="nc" id="L44">            throw new RuntimeException(&quot;Error generando hash SHA-256: &quot; + e.getMessage(), e);</span>
         }
     }
 
-    /**
-     * Verifica si un dispositivo es de confianza para un usuario
-     * 
-     * @param usuarioId ID del usuario
-     * @param fingerprint Fingerprint del dispositivo
-     * @return true si el dispositivo es de confianza y está activo
-     */
+    
     public boolean isTrustedDevice(Integer usuarioId, String fingerprint) {
-<span class="pc bpc" id="L71" title="1 of 4 branches missed.">        if (fingerprint == null || fingerprint.isEmpty()) {</span>
-<span class="fc" id="L72">            return false;</span>
+<span class="pc bpc" id="L50" title="1 of 4 branches missed.">        if (fingerprint == null || fingerprint.isEmpty()) {</span>
+<span class="fc" id="L51">            return false;</span>
         }
         
-<span class="fc" id="L75">        String fingerprintHash = hashFingerprint(fingerprint);</span>
-<span class="fc" id="L76">        Optional&lt;TrustedDevice&gt; deviceOpt = trustedDeviceRepository</span>
-<span class="fc" id="L77">            .findByUsuarioIdAndDeviceFingerprintHashAndActiveTrue(usuarioId, fingerprintHash);</span>
+<span class="fc" id="L54">        String fingerprintHash = hashFingerprint(fingerprint);</span>
+<span class="fc" id="L55">        Optional&lt;TrustedDevice&gt; deviceOpt = trustedDeviceRepository</span>
+<span class="fc" id="L56">            .findByUsuarioIdAndDeviceFingerprintHashAndActiveTrue(usuarioId, fingerprintHash);</span>
         
-<span class="fc bfc" id="L79" title="All 2 branches covered.">        if (deviceOpt.isEmpty()) {</span>
-<span class="fc" id="L80">            return false;</span>
+<span class="fc bfc" id="L58" title="All 2 branches covered.">        if (deviceOpt.isEmpty()) {</span>
+<span class="fc" id="L59">            return false;</span>
         }
         
-<span class="fc" id="L83">        TrustedDevice device = deviceOpt.get();</span>
+<span class="fc" id="L62">        TrustedDevice device = deviceOpt.get();</span>
         
         // Verificar si no está expirado
-<span class="fc bfc" id="L86" title="All 2 branches covered.">        if (device.isExpired()) {</span>
+<span class="fc bfc" id="L65" title="All 2 branches covered.">        if (device.isExpired()) {</span>
             // Desactivar el dispositivo expirado
-<span class="fc" id="L88">            device.setActive(false);</span>
-<span class="fc" id="L89">            trustedDeviceRepository.save(device);</span>
-<span class="fc" id="L90">            return false;</span>
+<span class="fc" id="L67">            device.setActive(false);</span>
+<span class="fc" id="L68">            trustedDeviceRepository.save(device);</span>
+<span class="fc" id="L69">            return false;</span>
         }
         
         // Actualizar última vez usado
-<span class="fc" id="L94">        device.updateLastUsed();</span>
-<span class="fc" id="L95">        trustedDeviceRepository.save(device);</span>
+<span class="fc" id="L73">        device.updateLastUsed();</span>
+<span class="fc" id="L74">        trustedDeviceRepository.save(device);</span>
         
-<span class="fc" id="L97">        return true;</span>
+<span class="fc" id="L76">        return true;</span>
     }
 
-    /**
-     * Registra un nuevo dispositivo de confianza
-     * 
-     * @param usuarioId ID del usuario
-     * @param fingerprint Fingerprint del dispositivo
-     * @param request HttpServletRequest para extraer User-Agent e IP
-     * @return El dispositivo creado
-     */
+    
     @Transactional
     public TrustedDevice trustDevice(Integer usuarioId, String fingerprint, HttpServletRequest request) {
-<span class="pc bpc" id="L110" title="1 of 4 branches missed.">        if (fingerprint == null || fingerprint.isEmpty()) {</span>
-<span class="fc" id="L111">            throw new IllegalArgumentException(&quot;Fingerprint del dispositivo es requerido&quot;);</span>
+<span class="pc bpc" id="L82" title="1 of 4 branches missed.">        if (fingerprint == null || fingerprint.isEmpty()) {</span>
+<span class="fc" id="L83">            throw new IllegalArgumentException(&quot;Fingerprint del dispositivo es requerido&quot;);</span>
         }
         
-<span class="fc" id="L114">        String fingerprintHash = hashFingerprint(fingerprint);</span>
+<span class="fc" id="L86">        String fingerprintHash = hashFingerprint(fingerprint);</span>
         
         // Verificar si ya existe
-<span class="fc" id="L117">        Optional&lt;TrustedDevice&gt; existingOpt = trustedDeviceRepository</span>
-<span class="fc" id="L118">            .findByUsuarioIdAndDeviceFingerprintHashAndActiveTrue(usuarioId, fingerprintHash);</span>
+<span class="fc" id="L89">        Optional&lt;TrustedDevice&gt; existingOpt = trustedDeviceRepository</span>
+<span class="fc" id="L90">            .findByUsuarioIdAndDeviceFingerprintHashAndActiveTrue(usuarioId, fingerprintHash);</span>
         
-<span class="fc bfc" id="L120" title="All 2 branches covered.">        if (existingOpt.isPresent()) {</span>
+<span class="fc bfc" id="L92" title="All 2 branches covered.">        if (existingOpt.isPresent()) {</span>
             // Ya existe, actualizar última vez usado
-<span class="fc" id="L122">            TrustedDevice existing = existingOpt.get();</span>
-<span class="fc" id="L123">            existing.updateLastUsed();</span>
-<span class="fc" id="L124">            return trustedDeviceRepository.save(existing);</span>
+<span class="fc" id="L94">            TrustedDevice existing = existingOpt.get();</span>
+<span class="fc" id="L95">            existing.updateLastUsed();</span>
+<span class="fc" id="L96">            return trustedDeviceRepository.save(existing);</span>
         }
         
         // Verificar límite de dispositivos
-<span class="fc" id="L128">        long deviceCount = trustedDeviceRepository.countByUsuarioIdAndActiveTrue(usuarioId);</span>
-<span class="fc bfc" id="L129" title="All 2 branches covered.">        if (deviceCount &gt;= MAX_DEVICES_PER_USER) {</span>
-<span class="fc" id="L130">            throw new RuntimeException(&quot;Límite de dispositivos de confianza alcanzado (&quot; + MAX_DEVICES_PER_USER + &quot;)&quot;);</span>
+<span class="fc" id="L100">        long deviceCount = trustedDeviceRepository.countByUsuarioIdAndActiveTrue(usuarioId);</span>
+<span class="fc bfc" id="L101" title="All 2 branches covered.">        if (deviceCount &gt;= MAX_DEVICES_PER_USER) {</span>
+<span class="fc" id="L102">            throw new RuntimeException(&quot;Límite de dispositivos de confianza alcanzado (&quot; + MAX_DEVICES_PER_USER + &quot;)&quot;);</span>
         }
         
         // Crear nuevo dispositivo
-<span class="fc" id="L134">        TrustedDevice device = new TrustedDevice();</span>
-<span class="fc" id="L135">        device.setUsuarioId(usuarioId);</span>
-<span class="fc" id="L136">        device.setDeviceFingerprintHash(fingerprintHash);</span>
-<span class="fc" id="L137">        device.setDeviceName(extractDeviceName(request));</span>
-<span class="fc" id="L138">        device.setUserAgent(request.getHeader(&quot;User-Agent&quot;));</span>
-<span class="fc" id="L139">        device.setIpAddress(extractIpAddress(request));</span>
-<span class="fc" id="L140">        device.setActive(true);</span>
+<span class="fc" id="L106">        TrustedDevice device = new TrustedDevice();</span>
+<span class="fc" id="L107">        device.setUsuarioId(usuarioId);</span>
+<span class="fc" id="L108">        device.setDeviceFingerprintHash(fingerprintHash);</span>
+<span class="fc" id="L109">        device.setDeviceName(extractDeviceName(request));</span>
+<span class="fc" id="L110">        device.setUserAgent(request.getHeader(&quot;User-Agent&quot;));</span>
+<span class="fc" id="L111">        device.setIpAddress(extractIpAddress(request));</span>
+<span class="fc" id="L112">        device.setActive(true);</span>
         
-<span class="fc" id="L142">        return trustedDeviceRepository.save(device);</span>
+<span class="fc" id="L114">        return trustedDeviceRepository.save(device);</span>
     }
 
-    /**
-     * Lista todos los dispositivos de confianza de un usuario
-     * 
-     * @param usuarioId ID del usuario
-     * @return Lista de dispositivos
-     */
+    
     public List&lt;TrustedDeviceDTO&gt; listUserDevices(Integer usuarioId) {
-<span class="fc" id="L152">        return trustedDeviceRepository.findByUsuarioIdAndActiveTrueOrderByLastUsedAtDesc(usuarioId)</span>
-<span class="fc" id="L153">            .stream()</span>
-<span class="fc" id="L154">            .map(this::convertToDTO)</span>
-<span class="fc" id="L155">            .collect(Collectors.toList());</span>
+<span class="fc" id="L119">        return trustedDeviceRepository.findByUsuarioIdAndActiveTrueOrderByLastUsedAtDesc(usuarioId)</span>
+<span class="fc" id="L120">            .stream()</span>
+<span class="fc" id="L121">            .map(this::convertToDTO)</span>
+<span class="fc" id="L122">            .collect(Collectors.toList());</span>
     }
 
-    /**
-     * Revoca un dispositivo de confianza
-     * 
-     * @param deviceId ID del dispositivo
-     * @param usuarioId ID del usuario (para verificar propiedad)
-     */
+    
     @Transactional
     public void revokeDevice(Long deviceId, Integer usuarioId) {
-<span class="fc" id="L166">        TrustedDevice device = trustedDeviceRepository.findById(deviceId)</span>
-<span class="fc" id="L167">            .orElseThrow(() -&gt; new RuntimeException(&quot;Dispositivo no encontrado&quot;));</span>
+<span class="fc" id="L128">        TrustedDevice device = trustedDeviceRepository.findById(deviceId)</span>
+<span class="fc" id="L129">            .orElseThrow(() -&gt; new RuntimeException(&quot;Dispositivo no encontrado&quot;));</span>
         
-<span class="fc bfc" id="L169" title="All 2 branches covered.">        if (!device.getUsuarioId().equals(usuarioId)) {</span>
-<span class="fc" id="L170">            throw new RuntimeException(&quot;No autorizado para revocar este dispositivo&quot;);</span>
+<span class="fc bfc" id="L131" title="All 2 branches covered.">        if (!device.getUsuarioId().equals(usuarioId)) {</span>
+<span class="fc" id="L132">            throw new RuntimeException(&quot;No autorizado para revocar este dispositivo&quot;);</span>
         }
         
-<span class="fc" id="L173">        device.setActive(false);</span>
-<span class="fc" id="L174">        trustedDeviceRepository.save(device);</span>
-<span class="fc" id="L175">    }</span>
+<span class="fc" id="L135">        device.setActive(false);</span>
+<span class="fc" id="L136">        trustedDeviceRepository.save(device);</span>
+<span class="fc" id="L137">    }</span>
 
-    /**
-     * Revoca TODOS los dispositivos de un usuario
-     * Útil al deshabilitar 2FA o cambiar contraseña
-     * 
-     * @param usuarioId ID del usuario
-     */
+    
     @Transactional
     public void revokeAllUserDevices(Integer usuarioId) {
-<span class="fc" id="L185">        trustedDeviceRepository.deactivateAllUserDevices(usuarioId);</span>
-<span class="fc" id="L186">    }</span>
+<span class="fc" id="L142">        trustedDeviceRepository.deactivateAllUserDevices(usuarioId);</span>
+<span class="fc" id="L143">    }</span>
 
-    /**
-     * Tarea programada para limpiar dispositivos expirados
-     * Debe ejecutarse diariamente
-     */
+    
     @Transactional
     public void cleanupExpiredDevices() {
-<span class="fc" id="L194">        int deactivated = trustedDeviceRepository.deactivateExpiredDevices(LocalDateTime.now());</span>
-<span class="pc bpc" id="L195" title="1 of 2 branches missed.">        if (deactivated &gt; 0) {</span>
-<span class="fc" id="L196">            System.out.println(&quot; Limpieza: &quot; + deactivated + &quot; dispositivos expirados desactivados&quot;);</span>
+<span class="fc" id="L148">        int deactivated = trustedDeviceRepository.deactivateExpiredDevices(LocalDateTime.now());</span>
+<span class="pc bpc" id="L149" title="1 of 2 branches missed.">        if (deactivated &gt; 0) {</span>
+<span class="fc" id="L150">            System.out.println(&quot; Limpieza: &quot; + deactivated + &quot; dispositivos expirados desactivados&quot;);</span>
         }
-<span class="fc" id="L198">    }</span>
+<span class="fc" id="L152">    }</span>
 
-    /**
-     * Extrae un nombre descriptivo del dispositivo basado en User-Agent
-     * 
-     * @param request HttpServletRequest
-     * @return Nombre del dispositivo (ej: &quot;Chrome en Windows&quot;)
-     */
+    
     private String extractDeviceName(HttpServletRequest request) {
-<span class="fc" id="L207">        String userAgent = request.getHeader(&quot;User-Agent&quot;);</span>
-<span class="pc bpc" id="L208" title="1 of 2 branches missed.">        if (userAgent == null) {</span>
-<span class="nc" id="L209">            return &quot;Dispositivo Desconocido&quot;;</span>
+<span class="fc" id="L156">        String userAgent = request.getHeader(&quot;User-Agent&quot;);</span>
+<span class="pc bpc" id="L157" title="1 of 2 branches missed.">        if (userAgent == null) {</span>
+<span class="nc" id="L158">            return &quot;Dispositivo Desconocido&quot;;</span>
         }
         
-<span class="fc" id="L212">        String browser = &quot;Navegador&quot;;</span>
-<span class="fc" id="L213">        String os = &quot;SO Desconocido&quot;;</span>
+<span class="fc" id="L161">        String browser = &quot;Navegador&quot;;</span>
+<span class="fc" id="L162">        String os = &quot;SO Desconocido&quot;;</span>
         
         // Detectar navegador
-<span class="pc bpc" id="L216" title="1 of 4 branches missed.">        if (userAgent.contains(&quot;Chrome&quot;) &amp;&amp; !userAgent.contains(&quot;Edg&quot;)) {</span>
-<span class="fc" id="L217">            browser = &quot;Chrome&quot;;</span>
-<span class="pc bpc" id="L218" title="1 of 2 branches missed.">        } else if (userAgent.contains(&quot;Firefox&quot;)) {</span>
-<span class="fc" id="L219">            browser = &quot;Firefox&quot;;</span>
-<span class="pc bnc" id="L220" title="All 4 branches missed.">        } else if (userAgent.contains(&quot;Safari&quot;) &amp;&amp; !userAgent.contains(&quot;Chrome&quot;)) {</span>
-<span class="nc" id="L221">            browser = &quot;Safari&quot;;</span>
-<span class="nc bnc" id="L222" title="All 2 branches missed.">        } else if (userAgent.contains(&quot;Edg&quot;)) {</span>
-<span class="nc" id="L223">            browser = &quot;Edge&quot;;</span>
+<span class="pc bpc" id="L165" title="1 of 4 branches missed.">        if (userAgent.contains(&quot;Chrome&quot;) &amp;&amp; !userAgent.contains(&quot;Edg&quot;)) {</span>
+<span class="fc" id="L166">            browser = &quot;Chrome&quot;;</span>
+<span class="pc bpc" id="L167" title="1 of 2 branches missed.">        } else if (userAgent.contains(&quot;Firefox&quot;)) {</span>
+<span class="fc" id="L168">            browser = &quot;Firefox&quot;;</span>
+<span class="nc bnc" id="L169" title="All 4 branches missed.">        } else if (userAgent.contains(&quot;Safari&quot;) &amp;&amp; !userAgent.contains(&quot;Chrome&quot;)) {</span>
+<span class="nc" id="L170">            browser = &quot;Safari&quot;;</span>
+<span class="nc bnc" id="L171" title="All 2 branches missed.">        } else if (userAgent.contains(&quot;Edg&quot;)) {</span>
+<span class="nc" id="L172">            browser = &quot;Edge&quot;;</span>
         }
         
         // Detectar sistema operativo
-<span class="fc bfc" id="L227" title="All 2 branches covered.">        if (userAgent.contains(&quot;Windows&quot;)) {</span>
-<span class="fc" id="L228">            os = &quot;Windows&quot;;</span>
-<span class="pc bpc" id="L229" title="1 of 2 branches missed.">        } else if (userAgent.contains(&quot;Mac&quot;)) {</span>
-<span class="nc" id="L230">            os = &quot;macOS&quot;;</span>
-<span class="pc bpc" id="L231" title="1 of 2 branches missed.">        } else if (userAgent.contains(&quot;Linux&quot;)) {</span>
-<span class="fc" id="L232">            os = &quot;Linux&quot;;</span>
-<span class="pc bnc" id="L233" title="All 2 branches missed.">        } else if (userAgent.contains(&quot;Android&quot;)) {</span>
-<span class="nc" id="L234">            os = &quot;Android&quot;;</span>
-<span class="nc bnc" id="L235" title="All 4 branches missed.">        } else if (userAgent.contains(&quot;iPhone&quot;) || userAgent.contains(&quot;iPad&quot;)) {</span>
-<span class="nc" id="L236">            os = &quot;iOS&quot;;</span>
+<span class="fc bfc" id="L176" title="All 2 branches covered.">        if (userAgent.contains(&quot;Windows&quot;)) {</span>
+<span class="fc" id="L177">            os = &quot;Windows&quot;;</span>
+<span class="pc bpc" id="L178" title="1 of 2 branches missed.">        } else if (userAgent.contains(&quot;Mac&quot;)) {</span>
+<span class="nc" id="L179">            os = &quot;macOS&quot;;</span>
+<span class="pc bpc" id="L180" title="1 of 2 branches missed.">        } else if (userAgent.contains(&quot;Linux&quot;)) {</span>
+<span class="fc" id="L181">            os = &quot;Linux&quot;;</span>
+<span class="nc bnc" id="L182" title="All 2 branches missed.">        } else if (userAgent.contains(&quot;Android&quot;)) {</span>
+<span class="nc" id="L183">            os = &quot;Android&quot;;</span>
+<span class="nc bnc" id="L184" title="All 4 branches missed.">        } else if (userAgent.contains(&quot;iPhone&quot;) || userAgent.contains(&quot;iPad&quot;)) {</span>
+<span class="nc" id="L185">            os = &quot;iOS&quot;;</span>
         }
         
-<span class="fc" id="L239">        return browser + &quot; en &quot; + os;</span>
+<span class="fc" id="L188">        return browser + &quot; en &quot; + os;</span>
     }
 
-    /**
-     * Extrae la dirección IP del request
-     * Considera proxies y load balancers
-     * 
-     * @param request HttpServletRequest
-     * @return Dirección IP
-     */
+    
     private String extractIpAddress(HttpServletRequest request) {
-<span class="fc" id="L250">        String ip = request.getHeader(&quot;X-Forwarded-For&quot;);</span>
-<span class="pc bpc" id="L251" title="5 of 6 branches missed.">        if (ip == null || ip.isEmpty() || &quot;unknown&quot;.equalsIgnoreCase(ip)) {</span>
-<span class="fc" id="L252">            ip = request.getHeader(&quot;X-Real-IP&quot;);</span>
+<span class="fc" id="L193">        String ip = request.getHeader(&quot;X-Forwarded-For&quot;);</span>
+<span class="pc bpc" id="L194" title="5 of 6 branches missed.">        if (ip == null || ip.isEmpty() || &quot;unknown&quot;.equalsIgnoreCase(ip)) {</span>
+<span class="fc" id="L195">            ip = request.getHeader(&quot;X-Real-IP&quot;);</span>
         }
-<span class="pc bpc" id="L254" title="5 of 6 branches missed.">        if (ip == null || ip.isEmpty() || &quot;unknown&quot;.equalsIgnoreCase(ip)) {</span>
-<span class="fc" id="L255">            ip = request.getRemoteAddr();</span>
+<span class="pc bpc" id="L197" title="5 of 6 branches missed.">        if (ip == null || ip.isEmpty() || &quot;unknown&quot;.equalsIgnoreCase(ip)) {</span>
+<span class="fc" id="L198">            ip = request.getRemoteAddr();</span>
         }
         // Si hay múltiples IPs (proxies), tomar la primera
-<span class="pc bpc" id="L258" title="2 of 4 branches missed.">        if (ip != null &amp;&amp; ip.contains(&quot;,&quot;)) {</span>
-<span class="nc" id="L259">            ip = ip.split(&quot;,&quot;)[0].trim();</span>
+<span class="pc bpc" id="L201" title="2 of 4 branches missed.">        if (ip != null &amp;&amp; ip.contains(&quot;,&quot;)) {</span>
+<span class="nc" id="L202">            ip = ip.split(&quot;,&quot;)[0].trim();</span>
         }
-<span class="fc" id="L261">        return ip;</span>
+<span class="fc" id="L204">        return ip;</span>
     }
 
-    /**
-     * Convierte una entidad TrustedDevice a DTO
-     */
+    
     private TrustedDeviceDTO convertToDTO(TrustedDevice device) {
-<span class="fc" id="L268">        return new TrustedDeviceDTO(</span>
-<span class="fc" id="L269">            device.getId(),</span>
-<span class="fc" id="L270">            device.getDeviceName(),</span>
-<span class="fc" id="L271">            device.getUserAgent(),</span>
-<span class="fc" id="L272">            device.getIpAddress(),</span>
-<span class="fc" id="L273">            device.getCreatedAt(),</span>
-<span class="fc" id="L274">            device.getLastUsedAt(),</span>
-<span class="fc" id="L275">            device.getExpiresAt(),</span>
-<span class="fc" id="L276">            device.getActive()</span>
+<span class="fc" id="L209">        return new TrustedDeviceDTO(</span>
+<span class="fc" id="L210">            device.getId(),</span>
+<span class="fc" id="L211">            device.getDeviceName(),</span>
+<span class="fc" id="L212">            device.getUserAgent(),</span>
+<span class="fc" id="L213">            device.getIpAddress(),</span>
+<span class="fc" id="L214">            device.getCreatedAt(),</span>
+<span class="fc" id="L215">            device.getLastUsedAt(),</span>
+<span class="fc" id="L216">            device.getExpiresAt(),</span>
+<span class="fc" id="L217">            device.getActive()</span>
         );
     }
 }

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LoteController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.controllers</a> &gt; <span class="el_source">LoteController.java</span></div><h1>LoteController.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.controllers;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LoteController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.controllers</a> &gt; <span class="el_source">LoteController.java</span></div><h1>LoteController.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.controllers;
 
 import java.util.HashMap;
 import java.util.List;
@@ -30,7 +30,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.enums.TipoAnalisis;
 import utec.proyectofinal.Proyecto.Final.UTEC.responses.ResponseListadoLoteSimple;
 import utec.proyectofinal.Proyecto.Final.UTEC.services.LoteService;
 
-// CORS configurado globalmente en WebSecurityConfig
+
 @RestController
 @RequestMapping(&quot;/api/lotes&quot;)
 @Tag(name = &quot;Lotes&quot;, description = &quot;API para gestión de lotes de semillas&quot;)
@@ -40,7 +40,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.LoteService;
     @Autowired
     private LoteService loteService;
 
-    // Validar campos únicos
+    
     @PostMapping(&quot;/validar-campos&quot;)
     @Operation(summary = &quot;Validar campos únicos&quot;, description = &quot;Valida si la ficha y nombre de lote ya existen&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA')&quot;)
@@ -49,7 +49,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.LoteService;
 <span class="fc" id="L49">        return ResponseEntity.ok(resultado);</span>
     }
 
-    // Crear nuevo Lote
+    
     @PostMapping
     @Operation(summary = &quot;Crear lote&quot;, description = &quot;Crea un nuevo lote de semillas&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA')&quot;)
@@ -58,7 +58,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.LoteService;
 <span class="fc" id="L58">        return ResponseEntity.status(HttpStatus.CREATED).body(loteCreado);</span>
     }
 
-    // Obtener todos los Lotes activos (listado simple)
+    
     @GetMapping(&quot;/activos&quot;)
     @Operation(summary = &quot;Listar lotes activos&quot;, description = &quot;Obtiene todos los lotes activos&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')&quot;)
@@ -67,7 +67,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.LoteService;
 <span class="fc" id="L67">        return ResponseEntity.ok(respuesta);</span>
     }
 
-    // Obtener todos los Lotes inactivos (listado simple)
+    
     @GetMapping(&quot;/inactivos&quot;)
     @Operation(summary = &quot;Listar lotes inactivos&quot;, description = &quot;Obtiene todos los lotes inactivos&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')&quot;)
@@ -76,7 +76,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.LoteService;
 <span class="fc" id="L76">        return ResponseEntity.ok(respuesta);</span>
     }
 
-    // Obtener Lote por ID (completo)
+    
     @GetMapping(&quot;/{id}&quot;)
     @Operation(summary = &quot;Obtener lote por ID&quot;, description = &quot;Obtiene un lote específico por su ID&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')&quot;)
@@ -85,7 +85,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.LoteService;
 <span class="fc" id="L85">        return ResponseEntity.ok(lote);</span>
     }
 
-    // Obtener Lotes con paginado para listado
+    
     @GetMapping(&quot;/listado&quot;)
     @Operation(summary = &quot;Obtener lotes paginadas con filtros&quot;, description = &quot;Obtiene la lista paginada de lotes con soporte para búsqueda y filtros&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')&quot;)
@@ -98,7 +98,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.LoteService;
 <span class="fc" id="L98">        return ResponseEntity.ok(response);</span>
     }
     
-    // Obtener estadísticas de lotes
+    
     @GetMapping(&quot;/estadisticas&quot;)
     @Operation(summary = &quot;Obtener estadísticas de lotes&quot;, description = &quot;Obtiene el conteo total de lotes, activos e inactivos&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')&quot;)
@@ -107,7 +107,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.LoteService;
 <span class="fc" id="L107">        return ResponseEntity.ok(stats);</span>
     }
 
-    // Actualizar Lote
+    
     @PutMapping(&quot;/{id}&quot;)
     @Operation(summary = &quot;Actualizar lote&quot;, description = &quot;Actualiza un lote existente&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA')&quot;)
@@ -116,7 +116,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.LoteService;
 <span class="fc" id="L116">        return ResponseEntity.ok(loteActualizado);</span>
     }
 
-    // Eliminar Lote (cambiar activo a false)
+    
     @DeleteMapping(&quot;/{id}&quot;)
     @Operation(summary = &quot;Eliminar lote&quot;, description = &quot;Desactiva un lote (cambiar activo a false)&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN')&quot;)
@@ -125,7 +125,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.LoteService;
 <span class="fc" id="L125">        return ResponseEntity.ok().build();</span>
     }
 
-    // Reactivar Lote (cambiar activo a true)
+    
     @PutMapping(&quot;/{id}/reactivar&quot;)
     @Operation(summary = &quot;Reactivar lote&quot;, description = &quot;Reactiva un lote desactivado (solo administradores)&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN')&quot;)
@@ -134,7 +134,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.LoteService;
 <span class="fc" id="L134">        return ResponseEntity.ok(loteReactivado);</span>
     }
     
-    // Obtener lotes elegibles para un tipo de análisis específico
+    
     @GetMapping(&quot;/elegibles/{tipoAnalisis}&quot;)
     @Operation(summary = &quot;Obtener lotes elegibles para análisis&quot;, description = &quot;Obtiene lotes que pueden tener análisis del tipo especificado&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')&quot;)
@@ -144,7 +144,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.LoteService;
 <span class="fc" id="L144">        return ResponseEntity.ok(lotes);</span>
     }
     
-    // Verificar si se puede remover un tipo de análisis de un lote
+    
     @GetMapping(&quot;/{loteID}/puede-remover-tipo/{tipoAnalisis}&quot;)
     @Operation(summary = &quot;Verificar si se puede remover tipo de análisis&quot;, description = &quot;Verifica si un tipo de análisis puede ser removido de un lote específico&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA')&quot;)

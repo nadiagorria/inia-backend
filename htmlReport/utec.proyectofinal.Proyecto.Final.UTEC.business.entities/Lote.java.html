@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Lote.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.business.entities</a> &gt; <span class="el_source">Lote.java</span></div><h1>Lote.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.business.entities;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Lote.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.business.entities</a> &gt; <span class="el_source">Lote.java</span></div><h1>Lote.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.business.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -57,11 +57,11 @@ public class Lote {
 
     private BigDecimal kilosLimpios;
     
-    // Relación con datos de humedad (múltiples conjuntos de tipo + valor)
+    
     @OneToMany(mappedBy = &quot;lote&quot;, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List&lt;DatosHumedad&gt; datosHumedad;
     
-    // Relación con datos legados importados
+    
     @OneToMany(mappedBy = &quot;lote&quot;, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List&lt;Legado&gt; datosLegados;
     
@@ -78,7 +78,7 @@ public class Lote {
     private Catalogo estado;
     private LocalDate fechaCosecha;
     
-    // Lista de tipos de análisis asignados a este lote
+    
     @ElementCollection(targetClass = TipoAnalisis.class, fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     @CollectionTable(
@@ -91,7 +91,7 @@ public class Lote {
     
     private Boolean activo;
     
-    // Métodos personalizados para manejar tipos de análisis sin duplicados
+    
     public void setTiposAnalisisAsignados(List&lt;TipoAnalisis&gt; tipos) {
 <span class="fc bfc" id="L96" title="All 2 branches covered.">        if (tipos == null) {</span>
 <span class="fc" id="L97">            this.tiposAnalisisAsignados = null;</span>

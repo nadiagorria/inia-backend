@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CatalogoServiceTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">CatalogoServiceTest.java</span></div><h1>CatalogoServiceTest.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CatalogoServiceTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">CatalogoServiceTest.java</span></div><h1>CatalogoServiceTest.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -22,19 +22,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-/**
- * Tests unitarios para CatalogoService
- * 
- * Funcionalidades testeadas:
- * - Creación de catálogos (especies, sustratos, lugares, etc.)
- * - Validación de duplicados por tipo y valor
- * - Obtención de catálogos por tipo
- * - Activación/Desactivación de catálogos
- * - Actualización de valores
- */
+
 @ExtendWith(MockitoExtension.class)
 @DisplayName(&quot;Tests de CatalogoService&quot;)
-<span class="fc" id="L37">class CatalogoServiceTest {</span>
+<span class="fc" id="L28">class CatalogoServiceTest {</span>
 
     @Mock
     private CatalogoCrudRepository catalogoRepository;
@@ -48,711 +39,711 @@ import static org.mockito.Mockito.*;
     @BeforeEach
     void setUp() {
         // ARRANGE: Preparar datos de prueba
-<span class="fc" id="L51">        catalogoRequestDTO = new CatalogoRequestDTO();</span>
-<span class="fc" id="L52">        catalogoRequestDTO.setTipo(&quot;HUMEDAD&quot;);</span>
-<span class="fc" id="L53">        catalogoRequestDTO.setValor(&quot;10%&quot;);</span>
+<span class="fc" id="L42">        catalogoRequestDTO = new CatalogoRequestDTO();</span>
+<span class="fc" id="L43">        catalogoRequestDTO.setTipo(&quot;HUMEDAD&quot;);</span>
+<span class="fc" id="L44">        catalogoRequestDTO.setValor(&quot;10%&quot;);</span>
 
-<span class="fc" id="L55">        catalogo = new Catalogo();</span>
-<span class="fc" id="L56">        catalogo.setId(1L);</span>
-<span class="fc" id="L57">        catalogo.setTipo(TipoCatalogo.HUMEDAD);</span>
-<span class="fc" id="L58">        catalogo.setValor(&quot;10%&quot;);</span>
-<span class="fc" id="L59">        catalogo.setActivo(true);</span>
-<span class="fc" id="L60">    }</span>
+<span class="fc" id="L46">        catalogo = new Catalogo();</span>
+<span class="fc" id="L47">        catalogo.setId(1L);</span>
+<span class="fc" id="L48">        catalogo.setTipo(TipoCatalogo.HUMEDAD);</span>
+<span class="fc" id="L49">        catalogo.setValor(&quot;10%&quot;);</span>
+<span class="fc" id="L50">        catalogo.setActivo(true);</span>
+<span class="fc" id="L51">    }</span>
 
     @Test
     @DisplayName(&quot;Crear catálogo - debe crear con activo=true&quot;)
     void crear_debeCrearCatalogoActivo() {
-        // ARRANGE
-<span class="fc" id="L66">        when(catalogoRepository.findByTipoAndValor(TipoCatalogo.HUMEDAD, &quot;10%&quot;))</span>
-<span class="fc" id="L67">            .thenReturn(Optional.empty());</span>
-<span class="fc" id="L68">        when(catalogoRepository.save(any(Catalogo.class))).thenReturn(catalogo);</span>
+        
+<span class="fc" id="L57">        when(catalogoRepository.findByTipoAndValor(TipoCatalogo.HUMEDAD, &quot;10%&quot;))</span>
+<span class="fc" id="L58">            .thenReturn(Optional.empty());</span>
+<span class="fc" id="L59">        when(catalogoRepository.save(any(Catalogo.class))).thenReturn(catalogo);</span>
 
-        // ACT
-<span class="fc" id="L71">        CatalogoDTO resultado = catalogoService.crear(catalogoRequestDTO);</span>
+        
+<span class="fc" id="L62">        CatalogoDTO resultado = catalogoService.crear(catalogoRequestDTO);</span>
 
-        // ASSERT
-<span class="fc" id="L74">        assertNotNull(resultado);</span>
-<span class="fc" id="L75">        assertEquals(&quot;10%&quot;, resultado.getValor());</span>
-<span class="fc" id="L76">        verify(catalogoRepository, times(1)).save(any(Catalogo.class));</span>
-<span class="fc" id="L77">    }</span>
+        
+<span class="fc" id="L65">        assertNotNull(resultado);</span>
+<span class="fc" id="L66">        assertEquals(&quot;10%&quot;, resultado.getValor());</span>
+<span class="fc" id="L67">        verify(catalogoRepository, times(1)).save(any(Catalogo.class));</span>
+<span class="fc" id="L68">    }</span>
 
     @Test
     @DisplayName(&quot;Crear catálogo duplicado - debe lanzar excepción&quot;)
     void crear_conDuplicado_debeLanzarExcepcion() {
-        // ARRANGE
-<span class="fc" id="L83">        when(catalogoRepository.findByTipoAndValor(TipoCatalogo.HUMEDAD, &quot;10%&quot;))</span>
-<span class="fc" id="L84">            .thenReturn(Optional.of(catalogo));</span>
-
-        // ACT &amp; ASSERT
-<span class="fc" id="L87">        RuntimeException exception = assertThrows(RuntimeException.class, () -&gt; {</span>
-<span class="nc" id="L88">            catalogoService.crear(catalogoRequestDTO);</span>
-<span class="nc" id="L89">        });</span>
         
-<span class="fc" id="L91">        assertTrue(exception.getMessage().contains(&quot;Ya existe un catálogo&quot;));</span>
-<span class="fc" id="L92">        verify(catalogoRepository, never()).save(any(Catalogo.class));</span>
-<span class="fc" id="L93">    }</span>
+<span class="fc" id="L74">        when(catalogoRepository.findByTipoAndValor(TipoCatalogo.HUMEDAD, &quot;10%&quot;))</span>
+<span class="fc" id="L75">            .thenReturn(Optional.of(catalogo));</span>
+
+        
+<span class="fc" id="L78">        RuntimeException exception = assertThrows(RuntimeException.class, () -&gt; {</span>
+<span class="nc" id="L79">            catalogoService.crear(catalogoRequestDTO);</span>
+<span class="nc" id="L80">        });</span>
+        
+<span class="fc" id="L82">        assertTrue(exception.getMessage().contains(&quot;Ya existe un catálogo&quot;));</span>
+<span class="fc" id="L83">        verify(catalogoRepository, never()).save(any(Catalogo.class));</span>
+<span class="fc" id="L84">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener todos los catálogos activos - debe retornar solo activos&quot;)
     void obtenerTodos_debeRetornarSoloActivos() {
-        // ARRANGE
-<span class="fc" id="L99">        Catalogo catalogo2 = new Catalogo();</span>
-<span class="fc" id="L100">        catalogo2.setId(2L);</span>
-<span class="fc" id="L101">        catalogo2.setTipo(TipoCatalogo.ORIGEN);</span>
-<span class="fc" id="L102">        catalogo2.setValor(&quot;Nacional&quot;);</span>
-<span class="fc" id="L103">        catalogo2.setActivo(true);</span>
         
-<span class="fc" id="L105">        when(catalogoRepository.findByActivoTrue())</span>
-<span class="fc" id="L106">            .thenReturn(Arrays.asList(catalogo, catalogo2));</span>
+<span class="fc" id="L90">        Catalogo catalogo2 = new Catalogo();</span>
+<span class="fc" id="L91">        catalogo2.setId(2L);</span>
+<span class="fc" id="L92">        catalogo2.setTipo(TipoCatalogo.ORIGEN);</span>
+<span class="fc" id="L93">        catalogo2.setValor(&quot;Nacional&quot;);</span>
+<span class="fc" id="L94">        catalogo2.setActivo(true);</span>
+        
+<span class="fc" id="L96">        when(catalogoRepository.findByActivoTrue())</span>
+<span class="fc" id="L97">            .thenReturn(Arrays.asList(catalogo, catalogo2));</span>
 
-        // ACT
-<span class="fc" id="L109">        List&lt;CatalogoDTO&gt; resultado = catalogoService.obtenerTodos();</span>
+        
+<span class="fc" id="L100">        List&lt;CatalogoDTO&gt; resultado = catalogoService.obtenerTodos();</span>
 
-        // ASSERT
-<span class="fc" id="L112">        assertNotNull(resultado);</span>
-<span class="fc" id="L113">        assertEquals(2, resultado.size());</span>
-<span class="fc" id="L114">        verify(catalogoRepository, times(1)).findByActivoTrue();</span>
-<span class="fc" id="L115">    }</span>
+        
+<span class="fc" id="L103">        assertNotNull(resultado);</span>
+<span class="fc" id="L104">        assertEquals(2, resultado.size());</span>
+<span class="fc" id="L105">        verify(catalogoRepository, times(1)).findByActivoTrue();</span>
+<span class="fc" id="L106">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener por tipo - debe retornar solo del tipo especificado&quot;)
     void obtenerPorTipo_debeRetornarSoloDelTipo() {
-        // ARRANGE
-<span class="fc" id="L121">        when(catalogoRepository.findByTipoAndActivoTrue(TipoCatalogo.HUMEDAD))</span>
-<span class="fc" id="L122">            .thenReturn(Arrays.asList(catalogo));</span>
+        
+<span class="fc" id="L112">        when(catalogoRepository.findByTipoAndActivoTrue(TipoCatalogo.HUMEDAD))</span>
+<span class="fc" id="L113">            .thenReturn(Arrays.asList(catalogo));</span>
 
-        // ACT
-<span class="fc" id="L125">        List&lt;CatalogoDTO&gt; resultado = catalogoService.obtenerPorTipo(&quot;HUMEDAD&quot;);</span>
+        
+<span class="fc" id="L116">        List&lt;CatalogoDTO&gt; resultado = catalogoService.obtenerPorTipo(&quot;HUMEDAD&quot;);</span>
 
-        // ASSERT
-<span class="fc" id="L128">        assertNotNull(resultado);</span>
-<span class="fc" id="L129">        assertEquals(1, resultado.size());</span>
-<span class="fc" id="L130">        assertEquals(&quot;10%&quot;, resultado.get(0).getValor());</span>
-<span class="fc" id="L131">        verify(catalogoRepository, times(1)).findByTipoAndActivoTrue(TipoCatalogo.HUMEDAD);</span>
-<span class="fc" id="L132">    }</span>
+        
+<span class="fc" id="L119">        assertNotNull(resultado);</span>
+<span class="fc" id="L120">        assertEquals(1, resultado.size());</span>
+<span class="fc" id="L121">        assertEquals(&quot;10%&quot;, resultado.get(0).getValor());</span>
+<span class="fc" id="L122">        verify(catalogoRepository, times(1)).findByTipoAndActivoTrue(TipoCatalogo.HUMEDAD);</span>
+<span class="fc" id="L123">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener por tipo con filtro activo=true - debe retornar solo activos&quot;)
     void obtenerPorTipoConFiltro_activos_debeRetornarSoloActivos() {
-        // ARRANGE
-<span class="fc" id="L138">        when(catalogoRepository.findByTipoAndActivoTrue(TipoCatalogo.HUMEDAD))</span>
-<span class="fc" id="L139">            .thenReturn(Arrays.asList(catalogo));</span>
+        
+<span class="fc" id="L129">        when(catalogoRepository.findByTipoAndActivoTrue(TipoCatalogo.HUMEDAD))</span>
+<span class="fc" id="L130">            .thenReturn(Arrays.asList(catalogo));</span>
 
-        // ACT
-<span class="fc" id="L142">        List&lt;CatalogoDTO&gt; resultado = catalogoService.obtenerPorTipo(&quot;HUMEDAD&quot;, true);</span>
+        
+<span class="fc" id="L133">        List&lt;CatalogoDTO&gt; resultado = catalogoService.obtenerPorTipo(&quot;HUMEDAD&quot;, true);</span>
 
-        // ASSERT
-<span class="fc" id="L145">        assertNotNull(resultado);</span>
-<span class="fc" id="L146">        assertEquals(1, resultado.size());</span>
-<span class="fc" id="L147">        verify(catalogoRepository, times(1)).findByTipoAndActivoTrue(TipoCatalogo.HUMEDAD);</span>
-<span class="fc" id="L148">    }</span>
+        
+<span class="fc" id="L136">        assertNotNull(resultado);</span>
+<span class="fc" id="L137">        assertEquals(1, resultado.size());</span>
+<span class="fc" id="L138">        verify(catalogoRepository, times(1)).findByTipoAndActivoTrue(TipoCatalogo.HUMEDAD);</span>
+<span class="fc" id="L139">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener por tipo con filtro activo=false - debe retornar solo inactivos&quot;)
     void obtenerPorTipoConFiltro_inactivos_debeRetornarSoloInactivos() {
-        // ARRANGE
-<span class="fc" id="L154">        catalogo.setActivo(false);</span>
-<span class="fc" id="L155">        when(catalogoRepository.findByTipoAndActivoFalse(TipoCatalogo.HUMEDAD))</span>
-<span class="fc" id="L156">            .thenReturn(Arrays.asList(catalogo));</span>
+        
+<span class="fc" id="L145">        catalogo.setActivo(false);</span>
+<span class="fc" id="L146">        when(catalogoRepository.findByTipoAndActivoFalse(TipoCatalogo.HUMEDAD))</span>
+<span class="fc" id="L147">            .thenReturn(Arrays.asList(catalogo));</span>
 
-        // ACT
-<span class="fc" id="L159">        List&lt;CatalogoDTO&gt; resultado = catalogoService.obtenerPorTipo(&quot;HUMEDAD&quot;, false);</span>
+        
+<span class="fc" id="L150">        List&lt;CatalogoDTO&gt; resultado = catalogoService.obtenerPorTipo(&quot;HUMEDAD&quot;, false);</span>
 
-        // ASSERT
-<span class="fc" id="L162">        assertNotNull(resultado);</span>
-<span class="fc" id="L163">        assertEquals(1, resultado.size());</span>
-<span class="fc" id="L164">        verify(catalogoRepository, times(1)).findByTipoAndActivoFalse(TipoCatalogo.HUMEDAD);</span>
-<span class="fc" id="L165">    }</span>
+        
+<span class="fc" id="L153">        assertNotNull(resultado);</span>
+<span class="fc" id="L154">        assertEquals(1, resultado.size());</span>
+<span class="fc" id="L155">        verify(catalogoRepository, times(1)).findByTipoAndActivoFalse(TipoCatalogo.HUMEDAD);</span>
+<span class="fc" id="L156">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener por tipo sin filtro - debe retornar todos (activos e inactivos)&quot;)
     void obtenerPorTipoSinFiltro_debeRetornarTodos() {
-        // ARRANGE
-<span class="fc" id="L171">        Catalogo catalogoInactivo = new Catalogo();</span>
-<span class="fc" id="L172">        catalogoInactivo.setId(2L);</span>
-<span class="fc" id="L173">        catalogoInactivo.setTipo(TipoCatalogo.HUMEDAD);</span>
-<span class="fc" id="L174">        catalogoInactivo.setValor(&quot;12%&quot;);</span>
-<span class="fc" id="L175">        catalogoInactivo.setActivo(false);</span>
         
-<span class="fc" id="L177">        when(catalogoRepository.findByTipo(TipoCatalogo.HUMEDAD))</span>
-<span class="fc" id="L178">            .thenReturn(Arrays.asList(catalogo, catalogoInactivo));</span>
+<span class="fc" id="L162">        Catalogo catalogoInactivo = new Catalogo();</span>
+<span class="fc" id="L163">        catalogoInactivo.setId(2L);</span>
+<span class="fc" id="L164">        catalogoInactivo.setTipo(TipoCatalogo.HUMEDAD);</span>
+<span class="fc" id="L165">        catalogoInactivo.setValor(&quot;12%&quot;);</span>
+<span class="fc" id="L166">        catalogoInactivo.setActivo(false);</span>
+        
+<span class="fc" id="L168">        when(catalogoRepository.findByTipo(TipoCatalogo.HUMEDAD))</span>
+<span class="fc" id="L169">            .thenReturn(Arrays.asList(catalogo, catalogoInactivo));</span>
 
-        // ACT
-<span class="fc" id="L181">        List&lt;CatalogoDTO&gt; resultado = catalogoService.obtenerPorTipo(&quot;HUMEDAD&quot;, null);</span>
+        
+<span class="fc" id="L172">        List&lt;CatalogoDTO&gt; resultado = catalogoService.obtenerPorTipo(&quot;HUMEDAD&quot;, null);</span>
 
-        // ASSERT
-<span class="fc" id="L184">        assertNotNull(resultado);</span>
-<span class="fc" id="L185">        assertEquals(2, resultado.size());</span>
-<span class="fc" id="L186">        verify(catalogoRepository, times(1)).findByTipo(TipoCatalogo.HUMEDAD);</span>
-<span class="fc" id="L187">    }</span>
+        
+<span class="fc" id="L175">        assertNotNull(resultado);</span>
+<span class="fc" id="L176">        assertEquals(2, resultado.size());</span>
+<span class="fc" id="L177">        verify(catalogoRepository, times(1)).findByTipo(TipoCatalogo.HUMEDAD);</span>
+<span class="fc" id="L178">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener por ID - debe retornar el catálogo si existe&quot;)
     void obtenerPorId_cuandoExiste_debeRetornarCatalogo() {
-        // ARRANGE
-<span class="fc" id="L193">        when(catalogoRepository.findById(1L)).thenReturn(Optional.of(catalogo));</span>
+        
+<span class="fc" id="L184">        when(catalogoRepository.findById(1L)).thenReturn(Optional.of(catalogo));</span>
 
-        // ACT
-<span class="fc" id="L196">        CatalogoDTO resultado = catalogoService.obtenerPorId(1L);</span>
+        
+<span class="fc" id="L187">        CatalogoDTO resultado = catalogoService.obtenerPorId(1L);</span>
 
-        // ASSERT
-<span class="fc" id="L199">        assertNotNull(resultado);</span>
-<span class="fc" id="L200">        assertEquals(1L, resultado.getId());</span>
-<span class="fc" id="L201">        assertEquals(&quot;10%&quot;, resultado.getValor());</span>
-<span class="fc" id="L202">    }</span>
+        
+<span class="fc" id="L190">        assertNotNull(resultado);</span>
+<span class="fc" id="L191">        assertEquals(1L, resultado.getId());</span>
+<span class="fc" id="L192">        assertEquals(&quot;10%&quot;, resultado.getValor());</span>
+<span class="fc" id="L193">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener por ID inexistente - debe retornar null&quot;)
     void obtenerPorId_cuandoNoExiste_debeRetornarNull() {
-        // ARRANGE
-<span class="fc" id="L208">        when(catalogoRepository.findById(999L)).thenReturn(Optional.empty());</span>
+        
+<span class="fc" id="L199">        when(catalogoRepository.findById(999L)).thenReturn(Optional.empty());</span>
 
-        // ACT
-<span class="fc" id="L211">        CatalogoDTO resultado = catalogoService.obtenerPorId(999L);</span>
+        
+<span class="fc" id="L202">        CatalogoDTO resultado = catalogoService.obtenerPorId(999L);</span>
 
-        // ASSERT
-<span class="fc" id="L214">        assertNull(resultado);</span>
-<span class="fc" id="L215">    }</span>
+        
+<span class="fc" id="L205">        assertNull(resultado);</span>
+<span class="fc" id="L206">    }</span>
 
     @Test
     @DisplayName(&quot;Actualizar catálogo - debe actualizar correctamente&quot;)
     void actualizar_debeActualizarCorrectamente() {
-        // ARRANGE
-<span class="fc" id="L221">        catalogoRequestDTO.setValor(&quot;12%&quot;);</span>
         
-<span class="fc" id="L223">        when(catalogoRepository.findById(1L)).thenReturn(Optional.of(catalogo));</span>
-<span class="fc" id="L224">        when(catalogoRepository.findByTipoAndValor(TipoCatalogo.HUMEDAD, &quot;12%&quot;))</span>
-<span class="fc" id="L225">            .thenReturn(Optional.empty());</span>
-<span class="fc" id="L226">        when(catalogoRepository.save(any(Catalogo.class))).thenReturn(catalogo);</span>
+<span class="fc" id="L212">        catalogoRequestDTO.setValor(&quot;12%&quot;);</span>
+        
+<span class="fc" id="L214">        when(catalogoRepository.findById(1L)).thenReturn(Optional.of(catalogo));</span>
+<span class="fc" id="L215">        when(catalogoRepository.findByTipoAndValor(TipoCatalogo.HUMEDAD, &quot;12%&quot;))</span>
+<span class="fc" id="L216">            .thenReturn(Optional.empty());</span>
+<span class="fc" id="L217">        when(catalogoRepository.save(any(Catalogo.class))).thenReturn(catalogo);</span>
 
-        // ACT
-<span class="fc" id="L229">        CatalogoDTO resultado = catalogoService.actualizar(1L, catalogoRequestDTO);</span>
+        
+<span class="fc" id="L220">        CatalogoDTO resultado = catalogoService.actualizar(1L, catalogoRequestDTO);</span>
 
-        // ASSERT
-<span class="fc" id="L232">        assertNotNull(resultado);</span>
-<span class="fc" id="L233">        verify(catalogoRepository, times(1)).save(any(Catalogo.class));</span>
-<span class="fc" id="L234">    }</span>
+        
+<span class="fc" id="L223">        assertNotNull(resultado);</span>
+<span class="fc" id="L224">        verify(catalogoRepository, times(1)).save(any(Catalogo.class));</span>
+<span class="fc" id="L225">    }</span>
 
     @Test
     @DisplayName(&quot;Actualizar con valor duplicado - debe lanzar excepción&quot;)
     void actualizar_conValorDuplicado_debeLanzarExcepcion() {
-        // ARRANGE
-<span class="fc" id="L240">        Catalogo otroCatalogo = new Catalogo();</span>
-<span class="fc" id="L241">        otroCatalogo.setId(2L);</span>
-<span class="fc" id="L242">        otroCatalogo.setTipo(TipoCatalogo.HUMEDAD);</span>
-<span class="fc" id="L243">        otroCatalogo.setValor(&quot;15%&quot;);</span>
         
-<span class="fc" id="L245">        catalogoRequestDTO.setValor(&quot;15%&quot;);</span>
+<span class="fc" id="L231">        Catalogo otroCatalogo = new Catalogo();</span>
+<span class="fc" id="L232">        otroCatalogo.setId(2L);</span>
+<span class="fc" id="L233">        otroCatalogo.setTipo(TipoCatalogo.HUMEDAD);</span>
+<span class="fc" id="L234">        otroCatalogo.setValor(&quot;15%&quot;);</span>
         
-<span class="fc" id="L247">        when(catalogoRepository.findById(1L)).thenReturn(Optional.of(catalogo));</span>
-<span class="fc" id="L248">        when(catalogoRepository.findByTipoAndValor(TipoCatalogo.HUMEDAD, &quot;15%&quot;))</span>
-<span class="fc" id="L249">            .thenReturn(Optional.of(otroCatalogo));</span>
+<span class="fc" id="L236">        catalogoRequestDTO.setValor(&quot;15%&quot;);</span>
+        
+<span class="fc" id="L238">        when(catalogoRepository.findById(1L)).thenReturn(Optional.of(catalogo));</span>
+<span class="fc" id="L239">        when(catalogoRepository.findByTipoAndValor(TipoCatalogo.HUMEDAD, &quot;15%&quot;))</span>
+<span class="fc" id="L240">            .thenReturn(Optional.of(otroCatalogo));</span>
 
-        // ACT &amp; ASSERT
-<span class="fc" id="L252">        assertThrows(RuntimeException.class, () -&gt; {</span>
-<span class="nc" id="L253">            catalogoService.actualizar(1L, catalogoRequestDTO);</span>
-<span class="nc" id="L254">        });</span>
         
-<span class="fc" id="L256">        verify(catalogoRepository, never()).save(any(Catalogo.class));</span>
-<span class="fc" id="L257">    }</span>
+<span class="fc" id="L243">        assertThrows(RuntimeException.class, () -&gt; {</span>
+<span class="nc" id="L244">            catalogoService.actualizar(1L, catalogoRequestDTO);</span>
+<span class="nc" id="L245">        });</span>
+        
+<span class="fc" id="L247">        verify(catalogoRepository, never()).save(any(Catalogo.class));</span>
+<span class="fc" id="L248">    }</span>
 
     @Test
     @DisplayName(&quot;Eliminar catálogo - debe cambiar activo a false&quot;)
     void eliminar_debeCambiarActivoAFalse() {
-        // ARRANGE
-<span class="fc" id="L263">        when(catalogoRepository.findById(1L)).thenReturn(Optional.of(catalogo));</span>
-<span class="fc" id="L264">        when(catalogoRepository.save(any(Catalogo.class))).thenReturn(catalogo);</span>
+        
+<span class="fc" id="L254">        when(catalogoRepository.findById(1L)).thenReturn(Optional.of(catalogo));</span>
+<span class="fc" id="L255">        when(catalogoRepository.save(any(Catalogo.class))).thenReturn(catalogo);</span>
 
-        // ACT
-<span class="fc" id="L267">        catalogoService.eliminar(1L);</span>
+        
+<span class="fc" id="L258">        catalogoService.eliminar(1L);</span>
 
-        // ASSERT
-<span class="fc" id="L270">        verify(catalogoRepository, times(1)).findById(1L);</span>
-<span class="fc" id="L271">        verify(catalogoRepository, times(1)).save(any(Catalogo.class));</span>
-<span class="fc" id="L272">    }</span>
+        
+<span class="fc" id="L261">        verify(catalogoRepository, times(1)).findById(1L);</span>
+<span class="fc" id="L262">        verify(catalogoRepository, times(1)).save(any(Catalogo.class));</span>
+<span class="fc" id="L263">    }</span>
 
     @Test
     @DisplayName(&quot;Reactivar catálogo - debe cambiar activo a true&quot;)
     void reactivar_debeCambiarActivoATrue() {
-        // ARRANGE
-<span class="fc" id="L278">        catalogo.setActivo(false);</span>
-<span class="fc" id="L279">        when(catalogoRepository.findById(1L)).thenReturn(Optional.of(catalogo));</span>
-<span class="fc" id="L280">        when(catalogoRepository.save(any(Catalogo.class))).thenReturn(catalogo);</span>
+        
+<span class="fc" id="L269">        catalogo.setActivo(false);</span>
+<span class="fc" id="L270">        when(catalogoRepository.findById(1L)).thenReturn(Optional.of(catalogo));</span>
+<span class="fc" id="L271">        when(catalogoRepository.save(any(Catalogo.class))).thenReturn(catalogo);</span>
 
-        // ACT
-<span class="fc" id="L283">        CatalogoDTO resultado = catalogoService.reactivar(1L);</span>
+        
+<span class="fc" id="L274">        CatalogoDTO resultado = catalogoService.reactivar(1L);</span>
 
-        // ASSERT
-<span class="fc" id="L286">        assertNotNull(resultado);</span>
-<span class="fc" id="L287">        verify(catalogoRepository, times(1)).findById(1L);</span>
-<span class="fc" id="L288">        verify(catalogoRepository, times(1)).save(any(Catalogo.class));</span>
-<span class="fc" id="L289">    }</span>
+        
+<span class="fc" id="L277">        assertNotNull(resultado);</span>
+<span class="fc" id="L278">        verify(catalogoRepository, times(1)).findById(1L);</span>
+<span class="fc" id="L279">        verify(catalogoRepository, times(1)).save(any(Catalogo.class));</span>
+<span class="fc" id="L280">    }</span>
 
     @Test
     @DisplayName(&quot;Crear catálogos de diferentes tipos - debe permitir mismo valor en diferentes tipos&quot;)
     void crear_mismoValorDiferentesTipos_debePermitir() {
-        // ARRANGE
-<span class="fc" id="L295">        CatalogoRequestDTO origenDTO = new CatalogoRequestDTO();</span>
-<span class="fc" id="L296">        origenDTO.setTipo(&quot;ORIGEN&quot;);</span>
-<span class="fc" id="L297">        origenDTO.setValor(&quot;Nacional&quot;);</span>
         
-<span class="fc" id="L299">        Catalogo origenCatalogo = new Catalogo();</span>
-<span class="fc" id="L300">        origenCatalogo.setId(2L);</span>
-<span class="fc" id="L301">        origenCatalogo.setTipo(TipoCatalogo.ORIGEN);</span>
-<span class="fc" id="L302">        origenCatalogo.setValor(&quot;Nacional&quot;);</span>
-<span class="fc" id="L303">        origenCatalogo.setActivo(true);</span>
+<span class="fc" id="L286">        CatalogoRequestDTO origenDTO = new CatalogoRequestDTO();</span>
+<span class="fc" id="L287">        origenDTO.setTipo(&quot;ORIGEN&quot;);</span>
+<span class="fc" id="L288">        origenDTO.setValor(&quot;Nacional&quot;);</span>
         
-<span class="fc" id="L305">        when(catalogoRepository.findByTipoAndValor(TipoCatalogo.ORIGEN, &quot;Nacional&quot;))</span>
-<span class="fc" id="L306">            .thenReturn(Optional.empty());</span>
-<span class="fc" id="L307">        when(catalogoRepository.save(any(Catalogo.class))).thenReturn(origenCatalogo);</span>
+<span class="fc" id="L290">        Catalogo origenCatalogo = new Catalogo();</span>
+<span class="fc" id="L291">        origenCatalogo.setId(2L);</span>
+<span class="fc" id="L292">        origenCatalogo.setTipo(TipoCatalogo.ORIGEN);</span>
+<span class="fc" id="L293">        origenCatalogo.setValor(&quot;Nacional&quot;);</span>
+<span class="fc" id="L294">        origenCatalogo.setActivo(true);</span>
+        
+<span class="fc" id="L296">        when(catalogoRepository.findByTipoAndValor(TipoCatalogo.ORIGEN, &quot;Nacional&quot;))</span>
+<span class="fc" id="L297">            .thenReturn(Optional.empty());</span>
+<span class="fc" id="L298">        when(catalogoRepository.save(any(Catalogo.class))).thenReturn(origenCatalogo);</span>
 
-        // ACT
-<span class="fc" id="L310">        CatalogoDTO resultado = catalogoService.crear(origenDTO);</span>
+        
+<span class="fc" id="L301">        CatalogoDTO resultado = catalogoService.crear(origenDTO);</span>
 
-        // ASSERT
-<span class="fc" id="L313">        assertNotNull(resultado);</span>
-<span class="fc" id="L314">        assertEquals(&quot;Nacional&quot;, resultado.getValor());</span>
-<span class="fc" id="L315">        verify(catalogoRepository, times(1)).save(any(Catalogo.class));</span>
-<span class="fc" id="L316">    }</span>
+        
+<span class="fc" id="L304">        assertNotNull(resultado);</span>
+<span class="fc" id="L305">        assertEquals(&quot;Nacional&quot;, resultado.getValor());</span>
+<span class="fc" id="L306">        verify(catalogoRepository, times(1)).save(any(Catalogo.class));</span>
+<span class="fc" id="L307">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener entidad por ID - debe retornar la entidad si existe&quot;)
     void obtenerEntidadPorId_cuandoExiste_debeRetornarEntidad() {
-        // ARRANGE
-<span class="fc" id="L322">        when(catalogoRepository.findById(1L)).thenReturn(Optional.of(catalogo));</span>
+        
+<span class="fc" id="L313">        when(catalogoRepository.findById(1L)).thenReturn(Optional.of(catalogo));</span>
 
-        // ACT
-<span class="fc" id="L325">        Catalogo resultado = catalogoService.obtenerEntidadPorId(1L);</span>
+        
+<span class="fc" id="L316">        Catalogo resultado = catalogoService.obtenerEntidadPorId(1L);</span>
 
-        // ASSERT
-<span class="fc" id="L328">        assertNotNull(resultado);</span>
-<span class="fc" id="L329">        assertEquals(1L, resultado.getId());</span>
-<span class="fc" id="L330">        assertEquals(&quot;10%&quot;, resultado.getValor());</span>
-<span class="fc" id="L331">    }</span>
+        
+<span class="fc" id="L319">        assertNotNull(resultado);</span>
+<span class="fc" id="L320">        assertEquals(1L, resultado.getId());</span>
+<span class="fc" id="L321">        assertEquals(&quot;10%&quot;, resultado.getValor());</span>
+<span class="fc" id="L322">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener entidad por ID inexistente - debe retornar null&quot;)
     void obtenerEntidadPorId_cuandoNoExiste_debeRetornarNull() {
-        // ARRANGE
-<span class="fc" id="L337">        when(catalogoRepository.findById(999L)).thenReturn(Optional.empty());</span>
+        
+<span class="fc" id="L328">        when(catalogoRepository.findById(999L)).thenReturn(Optional.empty());</span>
 
-        // ACT
-<span class="fc" id="L340">        Catalogo resultado = catalogoService.obtenerEntidadPorId(999L);</span>
+        
+<span class="fc" id="L331">        Catalogo resultado = catalogoService.obtenerEntidadPorId(999L);</span>
 
-        // ASSERT
-<span class="fc" id="L343">        assertNull(resultado);</span>
-<span class="fc" id="L344">    }</span>
+        
+<span class="fc" id="L334">        assertNull(resultado);</span>
+<span class="fc" id="L335">    }</span>
 
     @Test
     @DisplayName(&quot;Eliminar físicamente - debe eliminar el registro de la base de datos&quot;)
     void eliminarFisicamente_debeEliminarRegistro() {
-        // ARRANGE
-<span class="fc" id="L350">        doNothing().when(catalogoRepository).deleteById(1L);</span>
+        
+<span class="fc" id="L341">        doNothing().when(catalogoRepository).deleteById(1L);</span>
 
-        // ACT
-<span class="fc" id="L353">        catalogoService.eliminarFisicamente(1L);</span>
+        
+<span class="fc" id="L344">        catalogoService.eliminarFisicamente(1L);</span>
 
-        // ASSERT
-<span class="fc" id="L356">        verify(catalogoRepository, times(1)).deleteById(1L);</span>
-<span class="fc" id="L357">    }</span>
+        
+<span class="fc" id="L347">        verify(catalogoRepository, times(1)).deleteById(1L);</span>
+<span class="fc" id="L348">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener catálogos paginados - debe retornar página de catálogos activos&quot;)
     void obtenerCatalogosPaginados_debeRetornarPaginaActivos() {
-        // ARRANGE
-<span class="fc" id="L363">        org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(0, 10);</span>
-<span class="fc" id="L364">        org.springframework.data.domain.Page&lt;Catalogo&gt; page = new org.springframework.data.domain.PageImpl&lt;&gt;(</span>
-<span class="fc" id="L365">            Arrays.asList(catalogo)</span>
+        
+<span class="fc" id="L354">        org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(0, 10);</span>
+<span class="fc" id="L355">        org.springframework.data.domain.Page&lt;Catalogo&gt; page = new org.springframework.data.domain.PageImpl&lt;&gt;(</span>
+<span class="fc" id="L356">            Arrays.asList(catalogo)</span>
         );
         
-<span class="fc" id="L368">        when(catalogoRepository.findByActivoTrueOrderByTipoAscValorAsc(pageable))</span>
-<span class="fc" id="L369">            .thenReturn(page);</span>
+<span class="fc" id="L359">        when(catalogoRepository.findByActivoTrueOrderByTipoAscValorAsc(pageable))</span>
+<span class="fc" id="L360">            .thenReturn(page);</span>
 
-        // ACT
-<span class="fc" id="L372">        org.springframework.data.domain.Page&lt;CatalogoDTO&gt; resultado = </span>
-<span class="fc" id="L373">            catalogoService.obtenerCatalogosPaginados(pageable);</span>
+        
+<span class="fc" id="L363">        org.springframework.data.domain.Page&lt;CatalogoDTO&gt; resultado = </span>
+<span class="fc" id="L364">            catalogoService.obtenerCatalogosPaginados(pageable);</span>
 
-        // ASSERT
-<span class="fc" id="L376">        assertNotNull(resultado);</span>
-<span class="fc" id="L377">        assertEquals(1, resultado.getContent().size());</span>
-<span class="fc" id="L378">        verify(catalogoRepository, times(1)).findByActivoTrueOrderByTipoAscValorAsc(pageable);</span>
-<span class="fc" id="L379">    }</span>
+        
+<span class="fc" id="L367">        assertNotNull(resultado);</span>
+<span class="fc" id="L368">        assertEquals(1, resultado.getContent().size());</span>
+<span class="fc" id="L369">        verify(catalogoRepository, times(1)).findByActivoTrueOrderByTipoAscValorAsc(pageable);</span>
+<span class="fc" id="L370">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener catálogos paginados con filtro activos - debe retornar solo activos&quot;)
     void obtenerCatalogosPaginadosConFiltro_activos_debeRetornarSoloActivos() {
-        // ARRANGE
-<span class="fc" id="L385">        org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(0, 10);</span>
-<span class="fc" id="L386">        org.springframework.data.domain.Page&lt;Catalogo&gt; page = new org.springframework.data.domain.PageImpl&lt;&gt;(</span>
-<span class="fc" id="L387">            Arrays.asList(catalogo)</span>
+        
+<span class="fc" id="L376">        org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(0, 10);</span>
+<span class="fc" id="L377">        org.springframework.data.domain.Page&lt;Catalogo&gt; page = new org.springframework.data.domain.PageImpl&lt;&gt;(</span>
+<span class="fc" id="L378">            Arrays.asList(catalogo)</span>
         );
         
-<span class="fc" id="L390">        when(catalogoRepository.findByActivoTrueOrderByTipoAscValorAsc(pageable))</span>
-<span class="fc" id="L391">            .thenReturn(page);</span>
+<span class="fc" id="L381">        when(catalogoRepository.findByActivoTrueOrderByTipoAscValorAsc(pageable))</span>
+<span class="fc" id="L382">            .thenReturn(page);</span>
 
-        // ACT
-<span class="fc" id="L394">        org.springframework.data.domain.Page&lt;CatalogoDTO&gt; resultado = </span>
-<span class="fc" id="L395">            catalogoService.obtenerCatalogosPaginadosConFiltro(pageable, &quot;activos&quot;);</span>
+        
+<span class="fc" id="L385">        org.springframework.data.domain.Page&lt;CatalogoDTO&gt; resultado = </span>
+<span class="fc" id="L386">            catalogoService.obtenerCatalogosPaginadosConFiltro(pageable, &quot;activos&quot;);</span>
 
-        // ASSERT
-<span class="fc" id="L398">        assertNotNull(resultado);</span>
-<span class="fc" id="L399">        assertEquals(1, resultado.getContent().size());</span>
-<span class="fc" id="L400">        verify(catalogoRepository, times(1)).findByActivoTrueOrderByTipoAscValorAsc(pageable);</span>
-<span class="fc" id="L401">    }</span>
+        
+<span class="fc" id="L389">        assertNotNull(resultado);</span>
+<span class="fc" id="L390">        assertEquals(1, resultado.getContent().size());</span>
+<span class="fc" id="L391">        verify(catalogoRepository, times(1)).findByActivoTrueOrderByTipoAscValorAsc(pageable);</span>
+<span class="fc" id="L392">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener catálogos paginados con filtro inactivos - debe retornar solo inactivos&quot;)
     void obtenerCatalogosPaginadosConFiltro_inactivos_debeRetornarSoloInactivos() {
-        // ARRANGE
-<span class="fc" id="L407">        org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(0, 10);</span>
-<span class="fc" id="L408">        catalogo.setActivo(false);</span>
-<span class="fc" id="L409">        org.springframework.data.domain.Page&lt;Catalogo&gt; page = new org.springframework.data.domain.PageImpl&lt;&gt;(</span>
-<span class="fc" id="L410">            Arrays.asList(catalogo)</span>
+        
+<span class="fc" id="L398">        org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(0, 10);</span>
+<span class="fc" id="L399">        catalogo.setActivo(false);</span>
+<span class="fc" id="L400">        org.springframework.data.domain.Page&lt;Catalogo&gt; page = new org.springframework.data.domain.PageImpl&lt;&gt;(</span>
+<span class="fc" id="L401">            Arrays.asList(catalogo)</span>
         );
         
-<span class="fc" id="L413">        when(catalogoRepository.findByActivoFalseOrderByTipoAscValorAsc(pageable))</span>
-<span class="fc" id="L414">            .thenReturn(page);</span>
+<span class="fc" id="L404">        when(catalogoRepository.findByActivoFalseOrderByTipoAscValorAsc(pageable))</span>
+<span class="fc" id="L405">            .thenReturn(page);</span>
 
-        // ACT
-<span class="fc" id="L417">        org.springframework.data.domain.Page&lt;CatalogoDTO&gt; resultado = </span>
-<span class="fc" id="L418">            catalogoService.obtenerCatalogosPaginadosConFiltro(pageable, &quot;inactivos&quot;);</span>
+        
+<span class="fc" id="L408">        org.springframework.data.domain.Page&lt;CatalogoDTO&gt; resultado = </span>
+<span class="fc" id="L409">            catalogoService.obtenerCatalogosPaginadosConFiltro(pageable, &quot;inactivos&quot;);</span>
 
-        // ASSERT
-<span class="fc" id="L421">        assertNotNull(resultado);</span>
-<span class="fc" id="L422">        assertEquals(1, resultado.getContent().size());</span>
-<span class="fc" id="L423">        verify(catalogoRepository, times(1)).findByActivoFalseOrderByTipoAscValorAsc(pageable);</span>
-<span class="fc" id="L424">    }</span>
+        
+<span class="fc" id="L412">        assertNotNull(resultado);</span>
+<span class="fc" id="L413">        assertEquals(1, resultado.getContent().size());</span>
+<span class="fc" id="L414">        verify(catalogoRepository, times(1)).findByActivoFalseOrderByTipoAscValorAsc(pageable);</span>
+<span class="fc" id="L415">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener catálogos paginados con filtro todos - debe retornar todos&quot;)
     void obtenerCatalogosPaginadosConFiltro_todos_debeRetornarTodos() {
-        // ARRANGE
-<span class="fc" id="L430">        org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(0, 10);</span>
-<span class="fc" id="L431">        org.springframework.data.domain.Page&lt;Catalogo&gt; page = new org.springframework.data.domain.PageImpl&lt;&gt;(</span>
-<span class="fc" id="L432">            Arrays.asList(catalogo)</span>
+        
+<span class="fc" id="L421">        org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(0, 10);</span>
+<span class="fc" id="L422">        org.springframework.data.domain.Page&lt;Catalogo&gt; page = new org.springframework.data.domain.PageImpl&lt;&gt;(</span>
+<span class="fc" id="L423">            Arrays.asList(catalogo)</span>
         );
         
-<span class="fc" id="L435">        when(catalogoRepository.findAllByOrderByTipoAscValorAsc(pageable))</span>
-<span class="fc" id="L436">            .thenReturn(page);</span>
+<span class="fc" id="L426">        when(catalogoRepository.findAllByOrderByTipoAscValorAsc(pageable))</span>
+<span class="fc" id="L427">            .thenReturn(page);</span>
 
-        // ACT
-<span class="fc" id="L439">        org.springframework.data.domain.Page&lt;CatalogoDTO&gt; resultado = </span>
-<span class="fc" id="L440">            catalogoService.obtenerCatalogosPaginadosConFiltro(pageable, &quot;todos&quot;);</span>
+        
+<span class="fc" id="L430">        org.springframework.data.domain.Page&lt;CatalogoDTO&gt; resultado = </span>
+<span class="fc" id="L431">            catalogoService.obtenerCatalogosPaginadosConFiltro(pageable, &quot;todos&quot;);</span>
 
-        // ASSERT
-<span class="fc" id="L443">        assertNotNull(resultado);</span>
-<span class="fc" id="L444">        assertEquals(1, resultado.getContent().size());</span>
-<span class="fc" id="L445">        verify(catalogoRepository, times(1)).findAllByOrderByTipoAscValorAsc(pageable);</span>
-<span class="fc" id="L446">    }</span>
+        
+<span class="fc" id="L434">        assertNotNull(resultado);</span>
+<span class="fc" id="L435">        assertEquals(1, resultado.getContent().size());</span>
+<span class="fc" id="L436">        verify(catalogoRepository, times(1)).findAllByOrderByTipoAscValorAsc(pageable);</span>
+<span class="fc" id="L437">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener catálogos paginados con filtros - con tipo y búsqueda&quot;)
     void obtenerCatalogosPaginadosConFiltros_conTipoYBusqueda_debeFiltrar() {
-        // ARRANGE
-<span class="fc" id="L452">        org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(0, 10);</span>
         
-<span class="fc" id="L454">        when(catalogoRepository.findByTipoAndActivoTrue(TipoCatalogo.HUMEDAD))</span>
-<span class="fc" id="L455">            .thenReturn(Arrays.asList(catalogo));</span>
+<span class="fc" id="L443">        org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(0, 10);</span>
+        
+<span class="fc" id="L445">        when(catalogoRepository.findByTipoAndActivoTrue(TipoCatalogo.HUMEDAD))</span>
+<span class="fc" id="L446">            .thenReturn(Arrays.asList(catalogo));</span>
 
-        // ACT
-<span class="fc" id="L458">        org.springframework.data.domain.Page&lt;CatalogoDTO&gt; resultado = </span>
-<span class="fc" id="L459">            catalogoService.obtenerCatalogosPaginadosConFiltros(pageable, &quot;10&quot;, true, &quot;HUMEDAD&quot;);</span>
+        
+<span class="fc" id="L449">        org.springframework.data.domain.Page&lt;CatalogoDTO&gt; resultado = </span>
+<span class="fc" id="L450">            catalogoService.obtenerCatalogosPaginadosConFiltros(pageable, &quot;10&quot;, true, &quot;HUMEDAD&quot;);</span>
 
-        // ASSERT
-<span class="fc" id="L462">        assertNotNull(resultado);</span>
-<span class="fc" id="L463">        assertEquals(1, resultado.getContent().size());</span>
-<span class="fc" id="L464">    }</span>
+        
+<span class="fc" id="L453">        assertNotNull(resultado);</span>
+<span class="fc" id="L454">        assertEquals(1, resultado.getContent().size());</span>
+<span class="fc" id="L455">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener catálogos paginados con filtros - con tipo sin búsqueda activos&quot;)
     void obtenerCatalogosPaginadosConFiltros_conTipoSinBusquedaActivos_debeFiltrar() {
-        // ARRANGE
-<span class="fc" id="L470">        org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(0, 10);</span>
-<span class="fc" id="L471">        org.springframework.data.domain.Page&lt;Catalogo&gt; page = new org.springframework.data.domain.PageImpl&lt;&gt;(</span>
-<span class="fc" id="L472">            Arrays.asList(catalogo)</span>
+        
+<span class="fc" id="L461">        org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(0, 10);</span>
+<span class="fc" id="L462">        org.springframework.data.domain.Page&lt;Catalogo&gt; page = new org.springframework.data.domain.PageImpl&lt;&gt;(</span>
+<span class="fc" id="L463">            Arrays.asList(catalogo)</span>
         );
         
-<span class="fc" id="L475">        when(catalogoRepository.findByTipoAndActivoTrueOrderByValorAsc(TipoCatalogo.HUMEDAD, pageable))</span>
-<span class="fc" id="L476">            .thenReturn(page);</span>
+<span class="fc" id="L466">        when(catalogoRepository.findByTipoAndActivoTrueOrderByValorAsc(TipoCatalogo.HUMEDAD, pageable))</span>
+<span class="fc" id="L467">            .thenReturn(page);</span>
 
-        // ACT
-<span class="fc" id="L479">        org.springframework.data.domain.Page&lt;CatalogoDTO&gt; resultado = </span>
-<span class="fc" id="L480">            catalogoService.obtenerCatalogosPaginadosConFiltros(pageable, null, true, &quot;HUMEDAD&quot;);</span>
+        
+<span class="fc" id="L470">        org.springframework.data.domain.Page&lt;CatalogoDTO&gt; resultado = </span>
+<span class="fc" id="L471">            catalogoService.obtenerCatalogosPaginadosConFiltros(pageable, null, true, &quot;HUMEDAD&quot;);</span>
 
-        // ASSERT
-<span class="fc" id="L483">        assertNotNull(resultado);</span>
-<span class="fc" id="L484">        assertEquals(1, resultado.getContent().size());</span>
-<span class="fc" id="L485">    }</span>
+        
+<span class="fc" id="L474">        assertNotNull(resultado);</span>
+<span class="fc" id="L475">        assertEquals(1, resultado.getContent().size());</span>
+<span class="fc" id="L476">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener catálogos paginados con filtros - con tipo sin búsqueda inactivos&quot;)
     void obtenerCatalogosPaginadosConFiltros_conTipoSinBusquedaInactivos_debeFiltrar() {
-        // ARRANGE
-<span class="fc" id="L491">        org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(0, 10);</span>
-<span class="fc" id="L492">        catalogo.setActivo(false);</span>
-<span class="fc" id="L493">        org.springframework.data.domain.Page&lt;Catalogo&gt; page = new org.springframework.data.domain.PageImpl&lt;&gt;(</span>
-<span class="fc" id="L494">            Arrays.asList(catalogo)</span>
+        
+<span class="fc" id="L482">        org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(0, 10);</span>
+<span class="fc" id="L483">        catalogo.setActivo(false);</span>
+<span class="fc" id="L484">        org.springframework.data.domain.Page&lt;Catalogo&gt; page = new org.springframework.data.domain.PageImpl&lt;&gt;(</span>
+<span class="fc" id="L485">            Arrays.asList(catalogo)</span>
         );
         
-<span class="fc" id="L497">        when(catalogoRepository.findByTipoAndActivoFalseOrderByValorAsc(TipoCatalogo.HUMEDAD, pageable))</span>
-<span class="fc" id="L498">            .thenReturn(page);</span>
+<span class="fc" id="L488">        when(catalogoRepository.findByTipoAndActivoFalseOrderByValorAsc(TipoCatalogo.HUMEDAD, pageable))</span>
+<span class="fc" id="L489">            .thenReturn(page);</span>
 
-        // ACT
-<span class="fc" id="L501">        org.springframework.data.domain.Page&lt;CatalogoDTO&gt; resultado = </span>
-<span class="fc" id="L502">            catalogoService.obtenerCatalogosPaginadosConFiltros(pageable, null, false, &quot;HUMEDAD&quot;);</span>
+        
+<span class="fc" id="L492">        org.springframework.data.domain.Page&lt;CatalogoDTO&gt; resultado = </span>
+<span class="fc" id="L493">            catalogoService.obtenerCatalogosPaginadosConFiltros(pageable, null, false, &quot;HUMEDAD&quot;);</span>
 
-        // ASSERT
-<span class="fc" id="L505">        assertNotNull(resultado);</span>
-<span class="fc" id="L506">        assertEquals(1, resultado.getContent().size());</span>
-<span class="fc" id="L507">    }</span>
+        
+<span class="fc" id="L496">        assertNotNull(resultado);</span>
+<span class="fc" id="L497">        assertEquals(1, resultado.getContent().size());</span>
+<span class="fc" id="L498">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener catálogos paginados con filtros - con tipo sin búsqueda sin filtro activo&quot;)
     void obtenerCatalogosPaginadosConFiltros_conTipoSinBusquedaSinFiltroActivo_debeFiltrar() {
-        // ARRANGE
-<span class="fc" id="L513">        org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(0, 10);</span>
-<span class="fc" id="L514">        org.springframework.data.domain.Page&lt;Catalogo&gt; page = new org.springframework.data.domain.PageImpl&lt;&gt;(</span>
-<span class="fc" id="L515">            Arrays.asList(catalogo)</span>
+        
+<span class="fc" id="L504">        org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(0, 10);</span>
+<span class="fc" id="L505">        org.springframework.data.domain.Page&lt;Catalogo&gt; page = new org.springframework.data.domain.PageImpl&lt;&gt;(</span>
+<span class="fc" id="L506">            Arrays.asList(catalogo)</span>
         );
         
-<span class="fc" id="L518">        when(catalogoRepository.findByTipoOrderByValorAsc(TipoCatalogo.HUMEDAD, pageable))</span>
-<span class="fc" id="L519">            .thenReturn(page);</span>
+<span class="fc" id="L509">        when(catalogoRepository.findByTipoOrderByValorAsc(TipoCatalogo.HUMEDAD, pageable))</span>
+<span class="fc" id="L510">            .thenReturn(page);</span>
 
-        // ACT
-<span class="fc" id="L522">        org.springframework.data.domain.Page&lt;CatalogoDTO&gt; resultado = </span>
-<span class="fc" id="L523">            catalogoService.obtenerCatalogosPaginadosConFiltros(pageable, null, null, &quot;HUMEDAD&quot;);</span>
+        
+<span class="fc" id="L513">        org.springframework.data.domain.Page&lt;CatalogoDTO&gt; resultado = </span>
+<span class="fc" id="L514">            catalogoService.obtenerCatalogosPaginadosConFiltros(pageable, null, null, &quot;HUMEDAD&quot;);</span>
 
-        // ASSERT
-<span class="fc" id="L526">        assertNotNull(resultado);</span>
-<span class="fc" id="L527">        assertEquals(1, resultado.getContent().size());</span>
-<span class="fc" id="L528">    }</span>
+        
+<span class="fc" id="L517">        assertNotNull(resultado);</span>
+<span class="fc" id="L518">        assertEquals(1, resultado.getContent().size());</span>
+<span class="fc" id="L519">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener catálogos paginados con filtros - con tipo inválido&quot;)
     void obtenerCatalogosPaginadosConFiltros_conTipoInvalido_debeRetornarVacio() {
-        // ARRANGE
-<span class="fc" id="L534">        org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(0, 10);</span>
+        
+<span class="fc" id="L525">        org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(0, 10);</span>
 
-        // ACT
-<span class="fc" id="L537">        org.springframework.data.domain.Page&lt;CatalogoDTO&gt; resultado = </span>
-<span class="fc" id="L538">            catalogoService.obtenerCatalogosPaginadosConFiltros(pageable, null, true, &quot;TIPO_INVALIDO&quot;);</span>
+        
+<span class="fc" id="L528">        org.springframework.data.domain.Page&lt;CatalogoDTO&gt; resultado = </span>
+<span class="fc" id="L529">            catalogoService.obtenerCatalogosPaginadosConFiltros(pageable, null, true, &quot;TIPO_INVALIDO&quot;);</span>
 
-        // ASSERT
-<span class="fc" id="L541">        assertNotNull(resultado);</span>
-<span class="fc" id="L542">        assertTrue(resultado.isEmpty());</span>
-<span class="fc" id="L543">    }</span>
+        
+<span class="fc" id="L532">        assertNotNull(resultado);</span>
+<span class="fc" id="L533">        assertTrue(resultado.isEmpty());</span>
+<span class="fc" id="L534">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener catálogos paginados con filtros - sin tipo con búsqueda activos&quot;)
     void obtenerCatalogosPaginadosConFiltros_sinTipoConBusquedaActivos_debeFiltrar() {
-        // ARRANGE
-<span class="fc" id="L549">        org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(0, 10);</span>
         
-<span class="fc" id="L551">        when(catalogoRepository.findByActivoTrue())</span>
-<span class="fc" id="L552">            .thenReturn(Arrays.asList(catalogo));</span>
+<span class="fc" id="L540">        org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(0, 10);</span>
+        
+<span class="fc" id="L542">        when(catalogoRepository.findByActivoTrue())</span>
+<span class="fc" id="L543">            .thenReturn(Arrays.asList(catalogo));</span>
 
-        // ACT
-<span class="fc" id="L555">        org.springframework.data.domain.Page&lt;CatalogoDTO&gt; resultado = </span>
-<span class="fc" id="L556">            catalogoService.obtenerCatalogosPaginadosConFiltros(pageable, &quot;10&quot;, true, null);</span>
+        
+<span class="fc" id="L546">        org.springframework.data.domain.Page&lt;CatalogoDTO&gt; resultado = </span>
+<span class="fc" id="L547">            catalogoService.obtenerCatalogosPaginadosConFiltros(pageable, &quot;10&quot;, true, null);</span>
 
-        // ASSERT
-<span class="fc" id="L559">        assertNotNull(resultado);</span>
-<span class="fc" id="L560">        assertEquals(1, resultado.getContent().size());</span>
-<span class="fc" id="L561">    }</span>
+        
+<span class="fc" id="L550">        assertNotNull(resultado);</span>
+<span class="fc" id="L551">        assertEquals(1, resultado.getContent().size());</span>
+<span class="fc" id="L552">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener catálogos paginados con filtros - sin tipo con búsqueda inactivos&quot;)
     void obtenerCatalogosPaginadosConFiltros_sinTipoConBusquedaInactivos_debeFiltrar() {
-        // ARRANGE
-<span class="fc" id="L567">        org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(0, 10);</span>
-<span class="fc" id="L568">        catalogo.setActivo(false);</span>
         
-<span class="fc" id="L570">        when(catalogoRepository.findAll())</span>
-<span class="fc" id="L571">            .thenReturn(Arrays.asList(catalogo));</span>
+<span class="fc" id="L558">        org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(0, 10);</span>
+<span class="fc" id="L559">        catalogo.setActivo(false);</span>
+        
+<span class="fc" id="L561">        when(catalogoRepository.findAll())</span>
+<span class="fc" id="L562">            .thenReturn(Arrays.asList(catalogo));</span>
 
-        // ACT
-<span class="fc" id="L574">        org.springframework.data.domain.Page&lt;CatalogoDTO&gt; resultado = </span>
-<span class="fc" id="L575">            catalogoService.obtenerCatalogosPaginadosConFiltros(pageable, &quot;10&quot;, false, null);</span>
+        
+<span class="fc" id="L565">        org.springframework.data.domain.Page&lt;CatalogoDTO&gt; resultado = </span>
+<span class="fc" id="L566">            catalogoService.obtenerCatalogosPaginadosConFiltros(pageable, &quot;10&quot;, false, null);</span>
 
-        // ASSERT
-<span class="fc" id="L578">        assertNotNull(resultado);</span>
-<span class="fc" id="L579">        assertEquals(1, resultado.getContent().size());</span>
-<span class="fc" id="L580">    }</span>
+        
+<span class="fc" id="L569">        assertNotNull(resultado);</span>
+<span class="fc" id="L570">        assertEquals(1, resultado.getContent().size());</span>
+<span class="fc" id="L571">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener catálogos paginados con filtros - sin tipo con búsqueda sin filtro activo&quot;)
     void obtenerCatalogosPaginadosConFiltros_sinTipoConBusquedaSinFiltroActivo_debeFiltrar() {
-        // ARRANGE
-<span class="fc" id="L586">        org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(0, 10);</span>
         
-<span class="fc" id="L588">        when(catalogoRepository.findAll())</span>
-<span class="fc" id="L589">            .thenReturn(Arrays.asList(catalogo));</span>
+<span class="fc" id="L577">        org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(0, 10);</span>
+        
+<span class="fc" id="L579">        when(catalogoRepository.findAll())</span>
+<span class="fc" id="L580">            .thenReturn(Arrays.asList(catalogo));</span>
 
-        // ACT
-<span class="fc" id="L592">        org.springframework.data.domain.Page&lt;CatalogoDTO&gt; resultado = </span>
-<span class="fc" id="L593">            catalogoService.obtenerCatalogosPaginadosConFiltros(pageable, &quot;10&quot;, null, null);</span>
+        
+<span class="fc" id="L583">        org.springframework.data.domain.Page&lt;CatalogoDTO&gt; resultado = </span>
+<span class="fc" id="L584">            catalogoService.obtenerCatalogosPaginadosConFiltros(pageable, &quot;10&quot;, null, null);</span>
 
-        // ASSERT
-<span class="fc" id="L596">        assertNotNull(resultado);</span>
-<span class="fc" id="L597">        assertEquals(1, resultado.getContent().size());</span>
-<span class="fc" id="L598">    }</span>
+        
+<span class="fc" id="L587">        assertNotNull(resultado);</span>
+<span class="fc" id="L588">        assertEquals(1, resultado.getContent().size());</span>
+<span class="fc" id="L589">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener catálogos paginados con filtros - sin tipo sin búsqueda activos&quot;)
     void obtenerCatalogosPaginadosConFiltros_sinTipoSinBusquedaActivos_debeFiltrar() {
-        // ARRANGE
-<span class="fc" id="L604">        org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(0, 10);</span>
-<span class="fc" id="L605">        org.springframework.data.domain.Page&lt;Catalogo&gt; page = new org.springframework.data.domain.PageImpl&lt;&gt;(</span>
-<span class="fc" id="L606">            Arrays.asList(catalogo)</span>
+        
+<span class="fc" id="L595">        org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(0, 10);</span>
+<span class="fc" id="L596">        org.springframework.data.domain.Page&lt;Catalogo&gt; page = new org.springframework.data.domain.PageImpl&lt;&gt;(</span>
+<span class="fc" id="L597">            Arrays.asList(catalogo)</span>
         );
         
-<span class="fc" id="L609">        when(catalogoRepository.findByActivoTrueOrderByTipoAscValorAsc(pageable))</span>
-<span class="fc" id="L610">            .thenReturn(page);</span>
+<span class="fc" id="L600">        when(catalogoRepository.findByActivoTrueOrderByTipoAscValorAsc(pageable))</span>
+<span class="fc" id="L601">            .thenReturn(page);</span>
 
-        // ACT
-<span class="fc" id="L613">        org.springframework.data.domain.Page&lt;CatalogoDTO&gt; resultado = </span>
-<span class="fc" id="L614">            catalogoService.obtenerCatalogosPaginadosConFiltros(pageable, null, true, null);</span>
+        
+<span class="fc" id="L604">        org.springframework.data.domain.Page&lt;CatalogoDTO&gt; resultado = </span>
+<span class="fc" id="L605">            catalogoService.obtenerCatalogosPaginadosConFiltros(pageable, null, true, null);</span>
 
-        // ASSERT
-<span class="fc" id="L617">        assertNotNull(resultado);</span>
-<span class="fc" id="L618">        assertEquals(1, resultado.getContent().size());</span>
-<span class="fc" id="L619">    }</span>
+        
+<span class="fc" id="L608">        assertNotNull(resultado);</span>
+<span class="fc" id="L609">        assertEquals(1, resultado.getContent().size());</span>
+<span class="fc" id="L610">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener catálogos paginados con filtros - sin tipo sin búsqueda inactivos&quot;)
     void obtenerCatalogosPaginadosConFiltros_sinTipoSinBusquedaInactivos_debeFiltrar() {
-        // ARRANGE
-<span class="fc" id="L625">        org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(0, 10);</span>
-<span class="fc" id="L626">        catalogo.setActivo(false);</span>
-<span class="fc" id="L627">        org.springframework.data.domain.Page&lt;Catalogo&gt; page = new org.springframework.data.domain.PageImpl&lt;&gt;(</span>
-<span class="fc" id="L628">            Arrays.asList(catalogo)</span>
+        
+<span class="fc" id="L616">        org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(0, 10);</span>
+<span class="fc" id="L617">        catalogo.setActivo(false);</span>
+<span class="fc" id="L618">        org.springframework.data.domain.Page&lt;Catalogo&gt; page = new org.springframework.data.domain.PageImpl&lt;&gt;(</span>
+<span class="fc" id="L619">            Arrays.asList(catalogo)</span>
         );
         
-<span class="fc" id="L631">        when(catalogoRepository.findByActivoFalseOrderByTipoAscValorAsc(pageable))</span>
-<span class="fc" id="L632">            .thenReturn(page);</span>
+<span class="fc" id="L622">        when(catalogoRepository.findByActivoFalseOrderByTipoAscValorAsc(pageable))</span>
+<span class="fc" id="L623">            .thenReturn(page);</span>
 
-        // ACT
-<span class="fc" id="L635">        org.springframework.data.domain.Page&lt;CatalogoDTO&gt; resultado = </span>
-<span class="fc" id="L636">            catalogoService.obtenerCatalogosPaginadosConFiltros(pageable, null, false, null);</span>
+        
+<span class="fc" id="L626">        org.springframework.data.domain.Page&lt;CatalogoDTO&gt; resultado = </span>
+<span class="fc" id="L627">            catalogoService.obtenerCatalogosPaginadosConFiltros(pageable, null, false, null);</span>
 
-        // ASSERT
-<span class="fc" id="L639">        assertNotNull(resultado);</span>
-<span class="fc" id="L640">        assertEquals(1, resultado.getContent().size());</span>
-<span class="fc" id="L641">    }</span>
+        
+<span class="fc" id="L630">        assertNotNull(resultado);</span>
+<span class="fc" id="L631">        assertEquals(1, resultado.getContent().size());</span>
+<span class="fc" id="L632">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener catálogos paginados con filtros - sin tipo sin búsqueda sin filtro activo&quot;)
     void obtenerCatalogosPaginadosConFiltros_sinTipoSinBusquedaSinFiltroActivo_debeFiltrar() {
-        // ARRANGE
-<span class="fc" id="L647">        org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(0, 10);</span>
-<span class="fc" id="L648">        org.springframework.data.domain.Page&lt;Catalogo&gt; page = new org.springframework.data.domain.PageImpl&lt;&gt;(</span>
-<span class="fc" id="L649">            Arrays.asList(catalogo)</span>
+        
+<span class="fc" id="L638">        org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(0, 10);</span>
+<span class="fc" id="L639">        org.springframework.data.domain.Page&lt;Catalogo&gt; page = new org.springframework.data.domain.PageImpl&lt;&gt;(</span>
+<span class="fc" id="L640">            Arrays.asList(catalogo)</span>
         );
         
-<span class="fc" id="L652">        when(catalogoRepository.findAllByOrderByTipoAscValorAsc(pageable))</span>
-<span class="fc" id="L653">            .thenReturn(page);</span>
+<span class="fc" id="L643">        when(catalogoRepository.findAllByOrderByTipoAscValorAsc(pageable))</span>
+<span class="fc" id="L644">            .thenReturn(page);</span>
 
-        // ACT
-<span class="fc" id="L656">        org.springframework.data.domain.Page&lt;CatalogoDTO&gt; resultado = </span>
-<span class="fc" id="L657">            catalogoService.obtenerCatalogosPaginadosConFiltros(pageable, null, null, null);</span>
+        
+<span class="fc" id="L647">        org.springframework.data.domain.Page&lt;CatalogoDTO&gt; resultado = </span>
+<span class="fc" id="L648">            catalogoService.obtenerCatalogosPaginadosConFiltros(pageable, null, null, null);</span>
 
-        // ASSERT
-<span class="fc" id="L660">        assertNotNull(resultado);</span>
-<span class="fc" id="L661">        assertEquals(1, resultado.getContent().size());</span>
-<span class="fc" id="L662">    }</span>
+        
+<span class="fc" id="L651">        assertNotNull(resultado);</span>
+<span class="fc" id="L652">        assertEquals(1, resultado.getContent().size());</span>
+<span class="fc" id="L653">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener catálogos paginados con filtros - con tipo y búsqueda inactivos&quot;)
     void obtenerCatalogosPaginadosConFiltros_conTipoYBusquedaInactivos_debeFiltrar() {
-        // ARRANGE
-<span class="fc" id="L668">        org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(0, 10);</span>
-<span class="fc" id="L669">        catalogo.setActivo(false);</span>
         
-<span class="fc" id="L671">        when(catalogoRepository.findByTipoAndActivoFalse(TipoCatalogo.HUMEDAD))</span>
-<span class="fc" id="L672">            .thenReturn(Arrays.asList(catalogo));</span>
+<span class="fc" id="L659">        org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(0, 10);</span>
+<span class="fc" id="L660">        catalogo.setActivo(false);</span>
+        
+<span class="fc" id="L662">        when(catalogoRepository.findByTipoAndActivoFalse(TipoCatalogo.HUMEDAD))</span>
+<span class="fc" id="L663">            .thenReturn(Arrays.asList(catalogo));</span>
 
-        // ACT
-<span class="fc" id="L675">        org.springframework.data.domain.Page&lt;CatalogoDTO&gt; resultado = </span>
-<span class="fc" id="L676">            catalogoService.obtenerCatalogosPaginadosConFiltros(pageable, &quot;10&quot;, false, &quot;HUMEDAD&quot;);</span>
+        
+<span class="fc" id="L666">        org.springframework.data.domain.Page&lt;CatalogoDTO&gt; resultado = </span>
+<span class="fc" id="L667">            catalogoService.obtenerCatalogosPaginadosConFiltros(pageable, &quot;10&quot;, false, &quot;HUMEDAD&quot;);</span>
 
-        // ASSERT
-<span class="fc" id="L679">        assertNotNull(resultado);</span>
-<span class="fc" id="L680">        assertEquals(1, resultado.getContent().size());</span>
-<span class="fc" id="L681">    }</span>
+        
+<span class="fc" id="L670">        assertNotNull(resultado);</span>
+<span class="fc" id="L671">        assertEquals(1, resultado.getContent().size());</span>
+<span class="fc" id="L672">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener catálogos paginados con filtros - con tipo y búsqueda sin filtro activo&quot;)
     void obtenerCatalogosPaginadosConFiltros_conTipoYBusquedaSinFiltroActivo_debeFiltrar() {
-        // ARRANGE
-<span class="fc" id="L687">        org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(0, 10);</span>
         
-<span class="fc" id="L689">        when(catalogoRepository.findByTipo(TipoCatalogo.HUMEDAD))</span>
-<span class="fc" id="L690">            .thenReturn(Arrays.asList(catalogo));</span>
+<span class="fc" id="L678">        org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(0, 10);</span>
+        
+<span class="fc" id="L680">        when(catalogoRepository.findByTipo(TipoCatalogo.HUMEDAD))</span>
+<span class="fc" id="L681">            .thenReturn(Arrays.asList(catalogo));</span>
 
-        // ACT
-<span class="fc" id="L693">        org.springframework.data.domain.Page&lt;CatalogoDTO&gt; resultado = </span>
-<span class="fc" id="L694">            catalogoService.obtenerCatalogosPaginadosConFiltros(pageable, &quot;10&quot;, null, &quot;HUMEDAD&quot;);</span>
+        
+<span class="fc" id="L684">        org.springframework.data.domain.Page&lt;CatalogoDTO&gt; resultado = </span>
+<span class="fc" id="L685">            catalogoService.obtenerCatalogosPaginadosConFiltros(pageable, &quot;10&quot;, null, &quot;HUMEDAD&quot;);</span>
 
-        // ASSERT
-<span class="fc" id="L697">        assertNotNull(resultado);</span>
-<span class="fc" id="L698">        assertEquals(1, resultado.getContent().size());</span>
-<span class="fc" id="L699">    }</span>
+        
+<span class="fc" id="L688">        assertNotNull(resultado);</span>
+<span class="fc" id="L689">        assertEquals(1, resultado.getContent().size());</span>
+<span class="fc" id="L690">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener catálogos paginados con filtros - con búsqueda sin coincidencias&quot;)
     void obtenerCatalogosPaginadosConFiltros_conBusquedaSinCoincidencias_debeRetornarVacio() {
-        // ARRANGE
-<span class="fc" id="L705">        org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(0, 10);</span>
         
-<span class="fc" id="L707">        when(catalogoRepository.findByActivoTrue())</span>
-<span class="fc" id="L708">            .thenReturn(Arrays.asList(catalogo));</span>
+<span class="fc" id="L696">        org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(0, 10);</span>
+        
+<span class="fc" id="L698">        when(catalogoRepository.findByActivoTrue())</span>
+<span class="fc" id="L699">            .thenReturn(Arrays.asList(catalogo));</span>
 
-        // ACT
-<span class="fc" id="L711">        org.springframework.data.domain.Page&lt;CatalogoDTO&gt; resultado = </span>
-<span class="fc" id="L712">            catalogoService.obtenerCatalogosPaginadosConFiltros(pageable, &quot;999&quot;, true, null);</span>
+        
+<span class="fc" id="L702">        org.springframework.data.domain.Page&lt;CatalogoDTO&gt; resultado = </span>
+<span class="fc" id="L703">            catalogoService.obtenerCatalogosPaginadosConFiltros(pageable, &quot;999&quot;, true, null);</span>
 
-        // ASSERT
-<span class="fc" id="L715">        assertNotNull(resultado);</span>
-<span class="fc" id="L716">        assertTrue(resultado.isEmpty());</span>
-<span class="fc" id="L717">    }</span>
+        
+<span class="fc" id="L706">        assertNotNull(resultado);</span>
+<span class="fc" id="L707">        assertTrue(resultado.isEmpty());</span>
+<span class="fc" id="L708">    }</span>
 
     @Test
     @DisplayName(&quot;Actualizar catálogo inexistente - debe retornar null&quot;)
     void actualizar_cuandoNoExiste_debeRetornarNull() {
-        // ARRANGE
-<span class="fc" id="L723">        when(catalogoRepository.findById(999L)).thenReturn(Optional.empty());</span>
+        
+<span class="fc" id="L714">        when(catalogoRepository.findById(999L)).thenReturn(Optional.empty());</span>
 
-        // ACT
-<span class="fc" id="L726">        CatalogoDTO resultado = catalogoService.actualizar(999L, catalogoRequestDTO);</span>
+        
+<span class="fc" id="L717">        CatalogoDTO resultado = catalogoService.actualizar(999L, catalogoRequestDTO);</span>
 
-        // ASSERT
-<span class="fc" id="L729">        assertNull(resultado);</span>
-<span class="fc" id="L730">        verify(catalogoRepository, never()).save(any(Catalogo.class));</span>
-<span class="fc" id="L731">    }</span>
+        
+<span class="fc" id="L720">        assertNull(resultado);</span>
+<span class="fc" id="L721">        verify(catalogoRepository, never()).save(any(Catalogo.class));</span>
+<span class="fc" id="L722">    }</span>
 
     @Test
     @DisplayName(&quot;Reactivar catálogo inexistente - debe retornar null&quot;)
     void reactivar_cuandoNoExiste_debeRetornarNull() {
-        // ARRANGE
-<span class="fc" id="L737">        when(catalogoRepository.findById(999L)).thenReturn(Optional.empty());</span>
+        
+<span class="fc" id="L728">        when(catalogoRepository.findById(999L)).thenReturn(Optional.empty());</span>
 
-        // ACT
-<span class="fc" id="L740">        CatalogoDTO resultado = catalogoService.reactivar(999L);</span>
+        
+<span class="fc" id="L731">        CatalogoDTO resultado = catalogoService.reactivar(999L);</span>
 
-        // ASSERT
-<span class="fc" id="L743">        assertNull(resultado);</span>
-<span class="fc" id="L744">        verify(catalogoRepository, never()).save(any(Catalogo.class));</span>
-<span class="fc" id="L745">    }</span>
+        
+<span class="fc" id="L734">        assertNull(resultado);</span>
+<span class="fc" id="L735">        verify(catalogoRepository, never()).save(any(Catalogo.class));</span>
+<span class="fc" id="L736">    }</span>
 
     @Test
     @DisplayName(&quot;Eliminar catálogo inexistente - no debe lanzar excepción&quot;)
     void eliminar_cuandoNoExiste_noDebeLanzarExcepcion() {
-        // ARRANGE
-<span class="fc" id="L751">        when(catalogoRepository.findById(999L)).thenReturn(Optional.empty());</span>
+        
+<span class="fc" id="L742">        when(catalogoRepository.findById(999L)).thenReturn(Optional.empty());</span>
 
-        // ACT &amp; ASSERT
-<span class="fc" id="L754">        assertDoesNotThrow(() -&gt; catalogoService.eliminar(999L));</span>
-<span class="fc" id="L755">        verify(catalogoRepository, never()).save(any(Catalogo.class));</span>
-<span class="fc" id="L756">    }</span>
+        
+<span class="fc" id="L745">        assertDoesNotThrow(() -&gt; catalogoService.eliminar(999L));</span>
+<span class="fc" id="L746">        verify(catalogoRepository, never()).save(any(Catalogo.class));</span>
+<span class="fc" id="L747">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

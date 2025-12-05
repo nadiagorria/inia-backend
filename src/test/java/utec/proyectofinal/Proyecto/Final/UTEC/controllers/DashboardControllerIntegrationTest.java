@@ -25,9 +25,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import utec.proyectofinal.Proyecto.Final.UTEC.dtos.AnalisisPendienteDTO;
 import utec.proyectofinal.Proyecto.Final.UTEC.dtos.AnalisisPorAprobarDTO;
 import utec.proyectofinal.Proyecto.Final.UTEC.dtos.DashboardStatsDTO;
-import utec.proyectofinal.Proyecto.Final.UTEC.dtos.CursorPageResponse;
 import utec.proyectofinal.Proyecto.Final.UTEC.enums.TipoAnalisis;
-import utec.proyectofinal.Proyecto.Final.UTEC.exceptions.InvalidCursorException;
 import utec.proyectofinal.Proyecto.Final.UTEC.services.DashboardService;
 
 @WebMvcTest(DashboardController.class)
@@ -127,63 +125,6 @@ class DashboardControllerIntegrationTest {
     }
 
     @Test
-    @DisplayName("GET /api/dashboard/analisis-pendientes/keyset - Debe obtener con cursor")
-    @WithMockUser(roles = "ANALISTA")
-    void obtenerAnalisisPendientesKeyset_debeRetornarCursorPage() throws Exception {
-        CursorPageResponse<AnalisisPendienteDTO> response = new CursorPageResponse<>();
-        response.setItems(Arrays.asList(analisisPendiente));
-        response.setNextCursor("base64cursor");
-        response.setHasMore(true);
-        response.setSize(20);
-
-        when(dashboardService.listarAnalisisPendientesKeyset(null, 20)).thenReturn(response);
-
-        mockMvc.perform(get("/api/dashboard/analisis-pendientes/keyset")
-                .param("size", "20")
-                .with(csrf()))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.items.length()").value(1))
-                .andExpect(jsonPath("$.nextCursor").value("base64cursor"))
-                .andExpect(jsonPath("$.hasMore").value(true));
-    }
-
-    @Test
-    @DisplayName("GET /api/dashboard/analisis-pendientes/keyset - Debe manejar cursor inválido")
-    @WithMockUser(roles = "ANALISTA")
-    void obtenerAnalisisPendientesKeyset_conCursorInvalido_debeRetornar400() throws Exception {
-        when(dashboardService.listarAnalisisPendientesKeyset("invalid", 20))
-            .thenThrow(new InvalidCursorException("Cursor inválido"));
-
-        mockMvc.perform(get("/api/dashboard/analisis-pendientes/keyset")
-                .param("cursor", "invalid")
-                .param("size", "20")
-                .with(csrf()))
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.error").exists());
-    }
-
-    @Test
-    @DisplayName("GET /api/dashboard/analisis-por-aprobar/keyset - Debe obtener con cursor para ADMIN")
-    @WithMockUser(roles = "ADMIN")
-    void obtenerAnalisisPorAprobarKeyset_conRolAdmin_debeRetornarCursorPage() throws Exception {
-        CursorPageResponse<AnalisisPorAprobarDTO> response = new CursorPageResponse<>();
-        response.setItems(Arrays.asList(analisisPorAprobar));
-        response.setNextCursor("base64cursor2");
-        response.setHasMore(false);
-        response.setSize(20);
-
-        when(dashboardService.listarAnalisisPorAprobarKeyset(null, 20)).thenReturn(response);
-
-        mockMvc.perform(get("/api/dashboard/analisis-por-aprobar/keyset")
-                .param("size", "20")
-                .with(csrf()))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.items.length()").value(1))
-                .andExpect(jsonPath("$.nextCursor").value("base64cursor2"))
-                .andExpect(jsonPath("$.hasMore").value(false));
-    }
-
-    @Test
     @DisplayName("GET /api/dashboard/analisis-pendientes - Debe usar valores por defecto de paginación")
     @WithMockUser(roles = "ANALISTA")
     void obtenerAnalisisPendientes_sinParametros_debeUsarDefaults() throws Exception {
@@ -216,47 +157,6 @@ class DashboardControllerIntegrationTest {
             .thenThrow(new RuntimeException("Error en servicio"));
 
         mockMvc.perform(get("/api/dashboard/analisis-por-aprobar")
-                .with(csrf()))
-                .andExpect(status().isInternalServerError());
-    }
-
-    @Test
-    @DisplayName("GET /api/dashboard/analisis-pendientes/keyset - Debe manejar error genérico")
-    @WithMockUser(roles = "ANALISTA")
-    void obtenerAnalisisPendientesKeyset_conErrorGenerico_debeRetornar500() throws Exception {
-        when(dashboardService.listarAnalisisPendientesKeyset(null, 20))
-            .thenThrow(new RuntimeException("Error inesperado"));
-
-        mockMvc.perform(get("/api/dashboard/analisis-pendientes/keyset")
-                .param("size", "20")
-                .with(csrf()))
-                .andExpect(status().isInternalServerError());
-    }
-
-    @Test
-    @DisplayName("GET /api/dashboard/analisis-por-aprobar/keyset - Debe manejar cursor inválido")
-    @WithMockUser(roles = "ADMIN")
-    void obtenerAnalisisPorAprobarKeyset_conCursorInvalido_debeRetornar400() throws Exception {
-        when(dashboardService.listarAnalisisPorAprobarKeyset("invalidCursor", 20))
-            .thenThrow(new InvalidCursorException("Cursor inválido o corrupto"));
-
-        mockMvc.perform(get("/api/dashboard/analisis-por-aprobar/keyset")
-                .param("cursor", "invalidCursor")
-                .param("size", "20")
-                .with(csrf()))
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.error").exists());
-    }
-
-    @Test
-    @DisplayName("GET /api/dashboard/analisis-por-aprobar/keyset - Debe manejar error genérico")
-    @WithMockUser(roles = "ADMIN")
-    void obtenerAnalisisPorAprobarKeyset_conErrorGenerico_debeRetornar500() throws Exception {
-        when(dashboardService.listarAnalisisPorAprobarKeyset(null, 20))
-            .thenThrow(new RuntimeException("Error inesperado en servicio"));
-
-        mockMvc.perform(get("/api/dashboard/analisis-por-aprobar/keyset")
-                .param("size", "20")
                 .with(csrf()))
                 .andExpect(status().isInternalServerError());
     }

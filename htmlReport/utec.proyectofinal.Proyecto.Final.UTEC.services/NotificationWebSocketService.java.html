@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NotificationWebSocketService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">NotificationWebSocketService.java</span></div><h1>NotificationWebSocketService.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NotificationWebSocketService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">NotificationWebSocketService.java</span></div><h1>NotificationWebSocketService.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -9,197 +9,98 @@ import utec.proyectofinal.Proyecto.Final.UTEC.enums.Rol;
 
 import java.util.List;
 
-/**
- * Servicio para enviar notificaciones en tiempo real via WebSocket
- * 
- * ¿Qué hace esta clase?
- * - Encapsula la lógica de emisión de mensajes WebSocket
- * - Permite enviar notificaciones a usuarios específicos o grupos
- * - Usa SimpMessagingTemplate (Simple Messaging Template) de Spring
- * 
- * ¿Qué es SimpMessagingTemplate?
- * Es una clase de Spring que facilita el envío de mensajes a través de WebSocket.
- * Piensa en ella como un &quot;servicio postal&quot; que entrega mensajes a las direcciones correctas.
- * 
- * Tipos de envío:
- * 1. sendToUser() - Enviar a UN usuario específico (privado)
- * 2. convertAndSend() - Broadcast a un canal (múltiples usuarios)
- * 3. broadcastToRole() - Enviar a todos los usuarios con un rol específico
- * 
- * Estructura de canales:
- * - /user/{userId}/queue/notifications - Notificaciones privadas de un usuario
- * - /user/{userId}/queue/notifications/count - Contador de no leídas
- * - /topic/notifications/{rol} - Broadcast a un rol específico
- * - /topic/notifications/all - Broadcast a todos
- */
-@Service
-<span class="fc" id="L36">public class NotificationWebSocketService {</span>
 
-    /**
-     * Template de Spring para enviar mensajes WebSocket
-     * Se inyecta automáticamente por Spring
-     */
+@Service
+<span class="fc" id="L14">public class NotificationWebSocketService {</span>
+
+    
     @Autowired
     private SimpMessagingTemplate messagingTemplate;
 
-    /**
-     * Enviar notificación a un usuario específico
-     * 
-     * Ejemplo de uso:
-     * sendToUser(123, nuevaNotificacion);
-     * 
-     * El usuario con ID 123 recibirá la notificación en:
-     * /user/123/queue/notifications
-     * 
-     * @param usuarioId ID del usuario destinatario
-     * @param notification Objeto NotificacionDTO a enviar
-     */
+    
     public void sendToUser(Integer usuarioId, NotificacionDTO notification) {
         try {
-<span class="fc" id="L59">            messagingTemplate.convertAndSendToUser(</span>
-<span class="fc" id="L60">                usuarioId.toString(),           // Destinatario (userId)</span>
-<span class="fc" id="L61">                &quot;/queue/notifications&quot;,         // Canal destino</span>
-<span class="fc" id="L62">                notification                     // Payload (datos)</span>
+<span class="fc" id="L23">            messagingTemplate.convertAndSendToUser(</span>
+<span class="fc" id="L24">                usuarioId.toString(),           // Destinatario (userId)</span>
+                &quot;/queue/notifications&quot;,         // Canal destino
+                notification                     // Payload (datos)
             );
-<span class="fc" id="L64">            System.out.println(&quot; Notificación enviada a usuario &quot; + usuarioId + &quot;: &quot; + notification.getNombre());</span>
-<span class="fc" id="L65">        } catch (Exception e) {</span>
-<span class="fc" id="L66">            System.err.println(&quot; Error enviando notificación WebSocket a usuario &quot; + usuarioId + &quot;: &quot; + e.getMessage());</span>
-        }
-<span class="fc" id="L68">    }</span>
+<span class="fc" id="L28">            System.out.println(&quot; Notificación enviada a usuario &quot; + usuarioId + &quot;: &quot; + notification.getNombre());</span>
+<span class="fc" id="L29">        } catch (Exception e) {</span>
+<span class="fc" id="L30">            System.err.println(&quot; Error enviando notificación WebSocket a usuario &quot; + usuarioId + &quot;: &quot; + e.getMessage());</span>
+<span class="fc" id="L31">        }</span>
+<span class="fc" id="L32">    }</span>
 
-    /**
-     * Enviar notificación a múltiples usuarios
-     * 
-     * Ejemplo de uso:
-     * List&lt;Integer&gt; adminIds = Arrays.asList(1, 2, 3);
-     * sendToUsers(adminIds, nuevaNotificacion);
-     * 
-     * Cada admin recibirá la notificación individualmente
-     * 
-     * @param usuarioIds Lista de IDs de usuarios
-     * @param notification Notificación a enviar
-     */
+    
     public void sendToUsers(List&lt;Integer&gt; usuarioIds, NotificacionDTO notification) {
-<span class="fc" id="L83">        usuarioIds.forEach(userId -&gt; sendToUser(userId, notification));</span>
-<span class="fc" id="L84">        System.out.println(&quot; Notificación enviada a &quot; + usuarioIds.size() + &quot; usuarios&quot;);</span>
-<span class="fc" id="L85">    }</span>
+<span class="fc" id="L36">        usuarioIds.forEach(userId -&gt; sendToUser(userId, notification));</span>
+<span class="fc" id="L37">        System.out.println(&quot; Notificación enviada a &quot; + usuarioIds.size() + &quot; usuarios&quot;);</span>
+<span class="fc" id="L38">    }</span>
 
-    /**
-     * Broadcast a todos los usuarios con un rol específico
-     * 
-     * Ejemplo de uso:
-     * broadcastToRole(Rol.ADMIN, nuevaNotificacion);
-     * 
-     * IMPORTANTE: Los clientes deben suscribirse al canal:
-     * /topic/notifications/admin (para admins)
-     * /topic/notifications/analista (para analistas)
-     * 
-     * ¿Cuándo usar esto vs sendToUser?
-     * - sendToUser: Cuando sabes exactamente los IDs de usuarios
-     * - broadcastToRole: Cuando quieres que TODOS los que tienen un rol lo reciban
-     *                    sin necesidad de buscar sus IDs
-     * 
-     * @param rol Rol objetivo (ADMIN, ANALISTA, OBSERVADOR)
-     * @param notification Notificación a enviar
-     */
+    
     public void broadcastToRole(Rol rol, NotificacionDTO notification) {
         try {
-<span class="fc" id="L107">            String destination = &quot;/topic/notifications/&quot; + rol.name().toLowerCase();</span>
-<span class="fc" id="L108">            messagingTemplate.convertAndSend(destination, notification);</span>
-<span class="fc" id="L109">            System.out.println(&quot; Broadcast a rol &quot; + rol.name() + &quot;: &quot; + notification.getNombre());</span>
-<span class="fc" id="L110">        } catch (Exception e) {</span>
-<span class="fc" id="L111">            System.err.println(&quot; Error en broadcast a rol &quot; + rol.name() + &quot;: &quot; + e.getMessage());</span>
-        }
-<span class="fc" id="L113">    }</span>
+<span class="fc" id="L43">            String destination = &quot;/topic/notifications/&quot; + rol.name().toLowerCase();</span>
+<span class="fc" id="L44">            messagingTemplate.convertAndSend(destination, notification);</span>
+<span class="fc" id="L45">            System.out.println(&quot; Broadcast a rol &quot; + rol.name() + &quot;: &quot; + notification.getNombre());</span>
+<span class="fc" id="L46">        } catch (Exception e) {</span>
+<span class="fc" id="L47">            System.err.println(&quot; Error en broadcast a rol &quot; + rol.name() + &quot;: &quot; + e.getMessage());</span>
+<span class="fc" id="L48">        }</span>
+<span class="fc" id="L49">    }</span>
 
-    /**
-     * Broadcast general a TODOS los usuarios conectados
-     * 
-     * Ejemplo de uso:
-     * broadcast(mantenimientoNotificacion);
-     * 
-     * Útil para:
-     * - Notificaciones de mantenimiento del sistema
-     * - Anuncios generales
-     * - Actualizaciones importantes
-     * 
-     * @param notification Notificación a enviar a todos
-     */
+    
     public void broadcast(NotificacionDTO notification) {
         try {
-<span class="fc" id="L130">            messagingTemplate.convertAndSend(</span>
-<span class="fc" id="L131">                &quot;/topic/notifications/all&quot;,</span>
-<span class="fc" id="L132">                notification</span>
+<span class="fc" id="L54">            messagingTemplate.convertAndSend(</span>
+                &quot;/topic/notifications/all&quot;,
+                notification
             );
-<span class="fc" id="L134">            System.out.println(&quot; Broadcast global: &quot; + notification.getNombre());</span>
-<span class="fc" id="L135">        } catch (Exception e) {</span>
-<span class="fc" id="L136">            System.err.println(&quot; Error en broadcast global: &quot; + e.getMessage());</span>
-        }
-<span class="fc" id="L138">    }</span>
+<span class="fc" id="L58">            System.out.println(&quot; Broadcast global: &quot; + notification.getNombre());</span>
+<span class="fc" id="L59">        } catch (Exception e) {</span>
+<span class="fc" id="L60">            System.err.println(&quot; Error en broadcast global: &quot; + e.getMessage());</span>
+<span class="fc" id="L61">        }</span>
+<span class="fc" id="L62">    }</span>
 
-    /**
-     * Enviar contador de notificaciones no leídas actualizado
-     * 
-     * Ejemplo de uso:
-     * sendUnreadCount(123, 5L); // Usuario 123 tiene 5 notificaciones no leídas
-     * 
-     * El frontend recibirá solo el número (sin necesidad de hacer GET)
-     * y actualizará el badge instantáneamente
-     * 
-     * @param usuarioId ID del usuario
-     * @param count Número de notificaciones no leídas
-     */
+    
     public void sendUnreadCount(Integer usuarioId, Long count) {
         try {
-<span class="fc" id="L154">            messagingTemplate.convertAndSendToUser(</span>
-<span class="fc" id="L155">                usuarioId.toString(),</span>
-<span class="fc" id="L156">                &quot;/queue/notifications/count&quot;,</span>
-<span class="fc" id="L157">                count</span>
+<span class="fc" id="L67">            messagingTemplate.convertAndSendToUser(</span>
+<span class="fc" id="L68">                usuarioId.toString(),</span>
+                &quot;/queue/notifications/count&quot;,
+                count
             );
-<span class="fc" id="L159">            System.out.println(&quot; Contador actualizado para usuario &quot; + usuarioId + &quot;: &quot; + count);</span>
-<span class="fc" id="L160">        } catch (Exception e) {</span>
-<span class="fc" id="L161">            System.err.println(&quot; Error enviando contador a usuario &quot; + usuarioId + &quot;: &quot; + e.getMessage());</span>
-        }
-<span class="fc" id="L163">    }</span>
+<span class="fc" id="L72">            System.out.println(&quot; Contador actualizado para usuario &quot; + usuarioId + &quot;: &quot; + count);</span>
+<span class="fc" id="L73">        } catch (Exception e) {</span>
+<span class="fc" id="L74">            System.err.println(&quot; Error enviando contador a usuario &quot; + usuarioId + &quot;: &quot; + e.getMessage());</span>
+<span class="fc" id="L75">        }</span>
+<span class="fc" id="L76">    }</span>
 
-    /**
-     * Enviar evento de notificación marcada como leída
-     * 
-     * Útil para sincronizar múltiples dispositivos/pestañas del mismo usuario
-     * 
-     * @param usuarioId ID del usuario
-     * @param notificacionId ID de la notificación marcada como leída
-     */
+    
     public void sendMarkAsRead(Integer usuarioId, Long notificacionId) {
         try {
-<span class="fc" id="L175">            messagingTemplate.convertAndSendToUser(</span>
-<span class="fc" id="L176">                usuarioId.toString(),</span>
-<span class="fc" id="L177">                &quot;/queue/notifications/mark-read&quot;,</span>
-<span class="fc" id="L178">                notificacionId</span>
+<span class="fc" id="L81">            messagingTemplate.convertAndSendToUser(</span>
+<span class="fc" id="L82">                usuarioId.toString(),</span>
+                &quot;/queue/notifications/mark-read&quot;,
+                notificacionId
             );
-<span class="fc" id="L180">            System.out.println(&quot; Notificación &quot; + notificacionId + &quot; marcada como leída para usuario &quot; + usuarioId);</span>
-<span class="fc" id="L181">        } catch (Exception e) {</span>
-<span class="fc" id="L182">            System.err.println(&quot; Error enviando mark-read: &quot; + e.getMessage());</span>
-        }
-<span class="fc" id="L184">    }</span>
+<span class="fc" id="L86">            System.out.println(&quot; Notificación &quot; + notificacionId + &quot; marcada como leída para usuario &quot; + usuarioId);</span>
+<span class="fc" id="L87">        } catch (Exception e) {</span>
+<span class="fc" id="L88">            System.err.println(&quot; Error enviando mark-read: &quot; + e.getMessage());</span>
+<span class="fc" id="L89">        }</span>
+<span class="fc" id="L90">    }</span>
 
-    /**
-     * Enviar evento de notificación eliminada
-     * 
-     * @param usuarioId ID del usuario
-     * @param notificacionId ID de la notificación eliminada
-     */
+    
     public void sendDeleted(Integer usuarioId, Long notificacionId) {
         try {
-<span class="fc" id="L194">            messagingTemplate.convertAndSendToUser(</span>
-<span class="fc" id="L195">                usuarioId.toString(),</span>
-<span class="fc" id="L196">                &quot;/queue/notifications/deleted&quot;,</span>
-<span class="fc" id="L197">                notificacionId</span>
+<span class="fc" id="L95">            messagingTemplate.convertAndSendToUser(</span>
+<span class="fc" id="L96">                usuarioId.toString(),</span>
+                &quot;/queue/notifications/deleted&quot;,
+                notificacionId
             );
-<span class="fc" id="L199">            System.out.println(&quot; Notificación &quot; + notificacionId + &quot; eliminada para usuario &quot; + usuarioId);</span>
-<span class="fc" id="L200">        } catch (Exception e) {</span>
-<span class="fc" id="L201">            System.err.println(&quot; Error enviando deleted: &quot; + e.getMessage());</span>
-        }
-<span class="fc" id="L203">    }</span>
+<span class="fc" id="L100">            System.out.println(&quot; Notificación &quot; + notificacionId + &quot; eliminada para usuario &quot; + usuarioId);</span>
+<span class="fc" id="L101">        } catch (Exception e) {</span>
+<span class="fc" id="L102">            System.err.println(&quot; Error enviando deleted: &quot; + e.getMessage());</span>
+<span class="fc" id="L103">        }</span>
+<span class="fc" id="L104">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

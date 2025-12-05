@@ -7,8 +7,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import utec.proyectofinal.Proyecto.Final.UTEC.dtos.CursorPageResponse;
-import utec.proyectofinal.Proyecto.Final.UTEC.dtos.KeysetCursor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -111,38 +109,6 @@ class DashboardServiceTest {
             @Override
             public String getCultivarNombre() { return "Cultivar 1"; }
         };
-    }
-
-    @Test
-    @DisplayName("Keyset análisis pendientes - primera página y último page")
-    void keysetAnalisisPendientes_primerYUltimo() {
-        // Primera página (size=1, devolver 2 para hasMore true)
-        when(analisisPendienteRepository.findNextPageByCursor(0L, "", 2))
-            .thenReturn(java.util.Arrays.asList(analisisPendienteProjection, analisisPendienteProjection));
-        CursorPageResponse<?> page1 = dashboardService.listarAnalisisPendientesKeyset(null, 1);
-        assertTrue(page1.getNextCursor() != null && !page1.getItems().isEmpty());
-
-        // Simular cursor decodificado - usar lastFecha y lastId correctamente
-        KeysetCursor cursor = new KeysetCursor("2024-01-01 10:00:00", 1L);
-        String enc = cursor.encode();
-        when(analisisPendienteRepository.findNextPageByCursor(1L, "2024-01-01 10:00:00", 2))
-            .thenReturn(java.util.Arrays.asList(analisisPendienteProjection)); // solo 1 -> last page
-        CursorPageResponse<?> last = dashboardService.listarAnalisisPendientesKeyset(enc, 1);
-        assertNull(last.getNextCursor());
-    }
-
-    @Test
-    @DisplayName("Keyset análisis por aprobar - primera y siguiente página")
-    void keysetAnalisisPorAprobar_flujo() {
-        when(analisisPorAprobarRepository.findNextPageByCursor("9999-12-31 23:59:59", Long.MAX_VALUE, 2))
-            .thenReturn(java.util.Arrays.asList(analisisPorAprobarProjection, analisisPorAprobarProjection));
-        CursorPageResponse<?> first = dashboardService.listarAnalisisPorAprobarKeyset(null, 1);
-        assertNotNull(first.getNextCursor());
-        KeysetCursor cursor = KeysetCursor.decode(first.getNextCursor());
-        when(analisisPorAprobarRepository.findNextPageByCursor(cursor.getLastFecha(), cursor.getLastId(), 2))
-            .thenReturn(java.util.Arrays.asList(analisisPorAprobarProjection));
-        CursorPageResponse<?> second = dashboardService.listarAnalisisPorAprobarKeyset(first.getNextCursor(), 1);
-        assertNull(second.getNextCursor());
     }
 
     @Test

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LegadoController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.controllers</a> &gt; <span class="el_source">LegadoController.java</span></div><h1>LegadoController.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.controllers;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LegadoController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.controllers</a> &gt; <span class="el_source">LegadoController.java</span></div><h1>LegadoController.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.controllers;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -26,10 +26,8 @@ import utec.proyectofinal.Proyecto.Final.UTEC.dtos.response.LegadoListadoDTO;
 import utec.proyectofinal.Proyecto.Final.UTEC.dtos.response.LegadoSimpleDTO;
 import utec.proyectofinal.Proyecto.Final.UTEC.services.LegadoService;
 
-/**
- * Controlador para gestión de datos legados
- */
-// CORS configurado globalmente en WebSecurityConfig
+
+
 @RestController
 @RequestMapping(&quot;/api/legados&quot;)
 @Tag(name = &quot;Legados&quot;, description = &quot;API para gestión de datos históricos legados&quot;)
@@ -39,24 +37,20 @@ public class LegadoController {
 
     private final LegadoService legadoService;
 
-    /**
-     * Obtener todos los registros legados (versión simple)
-     */
+    
     @GetMapping
     @Operation(summary = &quot;Listar legados&quot;, description = &quot;Obtiene todos los registros legados activos&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA')&quot;)
     public ResponseEntity&lt;List&lt;LegadoSimpleDTO&gt;&gt; listarTodos() {
         try {
-<span class="fc" id="L50">            List&lt;LegadoSimpleDTO&gt; legados = legadoService.obtenerTodosSimple();</span>
-<span class="fc" id="L51">            return ResponseEntity.ok(legados);</span>
-<span class="nc" id="L52">        } catch (Exception e) {</span>
-<span class="nc" id="L53">            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();</span>
+<span class="fc" id="L46">            List&lt;LegadoSimpleDTO&gt; legados = legadoService.obtenerTodosSimple();</span>
+<span class="fc" id="L47">            return ResponseEntity.ok(legados);</span>
+<span class="nc" id="L48">        } catch (Exception e) {</span>
+<span class="nc" id="L49">            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();</span>
         }
     }
 
-    /**
-     * Obtener legados paginados con filtros
-     */
+    
     @GetMapping(&quot;/listado&quot;)
     @Operation(summary = &quot;Listar legados paginados&quot;, description = &quot;Obtiene legados paginados con filtros de búsqueda&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')&quot;)
@@ -68,91 +62,81 @@ public class LegadoController {
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaReciboInicio,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaReciboFin) {
         try {
-<span class="fc" id="L71">            Pageable pageable = PageRequest.of(page, size);</span>
-<span class="fc" id="L72">            Page&lt;LegadoListadoDTO&gt; response = legadoService.obtenerLegadosPaginadas(</span>
-<span class="fc" id="L73">                pageable, search, especie, fechaReciboInicio, fechaReciboFin);</span>
-<span class="fc" id="L74">            return ResponseEntity.ok(response);</span>
-<span class="nc" id="L75">        } catch (Exception e) {</span>
-<span class="nc" id="L76">            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();</span>
+<span class="fc" id="L65">            Pageable pageable = PageRequest.of(page, size);</span>
+<span class="fc" id="L66">            Page&lt;LegadoListadoDTO&gt; response = legadoService.obtenerLegadosPaginadas(</span>
+                pageable, search, especie, fechaReciboInicio, fechaReciboFin);
+<span class="fc" id="L68">            return ResponseEntity.ok(response);</span>
+<span class="nc" id="L69">        } catch (Exception e) {</span>
+<span class="nc" id="L70">            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();</span>
         }
     }
 
-    /**
-     * Obtener todas las especies únicas
-     */
+    
     @GetMapping(&quot;/especies&quot;)
     @Operation(summary = &quot;Obtener especies únicas&quot;, description = &quot;Obtiene todas las especies únicas de los legados activos&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')&quot;)
     public ResponseEntity&lt;List&lt;String&gt;&gt; obtenerEspeciesUnicas() {
         try {
-<span class="fc" id="L88">            List&lt;String&gt; especies = legadoService.obtenerEspeciesUnicas();</span>
-<span class="fc" id="L89">            return ResponseEntity.ok(especies);</span>
-<span class="nc" id="L90">        } catch (Exception e) {</span>
-<span class="nc" id="L91">            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();</span>
+<span class="fc" id="L80">            List&lt;String&gt; especies = legadoService.obtenerEspeciesUnicas();</span>
+<span class="fc" id="L81">            return ResponseEntity.ok(especies);</span>
+<span class="nc" id="L82">        } catch (Exception e) {</span>
+<span class="nc" id="L83">            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();</span>
         }
     }
 
-    /**
-     * Obtener un legado por ID con información completa
-     */
+    
     @GetMapping(&quot;/{id}&quot;)
     @Operation(summary = &quot;Obtener legado&quot;, description = &quot;Obtiene un registro legado por ID con información completa del lote&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA')&quot;)
     public ResponseEntity&lt;LegadoDTO&gt; obtenerPorId(@PathVariable Long id) {
         try {
-<span class="fc" id="L103">            LegadoDTO legado = legadoService.obtenerPorId(id);</span>
-<span class="fc" id="L104">            return ResponseEntity.ok(legado);</span>
-<span class="fc" id="L105">        } catch (RuntimeException e) {</span>
-<span class="fc" id="L106">            return ResponseEntity.notFound().build();</span>
-<span class="nc" id="L107">        } catch (Exception e) {</span>
-<span class="nc" id="L108">            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();</span>
+<span class="fc" id="L93">            LegadoDTO legado = legadoService.obtenerPorId(id);</span>
+<span class="fc" id="L94">            return ResponseEntity.ok(legado);</span>
+<span class="fc" id="L95">        } catch (RuntimeException e) {</span>
+<span class="fc" id="L96">            return ResponseEntity.notFound().build();</span>
+<span class="nc" id="L97">        } catch (Exception e) {</span>
+<span class="nc" id="L98">            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();</span>
         }
     }
 
-    /**
-     * Obtener legados por archivo origen
-     */
+    
     @GetMapping(&quot;/archivo/{nombreArchivo}&quot;)
     @Operation(summary = &quot;Buscar por archivo&quot;, description = &quot;Obtiene registros legados de un archivo específico&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA')&quot;)
     public ResponseEntity&lt;List&lt;LegadoSimpleDTO&gt;&gt; obtenerPorArchivo(@PathVariable String nombreArchivo) {
         try {
-<span class="fc" id="L120">            List&lt;LegadoSimpleDTO&gt; legados = legadoService.obtenerPorArchivo(nombreArchivo);</span>
-<span class="fc" id="L121">            return ResponseEntity.ok(legados);</span>
-<span class="nc" id="L122">        } catch (Exception e) {</span>
-<span class="nc" id="L123">            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();</span>
+<span class="fc" id="L108">            List&lt;LegadoSimpleDTO&gt; legados = legadoService.obtenerPorArchivo(nombreArchivo);</span>
+<span class="fc" id="L109">            return ResponseEntity.ok(legados);</span>
+<span class="nc" id="L110">        } catch (Exception e) {</span>
+<span class="nc" id="L111">            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();</span>
         }
     }
 
-    /**
-     * Obtener legados por ficha
-     */
+    
     @GetMapping(&quot;/ficha/{ficha}&quot;)
     @Operation(summary = &quot;Buscar por ficha&quot;, description = &quot;Obtiene registros legados de una ficha específica&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA')&quot;)
     public ResponseEntity&lt;List&lt;LegadoSimpleDTO&gt;&gt; obtenerPorFicha(@PathVariable String ficha) {
         try {
-<span class="fc" id="L135">            List&lt;LegadoSimpleDTO&gt; legados = legadoService.obtenerPorFicha(ficha);</span>
-<span class="fc" id="L136">            return ResponseEntity.ok(legados);</span>
-<span class="nc" id="L137">        } catch (Exception e) {</span>
-<span class="nc" id="L138">            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();</span>
+<span class="fc" id="L121">            List&lt;LegadoSimpleDTO&gt; legados = legadoService.obtenerPorFicha(ficha);</span>
+<span class="fc" id="L122">            return ResponseEntity.ok(legados);</span>
+<span class="nc" id="L123">        } catch (Exception e) {</span>
+<span class="nc" id="L124">            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();</span>
         }
     }
 
-    /**
-     * Desactivar un registro legado
-     */
+    
     @DeleteMapping(&quot;/{id}&quot;)
     @Operation(summary = &quot;Desactivar legado&quot;, description = &quot;Desactiva un registro legado&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN')&quot;)
     public ResponseEntity&lt;Void&gt; desactivar(@PathVariable Long id) {
         try {
-<span class="fc" id="L150">            legadoService.desactivar(id);</span>
-<span class="fc" id="L151">            return ResponseEntity.ok().build();</span>
-<span class="fc" id="L152">        } catch (RuntimeException e) {</span>
-<span class="fc" id="L153">            return ResponseEntity.notFound().build();</span>
-<span class="nc" id="L154">        } catch (Exception e) {</span>
-<span class="nc" id="L155">            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();</span>
+<span class="fc" id="L134">            legadoService.desactivar(id);</span>
+<span class="fc" id="L135">            return ResponseEntity.ok().build();</span>
+<span class="fc" id="L136">        } catch (RuntimeException e) {</span>
+<span class="fc" id="L137">            return ResponseEntity.notFound().build();</span>
+<span class="nc" id="L138">        } catch (Exception e) {</span>
+<span class="nc" id="L139">            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();</span>
         }
     }
 }

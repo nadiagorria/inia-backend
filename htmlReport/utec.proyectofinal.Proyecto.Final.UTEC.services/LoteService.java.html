@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LoteService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">LoteService.java</span></div><h1>LoteService.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LoteService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">LoteService.java</span></div><h1>LoteService.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -40,11 +40,11 @@ import utec.proyectofinal.Proyecto.Final.UTEC.responses.ResponseListadoLoteSimpl
     @Autowired
     private LoteRepository loteRepository;
     
-    // Método para validar campos únicos
+    
     public ValidacionLoteResponseDTO validarCamposUnicos(ValidacionLoteDTO solicitud) {
 <span class="fc" id="L45">        ValidacionLoteResponseDTO resultado = new ValidacionLoteResponseDTO();</span>
         
-        // Verificar ficha
+        
 <span class="fc bfc" id="L48" title="All 4 branches covered.">        if (solicitud.getFicha() != null &amp;&amp; !solicitud.getFicha().isEmpty()) {</span>
 <span class="fc" id="L49">            boolean fichaExiste = loteRepository.findByFicha(solicitud.getFicha())</span>
 <span class="fc" id="L50">                .stream()</span>
@@ -52,7 +52,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.responses.ResponseListadoLoteSimpl
 <span class="fc" id="L52">            resultado.setFichaExiste(fichaExiste);</span>
         }
         
-        // Verificar nombre del lote
+        
 <span class="pc bpc" id="L56" title="1 of 4 branches missed.">        if (solicitud.getNomLote() != null &amp;&amp; !solicitud.getNomLote().isEmpty()) {</span>
 <span class="fc" id="L57">            boolean nomLoteExiste = loteRepository.findByNomLote(solicitud.getNomLote())</span>
 <span class="fc" id="L58">                .stream()</span>
@@ -72,7 +72,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.responses.ResponseListadoLoteSimpl
     @Autowired
     private CatalogoService catalogoService;
     
-    // Repositorios para verificar análisis existentes
+    
     @Autowired
     private PmsRepository pmsRepository;
     
@@ -88,743 +88,744 @@ import utec.proyectofinal.Proyecto.Final.UTEC.responses.ResponseListadoLoteSimpl
     @Autowired
     private PurezaRepository purezaRepository;
 
-    // Crear Lote con activo = true
+    
     public LoteDTO crearLote(LoteRequestDTO solicitud) {
         try {
 <span class="fc" id="L94">            System.out.println(&quot;Creando lote con solicitud: &quot; + solicitud);</span>
             
-            // Validar fechaRecibo no sea posterior a la fecha actual
+            
 <span class="fc" id="L97">            validarFechaRecibo(solicitud.getFechaRecibo());</span>
+<span class="fc" id="L98">            validarFechaCosecha(solicitud.getFechaCosecha());</span>
             
-<span class="fc" id="L99">            Lote lote = mapearSolicitudAEntidad(solicitud);</span>
-<span class="fc" id="L100">            lote.setActivo(true);</span>
+<span class="fc" id="L100">            Lote lote = mapearSolicitudAEntidad(solicitud);</span>
+<span class="fc" id="L101">            lote.setActivo(true);</span>
             
-<span class="fc" id="L102">            System.out.println(&quot;Lote mapeado, guardando...&quot;);</span>
-<span class="fc" id="L103">            Lote loteGuardado = loteRepository.save(lote);</span>
-<span class="fc" id="L104">            System.out.println(&quot;Lote guardado con ID: &quot; + loteGuardado.getLoteID());</span>
-<span class="fc" id="L105">            return mapearEntidadADTO(loteGuardado);</span>
-<span class="fc" id="L106">        } catch (Exception e) {</span>
-<span class="fc" id="L107">            System.err.println(&quot;Error al crear lote: &quot; + e.getMessage());</span>
-<span class="fc" id="L108">            throw new RuntimeException(&quot;Error al crear lote: &quot; + e.getMessage(), e);</span>
+<span class="fc" id="L103">            System.out.println(&quot;Lote mapeado, guardando...&quot;);</span>
+<span class="fc" id="L104">            Lote loteGuardado = loteRepository.save(lote);</span>
+<span class="fc" id="L105">            System.out.println(&quot;Lote guardado con ID: &quot; + loteGuardado.getLoteID());</span>
+<span class="fc" id="L106">            return mapearEntidadADTO(loteGuardado);</span>
+<span class="fc" id="L107">        } catch (Exception e) {</span>
+<span class="fc" id="L108">            System.err.println(&quot;Error al crear lote: &quot; + e.getMessage());</span>
+<span class="fc" id="L109">            throw new RuntimeException(&quot;Error al crear lote: &quot; + e.getMessage(), e);</span>
         }
     }
 
-    // Editar Lote
+    
     public LoteDTO actualizarLote(Long id, LoteRequestDTO solicitud) {
-<span class="fc" id="L114">        Optional&lt;Lote&gt; loteExistente = loteRepository.findById(id);</span>
-<span class="pc bpc" id="L115" title="1 of 2 branches missed.">        if (loteExistente.isPresent()) {</span>
-<span class="fc" id="L116">            Lote lote = loteExistente.get();</span>
+<span class="fc" id="L115">        Optional&lt;Lote&gt; loteExistente = loteRepository.findById(id);</span>
+<span class="pc bpc" id="L116" title="1 of 2 branches missed.">        if (loteExistente.isPresent()) {</span>
+<span class="fc" id="L117">            Lote lote = loteExistente.get();</span>
             
-            // Validar que el lote esté activo antes de permitir edición
-<span class="fc bfc" id="L119" title="All 2 branches covered.">            if (!lote.getActivo()) {</span>
-<span class="fc" id="L120">                throw new RuntimeException(&quot;No se puede editar un lote inactivo. Debe reactivarlo primero.&quot;);</span>
+            
+<span class="fc bfc" id="L120" title="All 2 branches covered.">            if (!lote.getActivo()) {</span>
+<span class="fc" id="L121">                throw new RuntimeException(&quot;No se puede editar un lote inactivo. Debe reactivarlo primero.&quot;);</span>
             }
             
-            // Validar fechaRecibo no sea posterior a la fecha actual
-<span class="fc" id="L124">            validarFechaRecibo(solicitud.getFechaRecibo());</span>
             
-            // Validar cambios en tipos de análisis antes de actualizar
-<span class="fc bfc" id="L127" title="All 2 branches covered.">            if (solicitud.getTiposAnalisisAsignados() != null) {</span>
-<span class="nc" id="L128">                validarCambiosTiposAnalisis(lote, solicitud.getTiposAnalisisAsignados());</span>
+<span class="fc" id="L125">            validarFechaRecibo(solicitud.getFechaRecibo());</span>
+<span class="fc" id="L126">            validarFechaCosecha(solicitud.getFechaCosecha());</span>
+            
+            
+<span class="fc bfc" id="L129" title="All 2 branches covered.">            if (solicitud.getTiposAnalisisAsignados() != null) {</span>
+<span class="nc" id="L130">                validarCambiosTiposAnalisis(lote, solicitud.getTiposAnalisisAsignados());</span>
             }
             
-<span class="fc" id="L131">            actualizarEntidadDesdeSolicitud(lote, solicitud);</span>
-<span class="fc" id="L132">            Lote loteActualizado = loteRepository.save(lote);</span>
-<span class="fc" id="L133">            return mapearEntidadADTO(loteActualizado);</span>
+<span class="fc" id="L133">            actualizarEntidadDesdeSolicitud(lote, solicitud);</span>
+<span class="fc" id="L134">            Lote loteActualizado = loteRepository.save(lote);</span>
+<span class="fc" id="L135">            return mapearEntidadADTO(loteActualizado);</span>
         }
-<span class="nc" id="L135">        throw new RuntimeException(&quot;Lote no encontrado con id: &quot; + id);</span>
+<span class="nc" id="L137">        throw new RuntimeException(&quot;Lote no encontrado con id: &quot; + id);</span>
     }
     
-    // Método para verificar si un tipo de análisis puede ser removido del lote
+    
     public boolean puedeRemoverTipoAnalisis(Long loteId, TipoAnalisis tipoAnalisis) {
-        // Un tipo de análisis puede ser removido solo si no hay análisis creados de ese tipo
-<span class="pc bpc" id="L141" title="1 of 6 branches missed.">        return switch (tipoAnalisis) {</span>
-<span class="fc bfc" id="L142" title="All 2 branches covered.">            case PMS -&gt; !pmsRepository.existsByLoteLoteID(loteId);</span>
-<span class="pc bpc" id="L143" title="1 of 2 branches missed.">            case GERMINACION -&gt; !germinacionRepository.existsByLoteLoteID(loteId);</span>
-<span class="pc bpc" id="L144" title="1 of 2 branches missed.">            case DOSN -&gt; !dosnRepository.existsByLoteLoteID(loteId);</span>
-<span class="pc bpc" id="L145" title="1 of 2 branches missed.">            case TETRAZOLIO -&gt; !tetrazolioRepository.existsByLoteLoteID(loteId);</span>
-<span class="pc bpc" id="L146" title="1 of 2 branches missed.">            case PUREZA -&gt; !purezaRepository.existsByLoteLoteID(loteId);</span>
-<span class="nc" id="L147">            default -&gt; true;</span>
+        
+<span class="pc bpc" id="L143" title="1 of 6 branches missed.">        return switch (tipoAnalisis) {</span>
+<span class="fc bfc" id="L144" title="All 2 branches covered.">            case PMS -&gt; !pmsRepository.existsByLoteLoteID(loteId);</span>
+<span class="pc bpc" id="L145" title="1 of 2 branches missed.">            case GERMINACION -&gt; !germinacionRepository.existsByLoteLoteID(loteId);</span>
+<span class="pc bpc" id="L146" title="1 of 2 branches missed.">            case DOSN -&gt; !dosnRepository.existsByLoteLoteID(loteId);</span>
+<span class="pc bpc" id="L147" title="1 of 2 branches missed.">            case TETRAZOLIO -&gt; !tetrazolioRepository.existsByLoteLoteID(loteId);</span>
+<span class="pc bpc" id="L148" title="1 of 2 branches missed.">            case PUREZA -&gt; !purezaRepository.existsByLoteLoteID(loteId);</span>
+<span class="nc" id="L149">            default -&gt; true;</span>
         };
     }
 
-    // Método para validar cambios en tipos de análisis durante la edición
+    
     private void validarCambiosTiposAnalisis(Lote loteExistente, List&lt;TipoAnalisis&gt; nuevosTypes) {
-<span class="fc" id="L153">        List&lt;TipoAnalisis&gt; tiposActuales = loteExistente.getTiposAnalisisAsignados();</span>
+<span class="fc" id="L155">        List&lt;TipoAnalisis&gt; tiposActuales = loteExistente.getTiposAnalisisAsignados();</span>
         
-<span class="pc bpc" id="L155" title="1 of 2 branches missed.">        if (tiposActuales == null) {</span>
-<span class="nc" id="L156">            tiposActuales = new ArrayList&lt;&gt;();</span>
+<span class="pc bpc" id="L157" title="1 of 2 branches missed.">        if (tiposActuales == null) {</span>
+<span class="nc" id="L158">            tiposActuales = new ArrayList&lt;&gt;();</span>
         }
         
-        // Verificar tipos que se están removiendo
-<span class="pc bpc" id="L160" title="1 of 2 branches missed.">        for (TipoAnalisis tipoActual : tiposActuales) {</span>
-<span class="pc bpc" id="L161" title="1 of 2 branches missed.">            if (!nuevosTypes.contains(tipoActual)) {</span>
-                // Este tipo se está removiendo, verificar si es posible
-<span class="pc bpc" id="L163" title="1 of 2 branches missed.">                if (!puedeRemoverTipoAnalisis(loteExistente.getLoteID(), tipoActual)) {</span>
-<span class="fc" id="L164">                    throw new RuntimeException(&quot;No se puede remover el tipo de análisis &quot; + tipoActual.name() + </span>
+        
+<span class="pc bpc" id="L162" title="1 of 2 branches missed.">        for (TipoAnalisis tipoActual : tiposActuales) {</span>
+<span class="pc bpc" id="L163" title="1 of 2 branches missed.">            if (!nuevosTypes.contains(tipoActual)) {</span>
+                
+<span class="pc bpc" id="L165" title="1 of 2 branches missed.">                if (!puedeRemoverTipoAnalisis(loteExistente.getLoteID(), tipoActual)) {</span>
+<span class="fc" id="L166">                    throw new RuntimeException(&quot;No se puede remover el tipo de análisis &quot; + tipoActual.name() + </span>
                                              &quot; porque ya existen análisis creados de este tipo para el lote&quot;);
                 }
             }
-        }
+<span class="nc" id="L170">        }</span>
         
-        // Los tipos que se están agregando siempre son permitidos
-        // (no hay restricciones para agregar nuevos tipos de análisis)
-<span class="nc" id="L172">    }</span>
+        
+        
+<span class="nc" id="L174">    }</span>
 
-    // Eliminar Lote (cambiar activo a false)
+    
     public void eliminarLote(Long id) {
-<span class="fc" id="L176">        Optional&lt;Lote&gt; loteExistente = loteRepository.findById(id);</span>
-<span class="fc bfc" id="L177" title="All 2 branches covered.">        if (loteExistente.isPresent()) {</span>
-<span class="fc" id="L178">            Lote lote = loteExistente.get();</span>
-<span class="fc" id="L179">            lote.setActivo(false);</span>
-<span class="fc" id="L180">            loteRepository.save(lote);</span>
-<span class="fc" id="L181">        } else {</span>
-<span class="fc" id="L182">            throw new RuntimeException(&quot;Lote no encontrado con id: &quot; + id);</span>
+<span class="fc" id="L178">        Optional&lt;Lote&gt; loteExistente = loteRepository.findById(id);</span>
+<span class="fc bfc" id="L179" title="All 2 branches covered.">        if (loteExistente.isPresent()) {</span>
+<span class="fc" id="L180">            Lote lote = loteExistente.get();</span>
+<span class="fc" id="L181">            lote.setActivo(false);</span>
+<span class="fc" id="L182">            loteRepository.save(lote);</span>
+<span class="fc" id="L183">        } else {</span>
+<span class="fc" id="L184">            throw new RuntimeException(&quot;Lote no encontrado con id: &quot; + id);</span>
         }
-<span class="fc" id="L184">    }</span>
+<span class="fc" id="L186">    }</span>
 
-    // Reactivar Lote (cambiar activo a true)
+    
     public LoteDTO reactivarLote(Long id) {
-<span class="fc" id="L188">        Lote lote = loteRepository.findById(id)</span>
-<span class="pc" id="L189">                .orElseThrow(() -&gt; new RuntimeException(&quot;Lote no encontrado con ID: &quot; + id));</span>
+<span class="fc" id="L190">        Lote lote = loteRepository.findById(id)</span>
+<span class="pc" id="L191">                .orElseThrow(() -&gt; new RuntimeException(&quot;Lote no encontrado con ID: &quot; + id));</span>
         
-<span class="fc bfc" id="L191" title="All 2 branches covered.">        if (lote.getActivo()) {</span>
-<span class="fc" id="L192">            throw new RuntimeException(&quot;El lote ya está activo&quot;);</span>
+<span class="fc bfc" id="L193" title="All 2 branches covered.">        if (lote.getActivo()) {</span>
+<span class="fc" id="L194">            throw new RuntimeException(&quot;El lote ya está activo&quot;);</span>
         }
         
-<span class="fc" id="L195">        lote.setActivo(true);</span>
-<span class="fc" id="L196">        Lote loteReactivado = loteRepository.save(lote);</span>
-<span class="fc" id="L197">        return mapearEntidadADTO(loteReactivado);</span>
+<span class="fc" id="L197">        lote.setActivo(true);</span>
+<span class="fc" id="L198">        Lote loteReactivado = loteRepository.save(lote);</span>
+<span class="fc" id="L199">        return mapearEntidadADTO(loteReactivado);</span>
     }
 
-    // Listar todos los Lotes activos
+    
     public ResponseListadoLoteSimple obtenerTodosLotesActivos() {
-<span class="fc" id="L202">        List&lt;Lote&gt; lotes = loteRepository.findByActivoTrue();</span>
-<span class="fc" id="L203">        List&lt;LoteSimpleDTO&gt; loteDTOs = lotes.stream()</span>
-<span class="fc" id="L204">                .map(this::mapearEntidadASimpleDTO)</span>
-<span class="fc" id="L205">                .collect(Collectors.toList());</span>
+<span class="fc" id="L204">        List&lt;Lote&gt; lotes = loteRepository.findByActivoTrue();</span>
+<span class="fc" id="L205">        List&lt;LoteSimpleDTO&gt; loteDTOs = lotes.stream()</span>
+<span class="fc" id="L206">                .map(this::mapearEntidadASimpleDTO)</span>
+<span class="fc" id="L207">                .collect(Collectors.toList());</span>
         
-<span class="fc" id="L207">        ResponseListadoLoteSimple respuesta = new ResponseListadoLoteSimple();</span>
-<span class="fc" id="L208">        respuesta.setLotes(loteDTOs);</span>
-<span class="fc" id="L209">        return respuesta;</span>
+<span class="fc" id="L209">        ResponseListadoLoteSimple respuesta = new ResponseListadoLoteSimple();</span>
+<span class="fc" id="L210">        respuesta.setLotes(loteDTOs);</span>
+<span class="fc" id="L211">        return respuesta;</span>
     }
 
-    // Listar todos los Lotes inactivos
+    
     public ResponseListadoLoteSimple obtenerTodosLotesInactivos() {
-<span class="fc" id="L214">        List&lt;Lote&gt; lotes = loteRepository.findByActivoFalse();</span>
-<span class="fc" id="L215">        List&lt;LoteSimpleDTO&gt; loteDTOs = lotes.stream()</span>
-<span class="fc" id="L216">                .map(this::mapearEntidadASimpleDTO)</span>
-<span class="fc" id="L217">                .collect(Collectors.toList());</span>
+<span class="fc" id="L216">        List&lt;Lote&gt; lotes = loteRepository.findByActivoFalse();</span>
+<span class="fc" id="L217">        List&lt;LoteSimpleDTO&gt; loteDTOs = lotes.stream()</span>
+<span class="fc" id="L218">                .map(this::mapearEntidadASimpleDTO)</span>
+<span class="fc" id="L219">                .collect(Collectors.toList());</span>
         
-<span class="fc" id="L219">        ResponseListadoLoteSimple respuesta = new ResponseListadoLoteSimple();</span>
-<span class="fc" id="L220">        respuesta.setLotes(loteDTOs);</span>
-<span class="fc" id="L221">        return respuesta;</span>
+<span class="fc" id="L221">        ResponseListadoLoteSimple respuesta = new ResponseListadoLoteSimple();</span>
+<span class="fc" id="L222">        respuesta.setLotes(loteDTOs);</span>
+<span class="fc" id="L223">        return respuesta;</span>
     }
 
-    // Obtener Lote por ID (completo)
+    
     public LoteDTO obtenerLotePorId(Long id) {
-        // Usar JOIN FETCH para cargar cultivar y especie en una sola query
-<span class="fc" id="L227">        Optional&lt;Lote&gt; lote = loteRepository.findByIdWithCultivarAndEspecie(id);</span>
-<span class="fc bfc" id="L228" title="All 2 branches covered.">        if (lote.isPresent()) {</span>
-<span class="fc" id="L229">            return mapearEntidadADTO(lote.get());</span>
-        }
-<span class="fc" id="L231">        throw new RuntimeException(&quot;Lote no encontrado con id: &quot; + id);</span>
-    }
-
-    // Listar Lotes con paginado para listado
-    public Page&lt;LoteListadoDTO&gt; obtenerLotesPaginadas(Pageable pageable) {
-<span class="fc" id="L236">        Page&lt;Lote&gt; lotePage = loteRepository.findByActivo(true, pageable);</span>
-<span class="fc" id="L237">        return lotePage.map(this::mapearEntidadAListadoDTO);</span>
-    }
-
-    // Listar Lotes Simple con paginado para listado
-    public Page&lt;LoteSimpleDTO&gt; obtenerLotesSimplePaginadas(Pageable pageable) {
-        // Obtener TODOS los lotes (activos e inactivos) con paginación
-<span class="fc" id="L243">        Page&lt;Lote&gt; lotePage = loteRepository.findAll(pageable);</span>
         
-        // Mapear a DTOs usando Page.map() como en PurezaService
-<span class="fc" id="L246">        return lotePage.map(this::mapearEntidadASimpleDTO);</span>
+<span class="fc" id="L229">        Optional&lt;Lote&gt; lote = loteRepository.findByIdWithCultivarAndEspecie(id);</span>
+<span class="fc bfc" id="L230" title="All 2 branches covered.">        if (lote.isPresent()) {</span>
+<span class="fc" id="L231">            return mapearEntidadADTO(lote.get());</span>
+        }
+<span class="fc" id="L233">        throw new RuntimeException(&quot;Lote no encontrado con id: &quot; + id);</span>
     }
 
-    /**
-     * Listar Lotes Simple con paginado y filtros
-     * @param pageable Información de paginación
-     * @param searchTerm Término de búsqueda (opcional)
-     * @param activo Filtro por estado activo (opcional)
-     * @param cultivarNombre Filtro por nombre de cultivar (opcional)
-     * @return Página de LoteSimpleDTO filtrados
-     */
+    
+    public Page&lt;LoteListadoDTO&gt; obtenerLotesPaginadas(Pageable pageable) {
+<span class="fc" id="L238">        Page&lt;Lote&gt; lotePage = loteRepository.findByActivo(true, pageable);</span>
+<span class="fc" id="L239">        return lotePage.map(this::mapearEntidadAListadoDTO);</span>
+    }
+
+    
+    public Page&lt;LoteSimpleDTO&gt; obtenerLotesSimplePaginadas(Pageable pageable) {
+        
+<span class="fc" id="L245">        Page&lt;Lote&gt; lotePage = loteRepository.findAll(pageable);</span>
+        
+        
+<span class="fc" id="L248">        return lotePage.map(this::mapearEntidadASimpleDTO);</span>
+    }
+
+    
     public Page&lt;LoteSimpleDTO&gt; obtenerLotesSimplePaginadasConFiltros(
             Pageable pageable, 
             String searchTerm, 
             Boolean activo, 
             String cultivarNombre) {
         
-        // Crear la especificación con los filtros
-<span class="fc" id="L264">        Specification&lt;Lote&gt; spec = LoteSpecification.conFiltros(searchTerm, activo, cultivarNombre);</span>
         
-        // Obtener lotes filtrados y paginados
-<span class="fc" id="L267">        Page&lt;Lote&gt; lotePage = loteRepository.findAll(spec, pageable);</span>
+<span class="fc" id="L259">        Specification&lt;Lote&gt; spec = LoteSpecification.conFiltros(searchTerm, activo, cultivarNombre);</span>
         
-        // Mapear a DTOs
-<span class="fc" id="L270">        return lotePage.map(this::mapearEntidadASimpleDTO);</span>
+        
+<span class="fc" id="L262">        Page&lt;Lote&gt; lotePage = loteRepository.findAll(spec, pageable);</span>
+        
+        
+<span class="fc" id="L265">        return lotePage.map(this::mapearEntidadASimpleDTO);</span>
     }
 
     private LoteListadoDTO mapearEntidadAListadoDTO(Lote lote) {
-<span class="fc" id="L274">        LoteListadoDTO dto = new LoteListadoDTO();</span>
-<span class="fc" id="L275">        dto.setLoteID(lote.getLoteID());</span>
-<span class="fc" id="L276">        dto.setFicha(lote.getFicha());</span>
-<span class="fc" id="L277">        dto.setFechaCosecha(lote.getFechaCosecha());</span>
-<span class="fc" id="L278">        dto.setActivo(lote.getActivo());</span>
-<span class="fc" id="L279">        return dto;</span>
+<span class="fc" id="L269">        LoteListadoDTO dto = new LoteListadoDTO();</span>
+<span class="fc" id="L270">        dto.setLoteID(lote.getLoteID());</span>
+<span class="fc" id="L271">        dto.setFicha(lote.getFicha());</span>
+<span class="fc" id="L272">        dto.setFechaCosecha(lote.getFechaCosecha());</span>
+<span class="fc" id="L273">        dto.setActivo(lote.getActivo());</span>
+<span class="fc" id="L274">        return dto;</span>
     }
 
-    // Mapear de RequestDTO a Entity para creación
+    
     private Lote mapearSolicitudAEntidad(LoteRequestDTO solicitud) {
         try {
-<span class="fc" id="L285">            System.out.println(&quot;Iniciando mapeo de solicitud a entidad&quot;);</span>
-<span class="fc" id="L286">            Lote lote = new Lote();</span>
+<span class="fc" id="L280">            System.out.println(&quot;Iniciando mapeo de solicitud a entidad&quot;);</span>
+<span class="fc" id="L281">            Lote lote = new Lote();</span>
             
-<span class="fc" id="L288">            System.out.println(&quot;Mapeando campos básicos...&quot;);</span>
-<span class="fc" id="L289">            lote.setFicha(solicitud.getFicha());</span>
-<span class="fc" id="L290">            lote.setNomLote(solicitud.getNomLote());</span>
+<span class="fc" id="L283">            System.out.println(&quot;Mapeando campos básicos...&quot;);</span>
+<span class="fc" id="L284">            lote.setFicha(solicitud.getFicha());</span>
+<span class="fc" id="L285">            lote.setNomLote(solicitud.getNomLote());</span>
             
-            // Convertir String a enum TipoLote
-<span class="fc bfc" id="L293" title="All 2 branches covered.">            if (solicitud.getTipo() != null) {</span>
-<span class="fc" id="L294">                lote.setTipo(TipoLote.valueOf(solicitud.getTipo().toUpperCase()));</span>
+            
+<span class="fc bfc" id="L288" title="All 2 branches covered.">            if (solicitud.getTipo() != null) {</span>
+<span class="fc" id="L289">                lote.setTipo(TipoLote.valueOf(solicitud.getTipo().toUpperCase()));</span>
             }
             
-            // Mapear Empresa
-<span class="fc bfc" id="L298" title="All 2 branches covered.">            if (solicitud.getEmpresaID() != null) {</span>
+            
+<span class="fc bfc" id="L293" title="All 2 branches covered.">            if (solicitud.getEmpresaID() != null) {</span>
                 try {
-<span class="fc" id="L300">                    System.out.println(&quot;Buscando empresa con ID: &quot; + solicitud.getEmpresaID());</span>
-<span class="fc" id="L301">                    Optional&lt;Contacto&gt; empresaOpt = contactoRepository.findById(solicitud.getEmpresaID());</span>
-<span class="pc bpc" id="L302" title="1 of 2 branches missed.">                    if (empresaOpt.isPresent()) {</span>
-<span class="fc" id="L303">                        lote.setEmpresa(empresaOpt.get());</span>
-<span class="fc" id="L304">                        System.out.println(&quot;Empresa encontrada y asignada&quot;);</span>
-<span class="fc" id="L305">                    } else {</span>
-<span class="nc" id="L306">                        System.out.println(&quot;Empresa no encontrada con ID: &quot; + solicitud.getEmpresaID());</span>
+<span class="fc" id="L295">                    System.out.println(&quot;Buscando empresa con ID: &quot; + solicitud.getEmpresaID());</span>
+<span class="fc" id="L296">                    Optional&lt;Contacto&gt; empresaOpt = contactoRepository.findById(solicitud.getEmpresaID());</span>
+<span class="pc bpc" id="L297" title="1 of 2 branches missed.">                    if (empresaOpt.isPresent()) {</span>
+<span class="fc" id="L298">                        lote.setEmpresa(empresaOpt.get());</span>
+<span class="fc" id="L299">                        System.out.println(&quot;Empresa encontrada y asignada&quot;);</span>
+                    } else {
+<span class="nc" id="L301">                        System.out.println(&quot;Empresa no encontrada con ID: &quot; + solicitud.getEmpresaID());</span>
                     }
-<span class="nc" id="L308">                } catch (Exception e) {</span>
-<span class="nc" id="L309">                    System.err.println(&quot;Error al buscar empresa: &quot; + e.getMessage());</span>
-                }
+<span class="nc" id="L303">                } catch (Exception e) {</span>
+<span class="nc" id="L304">                    System.err.println(&quot;Error al buscar empresa: &quot; + e.getMessage());</span>
+<span class="fc" id="L305">                }</span>
             }
             
-<span class="fc" id="L313">            lote.setCodigoCC(solicitud.getCodigoCC());</span>
-<span class="fc" id="L314">            lote.setCodigoFF(solicitud.getCodigoFF());</span>
-<span class="fc" id="L315">            lote.setFechaEntrega(solicitud.getFechaEntrega());</span>
-<span class="fc" id="L316">            lote.setFechaRecibo(solicitud.getFechaRecibo());</span>
-<span class="fc" id="L317">            lote.setUnidadEmbolsado(solicitud.getUnidadEmbolsado());</span>
-<span class="fc" id="L318">            lote.setRemitente(solicitud.getRemitente());</span>
-<span class="fc" id="L319">            lote.setObservaciones(solicitud.getObservaciones());</span>
-<span class="fc" id="L320">            lote.setKilosLimpios(solicitud.getKilosLimpios());</span>
+<span class="fc" id="L308">            lote.setCodigoCC(solicitud.getCodigoCC());</span>
+<span class="fc" id="L309">            lote.setCodigoFF(solicitud.getCodigoFF());</span>
+<span class="fc" id="L310">            lote.setFechaEntrega(solicitud.getFechaEntrega());</span>
+<span class="fc" id="L311">            lote.setFechaRecibo(solicitud.getFechaRecibo());</span>
+<span class="fc" id="L312">            lote.setUnidadEmbolsado(solicitud.getUnidadEmbolsado());</span>
+<span class="fc" id="L313">            lote.setRemitente(solicitud.getRemitente());</span>
+<span class="fc" id="L314">            lote.setObservaciones(solicitud.getObservaciones());</span>
+<span class="fc" id="L315">            lote.setKilosLimpios(solicitud.getKilosLimpios());</span>
             
-            // Mapear datos de humedad
-<span class="pc bpc" id="L323" title="1 of 4 branches missed.">            if (solicitud.getDatosHumedad() != null &amp;&amp; !solicitud.getDatosHumedad().isEmpty()) {</span>
-<span class="fc" id="L324">                List&lt;DatosHumedad&gt; datosHumedad = solicitud.getDatosHumedad().stream()</span>
-<span class="fc" id="L325">                    .map(dhr -&gt; {</span>
-<span class="fc" id="L326">                        DatosHumedad dh = new DatosHumedad();</span>
+            
+<span class="pc bpc" id="L318" title="1 of 4 branches missed.">            if (solicitud.getDatosHumedad() != null &amp;&amp; !solicitud.getDatosHumedad().isEmpty()) {</span>
+<span class="fc" id="L319">                List&lt;DatosHumedad&gt; datosHumedad = solicitud.getDatosHumedad().stream()</span>
+<span class="fc" id="L320">                    .map(dhr -&gt; {</span>
+<span class="fc" id="L321">                        DatosHumedad dh = new DatosHumedad();</span>
                         
-                        // Obtener el catálogo de tipo humedad por ID
-<span class="pc bpc" id="L329" title="1 of 2 branches missed.">                        if (dhr.getTipoHumedadID() != null) {</span>
-<span class="fc" id="L330">                            Catalogo tipoHumedad = catalogoService.obtenerEntidadPorId(dhr.getTipoHumedadID());</span>
-<span class="fc" id="L331">                            dh.setTipoHumedad(tipoHumedad);</span>
+                        
+<span class="pc bpc" id="L324" title="1 of 2 branches missed.">                        if (dhr.getTipoHumedadID() != null) {</span>
+<span class="fc" id="L325">                            Catalogo tipoHumedad = catalogoService.obtenerEntidadPorId(dhr.getTipoHumedadID());</span>
+<span class="fc" id="L326">                            dh.setTipoHumedad(tipoHumedad);</span>
                         }
                         
-<span class="fc" id="L334">                        dh.setValor(dhr.getValor());</span>
-<span class="fc" id="L335">                        dh.setLote(lote);</span>
-<span class="fc" id="L336">                        return dh;</span>
+<span class="fc" id="L329">                        dh.setValor(dhr.getValor());</span>
+<span class="fc" id="L330">                        dh.setLote(lote);</span>
+<span class="fc" id="L331">                        return dh;</span>
                     })
-<span class="fc" id="L338">                    .collect(Collectors.toList());</span>
-<span class="fc" id="L339">                lote.setDatosHumedad(datosHumedad);</span>
+<span class="fc" id="L333">                    .collect(Collectors.toList());</span>
+<span class="fc" id="L334">                lote.setDatosHumedad(datosHumedad);</span>
             }
             
-            // Mapear número de artículo
-<span class="fc bfc" id="L343" title="All 2 branches covered.">            if (solicitud.getNumeroArticuloID() != null) {</span>
-<span class="fc" id="L344">                Catalogo numeroArticulo = catalogoService.obtenerEntidadPorId(solicitud.getNumeroArticuloID());</span>
-<span class="fc" id="L345">                lote.setNumeroArticulo(numeroArticulo);</span>
+            
+<span class="fc bfc" id="L338" title="All 2 branches covered.">            if (solicitud.getNumeroArticuloID() != null) {</span>
+<span class="fc" id="L339">                Catalogo numeroArticulo = catalogoService.obtenerEntidadPorId(solicitud.getNumeroArticuloID());</span>
+<span class="fc" id="L340">                lote.setNumeroArticulo(numeroArticulo);</span>
             }
             
-            // Mapear origen
-<span class="fc bfc" id="L349" title="All 2 branches covered.">            if (solicitud.getOrigenID() != null) {</span>
+            
+<span class="fc bfc" id="L344" title="All 2 branches covered.">            if (solicitud.getOrigenID() != null) {</span>
                 try {
-<span class="fc" id="L351">                    System.out.println(&quot;Buscando origen con ID: &quot; + solicitud.getOrigenID());</span>
-<span class="fc" id="L352">                    Catalogo origen = catalogoService.obtenerEntidadPorId(solicitud.getOrigenID());</span>
-<span class="pc bpc" id="L353" title="1 of 2 branches missed.">                    if (origen != null) {</span>
-<span class="fc" id="L354">                        lote.setOrigen(origen);</span>
-<span class="fc" id="L355">                        System.out.println(&quot;Origen encontrado y asignado&quot;);</span>
-<span class="fc" id="L356">                    } else {</span>
-<span class="nc" id="L357">                        System.out.println(&quot;Origen no encontrado con ID: &quot; + solicitud.getOrigenID());</span>
+<span class="fc" id="L346">                    System.out.println(&quot;Buscando origen con ID: &quot; + solicitud.getOrigenID());</span>
+<span class="fc" id="L347">                    Catalogo origen = catalogoService.obtenerEntidadPorId(solicitud.getOrigenID());</span>
+<span class="pc bpc" id="L348" title="1 of 2 branches missed.">                    if (origen != null) {</span>
+<span class="fc" id="L349">                        lote.setOrigen(origen);</span>
+<span class="fc" id="L350">                        System.out.println(&quot;Origen encontrado y asignado&quot;);</span>
+                    } else {
+<span class="nc" id="L352">                        System.out.println(&quot;Origen no encontrado con ID: &quot; + solicitud.getOrigenID());</span>
                     }
-<span class="nc" id="L359">                } catch (Exception e) {</span>
-<span class="nc" id="L360">                    System.err.println(&quot;Error al buscar origen: &quot; + e.getMessage());</span>
-                }
+<span class="nc" id="L354">                } catch (Exception e) {</span>
+<span class="nc" id="L355">                    System.err.println(&quot;Error al buscar origen: &quot; + e.getMessage());</span>
+<span class="fc" id="L356">                }</span>
             }
             
-            // Mapear estado
-<span class="fc bfc" id="L365" title="All 2 branches covered.">            if (solicitud.getEstadoID() != null) {</span>
+            
+<span class="fc bfc" id="L360" title="All 2 branches covered.">            if (solicitud.getEstadoID() != null) {</span>
                 try {
-<span class="fc" id="L367">                    System.out.println(&quot;Buscando estado con ID: &quot; + solicitud.getEstadoID());</span>
-<span class="fc" id="L368">                    Catalogo estado = catalogoService.obtenerEntidadPorId(solicitud.getEstadoID());</span>
-<span class="pc bpc" id="L369" title="1 of 2 branches missed.">                    if (estado != null) {</span>
-<span class="fc" id="L370">                        lote.setEstado(estado);</span>
-<span class="fc" id="L371">                        System.out.println(&quot;Estado encontrado y asignado&quot;);</span>
-<span class="fc" id="L372">                    } else {</span>
-<span class="nc" id="L373">                        System.out.println(&quot;Estado no encontrado con ID: &quot; + solicitud.getEstadoID());</span>
+<span class="fc" id="L362">                    System.out.println(&quot;Buscando estado con ID: &quot; + solicitud.getEstadoID());</span>
+<span class="fc" id="L363">                    Catalogo estado = catalogoService.obtenerEntidadPorId(solicitud.getEstadoID());</span>
+<span class="pc bpc" id="L364" title="1 of 2 branches missed.">                    if (estado != null) {</span>
+<span class="fc" id="L365">                        lote.setEstado(estado);</span>
+<span class="fc" id="L366">                        System.out.println(&quot;Estado encontrado y asignado&quot;);</span>
+                    } else {
+<span class="nc" id="L368">                        System.out.println(&quot;Estado no encontrado con ID: &quot; + solicitud.getEstadoID());</span>
                     }
-<span class="nc" id="L375">                } catch (Exception e) {</span>
-<span class="nc" id="L376">                    System.err.println(&quot;Error al buscar estado: &quot; + e.getMessage());</span>
-                }
+<span class="nc" id="L370">                } catch (Exception e) {</span>
+<span class="nc" id="L371">                    System.err.println(&quot;Error al buscar estado: &quot; + e.getMessage());</span>
+<span class="fc" id="L372">                }</span>
             }
             
-<span class="fc" id="L380">            lote.setFechaCosecha(solicitud.getFechaCosecha());</span>
+<span class="fc" id="L375">            lote.setFechaCosecha(solicitud.getFechaCosecha());</span>
 
-<span class="fc" id="L382">            System.out.println(&quot;Mapeando entidades relacionadas...&quot;);</span>
-            // Mapear entidades relacionadas usando repositorios
-<span class="pc bpc" id="L384" title="1 of 2 branches missed.">            if (solicitud.getCultivarID() != null) {</span>
-                try {
-<span class="fc" id="L386">                    System.out.println(&quot;Buscando cultivar con ID: &quot; + solicitud.getCultivarID());</span>
-<span class="fc" id="L387">                    Optional&lt;Cultivar&gt; cultivarOpt = cultivarRepository.findById(solicitud.getCultivarID());</span>
-<span class="fc bfc" id="L388" title="All 2 branches covered.">                    if (cultivarOpt.isPresent()) {</span>
-<span class="fc" id="L389">                        lote.setCultivar(cultivarOpt.get());</span>
-<span class="fc" id="L390">                        System.out.println(&quot;Cultivar encontrado y asignado&quot;);</span>
-<span class="fc" id="L391">                    } else {</span>
-<span class="fc" id="L392">                        System.out.println(&quot;Cultivar no encontrado con ID: &quot; + solicitud.getCultivarID());</span>
-                    }
-<span class="pc" id="L394">                } catch (Exception e) {</span>
-<span class="nc" id="L395">                    System.err.println(&quot;Error al buscar cultivar: &quot; + e.getMessage());</span>
-                }
-            }
-
-<span class="fc bfc" id="L399" title="All 2 branches covered.">            if (solicitud.getClienteID() != null) {</span>
-                try {
-<span class="fc" id="L401">                    System.out.println(&quot;Buscando cliente con ID: &quot; + solicitud.getClienteID());</span>
-<span class="fc" id="L402">                    Optional&lt;Contacto&gt; clienteOpt = contactoRepository.findById(solicitud.getClienteID());</span>
-<span class="pc bpc" id="L403" title="1 of 2 branches missed.">                    if (clienteOpt.isPresent()) {</span>
-<span class="fc" id="L404">                        lote.setCliente(clienteOpt.get());</span>
-<span class="fc" id="L405">                        System.out.println(&quot;Cliente encontrado y asignado&quot;);</span>
-<span class="fc" id="L406">                    } else {</span>
-<span class="nc" id="L407">                        System.out.println(&quot;Cliente no encontrado con ID: &quot; + solicitud.getClienteID());</span>
-                    }
-<span class="nc" id="L409">                } catch (Exception e) {</span>
-<span class="nc" id="L410">                    System.err.println(&quot;Error al buscar cliente: &quot; + e.getMessage());</span>
-                }
-            }
-
-<span class="fc bfc" id="L414" title="All 2 branches covered.">            if (solicitud.getDepositoID() != null) {</span>
-                try {
-<span class="fc" id="L416">                    System.out.println(&quot;Buscando deposito con ID: &quot; + solicitud.getDepositoID());</span>
-<span class="fc" id="L417">                    Catalogo deposito = catalogoService.obtenerEntidadPorId(solicitud.getDepositoID());</span>
-<span class="pc bpc" id="L418" title="1 of 2 branches missed.">                    if (deposito != null) {</span>
-<span class="fc" id="L419">                        lote.setDeposito(deposito);</span>
-<span class="fc" id="L420">                        System.out.println(&quot;Deposito encontrado y asignado&quot;);</span>
-<span class="fc" id="L421">                    } else {</span>
-<span class="nc" id="L422">                        System.out.println(&quot;Deposito no encontrado con ID: &quot; + solicitud.getDepositoID());</span>
-                    }
-<span class="nc" id="L424">                } catch (Exception e) {</span>
-<span class="nc" id="L425">                    System.err.println(&quot;Error al buscar deposito: &quot; + e.getMessage());</span>
-                }
-            }
-
-            // Mapear tipos de análisis asignados
-<span class="pc bpc" id="L430" title="1 of 4 branches missed.">            if (solicitud.getTiposAnalisisAsignados() != null &amp;&amp; !solicitud.getTiposAnalisisAsignados().isEmpty()) {</span>
-                // Usar el método personalizado que elimina duplicados
-<span class="fc" id="L432">                lote.setTiposAnalisisAsignados(solicitud.getTiposAnalisisAsignados());</span>
-<span class="fc" id="L433">                System.out.println(&quot;Tipos de análisis asignados (sin duplicados): &quot; + lote.getTiposAnalisisAsignados());</span>
-            }
-
-<span class="fc" id="L436">            System.out.println(&quot;Mapeo completado exitosamente&quot;);</span>
-<span class="fc" id="L437">            return lote;</span>
+<span class="fc" id="L377">            System.out.println(&quot;Mapeando entidades relacionadas...&quot;);</span>
             
-<span class="nc" id="L439">        } catch (Exception e) {</span>
-<span class="nc" id="L440">            System.err.println(&quot;Error durante el mapeo: &quot; + e.getMessage());</span>
-<span class="nc" id="L441">            throw new RuntimeException(&quot;Error durante el mapeo de la solicitud&quot;, e);</span>
+<span class="pc bpc" id="L379" title="1 of 2 branches missed.">            if (solicitud.getCultivarID() != null) {</span>
+                try {
+<span class="fc" id="L381">                    System.out.println(&quot;Buscando cultivar con ID: &quot; + solicitud.getCultivarID());</span>
+<span class="fc" id="L382">                    Optional&lt;Cultivar&gt; cultivarOpt = cultivarRepository.findById(solicitud.getCultivarID());</span>
+<span class="fc bfc" id="L383" title="All 2 branches covered.">                    if (cultivarOpt.isPresent()) {</span>
+<span class="fc" id="L384">                        lote.setCultivar(cultivarOpt.get());</span>
+<span class="fc" id="L385">                        System.out.println(&quot;Cultivar encontrado y asignado&quot;);</span>
+                    } else {
+<span class="fc" id="L387">                        System.out.println(&quot;Cultivar no encontrado con ID: &quot; + solicitud.getCultivarID());</span>
+                    }
+<span class="nc" id="L389">                } catch (Exception e) {</span>
+<span class="nc" id="L390">                    System.err.println(&quot;Error al buscar cultivar: &quot; + e.getMessage());</span>
+<span class="fc" id="L391">                }</span>
+            }
+
+<span class="fc bfc" id="L394" title="All 2 branches covered.">            if (solicitud.getClienteID() != null) {</span>
+                try {
+<span class="fc" id="L396">                    System.out.println(&quot;Buscando cliente con ID: &quot; + solicitud.getClienteID());</span>
+<span class="fc" id="L397">                    Optional&lt;Contacto&gt; clienteOpt = contactoRepository.findById(solicitud.getClienteID());</span>
+<span class="pc bpc" id="L398" title="1 of 2 branches missed.">                    if (clienteOpt.isPresent()) {</span>
+<span class="fc" id="L399">                        lote.setCliente(clienteOpt.get());</span>
+<span class="fc" id="L400">                        System.out.println(&quot;Cliente encontrado y asignado&quot;);</span>
+                    } else {
+<span class="nc" id="L402">                        System.out.println(&quot;Cliente no encontrado con ID: &quot; + solicitud.getClienteID());</span>
+                    }
+<span class="nc" id="L404">                } catch (Exception e) {</span>
+<span class="nc" id="L405">                    System.err.println(&quot;Error al buscar cliente: &quot; + e.getMessage());</span>
+<span class="fc" id="L406">                }</span>
+            }
+
+<span class="fc bfc" id="L409" title="All 2 branches covered.">            if (solicitud.getDepositoID() != null) {</span>
+                try {
+<span class="fc" id="L411">                    System.out.println(&quot;Buscando deposito con ID: &quot; + solicitud.getDepositoID());</span>
+<span class="fc" id="L412">                    Catalogo deposito = catalogoService.obtenerEntidadPorId(solicitud.getDepositoID());</span>
+<span class="pc bpc" id="L413" title="1 of 2 branches missed.">                    if (deposito != null) {</span>
+<span class="fc" id="L414">                        lote.setDeposito(deposito);</span>
+<span class="fc" id="L415">                        System.out.println(&quot;Deposito encontrado y asignado&quot;);</span>
+                    } else {
+<span class="nc" id="L417">                        System.out.println(&quot;Deposito no encontrado con ID: &quot; + solicitud.getDepositoID());</span>
+                    }
+<span class="nc" id="L419">                } catch (Exception e) {</span>
+<span class="nc" id="L420">                    System.err.println(&quot;Error al buscar deposito: &quot; + e.getMessage());</span>
+<span class="fc" id="L421">                }</span>
+            }
+
+            
+<span class="pc bpc" id="L425" title="1 of 4 branches missed.">            if (solicitud.getTiposAnalisisAsignados() != null &amp;&amp; !solicitud.getTiposAnalisisAsignados().isEmpty()) {</span>
+                
+<span class="fc" id="L427">                lote.setTiposAnalisisAsignados(solicitud.getTiposAnalisisAsignados());</span>
+<span class="fc" id="L428">                System.out.println(&quot;Tipos de análisis asignados (sin duplicados): &quot; + lote.getTiposAnalisisAsignados());</span>
+            }
+
+<span class="fc" id="L431">            System.out.println(&quot;Mapeo completado exitosamente&quot;);</span>
+<span class="fc" id="L432">            return lote;</span>
+            
+<span class="nc" id="L434">        } catch (Exception e) {</span>
+<span class="nc" id="L435">            System.err.println(&quot;Error durante el mapeo: &quot; + e.getMessage());</span>
+<span class="nc" id="L436">            throw new RuntimeException(&quot;Error durante el mapeo de la solicitud&quot;, e);</span>
         }
     }
 
-    // Actualizar Entity desde RequestDTO para edición
+    
     private void actualizarEntidadDesdeSolicitud(Lote lote, LoteRequestDTO solicitud) {
-<span class="fc" id="L447">        lote.setFicha(solicitud.getFicha());</span>
-<span class="fc" id="L448">        lote.setNomLote(solicitud.getNomLote());</span>
+<span class="fc" id="L442">        lote.setFicha(solicitud.getFicha());</span>
+<span class="fc" id="L443">        lote.setNomLote(solicitud.getNomLote());</span>
         
-        // Convertir String a enum TipoLote
-<span class="pc bpc" id="L451" title="1 of 2 branches missed.">        if (solicitud.getTipo() != null) {</span>
-<span class="nc" id="L452">            lote.setTipo(TipoLote.valueOf(solicitud.getTipo().toUpperCase()));</span>
+        
+<span class="pc bpc" id="L446" title="1 of 2 branches missed.">        if (solicitud.getTipo() != null) {</span>
+<span class="nc" id="L447">            lote.setTipo(TipoLote.valueOf(solicitud.getTipo().toUpperCase()));</span>
         }
         
-        // Mapear Empresa
-<span class="fc bfc" id="L456" title="All 2 branches covered.">        if (solicitud.getEmpresaID() != null) {</span>
-<span class="fc" id="L457">            Optional&lt;Contacto&gt; empresaOpt = contactoRepository.findById(solicitud.getEmpresaID());</span>
-<span class="fc bfc" id="L458" title="All 2 branches covered.">            if (empresaOpt.isPresent()) {</span>
-<span class="fc" id="L459">                lote.setEmpresa(empresaOpt.get());</span>
-<span class="fc" id="L460">            } else {</span>
-<span class="fc" id="L461">                throw new RuntimeException(&quot;Empresa no encontrada con ID: &quot; + solicitud.getEmpresaID());</span>
+        
+<span class="fc bfc" id="L451" title="All 2 branches covered.">        if (solicitud.getEmpresaID() != null) {</span>
+<span class="fc" id="L452">            Optional&lt;Contacto&gt; empresaOpt = contactoRepository.findById(solicitud.getEmpresaID());</span>
+<span class="fc bfc" id="L453" title="All 2 branches covered.">            if (empresaOpt.isPresent()) {</span>
+<span class="fc" id="L454">                lote.setEmpresa(empresaOpt.get());</span>
+            } else {
+<span class="fc" id="L456">                throw new RuntimeException(&quot;Empresa no encontrada con ID: &quot; + solicitud.getEmpresaID());</span>
             }
         }
         
-<span class="fc" id="L465">        lote.setCodigoCC(solicitud.getCodigoCC());</span>
-<span class="fc" id="L466">        lote.setCodigoFF(solicitud.getCodigoFF());</span>
-<span class="fc" id="L467">        lote.setFechaEntrega(solicitud.getFechaEntrega());</span>
-<span class="fc" id="L468">        lote.setFechaRecibo(solicitud.getFechaRecibo());</span>
-<span class="fc" id="L469">        lote.setUnidadEmbolsado(solicitud.getUnidadEmbolsado());</span>
-<span class="fc" id="L470">        lote.setRemitente(solicitud.getRemitente());</span>
-<span class="fc" id="L471">        lote.setObservaciones(solicitud.getObservaciones());</span>
-<span class="fc" id="L472">        lote.setKilosLimpios(solicitud.getKilosLimpios());</span>
+<span class="fc" id="L460">        lote.setCodigoCC(solicitud.getCodigoCC());</span>
+<span class="fc" id="L461">        lote.setCodigoFF(solicitud.getCodigoFF());</span>
+<span class="fc" id="L462">        lote.setFechaEntrega(solicitud.getFechaEntrega());</span>
+<span class="fc" id="L463">        lote.setFechaRecibo(solicitud.getFechaRecibo());</span>
+<span class="fc" id="L464">        lote.setUnidadEmbolsado(solicitud.getUnidadEmbolsado());</span>
+<span class="fc" id="L465">        lote.setRemitente(solicitud.getRemitente());</span>
+<span class="fc" id="L466">        lote.setObservaciones(solicitud.getObservaciones());</span>
+<span class="fc" id="L467">        lote.setKilosLimpios(solicitud.getKilosLimpios());</span>
         
-        // Actualizar datos de humedad
-<span class="fc bfc" id="L475" title="All 2 branches covered.">        if (solicitud.getDatosHumedad() != null) {</span>
-            // Limpiar datos existentes
-<span class="pc bpc" id="L477" title="1 of 2 branches missed.">            if (lote.getDatosHumedad() != null) {</span>
-<span class="nc" id="L478">                lote.getDatosHumedad().clear();</span>
+        
+<span class="fc bfc" id="L470" title="All 2 branches covered.">        if (solicitud.getDatosHumedad() != null) {</span>
+            
+<span class="pc bpc" id="L472" title="1 of 2 branches missed.">            if (lote.getDatosHumedad() != null) {</span>
+<span class="nc" id="L473">                lote.getDatosHumedad().clear();</span>
             }
             
-            // Agregar nuevos datos
-<span class="pc bpc" id="L482" title="1 of 2 branches missed.">            if (!solicitud.getDatosHumedad().isEmpty()) {</span>
-<span class="fc" id="L483">                List&lt;DatosHumedad&gt; datosHumedad = solicitud.getDatosHumedad().stream()</span>
-<span class="fc" id="L484">                    .map(dhr -&gt; {</span>
-<span class="fc" id="L485">                        DatosHumedad dh = new DatosHumedad();</span>
+            
+<span class="pc bpc" id="L477" title="1 of 2 branches missed.">            if (!solicitud.getDatosHumedad().isEmpty()) {</span>
+<span class="fc" id="L478">                List&lt;DatosHumedad&gt; datosHumedad = solicitud.getDatosHumedad().stream()</span>
+<span class="fc" id="L479">                    .map(dhr -&gt; {</span>
+<span class="fc" id="L480">                        DatosHumedad dh = new DatosHumedad();</span>
                         
-                        // Obtener el catálogo de tipo humedad por ID
-<span class="pc bpc" id="L488" title="1 of 2 branches missed.">                        if (dhr.getTipoHumedadID() != null) {</span>
-<span class="fc" id="L489">                            Catalogo tipoHumedad = catalogoService.obtenerEntidadPorId(dhr.getTipoHumedadID());</span>
-<span class="fc" id="L490">                            dh.setTipoHumedad(tipoHumedad);</span>
+                        
+<span class="pc bpc" id="L483" title="1 of 2 branches missed.">                        if (dhr.getTipoHumedadID() != null) {</span>
+<span class="fc" id="L484">                            Catalogo tipoHumedad = catalogoService.obtenerEntidadPorId(dhr.getTipoHumedadID());</span>
+<span class="fc" id="L485">                            dh.setTipoHumedad(tipoHumedad);</span>
                         }
                         
-<span class="fc" id="L493">                        dh.setValor(dhr.getValor());</span>
-<span class="fc" id="L494">                        dh.setLote(lote);</span>
-<span class="fc" id="L495">                        return dh;</span>
+<span class="fc" id="L488">                        dh.setValor(dhr.getValor());</span>
+<span class="fc" id="L489">                        dh.setLote(lote);</span>
+<span class="fc" id="L490">                        return dh;</span>
                     })
-<span class="fc" id="L497">                    .collect(Collectors.toList());</span>
-<span class="fc" id="L498">                lote.setDatosHumedad(datosHumedad);</span>
+<span class="fc" id="L492">                    .collect(Collectors.toList());</span>
+<span class="fc" id="L493">                lote.setDatosHumedad(datosHumedad);</span>
             }
         }
         
-        // Actualizar número de artículo
-<span class="pc bpc" id="L503" title="1 of 2 branches missed.">        if (solicitud.getNumeroArticuloID() != null) {</span>
-<span class="nc" id="L504">            Catalogo numeroArticulo = catalogoService.obtenerEntidadPorId(solicitud.getNumeroArticuloID());</span>
-<span class="nc" id="L505">            lote.setNumeroArticulo(numeroArticulo);</span>
-<span class="nc" id="L506">        } else {</span>
-<span class="fc" id="L507">            lote.setNumeroArticulo(null);</span>
+        
+<span class="pc bpc" id="L498" title="1 of 2 branches missed.">        if (solicitud.getNumeroArticuloID() != null) {</span>
+<span class="nc" id="L499">            Catalogo numeroArticulo = catalogoService.obtenerEntidadPorId(solicitud.getNumeroArticuloID());</span>
+<span class="nc" id="L500">            lote.setNumeroArticulo(numeroArticulo);</span>
+<span class="nc" id="L501">        } else {</span>
+<span class="fc" id="L502">            lote.setNumeroArticulo(null);</span>
         }
         
-        // Actualizar origen
-<span class="pc bpc" id="L511" title="1 of 2 branches missed.">        if (solicitud.getOrigenID() != null) {</span>
-<span class="nc" id="L512">            Catalogo origen = catalogoService.obtenerEntidadPorId(solicitud.getOrigenID());</span>
-<span class="nc" id="L513">            lote.setOrigen(origen);</span>
-<span class="nc" id="L514">        } else {</span>
-<span class="fc" id="L515">            lote.setOrigen(null);</span>
+        
+<span class="pc bpc" id="L506" title="1 of 2 branches missed.">        if (solicitud.getOrigenID() != null) {</span>
+<span class="nc" id="L507">            Catalogo origen = catalogoService.obtenerEntidadPorId(solicitud.getOrigenID());</span>
+<span class="nc" id="L508">            lote.setOrigen(origen);</span>
+<span class="nc" id="L509">        } else {</span>
+<span class="fc" id="L510">            lote.setOrigen(null);</span>
         }
         
-        // Actualizar estado
-<span class="pc bpc" id="L519" title="1 of 2 branches missed.">        if (solicitud.getEstadoID() != null) {</span>
-<span class="nc" id="L520">            Catalogo estado = catalogoService.obtenerEntidadPorId(solicitud.getEstadoID());</span>
-<span class="nc" id="L521">            lote.setEstado(estado);</span>
-<span class="nc" id="L522">        } else {</span>
-<span class="fc" id="L523">            lote.setEstado(null);</span>
+        
+<span class="pc bpc" id="L514" title="1 of 2 branches missed.">        if (solicitud.getEstadoID() != null) {</span>
+<span class="nc" id="L515">            Catalogo estado = catalogoService.obtenerEntidadPorId(solicitud.getEstadoID());</span>
+<span class="nc" id="L516">            lote.setEstado(estado);</span>
+<span class="nc" id="L517">        } else {</span>
+<span class="fc" id="L518">            lote.setEstado(null);</span>
         }
         
-<span class="fc" id="L526">        lote.setFechaCosecha(solicitud.getFechaCosecha());</span>
+<span class="fc" id="L521">        lote.setFechaCosecha(solicitud.getFechaCosecha());</span>
 
-        // Actualizar entidades relacionadas usando repositorios
-<span class="pc bpc" id="L529" title="1 of 2 branches missed.">        if (solicitud.getCultivarID() != null) {</span>
+        
+<span class="pc bpc" id="L524" title="1 of 2 branches missed.">        if (solicitud.getCultivarID() != null) {</span>
             try {
-<span class="fc" id="L531">                Optional&lt;Cultivar&gt; cultivarOpt = cultivarRepository.findById(solicitud.getCultivarID());</span>
-<span class="pc bpc" id="L532" title="1 of 2 branches missed.">                if (cultivarOpt.isPresent()) {</span>
-<span class="fc" id="L533">                    lote.setCultivar(cultivarOpt.get());</span>
+<span class="fc" id="L526">                Optional&lt;Cultivar&gt; cultivarOpt = cultivarRepository.findById(solicitud.getCultivarID());</span>
+<span class="pc bpc" id="L527" title="1 of 2 branches missed.">                if (cultivarOpt.isPresent()) {</span>
+<span class="fc" id="L528">                    lote.setCultivar(cultivarOpt.get());</span>
                 }
-<span class="pc" id="L535">            } catch (Exception e) {</span>
-                // Si no se encuentra el cultivar, no lo actualizamos
-            }
-<span class="nc" id="L538">        } else {</span>
-<span class="nc" id="L539">            lote.setCultivar(null);</span>
+<span class="nc" id="L530">            } catch (Exception e) {</span>
+                
+<span class="pc" id="L532">            }</span>
+        } else {
+<span class="nc" id="L534">            lote.setCultivar(null);</span>
         }
 
-<span class="pc bpc" id="L542" title="1 of 2 branches missed.">        if (solicitud.getClienteID() != null) {</span>
+<span class="pc bpc" id="L537" title="1 of 2 branches missed.">        if (solicitud.getClienteID() != null) {</span>
             try {
-<span class="nc" id="L544">                Optional&lt;Contacto&gt; clienteOpt = contactoRepository.findById(solicitud.getClienteID());</span>
-<span class="nc bnc" id="L545" title="All 2 branches missed.">                if (clienteOpt.isPresent()) {</span>
-<span class="nc" id="L546">                    lote.setCliente(clienteOpt.get());</span>
+<span class="nc" id="L539">                Optional&lt;Contacto&gt; clienteOpt = contactoRepository.findById(solicitud.getClienteID());</span>
+<span class="nc bnc" id="L540" title="All 2 branches missed.">                if (clienteOpt.isPresent()) {</span>
+<span class="nc" id="L541">                    lote.setCliente(clienteOpt.get());</span>
                 }
-<span class="nc" id="L548">            } catch (Exception e) {</span>
-                // Si no se encuentra el cliente, no lo actualizamos
-            }
-<span class="nc" id="L551">        } else {</span>
-<span class="fc" id="L552">            lote.setCliente(null);</span>
+<span class="nc" id="L543">            } catch (Exception e) {</span>
+                
+<span class="nc" id="L545">            }</span>
+        } else {
+<span class="fc" id="L547">            lote.setCliente(null);</span>
         }
 
-<span class="pc bpc" id="L555" title="1 of 2 branches missed.">        if (solicitud.getDepositoID() != null) {</span>
+<span class="pc bpc" id="L550" title="1 of 2 branches missed.">        if (solicitud.getDepositoID() != null) {</span>
             try {
-<span class="nc" id="L557">                Catalogo deposito = catalogoService.obtenerEntidadPorId(solicitud.getDepositoID());</span>
-<span class="nc" id="L558">                lote.setDeposito(deposito);</span>
-<span class="nc" id="L559">            } catch (Exception e) {</span>
-                // Si no se encuentra el deposito, no lo actualizamos
-            }
-<span class="nc" id="L562">        } else {</span>
-<span class="fc" id="L563">            lote.setDeposito(null);</span>
+<span class="nc" id="L552">                Catalogo deposito = catalogoService.obtenerEntidadPorId(solicitud.getDepositoID());</span>
+<span class="nc" id="L553">                lote.setDeposito(deposito);</span>
+<span class="nc" id="L554">            } catch (Exception e) {</span>
+                
+<span class="nc" id="L556">            }</span>
+        } else {
+<span class="fc" id="L558">            lote.setDeposito(null);</span>
         }
         
-        // Mapear tipos de análisis asignados
-<span class="pc bpc" id="L567" title="3 of 4 branches missed.">        if (solicitud.getTiposAnalisisAsignados() != null &amp;&amp; !solicitud.getTiposAnalisisAsignados().isEmpty()) {</span>
-            // Usar el método personalizado que elimina duplicados
-<span class="nc" id="L569">            lote.setTiposAnalisisAsignados(solicitud.getTiposAnalisisAsignados());</span>
+        
+<span class="pc bpc" id="L562" title="3 of 4 branches missed.">        if (solicitud.getTiposAnalisisAsignados() != null &amp;&amp; !solicitud.getTiposAnalisisAsignados().isEmpty()) {</span>
+            
+<span class="nc" id="L564">            lote.setTiposAnalisisAsignados(solicitud.getTiposAnalisisAsignados());</span>
         }
-<span class="fc" id="L571">    }</span>
+<span class="fc" id="L566">    }</span>
 
-    // Mapear de Entity a DTO completo
+    
     private LoteDTO mapearEntidadADTO(Lote lote) {
-<span class="fc" id="L575">        LoteDTO dto = new LoteDTO();</span>
+<span class="fc" id="L570">        LoteDTO dto = new LoteDTO();</span>
         
-<span class="fc" id="L577">        dto.setLoteID(lote.getLoteID());</span>
-<span class="fc" id="L578">        dto.setFicha(lote.getFicha());</span>
-<span class="fc" id="L579">        dto.setNomLote(lote.getNomLote());</span>
+<span class="fc" id="L572">        dto.setLoteID(lote.getLoteID());</span>
+<span class="fc" id="L573">        dto.setFicha(lote.getFicha());</span>
+<span class="fc" id="L574">        dto.setNomLote(lote.getNomLote());</span>
         
-        // Convertir enum TipoLote a String
-<span class="pc bpc" id="L582" title="1 of 2 branches missed.">        if (lote.getTipo() != null) {</span>
-<span class="nc" id="L583">            dto.setTipo(lote.getTipo().name());</span>
+        
+<span class="pc bpc" id="L577" title="1 of 2 branches missed.">        if (lote.getTipo() != null) {</span>
+<span class="nc" id="L578">            dto.setTipo(lote.getTipo().name());</span>
         }
         
-        // Mapear Empresa
-<span class="fc bfc" id="L587" title="All 2 branches covered.">        if (lote.getEmpresa() != null) {</span>
-<span class="fc" id="L588">            dto.setEmpresaID(lote.getEmpresa().getContactoID());</span>
-<span class="fc" id="L589">            dto.setEmpresaNombre(lote.getEmpresa().getNombre());</span>
+        
+<span class="fc bfc" id="L582" title="All 2 branches covered.">        if (lote.getEmpresa() != null) {</span>
+<span class="fc" id="L583">            dto.setEmpresaID(lote.getEmpresa().getContactoID());</span>
+<span class="fc" id="L584">            dto.setEmpresaNombre(lote.getEmpresa().getNombre());</span>
         }
         
-<span class="fc" id="L592">        dto.setCodigoCC(lote.getCodigoCC());</span>
-<span class="fc" id="L593">        dto.setCodigoFF(lote.getCodigoFF());</span>
-<span class="fc" id="L594">        dto.setFechaEntrega(lote.getFechaEntrega());</span>
-<span class="fc" id="L595">        dto.setFechaRecibo(lote.getFechaRecibo());</span>
-<span class="fc" id="L596">        dto.setUnidadEmbolsado(lote.getUnidadEmbolsado());</span>
-<span class="fc" id="L597">        dto.setRemitente(lote.getRemitente());</span>
-<span class="fc" id="L598">        dto.setObservaciones(lote.getObservaciones());</span>
-<span class="fc" id="L599">        dto.setKilosLimpios(lote.getKilosLimpios());</span>
+<span class="fc" id="L587">        dto.setCodigoCC(lote.getCodigoCC());</span>
+<span class="fc" id="L588">        dto.setCodigoFF(lote.getCodigoFF());</span>
+<span class="fc" id="L589">        dto.setFechaEntrega(lote.getFechaEntrega());</span>
+<span class="fc" id="L590">        dto.setFechaRecibo(lote.getFechaRecibo());</span>
+<span class="fc" id="L591">        dto.setUnidadEmbolsado(lote.getUnidadEmbolsado());</span>
+<span class="fc" id="L592">        dto.setRemitente(lote.getRemitente());</span>
+<span class="fc" id="L593">        dto.setObservaciones(lote.getObservaciones());</span>
+<span class="fc" id="L594">        dto.setKilosLimpios(lote.getKilosLimpios());</span>
         
-        // Mapear datos de humedad
-<span class="pc bpc" id="L602" title="1 of 4 branches missed.">        if (lote.getDatosHumedad() != null &amp;&amp; !lote.getDatosHumedad().isEmpty()) {</span>
-<span class="fc" id="L603">            List&lt;DatosHumedadDTO&gt; datosHumedadDTO = lote.getDatosHumedad().stream()</span>
-<span class="fc" id="L604">                .map(dh -&gt; {</span>
-<span class="fc" id="L605">                    DatosHumedadDTO dhDTO = new DatosHumedadDTO();</span>
-<span class="fc" id="L606">                    dhDTO.setDatosHumedadID(dh.getDatosHumedadID());</span>
+        
+<span class="pc bpc" id="L597" title="1 of 4 branches missed.">        if (lote.getDatosHumedad() != null &amp;&amp; !lote.getDatosHumedad().isEmpty()) {</span>
+<span class="fc" id="L598">            List&lt;DatosHumedadDTO&gt; datosHumedadDTO = lote.getDatosHumedad().stream()</span>
+<span class="fc" id="L599">                .map(dh -&gt; {</span>
+<span class="fc" id="L600">                    DatosHumedadDTO dhDTO = new DatosHumedadDTO();</span>
+<span class="fc" id="L601">                    dhDTO.setDatosHumedadID(dh.getDatosHumedadID());</span>
                     
-<span class="pc bpc" id="L608" title="1 of 2 branches missed.">                    if (dh.getTipoHumedad() != null) {</span>
-<span class="fc" id="L609">                        dhDTO.setTipoHumedadID(dh.getTipoHumedad().getId());</span>
-<span class="fc" id="L610">                        dhDTO.setTipoHumedadValor(dh.getTipoHumedad().getValor());</span>
+<span class="pc bpc" id="L603" title="1 of 2 branches missed.">                    if (dh.getTipoHumedad() != null) {</span>
+<span class="fc" id="L604">                        dhDTO.setTipoHumedadID(dh.getTipoHumedad().getId());</span>
+<span class="fc" id="L605">                        dhDTO.setTipoHumedadValor(dh.getTipoHumedad().getValor());</span>
                     }
                     
-<span class="fc" id="L613">                    dhDTO.setValor(dh.getValor());</span>
-<span class="fc" id="L614">                    return dhDTO;</span>
+<span class="fc" id="L608">                    dhDTO.setValor(dh.getValor());</span>
+<span class="fc" id="L609">                    return dhDTO;</span>
                 })
-<span class="fc" id="L616">                .collect(Collectors.toList());</span>
-<span class="fc" id="L617">            dto.setDatosHumedad(datosHumedadDTO);</span>
+<span class="fc" id="L611">                .collect(Collectors.toList());</span>
+<span class="fc" id="L612">            dto.setDatosHumedad(datosHumedadDTO);</span>
         }
         
-        // Mapear número de artículo
-<span class="pc bpc" id="L621" title="1 of 2 branches missed.">        if (lote.getNumeroArticulo() != null) {</span>
-<span class="nc" id="L622">            dto.setNumeroArticuloID(lote.getNumeroArticulo().getId());</span>
-<span class="nc" id="L623">            dto.setNumeroArticuloValor(lote.getNumeroArticulo().getValor());</span>
+        
+<span class="pc bpc" id="L616" title="1 of 2 branches missed.">        if (lote.getNumeroArticulo() != null) {</span>
+<span class="nc" id="L617">            dto.setNumeroArticuloID(lote.getNumeroArticulo().getId());</span>
+<span class="nc" id="L618">            dto.setNumeroArticuloValor(lote.getNumeroArticulo().getValor());</span>
         }
-<span class="fc" id="L625">        dto.setFechaCosecha(lote.getFechaCosecha());</span>
-<span class="fc" id="L626">        dto.setActivo(lote.getActivo());</span>
+<span class="fc" id="L620">        dto.setFechaCosecha(lote.getFechaCosecha());</span>
+<span class="fc" id="L621">        dto.setActivo(lote.getActivo());</span>
 
-        // Mapear entidades relacionadas
-<span class="pc bpc" id="L629" title="1 of 2 branches missed.">        if (lote.getCultivar() != null) {</span>
-<span class="fc" id="L630">            dto.setCultivarID(lote.getCultivar().getCultivarID());</span>
-<span class="fc" id="L631">            dto.setCultivarNombre(lote.getCultivar().getNombre());</span>
+        
+<span class="pc bpc" id="L624" title="1 of 2 branches missed.">        if (lote.getCultivar() != null) {</span>
+<span class="fc" id="L625">            dto.setCultivarID(lote.getCultivar().getCultivarID());</span>
+<span class="fc" id="L626">            dto.setCultivarNombre(lote.getCultivar().getNombre());</span>
             
-            // Mapear especie del cultivar
-<span class="pc bpc" id="L634" title="1 of 2 branches missed.">            if (lote.getCultivar().getEspecie() != null) {</span>
-<span class="fc" id="L635">                dto.setEspecieNombre(lote.getCultivar().getEspecie().getNombreComun());</span>
+            
+<span class="pc bpc" id="L629" title="1 of 2 branches missed.">            if (lote.getCultivar().getEspecie() != null) {</span>
+<span class="fc" id="L630">                dto.setEspecieNombre(lote.getCultivar().getEspecie().getNombreComun());</span>
             }
         }
 
-<span class="pc bpc" id="L639" title="1 of 2 branches missed.">        if (lote.getCliente() != null) {</span>
-<span class="nc" id="L640">            dto.setClienteID(lote.getCliente().getContactoID());</span>
-<span class="nc" id="L641">            dto.setClienteNombre(lote.getCliente().getNombre());</span>
+<span class="pc bpc" id="L634" title="1 of 2 branches missed.">        if (lote.getCliente() != null) {</span>
+<span class="nc" id="L635">            dto.setClienteID(lote.getCliente().getContactoID());</span>
+<span class="nc" id="L636">            dto.setClienteNombre(lote.getCliente().getNombre());</span>
         }
 
-<span class="pc bpc" id="L644" title="1 of 2 branches missed.">        if (lote.getDeposito() != null) {</span>
-<span class="nc" id="L645">            dto.setDepositoID(lote.getDeposito().getId());</span>
-<span class="nc" id="L646">            dto.setDepositoValor(lote.getDeposito().getValor());</span>
+<span class="pc bpc" id="L639" title="1 of 2 branches missed.">        if (lote.getDeposito() != null) {</span>
+<span class="nc" id="L640">            dto.setDepositoID(lote.getDeposito().getId());</span>
+<span class="nc" id="L641">            dto.setDepositoValor(lote.getDeposito().getValor());</span>
         }
         
-<span class="pc bpc" id="L649" title="1 of 2 branches missed.">        if (lote.getOrigen() != null) {</span>
-<span class="nc" id="L650">            dto.setOrigenID(lote.getOrigen().getId());</span>
-<span class="nc" id="L651">            dto.setOrigenValor(lote.getOrigen().getValor());</span>
+<span class="pc bpc" id="L644" title="1 of 2 branches missed.">        if (lote.getOrigen() != null) {</span>
+<span class="nc" id="L645">            dto.setOrigenID(lote.getOrigen().getId());</span>
+<span class="nc" id="L646">            dto.setOrigenValor(lote.getOrigen().getValor());</span>
         }
         
-<span class="pc bpc" id="L654" title="1 of 2 branches missed.">        if (lote.getEstado() != null) {</span>
-<span class="nc" id="L655">            dto.setEstadoID(lote.getEstado().getId());</span>
-<span class="nc" id="L656">            dto.setEstadoValor(lote.getEstado().getValor());</span>
+<span class="pc bpc" id="L649" title="1 of 2 branches missed.">        if (lote.getEstado() != null) {</span>
+<span class="nc" id="L650">            dto.setEstadoID(lote.getEstado().getId());</span>
+<span class="nc" id="L651">            dto.setEstadoValor(lote.getEstado().getValor());</span>
         }
         
-        // Mapear tipos de análisis asignados - usar el getter personalizado que elimina duplicados
-<span class="fc" id="L660">        List&lt;TipoAnalisis&gt; tiposAnalisis = lote.getTiposAnalisisAsignados();</span>
-<span class="pc bpc" id="L661" title="2 of 4 branches missed.">        if (tiposAnalisis != null &amp;&amp; !tiposAnalisis.isEmpty()) {</span>
-<span class="nc" id="L662">            dto.setTiposAnalisisAsignados(tiposAnalisis);</span>
+        
+<span class="fc" id="L655">        List&lt;TipoAnalisis&gt; tiposAnalisis = lote.getTiposAnalisisAsignados();</span>
+<span class="pc bpc" id="L656" title="2 of 4 branches missed.">        if (tiposAnalisis != null &amp;&amp; !tiposAnalisis.isEmpty()) {</span>
+<span class="nc" id="L657">            dto.setTiposAnalisisAsignados(tiposAnalisis);</span>
         }
 
-<span class="fc" id="L665">        return dto;</span>
+<span class="fc" id="L660">        return dto;</span>
     }
 
-    // Mapear de Entity a DTO simple (solo ID, ficha, activo, cultivar, especie)
+    
     private LoteSimpleDTO mapearEntidadASimpleDTO(Lote lote) {
-<span class="fc" id="L670">        LoteSimpleDTO dto = new LoteSimpleDTO();</span>
-<span class="fc" id="L671">        dto.setLoteID(lote.getLoteID());</span>
-<span class="fc" id="L672">        dto.setFicha(lote.getFicha());</span>
-<span class="fc" id="L673">        dto.setNomLote(lote.getNomLote());</span>
-<span class="fc" id="L674">        dto.setActivo(lote.getActivo());</span>
+<span class="fc" id="L665">        LoteSimpleDTO dto = new LoteSimpleDTO();</span>
+<span class="fc" id="L666">        dto.setLoteID(lote.getLoteID());</span>
+<span class="fc" id="L667">        dto.setFicha(lote.getFicha());</span>
+<span class="fc" id="L668">        dto.setNomLote(lote.getNomLote());</span>
+<span class="fc" id="L669">        dto.setActivo(lote.getActivo());</span>
         
-        // Mapear cultivar nombre directamente
-<span class="pc bpc" id="L677" title="1 of 2 branches missed.">        if (lote.getCultivar() != null) {</span>
-<span class="fc" id="L678">            dto.setCultivarNombre(lote.getCultivar().getNombre());</span>
+        
+<span class="pc bpc" id="L672" title="1 of 2 branches missed.">        if (lote.getCultivar() != null) {</span>
+<span class="fc" id="L673">            dto.setCultivarNombre(lote.getCultivar().getNombre());</span>
         }
         
-        // Mapear especie nombre directamente
-<span class="pc bpc" id="L682" title="2 of 4 branches missed.">        if (lote.getCultivar() != null &amp;&amp; lote.getCultivar().getEspecie() != null) {</span>
-<span class="fc" id="L683">            dto.setEspecieNombre(lote.getCultivar().getEspecie().getNombreComun());</span>
+        
+<span class="pc bpc" id="L677" title="2 of 4 branches missed.">        if (lote.getCultivar() != null &amp;&amp; lote.getCultivar().getEspecie() != null) {</span>
+<span class="fc" id="L678">            dto.setEspecieNombre(lote.getCultivar().getEspecie().getNombreComun());</span>
         }
         
-<span class="fc" id="L686">        return dto;</span>
+<span class="fc" id="L681">        return dto;</span>
     }
-
+    
     private void validarFechaRecibo(LocalDate fechaRecibo) {
-<span class="pc bpc" id="L690" title="1 of 4 branches missed.">        if (fechaRecibo != null &amp;&amp; fechaRecibo.isAfter(LocalDate.now())) {</span>
-<span class="fc" id="L691">            throw new RuntimeException(&quot;La fecha de recibo no puede ser posterior a la fecha actual&quot;);</span>
+<span class="pc bpc" id="L685" title="1 of 4 branches missed.">        if (fechaRecibo != null &amp;&amp; fechaRecibo.isAfter(LocalDate.now())) {</span>
+<span class="fc" id="L686">            throw new RuntimeException(&quot;La fecha de recibo no puede ser posterior a la fecha actual&quot;);</span>
         }
-<span class="fc" id="L693">    }</span>
+<span class="fc" id="L688">    }</span>
     
-    // Método para verificar si un lote es elegible para crear un análisis de un tipo específico
+    private void validarFechaCosecha(LocalDate fechaCosecha) {
+<span class="pc bpc" id="L691" title="1 of 4 branches missed.">        if (fechaCosecha != null &amp;&amp; fechaCosecha.isAfter(LocalDate.now())) {</span>
+<span class="nc" id="L692">            throw new RuntimeException(&quot;La fecha de cosecha no puede ser posterior a la fecha actual&quot;);</span>
+        }
+<span class="fc" id="L694">    }</span>
+    
+    
     public boolean esLoteElegibleParaTipoAnalisis(Long loteId, TipoAnalisis tipoAnalisis) {
-<span class="fc" id="L697">        Optional&lt;Lote&gt; loteOpt = loteRepository.findById(loteId);</span>
-<span class="fc bfc" id="L698" title="All 2 branches covered.">        if (loteOpt.isEmpty()) {</span>
-<span class="fc" id="L699">            return false;</span>
+<span class="fc" id="L698">        Optional&lt;Lote&gt; loteOpt = loteRepository.findById(loteId);</span>
+<span class="fc bfc" id="L699" title="All 2 branches covered.">        if (loteOpt.isEmpty()) {</span>
+<span class="fc" id="L700">            return false;</span>
         }
         
-<span class="fc" id="L702">        Lote lote = loteOpt.get();</span>
+<span class="fc" id="L703">        Lote lote = loteOpt.get();</span>
         
-        // 0. Verificar que el lote esté activo
-<span class="fc bfc" id="L705" title="All 2 branches covered.">        if (!lote.getActivo()) {</span>
-<span class="fc" id="L706">            return false;</span>
+        
+<span class="fc bfc" id="L706" title="All 2 branches covered.">        if (!lote.getActivo()) {</span>
+<span class="fc" id="L707">            return false;</span>
         }
         
-        // 1. Verificar que el lote tenga ese tipo de análisis asignado
-<span class="pc bpc" id="L710" title="1 of 2 branches missed.">        if (lote.getTiposAnalisisAsignados() == null || </span>
-<span class="fc bfc" id="L711" title="All 2 branches covered.">            !lote.getTiposAnalisisAsignados().contains(tipoAnalisis)) {</span>
-<span class="fc" id="L712">            return false;</span>
+        
+<span class="pc bpc" id="L711" title="1 of 2 branches missed.">        if (lote.getTiposAnalisisAsignados() == null || </span>
+<span class="fc bfc" id="L712" title="All 2 branches covered.">            !lote.getTiposAnalisisAsignados().contains(tipoAnalisis)) {</span>
+<span class="fc" id="L713">            return false;</span>
         }
         
-        // 2. Verificar estado de análisis existentes de ese tipo
-<span class="fc" id="L716">        return puedeCrearAnalisisDelTipo(loteId, tipoAnalisis);</span>
+        
+<span class="fc" id="L717">        return puedeCrearAnalisisDelTipo(loteId, tipoAnalisis);</span>
     }
     
-    // Método para verificar si se puede crear un análisis de un tipo específico
+    
     public boolean puedeCrearAnalisisDelTipo(Long loteId, TipoAnalisis tipoAnalisis) {
-        // Verificar análisis existentes según el tipo
-<span class="pc bpc" id="L722" title="1 of 6 branches missed.">        return switch (tipoAnalisis) {</span>
-<span class="fc bfc" id="L723" title="All 2 branches covered.">            case PMS -&gt; !pmsRepository.existsByLoteLoteID(loteId) || </span>
-<span class="pc bpc" id="L724" title="1 of 2 branches missed.">                       pmsRepository.existsByLoteLoteIDAndEstado(loteId, Estado.A_REPETIR);</span>
-<span class="fc bfc" id="L725" title="All 2 branches covered.">            case GERMINACION -&gt; !germinacionRepository.existsByLoteLoteID(loteId) || </span>
-<span class="pc bpc" id="L726" title="1 of 2 branches missed.">                       germinacionRepository.existsByLoteLoteIDAndEstado(loteId, Estado.A_REPETIR);</span>
-<span class="fc bfc" id="L727" title="All 2 branches covered.">            case DOSN -&gt; !dosnRepository.existsByLoteLoteID(loteId) || </span>
-<span class="pc bpc" id="L728" title="1 of 2 branches missed.">                       dosnRepository.existsByLoteLoteIDAndEstado(loteId, Estado.A_REPETIR);</span>
-<span class="fc bfc" id="L729" title="All 2 branches covered.">            case TETRAZOLIO -&gt; !tetrazolioRepository.existsByLoteLoteID(loteId) || </span>
-<span class="pc bpc" id="L730" title="1 of 2 branches missed.">                       tetrazolioRepository.existsByLoteLoteIDAndEstado(loteId, Estado.A_REPETIR);</span>
-<span class="fc bfc" id="L731" title="All 2 branches covered.">            case PUREZA -&gt; !purezaRepository.existsByLoteLoteID(loteId) || </span>
-<span class="pc bpc" id="L732" title="1 of 2 branches missed.">                       purezaRepository.existsByLoteLoteIDAndEstado(loteId, Estado.A_REPETIR);</span>
-<span class="nc" id="L733">            default -&gt; true;</span>
+        
+<span class="pc bpc" id="L723" title="1 of 6 branches missed.">        return switch (tipoAnalisis) {</span>
+<span class="fc bfc" id="L724" title="All 2 branches covered.">            case PMS -&gt; !pmsRepository.existsByLoteLoteID(loteId) || </span>
+<span class="pc bpc" id="L725" title="1 of 2 branches missed.">                       pmsRepository.existsByLoteLoteIDAndEstado(loteId, Estado.A_REPETIR);</span>
+<span class="fc bfc" id="L726" title="All 2 branches covered.">            case GERMINACION -&gt; !germinacionRepository.existsByLoteLoteID(loteId) || </span>
+<span class="pc bpc" id="L727" title="1 of 2 branches missed.">                       germinacionRepository.existsByLoteLoteIDAndEstado(loteId, Estado.A_REPETIR);</span>
+<span class="fc bfc" id="L728" title="All 2 branches covered.">            case DOSN -&gt; !dosnRepository.existsByLoteLoteID(loteId) || </span>
+<span class="pc bpc" id="L729" title="1 of 2 branches missed.">                       dosnRepository.existsByLoteLoteIDAndEstado(loteId, Estado.A_REPETIR);</span>
+<span class="fc bfc" id="L730" title="All 2 branches covered.">            case TETRAZOLIO -&gt; !tetrazolioRepository.existsByLoteLoteID(loteId) || </span>
+<span class="pc bpc" id="L731" title="1 of 2 branches missed.">                       tetrazolioRepository.existsByLoteLoteIDAndEstado(loteId, Estado.A_REPETIR);</span>
+<span class="fc bfc" id="L732" title="All 2 branches covered.">            case PUREZA -&gt; !purezaRepository.existsByLoteLoteID(loteId) || </span>
+<span class="pc bpc" id="L733" title="1 of 2 branches missed.">                       purezaRepository.existsByLoteLoteIDAndEstado(loteId, Estado.A_REPETIR);</span>
+<span class="nc" id="L734">            default -&gt; true;</span>
         };
     }
     
-    // Método para obtener lotes elegibles para un tipo de análisis específico
+    
     public ResponseListadoLoteSimple obtenerLotesElegiblesParaTipoAnalisis(TipoAnalisis tipoAnalisis) {
-<span class="fc" id="L739">        List&lt;Lote&gt; todosLosLotes = loteRepository.findByActivoTrue();</span>
+<span class="fc" id="L740">        List&lt;Lote&gt; todosLosLotes = loteRepository.findByActivoTrue();</span>
         
-<span class="fc" id="L741">        List&lt;LoteSimpleDTO&gt; lotesElegibles = todosLosLotes.stream()</span>
-<span class="fc" id="L742">                .filter(lote -&gt; esLoteElegibleParaTipoAnalisis(lote.getLoteID(), tipoAnalisis))</span>
-<span class="fc" id="L743">                .map(this::mapearEntidadASimpleDTO)</span>
-<span class="fc" id="L744">                .collect(Collectors.toList());</span>
+<span class="fc" id="L742">        List&lt;LoteSimpleDTO&gt; lotesElegibles = todosLosLotes.stream()</span>
+<span class="fc" id="L743">                .filter(lote -&gt; esLoteElegibleParaTipoAnalisis(lote.getLoteID(), tipoAnalisis))</span>
+<span class="fc" id="L744">                .map(this::mapearEntidadASimpleDTO)</span>
+<span class="fc" id="L745">                .collect(Collectors.toList());</span>
         
-<span class="fc" id="L746">        ResponseListadoLoteSimple respuesta = new ResponseListadoLoteSimple();</span>
-<span class="fc" id="L747">        respuesta.setLotes(lotesElegibles);</span>
-<span class="fc" id="L748">        return respuesta;</span>
+<span class="fc" id="L747">        ResponseListadoLoteSimple respuesta = new ResponseListadoLoteSimple();</span>
+<span class="fc" id="L748">        respuesta.setLotes(lotesElegibles);</span>
+<span class="fc" id="L749">        return respuesta;</span>
     }
     
-    // Método para contar análisis pendientes (asignados pero no realizados o todos en A_REPETIR)
+    
     public long contarAnalisisPendientes() {
-<span class="fc" id="L753">        List&lt;Lote&gt; lotesActivos = loteRepository.findByActivoTrue();</span>
-<span class="fc" id="L754">        long totalPendientes = 0;</span>
+<span class="fc" id="L754">        List&lt;Lote&gt; lotesActivos = loteRepository.findByActivoTrue();</span>
+<span class="fc" id="L755">        long totalPendientes = 0;</span>
         
-<span class="fc bfc" id="L756" title="All 2 branches covered.">        for (Lote lote : lotesActivos) {</span>
-<span class="pc bpc" id="L757" title="1 of 2 branches missed.">            if (lote.getTiposAnalisisAsignados() == null) continue;</span>
+<span class="fc bfc" id="L757" title="All 2 branches covered.">        for (Lote lote : lotesActivos) {</span>
+<span class="pc bpc" id="L758" title="1 of 2 branches missed.">            if (lote.getTiposAnalisisAsignados() == null) continue;</span>
             
-<span class="fc bfc" id="L759" title="All 2 branches covered.">            for (TipoAnalisis tipo : lote.getTiposAnalisisAsignados()) {</span>
-                // Verificar si el análisis no existe o todos están marcados como A_REPETIR
-<span class="pc bpc" id="L761" title="1 of 6 branches missed.">                boolean pendiente = switch (tipo) {</span>
+<span class="fc bfc" id="L760" title="All 2 branches covered.">            for (TipoAnalisis tipo : lote.getTiposAnalisisAsignados()) {</span>
+                
+<span class="pc bpc" id="L762" title="1 of 6 branches missed.">                boolean pendiente = switch (tipo) {</span>
                     case PMS -&gt; {
-                        // No existe ningún análisis
-<span class="fc bfc" id="L764" title="All 2 branches covered.">                        if (!pmsRepository.existsByLoteLoteID(lote.getLoteID())) {</span>
-<span class="fc" id="L765">                            yield true;</span>
+                        
+<span class="fc bfc" id="L765" title="All 2 branches covered.">                        if (!pmsRepository.existsByLoteLoteID(lote.getLoteID())) {</span>
+<span class="fc" id="L766">                            yield true;</span>
                         }
-                        // Existen análisis, verificar si TODOS están en A_REPETIR
-<span class="fc" id="L768">                        List&lt;utec.proyectofinal.Proyecto.Final.UTEC.business.entities.Pms&gt; analisis = </span>
-<span class="fc" id="L769">                            pmsRepository.findByLoteLoteID(lote.getLoteID());</span>
-<span class="fc bfc" id="L770" title="All 2 branches covered.">                        yield analisis.stream().allMatch(a -&gt; a.getEstado() == Estado.A_REPETIR);</span>
+                        
+<span class="fc" id="L769">                        List&lt;utec.proyectofinal.Proyecto.Final.UTEC.business.entities.Pms&gt; analisis = </span>
+<span class="fc" id="L770">                            pmsRepository.findByLoteLoteID(lote.getLoteID());</span>
+<span class="fc bfc" id="L771" title="All 2 branches covered.">                        yield analisis.stream().allMatch(a -&gt; a.getEstado() == Estado.A_REPETIR);</span>
                     }
                     case GERMINACION -&gt; {
-<span class="fc bfc" id="L773" title="All 2 branches covered.">                        if (!germinacionRepository.existsByLoteLoteID(lote.getLoteID())) {</span>
-<span class="fc" id="L774">                            yield true;</span>
+<span class="fc bfc" id="L774" title="All 2 branches covered.">                        if (!germinacionRepository.existsByLoteLoteID(lote.getLoteID())) {</span>
+<span class="fc" id="L775">                            yield true;</span>
                         }
-<span class="fc" id="L776">                        List&lt;utec.proyectofinal.Proyecto.Final.UTEC.business.entities.Germinacion&gt; analisis = </span>
-<span class="fc" id="L777">                            germinacionRepository.findByLoteLoteID(lote.getLoteID());</span>
-<span class="pc bpc" id="L778" title="1 of 2 branches missed.">                        yield analisis.stream().allMatch(a -&gt; a.getEstado() == Estado.A_REPETIR);</span>
+<span class="fc" id="L777">                        List&lt;utec.proyectofinal.Proyecto.Final.UTEC.business.entities.Germinacion&gt; analisis = </span>
+<span class="fc" id="L778">                            germinacionRepository.findByLoteLoteID(lote.getLoteID());</span>
+<span class="pc bpc" id="L779" title="1 of 2 branches missed.">                        yield analisis.stream().allMatch(a -&gt; a.getEstado() == Estado.A_REPETIR);</span>
                     }
                     case DOSN -&gt; {
-<span class="fc bfc" id="L781" title="All 2 branches covered.">                        if (!dosnRepository.existsByLoteLoteID(lote.getLoteID())) {</span>
-<span class="fc" id="L782">                            yield true;</span>
+<span class="fc bfc" id="L782" title="All 2 branches covered.">                        if (!dosnRepository.existsByLoteLoteID(lote.getLoteID())) {</span>
+<span class="fc" id="L783">                            yield true;</span>
                         }
-<span class="fc" id="L784">                        List&lt;utec.proyectofinal.Proyecto.Final.UTEC.business.entities.Dosn&gt; analisis = </span>
-<span class="fc" id="L785">                            dosnRepository.findByLoteLoteID(lote.getLoteID());</span>
-<span class="pc bpc" id="L786" title="1 of 2 branches missed.">                        yield analisis.stream().allMatch(a -&gt; a.getEstado() == Estado.A_REPETIR);</span>
+<span class="fc" id="L785">                        List&lt;utec.proyectofinal.Proyecto.Final.UTEC.business.entities.Dosn&gt; analisis = </span>
+<span class="fc" id="L786">                            dosnRepository.findByLoteLoteID(lote.getLoteID());</span>
+<span class="pc bpc" id="L787" title="1 of 2 branches missed.">                        yield analisis.stream().allMatch(a -&gt; a.getEstado() == Estado.A_REPETIR);</span>
                     }
                     case TETRAZOLIO -&gt; {
-<span class="fc bfc" id="L789" title="All 2 branches covered.">                        if (!tetrazolioRepository.existsByLoteLoteID(lote.getLoteID())) {</span>
-<span class="fc" id="L790">                            yield true;</span>
+<span class="fc bfc" id="L790" title="All 2 branches covered.">                        if (!tetrazolioRepository.existsByLoteLoteID(lote.getLoteID())) {</span>
+<span class="fc" id="L791">                            yield true;</span>
                         }
-<span class="fc" id="L792">                        List&lt;utec.proyectofinal.Proyecto.Final.UTEC.business.entities.Tetrazolio&gt; analisis = </span>
-<span class="fc" id="L793">                            tetrazolioRepository.findByLoteLoteID(lote.getLoteID());</span>
-<span class="pc bpc" id="L794" title="1 of 2 branches missed.">                        yield analisis.stream().allMatch(a -&gt; a.getEstado() == Estado.A_REPETIR);</span>
+<span class="fc" id="L793">                        List&lt;utec.proyectofinal.Proyecto.Final.UTEC.business.entities.Tetrazolio&gt; analisis = </span>
+<span class="fc" id="L794">                            tetrazolioRepository.findByLoteLoteID(lote.getLoteID());</span>
+<span class="pc bpc" id="L795" title="1 of 2 branches missed.">                        yield analisis.stream().allMatch(a -&gt; a.getEstado() == Estado.A_REPETIR);</span>
                     }
                     case PUREZA -&gt; {
-<span class="fc bfc" id="L797" title="All 2 branches covered.">                        if (!purezaRepository.existsByLoteLoteID(lote.getLoteID())) {</span>
-<span class="fc" id="L798">                            yield true;</span>
+<span class="fc bfc" id="L798" title="All 2 branches covered.">                        if (!purezaRepository.existsByLoteLoteID(lote.getLoteID())) {</span>
+<span class="fc" id="L799">                            yield true;</span>
                         }
-<span class="fc" id="L800">                        List&lt;utec.proyectofinal.Proyecto.Final.UTEC.business.entities.Pureza&gt; analisis = </span>
-<span class="fc" id="L801">                            purezaRepository.findByLoteLoteID(lote.getLoteID());</span>
-<span class="pc bpc" id="L802" title="1 of 2 branches missed.">                        yield analisis.stream().allMatch(a -&gt; a.getEstado() == Estado.A_REPETIR);</span>
+<span class="fc" id="L801">                        List&lt;utec.proyectofinal.Proyecto.Final.UTEC.business.entities.Pureza&gt; analisis = </span>
+<span class="fc" id="L802">                            purezaRepository.findByLoteLoteID(lote.getLoteID());</span>
+<span class="pc bpc" id="L803" title="1 of 2 branches missed.">                        yield analisis.stream().allMatch(a -&gt; a.getEstado() == Estado.A_REPETIR);</span>
                     }
-<span class="nc" id="L804">                    default -&gt; false;</span>
+<span class="nc" id="L805">                    default -&gt; false;</span>
                 };
                 
-<span class="fc bfc" id="L807" title="All 2 branches covered.">                if (pendiente) {</span>
-<span class="fc" id="L808">                    totalPendientes++;</span>
+<span class="fc bfc" id="L808" title="All 2 branches covered.">                if (pendiente) {</span>
+<span class="fc" id="L809">                    totalPendientes++;</span>
                 }
-            }
-        }
+<span class="fc" id="L811">            }</span>
+<span class="fc" id="L812">        }</span>
         
-<span class="fc" id="L813">        return totalPendientes;</span>
+<span class="fc" id="L814">        return totalPendientes;</span>
     }
     
-    // Obtener estadísticas de lotes
+    
     public java.util.Map&lt;String, Long&gt; obtenerEstadisticasLotes() {
-<span class="fc" id="L818">        long total = loteRepository.count();</span>
-<span class="fc" id="L819">        long activos = loteRepository.countLotesActivos();</span>
-<span class="fc" id="L820">        long inactivos = loteRepository.countLotesInactivos();</span>
+<span class="fc" id="L819">        long total = loteRepository.count();</span>
+<span class="fc" id="L820">        long activos = loteRepository.countLotesActivos();</span>
+<span class="fc" id="L821">        long inactivos = loteRepository.countLotesInactivos();</span>
         
-<span class="fc" id="L822">        java.util.Map&lt;String, Long&gt; stats = new java.util.HashMap&lt;&gt;();</span>
-<span class="fc" id="L823">        stats.put(&quot;total&quot;, total);</span>
-<span class="fc" id="L824">        stats.put(&quot;activos&quot;, activos);</span>
-<span class="fc" id="L825">        stats.put(&quot;inactivos&quot;, inactivos);</span>
+<span class="fc" id="L823">        java.util.Map&lt;String, Long&gt; stats = new java.util.HashMap&lt;&gt;();</span>
+<span class="fc" id="L824">        stats.put(&quot;total&quot;, total);</span>
+<span class="fc" id="L825">        stats.put(&quot;activos&quot;, activos);</span>
+<span class="fc" id="L826">        stats.put(&quot;inactivos&quot;, inactivos);</span>
         
-<span class="fc" id="L827">        return stats;</span>
+<span class="fc" id="L828">        return stats;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GerminacionService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">GerminacionService.java</span></div><h1>GerminacionService.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GerminacionService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">GerminacionService.java</span></div><h1>GerminacionService.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
 
 import java.util.List;
 import java.util.Optional;
@@ -39,7 +39,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.responses.ResponseListadoGerminaci
     @Autowired
     private AnalisisService analisisService;
 
-    // Crear Germinación con estado REGISTRADO
+    
     @Transactional
     public GerminacionDTO crearGerminacion(GerminacionRequestDTO solicitud) {
         try {
@@ -48,10 +48,10 @@ import utec.proyectofinal.Proyecto.Final.UTEC.responses.ResponseListadoGerminaci
 <span class="fc" id="L48">        Germinacion germinacion = mapearSolicitudAEntidad(solicitud);</span>
 <span class="fc" id="L49">        germinacion.setEstado(Estado.REGISTRADO);</span>
         
-        // Establecer fecha de inicio automáticamente
+        
 <span class="fc" id="L52">        analisisService.establecerFechaInicio(germinacion);</span>
         
-<span class="fc" id="L54">        Germinacion germinacionGuardada = germinacionRepository.save(germinacion);            // Registrar automáticamente en el historial</span>
+<span class="fc" id="L54">        Germinacion germinacionGuardada = germinacionRepository.save(germinacion);            </span>
 <span class="fc" id="L55">            analisisHistorialService.registrarCreacion(germinacionGuardada);</span>
             
 <span class="fc" id="L57">            System.out.println(&quot;Germinación creada exitosamente con ID: &quot; + germinacionGuardada.getAnalisisID());</span>
@@ -63,7 +63,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.responses.ResponseListadoGerminaci
         }
     }
 
-    // Editar Germinación
+    
     @Transactional
     public GerminacionDTO actualizarGerminacion(Long id, GerminacionRequestDTO solicitud) {
 <span class="fc" id="L69">        Optional&lt;Germinacion&gt; germinacionExistente = germinacionRepository.findById(id);</span>
@@ -71,7 +71,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.responses.ResponseListadoGerminaci
 <span class="fc bfc" id="L71" title="All 2 branches covered.">        if (germinacionExistente.isPresent()) {</span>
 <span class="fc" id="L72">            Germinacion germinacion = germinacionExistente.get();</span>
             
-            // Si el análisis está APROBADO y el usuario actual es ANALISTA, cambiar a PENDIENTE_APROBACION
+            
 <span class="pc bpc" id="L75" title="1 of 4 branches missed.">            if (germinacion.getEstado() == Estado.APROBADO &amp;&amp; analisisService.esAnalista()) {</span>
 <span class="fc" id="L76">                germinacion.setEstado(Estado.PENDIENTE_APROBACION);</span>
 <span class="fc" id="L77">                System.out.println(&quot;Análisis aprobado editado por analista - cambiando estado a PENDIENTE_APROBACION&quot;);</span>
@@ -80,7 +80,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.responses.ResponseListadoGerminaci
 <span class="fc" id="L80">            actualizarEntidadDesdeSolicitud(germinacion, solicitud);</span>
 <span class="fc" id="L81">            Germinacion germinacionActualizada = germinacionRepository.save(germinacion);</span>
             
-            // Registrar automáticamente en el historial
+            
 <span class="fc" id="L84">            analisisHistorialService.registrarModificacion(germinacionActualizada);</span>
             
 <span class="fc" id="L86">            return mapearEntidadADTO(germinacionActualizada);</span>
@@ -89,7 +89,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.responses.ResponseListadoGerminaci
         }
     }
 
-    // Editar Germinación con DTO específico (sin fechas)
+    
     @Transactional
     public GerminacionDTO actualizarGerminacionSeguro(Long id, GerminacionEditRequestDTO dto) {
 <span class="fc" id="L95">        Optional&lt;Germinacion&gt; germinacionExistente = germinacionRepository.findById(id);</span>
@@ -97,26 +97,26 @@ import utec.proyectofinal.Proyecto.Final.UTEC.responses.ResponseListadoGerminaci
 <span class="fc bfc" id="L97" title="All 2 branches covered.">        if (germinacionExistente.isPresent()) {</span>
 <span class="fc" id="L98">            Germinacion germinacion = germinacionExistente.get();</span>
             
-            // Manejar edición de análisis finalizado según el rol del usuario
+            
 <span class="fc" id="L101">            analisisService.manejarEdicionAnalisisFinalizado(germinacion);</span>
             
-            // Actualizar solo los campos permitidos del DTO de edición
+            
 <span class="pc bpc" id="L104" title="1 of 2 branches missed.">            if (dto.getIdLote() != null) {</span>
 <span class="fc" id="L105">                Optional&lt;Lote&gt; loteOpt = loteRepository.findById(dto.getIdLote());</span>
 <span class="fc bfc" id="L106" title="All 2 branches covered.">                if (loteOpt.isPresent()) {</span>
 <span class="fc" id="L107">                    germinacion.setLote(loteOpt.get());</span>
-<span class="fc" id="L108">                } else {</span>
+                } else {
 <span class="fc" id="L109">                    throw new RuntimeException(&quot;Lote no encontrado con ID: &quot; + dto.getIdLote());</span>
                 }
             }
 <span class="pc bpc" id="L112" title="1 of 2 branches missed.">            if (dto.getComentarios() != null) {</span>
 <span class="fc" id="L113">                germinacion.setComentarios(dto.getComentarios());</span>
             }
-            // numDias NO es editable - se mantiene el valor original
+            
             
 <span class="fc" id="L117">            Germinacion germinacionActualizada = germinacionRepository.save(germinacion);</span>
             
-            // Registrar automáticamente en el historial
+            
 <span class="fc" id="L120">            analisisHistorialService.registrarModificacion(germinacionActualizada);</span>
             
 <span class="fc" id="L122">            return mapearEntidadADTO(germinacionActualizada);</span>
@@ -125,7 +125,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.responses.ResponseListadoGerminaci
         }
     }
 
-    // Eliminar Germinación (desactivar - cambiar activo a false)
+    
     public void eliminarGerminacion(Long id) {
 <span class="fc" id="L130">        Optional&lt;Germinacion&gt; germinacionExistente = germinacionRepository.findById(id);</span>
         
@@ -138,17 +138,17 @@ import utec.proyectofinal.Proyecto.Final.UTEC.responses.ResponseListadoGerminaci
         }
 <span class="fc" id="L139">    }</span>
 
-    // Desactivar Germinacion (cambiar activo a false)
+    
     public void desactivarGerminacion(Long id) {
 <span class="fc" id="L143">        analisisService.desactivarAnalisis(id, germinacionRepository);</span>
 <span class="fc" id="L144">    }</span>
 
-    // Reactivar Germinacion (cambiar activo a true)
+    
     public GerminacionDTO reactivarGerminacion(Long id) {
 <span class="fc" id="L148">        return analisisService.reactivarAnalisis(id, germinacionRepository, this::mapearEntidadADTO);</span>
     }
 
-    // Listar todas las Germinaciones activas
+    
     public ResponseListadoGerminacion obtenerTodasGerminaciones() {
 <span class="fc" id="L153">        List&lt;Germinacion&gt; germinacionesActivas = germinacionRepository.findByActivoTrue();</span>
 <span class="fc" id="L154">        List&lt;GerminacionDTO&gt; germinacionesDTO = germinacionesActivas.stream()</span>
@@ -160,13 +160,13 @@ import utec.proyectofinal.Proyecto.Final.UTEC.responses.ResponseListadoGerminaci
 <span class="fc" id="L160">        return response;</span>
     }
 
-    // Listar germinaciones con paginado (para listado)
+    
     public Page&lt;GerminacionListadoDTO&gt; obtenerGerminacionesPaginadas(Pageable pageable) {
 <span class="fc" id="L165">        Page&lt;Germinacion&gt; germinacionesPage = germinacionRepository.findByActivoTrueOrderByFechaInicioDesc(pageable);</span>
 <span class="fc" id="L166">        return germinacionesPage.map(this::mapearEntidadAListadoDTO);</span>
     }
 
-    // Listar germinaciones con paginado y filtro de activo
+    
     public Page&lt;GerminacionListadoDTO&gt; obtenerGerminacionesPaginadasConFiltro(Pageable pageable, String filtroActivo) {
         Page&lt;Germinacion&gt; germinacionesPage;
         
@@ -177,7 +177,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.responses.ResponseListadoGerminaci
             case &quot;inactivos&quot;:
 <span class="fc" id="L178">                germinacionesPage = germinacionRepository.findByActivoFalseOrderByFechaInicioDesc(pageable);</span>
 <span class="fc" id="L179">                break;</span>
-            default: // &quot;todos&quot;
+            default: 
 <span class="fc" id="L181">                germinacionesPage = germinacionRepository.findAllByOrderByFechaInicioDesc(pageable);</span>
                 break;
         }
@@ -185,7 +185,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.responses.ResponseListadoGerminaci
 <span class="fc" id="L185">        return germinacionesPage.map(this::mapearEntidadAListadoDTO);</span>
     }
 
-    // Listar germinaciones con paginado y filtros completos
+    
     @Transactional(readOnly = true)
     public Page&lt;GerminacionListadoDTO&gt; obtenerGerminacionesPaginadasConFiltros(
             Pageable pageable,
@@ -198,7 +198,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.responses.ResponseListadoGerminaci
 <span class="fc" id="L198">        return germinacionesPage.map(this::mapearEntidadAListadoDTO);</span>
     }
 
-    // Obtener Germinación por ID
+    
     public GerminacionDTO obtenerGerminacionPorId(Long id) {
 <span class="fc" id="L203">        Optional&lt;Germinacion&gt; germinacion = germinacionRepository.findById(id);</span>
 <span class="fc bfc" id="L204" title="All 2 branches covered.">        if (germinacion.isPresent()) {</span>
@@ -208,7 +208,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.responses.ResponseListadoGerminaci
         }
     }
 
-    // Obtener Germinaciones por Lote
+    
     public List&lt;GerminacionDTO&gt; obtenerGerminacionesPorIdLote(Long idLote) {
 <span class="fc" id="L213">        List&lt;Germinacion&gt; germinaciones = germinacionRepository.findByIdLote(idLote);</span>
 <span class="fc" id="L214">        return germinaciones.stream()</span>
@@ -216,224 +216,215 @@ import utec.proyectofinal.Proyecto.Final.UTEC.responses.ResponseListadoGerminaci
 <span class="fc" id="L216">                .collect(Collectors.toList());</span>
     }
 
-    // Validar que todas las tablas asociadas estén finalizadas
+    
     private boolean todasTablasFinalizadas(Germinacion germinacion) {
 <span class="nc bnc" id="L221" title="All 4 branches missed.">        if (germinacion.getTablaGerm() == null || germinacion.getTablaGerm().isEmpty()) {</span>
-<span class="nc" id="L222">            return false; // No hay tablas, no se puede finalizar</span>
+<span class="nc" id="L222">            return false; </span>
         }
         
 <span class="nc bnc" id="L225" title="All 2 branches missed.">        for (TablaGerm tabla : germinacion.getTablaGerm()) {</span>
 <span class="nc bnc" id="L226" title="All 4 branches missed.">            if (tabla.getFinalizada() == null || !tabla.getFinalizada()) {</span>
-<span class="nc" id="L227">                return false; // Hay al menos una tabla no finalizada</span>
+<span class="nc" id="L227">                return false; </span>
             }
-        }
+<span class="nc" id="L229">        }</span>
         
-<span class="nc" id="L231">        return true; // Todas las tablas están finalizadas</span>
+<span class="nc" id="L231">        return true; </span>
     }
 
-    /**
-     * Validación completa para operaciones críticas de Germinación (finalizar y marcar para repetir)
-     * Verifica completitud de tablas
-     */
+    
     private void validarGerminacionParaOperacionCritica(Germinacion germinacion) {
-        // Validación específica de Germinación: completitud de tablas
-<span class="nc bnc" id="L240" title="All 2 branches missed.">        if (!todasTablasFinalizadas(germinacion)) {</span>
-<span class="nc" id="L241">            throw new RuntimeException(&quot;No se puede completar la operación. Hay tablas pendientes de completar.&quot;);</span>
+        
+<span class="nc bnc" id="L237" title="All 2 branches missed.">        if (!todasTablasFinalizadas(germinacion)) {</span>
+<span class="nc" id="L238">            throw new RuntimeException(&quot;No se puede completar la operación. Hay tablas pendientes de completar.&quot;);</span>
         }
-<span class="nc" id="L243">    }</span>
+<span class="nc" id="L240">    }</span>
 
-    // Mapear de RequestDTO a Entity para creación
+    
     private Germinacion mapearSolicitudAEntidad(GerminacionRequestDTO solicitud) {
-<span class="fc" id="L247">        System.out.println(&quot;Mapeando solicitud a entidad germinación&quot;);</span>
+<span class="fc" id="L244">        System.out.println(&quot;Mapeando solicitud a entidad germinación&quot;);</span>
         
-<span class="fc" id="L249">        Germinacion germinacion = new Germinacion();</span>
+<span class="fc" id="L246">        Germinacion germinacion = new Germinacion();</span>
         
-        // Datos del análisis base (fechaInicio y fechaFin son automáticas, no del request)
-<span class="fc" id="L252">        germinacion.setComentarios(solicitud.getComentarios());</span>
         
-        // Validar y establecer lote
-<span class="fc bfc" id="L255" title="All 2 branches covered.">        if (solicitud.getIdLote() != null) {</span>
-<span class="fc" id="L256">            System.out.println(&quot;Buscando lote con ID: &quot; + solicitud.getIdLote());</span>
-<span class="fc" id="L257">            Optional&lt;Lote&gt; loteOpt = loteRepository.findById(solicitud.getIdLote());</span>
-<span class="fc bfc" id="L258" title="All 2 branches covered.">            if (loteOpt.isPresent()) {</span>
-<span class="fc" id="L259">                Lote lote = loteOpt.get();</span>
+<span class="fc" id="L249">        germinacion.setComentarios(solicitud.getComentarios());</span>
+        
+        
+<span class="fc bfc" id="L252" title="All 2 branches covered.">        if (solicitud.getIdLote() != null) {</span>
+<span class="fc" id="L253">            System.out.println(&quot;Buscando lote con ID: &quot; + solicitud.getIdLote());</span>
+<span class="fc" id="L254">            Optional&lt;Lote&gt; loteOpt = loteRepository.findById(solicitud.getIdLote());</span>
+<span class="fc bfc" id="L255" title="All 2 branches covered.">            if (loteOpt.isPresent()) {</span>
+<span class="fc" id="L256">                Lote lote = loteOpt.get();</span>
                 
-                // Validar que el lote esté activo
-<span class="fc bfc" id="L262" title="All 2 branches covered.">                if (!lote.getActivo()) {</span>
-<span class="fc" id="L263">                    throw new RuntimeException(&quot;No se puede crear un análisis para un lote inactivo&quot;);</span>
+                
+<span class="fc bfc" id="L259" title="All 2 branches covered.">                if (!lote.getActivo()) {</span>
+<span class="fc" id="L260">                    throw new RuntimeException(&quot;No se puede crear un análisis para un lote inactivo&quot;);</span>
                 }
                 
-<span class="fc" id="L266">                germinacion.setLote(lote);</span>
-<span class="fc" id="L267">                System.out.println(&quot;Lote encontrado y asignado: &quot; + lote.getLoteID());</span>
-<span class="fc" id="L268">            } else {</span>
-<span class="fc" id="L269">                throw new RuntimeException(&quot;Lote no encontrado con ID: &quot; + solicitud.getIdLote());</span>
+<span class="fc" id="L263">                germinacion.setLote(lote);</span>
+<span class="fc" id="L264">                System.out.println(&quot;Lote encontrado y asignado: &quot; + lote.getLoteID());</span>
+<span class="fc" id="L265">            } else {</span>
+<span class="fc" id="L266">                throw new RuntimeException(&quot;Lote no encontrado con ID: &quot; + solicitud.getIdLote());</span>
             }
         }
         
-<span class="fc" id="L273">        System.out.println(&quot;Germinación mapeada exitosamente&quot;);</span>
-<span class="fc" id="L274">        return germinacion;</span>
+<span class="fc" id="L270">        System.out.println(&quot;Germinación mapeada exitosamente&quot;);</span>
+<span class="fc" id="L271">        return germinacion;</span>
     }
 
-    // Actualizar Entity desde RequestDTO para edición
+    
     private void actualizarEntidadDesdeSolicitud(Germinacion germinacion, GerminacionRequestDTO solicitud) {
-<span class="fc" id="L279">        System.out.println(&quot;Actualizando germinación desde solicitud&quot;);</span>
+<span class="fc" id="L276">        System.out.println(&quot;Actualizando germinación desde solicitud&quot;);</span>
         
-        // Datos del análisis base
-<span class="fc" id="L282">        germinacion.setComentarios(solicitud.getComentarios());</span>
         
-        // Validar y establecer lote si se proporciona
-<span class="pc bpc" id="L285" title="1 of 2 branches missed.">        if (solicitud.getIdLote() != null) {</span>
-<span class="fc" id="L286">            Optional&lt;Lote&gt; loteOpt = loteRepository.findById(solicitud.getIdLote());</span>
-<span class="pc bpc" id="L287" title="1 of 2 branches missed.">            if (loteOpt.isPresent()) {</span>
-<span class="fc" id="L288">                germinacion.setLote(loteOpt.get());</span>
-<span class="fc" id="L289">            } else {</span>
-<span class="nc" id="L290">                throw new RuntimeException(&quot;Lote no encontrado con ID: &quot; + solicitud.getIdLote());</span>
+<span class="fc" id="L279">        germinacion.setComentarios(solicitud.getComentarios());</span>
+        
+        
+<span class="pc bpc" id="L282" title="1 of 2 branches missed.">        if (solicitud.getIdLote() != null) {</span>
+<span class="fc" id="L283">            Optional&lt;Lote&gt; loteOpt = loteRepository.findById(solicitud.getIdLote());</span>
+<span class="pc bpc" id="L284" title="1 of 2 branches missed.">            if (loteOpt.isPresent()) {</span>
+<span class="fc" id="L285">                germinacion.setLote(loteOpt.get());</span>
+            } else {
+<span class="nc" id="L287">                throw new RuntimeException(&quot;Lote no encontrado con ID: &quot; + solicitud.getIdLote());</span>
             }
         }
 
-<span class="fc" id="L294">        System.out.println(&quot;Germinación actualizada exitosamente&quot;);</span>
-<span class="fc" id="L295">    }</span>
+<span class="fc" id="L291">        System.out.println(&quot;Germinación actualizada exitosamente&quot;);</span>
+<span class="fc" id="L292">    }</span>
 
-    // Mapear de Entity a DTO
+    
     private GerminacionDTO mapearEntidadADTO(Germinacion germinacion) {
-<span class="fc" id="L299">        GerminacionDTO dto = new GerminacionDTO();</span>
+<span class="fc" id="L296">        GerminacionDTO dto = new GerminacionDTO();</span>
         
-        // Datos del análisis base (fechaInicio y fechaFin automáticas del sistema)
-<span class="fc" id="L302">        dto.setAnalisisID(germinacion.getAnalisisID());</span>
-<span class="fc" id="L303">        dto.setEstado(germinacion.getEstado());</span>
-<span class="fc" id="L304">        dto.setFechaInicio(germinacion.getFechaInicio());</span>
-<span class="fc" id="L305">        dto.setFechaFin(germinacion.getFechaFin());</span>
-<span class="fc" id="L306">        dto.setComentarios(germinacion.getComentarios());</span>
         
-        // Datos completos del lote si existe
-<span class="pc bpc" id="L309" title="1 of 2 branches missed.">        if (germinacion.getLote() != null) {</span>
-<span class="fc" id="L310">            dto.setIdLote(germinacion.getLote().getLoteID());</span>
-<span class="fc" id="L311">            dto.setLote(germinacion.getLote().getNomLote());</span>
-<span class="fc" id="L312">            dto.setFicha(germinacion.getLote().getFicha());</span>
+<span class="fc" id="L299">        dto.setAnalisisID(germinacion.getAnalisisID());</span>
+<span class="fc" id="L300">        dto.setEstado(germinacion.getEstado());</span>
+<span class="fc" id="L301">        dto.setFechaInicio(germinacion.getFechaInicio());</span>
+<span class="fc" id="L302">        dto.setFechaFin(germinacion.getFechaFin());</span>
+<span class="fc" id="L303">        dto.setComentarios(germinacion.getComentarios());</span>
+        
+        
+<span class="pc bpc" id="L306" title="1 of 2 branches missed.">        if (germinacion.getLote() != null) {</span>
+<span class="fc" id="L307">            dto.setIdLote(germinacion.getLote().getLoteID());</span>
+<span class="fc" id="L308">            dto.setLote(germinacion.getLote().getNomLote());</span>
+<span class="fc" id="L309">            dto.setFicha(germinacion.getLote().getFicha());</span>
             
-            // Información del cultivar y especie
-<span class="fc bfc" id="L315" title="All 2 branches covered.">            if (germinacion.getLote().getCultivar() != null) {</span>
-<span class="fc" id="L316">                dto.setCultivarNombre(germinacion.getLote().getCultivar().getNombre());</span>
+            
+<span class="fc bfc" id="L312" title="All 2 branches covered.">            if (germinacion.getLote().getCultivar() != null) {</span>
+<span class="fc" id="L313">                dto.setCultivarNombre(germinacion.getLote().getCultivar().getNombre());</span>
                 
-<span class="pc bpc" id="L318" title="1 of 2 branches missed.">                if (germinacion.getLote().getCultivar().getEspecie() != null) {</span>
-<span class="fc" id="L319">                    dto.setEspecieNombre(germinacion.getLote().getCultivar().getEspecie().getNombreComun());</span>
+<span class="pc bpc" id="L315" title="1 of 2 branches missed.">                if (germinacion.getLote().getCultivar().getEspecie() != null) {</span>
+<span class="fc" id="L316">                    dto.setEspecieNombre(germinacion.getLote().getCultivar().getEspecie().getNombreComun());</span>
                 }
             }
         }
         
-        // Mapear historial de análisis
-<span class="fc" id="L325">        dto.setHistorial(analisisHistorialService.obtenerHistorialAnalisis(germinacion.getAnalisisID()));</span>
         
-<span class="fc" id="L327">        return dto;</span>
+<span class="fc" id="L322">        dto.setHistorial(analisisHistorialService.obtenerHistorialAnalisis(germinacion.getAnalisisID()));</span>
+        
+<span class="fc" id="L324">        return dto;</span>
     }
 
-    // Mapear de Entity a DTO simple para listado
+    
     private GerminacionListadoDTO mapearEntidadAListadoDTO(Germinacion germinacion) {
-<span class="fc" id="L332">        GerminacionListadoDTO dto = new GerminacionListadoDTO();</span>
+<span class="fc" id="L329">        GerminacionListadoDTO dto = new GerminacionListadoDTO();</span>
         
-        // Datos básicos del análisis
-<span class="fc" id="L335">        dto.setAnalisisID(germinacion.getAnalisisID());</span>
-<span class="fc" id="L336">        dto.setEstado(germinacion.getEstado());</span>
-<span class="fc" id="L337">        dto.setFechaInicio(germinacion.getFechaInicio());</span>
-<span class="fc" id="L338">        dto.setFechaFin(germinacion.getFechaFin());</span>
-<span class="fc" id="L339">        dto.setActivo(germinacion.getActivo());</span>
         
-        // Datos del lote
-<span class="fc bfc" id="L342" title="All 2 branches covered.">        if (germinacion.getLote() != null) {</span>
-<span class="fc" id="L343">            dto.setIdLote(germinacion.getLote().getLoteID());</span>
-<span class="fc" id="L344">            dto.setLote(germinacion.getLote().getNomLote());</span>
+<span class="fc" id="L332">        dto.setAnalisisID(germinacion.getAnalisisID());</span>
+<span class="fc" id="L333">        dto.setEstado(germinacion.getEstado());</span>
+<span class="fc" id="L334">        dto.setFechaInicio(germinacion.getFechaInicio());</span>
+<span class="fc" id="L335">        dto.setFechaFin(germinacion.getFechaFin());</span>
+<span class="fc" id="L336">        dto.setActivo(germinacion.getActivo());</span>
+        
+        
+<span class="fc bfc" id="L339" title="All 2 branches covered.">        if (germinacion.getLote() != null) {</span>
+<span class="fc" id="L340">            dto.setIdLote(germinacion.getLote().getLoteID());</span>
+<span class="fc" id="L341">            dto.setLote(germinacion.getLote().getNomLote());</span>
             
-            // Obtener especie del lote - Usar nombreComun como hace LoteService
-<span class="pc bpc" id="L347" title="1 of 4 branches missed.">            if (germinacion.getLote().getCultivar() != null &amp;&amp; germinacion.getLote().getCultivar().getEspecie() != null) {</span>
-<span class="fc" id="L348">                String nombreEspecie = germinacion.getLote().getCultivar().getEspecie().getNombreComun();</span>
-                // Si nombreComun está vacío, intentar con nombreCientifico
-<span class="pc bpc" id="L350" title="1 of 4 branches missed.">                if (nombreEspecie == null || nombreEspecie.trim().isEmpty()) {</span>
-<span class="fc" id="L351">                    nombreEspecie = germinacion.getLote().getCultivar().getEspecie().getNombreCientifico();</span>
+            
+<span class="pc bpc" id="L344" title="1 of 4 branches missed.">            if (germinacion.getLote().getCultivar() != null &amp;&amp; germinacion.getLote().getCultivar().getEspecie() != null) {</span>
+<span class="fc" id="L345">                String nombreEspecie = germinacion.getLote().getCultivar().getEspecie().getNombreComun();</span>
+                
+<span class="pc bpc" id="L347" title="1 of 4 branches missed.">                if (nombreEspecie == null || nombreEspecie.trim().isEmpty()) {</span>
+<span class="fc" id="L348">                    nombreEspecie = germinacion.getLote().getCultivar().getEspecie().getNombreCientifico();</span>
                 }
-<span class="fc" id="L353">                dto.setEspecie(nombreEspecie);</span>
+<span class="fc" id="L350">                dto.setEspecie(nombreEspecie);</span>
             }
         }
         
-        // Cumple norma: true si NO está &quot;A REPETIR&quot;
-<span class="fc bfc" id="L358" title="All 2 branches covered.">        dto.setCumpleNorma(germinacion.getEstado() != Estado.A_REPETIR);</span>
         
-        // Obtener datos de TablaGerm si existe
-<span class="pc bpc" id="L361" title="1 of 4 branches missed.">        if (germinacion.getTablaGerm() != null &amp;&amp; !germinacion.getTablaGerm().isEmpty()) {</span>
-<span class="fc" id="L362">            TablaGerm tablaGerm = germinacion.getTablaGerm().get(0);</span>
+<span class="fc bfc" id="L355" title="All 2 branches covered.">        dto.setCumpleNorma(germinacion.getEstado() != Estado.A_REPETIR);</span>
+        
+        
+<span class="pc bpc" id="L358" title="1 of 4 branches missed.">        if (germinacion.getTablaGerm() != null &amp;&amp; !germinacion.getTablaGerm().isEmpty()) {</span>
+<span class="fc" id="L359">            TablaGerm tablaGerm = germinacion.getTablaGerm().get(0);</span>
             
-            // Fechas de germinación
-<span class="fc" id="L365">            dto.setFechaInicioGerm(tablaGerm.getFechaGerminacion());</span>
-<span class="fc" id="L366">            dto.setFechaFinal(tablaGerm.getFechaFinal());</span>
             
-            // Booleanos de prefrío y pretratamiento
-<span class="fc" id="L369">            dto.setTienePrefrio(tablaGerm.getTienePrefrio());</span>
-<span class="fc" id="L370">            dto.setTienePretratamiento(tablaGerm.getTienePretratamiento());</span>
+<span class="fc" id="L362">            dto.setFechaInicioGerm(tablaGerm.getFechaGerminacion());</span>
+<span class="fc" id="L363">            dto.setFechaFinal(tablaGerm.getFechaFinal());</span>
             
-            // Obtener valores de germinación INIA e INASE
-<span class="pc bpc" id="L373" title="2 of 4 branches missed.">            if (tablaGerm.getValoresGerm() != null &amp;&amp; !tablaGerm.getValoresGerm().isEmpty()) {</span>
-<span class="fc bfc" id="L374" title="All 2 branches covered.">                for (var valorGerm : tablaGerm.getValoresGerm()) {</span>
-<span class="pc bpc" id="L375" title="1 of 2 branches missed.">                    if (valorGerm.getInstituto() != null) {</span>
-<span class="fc bfc" id="L376" title="All 2 branches covered.">                        if (valorGerm.getInstituto().toString().equals(&quot;INIA&quot;)) {</span>
-<span class="fc" id="L377">                            dto.setValorGerminacionINIA(valorGerm.getGerminacion());</span>
-<span class="pc bpc" id="L378" title="1 of 2 branches missed.">                        } else if (valorGerm.getInstituto().toString().equals(&quot;INASE&quot;)) {</span>
-<span class="fc" id="L379">                            dto.setValorGerminacionINASE(valorGerm.getGerminacion());</span>
+            
+<span class="fc" id="L366">            dto.setTienePrefrio(tablaGerm.getTienePrefrio());</span>
+<span class="fc" id="L367">            dto.setTienePretratamiento(tablaGerm.getTienePretratamiento());</span>
+            
+            
+<span class="pc bpc" id="L370" title="2 of 4 branches missed.">            if (tablaGerm.getValoresGerm() != null &amp;&amp; !tablaGerm.getValoresGerm().isEmpty()) {</span>
+<span class="fc bfc" id="L371" title="All 2 branches covered.">                for (var valorGerm : tablaGerm.getValoresGerm()) {</span>
+<span class="pc bpc" id="L372" title="1 of 2 branches missed.">                    if (valorGerm.getInstituto() != null) {</span>
+<span class="fc bfc" id="L373" title="All 2 branches covered.">                        if (valorGerm.getInstituto().toString().equals(&quot;INIA&quot;)) {</span>
+<span class="fc" id="L374">                            dto.setValorGerminacionINIA(valorGerm.getGerminacion());</span>
+<span class="pc bpc" id="L375" title="1 of 2 branches missed.">                        } else if (valorGerm.getInstituto().toString().equals(&quot;INASE&quot;)) {</span>
+<span class="fc" id="L376">                            dto.setValorGerminacionINASE(valorGerm.getGerminacion());</span>
                         }
                     }
-                }
+<span class="fc" id="L379">                }</span>
             }
         }
         
-        // Obtener información del historial para usuarios
-<span class="pc bpc" id="L387" title="1 of 2 branches missed.">        if (germinacion.getAnalisisID() != null) {</span>
-<span class="fc" id="L388">            var historial = analisisHistorialService.obtenerHistorialAnalisis(germinacion.getAnalisisID());</span>
-<span class="fc bfc" id="L389" title="All 2 branches covered.">            if (!historial.isEmpty()) {</span>
-                // Usuario creador (primer registro)
-<span class="fc" id="L391">                var primerRegistro = historial.get(historial.size() - 1);</span>
-<span class="fc" id="L392">                dto.setUsuarioCreador(primerRegistro.getUsuario());</span>
+        
+<span class="pc bpc" id="L384" title="1 of 2 branches missed.">        if (germinacion.getAnalisisID() != null) {</span>
+<span class="fc" id="L385">            var historial = analisisHistorialService.obtenerHistorialAnalisis(germinacion.getAnalisisID());</span>
+<span class="fc bfc" id="L386" title="All 2 branches covered.">            if (!historial.isEmpty()) {</span>
                 
-                // Usuario modificador (último registro)
-<span class="fc" id="L395">                var ultimoRegistro = historial.get(0);</span>
-<span class="fc" id="L396">                dto.setUsuarioModificador(ultimoRegistro.getUsuario());</span>
+<span class="fc" id="L388">                var primerRegistro = historial.get(historial.size() - 1);</span>
+<span class="fc" id="L389">                dto.setUsuarioCreador(primerRegistro.getUsuario());</span>
+                
+                
+<span class="fc" id="L392">                var ultimoRegistro = historial.get(0);</span>
+<span class="fc" id="L393">                dto.setUsuarioModificador(ultimoRegistro.getUsuario());</span>
             }
         }
         
-<span class="fc" id="L400">        return dto;</span>
+<span class="fc" id="L397">        return dto;</span>
     }
 
-    /**
-     * Finalizar análisis según el rol del usuario
-     * - Analistas: pasa a PENDIENTE_APROBACION
-     * - Administradores: pasa directamente a APROBADO
-     */
+    
     public GerminacionDTO finalizarAnalisis(Long id) {
-<span class="fc" id="L409">        return analisisService.finalizarAnalisisGenerico(</span>
-<span class="fc" id="L410">            id,</span>
-<span class="fc" id="L411">            germinacionRepository,</span>
-<span class="fc" id="L412">            this::mapearEntidadADTO,</span>
-<span class="fc" id="L413">            this::validarGerminacionParaOperacionCritica</span>
+<span class="fc" id="L402">        return analisisService.finalizarAnalisisGenerico(</span>
+            id,
+            germinacionRepository,
+            this::mapearEntidadADTO,
+            this::validarGerminacionParaOperacionCritica
         );
     }
 
-    /**
-     * Aprobar análisis (solo administradores)
-     */
+    
     public GerminacionDTO aprobarAnalisis(Long id) {
-<span class="fc" id="L421">        return analisisService.aprobarAnalisisGenerico(</span>
-<span class="fc" id="L422">            id,</span>
-<span class="fc" id="L423">            germinacionRepository,</span>
-<span class="fc" id="L424">            this::mapearEntidadADTO,</span>
-<span class="fc" id="L425">            this::validarGerminacionParaOperacionCritica, // Mismas validaciones que finalizar</span>
-<span class="fc" id="L426">            germinacionRepository::findByIdLote // Función para buscar por lote</span>
+<span class="fc" id="L412">        return analisisService.aprobarAnalisisGenerico(</span>
+            id,
+            germinacionRepository,
+            this::mapearEntidadADTO,
+            this::validarGerminacionParaOperacionCritica, 
+<span class="fc" id="L417">            germinacionRepository::findByIdLote </span>
         );
     }
 
-    // Marcar análisis para repetir (solo administradores)
+    
     public GerminacionDTO marcarParaRepetir(Long id) {
-<span class="fc" id="L432">        return analisisService.marcarParaRepetirGenerico(</span>
-<span class="fc" id="L433">            id,</span>
-<span class="fc" id="L434">            germinacionRepository,</span>
-<span class="fc" id="L435">            this::mapearEntidadADTO,</span>
-<span class="fc" id="L436">            this::validarGerminacionParaOperacionCritica // Mismas validaciones que finalizar</span>
+<span class="fc" id="L423">        return analisisService.marcarParaRepetirGenerico(</span>
+            id,
+            germinacionRepository,
+            this::mapearEntidadADTO,
+            this::validarGerminacionParaOperacionCritica 
         );
     }
 }

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PurezaService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">PurezaService.java</span></div><h1>PurezaService.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PurezaService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">PurezaService.java</span></div><h1>PurezaService.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -60,43 +60,43 @@ import utec.proyectofinal.Proyecto.Final.UTEC.responses.ResponseListadoPureza;
     @Autowired
     private AnalisisService analisisService;
 
-    // Crear Pureza con estado EN_PROCESO
+    
     @Transactional
     public PurezaDTO crearPureza(PurezaRequestDTO solicitud) {
-        // Validar pesos antes de crear
+        
 <span class="fc" id="L67">        validarPesos(solicitud.getPesoInicial_g(), solicitud.getPesoTotal_g());</span>
         
 <span class="fc" id="L69">        Pureza pureza = mapearSolicitudAEntidad(solicitud);</span>
 <span class="fc" id="L70">        pureza.setEstado(Estado.EN_PROCESO);</span>
         
-        // Establecer fecha de inicio automáticamente
+        
 <span class="fc" id="L73">        analisisService.establecerFechaInicio(pureza);</span>
         
 <span class="fc" id="L75">        Pureza purezaGuardada = purezaRepository.save(pureza);</span>
         
-        // Registrar automáticamente en el historial
+        
 <span class="fc" id="L78">        analisisHistorialService.registrarCreacion(purezaGuardada);</span>
         
 <span class="fc" id="L80">        return mapearEntidadADTO(purezaGuardada);</span>
     }
 
-    // Editar Pureza
+    
     @Transactional
     public PurezaDTO actualizarPureza(Long id, PurezaRequestDTO solicitud) {
 <span class="fc" id="L86">        Pureza pureza = purezaRepository.findById(id)</span>
 <span class="fc" id="L87">                .orElseThrow(() -&gt; new RuntimeException(&quot;Pureza no encontrada con id: &quot; + id));</span>
 
-        // Manejar cambios de estado según rol del usuario
+        
 <span class="fc" id="L90">        Estado estadoOriginal = pureza.getEstado();</span>
         
 <span class="fc bfc" id="L92" title="All 4 branches covered.">        if (estadoOriginal == Estado.APROBADO &amp;&amp; analisisService.esAnalista()) {</span>
-            // Si es ANALISTA editando un análisis APROBADO, cambiar a PENDIENTE_APROBACION
+            
 <span class="fc" id="L94">            pureza.setEstado(Estado.PENDIENTE_APROBACION);</span>
         }
-        // Si es ADMIN editando análisis APROBADO o FINALIZADO, mantiene su estado
-        // Para otros estados (EN_PROCESO, PENDIENTE_APROBACION) se mantiene igual
+        
+        
 
-        // Validar pesos antes de actualizar
+        
 <span class="pc bpc" id="L100" title="1 of 2 branches missed.">        BigDecimal pesoInicial = solicitud.getPesoInicial_g() != null ? solicitud.getPesoInicial_g() : pureza.getPesoInicial_g();</span>
 <span class="pc bpc" id="L101" title="1 of 2 branches missed.">        BigDecimal pesoTotal = solicitud.getPesoTotal_g() != null ? solicitud.getPesoTotal_g() : pureza.getPesoTotal_g();</span>
 <span class="fc" id="L102">        validarPesos(pesoInicial, pesoTotal);</span>
@@ -104,89 +104,39 @@ import utec.proyectofinal.Proyecto.Final.UTEC.responses.ResponseListadoPureza;
 <span class="fc" id="L104">        actualizarEntidadDesdeSolicitud(pureza, solicitud);</span>
 <span class="fc" id="L105">        Pureza purezaActualizada = purezaRepository.save(pureza);</span>
         
-        // Registrar automáticamente en el historial
+        
 <span class="fc" id="L108">        analisisHistorialService.registrarModificacion(purezaActualizada);</span>
         
 <span class="fc" id="L110">        return mapearEntidadADTO(purezaActualizada);</span>
     }
 
-    // Eliminar Pureza (desactivar - cambiar activo a false)
-    public void eliminarPureza(Long id) {
-<span class="fc" id="L115">        Pureza pureza = purezaRepository.findById(id)</span>
-<span class="fc" id="L116">                .orElseThrow(() -&gt; new RuntimeException(&quot;Pureza no encontrada con id: &quot; + id));</span>
-
-<span class="fc" id="L118">        pureza.setActivo(false);</span>
-<span class="fc" id="L119">        purezaRepository.save(pureza);</span>
-<span class="fc" id="L120">    }</span>
-
-    // Desactivar Pureza (cambiar activo a false)
+    
     public void desactivarPureza(Long id) {
-<span class="fc" id="L124">        analisisService.desactivarAnalisis(id, purezaRepository);</span>
-<span class="fc" id="L125">    }</span>
+<span class="fc" id="L115">        analisisService.desactivarAnalisis(id, purezaRepository);</span>
+<span class="fc" id="L116">    }</span>
 
-    // Reactivar Pureza (cambiar activo a true)
+    
     public PurezaDTO reactivarPureza(Long id) {
-<span class="fc" id="L129">        return analisisService.reactivarAnalisis(id, purezaRepository, this::mapearEntidadADTO);</span>
+<span class="fc" id="L120">        return analisisService.reactivarAnalisis(id, purezaRepository, this::mapearEntidadADTO);</span>
     }
 
-    // Listar todas las Purezas activas
-    public ResponseListadoPureza obtenerTodasPurezasActivas() {
-<span class="fc" id="L134">        List&lt;PurezaDTO&gt; purezaDTOs = purezaRepository.findByActivoTrue()</span>
-<span class="fc" id="L135">                .stream()</span>
-<span class="fc" id="L136">                .map(this::mapearEntidadADTO)</span>
-<span class="fc" id="L137">                .collect(Collectors.toList());</span>
-
-<span class="fc" id="L139">        ResponseListadoPureza respuesta = new ResponseListadoPureza();</span>
-<span class="fc" id="L140">        respuesta.setPurezas(purezaDTOs);</span>
-<span class="fc" id="L141">        return respuesta;</span>
-    }
-
-    // Obtener Pureza por ID
+    
     public PurezaDTO obtenerPurezaPorId(Long id) {
-<span class="fc" id="L146">        return purezaRepository.findById(id)</span>
-<span class="fc" id="L147">                .map(this::mapearEntidadADTO)</span>
-<span class="fc" id="L148">                .orElseThrow(() -&gt; new RuntimeException(&quot;Pureza no encontrada con id: &quot; + id));</span>
+<span class="fc" id="L125">        return purezaRepository.findById(id)</span>
+<span class="fc" id="L126">                .map(this::mapearEntidadADTO)</span>
+<span class="fc" id="L127">                .orElseThrow(() -&gt; new RuntimeException(&quot;Pureza no encontrada con id: &quot; + id));</span>
     }
 
-    // Obtener Purezas por Lote
+    
     public List&lt;PurezaDTO&gt; obtenerPurezasPorIdLote(Long idLote) {
-<span class="fc" id="L153">        return purezaRepository.findByIdLote(idLote)</span>
-<span class="fc" id="L154">                .stream()</span>
-<span class="fc" id="L155">                .map(this::mapearEntidadADTO)</span>
-<span class="fc" id="L156">                .collect(Collectors.toList());</span>
+<span class="fc" id="L132">        return purezaRepository.findByIdLote(idLote)</span>
+<span class="fc" id="L133">                .stream()</span>
+<span class="fc" id="L134">                .map(this::mapearEntidadADTO)</span>
+<span class="fc" id="L135">                .collect(Collectors.toList());</span>
     }
 
-    // Listar Pureza con paginado (para listado)
-    public Page&lt;PurezaListadoDTO&gt; obtenerPurezaPaginadas(Pageable pageable) {
-<span class="fc" id="L161">        Page&lt;Pureza&gt; purezaPage = purezaRepository.findByActivoTrueOrderByFechaInicioDesc(pageable);</span>
-<span class="fc" id="L162">        return purezaPage.map(this::mapearEntidadAListadoDTO);</span>
-    }
 
-    // Listar Pureza con paginado y filtro por activo
-    public Page&lt;PurezaListadoDTO&gt; obtenerPurezaPaginadasConFiltro(Pageable pageable, String filtroActivo) {
-        Page&lt;Pureza&gt; purezaPage;
-        
-<span class="fc bfc" id="L169" title="All 2 branches covered.">        if (&quot;activos&quot;.equalsIgnoreCase(filtroActivo)) {</span>
-<span class="fc" id="L170">            purezaPage = purezaRepository.findByActivoTrueOrderByFechaInicioDesc(pageable);</span>
-<span class="fc bfc" id="L171" title="All 2 branches covered.">        } else if (&quot;inactivos&quot;.equalsIgnoreCase(filtroActivo)) {</span>
-<span class="fc" id="L172">            purezaPage = purezaRepository.findByActivoFalseOrderByFechaInicioDesc(pageable);</span>
-<span class="fc" id="L173">        } else {</span>
-            // &quot;todos&quot; o cualquier otro valor
-<span class="fc" id="L175">            purezaPage = purezaRepository.findAllByOrderByFechaInicioDesc(pageable);</span>
-        }
-        
-<span class="fc" id="L178">        return purezaPage.map(this::mapearEntidadAListadoDTO);</span>
-    }
-
-    /**
-     * Listar Pureza con paginado y filtros dinámicos
-     * @param pageable Información de paginación
-     * @param searchTerm Término de búsqueda (opcional)
-     * @param activo Filtro por estado activo (opcional)
-     * @param estado Filtro por estado del análisis (opcional)
-     * @param loteId Filtro por ID del lote (opcional)
-     * @return Página de PurezaListadoDTO filtrados
-     */
+    
     public Page&lt;PurezaListadoDTO&gt; obtenerPurezaPaginadasConFiltros(
             Pageable pageable,
             String searchTerm,
@@ -194,369 +144,345 @@ import utec.proyectofinal.Proyecto.Final.UTEC.responses.ResponseListadoPureza;
             String estado,
             Long loteId) {
         
-        // Crear la especificación con los filtros
-<span class="fc" id="L198">        Specification&lt;Pureza&gt; spec = PurezaSpecification.conFiltros(searchTerm, activo, estado, loteId);</span>
         
-        // Obtener purezas filtradas y paginadas
-<span class="fc" id="L201">        Page&lt;Pureza&gt; purezaPage = purezaRepository.findAll(spec, pageable);</span>
+<span class="fc" id="L148">        Specification&lt;Pureza&gt; spec = PurezaSpecification.conFiltros(searchTerm, activo, estado, loteId);</span>
         
-        // Mapear a DTOs
-<span class="fc" id="L204">        return purezaPage.map(this::mapearEntidadAListadoDTO);</span>
+        
+<span class="fc" id="L151">        Page&lt;Pureza&gt; purezaPage = purezaRepository.findAll(spec, pageable);</span>
+        
+        
+<span class="fc" id="L154">        return purezaPage.map(this::mapearEntidadAListadoDTO);</span>
     }
 
-    // Mapear entidad a DTO de listado simple
+    
     private PurezaListadoDTO mapearEntidadAListadoDTO(Pureza pureza) {
-<span class="fc" id="L209">        PurezaListadoDTO dto = new PurezaListadoDTO();</span>
-<span class="fc" id="L210">        dto.setAnalisisID(pureza.getAnalisisID());</span>
-<span class="fc" id="L211">        dto.setEstado(pureza.getEstado());</span>
-<span class="fc" id="L212">        dto.setFechaInicio(pureza.getFechaInicio());</span>
-<span class="fc" id="L213">        dto.setFechaFin(pureza.getFechaFin());</span>
-<span class="fc" id="L214">        dto.setActivo(pureza.getActivo());</span>
+<span class="fc" id="L159">        PurezaListadoDTO dto = new PurezaListadoDTO();</span>
+<span class="fc" id="L160">        dto.setAnalisisID(pureza.getAnalisisID());</span>
+<span class="fc" id="L161">        dto.setEstado(pureza.getEstado());</span>
+<span class="fc" id="L162">        dto.setFechaInicio(pureza.getFechaInicio());</span>
+<span class="fc" id="L163">        dto.setFechaFin(pureza.getFechaFin());</span>
+<span class="fc" id="L164">        dto.setActivo(pureza.getActivo());</span>
         
-        // Datos de pureza
-<span class="fc" id="L217">        dto.setRedonSemillaPura(pureza.getRedonSemillaPura());</span>
-<span class="fc" id="L218">        dto.setInasePura(pureza.getInasePura());</span>
         
-<span class="fc bfc" id="L220" title="All 2 branches covered.">        if (pureza.getLote() != null) {</span>
-<span class="fc" id="L221">            dto.setIdLote(pureza.getLote().getLoteID());</span>
-<span class="fc" id="L222">            dto.setLote(pureza.getLote().getNomLote()); // Usar nomLote en lugar de ficha</span>
+<span class="fc" id="L167">        dto.setRedonSemillaPura(pureza.getRedonSemillaPura());</span>
+<span class="fc" id="L168">        dto.setInasePura(pureza.getInasePura());</span>
+        
+<span class="fc bfc" id="L170" title="All 2 branches covered.">        if (pureza.getLote() != null) {</span>
+<span class="fc" id="L171">            dto.setIdLote(pureza.getLote().getLoteID());</span>
+<span class="fc" id="L172">            dto.setLote(pureza.getLote().getNomLote()); </span>
             
-            // Obtener especie del lote - Usar nombreComun primero, luego nombreCientifico
-<span class="pc bpc" id="L225" title="1 of 4 branches missed.">            if (pureza.getLote().getCultivar() != null &amp;&amp; pureza.getLote().getCultivar().getEspecie() != null) {</span>
-<span class="fc" id="L226">                String nombreEspecie = pureza.getLote().getCultivar().getEspecie().getNombreComun();</span>
-                // Si nombreComun está vacío, intentar con nombreCientifico
-<span class="fc bfc" id="L228" title="All 4 branches covered.">                if (nombreEspecie == null || nombreEspecie.trim().isEmpty()) {</span>
-<span class="fc" id="L229">                    nombreEspecie = pureza.getLote().getCultivar().getEspecie().getNombreCientifico();</span>
+            
+<span class="pc bpc" id="L175" title="1 of 4 branches missed.">            if (pureza.getLote().getCultivar() != null &amp;&amp; pureza.getLote().getCultivar().getEspecie() != null) {</span>
+<span class="fc" id="L176">                String nombreEspecie = pureza.getLote().getCultivar().getEspecie().getNombreComun();</span>
+                
+<span class="fc bfc" id="L178" title="All 4 branches covered.">                if (nombreEspecie == null || nombreEspecie.trim().isEmpty()) {</span>
+<span class="fc" id="L179">                    nombreEspecie = pureza.getLote().getCultivar().getEspecie().getNombreCientifico();</span>
                 }
-<span class="fc" id="L231">                dto.setEspecie(nombreEspecie);</span>
+<span class="fc" id="L181">                dto.setEspecie(nombreEspecie);</span>
             }
         }
         
-<span class="pc bpc" id="L235" title="1 of 2 branches missed.">        if (pureza.getAnalisisID() != null) {</span>
-<span class="fc" id="L236">            var historial = analisisHistorialService.obtenerHistorialAnalisis(pureza.getAnalisisID());</span>
-<span class="fc bfc" id="L237" title="All 2 branches covered.">            if (!historial.isEmpty()) {</span>
-<span class="fc" id="L238">                var primerRegistro = historial.get(historial.size() - 1);</span>
-<span class="fc" id="L239">                dto.setUsuarioCreador(primerRegistro.getUsuario());</span>
-<span class="fc" id="L240">                var ultimoRegistro = historial.get(0);</span>
-<span class="fc" id="L241">                dto.setUsuarioModificador(ultimoRegistro.getUsuario());</span>
+<span class="pc bpc" id="L185" title="1 of 2 branches missed.">        if (pureza.getAnalisisID() != null) {</span>
+<span class="fc" id="L186">            var historial = analisisHistorialService.obtenerHistorialAnalisis(pureza.getAnalisisID());</span>
+<span class="fc bfc" id="L187" title="All 2 branches covered.">            if (!historial.isEmpty()) {</span>
+<span class="fc" id="L188">                var primerRegistro = historial.get(historial.size() - 1);</span>
+<span class="fc" id="L189">                dto.setUsuarioCreador(primerRegistro.getUsuario());</span>
+<span class="fc" id="L190">                var ultimoRegistro = historial.get(0);</span>
+<span class="fc" id="L191">                dto.setUsuarioModificador(ultimoRegistro.getUsuario());</span>
             }
         }
-<span class="fc" id="L244">        return dto;</span>
+<span class="fc" id="L194">        return dto;</span>
     }
 
-    // Obtener todos los catálogos
-    public List&lt;MalezasCatalogoDTO&gt; obtenerTodosCatalogos() {
-<span class="fc" id="L249">        return malezasCatalogoRepository.findAll()</span>
-<span class="fc" id="L250">                .stream()</span>
-<span class="fc" id="L251">                .map(MappingUtils::toCatalogoDTO)</span>
-<span class="fc" id="L252">                .collect(Collectors.toList());</span>
-    }
 
-    // === Mappers internos ===
+    
 
     private Pureza mapearSolicitudAEntidad(PurezaRequestDTO solicitud) {
-<span class="fc" id="L258">        Pureza pureza = new Pureza();</span>
+<span class="fc" id="L201">        Pureza pureza = new Pureza();</span>
 
-<span class="pc bpc" id="L260" title="1 of 2 branches missed.">        if (solicitud.getIdLote() != null) {</span>
-<span class="fc" id="L261">            Optional&lt;Lote&gt; loteOpt = loteRepository.findById(solicitud.getIdLote());</span>
-<span class="fc bfc" id="L262" title="All 2 branches covered.">            if (loteOpt.isPresent()) {</span>
-<span class="fc" id="L263">                Lote lote = loteOpt.get();</span>
+<span class="pc bpc" id="L203" title="1 of 2 branches missed.">        if (solicitud.getIdLote() != null) {</span>
+<span class="fc" id="L204">            Optional&lt;Lote&gt; loteOpt = loteRepository.findById(solicitud.getIdLote());</span>
+<span class="fc bfc" id="L205" title="All 2 branches covered.">            if (loteOpt.isPresent()) {</span>
+<span class="fc" id="L206">                Lote lote = loteOpt.get();</span>
                 
-                // Validar que el lote esté activo
-<span class="fc bfc" id="L266" title="All 2 branches covered.">                if (!lote.getActivo()) {</span>
-<span class="fc" id="L267">                    throw new RuntimeException(&quot;No se puede crear un análisis para un lote inactivo&quot;);</span>
+                
+<span class="fc bfc" id="L209" title="All 2 branches covered.">                if (!lote.getActivo()) {</span>
+<span class="fc" id="L210">                    throw new RuntimeException(&quot;No se puede crear un análisis para un lote inactivo&quot;);</span>
                 }
                 
-<span class="fc" id="L270">                pureza.setLote(lote);</span>
-<span class="fc" id="L271">            } else {</span>
-<span class="fc" id="L272">                throw new RuntimeException(&quot;Lote no encontrado con ID: &quot; + solicitud.getIdLote());</span>
+<span class="fc" id="L213">                pureza.setLote(lote);</span>
+<span class="fc" id="L214">            } else {</span>
+<span class="fc" id="L215">                throw new RuntimeException(&quot;Lote no encontrado con ID: &quot; + solicitud.getIdLote());</span>
             }
         }
 
-        // Las fechas fechaInicio y fechaFin son automáticas, no del request
-<span class="fc" id="L277">        pureza.setCumpleEstandar(solicitud.getCumpleEstandar());</span>
-<span class="fc" id="L278">        pureza.setComentarios(solicitud.getComentarios());</span>
+        
+<span class="fc" id="L220">        pureza.setCumpleEstandar(solicitud.getCumpleEstandar());</span>
+<span class="fc" id="L221">        pureza.setComentarios(solicitud.getComentarios());</span>
 
-        // Campos específicos
-<span class="fc" id="L281">        pureza.setFecha(solicitud.getFecha());</span>
-<span class="fc" id="L282">        pureza.setPesoInicial_g(solicitud.getPesoInicial_g());</span>
-<span class="fc" id="L283">        pureza.setSemillaPura_g(solicitud.getSemillaPura_g());</span>
-<span class="fc" id="L284">        pureza.setMateriaInerte_g(solicitud.getMateriaInerte_g());</span>
-<span class="fc" id="L285">        pureza.setOtrosCultivos_g(solicitud.getOtrosCultivos_g());</span>
-<span class="fc" id="L286">        pureza.setMalezas_g(solicitud.getMalezas_g());</span>
-<span class="fc" id="L287">        pureza.setMalezasToleradas_g(solicitud.getMalezasToleradas_g());</span>
-<span class="fc" id="L288">        pureza.setMalezasTolCero_g(solicitud.getMalezasTolCero_g());</span>
-<span class="fc" id="L289">        pureza.setPesoTotal_g(solicitud.getPesoTotal_g());</span>
+        
+<span class="fc" id="L224">        pureza.setFecha(solicitud.getFecha());</span>
+<span class="fc" id="L225">        pureza.setPesoInicial_g(solicitud.getPesoInicial_g());</span>
+<span class="fc" id="L226">        pureza.setSemillaPura_g(solicitud.getSemillaPura_g());</span>
+<span class="fc" id="L227">        pureza.setMateriaInerte_g(solicitud.getMateriaInerte_g());</span>
+<span class="fc" id="L228">        pureza.setOtrosCultivos_g(solicitud.getOtrosCultivos_g());</span>
+<span class="fc" id="L229">        pureza.setMalezas_g(solicitud.getMalezas_g());</span>
+<span class="fc" id="L230">        pureza.setMalezasToleradas_g(solicitud.getMalezasToleradas_g());</span>
+<span class="fc" id="L231">        pureza.setMalezasTolCero_g(solicitud.getMalezasTolCero_g());</span>
+<span class="fc" id="L232">        pureza.setPesoTotal_g(solicitud.getPesoTotal_g());</span>
 
-<span class="fc" id="L291">        pureza.setRedonSemillaPura(solicitud.getRedonSemillaPura());</span>
-<span class="fc" id="L292">        pureza.setRedonMateriaInerte(solicitud.getRedonMateriaInerte());</span>
-<span class="fc" id="L293">        pureza.setRedonOtrosCultivos(solicitud.getRedonOtrosCultivos());</span>
-<span class="fc" id="L294">        pureza.setRedonMalezas(solicitud.getRedonMalezas());</span>
-<span class="fc" id="L295">        pureza.setRedonMalezasToleradas(solicitud.getRedonMalezasToleradas());</span>
-<span class="fc" id="L296">        pureza.setRedonMalezasTolCero(solicitud.getRedonMalezasTolCero());</span>
-<span class="fc" id="L297">        pureza.setRedonPesoTotal(solicitud.getRedonPesoTotal());</span>
+<span class="fc" id="L234">        pureza.setRedonSemillaPura(solicitud.getRedonSemillaPura());</span>
+<span class="fc" id="L235">        pureza.setRedonMateriaInerte(solicitud.getRedonMateriaInerte());</span>
+<span class="fc" id="L236">        pureza.setRedonOtrosCultivos(solicitud.getRedonOtrosCultivos());</span>
+<span class="fc" id="L237">        pureza.setRedonMalezas(solicitud.getRedonMalezas());</span>
+<span class="fc" id="L238">        pureza.setRedonMalezasToleradas(solicitud.getRedonMalezasToleradas());</span>
+<span class="fc" id="L239">        pureza.setRedonMalezasTolCero(solicitud.getRedonMalezasTolCero());</span>
+<span class="fc" id="L240">        pureza.setRedonPesoTotal(solicitud.getRedonPesoTotal());</span>
 
-<span class="fc" id="L299">        pureza.setInasePura(solicitud.getInasePura());</span>
-<span class="fc" id="L300">        pureza.setInaseMateriaInerte(solicitud.getInaseMateriaInerte());</span>
-<span class="fc" id="L301">        pureza.setInaseOtrosCultivos(solicitud.getInaseOtrosCultivos());</span>
-<span class="fc" id="L302">        pureza.setInaseMalezas(solicitud.getInaseMalezas());</span>
-<span class="fc" id="L303">        pureza.setInaseMalezasToleradas(solicitud.getInaseMalezasToleradas());</span>
-<span class="fc" id="L304">        pureza.setInaseMalezasTolCero(solicitud.getInaseMalezasTolCero());</span>
-<span class="fc" id="L305">        pureza.setInaseFecha(solicitud.getInaseFecha());</span>
+<span class="fc" id="L242">        pureza.setInasePura(solicitud.getInasePura());</span>
+<span class="fc" id="L243">        pureza.setInaseMateriaInerte(solicitud.getInaseMateriaInerte());</span>
+<span class="fc" id="L244">        pureza.setInaseOtrosCultivos(solicitud.getInaseOtrosCultivos());</span>
+<span class="fc" id="L245">        pureza.setInaseMalezas(solicitud.getInaseMalezas());</span>
+<span class="fc" id="L246">        pureza.setInaseMalezasToleradas(solicitud.getInaseMalezasToleradas());</span>
+<span class="fc" id="L247">        pureza.setInaseMalezasTolCero(solicitud.getInaseMalezasTolCero());</span>
+<span class="fc" id="L248">        pureza.setInaseFecha(solicitud.getInaseFecha());</span>
 
-<span class="pc bpc" id="L307" title="1 of 4 branches missed.">        if (solicitud.getOtrasSemillas() != null &amp;&amp; !solicitud.getOtrasSemillas().isEmpty()) {</span>
-<span class="fc" id="L308">            List&lt;Listado&gt; otrasSemillas = solicitud.getOtrasSemillas().stream()</span>
-<span class="fc" id="L309">                    .map(req -&gt; crearListadoDesdeSolicitud(req, pureza))</span>
-<span class="fc" id="L310">                    .collect(Collectors.toList());</span>
-<span class="fc" id="L311">            pureza.setListados(otrasSemillas);</span>
+<span class="pc bpc" id="L250" title="1 of 4 branches missed.">        if (solicitud.getOtrasSemillas() != null &amp;&amp; !solicitud.getOtrasSemillas().isEmpty()) {</span>
+<span class="fc" id="L251">            List&lt;Listado&gt; otrasSemillas = solicitud.getOtrasSemillas().stream()</span>
+<span class="fc" id="L252">                    .map(req -&gt; crearListadoDesdeSolicitud(req, pureza))</span>
+<span class="fc" id="L253">                    .collect(Collectors.toList());</span>
+<span class="fc" id="L254">            pureza.setListados(otrasSemillas);</span>
         }
 
-<span class="fc" id="L314">        return pureza;</span>
+<span class="fc" id="L257">        return pureza;</span>
     }
 
     private void actualizarEntidadDesdeSolicitud(Pureza pureza, PurezaRequestDTO solicitud) {
-<span class="pc bpc" id="L318" title="1 of 2 branches missed.">        if (solicitud.getIdLote() != null) {</span>
-<span class="fc" id="L319">            Optional&lt;Lote&gt; loteOpt = loteRepository.findById(solicitud.getIdLote());</span>
-<span class="fc bfc" id="L320" title="All 2 branches covered.">            if (loteOpt.isPresent()) {</span>
-<span class="fc" id="L321">                pureza.setLote(loteOpt.get());</span>
-<span class="fc" id="L322">            } else {</span>
-<span class="fc" id="L323">                throw new RuntimeException(&quot;Lote no encontrado con ID: &quot; + solicitud.getIdLote());</span>
+<span class="pc bpc" id="L261" title="1 of 2 branches missed.">        if (solicitud.getIdLote() != null) {</span>
+<span class="fc" id="L262">            Optional&lt;Lote&gt; loteOpt = loteRepository.findById(solicitud.getIdLote());</span>
+<span class="fc bfc" id="L263" title="All 2 branches covered.">            if (loteOpt.isPresent()) {</span>
+<span class="fc" id="L264">                pureza.setLote(loteOpt.get());</span>
+            } else {
+<span class="fc" id="L266">                throw new RuntimeException(&quot;Lote no encontrado con ID: &quot; + solicitud.getIdLote());</span>
             }
         }
 
 
-<span class="fc bfc" id="L328" title="All 2 branches covered.">        if (solicitud.getCumpleEstandar() != null) pureza.setCumpleEstandar(solicitud.getCumpleEstandar());</span>
-<span class="fc bfc" id="L329" title="All 2 branches covered.">        if (solicitud.getComentarios() != null) pureza.setComentarios(solicitud.getComentarios());</span>
+<span class="fc bfc" id="L271" title="All 2 branches covered.">        if (solicitud.getCumpleEstandar() != null) pureza.setCumpleEstandar(solicitud.getCumpleEstandar());</span>
+<span class="fc bfc" id="L272" title="All 2 branches covered.">        if (solicitud.getComentarios() != null) pureza.setComentarios(solicitud.getComentarios());</span>
 
-<span class="fc bfc" id="L331" title="All 2 branches covered.">        if (solicitud.getFecha() != null) pureza.setFecha(solicitud.getFecha());</span>
-<span class="pc bpc" id="L332" title="1 of 2 branches missed.">        if (solicitud.getPesoInicial_g() != null) pureza.setPesoInicial_g(solicitud.getPesoInicial_g());</span>
-<span class="fc bfc" id="L333" title="All 2 branches covered.">        if (solicitud.getSemillaPura_g() != null) pureza.setSemillaPura_g(solicitud.getSemillaPura_g());</span>
-<span class="fc bfc" id="L334" title="All 2 branches covered.">        if (solicitud.getMateriaInerte_g() != null) pureza.setMateriaInerte_g(solicitud.getMateriaInerte_g());</span>
-<span class="fc bfc" id="L335" title="All 2 branches covered.">        if (solicitud.getOtrosCultivos_g() != null) pureza.setOtrosCultivos_g(solicitud.getOtrosCultivos_g());</span>
-<span class="fc bfc" id="L336" title="All 2 branches covered.">        if (solicitud.getMalezas_g() != null) pureza.setMalezas_g(solicitud.getMalezas_g());</span>
-<span class="fc bfc" id="L337" title="All 2 branches covered.">        if (solicitud.getMalezasToleradas_g() != null) pureza.setMalezasToleradas_g(solicitud.getMalezasToleradas_g());</span>
-<span class="fc bfc" id="L338" title="All 2 branches covered.">        if (solicitud.getMalezasTolCero_g() != null) pureza.setMalezasTolCero_g(solicitud.getMalezasTolCero_g());</span>
-<span class="pc bpc" id="L339" title="1 of 2 branches missed.">        if (solicitud.getPesoTotal_g() != null) pureza.setPesoTotal_g(solicitud.getPesoTotal_g());</span>
+<span class="fc bfc" id="L274" title="All 2 branches covered.">        if (solicitud.getFecha() != null) pureza.setFecha(solicitud.getFecha());</span>
+<span class="pc bpc" id="L275" title="1 of 2 branches missed.">        if (solicitud.getPesoInicial_g() != null) pureza.setPesoInicial_g(solicitud.getPesoInicial_g());</span>
+<span class="fc bfc" id="L276" title="All 2 branches covered.">        if (solicitud.getSemillaPura_g() != null) pureza.setSemillaPura_g(solicitud.getSemillaPura_g());</span>
+<span class="fc bfc" id="L277" title="All 2 branches covered.">        if (solicitud.getMateriaInerte_g() != null) pureza.setMateriaInerte_g(solicitud.getMateriaInerte_g());</span>
+<span class="fc bfc" id="L278" title="All 2 branches covered.">        if (solicitud.getOtrosCultivos_g() != null) pureza.setOtrosCultivos_g(solicitud.getOtrosCultivos_g());</span>
+<span class="fc bfc" id="L279" title="All 2 branches covered.">        if (solicitud.getMalezas_g() != null) pureza.setMalezas_g(solicitud.getMalezas_g());</span>
+<span class="fc bfc" id="L280" title="All 2 branches covered.">        if (solicitud.getMalezasToleradas_g() != null) pureza.setMalezasToleradas_g(solicitud.getMalezasToleradas_g());</span>
+<span class="fc bfc" id="L281" title="All 2 branches covered.">        if (solicitud.getMalezasTolCero_g() != null) pureza.setMalezasTolCero_g(solicitud.getMalezasTolCero_g());</span>
+<span class="pc bpc" id="L282" title="1 of 2 branches missed.">        if (solicitud.getPesoTotal_g() != null) pureza.setPesoTotal_g(solicitud.getPesoTotal_g());</span>
 
-<span class="fc bfc" id="L341" title="All 2 branches covered.">        if (solicitud.getRedonSemillaPura() != null) pureza.setRedonSemillaPura(solicitud.getRedonSemillaPura());</span>
-<span class="fc bfc" id="L342" title="All 2 branches covered.">        if (solicitud.getRedonMateriaInerte() != null) pureza.setRedonMateriaInerte(solicitud.getRedonMateriaInerte());</span>
-<span class="fc bfc" id="L343" title="All 2 branches covered.">        if (solicitud.getRedonOtrosCultivos() != null) pureza.setRedonOtrosCultivos(solicitud.getRedonOtrosCultivos());</span>
-<span class="fc bfc" id="L344" title="All 2 branches covered.">        if (solicitud.getRedonMalezas() != null) pureza.setRedonMalezas(solicitud.getRedonMalezas());</span>
-<span class="fc bfc" id="L345" title="All 2 branches covered.">        if (solicitud.getRedonMalezasToleradas() != null) pureza.setRedonMalezasToleradas(solicitud.getRedonMalezasToleradas());</span>
-<span class="fc bfc" id="L346" title="All 2 branches covered.">        if (solicitud.getRedonMalezasTolCero() != null) pureza.setRedonMalezasTolCero(solicitud.getRedonMalezasTolCero());</span>
-<span class="fc bfc" id="L347" title="All 2 branches covered.">        if (solicitud.getRedonPesoTotal() != null) pureza.setRedonPesoTotal(solicitud.getRedonPesoTotal());</span>
+<span class="fc bfc" id="L284" title="All 2 branches covered.">        if (solicitud.getRedonSemillaPura() != null) pureza.setRedonSemillaPura(solicitud.getRedonSemillaPura());</span>
+<span class="fc bfc" id="L285" title="All 2 branches covered.">        if (solicitud.getRedonMateriaInerte() != null) pureza.setRedonMateriaInerte(solicitud.getRedonMateriaInerte());</span>
+<span class="fc bfc" id="L286" title="All 2 branches covered.">        if (solicitud.getRedonOtrosCultivos() != null) pureza.setRedonOtrosCultivos(solicitud.getRedonOtrosCultivos());</span>
+<span class="fc bfc" id="L287" title="All 2 branches covered.">        if (solicitud.getRedonMalezas() != null) pureza.setRedonMalezas(solicitud.getRedonMalezas());</span>
+<span class="fc bfc" id="L288" title="All 2 branches covered.">        if (solicitud.getRedonMalezasToleradas() != null) pureza.setRedonMalezasToleradas(solicitud.getRedonMalezasToleradas());</span>
+<span class="fc bfc" id="L289" title="All 2 branches covered.">        if (solicitud.getRedonMalezasTolCero() != null) pureza.setRedonMalezasTolCero(solicitud.getRedonMalezasTolCero());</span>
+<span class="fc bfc" id="L290" title="All 2 branches covered.">        if (solicitud.getRedonPesoTotal() != null) pureza.setRedonPesoTotal(solicitud.getRedonPesoTotal());</span>
 
-<span class="fc bfc" id="L349" title="All 2 branches covered.">        if (solicitud.getInasePura() != null) pureza.setInasePura(solicitud.getInasePura());</span>
-<span class="fc bfc" id="L350" title="All 2 branches covered.">        if (solicitud.getInaseMateriaInerte() != null) pureza.setInaseMateriaInerte(solicitud.getInaseMateriaInerte());</span>
-<span class="fc bfc" id="L351" title="All 2 branches covered.">        if (solicitud.getInaseOtrosCultivos() != null) pureza.setInaseOtrosCultivos(solicitud.getInaseOtrosCultivos());</span>
-<span class="fc bfc" id="L352" title="All 2 branches covered.">        if (solicitud.getInaseMalezas() != null) pureza.setInaseMalezas(solicitud.getInaseMalezas());</span>
-<span class="fc bfc" id="L353" title="All 2 branches covered.">        if (solicitud.getInaseMalezasToleradas() != null) pureza.setInaseMalezasToleradas(solicitud.getInaseMalezasToleradas());</span>
-<span class="fc bfc" id="L354" title="All 2 branches covered.">        if (solicitud.getInaseMalezasTolCero() != null) pureza.setInaseMalezasTolCero(solicitud.getInaseMalezasTolCero());</span>
-<span class="fc bfc" id="L355" title="All 2 branches covered.">        if (solicitud.getInaseFecha() != null) pureza.setInaseFecha(solicitud.getInaseFecha());</span>
+<span class="fc bfc" id="L292" title="All 2 branches covered.">        if (solicitud.getInasePura() != null) pureza.setInasePura(solicitud.getInasePura());</span>
+<span class="fc bfc" id="L293" title="All 2 branches covered.">        if (solicitud.getInaseMateriaInerte() != null) pureza.setInaseMateriaInerte(solicitud.getInaseMateriaInerte());</span>
+<span class="fc bfc" id="L294" title="All 2 branches covered.">        if (solicitud.getInaseOtrosCultivos() != null) pureza.setInaseOtrosCultivos(solicitud.getInaseOtrosCultivos());</span>
+<span class="fc bfc" id="L295" title="All 2 branches covered.">        if (solicitud.getInaseMalezas() != null) pureza.setInaseMalezas(solicitud.getInaseMalezas());</span>
+<span class="fc bfc" id="L296" title="All 2 branches covered.">        if (solicitud.getInaseMalezasToleradas() != null) pureza.setInaseMalezasToleradas(solicitud.getInaseMalezasToleradas());</span>
+<span class="fc bfc" id="L297" title="All 2 branches covered.">        if (solicitud.getInaseMalezasTolCero() != null) pureza.setInaseMalezasTolCero(solicitud.getInaseMalezasTolCero());</span>
+<span class="fc bfc" id="L298" title="All 2 branches covered.">        if (solicitud.getInaseFecha() != null) pureza.setInaseFecha(solicitud.getInaseFecha());</span>
 
-<span class="fc bfc" id="L357" title="All 2 branches covered.">        if (solicitud.getOtrasSemillas() != null) {</span>
-            // Inicializar la lista si es null
-<span class="fc bfc" id="L359" title="All 2 branches covered.">            if (pureza.getListados() == null) {</span>
-<span class="fc" id="L360">                pureza.setListados(new ArrayList&lt;&gt;());</span>
+<span class="fc bfc" id="L300" title="All 2 branches covered.">        if (solicitud.getOtrasSemillas() != null) {</span>
+            
+<span class="fc bfc" id="L302" title="All 2 branches covered.">            if (pureza.getListados() == null) {</span>
+<span class="fc" id="L303">                pureza.setListados(new ArrayList&lt;&gt;());</span>
             }
             
-            // Limpiar listados existentes
-<span class="fc" id="L364">            pureza.getListados().clear();</span>
+            
+<span class="fc" id="L307">            pureza.getListados().clear();</span>
 
-            // Si hay nuevos listados, crearlos y agregarlos
-<span class="fc bfc" id="L367" title="All 2 branches covered.">            if (!solicitud.getOtrasSemillas().isEmpty()) {</span>
-<span class="fc" id="L368">                List&lt;Listado&gt; nuevosListados = solicitud.getOtrasSemillas().stream()</span>
-<span class="fc" id="L369">                        .map(req -&gt; crearListadoDesdeSolicitud(req, pureza))</span>
-<span class="fc" id="L370">                        .collect(Collectors.toList());</span>
+            
+<span class="fc bfc" id="L310" title="All 2 branches covered.">            if (!solicitud.getOtrasSemillas().isEmpty()) {</span>
+<span class="fc" id="L311">                List&lt;Listado&gt; nuevosListados = solicitud.getOtrasSemillas().stream()</span>
+<span class="fc" id="L312">                        .map(req -&gt; crearListadoDesdeSolicitud(req, pureza))</span>
+<span class="fc" id="L313">                        .collect(Collectors.toList());</span>
                 
-<span class="fc" id="L372">                pureza.getListados().addAll(nuevosListados);</span>
+<span class="fc" id="L315">                pureza.getListados().addAll(nuevosListados);</span>
             }
         }
-<span class="fc" id="L375">    }</span>
+<span class="fc" id="L318">    }</span>
 
     private PurezaDTO mapearEntidadADTO(Pureza pureza) {
-<span class="fc" id="L378">        PurezaDTO dto = new PurezaDTO();</span>
+<span class="fc" id="L321">        PurezaDTO dto = new PurezaDTO();</span>
 
-<span class="fc" id="L380">        dto.setAnalisisID(pureza.getAnalisisID());</span>
-<span class="fc" id="L381">        dto.setEstado(pureza.getEstado());</span>
-<span class="fc" id="L382">        dto.setFechaInicio(pureza.getFechaInicio());</span>
-<span class="fc" id="L383">        dto.setFechaFin(pureza.getFechaFin());</span>
-<span class="fc" id="L384">        dto.setCumpleEstandar(pureza.getCumpleEstandar());</span>
-<span class="fc" id="L385">        dto.setComentarios(pureza.getComentarios());</span>
+<span class="fc" id="L323">        dto.setAnalisisID(pureza.getAnalisisID());</span>
+<span class="fc" id="L324">        dto.setEstado(pureza.getEstado());</span>
+<span class="fc" id="L325">        dto.setFechaInicio(pureza.getFechaInicio());</span>
+<span class="fc" id="L326">        dto.setFechaFin(pureza.getFechaFin());</span>
+<span class="fc" id="L327">        dto.setCumpleEstandar(pureza.getCumpleEstandar());</span>
+<span class="fc" id="L328">        dto.setComentarios(pureza.getComentarios());</span>
         
-        // Datos completos del lote si existe
-<span class="pc bpc" id="L388" title="1 of 2 branches missed.">        if (pureza.getLote() != null) {</span>
-<span class="fc" id="L389">            dto.setIdLote(pureza.getLote().getLoteID());</span>
-<span class="fc" id="L390">            dto.setLote(pureza.getLote().getNomLote());</span>
-<span class="fc" id="L391">            dto.setFicha(pureza.getLote().getFicha());</span>
+        
+<span class="pc bpc" id="L331" title="1 of 2 branches missed.">        if (pureza.getLote() != null) {</span>
+<span class="fc" id="L332">            dto.setIdLote(pureza.getLote().getLoteID());</span>
+<span class="fc" id="L333">            dto.setLote(pureza.getLote().getNomLote());</span>
+<span class="fc" id="L334">            dto.setFicha(pureza.getLote().getFicha());</span>
             
-            // Información del cultivar y especie
-<span class="fc bfc" id="L394" title="All 2 branches covered.">            if (pureza.getLote().getCultivar() != null) {</span>
-<span class="fc" id="L395">                dto.setCultivarNombre(pureza.getLote().getCultivar().getNombre());</span>
+            
+<span class="fc bfc" id="L337" title="All 2 branches covered.">            if (pureza.getLote().getCultivar() != null) {</span>
+<span class="fc" id="L338">                dto.setCultivarNombre(pureza.getLote().getCultivar().getNombre());</span>
                 
-<span class="pc bpc" id="L397" title="1 of 2 branches missed.">                if (pureza.getLote().getCultivar().getEspecie() != null) {</span>
-<span class="fc" id="L398">                    dto.setEspecieNombre(pureza.getLote().getCultivar().getEspecie().getNombreComun());</span>
+<span class="pc bpc" id="L340" title="1 of 2 branches missed.">                if (pureza.getLote().getCultivar().getEspecie() != null) {</span>
+<span class="fc" id="L341">                    dto.setEspecieNombre(pureza.getLote().getCultivar().getEspecie().getNombreComun());</span>
                 }
             }
         }
 
-<span class="fc" id="L403">        dto.setFecha(pureza.getFecha());</span>
-<span class="fc" id="L404">        dto.setPesoInicial_g(pureza.getPesoInicial_g());</span>
-<span class="fc" id="L405">        dto.setSemillaPura_g(pureza.getSemillaPura_g());</span>
-<span class="fc" id="L406">        dto.setMateriaInerte_g(pureza.getMateriaInerte_g());</span>
-<span class="fc" id="L407">        dto.setOtrosCultivos_g(pureza.getOtrosCultivos_g());</span>
-<span class="fc" id="L408">        dto.setMalezas_g(pureza.getMalezas_g());</span>
-<span class="fc" id="L409">        dto.setMalezasToleradas_g(pureza.getMalezasToleradas_g());</span>
-<span class="fc" id="L410">        dto.setMalezasTolCero_g(pureza.getMalezasTolCero_g());</span>
-<span class="fc" id="L411">        dto.setPesoTotal_g(pureza.getPesoTotal_g());</span>
+<span class="fc" id="L346">        dto.setFecha(pureza.getFecha());</span>
+<span class="fc" id="L347">        dto.setPesoInicial_g(pureza.getPesoInicial_g());</span>
+<span class="fc" id="L348">        dto.setSemillaPura_g(pureza.getSemillaPura_g());</span>
+<span class="fc" id="L349">        dto.setMateriaInerte_g(pureza.getMateriaInerte_g());</span>
+<span class="fc" id="L350">        dto.setOtrosCultivos_g(pureza.getOtrosCultivos_g());</span>
+<span class="fc" id="L351">        dto.setMalezas_g(pureza.getMalezas_g());</span>
+<span class="fc" id="L352">        dto.setMalezasToleradas_g(pureza.getMalezasToleradas_g());</span>
+<span class="fc" id="L353">        dto.setMalezasTolCero_g(pureza.getMalezasTolCero_g());</span>
+<span class="fc" id="L354">        dto.setPesoTotal_g(pureza.getPesoTotal_g());</span>
 
-<span class="fc" id="L413">        dto.setRedonSemillaPura(pureza.getRedonSemillaPura());</span>
-<span class="fc" id="L414">        dto.setRedonMateriaInerte(pureza.getRedonMateriaInerte());</span>
-<span class="fc" id="L415">        dto.setRedonOtrosCultivos(pureza.getRedonOtrosCultivos());</span>
-<span class="fc" id="L416">        dto.setRedonMalezas(pureza.getRedonMalezas());</span>
-<span class="fc" id="L417">        dto.setRedonMalezasToleradas(pureza.getRedonMalezasToleradas());</span>
-<span class="fc" id="L418">        dto.setRedonMalezasTolCero(pureza.getRedonMalezasTolCero());</span>
-<span class="fc" id="L419">        dto.setRedonPesoTotal(pureza.getRedonPesoTotal());</span>
+<span class="fc" id="L356">        dto.setRedonSemillaPura(pureza.getRedonSemillaPura());</span>
+<span class="fc" id="L357">        dto.setRedonMateriaInerte(pureza.getRedonMateriaInerte());</span>
+<span class="fc" id="L358">        dto.setRedonOtrosCultivos(pureza.getRedonOtrosCultivos());</span>
+<span class="fc" id="L359">        dto.setRedonMalezas(pureza.getRedonMalezas());</span>
+<span class="fc" id="L360">        dto.setRedonMalezasToleradas(pureza.getRedonMalezasToleradas());</span>
+<span class="fc" id="L361">        dto.setRedonMalezasTolCero(pureza.getRedonMalezasTolCero());</span>
+<span class="fc" id="L362">        dto.setRedonPesoTotal(pureza.getRedonPesoTotal());</span>
 
-<span class="fc" id="L421">        dto.setInasePura(pureza.getInasePura());</span>
-<span class="fc" id="L422">        dto.setInaseMateriaInerte(pureza.getInaseMateriaInerte());</span>
-<span class="fc" id="L423">        dto.setInaseOtrosCultivos(pureza.getInaseOtrosCultivos());</span>
-<span class="fc" id="L424">        dto.setInaseMalezas(pureza.getInaseMalezas());</span>
-<span class="fc" id="L425">        dto.setInaseMalezasToleradas(pureza.getInaseMalezasToleradas());</span>
-<span class="fc" id="L426">        dto.setInaseMalezasTolCero(pureza.getInaseMalezasTolCero());</span>
-<span class="fc" id="L427">        dto.setInaseFecha(pureza.getInaseFecha());</span>
+<span class="fc" id="L364">        dto.setInasePura(pureza.getInasePura());</span>
+<span class="fc" id="L365">        dto.setInaseMateriaInerte(pureza.getInaseMateriaInerte());</span>
+<span class="fc" id="L366">        dto.setInaseOtrosCultivos(pureza.getInaseOtrosCultivos());</span>
+<span class="fc" id="L367">        dto.setInaseMalezas(pureza.getInaseMalezas());</span>
+<span class="fc" id="L368">        dto.setInaseMalezasToleradas(pureza.getInaseMalezasToleradas());</span>
+<span class="fc" id="L369">        dto.setInaseMalezasTolCero(pureza.getInaseMalezasTolCero());</span>
+<span class="fc" id="L370">        dto.setInaseFecha(pureza.getInaseFecha());</span>
 
-<span class="fc bfc" id="L429" title="All 2 branches covered.">        if (pureza.getListados() != null) {</span>
-<span class="fc" id="L430">            List&lt;ListadoDTO&gt; otrasSemillasDTO = pureza.getListados().stream()</span>
-<span class="fc" id="L431">                    .map(MappingUtils::toListadoDTO)</span>
-<span class="fc" id="L432">                    .collect(Collectors.toList());</span>
-<span class="fc" id="L433">            dto.setOtrasSemillas(otrasSemillasDTO);</span>
+<span class="fc bfc" id="L372" title="All 2 branches covered.">        if (pureza.getListados() != null) {</span>
+<span class="fc" id="L373">            List&lt;ListadoDTO&gt; otrasSemillasDTO = pureza.getListados().stream()</span>
+<span class="fc" id="L374">                    .map(MappingUtils::toListadoDTO)</span>
+<span class="fc" id="L375">                    .collect(Collectors.toList());</span>
+<span class="fc" id="L376">            dto.setOtrasSemillas(otrasSemillasDTO);</span>
         }
 
-        // Mapear historial de análisis
-<span class="fc" id="L437">        dto.setHistorial(analisisHistorialService.obtenerHistorialAnalisis(pureza.getAnalisisID()));</span>
+        
+<span class="fc" id="L380">        dto.setHistorial(analisisHistorialService.obtenerHistorialAnalisis(pureza.getAnalisisID()));</span>
 
-<span class="fc" id="L439">        return dto;</span>
+<span class="fc" id="L382">        return dto;</span>
     }
 
     private Listado crearListadoDesdeSolicitud(ListadoRequestDTO solicitud, Pureza pureza) {
-<span class="fc" id="L443">        Listado listado = MappingUtils.fromListadoRequest(solicitud, malezasCatalogoRepository, especieRepository);</span>
-<span class="fc" id="L444">        listado.setPureza(pureza);</span>
-<span class="fc" id="L445">        return listado;</span>
+<span class="fc" id="L386">        Listado listado = MappingUtils.fromListadoRequest(solicitud, malezasCatalogoRepository, especieRepository);</span>
+<span class="fc" id="L387">        listado.setPureza(pureza);</span>
+<span class="fc" id="L388">        return listado;</span>
     }
 
-    /**
-     * Valida las reglas de negocio relacionadas con los pesos en el análisis de pureza
-     * @param pesoInicial_g Peso inicial de la muestra
-     * @param pesoTotal_g Peso total después del análisis
-     * @throws RuntimeException si alguna validación crítica falla
-     */
+    
     private void validarPesos(BigDecimal pesoInicial_g, BigDecimal pesoTotal_g) {
-<span class="pc bpc" id="L455" title="1 of 4 branches missed.">        if (pesoInicial_g == null || pesoTotal_g == null) {</span>
-<span class="fc" id="L456">            return; // No validar si los valores son nulos</span>
+<span class="pc bpc" id="L393" title="1 of 4 branches missed.">        if (pesoInicial_g == null || pesoTotal_g == null) {</span>
+<span class="fc" id="L394">            return; </span>
         }
 
-        // Validación especial: El peso inicial no puede ser cero o negativo
-<span class="fc bfc" id="L460" title="All 2 branches covered.">        if (pesoInicial_g.compareTo(BigDecimal.ZERO) &lt;= 0) {</span>
-<span class="fc" id="L461">            throw new RuntimeException(&quot;El peso inicial debe ser mayor a cero para realizar el análisis&quot;);</span>
-        }
-
-        // Validación 1: El peso total no puede ser mayor al inicial
-<span class="fc bfc" id="L465" title="All 2 branches covered.">        if (pesoTotal_g.compareTo(pesoInicial_g) &gt; 0) {</span>
-<span class="fc" id="L466">            throw new RuntimeException(&quot;El peso total (&quot; + pesoTotal_g + &quot;g) no puede ser mayor al peso inicial (&quot; + pesoInicial_g + &quot;g)&quot;);</span>
-        }
-
-        // Validación 2: Solo información para el frontend si se pierde más del 5% de la muestra
-        // No arroja error, el frontend debe manejar esta validación como alerta
-<span class="fc" id="L471">        BigDecimal diferenciaPeso = pesoInicial_g.subtract(pesoTotal_g);</span>
-<span class="fc" id="L472">        BigDecimal porcentajePerdida = diferenciaPeso.divide(pesoInicial_g, 4, java.math.RoundingMode.HALF_UP)</span>
-<span class="fc" id="L473">                                                    .multiply(new BigDecimal(&quot;100&quot;));</span>
         
-<span class="fc" id="L475">        BigDecimal limitePermitido = new BigDecimal(&quot;5.0&quot;);</span>
-<span class="fc bfc" id="L476" title="All 2 branches covered.">        if (porcentajePerdida.compareTo(limitePermitido) &gt; 0) {</span>
-            // Solo log para información, no error
-<span class="fc" id="L478">            System.out.println(&quot;INFO: La muestra ha perdido &quot; + porcentajePerdida.setScale(2, java.math.RoundingMode.HALF_UP) + </span>
+<span class="fc bfc" id="L398" title="All 2 branches covered.">        if (pesoInicial_g.compareTo(BigDecimal.ZERO) &lt;= 0) {</span>
+<span class="fc" id="L399">            throw new RuntimeException(&quot;El peso inicial debe ser mayor a cero para realizar el análisis&quot;);</span>
+        }
+
+        
+<span class="fc bfc" id="L403" title="All 2 branches covered.">        if (pesoTotal_g.compareTo(pesoInicial_g) &gt; 0) {</span>
+<span class="fc" id="L404">            throw new RuntimeException(&quot;El peso total (&quot; + pesoTotal_g + &quot;g) no puede ser mayor al peso inicial (&quot; + pesoInicial_g + &quot;g)&quot;);</span>
+        }
+
+        
+        
+<span class="fc" id="L409">        BigDecimal diferenciaPeso = pesoInicial_g.subtract(pesoTotal_g);</span>
+<span class="fc" id="L410">        BigDecimal porcentajePerdida = diferenciaPeso.divide(pesoInicial_g, 4, java.math.RoundingMode.HALF_UP)</span>
+<span class="fc" id="L411">                                                    .multiply(new BigDecimal(&quot;100&quot;));</span>
+        
+<span class="fc" id="L413">        BigDecimal limitePermitido = new BigDecimal(&quot;5.0&quot;);</span>
+<span class="fc bfc" id="L414" title="All 2 branches covered.">        if (porcentajePerdida.compareTo(limitePermitido) &gt; 0) {</span>
+            
+<span class="fc" id="L416">            System.out.println(&quot;INFO: La muestra ha perdido &quot; + porcentajePerdida.setScale(2, java.math.RoundingMode.HALF_UP) + </span>
                              &quot;% de su peso inicial, lo cual excede el límite recomendado del 5%. &quot; +
-<span class="fc" id="L480">                             &quot;Pérdida: &quot; + diferenciaPeso.setScale(2, java.math.RoundingMode.HALF_UP) + &quot;g&quot;);</span>
+<span class="fc" id="L418">                             &quot;Pérdida: &quot; + diferenciaPeso.setScale(2, java.math.RoundingMode.HALF_UP) + &quot;g&quot;);</span>
         }
-<span class="fc" id="L482">    }</span>
+<span class="fc" id="L420">    }</span>
 
-    /**
-     * Finalizar análisis según el rol del usuario
-     * - Analistas: pasa a PENDIENTE_APROBACION
-     * - Administradores: pasa directamente a APROBADO
-     */
+    
     public PurezaDTO finalizarAnalisis(Long id) {
-<span class="fc" id="L490">        return analisisService.finalizarAnalisisGenerico(</span>
-<span class="fc" id="L491">            id,</span>
-<span class="fc" id="L492">            purezaRepository,</span>
-<span class="fc" id="L493">            this::mapearEntidadADTO,</span>
-<span class="fc" id="L494">            this::validarAntesDeFinalizar</span>
+<span class="fc" id="L424">        return analisisService.finalizarAnalisisGenerico(</span>
+            id,
+            purezaRepository,
+            this::mapearEntidadADTO,
+            this::validarAntesDeFinalizar
         );
     }
 
-    /**
-     * Validación básica previa a la finalización de un análisis de Pureza.
-     * Requiere al menos una forma de evidencia: datos de pesos registrados (semilla pura, materia inerte, etc.),
-     * datos INASE o listados no vacíos. Si no hay evidencia lanza RuntimeException.
-     */
+    
     private void validarAntesDeFinalizar(Pureza pureza) {
-        // Verificar si tiene datos de pesos registrados (campos Redon)
-<span class="nc bnc" id="L505" title="All 2 branches missed.">        boolean tieneDatosRedon = pureza.getRedonSemillaPura() != null</span>
-<span class="nc bnc" id="L506" title="All 2 branches missed.">                || pureza.getRedonMateriaInerte() != null</span>
-<span class="nc bnc" id="L507" title="All 2 branches missed.">                || pureza.getRedonOtrosCultivos() != null</span>
-<span class="nc bnc" id="L508" title="All 2 branches missed.">                || pureza.getRedonMalezas() != null</span>
-<span class="nc bnc" id="L509" title="All 2 branches missed.">                || pureza.getRedonMalezasToleradas() != null</span>
-<span class="nc bnc" id="L510" title="All 2 branches missed.">                || pureza.getRedonMalezasTolCero() != null;</span>
+        
+<span class="nc bnc" id="L435" title="All 2 branches missed.">        boolean tieneDatosRedon = pureza.getRedonSemillaPura() != null</span>
+<span class="nc bnc" id="L436" title="All 2 branches missed.">                || pureza.getRedonMateriaInerte() != null</span>
+<span class="nc bnc" id="L437" title="All 2 branches missed.">                || pureza.getRedonOtrosCultivos() != null</span>
+<span class="nc bnc" id="L438" title="All 2 branches missed.">                || pureza.getRedonMalezas() != null</span>
+<span class="nc bnc" id="L439" title="All 2 branches missed.">                || pureza.getRedonMalezasToleradas() != null</span>
+<span class="nc bnc" id="L440" title="All 2 branches missed.">                || pureza.getRedonMalezasTolCero() != null;</span>
 
-        // Verificar si tiene datos INASE
-<span class="nc bnc" id="L513" title="All 2 branches missed.">        boolean tieneDatosINASE = (pureza.getInaseFecha() != null)</span>
-<span class="nc bnc" id="L514" title="All 2 branches missed.">                &amp;&amp; (pureza.getInasePura() != null</span>
-<span class="nc bnc" id="L515" title="All 2 branches missed.">                    || pureza.getInaseMateriaInerte() != null</span>
-<span class="nc bnc" id="L516" title="All 2 branches missed.">                    || pureza.getInaseOtrosCultivos() != null</span>
-<span class="nc bnc" id="L517" title="All 2 branches missed.">                    || pureza.getInaseMalezas() != null</span>
-<span class="nc bnc" id="L518" title="All 2 branches missed.">                    || pureza.getInaseMalezasToleradas() != null</span>
-<span class="nc bnc" id="L519" title="All 2 branches missed.">                    || pureza.getInaseMalezasTolCero() != null);</span>
+        
+<span class="nc bnc" id="L443" title="All 2 branches missed.">        boolean tieneDatosINASE = (pureza.getInaseFecha() != null)</span>
+<span class="nc bnc" id="L444" title="All 2 branches missed.">                &amp;&amp; (pureza.getInasePura() != null</span>
+<span class="nc bnc" id="L445" title="All 2 branches missed.">                    || pureza.getInaseMateriaInerte() != null</span>
+<span class="nc bnc" id="L446" title="All 2 branches missed.">                    || pureza.getInaseOtrosCultivos() != null</span>
+<span class="nc bnc" id="L447" title="All 2 branches missed.">                    || pureza.getInaseMalezas() != null</span>
+<span class="nc bnc" id="L448" title="All 2 branches missed.">                    || pureza.getInaseMalezasToleradas() != null</span>
+<span class="nc bnc" id="L449" title="All 2 branches missed.">                    || pureza.getInaseMalezasTolCero() != null);</span>
 
-        // Verificar si tiene listados
-<span class="nc bnc" id="L522" title="All 4 branches missed.">        boolean tieneListados = pureza.getListados() != null &amp;&amp; !pureza.getListados().isEmpty();</span>
+        
+<span class="nc bnc" id="L452" title="All 4 branches missed.">        boolean tieneListados = pureza.getListados() != null &amp;&amp; !pureza.getListados().isEmpty();</span>
 
-        // Validar que tenga al menos una forma de evidencia
-<span class="nc bnc" id="L525" title="All 6 branches missed.">        if (!tieneDatosRedon &amp;&amp; !tieneDatosINASE &amp;&amp; !tieneListados) {</span>
-<span class="nc" id="L526">            throw new RuntimeException(&quot;No se puede finalizar: el análisis de Pureza carece de evidencia. Agregue datos de pesos (Redon), datos INASE o listados antes de finalizar.&quot;);</span>
+        
+<span class="nc bnc" id="L455" title="All 6 branches missed.">        if (!tieneDatosRedon &amp;&amp; !tieneDatosINASE &amp;&amp; !tieneListados) {</span>
+<span class="nc" id="L456">            throw new RuntimeException(&quot;No se puede finalizar: el análisis de Pureza carece de evidencia. Agregue datos de pesos (Redon), datos INASE o listados antes de finalizar.&quot;);</span>
         }
 
-        // Validaciones adicionales de pesos si están presentes
-<span class="nc bnc" id="L530" title="All 4 branches missed.">        if (pureza.getPesoInicial_g() != null &amp;&amp; pureza.getPesoInicial_g().compareTo(BigDecimal.ZERO) &lt;= 0) {</span>
-<span class="nc" id="L531">            throw new RuntimeException(&quot;El peso inicial debe ser mayor que 0&quot;);</span>
+        
+<span class="nc bnc" id="L460" title="All 4 branches missed.">        if (pureza.getPesoInicial_g() != null &amp;&amp; pureza.getPesoInicial_g().compareTo(BigDecimal.ZERO) &lt;= 0) {</span>
+<span class="nc" id="L461">            throw new RuntimeException(&quot;El peso inicial debe ser mayor que 0&quot;);</span>
         }
-<span class="nc bnc" id="L533" title="All 4 branches missed.">        if (pureza.getPesoTotal_g() != null &amp;&amp; pureza.getPesoTotal_g().compareTo(BigDecimal.ZERO) &lt;= 0) {</span>
-<span class="nc" id="L534">            throw new RuntimeException(&quot;El peso total debe ser mayor que 0&quot;);</span>
+<span class="nc bnc" id="L463" title="All 4 branches missed.">        if (pureza.getPesoTotal_g() != null &amp;&amp; pureza.getPesoTotal_g().compareTo(BigDecimal.ZERO) &lt;= 0) {</span>
+<span class="nc" id="L464">            throw new RuntimeException(&quot;El peso total debe ser mayor que 0&quot;);</span>
         }
-<span class="nc" id="L536">    }</span>
+<span class="nc" id="L466">    }</span>
 
-    /**
-     * Aprobar análisis (solo administradores)
-     */
+    
     public PurezaDTO aprobarAnalisis(Long id) {
-<span class="fc" id="L542">        return analisisService.aprobarAnalisisGenerico(</span>
-<span class="fc" id="L543">            id,</span>
-<span class="fc" id="L544">            purezaRepository,</span>
-<span class="fc" id="L545">            this::mapearEntidadADTO,</span>
-<span class="fc" id="L546">            this::validarAntesDeFinalizar,</span>
-<span class="fc" id="L547">            purezaRepository::findByIdLote // Función para buscar por lote</span>
+<span class="fc" id="L470">        return analisisService.aprobarAnalisisGenerico(</span>
+            id,
+            purezaRepository,
+            this::mapearEntidadADTO,
+            this::validarAntesDeFinalizar,
+<span class="fc" id="L475">            purezaRepository::findByIdLote </span>
         );
     }
 
-    /**
-     * Marcar análisis para repetir (solo administradores)
-     */
+    
     public PurezaDTO marcarParaRepetir(Long id) {
-<span class="fc" id="L555">        return analisisService.marcarParaRepetirGenerico(</span>
-<span class="fc" id="L556">            id,</span>
-<span class="fc" id="L557">            purezaRepository,</span>
-<span class="fc" id="L558">            this::mapearEntidadADTO,</span>
-<span class="fc" id="L559">            this::validarAntesDeFinalizar</span>
+<span class="fc" id="L481">        return analisisService.marcarParaRepetirGenerico(</span>
+            id,
+            purezaRepository,
+            this::mapearEntidadADTO,
+            this::validarAntesDeFinalizar
         );
     }
 }

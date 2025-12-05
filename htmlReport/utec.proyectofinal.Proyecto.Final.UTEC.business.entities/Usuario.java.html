@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Usuario.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.business.entities</a> &gt; <span class="el_source">Usuario.java</span></div><h1>Usuario.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.business.entities;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Usuario.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.business.entities</a> &gt; <span class="el_source">Usuario.java</span></div><h1>Usuario.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.business.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 import utec.proyectofinal.Proyecto.Final.UTEC.enums.EstadoUsuario;
@@ -41,7 +41,7 @@ public class Usuario {
     private EstadoUsuario estado = EstadoUsuario.PENDIENTE;
     
     @Column(nullable = false)
-    private Boolean activo = true; // Mantenemos por compatibilidad
+    private Boolean activo = true; 
     
     @Column(name = &quot;fecha_creacion&quot;)
     private LocalDateTime fechaCreacion;
@@ -49,94 +49,80 @@ public class Usuario {
     @Column(name = &quot;fecha_ultima_conexion&quot;)
     private LocalDateTime fechaUltimaConexion;
     
-    // ===== CAMPOS PARA 2FA (Google Authenticator) =====
+    // CAMPOS PARA 2FA
     
-    /**
-     * Secret key para TOTP (Time-based One-Time Password)
-     * Se genera cuando el usuario activa 2FA
-     * Encriptado en Base32 para compatibilidad con Google Authenticator
-     */
+    
     @Column(name = &quot;totp_secret&quot;, length = 32)
     private String totpSecret;
     
-    /**
-     * Indica si el usuario tiene 2FA habilitado
-     */
+    
     @Column(name = &quot;totp_enabled&quot;, nullable = false)
     private Boolean totpEnabled = false;
     
-    // ===== CAMPOS PARA RECUPERACIÓN DE CONTRASEÑA SEGURA =====
+    // CAMPOS PARA RECUPERACIÓN DE CONTRASEÑA SEGURA
     
-    /**
-     * Código de recuperación hasheado (BCrypt)
-     * Se genera cuando el usuario solicita recuperar contraseña
-     */
+    
     @Column(name = &quot;recovery_code_hash&quot;, length = 255)
     private String recoveryCodeHash;
     
-    /**
-     * Fecha de expiración del código de recuperación (10 minutos)
-     */
+    
     @Column(name = &quot;recovery_code_expiry&quot;)
     private LocalDateTime recoveryCodeExpiry;
 
-    /**
-     * Indica si el usuario debe cambiar sus credenciales en el primer login
-     * TRUE para admin creado automáticamente o usuarios con contraseña temporal
-     */
+    
     @Column(name = &quot;requiere_cambio_credenciales&quot;, nullable = false)
     private Boolean requiereCambioCredenciales = false;
 
     @PrePersist
     protected void onCreate() {
-<span class="fc" id="L92">        fechaCreacion = LocalDateTime.now();</span>
-<span class="fc" id="L93">    }</span>
+<span class="fc" id="L78">        fechaCreacion = LocalDateTime.now();</span>
+<span class="fc" id="L79">    }</span>
 
-    // Método para obtener roles como lista (compatibilidad con JWT)
+    
     public List&lt;String&gt; getRoles() {
-<span class="fc bfc" id="L97" title="All 2 branches covered.">        if (rol == null) {</span>
-<span class="fc" id="L98">            return Arrays.asList(); // Usuario sin rol asignado</span>
+<span class="fc bfc" id="L83" title="All 2 branches covered.">        if (rol == null) {</span>
+<span class="fc" id="L84">            return Arrays.asList(); // Usuario sin rol asignado</span>
         }
-<span class="fc" id="L100">        return Arrays.asList(rol.name());</span>
+<span class="fc" id="L86">        return Arrays.asList(rol.name());</span>
     }
     
-    // Método para obtener el nombre completo
+    
     public String getNombreCompleto() {
-<span class="fc" id="L105">        return nombres + &quot; &quot; + apellidos;</span>
+<span class="fc" id="L91">        return nombres + &quot; &quot; + apellidos;</span>
     }
     
-    // Métodos de conveniencia para verificar roles
+    
     public boolean esAdmin() {
-<span class="fc bfc" id="L110" title="All 2 branches covered.">        return rol == Rol.ADMIN;</span>
+<span class="fc bfc" id="L96" title="All 2 branches covered.">        return rol == Rol.ADMIN;</span>
     }
     
     public boolean esAnalista() {
-<span class="nc bnc" id="L114" title="All 2 branches missed.">        return rol == Rol.ANALISTA;</span>
+<span class="nc bnc" id="L100" title="All 2 branches missed.">        return rol == Rol.ANALISTA;</span>
     }
     
     public boolean esObservador() {
-<span class="nc bnc" id="L118" title="All 2 branches missed.">        return rol == Rol.OBSERVADOR;</span>
+<span class="nc bnc" id="L104" title="All 2 branches missed.">        return rol == Rol.OBSERVADOR;</span>
     }
     
     public boolean puedeCrearEditar() {
-<span class="nc bnc" id="L122" title="All 4 branches missed.">        return rol == Rol.ADMIN || rol == Rol.ANALISTA;</span>
+<span class="nc bnc" id="L108" title="All 4 branches missed.">        return rol == Rol.ADMIN || rol == Rol.ANALISTA;</span>
     }
     
     public boolean puedeAprobar() {
-<span class="nc bnc" id="L126" title="All 2 branches missed.">        return rol == Rol.ADMIN;</span>
+<span class="nc bnc" id="L112" title="All 2 branches missed.">        return rol == Rol.ADMIN;</span>
     }
     
-    // Métodos para gestión de estados
+    
     public boolean estaActivo() {
-<span class="nc bnc" id="L131" title="All 2 branches missed.">        return estado == EstadoUsuario.ACTIVO;</span>
+<span class="nc bnc" id="L117" title="All 2 branches missed.">        return estado == EstadoUsuario.ACTIVO;</span>
     }
     
     public boolean estaPendiente() {
-<span class="nc bnc" id="L135" title="All 2 branches missed.">        return estado == EstadoUsuario.PENDIENTE;</span>
+<span class="nc bnc" id="L121" title="All 2 branches missed.">        return estado == EstadoUsuario.PENDIENTE;</span>
     }
     
     public boolean estaInactivo() {
-<span class="nc bnc" id="L139" title="All 2 branches missed.">        return estado == EstadoUsuario.INACTIVO;</span>
+<span class="nc bnc" id="L125" title="All 2 branches missed.">        return estado == EstadoUsuario.INACTIVO;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

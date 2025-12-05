@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LegadoSpecification.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.business.specifications</a> &gt; <span class="el_source">LegadoSpecification.java</span></div><h1>LegadoSpecification.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.business.specifications;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LegadoSpecification.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.business.specifications</a> &gt; <span class="el_source">LegadoSpecification.java</span></div><h1>LegadoSpecification.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.business.specifications;
 
 import org.springframework.data.jpa.domain.Specification;
 import utec.proyectofinal.Proyecto.Final.UTEC.business.entities.Legado;
@@ -7,59 +7,57 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Specification para filtrar legados en consultas paginadas
- */
-<span class="nc" id="L13">public class LegadoSpecification {</span>
+
+<span class="nc" id="L11">public class LegadoSpecification {</span>
 
     public static Specification&lt;Legado&gt; conFiltros(
             String searchTerm, 
             String especie, 
             LocalDate fechaReciboInicio,
             LocalDate fechaReciboFin) {
-<span class="nc" id="L20">        return (root, query, criteriaBuilder) -&gt; {</span>
-<span class="nc" id="L21">            List&lt;Predicate&gt; predicates = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L18">        return (root, query, criteriaBuilder) -&gt; {</span>
+<span class="nc" id="L19">            List&lt;Predicate&gt; predicates = new ArrayList&lt;&gt;();</span>
 
             // Siempre filtrar solo activos
-<span class="nc" id="L24">            predicates.add(criteriaBuilder.equal(root.get(&quot;activo&quot;), true));</span>
+<span class="nc" id="L22">            predicates.add(criteriaBuilder.equal(root.get(&quot;activo&quot;), true));</span>
 
             // Filtro de búsqueda por ID o ficha
-<span class="nc bnc" id="L27" title="All 4 branches missed.">            if (searchTerm != null &amp;&amp; !searchTerm.trim().isEmpty()) {</span>
-<span class="nc" id="L28">                String searchPattern = &quot;%&quot; + searchTerm.toLowerCase() + &quot;%&quot;;</span>
+<span class="nc bnc" id="L25" title="All 4 branches missed.">            if (searchTerm != null &amp;&amp; !searchTerm.trim().isEmpty()) {</span>
+<span class="nc" id="L26">                String searchPattern = &quot;%&quot; + searchTerm.toLowerCase() + &quot;%&quot;;</span>
                 
                 // Buscar por ID parcial
-<span class="nc" id="L31">                Predicate idPredicate = criteriaBuilder.like(</span>
-<span class="nc" id="L32">                    criteriaBuilder.lower(criteriaBuilder.toString(root.get(&quot;legadoID&quot;))), searchPattern);</span>
+<span class="nc" id="L29">                Predicate idPredicate = criteriaBuilder.like(</span>
+<span class="nc" id="L30">                    criteriaBuilder.lower(criteriaBuilder.toString(root.get(&quot;legadoID&quot;))), searchPattern);</span>
                 
                 // Buscar por ficha del lote
-<span class="nc" id="L35">                Predicate fichaPredicate = criteriaBuilder.like(</span>
-<span class="nc" id="L36">                    criteriaBuilder.lower(root.get(&quot;lote&quot;).get(&quot;ficha&quot;)), searchPattern);</span>
+<span class="nc" id="L33">                Predicate fichaPredicate = criteriaBuilder.like(</span>
+<span class="nc" id="L34">                    criteriaBuilder.lower(root.get(&quot;lote&quot;).get(&quot;ficha&quot;)), searchPattern);</span>
                 
-<span class="nc" id="L38">                predicates.add(criteriaBuilder.or(idPredicate, fichaPredicate));</span>
+<span class="nc" id="L36">                predicates.add(criteriaBuilder.or(idPredicate, fichaPredicate));</span>
             }
 
             // Filtro por especie (a través del cultivar del lote)
-<span class="nc bnc" id="L42" title="All 6 branches missed.">            if (especie != null &amp;&amp; !especie.trim().isEmpty() &amp;&amp; !&quot;todos&quot;.equalsIgnoreCase(especie)) {</span>
-<span class="nc" id="L43">                predicates.add(criteriaBuilder.equal(</span>
-<span class="nc" id="L44">                    root.get(&quot;lote&quot;).get(&quot;cultivar&quot;).get(&quot;nombre&quot;), especie));</span>
+<span class="nc bnc" id="L40" title="All 6 branches missed.">            if (especie != null &amp;&amp; !especie.trim().isEmpty() &amp;&amp; !&quot;todos&quot;.equalsIgnoreCase(especie)) {</span>
+<span class="nc" id="L41">                predicates.add(criteriaBuilder.equal(</span>
+<span class="nc" id="L42">                    root.get(&quot;lote&quot;).get(&quot;cultivar&quot;).get(&quot;nombre&quot;), especie));</span>
             }
 
             // Filtro por rango de fecha de recibo
-<span class="nc bnc" id="L48" title="All 4 branches missed.">            if (fechaReciboInicio != null &amp;&amp; fechaReciboFin != null) {</span>
-<span class="nc" id="L49">                predicates.add(criteriaBuilder.between(</span>
-<span class="nc" id="L50">                    root.get(&quot;lote&quot;).get(&quot;fechaRecibo&quot;), fechaReciboInicio, fechaReciboFin));</span>
-<span class="nc bnc" id="L51" title="All 2 branches missed.">            } else if (fechaReciboInicio != null) {</span>
-<span class="nc" id="L52">                predicates.add(criteriaBuilder.greaterThanOrEqualTo(</span>
-<span class="nc" id="L53">                    root.get(&quot;lote&quot;).get(&quot;fechaRecibo&quot;), fechaReciboInicio));</span>
-<span class="nc bnc" id="L54" title="All 2 branches missed.">            } else if (fechaReciboFin != null) {</span>
-<span class="nc" id="L55">                predicates.add(criteriaBuilder.lessThanOrEqualTo(</span>
-<span class="nc" id="L56">                    root.get(&quot;lote&quot;).get(&quot;fechaRecibo&quot;), fechaReciboFin));</span>
+<span class="nc bnc" id="L46" title="All 4 branches missed.">            if (fechaReciboInicio != null &amp;&amp; fechaReciboFin != null) {</span>
+<span class="nc" id="L47">                predicates.add(criteriaBuilder.between(</span>
+<span class="nc" id="L48">                    root.get(&quot;lote&quot;).get(&quot;fechaRecibo&quot;), fechaReciboInicio, fechaReciboFin));</span>
+<span class="nc bnc" id="L49" title="All 2 branches missed.">            } else if (fechaReciboInicio != null) {</span>
+<span class="nc" id="L50">                predicates.add(criteriaBuilder.greaterThanOrEqualTo(</span>
+<span class="nc" id="L51">                    root.get(&quot;lote&quot;).get(&quot;fechaRecibo&quot;), fechaReciboInicio));</span>
+<span class="nc bnc" id="L52" title="All 2 branches missed.">            } else if (fechaReciboFin != null) {</span>
+<span class="nc" id="L53">                predicates.add(criteriaBuilder.lessThanOrEqualTo(</span>
+<span class="nc" id="L54">                    root.get(&quot;lote&quot;).get(&quot;fechaRecibo&quot;), fechaReciboFin));</span>
             }
 
             // Ordenar por ID descendente
-<span class="nc" id="L60">            query.orderBy(criteriaBuilder.desc(root.get(&quot;legadoID&quot;)));</span>
+<span class="nc" id="L58">            query.orderBy(criteriaBuilder.desc(root.get(&quot;legadoID&quot;)));</span>
 
-<span class="nc" id="L62">            return criteriaBuilder.and(predicates.toArray(new Predicate[0]));</span>
+<span class="nc" id="L60">            return criteriaBuilder.and(predicates.toArray(new Predicate[0]));</span>
         };
     }
 }

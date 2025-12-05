@@ -1,0 +1,1216 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DataSeeder.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.config</a> &gt; <span class="el_source">DataSeeder.java</span></div><h1>DataSeeder.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.config;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
+import utec.proyectofinal.Proyecto.Final.UTEC.business.entities.*;
+import utec.proyectofinal.Proyecto.Final.UTEC.business.repositories.*;
+import utec.proyectofinal.Proyecto.Final.UTEC.enums.Estado;
+import utec.proyectofinal.Proyecto.Final.UTEC.enums.TipoContacto;
+import utec.proyectofinal.Proyecto.Final.UTEC.enums.TipoLote;
+import utec.proyectofinal.Proyecto.Final.UTEC.enums.TipoCatalogo;
+import utec.proyectofinal.Proyecto.Final.UTEC.enums.TipoAnalisis;
+import utec.proyectofinal.Proyecto.Final.UTEC.enums.Instituto;
+import utec.proyectofinal.Proyecto.Final.UTEC.enums.TipoListado;
+import utec.proyectofinal.Proyecto.Final.UTEC.enums.TipoDOSN;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+@Component
+@RequiredArgsConstructor
+<span class="fc" id="L27">@Slf4j</span>
+public class DataSeeder implements CommandLineRunner {
+
+    private final LoteRepository loteRepository;
+    private final GerminacionRepository germinacionRepository;
+    private final PurezaRepository purezaRepository;
+    private final PmsRepository pmsRepository;
+    private final TetrazolioRepository tetrazolioRepository;
+    private final DosnRepository dosnRepository;
+    private final CultivarRepository cultivarRepository;
+    private final ContactoRepository contactoRepository;
+    private final CatalogoCrudRepository catalogoRepository;
+    private final EspecieRepository especieRepository;
+    private final MalezasCatalogoRepository malezasCatalogoRepository;
+    private final ListadoRepository listadoRepository;
+
+    @Override
+    public void run(String... args) throws Exception {
+        // Solo ejecutar si no hay lotes en la BD
+<span class="pc bpc" id="L46" title="1 of 2 branches missed.">        if (loteRepository.count() &gt; 0) {</span>
+<span class="nc" id="L47">            log.info(&quot;La base de datos ya contiene lotes. Saltando seeder.&quot;);</span>
+<span class="nc" id="L48">            return;</span>
+        }
+
+<span class="fc" id="L51">        log.info(&quot;Iniciando seeder de datos...&quot;);</span>
+
+        // 1. Crear catálogos necesarios
+<span class="fc" id="L54">        Catalogo deposito1 = createCatalogo(TipoCatalogo.DEPOSITO, &quot;Depósito Central&quot;);</span>
+<span class="fc" id="L55">        Catalogo deposito2 = createCatalogo(TipoCatalogo.DEPOSITO, &quot;Depósito Norte&quot;);</span>
+        
+<span class="fc" id="L57">        Catalogo articulo1 = createCatalogo(TipoCatalogo.ARTICULO, &quot;ART-001&quot;);</span>
+<span class="fc" id="L58">        Catalogo articulo2 = createCatalogo(TipoCatalogo.ARTICULO, &quot;ART-002&quot;);</span>
+        
+<span class="fc" id="L60">        Catalogo origen1 = createCatalogo(TipoCatalogo.ORIGEN, &quot;Nacional&quot;);</span>
+<span class="fc" id="L61">        Catalogo origen2 = createCatalogo(TipoCatalogo.ORIGEN, &quot;Importado&quot;);</span>
+        
+<span class="fc" id="L63">        Catalogo estado1 = createCatalogo(TipoCatalogo.ESTADO, &quot;En Análisis&quot;);</span>
+<span class="fc" id="L64">        Catalogo estado2 = createCatalogo(TipoCatalogo.ESTADO, &quot;Aprobado&quot;);</span>
+        
+<span class="fc" id="L66">        catalogoRepository.saveAll(Arrays.asList(</span>
+            deposito1, deposito2, articulo1, articulo2, 
+            origen1, origen2, estado1, estado2
+        ));
+
+        // 2. Crear especies y cultivares
+<span class="fc" id="L72">        Especie trigo = createEspecie(&quot;Trigo&quot;);</span>
+<span class="fc" id="L73">        Especie soja = createEspecie(&quot;Soja&quot;);</span>
+<span class="fc" id="L74">        Especie maiz = createEspecie(&quot;Maíz&quot;);</span>
+<span class="fc" id="L75">        especieRepository.saveAll(Arrays.asList(trigo, soja, maiz));</span>
+
+<span class="fc" id="L77">        Cultivar cultivarTrigo = createCultivar(trigo, &quot;INIA Tero&quot;);</span>
+<span class="fc" id="L78">        Cultivar cultivarSoja = createCultivar(soja, &quot;Don Mario 4800&quot;);</span>
+<span class="fc" id="L79">        Cultivar cultivarMaiz = createCultivar(maiz, &quot;DK 670&quot;);</span>
+<span class="fc" id="L80">        cultivarRepository.saveAll(Arrays.asList(cultivarTrigo, cultivarSoja, cultivarMaiz));</span>
+
+        // 2.1. Crear catálogo de malezas
+<span class="fc" id="L83">        MalezasCatalogo maleza1 = createMaleza(&quot;Yuyo Colorado&quot;, &quot;Amaranthus quitensis&quot;);</span>
+<span class="fc" id="L84">        MalezasCatalogo maleza2 = createMaleza(&quot;Nabo&quot;, &quot;Raphanus sativus&quot;);</span>
+<span class="fc" id="L85">        MalezasCatalogo maleza3 = createMaleza(&quot;Avena Negra&quot;, &quot;Avena fatua&quot;);</span>
+<span class="fc" id="L86">        MalezasCatalogo maleza4 = createMaleza(&quot;Cebadilla&quot;, &quot;Bromus catharticus&quot;);</span>
+<span class="fc" id="L87">        MalezasCatalogo maleza5 = createMaleza(&quot;Pasto Blanco&quot;, &quot;Digitaria sanguinalis&quot;);</span>
+<span class="fc" id="L88">        MalezasCatalogo maleza6 = createMaleza(&quot;Capiquí&quot;, &quot;Stellaria media&quot;);</span>
+<span class="fc" id="L89">        malezasCatalogoRepository.saveAll(Arrays.asList(maleza1, maleza2, maleza3, maleza4, maleza5, maleza6));</span>
+<span class="fc" id="L90">        log.info(&quot;Catálogo de malezas creado&quot;);</span>
+
+        // 3. Crear contactos (empresas y clientes)
+<span class="fc" id="L93">        Contacto empresa1 = createContacto(&quot;Semillas del Uruguay&quot;, &quot;099123456&quot;, TipoContacto.EMPRESA);</span>
+<span class="fc" id="L94">        Contacto empresa2 = createContacto(&quot;Agropecuaria La Estancia&quot;, &quot;099234567&quot;, TipoContacto.EMPRESA);</span>
+<span class="fc" id="L95">        Contacto cliente1 = createContacto(&quot;Juan Pérez&quot;, &quot;099345678&quot;, TipoContacto.CLIENTE);</span>
+<span class="fc" id="L96">        Contacto cliente2 = createContacto(&quot;María González&quot;, &quot;099456789&quot;, TipoContacto.CLIENTE);</span>
+<span class="fc" id="L97">        contactoRepository.saveAll(Arrays.asList(empresa1, empresa2, cliente1, cliente2));</span>
+
+        // 4. Crear lotes con diferentes configuraciones
+<span class="fc" id="L100">        Lote lote1 = createLote(</span>
+            &quot;FICHA-2024-001&quot;,
+            &quot;LOTE-TRIGO-001&quot;,
+            cultivarTrigo,
+            TipoLote.INTERNO,
+            empresa1,
+            cliente1,
+            deposito1,
+            articulo1,
+            origen1,
+            estado1,
+            new BigDecimal(&quot;500.50&quot;),
+<span class="fc" id="L112">            LocalDate.now().minusDays(30),</span>
+<span class="fc" id="L113">            LocalDate.now().minusDays(25),</span>
+<span class="fc" id="L114">            Arrays.asList(TipoAnalisis.GERMINACION, TipoAnalisis.PUREZA)</span>
+        );
+
+<span class="fc" id="L117">        Lote lote2 = createLote(</span>
+            &quot;FICHA-2024-002&quot;,
+            &quot;LOTE-SOJA-002&quot;,
+            cultivarSoja,
+            TipoLote.EXTERNOS,
+            empresa2,
+            cliente2,
+            deposito2,
+            articulo2,
+            origen2,
+            estado1,
+            new BigDecimal(&quot;750.25&quot;),
+<span class="fc" id="L129">            LocalDate.now().minusDays(20),</span>
+<span class="fc" id="L130">            LocalDate.now().minusDays(15),</span>
+<span class="fc" id="L131">            Arrays.asList(TipoAnalisis.GERMINACION, TipoAnalisis.PUREZA, TipoAnalisis.PMS, TipoAnalisis.DOSN)</span>
+        );
+
+<span class="fc" id="L134">        Lote lote3 = createLote(</span>
+            &quot;FICHA-2024-003&quot;,
+            &quot;LOTE-MAIZ-003&quot;,
+            cultivarMaiz,
+            TipoLote.OTROS_CENTROS_COSTOS,
+            empresa1,
+            cliente1,
+            deposito1,
+            articulo1,
+            origen1,
+            estado2,
+            new BigDecimal(&quot;1000.00&quot;),
+<span class="fc" id="L146">            LocalDate.now().minusDays(45),</span>
+<span class="fc" id="L147">            LocalDate.now().minusDays(40),</span>
+<span class="fc" id="L148">            Arrays.asList(TipoAnalisis.GERMINACION)</span>
+        );
+
+<span class="fc" id="L151">        loteRepository.saveAll(Arrays.asList(lote1, lote2, lote3));</span>
+<span class="fc" id="L152">        log.info(&quot;Lotes creados: {}, {}, {}&quot;, lote1.getNomLote(), lote2.getNomLote(), lote3.getNomLote());</span>
+
+        // 5. Crear análisis de germinación con tablas completas
+<span class="fc" id="L155">        Germinacion germ1 = createGerminacionConTablas(</span>
+            lote1,
+            Estado.EN_PROCESO,
+<span class="fc" id="L158">            LocalDateTime.now().minusDays(5),</span>
+            null,
+            &quot;Análisis en curso&quot;,
+<span class="fc" id="L161">            LocalDate.now().minusDays(1)</span>
+        );
+<span class="fc" id="L163">        germinacionRepository.save(germ1);</span>
+
+<span class="fc" id="L165">        Germinacion germ2 = createGerminacionConTablas(</span>
+            lote2,
+            Estado.APROBADO,
+<span class="fc" id="L168">            LocalDateTime.now().minusDays(10),</span>
+<span class="fc" id="L169">            LocalDateTime.now().minusDays(3),</span>
+            &quot;Germinación aprobada según estándares&quot;,
+<span class="fc" id="L171">            LocalDate.now().minusDays(3)</span>
+        );
+<span class="fc" id="L173">        germinacionRepository.save(germ2);</span>
+
+<span class="fc" id="L175">        Germinacion germ3 = createGerminacionConTablas(</span>
+            lote3,
+            Estado.APROBADO,
+<span class="fc" id="L178">            LocalDateTime.now().minusDays(35),</span>
+<span class="fc" id="L179">            LocalDateTime.now().minusDays(30),</span>
+            &quot;Excelente germinación&quot;,
+<span class="fc" id="L181">            LocalDate.now().minusDays(30)</span>
+        );
+<span class="fc" id="L183">        germinacionRepository.save(germ3);</span>
+
+<span class="fc" id="L185">        log.info(&quot;Análisis de germinación creados con tablas completas: 3&quot;);</span>
+
+        // 6. Crear análisis de pureza
+<span class="fc" id="L188">        Pureza pureza1 = createPureza(</span>
+            lote1,
+            Estado.REGISTRADO,
+<span class="fc" id="L191">            LocalDateTime.now().minusDays(4),</span>
+            null,
+            &quot;Análisis pendiente&quot;,
+<span class="fc" id="L194">            LocalDate.now().minusDays(4),</span>
+            new BigDecimal(&quot;100.0000&quot;),
+            new BigDecimal(&quot;95.5000&quot;),
+            new BigDecimal(&quot;3.2000&quot;),
+            new BigDecimal(&quot;0.8000&quot;),
+            new BigDecimal(&quot;0.5000&quot;),
+<span class="fc" id="L200">            true</span>
+        );
+<span class="fc" id="L202">        purezaRepository.save(pureza1);</span>
+        
+        // Agregar listados de contaminantes a pureza1
+<span class="fc" id="L205">        List&lt;Listado&gt; listadosPureza1 = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L206">        listadosPureza1.add(createListadoMaleza(pureza1, maleza1, TipoListado.MAL_COMUNES, Instituto.INIA, 3));</span>
+<span class="fc" id="L207">        listadosPureza1.add(createListadoMaleza(pureza1, maleza2, TipoListado.MAL_TOLERANCIA, Instituto.INIA, 2));</span>
+<span class="fc" id="L208">        listadosPureza1.add(createListadoOtroCultivo(pureza1, soja, Instituto.INIA, 1));</span>
+<span class="fc" id="L209">        pureza1.setListados(listadosPureza1);</span>
+<span class="fc" id="L210">        purezaRepository.save(pureza1);</span>
+
+<span class="fc" id="L212">        Pureza pureza2 = createPureza(</span>
+            lote2,
+            Estado.APROBADO,
+<span class="fc" id="L215">            LocalDateTime.now().minusDays(12),</span>
+<span class="fc" id="L216">            LocalDateTime.now().minusDays(5),</span>
+            &quot;Pureza dentro de estándares&quot;,
+<span class="fc" id="L218">            LocalDate.now().minusDays(12),</span>
+            new BigDecimal(&quot;100.0000&quot;),
+            new BigDecimal(&quot;97.8000&quot;),
+            new BigDecimal(&quot;1.5000&quot;),
+            new BigDecimal(&quot;0.4000&quot;),
+            new BigDecimal(&quot;0.3000&quot;),
+<span class="fc" id="L224">            true</span>
+        );
+<span class="fc" id="L226">        purezaRepository.save(pureza2);</span>
+        
+        // Agregar listados de contaminantes a pureza2
+<span class="fc" id="L229">        List&lt;Listado&gt; listadosPureza2 = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L230">        listadosPureza2.add(createListadoMaleza(pureza2, maleza3, TipoListado.MAL_COMUNES, Instituto.INIA, 2));</span>
+<span class="fc" id="L231">        listadosPureza2.add(createListadoMaleza(pureza2, maleza4, TipoListado.MAL_COMUNES, Instituto.INASE, 1));</span>
+<span class="fc" id="L232">        listadosPureza2.add(createListadoOtroCultivo(pureza2, trigo, Instituto.INIA, 1));</span>
+<span class="fc" id="L233">        pureza2.setListados(listadosPureza2);</span>
+<span class="fc" id="L234">        purezaRepository.save(pureza2);</span>
+
+<span class="fc" id="L236">        log.info(&quot;Análisis de pureza creados: 2&quot;);</span>
+
+        // 7. Crear análisis de PMS con repeticiones
+<span class="fc" id="L239">        Pms pms1 = createPms(</span>
+            lote2,
+            Estado.APROBADO,
+<span class="fc" id="L242">            LocalDateTime.now().minusDays(8),</span>
+<span class="fc" id="L243">            LocalDateTime.now().minusDays(2),</span>
+            &quot;PMS completado y aprobado&quot;,
+<span class="fc" id="L245">            8,  // 8 repeticiones</span>
+<span class="fc" id="L246">            1,  // 1 tanda</span>
+<span class="fc" id="L247">            false</span>
+        );
+<span class="fc" id="L249">        pmsRepository.save(pms1);</span>
+        
+        // Crear repeticiones para PMS1
+<span class="fc" id="L252">        List&lt;RepPms&gt; repsPms1 = Arrays.asList(</span>
+<span class="fc" id="L253">            createRepPms(1, 1, new BigDecimal(&quot;5.234&quot;), true, pms1),</span>
+<span class="fc" id="L254">            createRepPms(2, 1, new BigDecimal(&quot;5.189&quot;), true, pms1),</span>
+<span class="fc" id="L255">            createRepPms(3, 1, new BigDecimal(&quot;5.267&quot;), true, pms1),</span>
+<span class="fc" id="L256">            createRepPms(4, 1, new BigDecimal(&quot;5.221&quot;), true, pms1),</span>
+<span class="fc" id="L257">            createRepPms(5, 1, new BigDecimal(&quot;5.198&quot;), true, pms1),</span>
+<span class="fc" id="L258">            createRepPms(6, 1, new BigDecimal(&quot;5.245&quot;), true, pms1),</span>
+<span class="fc" id="L259">            createRepPms(7, 1, new BigDecimal(&quot;5.212&quot;), true, pms1),</span>
+<span class="fc" id="L260">            createRepPms(8, 1, new BigDecimal(&quot;5.278&quot;), true, pms1)</span>
+        );
+<span class="fc" id="L262">        pms1.setRepPms(repsPms1);</span>
+<span class="fc" id="L263">        pms1.setPromedio100g(new BigDecimal(&quot;5.2305&quot;));</span>
+<span class="fc" id="L264">        pms1.setDesvioStd(new BigDecimal(&quot;0.0315&quot;));</span>
+<span class="fc" id="L265">        pms1.setCoefVariacion(new BigDecimal(&quot;0.60&quot;));</span>
+<span class="fc" id="L266">        pms1.setPmssinRedon(new BigDecimal(&quot;52.305&quot;));</span>
+<span class="fc" id="L267">        pms1.setPmsconRedon(new BigDecimal(&quot;52.31&quot;));</span>
+<span class="fc" id="L268">        pmsRepository.save(pms1);</span>
+
+<span class="fc" id="L270">        Pms pms2 = createPms(</span>
+            lote1,
+            Estado.EN_PROCESO,
+<span class="fc" id="L273">            LocalDateTime.now().minusDays(3),</span>
+            null,
+            &quot;Análisis en curso&quot;,
+<span class="fc" id="L276">            4,</span>
+<span class="fc" id="L277">            2,</span>
+<span class="fc" id="L278">            true</span>
+        );
+<span class="fc" id="L280">        pmsRepository.save(pms2);</span>
+        
+        // Crear repeticiones para PMS2
+<span class="fc" id="L283">        List&lt;RepPms&gt; repsPms2 = Arrays.asList(</span>
+<span class="fc" id="L284">            createRepPms(1, 1, new BigDecimal(&quot;3.145&quot;), true, pms2),</span>
+<span class="fc" id="L285">            createRepPms(2, 1, new BigDecimal(&quot;3.178&quot;), true, pms2),</span>
+<span class="fc" id="L286">            createRepPms(1, 2, new BigDecimal(&quot;3.156&quot;), true, pms2),</span>
+<span class="fc" id="L287">            createRepPms(2, 2, new BigDecimal(&quot;3.189&quot;), true, pms2)</span>
+        );
+<span class="fc" id="L289">        pms2.setRepPms(repsPms2);</span>
+<span class="fc" id="L290">        pmsRepository.save(pms2);</span>
+        
+<span class="fc" id="L292">        log.info(&quot;Análisis de PMS creados: 2&quot;);</span>
+
+        // 8. Crear análisis de Tetrazolio
+<span class="fc" id="L295">        Tetrazolio tetra1 = createTetrazolio(</span>
+            lote3,
+            Estado.APROBADO,
+<span class="fc" id="L298">            LocalDateTime.now().minusDays(25),</span>
+<span class="fc" id="L299">            LocalDateTime.now().minusDays(20),</span>
+            &quot;Tetrazolio completado&quot;,
+<span class="fc" id="L301">            LocalDate.now().minusDays(25),</span>
+<span class="fc" id="L302">            100,</span>
+            &quot;Remojo 18h&quot;,
+            &quot;1%&quot;,
+<span class="fc" id="L305">            24,</span>
+<span class="fc" id="L306">            30,</span>
+<span class="fc" id="L307">            4</span>
+        );
+<span class="fc" id="L309">        tetrazolioRepository.save(tetra1);</span>
+        
+        // Crear repeticiones para Tetrazolio1
+<span class="fc" id="L312">        List&lt;RepTetrazolioViabilidad&gt; repsTetra1 = Arrays.asList(</span>
+<span class="fc" id="L313">            createRepTetrazolio(LocalDate.now().minusDays(25), 92, 6, 2, tetra1),</span>
+<span class="fc" id="L314">            createRepTetrazolio(LocalDate.now().minusDays(25), 89, 8, 3, tetra1),</span>
+<span class="fc" id="L315">            createRepTetrazolio(LocalDate.now().minusDays(25), 91, 7, 2, tetra1),</span>
+<span class="fc" id="L316">            createRepTetrazolio(LocalDate.now().minusDays(25), 90, 8, 2, tetra1)</span>
+        );
+<span class="fc" id="L318">        tetra1.setRepeticiones(repsTetra1);</span>
+<span class="fc" id="L319">        tetra1.setPorcViablesRedondeo(new BigDecimal(&quot;90.50&quot;));</span>
+<span class="fc" id="L320">        tetra1.setPorcNoViablesRedondeo(new BigDecimal(&quot;7.25&quot;));</span>
+<span class="fc" id="L321">        tetra1.setPorcDurasRedondeo(new BigDecimal(&quot;2.25&quot;));</span>
+<span class="fc" id="L322">        tetra1.setViabilidadInase(new BigDecimal(&quot;92.75&quot;));</span>
+<span class="fc" id="L323">        tetrazolioRepository.save(tetra1);</span>
+
+<span class="fc" id="L325">        Tetrazolio tetra2 = createTetrazolio(</span>
+            lote2,
+            Estado.REGISTRADO,
+<span class="fc" id="L328">            LocalDateTime.now().minusDays(2),</span>
+            null,
+            &quot;Tetrazolio iniciado&quot;,
+<span class="fc" id="L331">            LocalDate.now().minusDays(2),</span>
+<span class="fc" id="L332">            50,</span>
+            &quot;Remojo 24h&quot;,
+            &quot;0.5%&quot;,
+<span class="fc" id="L335">            48,</span>
+<span class="fc" id="L336">            25,</span>
+<span class="fc" id="L337">            4</span>
+        );
+<span class="fc" id="L339">        tetrazolioRepository.save(tetra2);</span>
+        
+<span class="fc" id="L341">        log.info(&quot;Análisis de Tetrazolio creados: 2&quot;);</span>
+
+        // 9. Crear más lotes para variedad en reportes
+<span class="fc" id="L344">        Lote lote4 = createLote(</span>
+            &quot;FICHA-2024-004&quot;,
+            &quot;LOTE-SOJA-004&quot;,
+            cultivarSoja,
+            TipoLote.INTERNO,
+            empresa1,
+            cliente2,
+            deposito1,
+            articulo1,
+            origen1,
+            estado2,
+            new BigDecimal(&quot;850.75&quot;),
+<span class="fc" id="L356">            LocalDate.now().minusDays(60),</span>
+<span class="fc" id="L357">            LocalDate.now().minusDays(55),</span>
+<span class="fc" id="L358">            Arrays.asList(TipoAnalisis.GERMINACION, TipoAnalisis.PUREZA, TipoAnalisis.TETRAZOLIO, TipoAnalisis.DOSN)</span>
+        );
+
+<span class="fc" id="L361">        Lote lote5 = createLote(</span>
+            &quot;FICHA-2024-005&quot;,
+            &quot;LOTE-TRIGO-005&quot;,
+            cultivarTrigo,
+            TipoLote.EXTERNOS,
+            empresa2,
+            cliente1,
+            deposito2,
+            articulo2,
+            origen2,
+            estado1,
+            new BigDecimal(&quot;1200.00&quot;),
+<span class="fc" id="L373">            LocalDate.now().minusDays(15),</span>
+<span class="fc" id="L374">            LocalDate.now().minusDays(10),</span>
+<span class="fc" id="L375">            Arrays.asList(TipoAnalisis.GERMINACION, TipoAnalisis.PMS, TipoAnalisis.DOSN)</span>
+        );
+
+<span class="fc" id="L378">        loteRepository.saveAll(Arrays.asList(lote4, lote5));</span>
+<span class="fc" id="L379">        log.info(&quot;Lotes adicionales creados: {}, {}&quot;, lote4.getNomLote(), lote5.getNomLote());</span>
+
+        // 10. Crear análisis de DOSN con listados completos
+<span class="fc" id="L382">        Dosn dosn1 = createDosn(</span>
+            lote2,
+            Estado.APROBADO,
+<span class="fc" id="L385">            LocalDateTime.now().minusDays(14),</span>
+<span class="fc" id="L386">            LocalDateTime.now().minusDays(10),</span>
+            &quot;DOSN Soja - Completo&quot;,
+<span class="fc" id="L388">            true,</span>
+<span class="fc" id="L389">            LocalDate.now().minusDays(14),</span>
+            new BigDecimal(&quot;1000.0&quot;),
+<span class="fc" id="L391">            Arrays.asList(TipoDOSN.COMPLETO),</span>
+<span class="fc" id="L392">            LocalDate.now().minusDays(13),</span>
+            new BigDecimal(&quot;1000.0&quot;),
+<span class="fc" id="L394">            Arrays.asList(TipoDOSN.COMPLETO)</span>
+        );
+<span class="fc" id="L396">        dosnRepository.save(dosn1);</span>
+        
+        // Agregar cuscuta registros
+<span class="fc" id="L399">        List&lt;CuscutaRegistro&gt; cuscutasDosn1 = Arrays.asList(</span>
+<span class="fc" id="L400">            createCuscutaRegistro(Instituto.INIA, new BigDecimal(&quot;0.5&quot;), 2, LocalDate.now().minusDays(14), dosn1),</span>
+<span class="fc" id="L401">            createCuscutaRegistro(Instituto.INASE, new BigDecimal(&quot;0.3&quot;), 1, LocalDate.now().minusDays(13), dosn1)</span>
+        );
+<span class="fc" id="L403">        dosn1.setCuscutaRegistros(cuscutasDosn1);</span>
+        
+        // Agregar listados de malezas
+<span class="fc" id="L406">        List&lt;Listado&gt; listadosDosn1 = new ArrayList&lt;&gt;(Arrays.asList(</span>
+<span class="fc" id="L407">            createListadoDosnMaleza(dosn1, maleza1, TipoListado.MAL_COMUNES, Instituto.INIA, 5),</span>
+<span class="fc" id="L408">            createListadoDosnMaleza(dosn1, maleza2, TipoListado.MAL_TOLERANCIA, Instituto.INIA, 3),</span>
+<span class="fc" id="L409">            createListadoDosnMaleza(dosn1, maleza4, TipoListado.MAL_COMUNES, Instituto.INASE, 2),</span>
+<span class="fc" id="L410">            createListadoDosnOtroCultivo(dosn1, trigo, Instituto.INIA, 1)</span>
+        ));
+<span class="fc" id="L412">        dosn1.setListados(listadosDosn1);</span>
+<span class="fc" id="L413">        dosnRepository.save(dosn1);</span>
+
+<span class="fc" id="L415">        Dosn dosn2 = createDosn(</span>
+            lote4,
+            Estado.APROBADO,
+<span class="fc" id="L418">            LocalDateTime.now().minusDays(53),</span>
+<span class="fc" id="L419">            LocalDateTime.now().minusDays(50),</span>
+            &quot;DOSN Soja - Reducido&quot;,
+<span class="fc" id="L421">            true,</span>
+<span class="fc" id="L422">            LocalDate.now().minusDays(53),</span>
+            new BigDecimal(&quot;500.0&quot;),
+<span class="fc" id="L424">            Arrays.asList(TipoDOSN.REDUCIDO),</span>
+<span class="fc" id="L425">            LocalDate.now().minusDays(52),</span>
+            new BigDecimal(&quot;500.0&quot;),
+<span class="fc" id="L427">            Arrays.asList(TipoDOSN.REDUCIDO)</span>
+        );
+<span class="fc" id="L429">        dosnRepository.save(dosn2);</span>
+        
+        // Agregar cuscuta registros
+<span class="fc" id="L432">        List&lt;CuscutaRegistro&gt; cuscutasDosn2 = Arrays.asList(</span>
+<span class="fc" id="L433">            createCuscutaRegistro(Instituto.INIA, new BigDecimal(&quot;0.2&quot;), 1, LocalDate.now().minusDays(53), dosn2),</span>
+<span class="fc" id="L434">            createCuscutaRegistro(Instituto.INASE, new BigDecimal(&quot;0.4&quot;), 2, LocalDate.now().minusDays(52), dosn2)</span>
+        );
+<span class="fc" id="L436">        dosn2.setCuscutaRegistros(cuscutasDosn2);</span>
+        
+        // Agregar listados
+<span class="fc" id="L439">        List&lt;Listado&gt; listadosDosn2 = new ArrayList&lt;&gt;(Arrays.asList(</span>
+<span class="fc" id="L440">            createListadoDosnMaleza(dosn2, maleza3, TipoListado.MAL_COMUNES, Instituto.INIA, 4),</span>
+<span class="fc" id="L441">            createListadoDosnMaleza(dosn2, maleza5, TipoListado.MAL_TOLERANCIA, Instituto.INASE, 2),</span>
+<span class="fc" id="L442">            createListadoDosnOtroCultivo(dosn2, maiz, Instituto.INIA, 1),</span>
+<span class="fc" id="L443">            createListadoDosnOtroCultivo(dosn2, trigo, Instituto.INASE, 1)</span>
+        ));
+<span class="fc" id="L445">        dosn2.setListados(listadosDosn2);</span>
+<span class="fc" id="L446">        dosnRepository.save(dosn2);</span>
+
+<span class="fc" id="L448">        Dosn dosn3 = createDosn(</span>
+            lote5,
+            Estado.EN_PROCESO,
+<span class="fc" id="L451">            LocalDateTime.now().minusDays(8),</span>
+            null,
+            &quot;DOSN Trigo - En proceso&quot;,
+<span class="fc" id="L454">            false,</span>
+<span class="fc" id="L455">            LocalDate.now().minusDays(8),</span>
+            new BigDecimal(&quot;1500.0&quot;),
+<span class="fc" id="L457">            Arrays.asList(TipoDOSN.COMPLETO, TipoDOSN.LIMITADO),</span>
+            null,
+            null,
+            null
+        );
+<span class="fc" id="L462">        dosnRepository.save(dosn3);</span>
+        
+        // Agregar cuscuta registros (solo INIA por ahora)
+<span class="fc" id="L465">        List&lt;CuscutaRegistro&gt; cuscutasDosn3 = Arrays.asList(</span>
+<span class="fc" id="L466">            createCuscutaRegistro(Instituto.INIA, new BigDecimal(&quot;0.8&quot;), 3, LocalDate.now().minusDays(8), dosn3)</span>
+        );
+<span class="fc" id="L468">        dosn3.setCuscutaRegistros(cuscutasDosn3);</span>
+        
+        // Agregar listados
+<span class="fc" id="L471">        List&lt;Listado&gt; listadosDosn3 = new ArrayList&lt;&gt;(Arrays.asList(</span>
+<span class="fc" id="L472">            createListadoDosnMaleza(dosn3, maleza6, TipoListado.MAL_COMUNES, Instituto.INIA, 6),</span>
+<span class="fc" id="L473">            createListadoDosnMaleza(dosn3, maleza1, TipoListado.MAL_TOLERANCIA_CERO, Instituto.INIA, 1),</span>
+<span class="fc" id="L474">            createListadoDosnOtroCultivo(dosn3, soja, Instituto.INIA, 2)</span>
+        ));
+<span class="fc" id="L476">        dosn3.setListados(listadosDosn3);</span>
+<span class="fc" id="L477">        dosnRepository.save(dosn3);</span>
+
+<span class="fc" id="L479">        log.info(&quot;Análisis de DOSN creados: 3&quot;);</span>
+
+        // 11. Análisis adicionales con datos completos
+<span class="fc" id="L482">        Germinacion germ4 = createGerminacionConTablas(</span>
+            lote4,
+            Estado.APROBADO,
+<span class="fc" id="L485">            LocalDateTime.now().minusDays(50),</span>
+<span class="fc" id="L486">            LocalDateTime.now().minusDays(45),</span>
+            &quot;Germinación excelente - Soja&quot;,
+<span class="fc" id="L488">            LocalDate.now().minusDays(45)</span>
+        );
+<span class="fc" id="L490">        germinacionRepository.save(germ4);</span>
+
+<span class="fc" id="L492">        Germinacion germ5 = createGerminacionConTablas(</span>
+            lote5,
+            Estado.EN_PROCESO,
+<span class="fc" id="L495">            LocalDateTime.now().minusDays(7),</span>
+            null,
+            &quot;Germinación en curso - Trigo&quot;,
+<span class="fc" id="L498">            LocalDate.now().minusDays(7)</span>
+        );
+<span class="fc" id="L500">        germinacionRepository.save(germ5);</span>
+<span class="fc" id="L501">        log.info(&quot;Análisis de germinación adicionales creados: 2&quot;);</span>
+
+<span class="fc" id="L503">        Pureza pureza3 = createPureza(</span>
+            lote4,
+            Estado.APROBADO,
+<span class="fc" id="L506">            LocalDateTime.now().minusDays(52),</span>
+<span class="fc" id="L507">            LocalDateTime.now().minusDays(48),</span>
+            &quot;Pureza excelente&quot;,
+<span class="fc" id="L509">            LocalDate.now().minusDays(52),</span>
+            new BigDecimal(&quot;100.0000&quot;),
+            new BigDecimal(&quot;98.2000&quot;),
+            new BigDecimal(&quot;1.3000&quot;),
+            new BigDecimal(&quot;0.3000&quot;),
+            new BigDecimal(&quot;0.2000&quot;),
+<span class="fc" id="L515">            true</span>
+        );
+<span class="fc" id="L517">        purezaRepository.save(pureza3);</span>
+        
+        // Agregar listados de contaminantes a pureza3
+<span class="fc" id="L520">        List&lt;Listado&gt; listadosPureza3 = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L521">        listadosPureza3.add(createListadoMaleza(pureza3, maleza5, TipoListado.MAL_COMUNES, Instituto.INIA, 1));</span>
+<span class="fc" id="L522">        listadosPureza3.add(createListadoMaleza(pureza3, maleza6, TipoListado.MAL_TOLERANCIA, Instituto.INASE, 1));</span>
+<span class="fc" id="L523">        listadosPureza3.add(createListadoOtroCultivo(pureza3, maiz, Instituto.INIA, 2));</span>
+<span class="fc" id="L524">        pureza3.setListados(listadosPureza3);</span>
+<span class="fc" id="L525">        purezaRepository.save(pureza3);</span>
+
+<span class="fc" id="L527">        Pms pms3 = createPms(</span>
+            lote5,
+            Estado.APROBADO,
+<span class="fc" id="L530">            LocalDateTime.now().minusDays(9),</span>
+<span class="fc" id="L531">            LocalDateTime.now().minusDays(6),</span>
+            &quot;PMS Trigo - Excelente&quot;,
+<span class="fc" id="L533">            8,</span>
+<span class="fc" id="L534">            1,</span>
+<span class="fc" id="L535">            false</span>
+        );
+<span class="fc" id="L537">        pmsRepository.save(pms3);</span>
+        
+<span class="fc" id="L539">        List&lt;RepPms&gt; repsPms3 = Arrays.asList(</span>
+<span class="fc" id="L540">            createRepPms(1, 1, new BigDecimal(&quot;4.567&quot;), true, pms3),</span>
+<span class="fc" id="L541">            createRepPms(2, 1, new BigDecimal(&quot;4.589&quot;), true, pms3),</span>
+<span class="fc" id="L542">            createRepPms(3, 1, new BigDecimal(&quot;4.543&quot;), true, pms3),</span>
+<span class="fc" id="L543">            createRepPms(4, 1, new BigDecimal(&quot;4.578&quot;), true, pms3),</span>
+<span class="fc" id="L544">            createRepPms(5, 1, new BigDecimal(&quot;4.592&quot;), true, pms3),</span>
+<span class="fc" id="L545">            createRepPms(6, 1, new BigDecimal(&quot;4.561&quot;), true, pms3),</span>
+<span class="fc" id="L546">            createRepPms(7, 1, new BigDecimal(&quot;4.575&quot;), true, pms3),</span>
+<span class="fc" id="L547">            createRepPms(8, 1, new BigDecimal(&quot;4.584&quot;), true, pms3)</span>
+        );
+<span class="fc" id="L549">        pms3.setRepPms(repsPms3);</span>
+<span class="fc" id="L550">        pms3.setPromedio100g(new BigDecimal(&quot;4.5736&quot;));</span>
+<span class="fc" id="L551">        pms3.setDesvioStd(new BigDecimal(&quot;0.0158&quot;));</span>
+<span class="fc" id="L552">        pms3.setCoefVariacion(new BigDecimal(&quot;0.35&quot;));</span>
+<span class="fc" id="L553">        pms3.setPmssinRedon(new BigDecimal(&quot;45.736&quot;));</span>
+<span class="fc" id="L554">        pms3.setPmsconRedon(new BigDecimal(&quot;45.74&quot;));</span>
+<span class="fc" id="L555">        pmsRepository.save(pms3);</span>
+        
+<span class="fc" id="L557">        log.info(&quot;Análisis adicionales de Pureza y PMS creados&quot;);</span>
+
+        // 11. Crear más lotes para variedad en reportes (diferentes estados)
+<span class="fc" id="L560">        Lote lote6 = createLote(</span>
+            &quot;FICHA-2024-006&quot;,
+            &quot;LOTE-MAIZ-006&quot;,
+            cultivarMaiz,
+            TipoLote.INTERNO,
+            empresa2,
+            cliente2,
+            deposito2,
+            articulo1,
+            origen1,
+            estado1,
+            new BigDecimal(&quot;625.30&quot;),
+<span class="fc" id="L572">            LocalDate.now().minusDays(90),</span>
+<span class="fc" id="L573">            LocalDate.now().minusDays(85),</span>
+<span class="fc" id="L574">            Arrays.asList(TipoAnalisis.GERMINACION, TipoAnalisis.PUREZA, TipoAnalisis.PMS, TipoAnalisis.TETRAZOLIO)</span>
+        );
+
+<span class="fc" id="L577">        Lote lote7 = createLote(</span>
+            &quot;FICHA-2024-007&quot;,
+            &quot;LOTE-TRIGO-007&quot;,
+            cultivarTrigo,
+            TipoLote.EXTERNOS,
+            empresa1,
+            cliente1,
+            deposito1,
+            articulo2,
+            origen2,
+            estado2,
+            new BigDecimal(&quot;950.00&quot;),
+<span class="fc" id="L589">            LocalDate.now().minusDays(120),</span>
+<span class="fc" id="L590">            LocalDate.now().minusDays(115),</span>
+<span class="fc" id="L591">            Arrays.asList(TipoAnalisis.GERMINACION, TipoAnalisis.TETRAZOLIO)</span>
+        );
+
+<span class="fc" id="L594">        loteRepository.saveAll(Arrays.asList(lote6, lote7));</span>
+<span class="fc" id="L595">        log.info(&quot;Lotes 6 y 7 creados&quot;);</span>
+
+        // Análisis para lote6 (todos completos y aprobados)
+<span class="fc" id="L598">        Germinacion germ6 = createGerminacionConTablas(</span>
+            lote6,
+            Estado.APROBADO,
+<span class="fc" id="L601">            LocalDateTime.now().minusDays(80),</span>
+<span class="fc" id="L602">            LocalDateTime.now().minusDays(75),</span>
+            &quot;Germinación Maíz - Aprobado&quot;,
+<span class="fc" id="L604">            LocalDate.now().minusDays(75)</span>
+        );
+<span class="fc" id="L606">        germinacionRepository.save(germ6);</span>
+
+<span class="fc" id="L608">        Pureza pureza4 = createPureza(</span>
+            lote6,
+            Estado.APROBADO,
+<span class="fc" id="L611">            LocalDateTime.now().minusDays(82),</span>
+<span class="fc" id="L612">            LocalDateTime.now().minusDays(78),</span>
+            &quot;Pureza Maíz - Excelente&quot;,
+<span class="fc" id="L614">            LocalDate.now().minusDays(82),</span>
+            new BigDecimal(&quot;100.0000&quot;),
+            new BigDecimal(&quot;96.5000&quot;),
+            new BigDecimal(&quot;2.8000&quot;),
+            new BigDecimal(&quot;0.4000&quot;),
+            new BigDecimal(&quot;0.3000&quot;),
+<span class="fc" id="L620">            true</span>
+        );
+<span class="fc" id="L622">        purezaRepository.save(pureza4);</span>
+        
+        // Agregar listados de contaminantes a pureza4
+<span class="fc" id="L625">        List&lt;Listado&gt; listadosPureza4 = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L626">        listadosPureza4.add(createListadoMaleza(pureza4, maleza1, TipoListado.MAL_COMUNES, Instituto.INIA, 2));</span>
+<span class="fc" id="L627">        listadosPureza4.add(createListadoMaleza(pureza4, maleza3, TipoListado.MAL_TOLERANCIA, Instituto.INIA, 1));</span>
+<span class="fc" id="L628">        listadosPureza4.add(createListadoMaleza(pureza4, maleza4, TipoListado.MAL_TOLERANCIA_CERO, Instituto.INASE, 1));</span>
+<span class="fc" id="L629">        listadosPureza4.add(createListadoOtroCultivo(pureza4, trigo, Instituto.INIA, 1));</span>
+<span class="fc" id="L630">        listadosPureza4.add(createListadoOtroCultivo(pureza4, soja, Instituto.INASE, 1));</span>
+<span class="fc" id="L631">        pureza4.setListados(listadosPureza4);</span>
+<span class="fc" id="L632">        purezaRepository.save(pureza4);</span>
+
+<span class="fc" id="L634">        Pms pms4 = createPms(</span>
+            lote6,
+            Estado.APROBADO,
+<span class="fc" id="L637">            LocalDateTime.now().minusDays(78),</span>
+<span class="fc" id="L638">            LocalDateTime.now().minusDays(74),</span>
+            &quot;PMS Maíz - Completo&quot;,
+<span class="fc" id="L640">            8,</span>
+<span class="fc" id="L641">            1,</span>
+<span class="fc" id="L642">            false</span>
+        );
+<span class="fc" id="L644">        pmsRepository.save(pms4);</span>
+        
+<span class="fc" id="L646">        List&lt;RepPms&gt; repsPms4 = Arrays.asList(</span>
+<span class="fc" id="L647">            createRepPms(1, 1, new BigDecimal(&quot;6.234&quot;), true, pms4),</span>
+<span class="fc" id="L648">            createRepPms(2, 1, new BigDecimal(&quot;6.189&quot;), true, pms4),</span>
+<span class="fc" id="L649">            createRepPms(3, 1, new BigDecimal(&quot;6.267&quot;), true, pms4),</span>
+<span class="fc" id="L650">            createRepPms(4, 1, new BigDecimal(&quot;6.221&quot;), true, pms4),</span>
+<span class="fc" id="L651">            createRepPms(5, 1, new BigDecimal(&quot;6.198&quot;), true, pms4),</span>
+<span class="fc" id="L652">            createRepPms(6, 1, new BigDecimal(&quot;6.245&quot;), true, pms4),</span>
+<span class="fc" id="L653">            createRepPms(7, 1, new BigDecimal(&quot;6.212&quot;), true, pms4),</span>
+<span class="fc" id="L654">            createRepPms(8, 1, new BigDecimal(&quot;6.278&quot;), true, pms4)</span>
+        );
+<span class="fc" id="L656">        pms4.setRepPms(repsPms4);</span>
+<span class="fc" id="L657">        pms4.setPromedio100g(new BigDecimal(&quot;6.2305&quot;));</span>
+<span class="fc" id="L658">        pms4.setDesvioStd(new BigDecimal(&quot;0.0315&quot;));</span>
+<span class="fc" id="L659">        pms4.setCoefVariacion(new BigDecimal(&quot;0.51&quot;));</span>
+<span class="fc" id="L660">        pms4.setPmssinRedon(new BigDecimal(&quot;62.305&quot;));</span>
+<span class="fc" id="L661">        pms4.setPmsconRedon(new BigDecimal(&quot;62.31&quot;));</span>
+<span class="fc" id="L662">        pmsRepository.save(pms4);</span>
+
+<span class="fc" id="L664">        Tetrazolio tetra3 = createTetrazolio(</span>
+            lote6,
+            Estado.APROBADO,
+<span class="fc" id="L667">            LocalDateTime.now().minusDays(76),</span>
+<span class="fc" id="L668">            LocalDateTime.now().minusDays(72),</span>
+            &quot;Tetrazolio Maíz - Aprobado&quot;,
+<span class="fc" id="L670">            LocalDate.now().minusDays(76),</span>
+<span class="fc" id="L671">            100,</span>
+            &quot;Remojo 16h&quot;,
+            &quot;1%&quot;,
+<span class="fc" id="L674">            20,</span>
+<span class="fc" id="L675">            28,</span>
+<span class="fc" id="L676">            4</span>
+        );
+<span class="fc" id="L678">        tetrazolioRepository.save(tetra3);</span>
+        
+<span class="fc" id="L680">        List&lt;RepTetrazolioViabilidad&gt; repsTetra3 = Arrays.asList(</span>
+<span class="fc" id="L681">            createRepTetrazolio(LocalDate.now().minusDays(76), 94, 4, 2, tetra3),</span>
+<span class="fc" id="L682">            createRepTetrazolio(LocalDate.now().minusDays(76), 95, 3, 2, tetra3),</span>
+<span class="fc" id="L683">            createRepTetrazolio(LocalDate.now().minusDays(76), 93, 5, 2, tetra3),</span>
+<span class="fc" id="L684">            createRepTetrazolio(LocalDate.now().minusDays(76), 94, 4, 2, tetra3)</span>
+        );
+<span class="fc" id="L686">        tetra3.setRepeticiones(repsTetra3);</span>
+<span class="fc" id="L687">        tetra3.setPorcViablesRedondeo(new BigDecimal(&quot;94.00&quot;));</span>
+<span class="fc" id="L688">        tetra3.setPorcNoViablesRedondeo(new BigDecimal(&quot;4.00&quot;));</span>
+<span class="fc" id="L689">        tetra3.setPorcDurasRedondeo(new BigDecimal(&quot;2.00&quot;));</span>
+<span class="fc" id="L690">        tetra3.setViabilidadInase(new BigDecimal(&quot;96.00&quot;));</span>
+<span class="fc" id="L691">        tetrazolioRepository.save(tetra3);</span>
+
+<span class="fc" id="L693">        log.info(&quot;Análisis completos para lote6 creados&quot;);</span>
+
+        // Análisis para lote7 (algunos pendientes)
+<span class="fc" id="L696">        Germinacion germ7 = createGerminacionConTablas(</span>
+            lote7,
+            Estado.A_REPETIR,
+<span class="fc" id="L699">            LocalDateTime.now().minusDays(110),</span>
+<span class="fc" id="L700">            LocalDateTime.now().minusDays(105),</span>
+            &quot;Germinación a repetir por resultados inconsistentes&quot;,
+<span class="fc" id="L702">            LocalDate.now().minusDays(105)</span>
+        );
+<span class="fc" id="L704">        germinacionRepository.save(germ7);</span>
+
+<span class="fc" id="L706">        Tetrazolio tetra4 = createTetrazolio(</span>
+            lote7,
+            Estado.PENDIENTE_APROBACION,
+<span class="fc" id="L709">            LocalDateTime.now().minusDays(108),</span>
+<span class="fc" id="L710">            LocalDateTime.now().minusDays(104),</span>
+            &quot;Tetrazolio pendiente de aprobación&quot;,
+<span class="fc" id="L712">            LocalDate.now().minusDays(108),</span>
+<span class="fc" id="L713">            100,</span>
+            &quot;Remojo 20h&quot;,
+            &quot;0.75%&quot;,
+<span class="fc" id="L716">            24,</span>
+<span class="fc" id="L717">            30,</span>
+<span class="fc" id="L718">            4</span>
+        );
+<span class="fc" id="L720">        tetrazolioRepository.save(tetra4);</span>
+        
+<span class="fc" id="L722">        List&lt;RepTetrazolioViabilidad&gt; repsTetra4 = Arrays.asList(</span>
+<span class="fc" id="L723">            createRepTetrazolio(LocalDate.now().minusDays(108), 85, 12, 3, tetra4),</span>
+<span class="fc" id="L724">            createRepTetrazolio(LocalDate.now().minusDays(108), 87, 10, 3, tetra4),</span>
+<span class="fc" id="L725">            createRepTetrazolio(LocalDate.now().minusDays(108), 86, 11, 3, tetra4),</span>
+<span class="fc" id="L726">            createRepTetrazolio(LocalDate.now().minusDays(108), 88, 9, 3, tetra4)</span>
+        );
+<span class="fc" id="L728">        tetra4.setRepeticiones(repsTetra4);</span>
+<span class="fc" id="L729">        tetra4.setPorcViablesRedondeo(new BigDecimal(&quot;86.50&quot;));</span>
+<span class="fc" id="L730">        tetra4.setPorcNoViablesRedondeo(new BigDecimal(&quot;10.50&quot;));</span>
+<span class="fc" id="L731">        tetra4.setPorcDurasRedondeo(new BigDecimal(&quot;3.00&quot;));</span>
+<span class="fc" id="L732">        tetra4.setViabilidadInase(new BigDecimal(&quot;89.50&quot;));</span>
+<span class="fc" id="L733">        tetrazolioRepository.save(tetra4);</span>
+
+<span class="fc" id="L735">        log.info(&quot;Análisis para lote7 creados&quot;);</span>
+
+<span class="fc" id="L737">        log.info(&quot;Seeder completado exitosamente!&quot;);</span>
+<span class="fc" id="L738">        log.info(&quot;Total de lotes creados: 7&quot;);</span>
+<span class="fc" id="L739">        log.info(&quot;Total de análisis de Germinación: 7 (todos con tablas completas)&quot;);</span>
+<span class="fc" id="L740">        log.info(&quot;Total de análisis de Pureza: 4 (con listados de contaminantes)&quot;);</span>
+<span class="fc" id="L741">        log.info(&quot;Total de análisis de PMS: 4&quot;);</span>
+<span class="fc" id="L742">        log.info(&quot;Total de análisis de Tetrazolio: 4&quot;);</span>
+<span class="fc" id="L743">        log.info(&quot;Total de análisis de DOSN: 3 (con listados y cuscuta)&quot;);</span>
+<span class="fc" id="L744">    }</span>
+
+    private Catalogo createCatalogo(TipoCatalogo tipo, String valor) {
+<span class="fc" id="L747">        Catalogo catalogo = new Catalogo();</span>
+<span class="fc" id="L748">        catalogo.setTipo(tipo);</span>
+<span class="fc" id="L749">        catalogo.setValor(valor);</span>
+<span class="fc" id="L750">        catalogo.setActivo(true);</span>
+<span class="fc" id="L751">        return catalogo;</span>
+    }
+
+    private Especie createEspecie(String nombre) {
+<span class="fc" id="L755">        Especie especie = new Especie();</span>
+<span class="fc" id="L756">        especie.setNombreComun(nombre);</span>
+<span class="fc" id="L757">        especie.setNombreCientifico(nombre + &quot; sp.&quot;);</span>
+<span class="fc" id="L758">        especie.setActivo(true);</span>
+<span class="fc" id="L759">        return especie;</span>
+    }
+
+    private Cultivar createCultivar(Especie especie, String nombre) {
+<span class="fc" id="L763">        Cultivar cultivar = new Cultivar();</span>
+<span class="fc" id="L764">        cultivar.setEspecie(especie);</span>
+<span class="fc" id="L765">        cultivar.setNombre(nombre);</span>
+<span class="fc" id="L766">        cultivar.setActivo(true);</span>
+<span class="fc" id="L767">        return cultivar;</span>
+    }
+
+    private Contacto createContacto(String nombre, String contacto, TipoContacto tipo) {
+<span class="fc" id="L771">        Contacto c = new Contacto();</span>
+<span class="fc" id="L772">        c.setNombre(nombre);</span>
+<span class="fc" id="L773">        c.setContacto(contacto);</span>
+<span class="fc" id="L774">        c.setTipo(tipo);</span>
+<span class="fc" id="L775">        c.setActivo(true);</span>
+<span class="fc" id="L776">        return c;</span>
+    }
+
+    private Lote createLote(
+        String ficha,
+        String nomLote,
+        Cultivar cultivar,
+        TipoLote tipo,
+        Contacto empresa,
+        Contacto cliente,
+        Catalogo deposito,
+        Catalogo numeroArticulo,
+        Catalogo origen,
+        Catalogo estado,
+        BigDecimal kilosLimpios,
+        LocalDate fechaEntrega,
+        LocalDate fechaRecibo,
+        List&lt;TipoAnalisis&gt; tiposAnalisis
+    ) {
+<span class="fc" id="L795">        Lote lote = new Lote();</span>
+<span class="fc" id="L796">        lote.setFicha(ficha);</span>
+<span class="fc" id="L797">        lote.setNomLote(nomLote);</span>
+<span class="fc" id="L798">        lote.setCultivar(cultivar);</span>
+<span class="fc" id="L799">        lote.setTipo(tipo);</span>
+<span class="fc" id="L800">        lote.setEmpresa(empresa);</span>
+<span class="fc" id="L801">        lote.setCliente(cliente);</span>
+<span class="fc" id="L802">        lote.setDeposito(deposito);</span>
+<span class="fc" id="L803">        lote.setNumeroArticulo(numeroArticulo);</span>
+<span class="fc" id="L804">        lote.setOrigen(origen);</span>
+<span class="fc" id="L805">        lote.setEstado(estado);</span>
+<span class="fc" id="L806">        lote.setKilosLimpios(kilosLimpios);</span>
+<span class="fc" id="L807">        lote.setFechaEntrega(fechaEntrega);</span>
+<span class="fc" id="L808">        lote.setFechaRecibo(fechaRecibo);</span>
+<span class="fc" id="L809">        lote.setFechaCosecha(fechaEntrega.minusMonths(1));</span>
+<span class="fc" id="L810">        lote.setCodigoCC(&quot;CC-&quot; + ficha.substring(ficha.length() - 3));</span>
+<span class="fc" id="L811">        lote.setCodigoFF(&quot;FF-&quot; + ficha.substring(ficha.length() - 3));</span>
+<span class="fc" id="L812">        lote.setUnidadEmbolsado(&quot;Bolsas 50kg&quot;);</span>
+<span class="fc" id="L813">        lote.setRemitente(&quot;Transportes del Campo&quot;);</span>
+<span class="fc" id="L814">        lote.setObservaciones(&quot;Lote de muestra generado por seeder&quot;);</span>
+<span class="fc" id="L815">        lote.setTiposAnalisisAsignados(tiposAnalisis);</span>
+<span class="fc" id="L816">        lote.setActivo(true);</span>
+<span class="fc" id="L817">        return lote;</span>
+    }
+
+    private Pureza createPureza(
+        Lote lote,
+        Estado estado,
+        LocalDateTime fechaInicio,
+        LocalDateTime fechaFin,
+        String comentarios,
+        LocalDate fecha,
+        BigDecimal pesoInicial,
+        BigDecimal semillaPura,
+        BigDecimal materiaInerte,
+        BigDecimal otrosCultivos,
+        BigDecimal malezas,
+        Boolean cumpleEstandar
+    ) {
+<span class="fc" id="L834">        Pureza pureza = new Pureza();</span>
+<span class="fc" id="L835">        pureza.setLote(lote);</span>
+<span class="fc" id="L836">        pureza.setEstado(estado);</span>
+<span class="fc" id="L837">        pureza.setFechaInicio(fechaInicio);</span>
+<span class="fc" id="L838">        pureza.setFechaFin(fechaFin);</span>
+<span class="fc" id="L839">        pureza.setComentarios(comentarios);</span>
+<span class="fc" id="L840">        pureza.setFecha(fecha);</span>
+<span class="fc" id="L841">        pureza.setPesoInicial_g(pesoInicial);</span>
+<span class="fc" id="L842">        pureza.setSemillaPura_g(semillaPura);</span>
+<span class="fc" id="L843">        pureza.setMateriaInerte_g(materiaInerte);</span>
+<span class="fc" id="L844">        pureza.setOtrosCultivos_g(otrosCultivos);</span>
+<span class="fc" id="L845">        pureza.setMalezas_g(malezas);</span>
+<span class="fc" id="L846">        pureza.setCumpleEstandar(cumpleEstandar);</span>
+<span class="fc" id="L847">        pureza.setActivo(true);</span>
+<span class="fc" id="L848">        return pureza;</span>
+    }
+
+    private Germinacion createGerminacionConTablas(
+        Lote lote,
+        Estado estado,
+        LocalDateTime fechaInicio,
+        LocalDateTime fechaFin,
+        String comentarios,
+        LocalDate fechaFinal
+    ) {
+<span class="fc" id="L859">        Germinacion germ = new Germinacion();</span>
+<span class="fc" id="L860">        germ.setLote(lote);</span>
+<span class="fc" id="L861">        germ.setEstado(estado);</span>
+<span class="fc" id="L862">        germ.setFechaInicio(fechaInicio);</span>
+<span class="fc" id="L863">        germ.setFechaFin(fechaFin);</span>
+<span class="fc" id="L864">        germ.setComentarios(comentarios);</span>
+<span class="fc" id="L865">        germ.setActivo(true);</span>
+
+        // Crear tabla de germinación con repeticiones completas
+<span class="fc" id="L868">        TablaGerm tabla = new TablaGerm();</span>
+<span class="fc" id="L869">        tabla.setGerminacion(germ); // IMPORTANTE: vincular la tabla con la germinación</span>
+<span class="fc" id="L870">        tabla.setFechaFinal(fechaFinal);</span>
+<span class="fc" id="L871">        tabla.setTotal(400); // Total de semillas (4 repeticiones x 100)</span>
+<span class="fc bfc" id="L872" title="All 2 branches covered.">        tabla.setFinalizada(estado == Estado.APROBADO);</span>
+        
+        // Configurar campos adicionales de la tabla
+<span class="fc" id="L875">        tabla.setTratamiento(&quot;Papel de Filtro&quot;);</span>
+<span class="fc" id="L876">        tabla.setProductoYDosis(&quot;Sin tratamiento&quot;);</span>
+<span class="fc" id="L877">        tabla.setNumSemillasPRep(100);</span>
+<span class="fc" id="L878">        tabla.setMetodo(&quot;Entre papel&quot;);</span>
+<span class="fc" id="L879">        tabla.setTemperatura(&quot;20°C constante&quot;);</span>
+<span class="fc" id="L880">        tabla.setTienePrefrio(false);</span>
+<span class="fc" id="L881">        tabla.setTienePretratamiento(false);</span>
+<span class="fc" id="L882">        tabla.setFechaIngreso(fechaFinal.minusDays(14));</span>
+<span class="fc" id="L883">        tabla.setFechaGerminacion(fechaFinal.minusDays(10));</span>
+<span class="fc" id="L884">        tabla.setFechaUltConteo(fechaFinal);</span>
+<span class="fc" id="L885">        tabla.setNumDias(&quot;14&quot;);</span>
+<span class="fc" id="L886">        tabla.setNumeroRepeticiones(4);</span>
+<span class="fc" id="L887">        tabla.setNumeroConteos(4);</span>
+        
+        // Fechas de conteos
+<span class="fc" id="L890">        List&lt;LocalDate&gt; fechasConteos = Arrays.asList(</span>
+<span class="fc" id="L891">            fechaFinal.minusDays(10),</span>
+<span class="fc" id="L892">            fechaFinal.minusDays(7),</span>
+<span class="fc" id="L893">            fechaFinal.minusDays(4),</span>
+            fechaFinal
+        );
+<span class="fc" id="L896">        tabla.setFechaConteos(fechasConteos);</span>
+
+        // Crear repeticiones con variedad de datos
+<span class="fc" id="L899">        List&lt;RepGerm&gt; repeticiones = new ArrayList&lt;&gt;();</span>
+        
+<span class="fc" id="L901">        RepGerm rep1 = new RepGerm();</span>
+<span class="fc" id="L902">        rep1.setNumRep(1);</span>
+<span class="fc" id="L903">        rep1.setNormales(Arrays.asList(18, 42, 68, 88)); // Conteos acumulativos por día</span>
+<span class="fc" id="L904">        rep1.setAnormales(8);</span>
+<span class="fc" id="L905">        rep1.setDuras(2);</span>
+<span class="fc" id="L906">        rep1.setFrescas(1);</span>
+<span class="fc" id="L907">        rep1.setMuertas(1);</span>
+<span class="fc" id="L908">        rep1.setTotal(100);</span>
+<span class="fc" id="L909">        rep1.setTablaGerm(tabla);</span>
+<span class="fc" id="L910">        repeticiones.add(rep1);</span>
+
+<span class="fc" id="L912">        RepGerm rep2 = new RepGerm();</span>
+<span class="fc" id="L913">        rep2.setNumRep(2);</span>
+<span class="fc" id="L914">        rep2.setNormales(Arrays.asList(16, 40, 66, 87));</span>
+<span class="fc" id="L915">        rep2.setAnormales(9);</span>
+<span class="fc" id="L916">        rep2.setDuras(1);</span>
+<span class="fc" id="L917">        rep2.setFrescas(2);</span>
+<span class="fc" id="L918">        rep2.setMuertas(1);</span>
+<span class="fc" id="L919">        rep2.setTotal(100);</span>
+<span class="fc" id="L920">        rep2.setTablaGerm(tabla);</span>
+<span class="fc" id="L921">        repeticiones.add(rep2);</span>
+
+<span class="fc" id="L923">        RepGerm rep3 = new RepGerm();</span>
+<span class="fc" id="L924">        rep3.setNumRep(3);</span>
+<span class="fc" id="L925">        rep3.setNormales(Arrays.asList(19, 43, 69, 89));</span>
+<span class="fc" id="L926">        rep3.setAnormales(7);</span>
+<span class="fc" id="L927">        rep3.setDuras(2);</span>
+<span class="fc" id="L928">        rep3.setFrescas(1);</span>
+<span class="fc" id="L929">        rep3.setMuertas(1);</span>
+<span class="fc" id="L930">        rep3.setTotal(100);</span>
+<span class="fc" id="L931">        rep3.setTablaGerm(tabla);</span>
+<span class="fc" id="L932">        repeticiones.add(rep3);</span>
+
+<span class="fc" id="L934">        RepGerm rep4 = new RepGerm();</span>
+<span class="fc" id="L935">        rep4.setNumRep(4);</span>
+<span class="fc" id="L936">        rep4.setNormales(Arrays.asList(17, 41, 67, 88));</span>
+<span class="fc" id="L937">        rep4.setAnormales(8);</span>
+<span class="fc" id="L938">        rep4.setDuras(2);</span>
+<span class="fc" id="L939">        rep4.setFrescas(1);</span>
+<span class="fc" id="L940">        rep4.setMuertas(1);</span>
+<span class="fc" id="L941">        rep4.setTotal(100);</span>
+<span class="fc" id="L942">        rep4.setTablaGerm(tabla);</span>
+<span class="fc" id="L943">        repeticiones.add(rep4);</span>
+
+<span class="fc" id="L945">        tabla.setRepGerm(repeticiones);</span>
+
+        // Configurar promedios sin redondeo (promedio de los finales)
+<span class="fc" id="L948">        BigDecimal promedioNormales = new BigDecimal(&quot;88.00&quot;);</span>
+<span class="fc" id="L949">        BigDecimal promedioAnormales = new BigDecimal(&quot;8.00&quot;);</span>
+<span class="fc" id="L950">        BigDecimal promedioDuras = new BigDecimal(&quot;1.75&quot;);</span>
+<span class="fc" id="L951">        BigDecimal promedioFrescas = new BigDecimal(&quot;1.25&quot;);</span>
+<span class="fc" id="L952">        BigDecimal promedioMuertas = new BigDecimal(&quot;1.00&quot;);</span>
+
+<span class="fc" id="L954">        tabla.setPromedioSinRedondeo(Arrays.asList(</span>
+            promedioNormales,
+            promedioAnormales,
+            promedioDuras,
+            promedioFrescas,
+            promedioMuertas
+        ));
+
+        // Promedios sin redondeo por conteo (promedio de cada columna de conteos)
+<span class="fc" id="L963">        tabla.setPromediosSinRedPorConteo(Arrays.asList(</span>
+            new BigDecimal(&quot;17.50&quot;),  // Promedio primer conteo
+            new BigDecimal(&quot;41.50&quot;),  // Promedio segundo conteo
+            new BigDecimal(&quot;67.50&quot;),  // Promedio tercer conteo
+            new BigDecimal(&quot;88.00&quot;)   // Promedio cuarto conteo (final)
+        ));
+
+        // Porcentajes con redondeo manual
+<span class="fc" id="L971">        tabla.setPorcentajeNormalesConRedondeo(new BigDecimal(&quot;88.0&quot;));</span>
+<span class="fc" id="L972">        tabla.setPorcentajeAnormalesConRedondeo(new BigDecimal(&quot;8.0&quot;));</span>
+<span class="fc" id="L973">        tabla.setPorcentajeDurasConRedondeo(new BigDecimal(&quot;1.8&quot;));</span>
+<span class="fc" id="L974">        tabla.setPorcentajeFrescasConRedondeo(new BigDecimal(&quot;1.3&quot;));</span>
+<span class="fc" id="L975">        tabla.setPorcentajeMuertasConRedondeo(new BigDecimal(&quot;1.0&quot;));</span>
+
+        // Crear valores INIA e INASE
+<span class="fc" id="L978">        List&lt;ValoresGerm&gt; valores = new ArrayList&lt;&gt;();</span>
+
+<span class="fc" id="L980">        ValoresGerm valorINIA = new ValoresGerm();</span>
+<span class="fc" id="L981">        valorINIA.setInstituto(Instituto.INIA);</span>
+<span class="fc" id="L982">        valorINIA.setNormales(promedioNormales);</span>
+<span class="fc" id="L983">        valorINIA.setAnormales(promedioAnormales);</span>
+<span class="fc" id="L984">        valorINIA.setDuras(promedioDuras);</span>
+<span class="fc" id="L985">        valorINIA.setFrescas(promedioFrescas);</span>
+<span class="fc" id="L986">        valorINIA.setMuertas(promedioMuertas);</span>
+<span class="fc" id="L987">        valorINIA.setGerminacion(promedioNormales); // INIA: solo normales</span>
+<span class="fc" id="L988">        valorINIA.setTablaGerm(tabla);</span>
+<span class="fc" id="L989">        valores.add(valorINIA);</span>
+
+<span class="fc" id="L991">        ValoresGerm valorINASE = new ValoresGerm();</span>
+<span class="fc" id="L992">        valorINASE.setInstituto(Instituto.INASE);</span>
+<span class="fc" id="L993">        valorINASE.setNormales(promedioNormales);</span>
+<span class="fc" id="L994">        valorINASE.setAnormales(promedioAnormales);</span>
+<span class="fc" id="L995">        valorINASE.setDuras(promedioDuras);</span>
+<span class="fc" id="L996">        valorINASE.setFrescas(promedioFrescas);</span>
+<span class="fc" id="L997">        valorINASE.setMuertas(promedioMuertas);</span>
+        // INASE: normales + duras
+<span class="fc" id="L999">        valorINASE.setGerminacion(promedioNormales.add(promedioDuras));</span>
+<span class="fc" id="L1000">        valorINASE.setTablaGerm(tabla);</span>
+<span class="fc" id="L1001">        valores.add(valorINASE);</span>
+
+<span class="fc" id="L1003">        tabla.setValoresGerm(valores);</span>
+
+        // Asignar la tabla a la germinación
+<span class="fc" id="L1006">        List&lt;TablaGerm&gt; tablas = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L1007">        tablas.add(tabla);</span>
+<span class="fc" id="L1008">        germ.setTablaGerm(tablas);</span>
+
+<span class="fc" id="L1010">        return germ;</span>
+    }
+
+    private Pms createPms(
+        Lote lote,
+        Estado estado,
+        LocalDateTime fechaInicio,
+        LocalDateTime fechaFin,
+        String comentarios,
+        Integer numRepeticiones,
+        Integer numTandas,
+        Boolean esSemillaBrozosa
+    ) {
+<span class="fc" id="L1023">        Pms pms = new Pms();</span>
+<span class="fc" id="L1024">        pms.setLote(lote);</span>
+<span class="fc" id="L1025">        pms.setEstado(estado);</span>
+<span class="fc" id="L1026">        pms.setFechaInicio(fechaInicio);</span>
+<span class="fc" id="L1027">        pms.setFechaFin(fechaFin);</span>
+<span class="fc" id="L1028">        pms.setComentarios(comentarios);</span>
+<span class="fc" id="L1029">        pms.setNumRepeticionesEsperadas(numRepeticiones);</span>
+<span class="fc" id="L1030">        pms.setNumTandas(numTandas);</span>
+<span class="fc" id="L1031">        pms.setEsSemillaBrozosa(esSemillaBrozosa);</span>
+<span class="fc" id="L1032">        pms.setActivo(true);</span>
+<span class="fc" id="L1033">        return pms;</span>
+    }
+
+    private RepPms createRepPms(
+        Integer numRep,
+        Integer numTanda,
+        BigDecimal peso,
+        Boolean valido,
+        Pms pms
+    ) {
+<span class="fc" id="L1043">        RepPms rep = new RepPms();</span>
+<span class="fc" id="L1044">        rep.setNumRep(numRep);</span>
+<span class="fc" id="L1045">        rep.setNumTanda(numTanda);</span>
+<span class="fc" id="L1046">        rep.setPeso(peso);</span>
+<span class="fc" id="L1047">        rep.setValido(valido);</span>
+<span class="fc" id="L1048">        rep.setPms(pms);</span>
+<span class="fc" id="L1049">        return rep;</span>
+    }
+
+    private Tetrazolio createTetrazolio(
+        Lote lote,
+        Estado estado,
+        LocalDateTime fechaInicio,
+        LocalDateTime fechaFin,
+        String comentarios,
+        LocalDate fecha,
+        Integer numSemillasPorRep,
+        String pretratamiento,
+        String concentracion,
+        Integer tincionHs,
+        Integer tincionTemp,
+        Integer numRepeticiones
+    ) {
+<span class="fc" id="L1066">        Tetrazolio tetra = new Tetrazolio();</span>
+<span class="fc" id="L1067">        tetra.setLote(lote);</span>
+<span class="fc" id="L1068">        tetra.setEstado(estado);</span>
+<span class="fc" id="L1069">        tetra.setFechaInicio(fechaInicio);</span>
+<span class="fc" id="L1070">        tetra.setFechaFin(fechaFin);</span>
+<span class="fc" id="L1071">        tetra.setComentarios(comentarios);</span>
+<span class="fc" id="L1072">        tetra.setFecha(fecha);</span>
+<span class="fc" id="L1073">        tetra.setNumSemillasPorRep(numSemillasPorRep);</span>
+<span class="fc" id="L1074">        tetra.setPretratamiento(pretratamiento);</span>
+<span class="fc" id="L1075">        tetra.setConcentracion(concentracion);</span>
+<span class="fc" id="L1076">        tetra.setTincionHs(tincionHs);</span>
+<span class="fc" id="L1077">        tetra.setTincionTemp(tincionTemp);</span>
+<span class="fc" id="L1078">        tetra.setNumRepeticionesEsperadas(numRepeticiones);</span>
+<span class="fc" id="L1079">        tetra.setActivo(true);</span>
+<span class="fc" id="L1080">        return tetra;</span>
+    }
+
+    private RepTetrazolioViabilidad createRepTetrazolio(
+        LocalDate fecha,
+        Integer viables,
+        Integer noViables,
+        Integer duras,
+        Tetrazolio tetrazolio
+    ) {
+<span class="fc" id="L1090">        RepTetrazolioViabilidad rep = new RepTetrazolioViabilidad();</span>
+<span class="fc" id="L1091">        rep.setFecha(fecha);</span>
+<span class="fc" id="L1092">        rep.setViablesNum(viables);</span>
+<span class="fc" id="L1093">        rep.setNoViablesNum(noViables);</span>
+<span class="fc" id="L1094">        rep.setDuras(duras);</span>
+<span class="fc" id="L1095">        rep.setTetrazolio(tetrazolio);</span>
+<span class="fc" id="L1096">        return rep;</span>
+    }
+
+    private MalezasCatalogo createMaleza(String nombreComun, String nombreCientifico) {
+<span class="fc" id="L1100">        MalezasCatalogo maleza = new MalezasCatalogo();</span>
+<span class="fc" id="L1101">        maleza.setNombreComun(nombreComun);</span>
+<span class="fc" id="L1102">        maleza.setNombreCientifico(nombreCientifico);</span>
+<span class="fc" id="L1103">        maleza.setActivo(true);</span>
+<span class="fc" id="L1104">        return maleza;</span>
+    }
+
+    private Listado createListadoMaleza(
+        Pureza pureza,
+        MalezasCatalogo maleza,
+        TipoListado tipo,
+        Instituto instituto,
+        Integer numero
+    ) {
+<span class="fc" id="L1114">        Listado listado = new Listado();</span>
+<span class="fc" id="L1115">        listado.setPureza(pureza);</span>
+<span class="fc" id="L1116">        listado.setCatalogo(maleza);</span>
+<span class="fc" id="L1117">        listado.setListadoTipo(tipo);</span>
+<span class="fc" id="L1118">        listado.setListadoInsti(instituto);</span>
+<span class="fc" id="L1119">        listado.setListadoNum(numero);</span>
+<span class="fc" id="L1120">        return listado;</span>
+    }
+
+    private Listado createListadoOtroCultivo(
+        Pureza pureza,
+        Especie especie,
+        Instituto instituto,
+        Integer numero
+    ) {
+<span class="fc" id="L1129">        Listado listado = new Listado();</span>
+<span class="fc" id="L1130">        listado.setPureza(pureza);</span>
+<span class="fc" id="L1131">        listado.setEspecie(especie);</span>
+<span class="fc" id="L1132">        listado.setListadoTipo(TipoListado.OTROS);</span>
+<span class="fc" id="L1133">        listado.setListadoInsti(instituto);</span>
+<span class="fc" id="L1134">        listado.setListadoNum(numero);</span>
+<span class="fc" id="L1135">        return listado;</span>
+    }
+
+    private Dosn createDosn(
+        Lote lote,
+        Estado estado,
+        LocalDateTime fechaInicio,
+        LocalDateTime fechaFin,
+        String comentarios,
+        Boolean cumpleEstandar,
+        LocalDate fechaINIA,
+        BigDecimal gramosINIA,
+        List&lt;TipoDOSN&gt; tipoINIA,
+        LocalDate fechaINASE,
+        BigDecimal gramosINASE,
+        List&lt;TipoDOSN&gt; tipoINASE
+    ) {
+<span class="fc" id="L1152">        Dosn dosn = new Dosn();</span>
+<span class="fc" id="L1153">        dosn.setLote(lote);</span>
+<span class="fc" id="L1154">        dosn.setEstado(estado);</span>
+<span class="fc" id="L1155">        dosn.setFechaInicio(fechaInicio);</span>
+<span class="fc" id="L1156">        dosn.setFechaFin(fechaFin);</span>
+<span class="fc" id="L1157">        dosn.setComentarios(comentarios);</span>
+<span class="fc" id="L1158">        dosn.setCumpleEstandar(cumpleEstandar);</span>
+<span class="fc" id="L1159">        dosn.setFechaINIA(fechaINIA);</span>
+<span class="fc" id="L1160">        dosn.setGramosAnalizadosINIA(gramosINIA);</span>
+<span class="fc" id="L1161">        dosn.setTipoINIA(tipoINIA);</span>
+<span class="fc" id="L1162">        dosn.setFechaINASE(fechaINASE);</span>
+<span class="fc" id="L1163">        dosn.setGramosAnalizadosINASE(gramosINASE);</span>
+<span class="fc" id="L1164">        dosn.setTipoINASE(tipoINASE);</span>
+<span class="fc" id="L1165">        dosn.setActivo(true);</span>
+<span class="fc" id="L1166">        return dosn;</span>
+    }
+
+    private CuscutaRegistro createCuscutaRegistro(
+        Instituto instituto,
+        BigDecimal cuscutaGramos,
+        Integer cuscutaNum,
+        LocalDate fecha,
+        Dosn dosn
+    ) {
+<span class="fc" id="L1176">        CuscutaRegistro registro = new CuscutaRegistro();</span>
+<span class="fc" id="L1177">        registro.setInstituto(instituto);</span>
+<span class="fc" id="L1178">        registro.setCuscuta_g(cuscutaGramos);</span>
+<span class="fc" id="L1179">        registro.setCuscutaNum(cuscutaNum);</span>
+<span class="fc" id="L1180">        registro.setFechaCuscuta(fecha);</span>
+<span class="fc" id="L1181">        registro.setDosn(dosn);</span>
+<span class="fc" id="L1182">        return registro;</span>
+    }
+
+    private Listado createListadoDosnMaleza(
+        Dosn dosn,
+        MalezasCatalogo maleza,
+        TipoListado tipo,
+        Instituto instituto,
+        Integer numero
+    ) {
+<span class="fc" id="L1192">        Listado listado = new Listado();</span>
+<span class="fc" id="L1193">        listado.setDosn(dosn);</span>
+<span class="fc" id="L1194">        listado.setCatalogo(maleza);</span>
+<span class="fc" id="L1195">        listado.setListadoTipo(tipo);</span>
+<span class="fc" id="L1196">        listado.setListadoInsti(instituto);</span>
+<span class="fc" id="L1197">        listado.setListadoNum(numero);</span>
+<span class="fc" id="L1198">        return listado;</span>
+    }
+
+    private Listado createListadoDosnOtroCultivo(
+        Dosn dosn,
+        Especie especie,
+        Instituto instituto,
+        Integer numero
+    ) {
+<span class="fc" id="L1207">        Listado listado = new Listado();</span>
+<span class="fc" id="L1208">        listado.setDosn(dosn);</span>
+<span class="fc" id="L1209">        listado.setEspecie(especie);</span>
+<span class="fc" id="L1210">        listado.setListadoTipo(TipoListado.OTROS);</span>
+<span class="fc" id="L1211">        listado.setListadoInsti(instituto);</span>
+<span class="fc" id="L1212">        listado.setListadoNum(numero);</span>
+<span class="fc" id="L1213">        return listado;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

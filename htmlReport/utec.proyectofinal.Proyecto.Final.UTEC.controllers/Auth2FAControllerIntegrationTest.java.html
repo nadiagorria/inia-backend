@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Auth2FAControllerIntegrationTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.controllers</a> &gt; <span class="el_source">Auth2FAControllerIntegrationTest.java</span></div><h1>Auth2FAControllerIntegrationTest.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.controllers;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Auth2FAControllerIntegrationTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.controllers</a> &gt; <span class="el_source">Auth2FAControllerIntegrationTest.java</span></div><h1>Auth2FAControllerIntegrationTest.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -442,7 +442,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
     // ===== TESTS DE RECUPERACIÓN DE CONTRASEÑA =====
 
     @Test
-    @DisplayName(&quot;POST /api/v1/auth/forgot-password - Solicitar código de recuperación&quot;)
+    @DisplayName(&quot;POST /api/v1/auth/recuperar-contrasena - Solicitar código de recuperación&quot;)
     void forgotPassword_emailValido_debeEnviarCodigo() throws Exception {
 <span class="fc" id="L447">        ForgotPasswordRequestDTO request = new ForgotPasswordRequestDTO();</span>
 <span class="fc" id="L448">        request.setEmail(&quot;test@example.com&quot;);</span>
@@ -453,7 +453,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 <span class="fc" id="L453">        when(recoveryCodeService.getExpiryTime()).thenReturn(LocalDateTime.now().plusMinutes(10));</span>
 <span class="fc" id="L454">        when(recoveryCodeService.getExpiryMinutes()).thenReturn(10);</span>
 
-<span class="fc" id="L456">        mockMvc.perform(post(&quot;/api/v1/auth/forgot-password&quot;)</span>
+<span class="fc" id="L456">        mockMvc.perform(post(&quot;/api/v1/auth/recuperar-contrasena&quot;)</span>
 <span class="fc" id="L457">                .contentType(MediaType.APPLICATION_JSON)</span>
 <span class="fc" id="L458">                .content(objectMapper.writeValueAsString(request))</span>
 <span class="fc" id="L459">                .with(csrf()))</span>
@@ -463,7 +463,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 <span class="fc" id="L463">    }</span>
 
     @Test
-    @DisplayName(&quot;POST /api/v1/auth/reset-password - Resetear contraseña con código válido&quot;)
+    @DisplayName(&quot;POST /api/v1/auth/restablecer-contrasena - Resetear contraseña con código válido&quot;)
     void resetPassword_codigosValidos_debeResetearContrasena() throws Exception {
 <span class="fc" id="L468">        usuarioTest.setRecoveryCodeHash(&quot;hashedCode&quot;);</span>
 <span class="fc" id="L469">        usuarioTest.setRecoveryCodeExpiry(LocalDateTime.now().plusMinutes(10));</span>
@@ -479,7 +479,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 <span class="fc" id="L479">        when(recoveryCodeService.verifyCode(any(), any())).thenReturn(true);</span>
 <span class="fc" id="L480">        when(totpService.verifyCode(any(), any())).thenReturn(true);</span>
 
-<span class="fc" id="L482">        mockMvc.perform(post(&quot;/api/v1/auth/reset-password&quot;)</span>
+<span class="fc" id="L482">        mockMvc.perform(post(&quot;/api/v1/auth/restablecer-contrasena&quot;)</span>
 <span class="fc" id="L483">                .contentType(MediaType.APPLICATION_JSON)</span>
 <span class="fc" id="L484">                .content(objectMapper.writeValueAsString(request))</span>
 <span class="fc" id="L485">                .with(csrf()))</span>
@@ -488,7 +488,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 <span class="fc" id="L488">    }</span>
 
     @Test
-    @DisplayName(&quot;POST /api/v1/auth/reset-password - Código de recuperación expirado&quot;)
+    @DisplayName(&quot;POST /api/v1/auth/restablecer-contrasena - Código de recuperación expirado&quot;)
     void resetPassword_codigoExpirado_debeRetornar401() throws Exception {
 <span class="fc" id="L493">        usuarioTest.setRecoveryCodeHash(&quot;hashedCode&quot;);</span>
 <span class="fc" id="L494">        usuarioTest.setRecoveryCodeExpiry(LocalDateTime.now().minusMinutes(1));</span>
@@ -502,7 +502,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 <span class="fc" id="L502">        when(usuarioService.buscarPorEmail(any())).thenReturn(Optional.of(usuarioTest));</span>
 <span class="fc" id="L503">        when(recoveryCodeService.isExpired(any())).thenReturn(true);</span>
 
-<span class="fc" id="L505">        mockMvc.perform(post(&quot;/api/v1/auth/reset-password&quot;)</span>
+<span class="fc" id="L505">        mockMvc.perform(post(&quot;/api/v1/auth/restablecer-contrasena&quot;)</span>
 <span class="fc" id="L506">                .contentType(MediaType.APPLICATION_JSON)</span>
 <span class="fc" id="L507">                .content(objectMapper.writeValueAsString(request))</span>
 <span class="fc" id="L508">                .with(csrf()))</span>
@@ -727,14 +727,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 <span class="fc" id="L727">    }</span>
 
     @Test
-    @DisplayName(&quot;POST /api/v1/auth/forgot-password - Email no registrado&quot;)
+    @DisplayName(&quot;POST /api/v1/auth/recuperar-contrasena - Email no registrado&quot;)
     void forgotPassword_emailInexistente_debeFallarSilenciosamente() throws Exception {
 <span class="fc" id="L732">        ForgotPasswordRequestDTO request = new ForgotPasswordRequestDTO();</span>
 <span class="fc" id="L733">        request.setEmail(&quot;noexiste@example.com&quot;);</span>
 
 <span class="fc" id="L735">        when(usuarioService.buscarPorEmail(any())).thenReturn(Optional.empty());</span>
 
-<span class="fc" id="L737">        mockMvc.perform(post(&quot;/api/v1/auth/forgot-password&quot;)</span>
+<span class="fc" id="L737">        mockMvc.perform(post(&quot;/api/v1/auth/recuperar-contrasena&quot;)</span>
 <span class="fc" id="L738">                .contentType(MediaType.APPLICATION_JSON)</span>
 <span class="fc" id="L739">                .content(objectMapper.writeValueAsString(request))</span>
 <span class="fc" id="L740">                .with(csrf()))</span>
@@ -743,13 +743,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 <span class="fc" id="L743">    }</span>
 
     @Test
-    @DisplayName(&quot;POST /api/v1/auth/forgot-password - Email con formato inválido&quot;)
+    @DisplayName(&quot;POST /api/v1/auth/recuperar-contrasena - Email con formato inválido&quot;)
     void forgotPassword_emailInvalido_debeRetornar400() throws Exception {
 <span class="fc" id="L748">        ForgotPasswordRequestDTO request = new ForgotPasswordRequestDTO();</span>
 <span class="fc" id="L749">        request.setEmail(&quot;email-invalido&quot;);</span>
 
         // El controller siempre devuelve 200 por seguridad (no revela si el email existe o no)
-<span class="fc" id="L752">        mockMvc.perform(post(&quot;/api/v1/auth/forgot-password&quot;)</span>
+<span class="fc" id="L752">        mockMvc.perform(post(&quot;/api/v1/auth/recuperar-contrasena&quot;)</span>
 <span class="fc" id="L753">                .contentType(MediaType.APPLICATION_JSON)</span>
 <span class="fc" id="L754">                .content(objectMapper.writeValueAsString(request))</span>
 <span class="fc" id="L755">                .with(csrf()))</span>
@@ -758,7 +758,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 <span class="fc" id="L758">    }</span>
 
     @Test
-    @DisplayName(&quot;POST /api/v1/auth/reset-password - Contraseña nueva igual a la anterior&quot;)
+    @DisplayName(&quot;POST /api/v1/auth/restablecer-contrasena - Contraseña nueva igual a la anterior&quot;)
     void resetPassword_passwordIgual_debeRetornar400() throws Exception {
 <span class="fc" id="L763">        usuarioTest.setRecoveryCodeHash(&quot;hashedCode&quot;);</span>
 <span class="fc" id="L764">        usuarioTest.setRecoveryCodeExpiry(LocalDateTime.now().plusMinutes(10));</span>
@@ -775,7 +775,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 <span class="fc" id="L775">        when(totpService.verifyCode(any(), any())).thenReturn(true);</span>
 
         // El controller no valida si la contraseña es igual, procede con el cambio
-<span class="fc" id="L778">        mockMvc.perform(post(&quot;/api/v1/auth/reset-password&quot;)</span>
+<span class="fc" id="L778">        mockMvc.perform(post(&quot;/api/v1/auth/restablecer-contrasena&quot;)</span>
 <span class="fc" id="L779">                .contentType(MediaType.APPLICATION_JSON)</span>
 <span class="fc" id="L780">                .content(objectMapper.writeValueAsString(request))</span>
 <span class="fc" id="L781">                .with(csrf()))</span>
@@ -784,7 +784,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 <span class="fc" id="L784">    }</span>
 
     @Test
-    @DisplayName(&quot;POST /api/v1/auth/reset-password - Código TOTP inválido con código de recuperación válido&quot;)
+    @DisplayName(&quot;POST /api/v1/auth/restablecer-contrasena - Código TOTP inválido con código de recuperación válido&quot;)
     void resetPassword_totpInvalido_debeRetornar401() throws Exception {
 <span class="fc" id="L789">        usuarioTest.setRecoveryCodeHash(&quot;hashedCode&quot;);</span>
 <span class="fc" id="L790">        usuarioTest.setRecoveryCodeExpiry(LocalDateTime.now().plusMinutes(10));</span>
@@ -800,7 +800,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 <span class="fc" id="L800">        when(recoveryCodeService.verifyCode(any(), any())).thenReturn(true);</span>
 <span class="fc" id="L801">        when(totpService.verifyCode(any(), any())).thenReturn(false);</span>
 
-<span class="fc" id="L803">        mockMvc.perform(post(&quot;/api/v1/auth/reset-password&quot;)</span>
+<span class="fc" id="L803">        mockMvc.perform(post(&quot;/api/v1/auth/restablecer-contrasena&quot;)</span>
 <span class="fc" id="L804">                .contentType(MediaType.APPLICATION_JSON)</span>
 <span class="fc" id="L805">                .content(objectMapper.writeValueAsString(request))</span>
 <span class="fc" id="L806">                .with(csrf()))</span>

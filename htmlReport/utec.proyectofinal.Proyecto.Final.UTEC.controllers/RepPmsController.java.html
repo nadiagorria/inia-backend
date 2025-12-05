@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RepPmsController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.controllers</a> &gt; <span class="el_source">RepPmsController.java</span></div><h1>RepPmsController.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.controllers;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RepPmsController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.controllers</a> &gt; <span class="el_source">RepPmsController.java</span></div><h1>RepPmsController.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.controllers;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.dtos.request.RepPmsRequestDTO;
 import utec.proyectofinal.Proyecto.Final.UTEC.dtos.response.RepPmsDTO;
 import utec.proyectofinal.Proyecto.Final.UTEC.services.RepPmsService;
 
-// CORS configurado globalmente en WebSecurityConfig
+
 @RestController
 @RequestMapping(&quot;/api/pms/{pmsId}/repeticiones&quot;)
 @Tag(name = &quot;Repeticiones PMS&quot;, description = &quot;API para gestión de repeticiones de análisis PMS&quot;)
@@ -33,7 +33,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.RepPmsService;
     @Autowired
     private RepPmsService repeticionService;
 
-    // Crear nueva repetición para un Pms específico
+    
     @Operation(summary = &quot;Crear repetición de PMS&quot;, 
               description = &quot;Crea una nueva repetición para un análisis PMS específico&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA')&quot;)
@@ -51,7 +51,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.RepPmsService;
         }
     }
 
-    // Obtener todas las repeticiones de un Pms
+    
     @Operation(summary = &quot;Listar repeticiones de PMS&quot;, 
               description = &quot;Obtiene todas las repeticiones asociadas a un análisis PMS específico&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')&quot;)
@@ -65,7 +65,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.RepPmsService;
         }
     }
 
-    // Contar repeticiones de un Pms
+    
     @Operation(summary = &quot;Contar repeticiones de PMS&quot;, 
               description = &quot;Cuenta el número de repeticiones asociadas a un análisis PMS específico&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')&quot;)
@@ -79,7 +79,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.RepPmsService;
         }
     }
 
-    // Obtener repetición específica por ID
+    
     @Operation(summary = &quot;Obtener repetición de PMS por ID&quot;, 
               description = &quot;Obtiene una repetición específica de un análisis PMS por su ID&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')&quot;)
@@ -97,7 +97,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.RepPmsService;
         }
     }
 
-    // Actualizar repetición específica
+    
     @Operation(summary = &quot;Actualizar repetición de PMS&quot;, 
               description = &quot;Actualiza una repetición específica de un análisis PMS&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA')&quot;)
@@ -116,7 +116,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.RepPmsService;
         }
     }
 
-    // Eliminar repetición específica
+    
     @Operation(summary = &quot;Eliminar repetición de PMS&quot;, 
               description = &quot;Elimina una repetición específica de un análisis PMS (eliminación física)&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN')&quot;)

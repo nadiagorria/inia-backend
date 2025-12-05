@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CultivarServiceTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">CultivarServiceTest.java</span></div><h1>CultivarServiceTest.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CultivarServiceTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">CultivarServiceTest.java</span></div><h1>CultivarServiceTest.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -277,13 +277,13 @@ import static org.mockito.Mockito.*;
     @Test
     @DisplayName(&quot;obtenerTodos con activo=true - debe retornar solo activos&quot;)
     void obtenerTodos_activoTrue_debeRetornarSoloActivos() {
-        // ARRANGE
+        
 <span class="fc" id="L281">        when(cultivarRepository.findByActivoTrue()).thenReturn(Arrays.asList(cultivar));</span>
 
-        // ACT
+        
 <span class="fc" id="L284">        List&lt;CultivarDTO&gt; resultado = cultivarService.obtenerTodos(true);</span>
 
-        // ASSERT
+        
 <span class="fc" id="L287">        assertNotNull(resultado);</span>
 <span class="fc" id="L288">        assertEquals(1, resultado.size());</span>
 <span class="fc" id="L289">        verify(cultivarRepository, times(1)).findByActivoTrue();</span>
@@ -294,14 +294,14 @@ import static org.mockito.Mockito.*;
     @Test
     @DisplayName(&quot;obtenerTodos con activo=false - debe retornar solo inactivos&quot;)
     void obtenerTodos_activoFalse_debeRetornarSoloInactivos() {
-        // ARRANGE
+        
 <span class="fc" id="L298">        cultivar.setActivo(false);</span>
 <span class="fc" id="L299">        when(cultivarRepository.findByActivoFalse()).thenReturn(Arrays.asList(cultivar));</span>
 
-        // ACT
+        
 <span class="fc" id="L302">        List&lt;CultivarDTO&gt; resultado = cultivarService.obtenerTodos(false);</span>
 
-        // ASSERT
+        
 <span class="fc" id="L305">        assertNotNull(resultado);</span>
 <span class="fc" id="L306">        assertEquals(1, resultado.size());</span>
 <span class="fc" id="L307">        verify(cultivarRepository, times(1)).findByActivoFalse();</span>
@@ -314,16 +314,16 @@ import static org.mockito.Mockito.*;
     @Test
     @DisplayName(&quot;obtenerCultivaresPaginadosConFiltros - sin filtros, retorna todos ordenados&quot;)
     void obtenerCultivaresPaginadosConFiltros_sinFiltros_retornaTodos() {
-        // ARRANGE
+        
 <span class="fc" id="L318">        Pageable pageable = PageRequest.of(0, 10);</span>
 <span class="fc" id="L319">        Page&lt;Cultivar&gt; cultivarPage = new PageImpl&lt;&gt;(Arrays.asList(cultivar), pageable, 1);</span>
         
 <span class="fc" id="L321">        when(cultivarRepository.findAllByOrderByNombreAsc(pageable)).thenReturn(cultivarPage);</span>
 
-        // ACT
+        
 <span class="fc" id="L324">        Page&lt;CultivarDTO&gt; resultado = cultivarService.obtenerCultivaresPaginadosConFiltros(pageable, null, null);</span>
 
-        // ASSERT
+        
 <span class="fc" id="L327">        assertNotNull(resultado);</span>
 <span class="fc" id="L328">        assertEquals(1, resultado.getTotalElements());</span>
 <span class="fc" id="L329">        assertEquals(1, resultado.getContent().size());</span>
@@ -333,16 +333,16 @@ import static org.mockito.Mockito.*;
     @Test
     @DisplayName(&quot;obtenerCultivaresPaginadosConFiltros - filtro activo=true, sin búsqueda&quot;)
     void obtenerCultivaresPaginadosConFiltros_soloActivos_retornaActivos() {
-        // ARRANGE
+        
 <span class="fc" id="L337">        Pageable pageable = PageRequest.of(0, 10);</span>
 <span class="fc" id="L338">        Page&lt;Cultivar&gt; cultivarPage = new PageImpl&lt;&gt;(Arrays.asList(cultivar), pageable, 1);</span>
         
 <span class="fc" id="L340">        when(cultivarRepository.findByActivoTrueOrderByNombreAsc(pageable)).thenReturn(cultivarPage);</span>
 
-        // ACT
+        
 <span class="fc" id="L343">        Page&lt;CultivarDTO&gt; resultado = cultivarService.obtenerCultivaresPaginadosConFiltros(pageable, null, true);</span>
 
-        // ASSERT
+        
 <span class="fc" id="L346">        assertNotNull(resultado);</span>
 <span class="fc" id="L347">        assertEquals(1, resultado.getTotalElements());</span>
 <span class="fc" id="L348">        verify(cultivarRepository, times(1)).findByActivoTrueOrderByNombreAsc(pageable);</span>
@@ -351,17 +351,17 @@ import static org.mockito.Mockito.*;
     @Test
     @DisplayName(&quot;obtenerCultivaresPaginadosConFiltros - filtro activo=false, sin búsqueda&quot;)
     void obtenerCultivaresPaginadosConFiltros_soloInactivos_retornaInactivos() {
-        // ARRANGE
+        
 <span class="fc" id="L355">        Pageable pageable = PageRequest.of(0, 10);</span>
 <span class="fc" id="L356">        cultivar.setActivo(false);</span>
 <span class="fc" id="L357">        Page&lt;Cultivar&gt; cultivarPage = new PageImpl&lt;&gt;(Arrays.asList(cultivar), pageable, 1);</span>
         
 <span class="fc" id="L359">        when(cultivarRepository.findByActivoFalseOrderByNombreAsc(pageable)).thenReturn(cultivarPage);</span>
 
-        // ACT
+        
 <span class="fc" id="L362">        Page&lt;CultivarDTO&gt; resultado = cultivarService.obtenerCultivaresPaginadosConFiltros(pageable, null, false);</span>
 
-        // ASSERT
+        
 <span class="fc" id="L365">        assertNotNull(resultado);</span>
 <span class="fc" id="L366">        assertEquals(1, resultado.getTotalElements());</span>
 <span class="fc" id="L367">        verify(cultivarRepository, times(1)).findByActivoFalseOrderByNombreAsc(pageable);</span>
@@ -370,7 +370,7 @@ import static org.mockito.Mockito.*;
     @Test
     @DisplayName(&quot;obtenerCultivaresPaginadosConFiltros - con término de búsqueda y activo=null&quot;)
     void obtenerCultivaresPaginadosConFiltros_conBusquedaSinFiltroActivo_retornaTodosCoincidentes() {
-        // ARRANGE
+        
 <span class="fc" id="L374">        Pageable pageable = PageRequest.of(0, 10);</span>
 <span class="fc" id="L375">        Cultivar cultivar2 = new Cultivar();</span>
 <span class="fc" id="L376">        cultivar2.setCultivarID(2L);</span>
@@ -380,10 +380,10 @@ import static org.mockito.Mockito.*;
         
 <span class="fc" id="L381">        when(cultivarRepository.findAll()).thenReturn(Arrays.asList(cultivar, cultivar2));</span>
 
-        // ACT
+        
 <span class="fc" id="L384">        Page&lt;CultivarDTO&gt; resultado = cultivarService.obtenerCultivaresPaginadosConFiltros(pageable, &quot;Test&quot;, null);</span>
 
-        // ASSERT
+        
 <span class="fc" id="L387">        assertNotNull(resultado);</span>
 <span class="fc" id="L388">        assertEquals(2, resultado.getTotalElements()); // Ambos contienen &quot;Test&quot;</span>
 <span class="fc" id="L389">        verify(cultivarRepository, times(1)).findAll();</span>
@@ -392,15 +392,15 @@ import static org.mockito.Mockito.*;
     @Test
     @DisplayName(&quot;obtenerCultivaresPaginadosConFiltros - con término de búsqueda y activo=true&quot;)
     void obtenerCultivaresPaginadosConFiltros_conBusquedaYActivoTrue_retornaSoloActivosCoincidentes() {
-        // ARRANGE
+        
 <span class="fc" id="L396">        Pageable pageable = PageRequest.of(0, 10);</span>
         
 <span class="fc" id="L398">        when(cultivarRepository.findByNombreContainingIgnoreCaseAndActivoTrue(&quot;Test&quot;)).thenReturn(Arrays.asList(cultivar));</span>
 
-        // ACT
+        
 <span class="fc" id="L401">        Page&lt;CultivarDTO&gt; resultado = cultivarService.obtenerCultivaresPaginadosConFiltros(pageable, &quot;Test&quot;, true);</span>
 
-        // ASSERT
+        
 <span class="fc" id="L404">        assertNotNull(resultado);</span>
 <span class="fc" id="L405">        assertEquals(1, resultado.getTotalElements());</span>
 <span class="fc" id="L406">        assertTrue(resultado.getContent().get(0).getActivo());</span>
@@ -410,16 +410,16 @@ import static org.mockito.Mockito.*;
     @Test
     @DisplayName(&quot;obtenerCultivaresPaginadosConFiltros - con término de búsqueda y activo=false&quot;)
     void obtenerCultivaresPaginadosConFiltros_conBusquedaYActivoFalse_retornaSoloInactivosCoincidentes() {
-        // ARRANGE
+        
 <span class="fc" id="L414">        Pageable pageable = PageRequest.of(0, 10);</span>
 <span class="fc" id="L415">        cultivar.setActivo(false);</span>
         
 <span class="fc" id="L417">        when(cultivarRepository.findByActivoFalse()).thenReturn(Arrays.asList(cultivar));</span>
 
-        // ACT
+        
 <span class="fc" id="L420">        Page&lt;CultivarDTO&gt; resultado = cultivarService.obtenerCultivaresPaginadosConFiltros(pageable, &quot;Test&quot;, false);</span>
 
-        // ASSERT
+        
 <span class="fc" id="L423">        assertNotNull(resultado);</span>
 <span class="fc" id="L424">        assertEquals(1, resultado.getTotalElements());</span>
 <span class="fc" id="L425">        assertFalse(resultado.getContent().get(0).getActivo());</span>
@@ -429,16 +429,16 @@ import static org.mockito.Mockito.*;
     @Test
     @DisplayName(&quot;obtenerCultivaresPaginadosConFiltros - con búsqueda vacía, trata como sin filtro&quot;)
     void obtenerCultivaresPaginadosConFiltros_busquedaVacia_trataSinFiltro() {
-        // ARRANGE
+        
 <span class="fc" id="L433">        Pageable pageable = PageRequest.of(0, 10);</span>
 <span class="fc" id="L434">        Page&lt;Cultivar&gt; cultivarPage = new PageImpl&lt;&gt;(Arrays.asList(cultivar), pageable, 1);</span>
         
 <span class="fc" id="L436">        when(cultivarRepository.findAllByOrderByNombreAsc(pageable)).thenReturn(cultivarPage);</span>
 
-        // ACT
+        
 <span class="fc" id="L439">        Page&lt;CultivarDTO&gt; resultado = cultivarService.obtenerCultivaresPaginadosConFiltros(pageable, &quot;   &quot;, null);</span>
 
-        // ASSERT
+        
 <span class="fc" id="L442">        assertNotNull(resultado);</span>
 <span class="fc" id="L443">        verify(cultivarRepository, times(1)).findAllByOrderByNombreAsc(pageable);</span>
 <span class="fc" id="L444">    }</span>
@@ -446,7 +446,7 @@ import static org.mockito.Mockito.*;
     @Test
     @DisplayName(&quot;obtenerCultivaresPaginadosConFiltros - paginación correcta con búsqueda&quot;)
     void obtenerCultivaresPaginadosConFiltros_paginacionCorrecta() {
-        // ARRANGE
+        
 <span class="fc" id="L450">        Pageable pageable = PageRequest.of(0, 1); // Solo 1 elemento por página</span>
         
 <span class="fc" id="L452">        Cultivar cultivar2 = new Cultivar();</span>
@@ -458,10 +458,10 @@ import static org.mockito.Mockito.*;
 <span class="fc" id="L458">        when(cultivarRepository.findByNombreContainingIgnoreCaseAndActivoTrue(&quot;Test&quot;))</span>
 <span class="fc" id="L459">            .thenReturn(Arrays.asList(cultivar, cultivar2));</span>
 
-        // ACT
+        
 <span class="fc" id="L462">        Page&lt;CultivarDTO&gt; resultado = cultivarService.obtenerCultivaresPaginadosConFiltros(pageable, &quot;Test&quot;, true);</span>
 
-        // ASSERT
+        
 <span class="fc" id="L465">        assertNotNull(resultado);</span>
 <span class="fc" id="L466">        assertEquals(2, resultado.getTotalElements()); // Total de elementos</span>
 <span class="fc" id="L467">        assertEquals(1, resultado.getContent().size()); // Solo 1 en la primera página</span>

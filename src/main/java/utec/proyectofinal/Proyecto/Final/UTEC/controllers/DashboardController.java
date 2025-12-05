@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import utec.proyectofinal.Proyecto.Final.UTEC.dtos.AnalisisPendienteDTO;
 import utec.proyectofinal.Proyecto.Final.UTEC.dtos.AnalisisPorAprobarDTO;
 import utec.proyectofinal.Proyecto.Final.UTEC.dtos.DashboardStatsDTO;
-import utec.proyectofinal.Proyecto.Final.UTEC.dtos.CursorPageResponse;
-import utec.proyectofinal.Proyecto.Final.UTEC.exceptions.InvalidCursorException;
 import utec.proyectofinal.Proyecto.Final.UTEC.services.DashboardService;
 
 
@@ -69,54 +67,6 @@ public class DashboardController {
             System.err.println("Error al obtener análisis por aprobar: " + e.getMessage());
             e.printStackTrace();
             return ResponseEntity.internalServerError().build();
-        }
-    }
-    
-    
-    @GetMapping("/analisis-pendientes/keyset")
-    public ResponseEntity<?> obtenerAnalisisPendientesKeyset(
-            @RequestParam(required = false) String cursor,
-            @RequestParam(defaultValue = "20") int size) {
-        try {
-            CursorPageResponse<AnalisisPendienteDTO> response = 
-                dashboardService.listarAnalisisPendientesKeyset(cursor, size);
-            return ResponseEntity.ok(response);
-        } catch (InvalidCursorException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(new ErrorResponse("Cursor inválido: " + e.getMessage()));
-        } catch (Exception e) {
-            System.err.println("Error keyset analisis pendientes: " + e.getMessage());
-            e.printStackTrace();
-            return ResponseEntity.internalServerError().build();
-        }
-    }
-    
-    
-    @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping("/analisis-por-aprobar/keyset")
-    public ResponseEntity<?> obtenerAnalisisPorAprobarKeyset(
-            @RequestParam(required = false) String cursor,
-            @RequestParam(defaultValue = "20") int size) {
-        try {
-            CursorPageResponse<AnalisisPorAprobarDTO> response = 
-                dashboardService.listarAnalisisPorAprobarKeyset(cursor, size);
-            return ResponseEntity.ok(response);
-        } catch (InvalidCursorException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(new ErrorResponse("Cursor inválido: " + e.getMessage()));
-        } catch (Exception e) {
-            System.err.println("Error keyset analisis por aprobar: " + e.getMessage());
-            e.printStackTrace();
-            return ResponseEntity.internalServerError().build();
-        }
-    }
-    
-    
-    private static class ErrorResponse {
-        public final String error;
-        
-        public ErrorResponse(String error) {
-            this.error = error;
         }
     }
 }

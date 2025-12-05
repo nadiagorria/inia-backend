@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NotificacionController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.controllers</a> &gt; <span class="el_source">NotificacionController.java</span></div><h1>NotificacionController.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.controllers;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NotificacionController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.controllers</a> &gt; <span class="el_source">NotificacionController.java</span></div><h1>NotificacionController.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.controllers;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.dtos.request.NotificacionRequestDT
 import utec.proyectofinal.Proyecto.Final.UTEC.dtos.response.NotificacionDTO;
 import utec.proyectofinal.Proyecto.Final.UTEC.services.NotificacionService;
 
-// CORS configurado globalmente en WebSecurityConfig
+
 @RestController
 @RequestMapping(&quot;/api/notificaciones&quot;)
 @Tag(name = &quot;Notificaciones&quot;, description = &quot;Gestión de notificaciones del sistema&quot;)
@@ -34,7 +34,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.NotificacionService;
     @Autowired
     private NotificacionService notificacionService;
 
-    // Crear notificación manual
+    
     @PostMapping
     @PreAuthorize(&quot;hasRole('ADMIN')&quot;)
     @Operation(summary = &quot;Crear notificación manual&quot;, description = &quot;Crear una notificación manual (solo administradores)&quot;)
@@ -44,7 +44,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.NotificacionService;
 <span class="fc" id="L44">        return ResponseEntity.ok(notificacion);</span>
     }
 
-    // Obtener notificaciones de un usuario con paginación
+    
     @GetMapping(&quot;/usuario/{usuarioId}&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')&quot;)
     @Operation(summary = &quot;Obtener notificaciones por usuario&quot;, description = &quot;Obtener notificaciones de un usuario con paginación (solo admins pueden ver otras notificaciones)&quot;)
@@ -59,7 +59,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.NotificacionService;
 <span class="fc" id="L59">        return ResponseEntity.ok(notificaciones);</span>
     }
 
-    // Obtener MIS notificaciones con paginación (usuario actual)
+    
     @GetMapping(&quot;/mis-notificaciones&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')&quot;)
     @Operation(summary = &quot;Obtener mis notificaciones&quot;, description = &quot;Obtener notificaciones del usuario autenticado con paginación&quot;)
@@ -73,7 +73,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.NotificacionService;
 <span class="fc" id="L73">        return ResponseEntity.ok(notificaciones);</span>
     }
 
-    // Obtener notificaciones no leídas de un usuario
+    
     @GetMapping(&quot;/usuario/{usuarioId}/no-leidas&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')&quot;)
     @Operation(summary = &quot;Obtener notificaciones no leídas&quot;, description = &quot;Obtener notificaciones no leídas de un usuario (solo admins pueden ver otras notificaciones)&quot;)
@@ -83,7 +83,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.NotificacionService;
 <span class="fc" id="L83">        return ResponseEntity.ok(notificaciones);</span>
     }
 
-    // Obtener MIS notificaciones no leídas (usuario actual)
+    
     @GetMapping(&quot;/mis-notificaciones/no-leidas&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')&quot;)
     @Operation(summary = &quot;Obtener mis notificaciones no leídas&quot;, description = &quot;Obtener notificaciones no leídas del usuario autenticado&quot;)
@@ -93,7 +93,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.NotificacionService;
 <span class="fc" id="L93">        return ResponseEntity.ok(notificaciones);</span>
     }
 
-    // Contar notificaciones no leídas
+    
     @GetMapping(&quot;/usuario/{usuarioId}/contar-no-leidas&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')&quot;)
     @Operation(summary = &quot;Contar notificaciones no leídas&quot;, description = &quot;Contar el número de notificaciones no leídas de un usuario (solo admins pueden ver otras notificaciones)&quot;)
@@ -103,7 +103,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.NotificacionService;
 <span class="fc" id="L103">        return ResponseEntity.ok(count);</span>
     }
 
-    // Contar MIS notificaciones no leídas (usuario actual)
+    
     @GetMapping(&quot;/mis-notificaciones/contar-no-leidas&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')&quot;)
     @Operation(summary = &quot;Contar mis notificaciones no leídas&quot;, description = &quot;Contar el número de notificaciones no leídas del usuario autenticado&quot;)
@@ -113,7 +113,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.NotificacionService;
 <span class="fc" id="L113">        return ResponseEntity.ok(count);</span>
     }
 
-    // Marcar notificación como leída
+    
     @PutMapping(&quot;/{notificacionId}/marcar-leida&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')&quot;)
     @Operation(summary = &quot;Marcar notificación como leída&quot;, description = &quot;Marcar una notificación específica como leída&quot;)
@@ -123,7 +123,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.NotificacionService;
 <span class="fc" id="L123">        return ResponseEntity.ok(notificacion);</span>
     }
 
-    // Marcar todas las notificaciones de un usuario como leídas
+    
     @PutMapping(&quot;/usuario/{usuarioId}/marcar-todas-leidas&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')&quot;)
     @Operation(summary = &quot;Marcar todas como leídas&quot;, description = &quot;Marcar todas las notificaciones de un usuario como leídas (solo admins pueden marcar otras notificaciones)&quot;)
@@ -133,7 +133,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.NotificacionService;
 <span class="fc" id="L133">        return ResponseEntity.ok().build();</span>
     }
 
-    // Marcar todas MIS notificaciones como leídas (usuario actual)
+    
     @PutMapping(&quot;/mis-notificaciones/marcar-todas-leidas&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')&quot;)
     @Operation(summary = &quot;Marcar todas mis notificaciones como leídas&quot;, description = &quot;Marcar todas las notificaciones del usuario autenticado como leídas&quot;)
@@ -143,7 +143,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.NotificacionService;
 <span class="fc" id="L143">        return ResponseEntity.ok().build();</span>
     }
 
-    // Eliminar notificación (marcar como inactiva)
+    
     @DeleteMapping(&quot;/{notificacionId}&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')&quot;)
     @Operation(summary = &quot;Eliminar notificación&quot;, description = &quot;Eliminar una notificación (marcar como inactiva)&quot;)

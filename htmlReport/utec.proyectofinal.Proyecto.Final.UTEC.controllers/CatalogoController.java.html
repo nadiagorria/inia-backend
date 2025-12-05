@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CatalogoController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.controllers</a> &gt; <span class="el_source">CatalogoController.java</span></div><h1>CatalogoController.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.controllers;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CatalogoController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.controllers</a> &gt; <span class="el_source">CatalogoController.java</span></div><h1>CatalogoController.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.controllers;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.dtos.request.CatalogoRequestDTO;
 import utec.proyectofinal.Proyecto.Final.UTEC.dtos.response.CatalogoDTO;
 import utec.proyectofinal.Proyecto.Final.UTEC.services.CatalogoService;
 
-// CORS configurado globalmente en WebSecurityConfig
+
 @RestController
 @RequestMapping(&quot;/api/catalogo&quot;)
 @Tag(name = &quot;Catálogos&quot;, description = &quot;API para gestión de catálogos del sistema&quot;)
@@ -36,7 +36,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.CatalogoService;
     @Autowired
     private CatalogoService catalogoService;
 
-    // Obtener todos los catálogos activos
+    
     @GetMapping
     @Operation(summary = &quot;Listar catálogos&quot;, description = &quot;Obtiene todos los catálogos activos&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')&quot;)
@@ -45,7 +45,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.CatalogoService;
 <span class="fc" id="L45">        return ResponseEntity.ok(catalogos);</span>
     }
 
-    // Obtener catálogos por tipo
+    
     @GetMapping(&quot;/tipo/{tipo}&quot;)
     @Operation(summary = &quot;Listar catálogos por tipo&quot;, description = &quot;Obtiene catálogos filtrados por tipo y estado (activo/inactivo)&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')&quot;)
@@ -60,7 +60,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.CatalogoService;
         }
     }
 
-    // Obtener catálogo por ID
+    
     @GetMapping(&quot;/{id}&quot;)
     @Operation(summary = &quot;Obtener catálogo por ID&quot;, description = &quot;Obtiene un catálogo específico por su ID&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')&quot;)
@@ -72,7 +72,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.CatalogoService;
 <span class="fc" id="L72">        return ResponseEntity.notFound().build();</span>
     }
 
-    // Crear nuevo catálogo
+    
     @PostMapping
     @Operation(summary = &quot;Crear catálogo&quot;, description = &quot;Crea un nuevo catálogo (solo administradores)&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN')&quot;)
@@ -87,7 +87,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.CatalogoService;
         }
     }
 
-    // Actualizar catálogo
+    
     @PutMapping(&quot;/{id}&quot;)
     @Operation(summary = &quot;Actualizar catálogo&quot;, description = &quot;Actualiza un catálogo existente (solo administradores)&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN')&quot;)
@@ -105,7 +105,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.CatalogoService;
         }
     }
 
-    // Desactivar catálogo
+    
     @DeleteMapping(&quot;/{id}&quot;)
     @Operation(summary = &quot;Eliminar catálogo&quot;, description = &quot;Desactiva un catálogo (solo administradores)&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN')&quot;)
@@ -114,7 +114,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.CatalogoService;
 <span class="fc" id="L114">        return ResponseEntity.ok().build();</span>
     }
 
-    // Reactivar catálogo
+    
     @Operation(summary = &quot;Reactivar catálogo&quot;, description = &quot;Reactiva un catálogo desactivado (solo administradores)&quot;)
     @PutMapping(&quot;/{id}/reactivar&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN')&quot;)
@@ -126,7 +126,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.CatalogoService;
 <span class="fc" id="L126">        return ResponseEntity.notFound().build();</span>
     }
 
-    // Eliminar físicamente (solo para casos especiales)
+    
     @Operation(summary = &quot;Eliminar catálogo físicamente&quot;, description = &quot;Elimina un catálogo de forma permanente (solo administradores)&quot;)
     @DeleteMapping(&quot;/{id}/fisico&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN')&quot;)
@@ -135,7 +135,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.CatalogoService;
 <span class="fc" id="L135">        return ResponseEntity.ok().build();</span>
     }
 
-    // Endpoints específicos para obtener tipos de datos (solo activos por defecto)
+    
     @Operation(summary = &quot;Obtener Catalogo Humedad&quot;)
     @GetMapping(&quot;/humedad&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')&quot;)
@@ -178,7 +178,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.CatalogoService;
 <span class="fc" id="L178">        return obtenerPorTipo(&quot;UNIDAD_EMBOLSADO&quot;, true);</span>
     }
 
-    // Obtener Catálogos con paginado para listado
+    
     @Operation(summary = &quot;Obtener catálogos paginados&quot;, 
               description = &quot;Obtiene la lista paginada de catálogos para el listado&quot;)
     @PreAuthorize(&quot;hasRole('ANALISTA') or hasRole('ADMIN') or hasRole('OBSERVADOR')&quot;)

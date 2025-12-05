@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PurezaControllerIntegrationTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.controllers</a> &gt; <span class="el_source">PurezaControllerIntegrationTest.java</span></div><h1>PurezaControllerIntegrationTest.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.controllers;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PurezaControllerIntegrationTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.controllers</a> &gt; <span class="el_source">PurezaControllerIntegrationTest.java</span></div><h1>PurezaControllerIntegrationTest.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,11 +14,9 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import utec.proyectofinal.Proyecto.Final.UTEC.dtos.request.PurezaRequestDTO;
-import utec.proyectofinal.Proyecto.Final.UTEC.dtos.response.MalezasCatalogoDTO;
 import utec.proyectofinal.Proyecto.Final.UTEC.dtos.response.PurezaDTO;
 import utec.proyectofinal.Proyecto.Final.UTEC.dtos.response.PurezaListadoDTO;
 import utec.proyectofinal.Proyecto.Final.UTEC.enums.Estado;
-import utec.proyectofinal.Proyecto.Final.UTEC.responses.ResponseListadoPureza;
 import utec.proyectofinal.Proyecto.Final.UTEC.services.PurezaService;
 
 import java.time.LocalDateTime;
@@ -34,7 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(PurezaController.class)
 @DisplayName(&quot;Tests de integración para PurezaController&quot;)
-<span class="fc" id="L37">class PurezaControllerIntegrationTest {</span>
+<span class="fc" id="L35">class PurezaControllerIntegrationTest {</span>
 
     @Autowired
     private MockMvc mockMvc;
@@ -50,204 +48,166 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
     @BeforeEach
     void setUp() {
-<span class="fc" id="L53">        purezaDTO = new PurezaDTO();</span>
-<span class="fc" id="L54">        purezaDTO.setAnalisisID(1L);</span>
-<span class="fc" id="L55">        purezaDTO.setIdLote(100L);</span>
-<span class="fc" id="L56">        purezaDTO.setComentarios(&quot;Test Pureza&quot;);</span>
-<span class="fc" id="L57">        purezaDTO.setFechaInicio(LocalDateTime.now());</span>
-<span class="fc" id="L58">        purezaDTO.setEstado(Estado.EN_PROCESO);</span>
-<span class="fc" id="L59">        purezaDTO.setActivo(true);</span>
+<span class="fc" id="L51">        purezaDTO = new PurezaDTO();</span>
+<span class="fc" id="L52">        purezaDTO.setAnalisisID(1L);</span>
+<span class="fc" id="L53">        purezaDTO.setIdLote(100L);</span>
+<span class="fc" id="L54">        purezaDTO.setComentarios(&quot;Test Pureza&quot;);</span>
+<span class="fc" id="L55">        purezaDTO.setFechaInicio(LocalDateTime.now());</span>
+<span class="fc" id="L56">        purezaDTO.setEstado(Estado.EN_PROCESO);</span>
+<span class="fc" id="L57">        purezaDTO.setActivo(true);</span>
 
-<span class="fc" id="L61">        purezaRequestDTO = new PurezaRequestDTO();</span>
-<span class="fc" id="L62">        purezaRequestDTO.setIdLote(100L);</span>
-<span class="fc" id="L63">        purezaRequestDTO.setComentarios(&quot;Test Pureza&quot;);</span>
-<span class="fc" id="L64">    }</span>
+<span class="fc" id="L59">        purezaRequestDTO = new PurezaRequestDTO();</span>
+<span class="fc" id="L60">        purezaRequestDTO.setIdLote(100L);</span>
+<span class="fc" id="L61">        purezaRequestDTO.setComentarios(&quot;Test Pureza&quot;);</span>
+<span class="fc" id="L62">    }</span>
 
     @Test
     @WithMockUser(roles = &quot;ANALISTA&quot;)
     @DisplayName(&quot;POST /api/purezas - Crear Pureza exitosamente&quot;)
     void crearPureza_debeRetornarPurezaCreada() throws Exception {
-<span class="fc" id="L70">        when(purezaService.crearPureza(any(PurezaRequestDTO.class))).thenReturn(purezaDTO);</span>
+<span class="fc" id="L68">        when(purezaService.crearPureza(any(PurezaRequestDTO.class))).thenReturn(purezaDTO);</span>
 
-<span class="fc" id="L72">        mockMvc.perform(post(&quot;/api/purezas&quot;)</span>
-<span class="fc" id="L73">                .with(csrf())</span>
-<span class="fc" id="L74">                .contentType(MediaType.APPLICATION_JSON)</span>
-<span class="fc" id="L75">                .content(objectMapper.writeValueAsString(purezaRequestDTO)))</span>
-<span class="fc" id="L76">                .andExpect(status().isCreated())</span>
-<span class="fc" id="L77">                .andExpect(jsonPath(&quot;$.analisisID&quot;).value(1))</span>
-<span class="fc" id="L78">                .andExpect(jsonPath(&quot;$.idLote&quot;).value(100))</span>
-<span class="fc" id="L79">                .andExpect(jsonPath(&quot;$.estado&quot;).value(&quot;EN_PROCESO&quot;));</span>
-<span class="fc" id="L80">    }</span>
+<span class="fc" id="L70">        mockMvc.perform(post(&quot;/api/purezas&quot;)</span>
+<span class="fc" id="L71">                .with(csrf())</span>
+<span class="fc" id="L72">                .contentType(MediaType.APPLICATION_JSON)</span>
+<span class="fc" id="L73">                .content(objectMapper.writeValueAsString(purezaRequestDTO)))</span>
+<span class="fc" id="L74">                .andExpect(status().isCreated())</span>
+<span class="fc" id="L75">                .andExpect(jsonPath(&quot;$.analisisID&quot;).value(1))</span>
+<span class="fc" id="L76">                .andExpect(jsonPath(&quot;$.idLote&quot;).value(100))</span>
+<span class="fc" id="L77">                .andExpect(jsonPath(&quot;$.estado&quot;).value(&quot;EN_PROCESO&quot;));</span>
+<span class="fc" id="L78">    }</span>
 
-    @Test
-    @WithMockUser(roles = &quot;OBSERVADOR&quot;)
-    @DisplayName(&quot;GET /api/purezas - Obtener todas las Purezas activas&quot;)
-    void obtenerTodasPurezasActivas_debeRetornarRespuesta() throws Exception {
-<span class="fc" id="L86">        ResponseListadoPureza response = new ResponseListadoPureza();</span>
-<span class="fc" id="L87">        response.setPurezas(Arrays.asList(purezaDTO));</span>
-<span class="fc" id="L88">        when(purezaService.obtenerTodasPurezasActivas()).thenReturn(response);</span>
 
-<span class="fc" id="L90">        mockMvc.perform(get(&quot;/api/purezas&quot;)</span>
-<span class="fc" id="L91">                .with(csrf()))</span>
-<span class="fc" id="L92">                .andExpect(status().isOk())</span>
-<span class="fc" id="L93">                .andExpect(jsonPath(&quot;$.purezas[0].analisisID&quot;).value(1))</span>
-<span class="fc" id="L94">                .andExpect(jsonPath(&quot;$.purezas[0].idLote&quot;).value(100));</span>
-<span class="fc" id="L95">    }</span>
 
     @Test
     @WithMockUser(roles = &quot;ANALISTA&quot;)
     @DisplayName(&quot;GET /api/purezas/{id} - Obtener Pureza por ID&quot;)
     void obtenerPurezaPorId_debeRetornarPureza() throws Exception {
-<span class="fc" id="L101">        when(purezaService.obtenerPurezaPorId(1L)).thenReturn(purezaDTO);</span>
+<span class="fc" id="L86">        when(purezaService.obtenerPurezaPorId(1L)).thenReturn(purezaDTO);</span>
 
-<span class="fc" id="L103">        mockMvc.perform(get(&quot;/api/purezas/1&quot;)</span>
-<span class="fc" id="L104">                .with(csrf()))</span>
-<span class="fc" id="L105">                .andExpect(status().isOk())</span>
-<span class="fc" id="L106">                .andExpect(jsonPath(&quot;$.analisisID&quot;).value(1))</span>
-<span class="fc" id="L107">                .andExpect(jsonPath(&quot;$.idLote&quot;).value(100))</span>
-<span class="fc" id="L108">                .andExpect(jsonPath(&quot;$.estado&quot;).value(&quot;EN_PROCESO&quot;));</span>
-<span class="fc" id="L109">    }</span>
+<span class="fc" id="L88">        mockMvc.perform(get(&quot;/api/purezas/1&quot;)</span>
+<span class="fc" id="L89">                .with(csrf()))</span>
+<span class="fc" id="L90">                .andExpect(status().isOk())</span>
+<span class="fc" id="L91">                .andExpect(jsonPath(&quot;$.analisisID&quot;).value(1))</span>
+<span class="fc" id="L92">                .andExpect(jsonPath(&quot;$.idLote&quot;).value(100))</span>
+<span class="fc" id="L93">                .andExpect(jsonPath(&quot;$.estado&quot;).value(&quot;EN_PROCESO&quot;));</span>
+<span class="fc" id="L94">    }</span>
 
     @Test
     @WithMockUser(roles = &quot;ANALISTA&quot;)
     @DisplayName(&quot;PUT /api/purezas/{id} - Actualizar Pureza&quot;)
     void actualizarPureza_debeRetornarPurezaActualizada() throws Exception {
-<span class="fc" id="L115">        purezaDTO.setComentarios(&quot;Actualizado&quot;);</span>
-<span class="fc" id="L116">        when(purezaService.actualizarPureza(eq(1L), any(PurezaRequestDTO.class))).thenReturn(purezaDTO);</span>
+<span class="fc" id="L100">        purezaDTO.setComentarios(&quot;Actualizado&quot;);</span>
+<span class="fc" id="L101">        when(purezaService.actualizarPureza(eq(1L), any(PurezaRequestDTO.class))).thenReturn(purezaDTO);</span>
 
-<span class="fc" id="L118">        mockMvc.perform(put(&quot;/api/purezas/1&quot;)</span>
-<span class="fc" id="L119">                .with(csrf())</span>
-<span class="fc" id="L120">                .contentType(MediaType.APPLICATION_JSON)</span>
-<span class="fc" id="L121">                .content(objectMapper.writeValueAsString(purezaRequestDTO)))</span>
-<span class="fc" id="L122">                .andExpect(status().isOk())</span>
-<span class="fc" id="L123">                .andExpect(jsonPath(&quot;$.analisisID&quot;).value(1))</span>
-<span class="fc" id="L124">                .andExpect(jsonPath(&quot;$.comentarios&quot;).value(&quot;Actualizado&quot;));</span>
-<span class="fc" id="L125">    }</span>
+<span class="fc" id="L103">        mockMvc.perform(put(&quot;/api/purezas/1&quot;)</span>
+<span class="fc" id="L104">                .with(csrf())</span>
+<span class="fc" id="L105">                .contentType(MediaType.APPLICATION_JSON)</span>
+<span class="fc" id="L106">                .content(objectMapper.writeValueAsString(purezaRequestDTO)))</span>
+<span class="fc" id="L107">                .andExpect(status().isOk())</span>
+<span class="fc" id="L108">                .andExpect(jsonPath(&quot;$.analisisID&quot;).value(1))</span>
+<span class="fc" id="L109">                .andExpect(jsonPath(&quot;$.comentarios&quot;).value(&quot;Actualizado&quot;));</span>
+<span class="fc" id="L110">    }</span>
 
-    @Test
-    @WithMockUser(roles = &quot;ADMIN&quot;)
-    @DisplayName(&quot;DELETE /api/purezas/{id} - Eliminar Pureza&quot;)
-    void eliminarPureza_debeRetornarNoContent() throws Exception {
-<span class="fc" id="L131">        doNothing().when(purezaService).eliminarPureza(1L);</span>
 
-<span class="fc" id="L133">        mockMvc.perform(delete(&quot;/api/purezas/1&quot;)</span>
-<span class="fc" id="L134">                .with(csrf()))</span>
-<span class="fc" id="L135">                .andExpect(status().isNoContent());</span>
-<span class="fc" id="L136">    }</span>
 
     @Test
     @WithMockUser(roles = &quot;ADMIN&quot;)
     @DisplayName(&quot;PUT /api/purezas/{id}/desactivar - Desactivar Pureza&quot;)
     void desactivarPureza_debeRetornarOk() throws Exception {
-<span class="fc" id="L142">        doNothing().when(purezaService).desactivarPureza(1L);</span>
+<span class="fc" id="L118">        doNothing().when(purezaService).desactivarPureza(1L);</span>
 
-<span class="fc" id="L144">        mockMvc.perform(put(&quot;/api/purezas/1/desactivar&quot;)</span>
-<span class="fc" id="L145">                .with(csrf()))</span>
-<span class="fc" id="L146">                .andExpect(status().isOk());</span>
-<span class="fc" id="L147">    }</span>
+<span class="fc" id="L120">        mockMvc.perform(put(&quot;/api/purezas/1/desactivar&quot;)</span>
+<span class="fc" id="L121">                .with(csrf()))</span>
+<span class="fc" id="L122">                .andExpect(status().isOk());</span>
+<span class="fc" id="L123">    }</span>
 
     @Test
     @WithMockUser(roles = &quot;ADMIN&quot;)
     @DisplayName(&quot;PUT /api/purezas/{id}/reactivar - Reactivar Pureza&quot;)
     void reactivarPureza_debeRetornarPurezaReactivada() throws Exception {
-<span class="fc" id="L153">        when(purezaService.reactivarPureza(1L)).thenReturn(purezaDTO);</span>
+<span class="fc" id="L129">        when(purezaService.reactivarPureza(1L)).thenReturn(purezaDTO);</span>
 
-<span class="fc" id="L155">        mockMvc.perform(put(&quot;/api/purezas/1/reactivar&quot;)</span>
-<span class="fc" id="L156">                .with(csrf()))</span>
-<span class="fc" id="L157">                .andExpect(status().isOk())</span>
-<span class="fc" id="L158">                .andExpect(jsonPath(&quot;$.analisisID&quot;).value(1));</span>
-<span class="fc" id="L159">    }</span>
+<span class="fc" id="L131">        mockMvc.perform(put(&quot;/api/purezas/1/reactivar&quot;)</span>
+<span class="fc" id="L132">                .with(csrf()))</span>
+<span class="fc" id="L133">                .andExpect(status().isOk())</span>
+<span class="fc" id="L134">                .andExpect(jsonPath(&quot;$.analisisID&quot;).value(1));</span>
+<span class="fc" id="L135">    }</span>
 
     @Test
     @WithMockUser(roles = &quot;ANALISTA&quot;)
     @DisplayName(&quot;GET /api/purezas/lote/{idLote} - Obtener Purezas por ID de lote&quot;)
     void obtenerPurezasPorIdLote_debeRetornarLista() throws Exception {
-<span class="fc" id="L165">        List&lt;PurezaDTO&gt; lista = Arrays.asList(purezaDTO);</span>
-<span class="fc" id="L166">        when(purezaService.obtenerPurezasPorIdLote(100L)).thenReturn(lista);</span>
+<span class="fc" id="L141">        List&lt;PurezaDTO&gt; lista = Arrays.asList(purezaDTO);</span>
+<span class="fc" id="L142">        when(purezaService.obtenerPurezasPorIdLote(100L)).thenReturn(lista);</span>
 
-<span class="fc" id="L168">        mockMvc.perform(get(&quot;/api/purezas/lote/100&quot;)</span>
-<span class="fc" id="L169">                .with(csrf()))</span>
-<span class="fc" id="L170">                .andExpect(status().isOk())</span>
-<span class="fc" id="L171">                .andExpect(jsonPath(&quot;$[0].analisisID&quot;).value(1))</span>
-<span class="fc" id="L172">                .andExpect(jsonPath(&quot;$[0].idLote&quot;).value(100));</span>
-<span class="fc" id="L173">    }</span>
+<span class="fc" id="L144">        mockMvc.perform(get(&quot;/api/purezas/lote/100&quot;)</span>
+<span class="fc" id="L145">                .with(csrf()))</span>
+<span class="fc" id="L146">                .andExpect(status().isOk())</span>
+<span class="fc" id="L147">                .andExpect(jsonPath(&quot;$[0].analisisID&quot;).value(1))</span>
+<span class="fc" id="L148">                .andExpect(jsonPath(&quot;$[0].idLote&quot;).value(100));</span>
+<span class="fc" id="L149">    }</span>
 
     @Test
     @WithMockUser(roles = &quot;ANALISTA&quot;)
     @DisplayName(&quot;GET /api/purezas/listado - Obtener Purezas paginadas&quot;)
     void obtenerPurezaPaginadas_debeRetornarPaginacion() throws Exception {
-<span class="fc" id="L179">        PurezaListadoDTO listadoDTO = new PurezaListadoDTO();</span>
-<span class="fc" id="L180">        listadoDTO.setAnalisisID(1L);</span>
-<span class="fc" id="L181">        listadoDTO.setIdLote(100L);</span>
-<span class="fc" id="L182">        listadoDTO.setEstado(Estado.EN_PROCESO);</span>
+<span class="fc" id="L155">        PurezaListadoDTO listadoDTO = new PurezaListadoDTO();</span>
+<span class="fc" id="L156">        listadoDTO.setAnalisisID(1L);</span>
+<span class="fc" id="L157">        listadoDTO.setIdLote(100L);</span>
+<span class="fc" id="L158">        listadoDTO.setEstado(Estado.EN_PROCESO);</span>
 
-<span class="fc" id="L184">        Page&lt;PurezaListadoDTO&gt; page = new PageImpl&lt;&gt;(Arrays.asList(listadoDTO), PageRequest.of(0, 10), 1);</span>
-<span class="fc" id="L185">        when(purezaService.obtenerPurezaPaginadasConFiltros(any(), any(), any(), any(), any())).thenReturn(page);</span>
+<span class="fc" id="L160">        Page&lt;PurezaListadoDTO&gt; page = new PageImpl&lt;&gt;(Arrays.asList(listadoDTO), PageRequest.of(0, 10), 1);</span>
+<span class="fc" id="L161">        when(purezaService.obtenerPurezaPaginadasConFiltros(any(), any(), any(), any(), any())).thenReturn(page);</span>
 
-<span class="fc" id="L187">        mockMvc.perform(get(&quot;/api/purezas/listado&quot;)</span>
-<span class="fc" id="L188">                .param(&quot;page&quot;, &quot;0&quot;)</span>
-<span class="fc" id="L189">                .param(&quot;size&quot;, &quot;10&quot;)</span>
-<span class="fc" id="L190">                .with(csrf()))</span>
-<span class="fc" id="L191">                .andExpect(status().isOk())</span>
-<span class="fc" id="L192">                .andExpect(jsonPath(&quot;$.content[0].analisisID&quot;).value(1))</span>
-<span class="fc" id="L193">                .andExpect(jsonPath(&quot;$.page.totalElements&quot;).value(1));</span>
-<span class="fc" id="L194">    }</span>
+<span class="fc" id="L163">        mockMvc.perform(get(&quot;/api/purezas/listado&quot;)</span>
+<span class="fc" id="L164">                .param(&quot;page&quot;, &quot;0&quot;)</span>
+<span class="fc" id="L165">                .param(&quot;size&quot;, &quot;10&quot;)</span>
+<span class="fc" id="L166">                .with(csrf()))</span>
+<span class="fc" id="L167">                .andExpect(status().isOk())</span>
+<span class="fc" id="L168">                .andExpect(jsonPath(&quot;$.content[0].analisisID&quot;).value(1))</span>
+<span class="fc" id="L169">                .andExpect(jsonPath(&quot;$.page.totalElements&quot;).value(1));</span>
+<span class="fc" id="L170">    }</span>
 
-    @Test
-    @WithMockUser(roles = &quot;OBSERVADOR&quot;)
-    @DisplayName(&quot;GET /api/purezas/catalogos - Obtener catálogos&quot;)
-    void obtenerTodosCatalogos_debeRetornarLista() throws Exception {
-<span class="fc" id="L200">        MalezasCatalogoDTO catalogoDTO = new MalezasCatalogoDTO();</span>
-<span class="fc" id="L201">        catalogoDTO.setCatalogoID(1L);</span>
-<span class="fc" id="L202">        catalogoDTO.setNombreComun(&quot;Maleza 1&quot;);</span>
 
-<span class="fc" id="L204">        List&lt;MalezasCatalogoDTO&gt; catalogos = Arrays.asList(catalogoDTO);</span>
-<span class="fc" id="L205">        when(purezaService.obtenerTodosCatalogos()).thenReturn(catalogos);</span>
-
-<span class="fc" id="L207">        mockMvc.perform(get(&quot;/api/purezas/catalogos&quot;)</span>
-<span class="fc" id="L208">                .with(csrf()))</span>
-<span class="fc" id="L209">                .andExpect(status().isOk())</span>
-<span class="fc" id="L210">                .andExpect(jsonPath(&quot;$[0].catalogoID&quot;).value(1))</span>
-<span class="fc" id="L211">                .andExpect(jsonPath(&quot;$[0].nombreComun&quot;).value(&quot;Maleza 1&quot;));</span>
-<span class="fc" id="L212">    }</span>
 
     @Test
     @WithMockUser(roles = &quot;ANALISTA&quot;)
     @DisplayName(&quot;PUT /api/purezas/{id}/finalizar - Finalizar análisis de Pureza&quot;)
     void finalizarAnalisis_debeRetornarPurezaFinalizada() throws Exception {
-<span class="fc" id="L218">        purezaDTO.setEstado(Estado.PENDIENTE_APROBACION);</span>
-<span class="fc" id="L219">        when(purezaService.finalizarAnalisis(1L)).thenReturn(purezaDTO);</span>
+<span class="fc" id="L178">        purezaDTO.setEstado(Estado.PENDIENTE_APROBACION);</span>
+<span class="fc" id="L179">        when(purezaService.finalizarAnalisis(1L)).thenReturn(purezaDTO);</span>
 
-<span class="fc" id="L221">        mockMvc.perform(put(&quot;/api/purezas/1/finalizar&quot;)</span>
-<span class="fc" id="L222">                .with(csrf()))</span>
-<span class="fc" id="L223">                .andExpect(status().isOk())</span>
-<span class="fc" id="L224">                .andExpect(jsonPath(&quot;$.estado&quot;).value(&quot;PENDIENTE_APROBACION&quot;));</span>
-<span class="fc" id="L225">    }</span>
+<span class="fc" id="L181">        mockMvc.perform(put(&quot;/api/purezas/1/finalizar&quot;)</span>
+<span class="fc" id="L182">                .with(csrf()))</span>
+<span class="fc" id="L183">                .andExpect(status().isOk())</span>
+<span class="fc" id="L184">                .andExpect(jsonPath(&quot;$.estado&quot;).value(&quot;PENDIENTE_APROBACION&quot;));</span>
+<span class="fc" id="L185">    }</span>
 
     @Test
     @WithMockUser(roles = &quot;ADMIN&quot;)
     @DisplayName(&quot;PUT /api/purezas/{id}/aprobar - Aprobar análisis de Pureza&quot;)
     void aprobarAnalisis_debeRetornarPurezaAprobada() throws Exception {
-<span class="fc" id="L231">        purezaDTO.setEstado(Estado.APROBADO);</span>
-<span class="fc" id="L232">        when(purezaService.aprobarAnalisis(1L)).thenReturn(purezaDTO);</span>
+<span class="fc" id="L191">        purezaDTO.setEstado(Estado.APROBADO);</span>
+<span class="fc" id="L192">        when(purezaService.aprobarAnalisis(1L)).thenReturn(purezaDTO);</span>
 
-<span class="fc" id="L234">        mockMvc.perform(put(&quot;/api/purezas/1/aprobar&quot;)</span>
-<span class="fc" id="L235">                .with(csrf()))</span>
-<span class="fc" id="L236">                .andExpect(status().isOk())</span>
-<span class="fc" id="L237">                .andExpect(jsonPath(&quot;$.estado&quot;).value(&quot;APROBADO&quot;));</span>
-<span class="fc" id="L238">    }</span>
+<span class="fc" id="L194">        mockMvc.perform(put(&quot;/api/purezas/1/aprobar&quot;)</span>
+<span class="fc" id="L195">                .with(csrf()))</span>
+<span class="fc" id="L196">                .andExpect(status().isOk())</span>
+<span class="fc" id="L197">                .andExpect(jsonPath(&quot;$.estado&quot;).value(&quot;APROBADO&quot;));</span>
+<span class="fc" id="L198">    }</span>
 
     @Test
     @WithMockUser(roles = &quot;ADMIN&quot;)
     @DisplayName(&quot;PUT /api/purezas/{id}/repetir - Marcar análisis de Pureza para repetir&quot;)
     void marcarParaRepetir_debeRetornarPurezaParaRepetir() throws Exception {
-<span class="fc" id="L244">        purezaDTO.setEstado(Estado.A_REPETIR);</span>
-<span class="fc" id="L245">        when(purezaService.marcarParaRepetir(1L)).thenReturn(purezaDTO);</span>
+<span class="fc" id="L204">        purezaDTO.setEstado(Estado.A_REPETIR);</span>
+<span class="fc" id="L205">        when(purezaService.marcarParaRepetir(1L)).thenReturn(purezaDTO);</span>
 
-<span class="fc" id="L247">        mockMvc.perform(put(&quot;/api/purezas/1/repetir&quot;)</span>
-<span class="fc" id="L248">                .with(csrf()))</span>
-<span class="fc" id="L249">                .andExpect(status().isOk())</span>
-<span class="fc" id="L250">                .andExpect(jsonPath(&quot;$.estado&quot;).value(&quot;A_REPETIR&quot;));</span>
-<span class="fc" id="L251">    }</span>
+<span class="fc" id="L207">        mockMvc.perform(put(&quot;/api/purezas/1/repetir&quot;)</span>
+<span class="fc" id="L208">                .with(csrf()))</span>
+<span class="fc" id="L209">                .andExpect(status().isOk())</span>
+<span class="fc" id="L210">                .andExpect(jsonPath(&quot;$.estado&quot;).value(&quot;A_REPETIR&quot;));</span>
+<span class="fc" id="L211">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

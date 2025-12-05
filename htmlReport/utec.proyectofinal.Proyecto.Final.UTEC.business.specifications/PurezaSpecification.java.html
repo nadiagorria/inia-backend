@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PurezaSpecification.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.business.specifications</a> &gt; <span class="el_source">PurezaSpecification.java</span></div><h1>PurezaSpecification.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.business.specifications;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PurezaSpecification.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.business.specifications</a> &gt; <span class="el_source">PurezaSpecification.java</span></div><h1>PurezaSpecification.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.business.specifications;
 
 import org.springframework.data.jpa.domain.Specification;
 import utec.proyectofinal.Proyecto.Final.UTEC.business.entities.Pureza;
@@ -9,62 +9,54 @@ import java.util.List;
 
 <span class="nc" id="L10">public class PurezaSpecification {</span>
 
-    /**
-     * Crea una especificación para filtrar análisis de pureza
-     * 
-     * @param searchTerm Término de búsqueda (ficha del lote, ID)
-     * @param activo Estado activo (true/false/null para todos)
-     * @param estado Estado del análisis (REGISTRADO, PENDIENTE_APROBACION, APROBADO, A_REPETIR)
-     * @param loteId ID del lote
-     * @return Specification para usar con el repositorio
-     */
+    
     public static Specification&lt;Pureza&gt; conFiltros(String searchTerm, Boolean activo, String estado, Long loteId) {
-<span class="fc" id="L22">        return (root, query, criteriaBuilder) -&gt; {</span>
-<span class="nc" id="L23">            List&lt;Predicate&gt; predicates = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L14">        return (root, query, criteriaBuilder) -&gt; {</span>
+<span class="nc" id="L15">            List&lt;Predicate&gt; predicates = new ArrayList&lt;&gt;();</span>
 
             // Filtro de búsqueda: busca en ID de análisis y ficha del lote
-<span class="nc bnc" id="L26" title="All 4 branches missed.">            if (searchTerm != null &amp;&amp; !searchTerm.trim().isEmpty()) {</span>
-<span class="nc" id="L27">                String searchPattern = &quot;%&quot; + searchTerm.toLowerCase() + &quot;%&quot;;</span>
+<span class="nc bnc" id="L18" title="All 4 branches missed.">            if (searchTerm != null &amp;&amp; !searchTerm.trim().isEmpty()) {</span>
+<span class="nc" id="L19">                String searchPattern = &quot;%&quot; + searchTerm.toLowerCase() + &quot;%&quot;;</span>
                 
-                // Buscar por ID parcial (permite encontrar 1001, 1002, etc. al buscar &quot;100&quot;)
-<span class="nc" id="L30">                Predicate idPredicate = criteriaBuilder.like(</span>
-<span class="nc" id="L31">                    criteriaBuilder.lower(criteriaBuilder.toString(root.get(&quot;analisisID&quot;))), searchPattern);</span>
+                // Buscar por ID parcial
+<span class="nc" id="L22">                Predicate idPredicate = criteriaBuilder.like(</span>
+<span class="nc" id="L23">                    criteriaBuilder.lower(criteriaBuilder.toString(root.get(&quot;analisisID&quot;))), searchPattern);</span>
                 
                 // Buscar por ficha del lote
-<span class="nc" id="L34">                Predicate fichaPredicate = criteriaBuilder.like(</span>
-<span class="nc" id="L35">                    criteriaBuilder.lower(root.get(&quot;lote&quot;).get(&quot;ficha&quot;)), searchPattern);</span>
+<span class="nc" id="L26">                Predicate fichaPredicate = criteriaBuilder.like(</span>
+<span class="nc" id="L27">                    criteriaBuilder.lower(root.get(&quot;lote&quot;).get(&quot;ficha&quot;)), searchPattern);</span>
                 
                 // Buscar por nombre del lote
-<span class="nc" id="L38">                Predicate nomLotePredicate = criteriaBuilder.like(</span>
-<span class="nc" id="L39">                    criteriaBuilder.lower(root.get(&quot;lote&quot;).get(&quot;nomLote&quot;)), searchPattern);</span>
+<span class="nc" id="L30">                Predicate nomLotePredicate = criteriaBuilder.like(</span>
+<span class="nc" id="L31">                    criteriaBuilder.lower(root.get(&quot;lote&quot;).get(&quot;nomLote&quot;)), searchPattern);</span>
                 
-<span class="nc" id="L41">                predicates.add(criteriaBuilder.or(idPredicate, fichaPredicate, nomLotePredicate));</span>
+<span class="nc" id="L33">                predicates.add(criteriaBuilder.or(idPredicate, fichaPredicate, nomLotePredicate));</span>
             }
 
             // Filtro por estado activo
-<span class="nc bnc" id="L45" title="All 2 branches missed.">            if (activo != null) {</span>
-<span class="nc" id="L46">                predicates.add(criteriaBuilder.equal(root.get(&quot;activo&quot;), activo));</span>
+<span class="nc bnc" id="L37" title="All 2 branches missed.">            if (activo != null) {</span>
+<span class="nc" id="L38">                predicates.add(criteriaBuilder.equal(root.get(&quot;activo&quot;), activo));</span>
             }
 
             // Filtro por estado del análisis
-<span class="nc bnc" id="L50" title="All 6 branches missed.">            if (estado != null &amp;&amp; !estado.trim().isEmpty() &amp;&amp; !&quot;todos&quot;.equalsIgnoreCase(estado)) {</span>
+<span class="nc bnc" id="L42" title="All 6 branches missed.">            if (estado != null &amp;&amp; !estado.trim().isEmpty() &amp;&amp; !&quot;todos&quot;.equalsIgnoreCase(estado)) {</span>
                 try {
-<span class="nc" id="L52">                    Estado estadoEnum = Estado.valueOf(estado.toUpperCase());</span>
-<span class="nc" id="L53">                    predicates.add(criteriaBuilder.equal(root.get(&quot;estado&quot;), estadoEnum));</span>
-<span class="nc" id="L54">                } catch (IllegalArgumentException e) {</span>
+<span class="nc" id="L44">                    Estado estadoEnum = Estado.valueOf(estado.toUpperCase());</span>
+<span class="nc" id="L45">                    predicates.add(criteriaBuilder.equal(root.get(&quot;estado&quot;), estadoEnum));</span>
+<span class="nc" id="L46">                } catch (IllegalArgumentException e) {</span>
                     // Estado inválido, ignorar
-                }
+<span class="nc" id="L48">                }</span>
             }
 
             // Filtro por lote
-<span class="nc bnc" id="L60" title="All 2 branches missed.">            if (loteId != null) {</span>
-<span class="nc" id="L61">                predicates.add(criteriaBuilder.equal(root.get(&quot;lote&quot;).get(&quot;loteID&quot;), loteId));</span>
+<span class="nc bnc" id="L52" title="All 2 branches missed.">            if (loteId != null) {</span>
+<span class="nc" id="L53">                predicates.add(criteriaBuilder.equal(root.get(&quot;lote&quot;).get(&quot;loteID&quot;), loteId));</span>
             }
 
             // Ordenar por fecha de inicio descendente
-<span class="nc" id="L65">            query.orderBy(criteriaBuilder.desc(root.get(&quot;fechaInicio&quot;)));</span>
+<span class="nc" id="L57">            query.orderBy(criteriaBuilder.desc(root.get(&quot;fechaInicio&quot;)));</span>
 
-<span class="nc" id="L67">            return criteriaBuilder.and(predicates.toArray(new Predicate[0]));</span>
+<span class="nc" id="L59">            return criteriaBuilder.and(predicates.toArray(new Predicate[0]));</span>
         };
     }
 }

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ImportacionLegadoController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.controllers</a> &gt; <span class="el_source">ImportacionLegadoController.java</span></div><h1>ImportacionLegadoController.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.controllers;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ImportacionLegadoController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.controllers</a> &gt; <span class="el_source">ImportacionLegadoController.java</span></div><h1>ImportacionLegadoController.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,26 +18,19 @@ import lombok.extern.slf4j.Slf4j;
 import utec.proyectofinal.Proyecto.Final.UTEC.dtos.response.ImportacionLegadoResponseDTO;
 import utec.proyectofinal.Proyecto.Final.UTEC.services.ImportacionLegadoService;
 
-/**
- * Controlador para la importación de datos legados desde Excel
- */
-// CORS configurado globalmente en WebSecurityConfig
+
+
 @RestController
 @RequestMapping(&quot;/api/importacion&quot;)
 @Tag(name = &quot;Importación Legado&quot;, description = &quot;API para importar datos históricos desde Excel&quot;)
 @SecurityRequirement(name = &quot;bearerAuth&quot;)
 @RequiredArgsConstructor
-<span class="fc" id="L30">@Slf4j</span>
+<span class="fc" id="L28">@Slf4j</span>
 public class ImportacionLegadoController {
 
     private final ImportacionLegadoService importacionService;
 
-    /**
-     * Endpoint para validar un archivo Excel sin importar los datos
-     * 
-     * @param archivo Archivo Excel a validar
-     * @return Resultado de la validación con errores detectados
-     */
+    
     @PostMapping(value = &quot;/legado/validar&quot;, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Operation(
         summary = &quot;Validar archivo Excel&quot;, 
@@ -47,49 +40,44 @@ public class ImportacionLegadoController {
     public ResponseEntity&lt;ImportacionLegadoResponseDTO&gt; validarArchivo(
             @RequestParam(&quot;archivo&quot;) MultipartFile archivo) {
         
-<span class="fc" id="L50">        log.info(&quot;Iniciando validación de archivo: {}&quot;, archivo.getOriginalFilename());</span>
+<span class="fc" id="L43">        log.info(&quot;Iniciando validación de archivo: {}&quot;, archivo.getOriginalFilename());</span>
         
         try {
-            // Validar que el archivo no esté vacío
-<span class="fc bfc" id="L54" title="All 2 branches covered.">            if (archivo.isEmpty()) {</span>
-<span class="fc" id="L55">                ImportacionLegadoResponseDTO response = new ImportacionLegadoResponseDTO();</span>
-<span class="fc" id="L56">                response.setExitoso(false);</span>
-<span class="fc" id="L57">                response.setMensaje(&quot;El archivo está vacío&quot;);</span>
-<span class="fc" id="L58">                return ResponseEntity.badRequest().body(response);</span>
+            
+<span class="fc bfc" id="L47" title="All 2 branches covered.">            if (archivo.isEmpty()) {</span>
+<span class="fc" id="L48">                ImportacionLegadoResponseDTO response = new ImportacionLegadoResponseDTO();</span>
+<span class="fc" id="L49">                response.setExitoso(false);</span>
+<span class="fc" id="L50">                response.setMensaje(&quot;El archivo está vacío&quot;);</span>
+<span class="fc" id="L51">                return ResponseEntity.badRequest().body(response);</span>
             }
             
-            // Validar extensión del archivo
-<span class="fc" id="L62">            String nombreArchivo = archivo.getOriginalFilename();</span>
-<span class="pc bpc" id="L63" title="1 of 2 branches missed.">            if (nombreArchivo == null || </span>
-<span class="pc bpc" id="L64" title="1 of 4 branches missed.">                (!nombreArchivo.endsWith(&quot;.xlsx&quot;) &amp;&amp; !nombreArchivo.endsWith(&quot;.xls&quot;))) {</span>
-<span class="fc" id="L65">                ImportacionLegadoResponseDTO response = new ImportacionLegadoResponseDTO();</span>
-<span class="fc" id="L66">                response.setExitoso(false);</span>
-<span class="fc" id="L67">                response.setMensaje(&quot;El archivo debe ser un Excel (.xlsx o .xls)&quot;);</span>
-<span class="fc" id="L68">                return ResponseEntity.badRequest().body(response);</span>
+            
+<span class="fc" id="L55">            String nombreArchivo = archivo.getOriginalFilename();</span>
+<span class="pc bpc" id="L56" title="1 of 2 branches missed.">            if (nombreArchivo == null || </span>
+<span class="pc bpc" id="L57" title="1 of 4 branches missed.">                (!nombreArchivo.endsWith(&quot;.xlsx&quot;) &amp;&amp; !nombreArchivo.endsWith(&quot;.xls&quot;))) {</span>
+<span class="fc" id="L58">                ImportacionLegadoResponseDTO response = new ImportacionLegadoResponseDTO();</span>
+<span class="fc" id="L59">                response.setExitoso(false);</span>
+<span class="fc" id="L60">                response.setMensaje(&quot;El archivo debe ser un Excel (.xlsx o .xls)&quot;);</span>
+<span class="fc" id="L61">                return ResponseEntity.badRequest().body(response);</span>
             }
             
-            // Procesar validación
-<span class="fc" id="L72">            ImportacionLegadoResponseDTO resultado = importacionService.importarDesdeExcel(archivo, true);</span>
             
-<span class="fc" id="L74">            return ResponseEntity.ok(resultado);</span>
+<span class="fc" id="L65">            ImportacionLegadoResponseDTO resultado = importacionService.importarDesdeExcel(archivo, true);</span>
             
-<span class="fc" id="L76">        } catch (Exception e) {</span>
-<span class="fc" id="L77">            log.error(&quot;Error al validar archivo: {}&quot;, e.getMessage(), e);</span>
+<span class="fc" id="L67">            return ResponseEntity.ok(resultado);</span>
             
-<span class="fc" id="L79">            ImportacionLegadoResponseDTO response = new ImportacionLegadoResponseDTO();</span>
-<span class="fc" id="L80">            response.setExitoso(false);</span>
-<span class="fc" id="L81">            response.setMensaje(&quot;Error al validar el archivo: &quot; + e.getMessage());</span>
+<span class="fc" id="L69">        } catch (Exception e) {</span>
+<span class="fc" id="L70">            log.error(&quot;Error al validar archivo: {}&quot;, e.getMessage(), e);</span>
             
-<span class="fc" id="L83">            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);</span>
+<span class="fc" id="L72">            ImportacionLegadoResponseDTO response = new ImportacionLegadoResponseDTO();</span>
+<span class="fc" id="L73">            response.setExitoso(false);</span>
+<span class="fc" id="L74">            response.setMensaje(&quot;Error al validar el archivo: &quot; + e.getMessage());</span>
+            
+<span class="fc" id="L76">            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);</span>
         }
     }
 
-    /**
-     * Endpoint para importar datos desde un archivo Excel
-     * 
-     * @param archivo Archivo Excel con los datos a importar
-     * @return Resultado de la importación
-     */
+    
     @PostMapping(value = &quot;/legado/importar&quot;, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Operation(
         summary = &quot;Importar datos desde Excel&quot;, 
@@ -99,48 +87,48 @@ public class ImportacionLegadoController {
     public ResponseEntity&lt;ImportacionLegadoResponseDTO&gt; importarArchivo(
             @RequestParam(&quot;archivo&quot;) MultipartFile archivo) {
         
-<span class="fc" id="L102">        log.info(&quot;Iniciando importación de archivo: {}&quot;, archivo.getOriginalFilename());</span>
+<span class="fc" id="L90">        log.info(&quot;Iniciando importación de archivo: {}&quot;, archivo.getOriginalFilename());</span>
         
         try {
-            // Validar que el archivo no esté vacío
-<span class="fc bfc" id="L106" title="All 2 branches covered.">            if (archivo.isEmpty()) {</span>
-<span class="fc" id="L107">                ImportacionLegadoResponseDTO response = new ImportacionLegadoResponseDTO();</span>
-<span class="fc" id="L108">                response.setExitoso(false);</span>
-<span class="fc" id="L109">                response.setMensaje(&quot;El archivo está vacío&quot;);</span>
-<span class="fc" id="L110">                return ResponseEntity.badRequest().body(response);</span>
+            
+<span class="fc bfc" id="L94" title="All 2 branches covered.">            if (archivo.isEmpty()) {</span>
+<span class="fc" id="L95">                ImportacionLegadoResponseDTO response = new ImportacionLegadoResponseDTO();</span>
+<span class="fc" id="L96">                response.setExitoso(false);</span>
+<span class="fc" id="L97">                response.setMensaje(&quot;El archivo está vacío&quot;);</span>
+<span class="fc" id="L98">                return ResponseEntity.badRequest().body(response);</span>
             }
             
-            // Validar extensión del archivo
-<span class="fc" id="L114">            String nombreArchivo = archivo.getOriginalFilename();</span>
-<span class="pc bpc" id="L115" title="1 of 2 branches missed.">            if (nombreArchivo == null || </span>
-<span class="pc bpc" id="L116" title="1 of 4 branches missed.">                (!nombreArchivo.endsWith(&quot;.xlsx&quot;) &amp;&amp; !nombreArchivo.endsWith(&quot;.xls&quot;))) {</span>
-<span class="fc" id="L117">                ImportacionLegadoResponseDTO response = new ImportacionLegadoResponseDTO();</span>
-<span class="fc" id="L118">                response.setExitoso(false);</span>
-<span class="fc" id="L119">                response.setMensaje(&quot;El archivo debe ser un Excel (.xlsx o .xls)&quot;);</span>
-<span class="fc" id="L120">                return ResponseEntity.badRequest().body(response);</span>
+            
+<span class="fc" id="L102">            String nombreArchivo = archivo.getOriginalFilename();</span>
+<span class="pc bpc" id="L103" title="1 of 2 branches missed.">            if (nombreArchivo == null || </span>
+<span class="pc bpc" id="L104" title="1 of 4 branches missed.">                (!nombreArchivo.endsWith(&quot;.xlsx&quot;) &amp;&amp; !nombreArchivo.endsWith(&quot;.xls&quot;))) {</span>
+<span class="fc" id="L105">                ImportacionLegadoResponseDTO response = new ImportacionLegadoResponseDTO();</span>
+<span class="fc" id="L106">                response.setExitoso(false);</span>
+<span class="fc" id="L107">                response.setMensaje(&quot;El archivo debe ser un Excel (.xlsx o .xls)&quot;);</span>
+<span class="fc" id="L108">                return ResponseEntity.badRequest().body(response);</span>
             }
             
-            // Procesar importación
-<span class="fc" id="L124">            ImportacionLegadoResponseDTO resultado = importacionService.importarDesdeExcel(archivo, false);</span>
             
-<span class="pc bpc" id="L126" title="1 of 2 branches missed.">            if (resultado.getExitoso()) {</span>
-<span class="fc" id="L127">                log.info(&quot;Importación completada exitosamente: {} filas importadas&quot;, </span>
-<span class="fc" id="L128">                         resultado.getFilasImportadas());</span>
-<span class="fc" id="L129">                return ResponseEntity.ok(resultado);</span>
+<span class="fc" id="L112">            ImportacionLegadoResponseDTO resultado = importacionService.importarDesdeExcel(archivo, false);</span>
+            
+<span class="pc bpc" id="L114" title="1 of 2 branches missed.">            if (resultado.getExitoso()) {</span>
+<span class="fc" id="L115">                log.info(&quot;Importación completada exitosamente: {} filas importadas&quot;, </span>
+<span class="fc" id="L116">                         resultado.getFilasImportadas());</span>
+<span class="fc" id="L117">                return ResponseEntity.ok(resultado);</span>
             } else {
-<span class="nc" id="L131">                log.warn(&quot;Importación completada con errores: {} filas con errores&quot;, </span>
-<span class="nc" id="L132">                         resultado.getFilasConErrores());</span>
-<span class="nc" id="L133">                return ResponseEntity.status(HttpStatus.PARTIAL_CONTENT).body(resultado);</span>
+<span class="nc" id="L119">                log.warn(&quot;Importación completada con errores: {} filas con errores&quot;, </span>
+<span class="nc" id="L120">                         resultado.getFilasConErrores());</span>
+<span class="nc" id="L121">                return ResponseEntity.status(HttpStatus.PARTIAL_CONTENT).body(resultado);</span>
             }
             
-<span class="fc" id="L136">        } catch (Exception e) {</span>
-<span class="fc" id="L137">            log.error(&quot;Error al importar archivo: {}&quot;, e.getMessage(), e);</span>
+<span class="fc" id="L124">        } catch (Exception e) {</span>
+<span class="fc" id="L125">            log.error(&quot;Error al importar archivo: {}&quot;, e.getMessage(), e);</span>
             
-<span class="fc" id="L139">            ImportacionLegadoResponseDTO response = new ImportacionLegadoResponseDTO();</span>
-<span class="fc" id="L140">            response.setExitoso(false);</span>
-<span class="fc" id="L141">            response.setMensaje(&quot;Error al importar el archivo: &quot; + e.getMessage());</span>
+<span class="fc" id="L127">            ImportacionLegadoResponseDTO response = new ImportacionLegadoResponseDTO();</span>
+<span class="fc" id="L128">            response.setExitoso(false);</span>
+<span class="fc" id="L129">            response.setMensaje(&quot;Error al importar el archivo: &quot; + e.getMessage());</span>
             
-<span class="fc" id="L143">            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);</span>
+<span class="fc" id="L131">            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);</span>
         }
     }
 }

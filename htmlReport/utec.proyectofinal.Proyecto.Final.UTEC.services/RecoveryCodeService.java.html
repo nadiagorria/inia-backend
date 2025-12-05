@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RecoveryCodeService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">RecoveryCodeService.java</span></div><h1>RecoveryCodeService.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RecoveryCodeService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">RecoveryCodeService.java</span></div><h1>RecoveryCodeService.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -6,151 +6,106 @@ import org.springframework.stereotype.Service;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
 
-/**
- * Servicio para generar y validar códigos de recuperación de contraseña
- * 
- * SEGURIDAD:
- * - Genera códigos aleatorios de 8 caracteres alfanuméricos
- * - Los códigos se hashean con BCrypt antes de almacenarlos
- * - Los códigos expiran en 10 minutos
- * - Un código solo se puede usar una vez
- * - Requiere 2FA adicional para resetear la contraseña
- */
+
 @Service
-<span class="fc" id="L20">public class RecoveryCodeService {</span>
+<span class="fc" id="L11">public class RecoveryCodeService {</span>
 
     private static final int CODE_LENGTH = 8;
     private static final int EXPIRY_MINUTES = 10;
-    private static final String CHARACTERS = &quot;ABCDEFGHJKLMNPQRSTUVWXYZ23456789&quot;; // Sin I, O, 0, 1 para evitar confusión
-<span class="fc" id="L25">    private final SecureRandom random = new SecureRandom();</span>
-<span class="fc" id="L26">    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(12); // Strength 12</span>
+    private static final String CHARACTERS = &quot;ABCDEFGHJKLMNPQRSTUVWXYZ23456789&quot;; 
+<span class="fc" id="L16">    private final SecureRandom random = new SecureRandom();</span>
+<span class="fc" id="L17">    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(12); </span>
 
-    /**
-     * Genera un código de recuperación aleatorio de 8 caracteres
-     * 
-     * Formato: XXXX-XXXX (con guion para facilitar lectura)
-     * Ejemplo: AB3K-7M9P
-     * 
-     * @return Código en texto plano (NUNCA almacenar este valor directamente)
-     */
+    
     public String generateRecoveryCode() {
-<span class="fc" id="L37">        StringBuilder code = new StringBuilder(CODE_LENGTH);</span>
+<span class="fc" id="L21">        StringBuilder code = new StringBuilder(CODE_LENGTH);</span>
         
-<span class="fc bfc" id="L39" title="All 2 branches covered.">        for (int i = 0; i &lt; CODE_LENGTH; i++) {</span>
-<span class="fc" id="L40">            int index = random.nextInt(CHARACTERS.length());</span>
-<span class="fc" id="L41">            code.append(CHARACTERS.charAt(index));</span>
+<span class="fc bfc" id="L23" title="All 2 branches covered.">        for (int i = 0; i &lt; CODE_LENGTH; i++) {</span>
+<span class="fc" id="L24">            int index = random.nextInt(CHARACTERS.length());</span>
+<span class="fc" id="L25">            code.append(CHARACTERS.charAt(index));</span>
             
             // Agregar guion en la mitad para facilitar lectura
-<span class="fc bfc" id="L44" title="All 2 branches covered.">            if (i == 3) {</span>
-<span class="fc" id="L45">                code.append(&quot;-&quot;);</span>
+<span class="fc bfc" id="L28" title="All 2 branches covered.">            if (i == 3) {</span>
+<span class="fc" id="L29">                code.append(&quot;-&quot;);</span>
             }
         }
         
-<span class="fc" id="L49">        return code.toString();</span>
+<span class="fc" id="L33">        return code.toString();</span>
     }
 
-    /**
-     * Hashea un código de recuperación para almacenamiento seguro
-     * 
-     * @param plainCode Código en texto plano
-     * @return Hash BCrypt del código
-     */
+    
     public String hashCode(String plainCode) {
-<span class="fc bfc" id="L59" title="All 4 branches covered.">        if (plainCode == null || plainCode.isEmpty()) {</span>
-<span class="fc" id="L60">            throw new IllegalArgumentException(&quot;El código no puede estar vacío&quot;);</span>
+<span class="fc bfc" id="L38" title="All 4 branches covered.">        if (plainCode == null || plainCode.isEmpty()) {</span>
+<span class="fc" id="L39">            throw new IllegalArgumentException(&quot;El código no puede estar vacío&quot;);</span>
         }
         
         // Normalizar: uppercase y remover guiones
-<span class="fc" id="L64">        String normalizedCode = plainCode.toUpperCase().replace(&quot;-&quot;, &quot;&quot;);</span>
+<span class="fc" id="L43">        String normalizedCode = plainCode.toUpperCase().replace(&quot;-&quot;, &quot;&quot;);</span>
         
-<span class="fc" id="L66">        return passwordEncoder.encode(normalizedCode);</span>
+<span class="fc" id="L45">        return passwordEncoder.encode(normalizedCode);</span>
     }
 
-    /**
-     * Verifica que un código ingresado coincida con el hash almacenado
-     * 
-     * @param plainCode Código ingresado por el usuario
-     * @param hashedCode Hash almacenado en la base de datos
-     * @return true si el código es correcto
-     */
+    
     public boolean verifyCode(String plainCode, String hashedCode) {
-<span class="fc bfc" id="L77" title="All 4 branches covered.">        if (plainCode == null || hashedCode == null) {</span>
-<span class="fc" id="L78">            return false;</span>
+<span class="fc bfc" id="L50" title="All 4 branches covered.">        if (plainCode == null || hashedCode == null) {</span>
+<span class="fc" id="L51">            return false;</span>
         }
         
         try {
             // Normalizar el código ingresado
-<span class="fc" id="L83">            String normalizedCode = plainCode.toUpperCase().replace(&quot;-&quot;, &quot;&quot;).trim();</span>
+<span class="fc" id="L56">            String normalizedCode = plainCode.toUpperCase().replace(&quot;-&quot;, &quot;&quot;).trim();</span>
             
-            // Validar longitud
-<span class="fc bfc" id="L86" title="All 2 branches covered.">            if (normalizedCode.length() != CODE_LENGTH) {</span>
-<span class="fc" id="L87">                return false;</span>
+            
+<span class="fc bfc" id="L59" title="All 2 branches covered.">            if (normalizedCode.length() != CODE_LENGTH) {</span>
+<span class="fc" id="L60">                return false;</span>
             }
             
-<span class="fc" id="L90">            return passwordEncoder.matches(normalizedCode, hashedCode);</span>
-<span class="nc" id="L91">        } catch (Exception e) {</span>
-<span class="nc" id="L92">            System.err.println(&quot; Error verificando código de recuperación: &quot; + e.getMessage());</span>
-<span class="nc" id="L93">            return false;</span>
+<span class="fc" id="L63">            return passwordEncoder.matches(normalizedCode, hashedCode);</span>
+<span class="nc" id="L64">        } catch (Exception e) {</span>
+<span class="nc" id="L65">            System.err.println(&quot; Error verificando código de recuperación: &quot; + e.getMessage());</span>
+<span class="nc" id="L66">            return false;</span>
         }
     }
 
-    /**
-     * Calcula la fecha de expiración del código (10 minutos desde ahora)
-     * 
-     * @return Timestamp de expiración
-     */
+    
     public LocalDateTime getExpiryTime() {
-<span class="fc" id="L103">        return LocalDateTime.now().plusMinutes(EXPIRY_MINUTES);</span>
+<span class="fc" id="L72">        return LocalDateTime.now().plusMinutes(EXPIRY_MINUTES);</span>
     }
 
-    /**
-     * Verifica si un código ha expirado
-     * 
-     * @param expiryTime Fecha de expiración del código
-     * @return true si el código ha expirado
-     */
+    
     public boolean isExpired(LocalDateTime expiryTime) {
-<span class="fc bfc" id="L113" title="All 2 branches covered.">        if (expiryTime == null) {</span>
-<span class="fc" id="L114">            return true;</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">        if (expiryTime == null) {</span>
+<span class="fc" id="L78">            return true;</span>
         }
-<span class="fc" id="L116">        return LocalDateTime.now().isAfter(expiryTime);</span>
+<span class="fc" id="L80">        return LocalDateTime.now().isAfter(expiryTime);</span>
     }
 
-    /**
-     * Valida el formato de un código de recuperación
-     * 
-     * @param code Código a validar
-     * @return true si el formato es válido
-     */
+    
     public boolean isValidFormat(String code) {
-<span class="fc bfc" id="L126" title="All 2 branches covered.">        if (code == null) {</span>
-<span class="fc" id="L127">            return false;</span>
+<span class="fc bfc" id="L85" title="All 2 branches covered.">        if (code == null) {</span>
+<span class="fc" id="L86">            return false;</span>
         }
         
-<span class="fc" id="L130">        String normalized = code.toUpperCase().replace(&quot;-&quot;, &quot;&quot;).trim();</span>
+<span class="fc" id="L89">        String normalized = code.toUpperCase().replace(&quot;-&quot;, &quot;&quot;).trim();</span>
         
-        // Debe tener exactamente 8 caracteres
-<span class="fc bfc" id="L133" title="All 2 branches covered.">        if (normalized.length() != CODE_LENGTH) {</span>
-<span class="fc" id="L134">            return false;</span>
+        
+<span class="fc bfc" id="L92" title="All 2 branches covered.">        if (normalized.length() != CODE_LENGTH) {</span>
+<span class="fc" id="L93">            return false;</span>
         }
         
         // Solo caracteres válidos
-<span class="fc bfc" id="L138" title="All 2 branches covered.">        for (char c : normalized.toCharArray()) {</span>
-<span class="fc bfc" id="L139" title="All 2 branches covered.">            if (CHARACTERS.indexOf(c) == -1) {</span>
-<span class="fc" id="L140">                return false;</span>
+<span class="fc bfc" id="L97" title="All 2 branches covered.">        for (char c : normalized.toCharArray()) {</span>
+<span class="fc bfc" id="L98" title="All 2 branches covered.">            if (CHARACTERS.indexOf(c) == -1) {</span>
+<span class="fc" id="L99">                return false;</span>
             }
         }
         
-<span class="fc" id="L144">        return true;</span>
+<span class="fc" id="L103">        return true;</span>
     }
 
-    /**
-     * Obtiene el tiempo de validez del código en minutos
-     * 
-     * @return Minutos de validez (10)
-     */
+    
     public int getExpiryMinutes() {
-<span class="fc" id="L153">        return EXPIRY_MINUTES;</span>
+<span class="fc" id="L108">        return EXPIRY_MINUTES;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

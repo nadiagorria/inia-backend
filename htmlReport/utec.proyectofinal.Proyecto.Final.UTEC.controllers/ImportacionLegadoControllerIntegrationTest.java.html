@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ImportacionLegadoControllerIntegrationTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.controllers</a> &gt; <span class="el_source">ImportacionLegadoControllerIntegrationTest.java</span></div><h1>ImportacionLegadoControllerIntegrationTest.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.controllers;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ImportacionLegadoControllerIntegrationTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.controllers</a> &gt; <span class="el_source">ImportacionLegadoControllerIntegrationTest.java</span></div><h1>ImportacionLegadoControllerIntegrationTest.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.controllers;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -37,9 +37,9 @@ import java.util.ArrayList;
     @WithMockUser(roles = &quot;ADMIN&quot;)
     void validarArchivoExcel_conArchivoValido_debeRetornarResultado() throws Exception {
 <span class="fc" id="L39">        MockMultipartFile archivo = new MockMultipartFile(</span>
-            &quot;archivo&quot;,
-            &quot;legado.xlsx&quot;,
-            &quot;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet&quot;,
+<span class="fc" id="L40">            &quot;archivo&quot;,</span>
+<span class="fc" id="L41">            &quot;legado.xlsx&quot;,</span>
+<span class="fc" id="L42">            &quot;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet&quot;,</span>
 <span class="fc" id="L43">            &quot;Excel content&quot;.getBytes()</span>
         );
 
@@ -67,9 +67,9 @@ import java.util.ArrayList;
     @WithMockUser(roles = &quot;ADMIN&quot;)
     void validarArchivoExcel_conArchivoInvalido_debeRetornar400() throws Exception {
 <span class="fc" id="L69">        MockMultipartFile archivo = new MockMultipartFile(</span>
-            &quot;archivo&quot;,
-            &quot;legado.txt&quot;,
-            &quot;text/plain&quot;,
+<span class="fc" id="L70">            &quot;archivo&quot;,</span>
+<span class="fc" id="L71">            &quot;legado.txt&quot;,</span>
+<span class="fc" id="L72">            &quot;text/plain&quot;,</span>
 <span class="fc" id="L73">            &quot;Text content&quot;.getBytes()</span>
         );
 
@@ -84,10 +84,10 @@ import java.util.ArrayList;
     @WithMockUser(roles = &quot;ADMIN&quot;)
     void validarArchivoExcel_conArchivoVacio_debeRetornar400() throws Exception {
 <span class="fc" id="L86">        MockMultipartFile archivo = new MockMultipartFile(</span>
-            &quot;archivo&quot;,
-            &quot;legado.xlsx&quot;,
-            &quot;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet&quot;,
-            new byte[0]
+<span class="fc" id="L87">            &quot;archivo&quot;,</span>
+<span class="fc" id="L88">            &quot;legado.xlsx&quot;,</span>
+<span class="fc" id="L89">            &quot;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet&quot;,</span>
+<span class="fc" id="L90">            new byte[0]</span>
         );
 
 <span class="fc" id="L93">        mockMvc.perform(multipart(&quot;/api/importacion/legado/validar&quot;)</span>
@@ -101,9 +101,9 @@ import java.util.ArrayList;
     @WithMockUser(roles = &quot;ANALISTA&quot;)
     void validarArchivoExcel_comoAnalista_debeRetornarResultado() throws Exception {
 <span class="fc" id="L103">        MockMultipartFile archivo = new MockMultipartFile(</span>
-            &quot;archivo&quot;,
-            &quot;legado.xlsx&quot;,
-            &quot;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet&quot;,
+<span class="fc" id="L104">            &quot;archivo&quot;,</span>
+<span class="fc" id="L105">            &quot;legado.xlsx&quot;,</span>
+<span class="fc" id="L106">            &quot;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet&quot;,</span>
 <span class="fc" id="L107">            &quot;Excel content&quot;.getBytes()</span>
         );
 
@@ -128,9 +128,9 @@ import java.util.ArrayList;
     @WithMockUser(roles = &quot;ADMIN&quot;)
     void validarArchivoExcel_conError_debeRetornar500() throws Exception {
 <span class="fc" id="L130">        MockMultipartFile archivo = new MockMultipartFile(</span>
-            &quot;archivo&quot;,
-            &quot;legado.xlsx&quot;,
-            &quot;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet&quot;,
+<span class="fc" id="L131">            &quot;archivo&quot;,</span>
+<span class="fc" id="L132">            &quot;legado.xlsx&quot;,</span>
+<span class="fc" id="L133">            &quot;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet&quot;,</span>
 <span class="fc" id="L134">            &quot;Excel content&quot;.getBytes()</span>
         );
 
@@ -148,9 +148,9 @@ import java.util.ArrayList;
     @WithMockUser(roles = &quot;ADMIN&quot;)
     void importarArchivoExcel_comoAdmin_debeRetornar200() throws Exception {
 <span class="fc" id="L150">        MockMultipartFile archivo = new MockMultipartFile(</span>
-            &quot;archivo&quot;,
-            &quot;legado.xlsx&quot;,
-            &quot;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet&quot;,
+<span class="fc" id="L151">            &quot;archivo&quot;,</span>
+<span class="fc" id="L152">            &quot;legado.xlsx&quot;,</span>
+<span class="fc" id="L153">            &quot;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet&quot;,</span>
 <span class="fc" id="L154">            &quot;Excel content&quot;.getBytes()</span>
         );
 
@@ -172,9 +172,9 @@ import java.util.ArrayList;
     @WithMockUser(roles = &quot;ADMIN&quot;)
     void importarArchivoExcel_conArchivoInvalido_debeRetornar400() throws Exception {
 <span class="fc" id="L174">        MockMultipartFile archivo = new MockMultipartFile(</span>
-            &quot;archivo&quot;,
-            &quot;legado.csv&quot;,
-            &quot;text/csv&quot;,
+<span class="fc" id="L175">            &quot;archivo&quot;,</span>
+<span class="fc" id="L176">            &quot;legado.csv&quot;,</span>
+<span class="fc" id="L177">            &quot;text/csv&quot;,</span>
 <span class="fc" id="L178">            &quot;CSV content&quot;.getBytes()</span>
         );
 
@@ -189,10 +189,10 @@ import java.util.ArrayList;
     @WithMockUser(roles = &quot;ADMIN&quot;)
     void importarArchivoExcel_conArchivoVacio_debeRetornar400() throws Exception {
 <span class="fc" id="L191">        MockMultipartFile archivo = new MockMultipartFile(</span>
-            &quot;archivo&quot;,
-            &quot;legado.xlsx&quot;,
-            &quot;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet&quot;,
-            new byte[0]
+<span class="fc" id="L192">            &quot;archivo&quot;,</span>
+<span class="fc" id="L193">            &quot;legado.xlsx&quot;,</span>
+<span class="fc" id="L194">            &quot;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet&quot;,</span>
+<span class="fc" id="L195">            new byte[0]</span>
         );
 
 <span class="fc" id="L198">        mockMvc.perform(multipart(&quot;/api/importacion/legado/importar&quot;)</span>
@@ -206,9 +206,9 @@ import java.util.ArrayList;
     @WithMockUser(roles = &quot;ADMIN&quot;)
     void importarArchivoExcel_conError_debeRetornar500() throws Exception {
 <span class="fc" id="L208">        MockMultipartFile archivo = new MockMultipartFile(</span>
-            &quot;archivo&quot;,
-            &quot;legado.xlsx&quot;,
-            &quot;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet&quot;,
+<span class="fc" id="L209">            &quot;archivo&quot;,</span>
+<span class="fc" id="L210">            &quot;legado.xlsx&quot;,</span>
+<span class="fc" id="L211">            &quot;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet&quot;,</span>
 <span class="fc" id="L212">            &quot;Excel content&quot;.getBytes()</span>
         );
 
@@ -226,9 +226,9 @@ import java.util.ArrayList;
     @WithMockUser(roles = &quot;ADMIN&quot;)
     void importarArchivoExcel_exitoso_debeRetornarMensaje() throws Exception {
 <span class="fc" id="L228">        MockMultipartFile archivo = new MockMultipartFile(</span>
-            &quot;archivo&quot;,
-            &quot;legado.xlsx&quot;,
-            &quot;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet&quot;,
+<span class="fc" id="L229">            &quot;archivo&quot;,</span>
+<span class="fc" id="L230">            &quot;legado.xlsx&quot;,</span>
+<span class="fc" id="L231">            &quot;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet&quot;,</span>
 <span class="fc" id="L232">            &quot;Excel content&quot;.getBytes()</span>
         );
 

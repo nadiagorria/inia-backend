@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ExportacionExcelService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">ExportacionExcelService.java</span></div><h1>ExportacionExcelService.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ExportacionExcelService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">ExportacionExcelService.java</span></div><h1>ExportacionExcelService.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
 
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
@@ -42,861 +42,857 @@ import java.util.stream.Collectors;
     @Autowired
     private DosnRepository dosnRepository;
 
-    /**
-     * Genera un archivo Excel con los datos de análisis de semillas según la estructura de la planilla de ejemplo
-     */
+    
     public byte[] generarReporteExcel(List&lt;Long&gt; loteIds) throws IOException {
-<span class="fc" id="L49">        Workbook workbook = new XSSFWorkbook();</span>
-<span class="fc" id="L50">        Sheet sheet = workbook.createSheet(&quot;Análisis de Semillas&quot;);</span>
+<span class="fc" id="L47">        Workbook workbook = new XSSFWorkbook();</span>
+<span class="fc" id="L48">        Sheet sheet = workbook.createSheet(&quot;Análisis de Semillas&quot;);</span>
         
-        // Configurar estilos
-<span class="fc" id="L53">        CellStyle headerStyle = crearEstiloEncabezado(workbook);</span>
-<span class="fc" id="L54">        CellStyle subHeaderStyle = crearEstiloSubEncabezado(workbook);</span>
-<span class="fc" id="L55">        CellStyle dataStyle = crearEstiloData(workbook);</span>
-<span class="fc" id="L56">        CellStyle yellowHeaderStyle = crearEstiloEncabezadoAmarillo(workbook);</span>
         
-        // Crear encabezados
-<span class="fc" id="L59">        crearEncabezados(sheet, headerStyle, subHeaderStyle, yellowHeaderStyle);</span>
+<span class="fc" id="L51">        CellStyle headerStyle = crearEstiloEncabezado(workbook);</span>
+<span class="fc" id="L52">        CellStyle subHeaderStyle = crearEstiloSubEncabezado(workbook);</span>
+<span class="fc" id="L53">        CellStyle dataStyle = crearEstiloData(workbook);</span>
+<span class="fc" id="L54">        CellStyle yellowHeaderStyle = crearEstiloEncabezadoAmarillo(workbook);</span>
         
-        // Obtener datos y crear filas
-<span class="fc" id="L62">        List&lt;DatosExportacionExcelDTO&gt; datos = obtenerDatosParaExportacion(loteIds);</span>
-<span class="fc" id="L63">        int filaActual = 2; // Empezar después de los encabezados</span>
         
-<span class="fc bfc" id="L65" title="All 2 branches covered.">        for (DatosExportacionExcelDTO dato : datos) {</span>
-<span class="fc" id="L66">            crearFilaDatos(sheet, filaActual, dato, dataStyle);</span>
-<span class="fc" id="L67">            filaActual++;</span>
-        }
+<span class="fc" id="L57">        crearEncabezados(sheet, headerStyle, subHeaderStyle, yellowHeaderStyle);</span>
         
-        // Ajustar anchos de columnas
-<span class="fc" id="L71">        ajustarAnchoColumnas(sheet);</span>
         
-        // Convertir a byte array
-<span class="fc" id="L74">        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();</span>
-<span class="fc" id="L75">        workbook.write(outputStream);</span>
-<span class="fc" id="L76">        workbook.close();</span>
+<span class="fc" id="L60">        List&lt;DatosExportacionExcelDTO&gt; datos = obtenerDatosParaExportacion(loteIds);</span>
+<span class="fc" id="L61">        int filaActual = 2; </span>
         
-<span class="fc" id="L78">        return outputStream.toByteArray();</span>
+<span class="fc bfc" id="L63" title="All 2 branches covered.">        for (DatosExportacionExcelDTO dato : datos) {</span>
+<span class="fc" id="L64">            crearFilaDatos(sheet, filaActual, dato, dataStyle);</span>
+<span class="fc" id="L65">            filaActual++;</span>
+<span class="fc" id="L66">        }</span>
+        
+        
+<span class="fc" id="L69">        ajustarAnchoColumnas(sheet);</span>
+        
+        
+<span class="fc" id="L72">        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();</span>
+<span class="fc" id="L73">        workbook.write(outputStream);</span>
+<span class="fc" id="L74">        workbook.close();</span>
+        
+<span class="fc" id="L76">        return outputStream.toByteArray();</span>
     }
 
-    /**
-     * Genera un archivo Excel con filtros avanzados
-     */
+    
     public byte[] generarReporteExcelAvanzado(ExportacionRequestDTO solicitud) throws IOException {
-<span class="fc" id="L85">        Workbook workbook = new XSSFWorkbook();</span>
-<span class="fc" id="L86">        Sheet sheet = workbook.createSheet(&quot;Análisis de Semillas&quot;);</span>
+<span class="fc" id="L81">        Workbook workbook = new XSSFWorkbook();</span>
+<span class="fc" id="L82">        Sheet sheet = workbook.createSheet(&quot;Análisis de Semillas&quot;);</span>
         
-        // Configurar estilos
-<span class="fc" id="L89">        CellStyle headerStyle = crearEstiloEncabezado(workbook);</span>
-<span class="fc" id="L90">        CellStyle subHeaderStyle = crearEstiloSubEncabezado(workbook);</span>
-<span class="fc" id="L91">        CellStyle dataStyle = crearEstiloData(workbook);</span>
-<span class="fc" id="L92">        CellStyle yellowHeaderStyle = crearEstiloEncabezadoAmarillo(workbook);</span>
         
-        // Crear encabezados solo si se solicita
-<span class="fc bfc" id="L95" title="All 2 branches covered.">        if (solicitud.getIncluirEncabezados()) {</span>
-<span class="fc" id="L96">            crearEncabezados(sheet, headerStyle, subHeaderStyle, yellowHeaderStyle);</span>
+<span class="fc" id="L85">        CellStyle headerStyle = crearEstiloEncabezado(workbook);</span>
+<span class="fc" id="L86">        CellStyle subHeaderStyle = crearEstiloSubEncabezado(workbook);</span>
+<span class="fc" id="L87">        CellStyle dataStyle = crearEstiloData(workbook);</span>
+<span class="fc" id="L88">        CellStyle yellowHeaderStyle = crearEstiloEncabezadoAmarillo(workbook);</span>
+        
+        
+<span class="fc bfc" id="L91" title="All 2 branches covered.">        if (solicitud.getIncluirEncabezados()) {</span>
+<span class="fc" id="L92">            crearEncabezados(sheet, headerStyle, subHeaderStyle, yellowHeaderStyle);</span>
         }
         
-        // Obtener datos con filtros
-<span class="fc" id="L100">        List&lt;DatosExportacionExcelDTO&gt; datos = obtenerDatosConFiltros(solicitud);</span>
-<span class="fc bfc" id="L101" title="All 2 branches covered.">        int filaActual = solicitud.getIncluirEncabezados() ? 2 : 0;</span>
         
-<span class="fc bfc" id="L103" title="All 2 branches covered.">        for (DatosExportacionExcelDTO dato : datos) {</span>
-<span class="fc" id="L104">            crearFilaDatos(sheet, filaActual, dato, dataStyle);</span>
-<span class="fc" id="L105">            filaActual++;</span>
-        }
+<span class="fc" id="L96">        List&lt;DatosExportacionExcelDTO&gt; datos = obtenerDatosConFiltros(solicitud);</span>
+<span class="fc bfc" id="L97" title="All 2 branches covered.">        int filaActual = solicitud.getIncluirEncabezados() ? 2 : 0;</span>
         
-        // Ajustar anchos de columnas
-<span class="fc" id="L109">        ajustarAnchoColumnas(sheet);</span>
+<span class="fc bfc" id="L99" title="All 2 branches covered.">        for (DatosExportacionExcelDTO dato : datos) {</span>
+<span class="fc" id="L100">            crearFilaDatos(sheet, filaActual, dato, dataStyle);</span>
+<span class="fc" id="L101">            filaActual++;</span>
+<span class="fc" id="L102">        }</span>
         
-        // Convertir a byte array
-<span class="fc" id="L112">        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();</span>
-<span class="fc" id="L113">        workbook.write(outputStream);</span>
-<span class="fc" id="L114">        workbook.close();</span>
         
-<span class="fc" id="L116">        return outputStream.toByteArray();</span>
+<span class="fc" id="L105">        ajustarAnchoColumnas(sheet);</span>
+        
+        
+<span class="fc" id="L108">        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();</span>
+<span class="fc" id="L109">        workbook.write(outputStream);</span>
+<span class="fc" id="L110">        workbook.close();</span>
+        
+<span class="fc" id="L112">        return outputStream.toByteArray();</span>
     }
 
     private void crearEncabezados(Sheet sheet, CellStyle headerStyle, CellStyle subHeaderStyle, CellStyle yellowHeaderStyle) {
-        // Fila 0: Encabezados principales (Fila 1 en Excel, índice 0 en POI)
-<span class="fc" id="L121">        Row row0 = sheet.createRow(0);</span>
         
-        // Columnas A-I: Vacías (datos básicos sin encabezado superior)
-<span class="fc bfc" id="L124" title="All 2 branches covered.">        for (int i = 0; i &lt; 9; i++) {</span>
-<span class="fc" id="L125">            Cell cell = row0.createCell(i);</span>
-<span class="fc" id="L126">            cell.setCellValue(&quot;&quot;);</span>
-<span class="fc" id="L127">            cell.setCellStyle(headerStyle);</span>
+<span class="fc" id="L117">        Row row0 = sheet.createRow(0);</span>
+        
+        
+<span class="fc bfc" id="L120" title="All 2 branches covered.">        for (int i = 0; i &lt; 9; i++) {</span>
+<span class="fc" id="L121">            Cell cell = row0.createCell(i);</span>
+<span class="fc" id="L122">            cell.setCellValue(&quot;&quot;);</span>
+<span class="fc" id="L123">            cell.setCellStyle(headerStyle);</span>
         }
         
-        // Columnas J-O: Pureza INIA (índices 9-14) - 6 columnas
-<span class="fc" id="L131">        Cell purezaIniaCell = row0.createCell(9);</span>
-<span class="fc" id="L132">        purezaIniaCell.setCellValue(&quot;Pureza INIA&quot;);</span>
-<span class="fc" id="L133">        purezaIniaCell.setCellStyle(headerStyle);</span>
         
-        // Columnas P-U: Pureza INASE (índices 15-20) - 6 columnas
-<span class="fc" id="L136">        Cell purezaInaseCell = row0.createCell(15);</span>
-<span class="fc" id="L137">        purezaInaseCell.setCellValue(&quot;Pureza INASE&quot;);</span>
-<span class="fc" id="L138">        purezaInaseCell.setCellStyle(yellowHeaderStyle);</span>
+<span class="fc" id="L127">        Cell purezaIniaCell = row0.createCell(9);</span>
+<span class="fc" id="L128">        purezaIniaCell.setCellValue(&quot;Pureza INIA&quot;);</span>
+<span class="fc" id="L129">        purezaIniaCell.setCellStyle(headerStyle);</span>
         
-        // Columnas V-Y: Descripción (índices 21-24) - 4 columnas
-<span class="fc" id="L141">        Cell descripcionCell = row0.createCell(21);</span>
-<span class="fc" id="L142">        descripcionCell.setCellValue(&quot;Descripción&quot;);</span>
-<span class="fc" id="L143">        descripcionCell.setCellStyle(headerStyle);</span>
         
-        // Columnas Z-AD: DOSN (índices 25-29) - 5 columnas
-<span class="fc" id="L146">        Cell dosnCell = row0.createCell(25);</span>
-<span class="fc" id="L147">        dosnCell.setCellValue(&quot;DOSN&quot;);</span>
-<span class="fc" id="L148">        dosnCell.setCellStyle(headerStyle);</span>
+<span class="fc" id="L132">        Cell purezaInaseCell = row0.createCell(15);</span>
+<span class="fc" id="L133">        purezaInaseCell.setCellValue(&quot;Pureza INASE&quot;);</span>
+<span class="fc" id="L134">        purezaInaseCell.setCellStyle(yellowHeaderStyle);</span>
         
-        // Columnas AE-AI: DOSN-I (índices 30-34) - 5 columnas
-<span class="fc" id="L151">        Cell dosniCell = row0.createCell(30);</span>
-<span class="fc" id="L152">        dosniCell.setCellValue(&quot;DOSN-I&quot;);</span>
-<span class="fc" id="L153">        dosniCell.setCellStyle(yellowHeaderStyle);</span>
         
-        // Columna AJ: PMS (índice 35)
-<span class="fc" id="L156">        Cell pmsCell = row0.createCell(35);</span>
-<span class="fc" id="L157">        pmsCell.setCellValue(&quot;PMS&quot;);</span>
-<span class="fc" id="L158">        pmsCell.setCellStyle(headerStyle);</span>
+<span class="fc" id="L137">        Cell descripcionCell = row0.createCell(21);</span>
+<span class="fc" id="L138">        descripcionCell.setCellValue(&quot;Descripción&quot;);</span>
+<span class="fc" id="L139">        descripcionCell.setCellStyle(headerStyle);</span>
         
-        // Columna AK: Fecha Análisis (índice 36)
-<span class="fc" id="L161">        Cell fechaCell = row0.createCell(36);</span>
-<span class="fc" id="L162">        fechaCell.setCellValue(&quot;Fecha Análisis&quot;);</span>
-<span class="fc" id="L163">        fechaCell.setCellStyle(headerStyle);</span>
         
-        // Columna AL: TS (índice 37)
-<span class="fc" id="L166">        Cell tsCell = row0.createCell(37);</span>
-<span class="fc" id="L167">        tsCell.setCellValue(&quot;TS&quot;);</span>
-<span class="fc" id="L168">        tsCell.setCellStyle(headerStyle);</span>
+<span class="fc" id="L142">        Cell dosnCell = row0.createCell(25);</span>
+<span class="fc" id="L143">        dosnCell.setCellValue(&quot;DOSN&quot;);</span>
+<span class="fc" id="L144">        dosnCell.setCellStyle(headerStyle);</span>
         
-        // Columnas AM-AR: Germinación (índices 38-43) - 6 columnas
-<span class="fc" id="L171">        Cell germinacionCell = row0.createCell(38);</span>
-<span class="fc" id="L172">        germinacionCell.setCellValue(&quot;Germinación&quot;);</span>
-<span class="fc" id="L173">        germinacionCell.setCellStyle(headerStyle);</span>
         
-        // Columnas AS-AX: Germinación -I (índices 44-49) - 6 columnas
-<span class="fc" id="L176">        Cell germinacionICell = row0.createCell(44);</span>
-<span class="fc" id="L177">        germinacionICell.setCellValue(&quot;Germinación -I&quot;);</span>
-<span class="fc" id="L178">        germinacionICell.setCellStyle(yellowHeaderStyle);</span>
+<span class="fc" id="L147">        Cell dosniCell = row0.createCell(30);</span>
+<span class="fc" id="L148">        dosniCell.setCellValue(&quot;DOSN-I&quot;);</span>
+<span class="fc" id="L149">        dosniCell.setCellStyle(yellowHeaderStyle);</span>
         
-        // Columna AY: V% (índice 50)
-<span class="fc" id="L181">        Cell vCell = row0.createCell(50);</span>
-<span class="fc" id="L182">        vCell.setCellValue(&quot;V%&quot;);</span>
-<span class="fc" id="L183">        vCell.setCellStyle(headerStyle);</span>
         
-        // Columna AZ: V-I% (índice 51)
-<span class="fc" id="L186">        Cell viCell = row0.createCell(51);</span>
-<span class="fc" id="L187">        viCell.setCellValue(&quot;V-I%&quot;);</span>
-<span class="fc" id="L188">        viCell.setCellStyle(yellowHeaderStyle);</span>
+<span class="fc" id="L152">        Cell pmsCell = row0.createCell(35);</span>
+<span class="fc" id="L153">        pmsCell.setCellValue(&quot;PMS&quot;);</span>
+<span class="fc" id="L154">        pmsCell.setCellStyle(headerStyle);</span>
         
-        // Fila 1: Subencabezados (Fila 2 en Excel, índice 1 en POI)
-<span class="fc" id="L191">        Row row1 = sheet.createRow(1);</span>
-<span class="fc" id="L192">        String[] subEncabezados = {</span>
-            // A-I: Datos básicos (índices 0-8)
-<span class="fc" id="L194">            &quot;Especie&quot;, &quot;Variedad&quot;, &quot;Ficha&quot;, &quot;Deposito&quot;, &quot;N° de articulo&quot;, &quot;N° análisis&quot;, &quot;Lote&quot;, &quot;Kilos&quot;, &quot;H%&quot;,</span>
-            // J-O: Pureza INIA (índices 9-14)
-<span class="fc" id="L196">            &quot;SP%&quot;, &quot;MI%&quot;, &quot;OC%&quot;, &quot;M%&quot;, &quot;MT.%&quot;, &quot;M.T.C%&quot;,</span>
-            // P-U: Pureza INASE (índices 15-20)
-<span class="fc" id="L198">            &quot;SP-I%&quot;, &quot;MI-I%&quot;, &quot;OC-I%&quot;, &quot;M%&quot;, &quot;M.T-I%&quot;, &quot;M.T.C%&quot;,</span>
-            // V-Y: Descripción (índices 21-24)
-<span class="fc" id="L200">            &quot;MI&quot;, &quot;OC&quot;, &quot;MT&quot;, &quot;MTC&quot;,</span>
-            // Z-AD: DOSN (índices 25-29)
-<span class="fc" id="L202">            &quot;MTC&quot;, &quot;OC&quot;, &quot;M&quot;, &quot;MT&quot;, &quot;DB&quot;,</span>
-            // AE-AI: DOSN-I (índices 30-34)
-<span class="fc" id="L204">            &quot;MTC&quot;, &quot;OC&quot;, &quot;M&quot;, &quot;MT&quot;, &quot;DB&quot;,</span>
-            // AJ: PMS (índice 35)
-<span class="fc" id="L206">            &quot;&quot;,</span>
-            // AK: Fecha Análisis (índice 36)
-<span class="fc" id="L208">            &quot;&quot;,</span>
-            // AL: TS (índice 37)
-<span class="fc" id="L210">            &quot;&quot;,</span>
-            // AM-AR: Germinación (índices 38-43)
-<span class="fc" id="L212">            &quot;PN%&quot;, &quot;AN%&quot;, &quot;D%&quot;, &quot;F%&quot;, &quot;M%&quot;, &quot;G%&quot;,</span>
-            // AS-AX: Germinación -I (índices 44-49)
-<span class="fc" id="L214">            &quot;PN-I%&quot;, &quot;AN-I%&quot;, &quot;D-I%&quot;, &quot;F-I%&quot;, &quot;M-I%&quot;, &quot;G-I%&quot;,</span>
-            // AY-AZ: Viabilidad (índices 50-51)
-<span class="fc" id="L216">            &quot;&quot;, &quot;&quot;</span>
+        
+<span class="fc" id="L157">        Cell fechaCell = row0.createCell(36);</span>
+<span class="fc" id="L158">        fechaCell.setCellValue(&quot;Fecha Análisis&quot;);</span>
+<span class="fc" id="L159">        fechaCell.setCellStyle(headerStyle);</span>
+        
+        
+<span class="fc" id="L162">        Cell tsCell = row0.createCell(37);</span>
+<span class="fc" id="L163">        tsCell.setCellValue(&quot;TS&quot;);</span>
+<span class="fc" id="L164">        tsCell.setCellStyle(headerStyle);</span>
+        
+        
+<span class="fc" id="L167">        Cell germinacionCell = row0.createCell(38);</span>
+<span class="fc" id="L168">        germinacionCell.setCellValue(&quot;Germinación&quot;);</span>
+<span class="fc" id="L169">        germinacionCell.setCellStyle(headerStyle);</span>
+        
+        
+<span class="fc" id="L172">        Cell germinacionICell = row0.createCell(44);</span>
+<span class="fc" id="L173">        germinacionICell.setCellValue(&quot;Germinación -I&quot;);</span>
+<span class="fc" id="L174">        germinacionICell.setCellStyle(yellowHeaderStyle);</span>
+        
+        
+<span class="fc" id="L177">        Cell vCell = row0.createCell(50);</span>
+<span class="fc" id="L178">        vCell.setCellValue(&quot;V%&quot;);</span>
+<span class="fc" id="L179">        vCell.setCellStyle(headerStyle);</span>
+        
+        
+<span class="fc" id="L182">        Cell viCell = row0.createCell(51);</span>
+<span class="fc" id="L183">        viCell.setCellValue(&quot;V-I%&quot;);</span>
+<span class="fc" id="L184">        viCell.setCellStyle(yellowHeaderStyle);</span>
+        
+        
+<span class="fc" id="L187">        Row row1 = sheet.createRow(1);</span>
+<span class="fc" id="L188">        String[] subEncabezados = {</span>
+            
+            &quot;Especie&quot;, &quot;Variedad&quot;, &quot;Ficha&quot;, &quot;Deposito&quot;, &quot;N° de articulo&quot;, &quot;N° análisis&quot;, &quot;Lote&quot;, &quot;Kilos&quot;, &quot;H%&quot;,
+            
+            &quot;SP%&quot;, &quot;MI%&quot;, &quot;OC%&quot;, &quot;M%&quot;, &quot;MT.%&quot;, &quot;M.T.C%&quot;,
+            
+            &quot;SP-I%&quot;, &quot;MI-I%&quot;, &quot;OC-I%&quot;, &quot;M%&quot;, &quot;M.T-I%&quot;, &quot;M.T.C%&quot;,
+            
+            &quot;MI&quot;, &quot;OC&quot;, &quot;MT&quot;, &quot;MTC&quot;,
+            
+            &quot;MTC&quot;, &quot;OC&quot;, &quot;M&quot;, &quot;MT&quot;, &quot;DB&quot;,
+            
+            &quot;MTC&quot;, &quot;OC&quot;, &quot;M&quot;, &quot;MT&quot;, &quot;DB&quot;,
+            
+            &quot;&quot;,
+            
+            &quot;&quot;,
+            
+            &quot;&quot;,
+            
+            &quot;PN%&quot;, &quot;AN%&quot;, &quot;D%&quot;, &quot;F%&quot;, &quot;M%&quot;, &quot;G%&quot;,
+            
+            &quot;PN-I%&quot;, &quot;AN-I%&quot;, &quot;D-I%&quot;, &quot;F-I%&quot;, &quot;M-I%&quot;, &quot;G-I%&quot;,
+            
+            &quot;&quot;, &quot;&quot;
         };
         
-<span class="fc bfc" id="L219" title="All 2 branches covered.">        for (int i = 0; i &lt; subEncabezados.length; i++) {</span>
-<span class="fc" id="L220">            Cell cell = row1.createCell(i);</span>
-<span class="fc" id="L221">            cell.setCellValue(subEncabezados[i]);</span>
-<span class="fc" id="L222">            cell.setCellStyle(subHeaderStyle);</span>
+<span class="fc bfc" id="L215" title="All 2 branches covered.">        for (int i = 0; i &lt; subEncabezados.length; i++) {</span>
+<span class="fc" id="L216">            Cell cell = row1.createCell(i);</span>
+<span class="fc" id="L217">            cell.setCellValue(subEncabezados[i]);</span>
+<span class="fc" id="L218">            cell.setCellStyle(subHeaderStyle);</span>
         }
         
-        // Crear celdas combinadas para encabezados principales (fila 0)
-<span class="fc" id="L226">        sheet.addMergedRegion(new CellRangeAddress(0, 0, 9, 14));   // Pureza INIA (J-O)</span>
-<span class="fc" id="L227">        sheet.addMergedRegion(new CellRangeAddress(0, 0, 15, 20));  // Pureza INASE (P-U)</span>
-<span class="fc" id="L228">        sheet.addMergedRegion(new CellRangeAddress(0, 0, 21, 24));  // Descripción (V-Y)</span>
-<span class="fc" id="L229">        sheet.addMergedRegion(new CellRangeAddress(0, 0, 25, 29));  // DOSN (Z-AD)</span>
-<span class="fc" id="L230">        sheet.addMergedRegion(new CellRangeAddress(0, 0, 30, 34));  // DOSN-I (AE-AI)</span>
-<span class="fc" id="L231">        sheet.addMergedRegion(new CellRangeAddress(0, 0, 38, 43));  // Germinación (AM-AR)</span>
-<span class="fc" id="L232">        sheet.addMergedRegion(new CellRangeAddress(0, 0, 44, 49));  // Germinación -I (AS-AX)</span>
-<span class="fc" id="L233">    }</span>
+        
+<span class="fc" id="L222">        sheet.addMergedRegion(new CellRangeAddress(0, 0, 9, 14));   </span>
+<span class="fc" id="L223">        sheet.addMergedRegion(new CellRangeAddress(0, 0, 15, 20));  </span>
+<span class="fc" id="L224">        sheet.addMergedRegion(new CellRangeAddress(0, 0, 21, 24));  </span>
+<span class="fc" id="L225">        sheet.addMergedRegion(new CellRangeAddress(0, 0, 25, 29));  </span>
+<span class="fc" id="L226">        sheet.addMergedRegion(new CellRangeAddress(0, 0, 30, 34));  </span>
+<span class="fc" id="L227">        sheet.addMergedRegion(new CellRangeAddress(0, 0, 38, 43));  </span>
+<span class="fc" id="L228">        sheet.addMergedRegion(new CellRangeAddress(0, 0, 44, 49));  </span>
+<span class="fc" id="L229">    }</span>
 
     private void crearFilaDatos(Sheet sheet, int numeroFila, DatosExportacionExcelDTO datos, CellStyle style) {
-<span class="fc" id="L236">        Row row = sheet.createRow(numeroFila);</span>
-<span class="fc" id="L237">        int col = 0;</span>
+<span class="fc" id="L232">        Row row = sheet.createRow(numeroFila);</span>
+<span class="fc" id="L233">        int col = 0;</span>
         
-        // A-I: Datos básicos (índices 0-8)
-<span class="fc" id="L240">        crearCelda(row, col++, datos.getEspecie(), style);</span>
-<span class="fc" id="L241">        crearCelda(row, col++, datos.getVariedad(), style);</span>
-<span class="fc" id="L242">        crearCelda(row, col++, datos.getLote(), style);</span>
-<span class="fc" id="L243">        crearCelda(row, col++, datos.getDeposito(), style);</span>
-<span class="fc" id="L244">        crearCelda(row, col++, datos.getNumeroArticulo(), style);</span>
-<span class="fc" id="L245">        crearCelda(row, col++, datos.getNumeroAnalisis(), style);</span>
-<span class="fc" id="L246">        crearCelda(row, col++, datos.getNombreLote(), style);  // Nombre del lote en lugar de número de ficha</span>
-<span class="fc" id="L247">        crearCelda(row, col++, datos.getKilos(), style);</span>
-<span class="fc" id="L248">        crearCelda(row, col++, datos.getHumedad(), style);</span>
         
-        // J-O: Pureza INIA (índices 9-14) - 6 columnas
-<span class="fc" id="L251">        crearCelda(row, col++, datos.getPurezaSemillaPura(), style);</span>
-<span class="fc" id="L252">        crearCelda(row, col++, datos.getPurezaMateriaInerte(), style);</span>
-<span class="fc" id="L253">        crearCelda(row, col++, datos.getPurezaOtrosCultivos(), style);</span>
-<span class="fc" id="L254">        crearCelda(row, col++, datos.getPurezaMalezas(), style);</span>
-<span class="fc" id="L255">        crearCelda(row, col++, datos.getPurezaMalezasToleradas(), style);</span>
-<span class="fc" id="L256">        crearCelda(row, col++, datos.getPurezaMalezasToleranciaC(), style);</span>
+<span class="fc" id="L236">        crearCelda(row, col++, datos.getEspecie(), style);</span>
+<span class="fc" id="L237">        crearCelda(row, col++, datos.getVariedad(), style);</span>
+<span class="fc" id="L238">        crearCelda(row, col++, datos.getLote(), style);</span>
+<span class="fc" id="L239">        crearCelda(row, col++, datos.getDeposito(), style);</span>
+<span class="fc" id="L240">        crearCelda(row, col++, datos.getNumeroArticulo(), style);</span>
+<span class="fc" id="L241">        crearCelda(row, col++, datos.getNumeroAnalisis(), style);</span>
+<span class="fc" id="L242">        crearCelda(row, col++, datos.getNombreLote(), style);  </span>
+<span class="fc" id="L243">        crearCelda(row, col++, datos.getKilos(), style);</span>
+<span class="fc" id="L244">        crearCelda(row, col++, datos.getHumedad(), style);</span>
         
-        // P-U: Pureza INASE (índices 15-20) - 6 columnas
-<span class="fc" id="L259">        crearCelda(row, col++, datos.getPurezaInaseSemillaPura(), style);</span>
-<span class="fc" id="L260">        crearCelda(row, col++, datos.getPurezaInaseMateriaInerte(), style);</span>
-<span class="fc" id="L261">        crearCelda(row, col++, datos.getPurezaInaseOtrosCultivos(), style);</span>
-<span class="fc" id="L262">        crearCelda(row, col++, datos.getPurezaInaseMalezas(), style);</span>
-<span class="fc" id="L263">        crearCelda(row, col++, datos.getPurezaInaseMalezasToleradas(), style);</span>
-<span class="fc" id="L264">        crearCelda(row, col++, datos.getPurezaInaseMalezasToleranciaC(), style);</span>
         
-        // V-Y: Descripción (índices 21-24) - 4 columnas
-<span class="fc" id="L267">        crearCelda(row, col++, datos.getDescripcionMalezas(), style);</span>
-<span class="fc" id="L268">        crearCelda(row, col++, datos.getDescripcionOtrosCultivos(), style);</span>
-<span class="fc" id="L269">        crearCelda(row, col++, datos.getDescripcionMalezasToleradas(), style);</span>
-<span class="fc" id="L270">        crearCelda(row, col++, datos.getDescripcionMalezasToleranciaC(), style);</span>
+<span class="fc" id="L247">        crearCelda(row, col++, datos.getPurezaSemillaPura(), style);</span>
+<span class="fc" id="L248">        crearCelda(row, col++, datos.getPurezaMateriaInerte(), style);</span>
+<span class="fc" id="L249">        crearCelda(row, col++, datos.getPurezaOtrosCultivos(), style);</span>
+<span class="fc" id="L250">        crearCelda(row, col++, datos.getPurezaMalezas(), style);</span>
+<span class="fc" id="L251">        crearCelda(row, col++, datos.getPurezaMalezasToleradas(), style);</span>
+<span class="fc" id="L252">        crearCelda(row, col++, datos.getPurezaMalezasToleranciaC(), style);</span>
         
-        // Z-AD: DOSN (índices 25-29) - 5 columnas
-<span class="fc" id="L273">        crearCelda(row, col++, datos.getDosnMalezasToleranciaC(), style);  // MTC</span>
-<span class="fc" id="L274">        crearCelda(row, col++, datos.getDosnOtrosCultivos(), style);        // OC</span>
-<span class="fc" id="L275">        crearCelda(row, col++, datos.getDosnMalezas(), style);              // M</span>
-<span class="fc" id="L276">        crearCelda(row, col++, datos.getDosnMalezasToleradas(), style);     // MT</span>
-<span class="fc" id="L277">        crearCelda(row, col++, datos.getDosnBrassica(), style);             // DB</span>
         
-        // AE-AI: DOSN-I (índices 30-34) - 5 columnas
-<span class="fc" id="L280">        crearCelda(row, col++, datos.getDosnInaseMalezasToleranciaC(), style);  // MTC</span>
-<span class="fc" id="L281">        crearCelda(row, col++, datos.getDosnInaseOtrosCultivos(), style);        // OC</span>
-<span class="fc" id="L282">        crearCelda(row, col++, datos.getDosnInaseMalezas(), style);              // M</span>
-<span class="fc" id="L283">        crearCelda(row, col++, datos.getDosnInaseMalezasToleradas(), style);     // MT</span>
-<span class="fc" id="L284">        crearCelda(row, col++, datos.getDosnInaseBrassica(), style);             // DB</span>
+<span class="fc" id="L255">        crearCelda(row, col++, datos.getPurezaInaseSemillaPura(), style);</span>
+<span class="fc" id="L256">        crearCelda(row, col++, datos.getPurezaInaseMateriaInerte(), style);</span>
+<span class="fc" id="L257">        crearCelda(row, col++, datos.getPurezaInaseOtrosCultivos(), style);</span>
+<span class="fc" id="L258">        crearCelda(row, col++, datos.getPurezaInaseMalezas(), style);</span>
+<span class="fc" id="L259">        crearCelda(row, col++, datos.getPurezaInaseMalezasToleradas(), style);</span>
+<span class="fc" id="L260">        crearCelda(row, col++, datos.getPurezaInaseMalezasToleranciaC(), style);</span>
         
-        // AJ: PMS (índice 35)
-<span class="fc" id="L287">        crearCelda(row, col++, datos.getPms(), style);</span>
         
-        // AK: Fecha Análisis (índice 36)
-<span class="pc bpc" id="L290" title="1 of 2 branches missed.">        crearCelda(row, col++, datos.getFechaAnalisis() != null ? datos.getFechaAnalisis().format(DateTimeFormatter.ofPattern(&quot;dd/MM/yyyy&quot;)) : &quot;&quot;, style);</span>
+<span class="fc" id="L263">        crearCelda(row, col++, datos.getDescripcionMalezas(), style);</span>
+<span class="fc" id="L264">        crearCelda(row, col++, datos.getDescripcionOtrosCultivos(), style);</span>
+<span class="fc" id="L265">        crearCelda(row, col++, datos.getDescripcionMalezasToleradas(), style);</span>
+<span class="fc" id="L266">        crearCelda(row, col++, datos.getDescripcionMalezasToleranciaC(), style);</span>
         
-        // AL: TS (índice 37)
-<span class="fc" id="L293">        crearCelda(row, col++, datos.getTratamientoSemillas(), style);</span>
         
-        // AM-AR: Germinación INIA (índices 38-43) - 6 columnas
-<span class="fc" id="L296">        crearCelda(row, col++, datos.getGerminacionPlantulasNormales(), style);</span>
-<span class="fc" id="L297">        crearCelda(row, col++, datos.getGerminacionPlantulasAnormales(), style);</span>
-<span class="fc" id="L298">        crearCelda(row, col++, datos.getGerminacionSemillasDeterioras(), style);</span>
-<span class="fc" id="L299">        crearCelda(row, col++, datos.getGerminacionSemillasFrescas(), style);</span>
-<span class="fc" id="L300">        crearCelda(row, col++, datos.getGerminacionSemillasMuertas(), style);</span>
-<span class="fc" id="L301">        crearCelda(row, col++, datos.getGerminacionTotal(), style);</span>
+<span class="fc" id="L269">        crearCelda(row, col++, datos.getDosnMalezasToleranciaC(), style);  </span>
+<span class="fc" id="L270">        crearCelda(row, col++, datos.getDosnOtrosCultivos(), style);        </span>
+<span class="fc" id="L271">        crearCelda(row, col++, datos.getDosnMalezas(), style);              </span>
+<span class="fc" id="L272">        crearCelda(row, col++, datos.getDosnMalezasToleradas(), style);     </span>
+<span class="fc" id="L273">        crearCelda(row, col++, datos.getDosnBrassica(), style);             </span>
         
-        // AS-AX: Germinación INASE (índices 44-49) - 6 columnas
-<span class="fc" id="L304">        crearCelda(row, col++, datos.getGerminacionInasePlantulasNormales(), style);</span>
-<span class="fc" id="L305">        crearCelda(row, col++, datos.getGerminacionInasePlantulasAnormales(), style);</span>
-<span class="fc" id="L306">        crearCelda(row, col++, datos.getGerminacionInaseSemillasDeterioras(), style);</span>
-<span class="fc" id="L307">        crearCelda(row, col++, datos.getGerminacionInaseSemillasFrescas(), style);</span>
-<span class="fc" id="L308">        crearCelda(row, col++, datos.getGerminacionInaseSemillasMuertas(), style);</span>
-<span class="fc" id="L309">        crearCelda(row, col++, datos.getGerminacionInaseTotal(), style);</span>
         
-        // AY-AZ: Viabilidad (índices 50-51)
-<span class="fc" id="L312">        crearCelda(row, col++, datos.getViabilidadPorcentaje(), style);</span>
-<span class="fc" id="L313">        crearCelda(row, col++, datos.getViabilidadInasePorcentaje(), style);</span>
-<span class="fc" id="L314">    }</span>
+<span class="fc" id="L276">        crearCelda(row, col++, datos.getDosnInaseMalezasToleranciaC(), style);  </span>
+<span class="fc" id="L277">        crearCelda(row, col++, datos.getDosnInaseOtrosCultivos(), style);        </span>
+<span class="fc" id="L278">        crearCelda(row, col++, datos.getDosnInaseMalezas(), style);              </span>
+<span class="fc" id="L279">        crearCelda(row, col++, datos.getDosnInaseMalezasToleradas(), style);     </span>
+<span class="fc" id="L280">        crearCelda(row, col++, datos.getDosnInaseBrassica(), style);             </span>
+        
+        
+<span class="fc" id="L283">        crearCelda(row, col++, datos.getPms(), style);</span>
+        
+        
+<span class="pc bpc" id="L286" title="1 of 2 branches missed.">        crearCelda(row, col++, datos.getFechaAnalisis() != null ? datos.getFechaAnalisis().format(DateTimeFormatter.ofPattern(&quot;dd/MM/yyyy&quot;)) : &quot;&quot;, style);</span>
+        
+        
+<span class="fc" id="L289">        crearCelda(row, col++, datos.getTratamientoSemillas(), style);</span>
+        
+        
+<span class="fc" id="L292">        crearCelda(row, col++, datos.getGerminacionPlantulasNormales(), style);</span>
+<span class="fc" id="L293">        crearCelda(row, col++, datos.getGerminacionPlantulasAnormales(), style);</span>
+<span class="fc" id="L294">        crearCelda(row, col++, datos.getGerminacionSemillasDeterioras(), style);</span>
+<span class="fc" id="L295">        crearCelda(row, col++, datos.getGerminacionSemillasFrescas(), style);</span>
+<span class="fc" id="L296">        crearCelda(row, col++, datos.getGerminacionSemillasMuertas(), style);</span>
+<span class="fc" id="L297">        crearCelda(row, col++, datos.getGerminacionTotal(), style);</span>
+        
+        
+<span class="fc" id="L300">        crearCelda(row, col++, datos.getGerminacionInasePlantulasNormales(), style);</span>
+<span class="fc" id="L301">        crearCelda(row, col++, datos.getGerminacionInasePlantulasAnormales(), style);</span>
+<span class="fc" id="L302">        crearCelda(row, col++, datos.getGerminacionInaseSemillasDeterioras(), style);</span>
+<span class="fc" id="L303">        crearCelda(row, col++, datos.getGerminacionInaseSemillasFrescas(), style);</span>
+<span class="fc" id="L304">        crearCelda(row, col++, datos.getGerminacionInaseSemillasMuertas(), style);</span>
+<span class="fc" id="L305">        crearCelda(row, col++, datos.getGerminacionInaseTotal(), style);</span>
+        
+        
+<span class="fc" id="L308">        crearCelda(row, col++, datos.getViabilidadPorcentaje(), style);</span>
+<span class="fc" id="L309">        crearCelda(row, col++, datos.getViabilidadInasePorcentaje(), style);</span>
+<span class="fc" id="L310">    }</span>
 
     private void crearCelda(Row row, int columnIndex, Object value, CellStyle style) {
-<span class="fc" id="L317">        Cell cell = row.createCell(columnIndex);</span>
+<span class="fc" id="L313">        Cell cell = row.createCell(columnIndex);</span>
         
-<span class="fc bfc" id="L319" title="All 2 branches covered.">        if (value != null) {</span>
-<span class="fc bfc" id="L320" title="All 2 branches covered.">            if (value instanceof String) {</span>
-<span class="fc" id="L321">                cell.setCellValue((String) value);</span>
-<span class="pc bpc" id="L322" title="1 of 2 branches missed.">            } else if (value instanceof BigDecimal) {</span>
-<span class="fc" id="L323">                cell.setCellValue(((BigDecimal) value).doubleValue());</span>
-<span class="pc bnc" id="L324" title="All 2 branches missed.">            } else if (value instanceof Integer) {</span>
-<span class="nc" id="L325">                cell.setCellValue((Integer) value);</span>
-<span class="nc bnc" id="L326" title="All 2 branches missed.">            } else if (value instanceof Double) {</span>
-<span class="nc" id="L327">                cell.setCellValue((Double) value);</span>
-<span class="nc" id="L328">            } else {</span>
-<span class="nc" id="L329">                cell.setCellValue(value.toString());</span>
+<span class="fc bfc" id="L315" title="All 2 branches covered.">        if (value != null) {</span>
+<span class="fc bfc" id="L316" title="All 2 branches covered.">            if (value instanceof String) {</span>
+<span class="fc" id="L317">                cell.setCellValue((String) value);</span>
+<span class="pc bpc" id="L318" title="1 of 2 branches missed.">            } else if (value instanceof BigDecimal) {</span>
+<span class="fc" id="L319">                cell.setCellValue(((BigDecimal) value).doubleValue());</span>
+<span class="nc bnc" id="L320" title="All 2 branches missed.">            } else if (value instanceof Integer) {</span>
+<span class="nc" id="L321">                cell.setCellValue((Integer) value);</span>
+<span class="nc bnc" id="L322" title="All 2 branches missed.">            } else if (value instanceof Double) {</span>
+<span class="nc" id="L323">                cell.setCellValue((Double) value);</span>
+            } else {
+<span class="nc" id="L325">                cell.setCellValue(value.toString());</span>
             }
         }
         
-<span class="fc" id="L333">        cell.setCellStyle(style);</span>
-<span class="fc" id="L334">    }</span>
+<span class="fc" id="L329">        cell.setCellStyle(style);</span>
+<span class="fc" id="L330">    }</span>
 
     private String combinarDescripciones(String descripcionInia, String descripcionInase) {
-<span class="pc bpc" id="L337" title="1 of 4 branches missed.">        boolean tieneInia = descripcionInia != null &amp;&amp; !descripcionInia.trim().isEmpty();</span>
-<span class="pc bpc" id="L338" title="1 of 4 branches missed.">        boolean tieneInase = descripcionInase != null &amp;&amp; !descripcionInase.trim().isEmpty();</span>
+<span class="pc bpc" id="L333" title="1 of 4 branches missed.">        boolean tieneInia = descripcionInia != null &amp;&amp; !descripcionInia.trim().isEmpty();</span>
+<span class="pc bpc" id="L334" title="1 of 4 branches missed.">        boolean tieneInase = descripcionInase != null &amp;&amp; !descripcionInase.trim().isEmpty();</span>
         
-<span class="fc bfc" id="L340" title="All 4 branches covered.">        if (tieneInia &amp;&amp; tieneInase) {</span>
-<span class="fc" id="L341">            return descripcionInia + &quot; | &quot; + descripcionInase;</span>
-<span class="fc bfc" id="L342" title="All 2 branches covered.">        } else if (tieneInia) {</span>
-<span class="fc" id="L343">            return descripcionInia;</span>
-<span class="fc bfc" id="L344" title="All 2 branches covered.">        } else if (tieneInase) {</span>
-<span class="fc" id="L345">            return descripcionInase;</span>
+<span class="fc bfc" id="L336" title="All 4 branches covered.">        if (tieneInia &amp;&amp; tieneInase) {</span>
+<span class="fc" id="L337">            return descripcionInia + &quot; | &quot; + descripcionInase;</span>
+<span class="fc bfc" id="L338" title="All 2 branches covered.">        } else if (tieneInia) {</span>
+<span class="fc" id="L339">            return descripcionInia;</span>
+<span class="fc bfc" id="L340" title="All 2 branches covered.">        } else if (tieneInase) {</span>
+<span class="fc" id="L341">            return descripcionInase;</span>
         } else {
-<span class="fc" id="L347">            return &quot;&quot;;</span>
+<span class="fc" id="L343">            return &quot;&quot;;</span>
         }
     }
 
     private List&lt;DatosExportacionExcelDTO&gt; obtenerDatosParaExportacion(List&lt;Long&gt; loteIds) {
-<span class="fc" id="L352">        List&lt;DatosExportacionExcelDTO&gt; datos = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L348">        List&lt;DatosExportacionExcelDTO&gt; datos = new ArrayList&lt;&gt;();</span>
         
         List&lt;Lote&gt; lotes;
-<span class="fc bfc" id="L355" title="All 4 branches covered.">        if (loteIds == null || loteIds.isEmpty()) {</span>
-<span class="fc" id="L356">            lotes = loteRepository.findByActivoTrue();</span>
-<span class="fc" id="L357">        } else {</span>
-<span class="fc" id="L358">            lotes = loteRepository.findAllById(loteIds);</span>
+<span class="fc bfc" id="L351" title="All 4 branches covered.">        if (loteIds == null || loteIds.isEmpty()) {</span>
+<span class="fc" id="L352">            lotes = loteRepository.findByActivoTrue();</span>
+        } else {
+<span class="fc" id="L354">            lotes = loteRepository.findAllById(loteIds);</span>
         }
         
-<span class="fc" id="L361">        System.out.println(&quot;Exportando datos para &quot; + lotes.size() + &quot; lotes&quot;);</span>
+<span class="fc" id="L357">        System.out.println(&quot;Exportando datos para &quot; + lotes.size() + &quot; lotes&quot;);</span>
         
-<span class="fc bfc" id="L363" title="All 2 branches covered.">        for (Lote lote : lotes) {</span>
-<span class="fc" id="L364">            System.out.println(&quot;Procesando lote ID: &quot; + lote.getLoteID() + &quot;, Ficha: &quot; + lote.getFicha());</span>
+<span class="fc bfc" id="L359" title="All 2 branches covered.">        for (Lote lote : lotes) {</span>
+<span class="fc" id="L360">            System.out.println(&quot;Procesando lote ID: &quot; + lote.getLoteID() + &quot;, Ficha: &quot; + lote.getFicha());</span>
             
-<span class="fc" id="L366">            DatosExportacionExcelDTO dto = new DatosExportacionExcelDTO();</span>
+<span class="fc" id="L362">            DatosExportacionExcelDTO dto = new DatosExportacionExcelDTO();</span>
             
-            // Datos básicos del lote
-<span class="fc" id="L369">            mapearDatosBasicosLote(dto, lote);</span>
-<span class="fc" id="L370">            System.out.println(&quot;Datos básicos mapeados - Especie: &quot; + dto.getEspecie() + &quot;, Variedad: &quot; + dto.getVariedad());</span>
             
-            // Obtener y mapear análisis de pureza
-<span class="fc" id="L373">            mapearDatosPureza(dto, lote);</span>
-<span class="fc" id="L374">            System.out.println(&quot;Datos pureza mapeados - SP: &quot; + dto.getPurezaSemillaPura() + &quot;, MI: &quot; + dto.getPurezaMateriaInerte());</span>
+<span class="fc" id="L365">            mapearDatosBasicosLote(dto, lote);</span>
+<span class="fc" id="L366">            System.out.println(&quot;Datos básicos mapeados - Especie: &quot; + dto.getEspecie() + &quot;, Variedad: &quot; + dto.getVariedad());</span>
             
-            // Obtener y mapear análisis de germinación
-<span class="fc" id="L377">            mapearDatosGerminacion(dto, lote);</span>
-<span class="fc" id="L378">            System.out.println(&quot;Datos germinación mapeados - PN: &quot; + dto.getGerminacionPlantulasNormales());</span>
             
-            // Obtener y mapear análisis de PMS
-<span class="fc" id="L381">            mapearDatosPms(dto, lote);</span>
-<span class="fc" id="L382">            System.out.println(&quot;Datos PMS mapeados - PMS: &quot; + dto.getPms());</span>
+<span class="fc" id="L369">            mapearDatosPureza(dto, lote);</span>
+<span class="fc" id="L370">            System.out.println(&quot;Datos pureza mapeados - SP: &quot; + dto.getPurezaSemillaPura() + &quot;, MI: &quot; + dto.getPurezaMateriaInerte());</span>
             
-            // Obtener y mapear análisis de tetrazolio
-<span class="fc" id="L385">            mapearDatosTetrazolio(dto, lote);</span>
-<span class="fc" id="L386">            System.out.println(&quot;Datos tetrazolio mapeados - V%: &quot; + dto.getViabilidadPorcentaje());</span>
             
-            // Obtener y mapear DOSN
-<span class="fc" id="L389">            mapearDatosDosn(dto, lote);</span>
-<span class="fc" id="L390">            System.out.println(&quot;Datos DOSN mapeados&quot;);</span>
+<span class="fc" id="L373">            mapearDatosGerminacion(dto, lote);</span>
+<span class="fc" id="L374">            System.out.println(&quot;Datos germinación mapeados - PN: &quot; + dto.getGerminacionPlantulasNormales());</span>
             
-<span class="fc" id="L392">            datos.add(dto);</span>
-        }
+            
+<span class="fc" id="L377">            mapearDatosPms(dto, lote);</span>
+<span class="fc" id="L378">            System.out.println(&quot;Datos PMS mapeados - PMS: &quot; + dto.getPms());</span>
+            
+            
+<span class="fc" id="L381">            mapearDatosTetrazolio(dto, lote);</span>
+<span class="fc" id="L382">            System.out.println(&quot;Datos tetrazolio mapeados - V%: &quot; + dto.getViabilidadPorcentaje());</span>
+            
+            
+<span class="fc" id="L385">            mapearDatosDosn(dto, lote);</span>
+<span class="fc" id="L386">            System.out.println(&quot;Datos DOSN mapeados&quot;);</span>
+            
+<span class="fc" id="L388">            datos.add(dto);</span>
+<span class="fc" id="L389">        }</span>
         
-<span class="fc" id="L395">        return datos;</span>
+<span class="fc" id="L391">        return datos;</span>
     }
 
     private List&lt;DatosExportacionExcelDTO&gt; obtenerDatosConFiltros(ExportacionRequestDTO solicitud) {
-<span class="fc" id="L399">        List&lt;DatosExportacionExcelDTO&gt; datos = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L395">        List&lt;DatosExportacionExcelDTO&gt; datos = new ArrayList&lt;&gt;();</span>
         
         List&lt;Lote&gt; lotes;
         
-        // Aplicar filtros para obtener lotes
-<span class="pc bpc" id="L404" title="1 of 4 branches missed.">        if (solicitud.getLoteIds() != null &amp;&amp; !solicitud.getLoteIds().isEmpty()) {</span>
-<span class="fc" id="L405">            lotes = loteRepository.findAllById(solicitud.getLoteIds());</span>
-<span class="fc" id="L406">        } else {</span>
-            // Obtener lotes según si incluir inactivos o no
-<span class="pc bpc" id="L408" title="1 of 2 branches missed.">            if (solicitud.getIncluirInactivos()) {</span>
-<span class="nc" id="L409">                lotes = loteRepository.findAll();</span>
-<span class="nc" id="L410">            } else {</span>
-<span class="fc" id="L411">                lotes = loteRepository.findByActivoTrue();</span>
+        
+<span class="pc bpc" id="L400" title="1 of 4 branches missed.">        if (solicitud.getLoteIds() != null &amp;&amp; !solicitud.getLoteIds().isEmpty()) {</span>
+<span class="fc" id="L401">            lotes = loteRepository.findAllById(solicitud.getLoteIds());</span>
+        } else {
+            
+<span class="pc bpc" id="L404" title="1 of 2 branches missed.">            if (solicitud.getIncluirInactivos()) {</span>
+<span class="nc" id="L405">                lotes = loteRepository.findAll();</span>
+            } else {
+<span class="fc" id="L407">                lotes = loteRepository.findByActivoTrue();</span>
             }
         }
         
-        // Filtrar por fechas si se especifican
-<span class="pc bpc" id="L416" title="1 of 4 branches missed.">        if (solicitud.getFechaDesde() != null || solicitud.getFechaHasta() != null) {</span>
-<span class="fc" id="L417">            lotes = lotes.stream()</span>
-<span class="fc" id="L418">                .filter(lote -&gt; {</span>
-<span class="fc" id="L419">                    LocalDate fechaLote = lote.getFechaRecibo(); // o la fecha que consideres relevante</span>
-<span class="pc bpc" id="L420" title="1 of 2 branches missed.">                    if (fechaLote == null) return false;</span>
+        
+<span class="pc bpc" id="L412" title="1 of 4 branches missed.">        if (solicitud.getFechaDesde() != null || solicitud.getFechaHasta() != null) {</span>
+<span class="fc" id="L413">            lotes = lotes.stream()</span>
+<span class="fc" id="L414">                .filter(lote -&gt; {</span>
+<span class="fc" id="L415">                    LocalDate fechaLote = lote.getFechaRecibo(); </span>
+<span class="pc bpc" id="L416" title="1 of 2 branches missed.">                    if (fechaLote == null) return false;</span>
                     
-<span class="pc bpc" id="L422" title="1 of 2 branches missed.">                    boolean cumpleFechaDesde = solicitud.getFechaDesde() == null || </span>
-<span class="pc bpc" id="L423" title="1 of 2 branches missed.">                        !fechaLote.isBefore(solicitud.getFechaDesde());</span>
-<span class="pc bpc" id="L424" title="1 of 2 branches missed.">                    boolean cumpleFechaHasta = solicitud.getFechaHasta() == null || </span>
-<span class="pc bpc" id="L425" title="1 of 2 branches missed.">                        !fechaLote.isAfter(solicitud.getFechaHasta());</span>
+<span class="pc bpc" id="L418" title="1 of 2 branches missed.">                    boolean cumpleFechaDesde = solicitud.getFechaDesde() == null || </span>
+<span class="pc bpc" id="L419" title="1 of 2 branches missed.">                        !fechaLote.isBefore(solicitud.getFechaDesde());</span>
+<span class="pc bpc" id="L420" title="1 of 2 branches missed.">                    boolean cumpleFechaHasta = solicitud.getFechaHasta() == null || </span>
+<span class="pc bpc" id="L421" title="1 of 2 branches missed.">                        !fechaLote.isAfter(solicitud.getFechaHasta());</span>
                     
-<span class="pc bpc" id="L427" title="2 of 4 branches missed.">                    return cumpleFechaDesde &amp;&amp; cumpleFechaHasta;</span>
+<span class="pc bpc" id="L423" title="2 of 4 branches missed.">                    return cumpleFechaDesde &amp;&amp; cumpleFechaHasta;</span>
                 })
-<span class="fc" id="L429">                .collect(Collectors.toList());</span>
+<span class="fc" id="L425">                .collect(Collectors.toList());</span>
         }
         
-        // Filtrar por especies si se especifican
-<span class="pc bpc" id="L433" title="3 of 4 branches missed.">        if (solicitud.getEspecieIds() != null &amp;&amp; !solicitud.getEspecieIds().isEmpty()) {</span>
-<span class="nc" id="L434">            lotes = lotes.stream()</span>
-<span class="nc bnc" id="L435" title="All 2 branches missed.">                .filter(lote -&gt; lote.getCultivar() != null &amp;&amp; </span>
-<span class="nc bnc" id="L436" title="All 2 branches missed.">                               lote.getCultivar().getEspecie() != null &amp;&amp;</span>
-<span class="nc bnc" id="L437" title="All 2 branches missed.">                               solicitud.getEspecieIds().contains(lote.getCultivar().getEspecie().getEspecieID()))</span>
-<span class="nc" id="L438">                .collect(Collectors.toList());</span>
+        
+<span class="pc bpc" id="L429" title="3 of 4 branches missed.">        if (solicitud.getEspecieIds() != null &amp;&amp; !solicitud.getEspecieIds().isEmpty()) {</span>
+<span class="nc" id="L430">            lotes = lotes.stream()</span>
+<span class="nc bnc" id="L431" title="All 2 branches missed.">                .filter(lote -&gt; lote.getCultivar() != null &amp;&amp; </span>
+<span class="nc bnc" id="L432" title="All 2 branches missed.">                               lote.getCultivar().getEspecie() != null &amp;&amp;</span>
+<span class="nc bnc" id="L433" title="All 2 branches missed.">                               solicitud.getEspecieIds().contains(lote.getCultivar().getEspecie().getEspecieID()))</span>
+<span class="nc" id="L434">                .collect(Collectors.toList());</span>
         }
         
-        // Filtrar por cultivares si se especifican
-<span class="pc bpc" id="L442" title="3 of 4 branches missed.">        if (solicitud.getCultivarIds() != null &amp;&amp; !solicitud.getCultivarIds().isEmpty()) {</span>
-<span class="nc" id="L443">            lotes = lotes.stream()</span>
-<span class="nc bnc" id="L444" title="All 2 branches missed.">                .filter(lote -&gt; lote.getCultivar() != null &amp;&amp;</span>
-<span class="nc bnc" id="L445" title="All 2 branches missed.">                               solicitud.getCultivarIds().contains(lote.getCultivar().getCultivarID()))</span>
-<span class="nc" id="L446">                .collect(Collectors.toList());</span>
+        
+<span class="pc bpc" id="L438" title="3 of 4 branches missed.">        if (solicitud.getCultivarIds() != null &amp;&amp; !solicitud.getCultivarIds().isEmpty()) {</span>
+<span class="nc" id="L439">            lotes = lotes.stream()</span>
+<span class="nc bnc" id="L440" title="All 2 branches missed.">                .filter(lote -&gt; lote.getCultivar() != null &amp;&amp;</span>
+<span class="nc bnc" id="L441" title="All 2 branches missed.">                               solicitud.getCultivarIds().contains(lote.getCultivar().getCultivarID()))</span>
+<span class="nc" id="L442">                .collect(Collectors.toList());</span>
         }
         
-        // Procesar cada lote
-<span class="fc bfc" id="L450" title="All 2 branches covered.">        for (Lote lote : lotes) {</span>
-<span class="fc" id="L451">            DatosExportacionExcelDTO dto = new DatosExportacionExcelDTO();</span>
+        
+<span class="fc bfc" id="L446" title="All 2 branches covered.">        for (Lote lote : lotes) {</span>
+<span class="fc" id="L447">            DatosExportacionExcelDTO dto = new DatosExportacionExcelDTO();</span>
             
-            // Datos básicos del lote
-<span class="fc" id="L454">            mapearDatosBasicosLote(dto, lote);</span>
             
-            // Mapear solo los tipos de análisis solicitados
-<span class="fc" id="L457">            List&lt;String&gt; tiposAnalisis = solicitud.getTiposAnalisis();</span>
-<span class="pc bpc" id="L458" title="2 of 6 branches missed.">            if (tiposAnalisis == null || tiposAnalisis.isEmpty() || tiposAnalisis.contains(&quot;PUREZA&quot;)) {</span>
-<span class="fc" id="L459">                mapearDatosPureza(dto, lote);</span>
+<span class="fc" id="L450">            mapearDatosBasicosLote(dto, lote);</span>
+            
+            
+<span class="fc" id="L453">            List&lt;String&gt; tiposAnalisis = solicitud.getTiposAnalisis();</span>
+<span class="pc bpc" id="L454" title="2 of 6 branches missed.">            if (tiposAnalisis == null || tiposAnalisis.isEmpty() || tiposAnalisis.contains(&quot;PUREZA&quot;)) {</span>
+<span class="fc" id="L455">                mapearDatosPureza(dto, lote);</span>
             }
-<span class="pc bpc" id="L461" title="1 of 6 branches missed.">            if (tiposAnalisis == null || tiposAnalisis.isEmpty() || tiposAnalisis.contains(&quot;GERMINACION&quot;)) {</span>
-<span class="fc" id="L462">                mapearDatosGerminacion(dto, lote);</span>
+<span class="pc bpc" id="L457" title="1 of 6 branches missed.">            if (tiposAnalisis == null || tiposAnalisis.isEmpty() || tiposAnalisis.contains(&quot;GERMINACION&quot;)) {</span>
+<span class="fc" id="L458">                mapearDatosGerminacion(dto, lote);</span>
             }
-<span class="pc bpc" id="L464" title="1 of 6 branches missed.">            if (tiposAnalisis == null || tiposAnalisis.isEmpty() || tiposAnalisis.contains(&quot;PMS&quot;)) {</span>
-<span class="fc" id="L465">                mapearDatosPms(dto, lote);</span>
+<span class="pc bpc" id="L460" title="1 of 6 branches missed.">            if (tiposAnalisis == null || tiposAnalisis.isEmpty() || tiposAnalisis.contains(&quot;PMS&quot;)) {</span>
+<span class="fc" id="L461">                mapearDatosPms(dto, lote);</span>
             }
-<span class="pc bpc" id="L467" title="1 of 6 branches missed.">            if (tiposAnalisis == null || tiposAnalisis.isEmpty() || tiposAnalisis.contains(&quot;TETRAZOLIO&quot;)) {</span>
-<span class="fc" id="L468">                mapearDatosTetrazolio(dto, lote);</span>
+<span class="pc bpc" id="L463" title="1 of 6 branches missed.">            if (tiposAnalisis == null || tiposAnalisis.isEmpty() || tiposAnalisis.contains(&quot;TETRAZOLIO&quot;)) {</span>
+<span class="fc" id="L464">                mapearDatosTetrazolio(dto, lote);</span>
             }
-<span class="pc bpc" id="L470" title="1 of 6 branches missed.">            if (tiposAnalisis == null || tiposAnalisis.isEmpty() || tiposAnalisis.contains(&quot;DOSN&quot;)) {</span>
-<span class="fc" id="L471">                mapearDatosDosn(dto, lote);</span>
+<span class="pc bpc" id="L466" title="1 of 6 branches missed.">            if (tiposAnalisis == null || tiposAnalisis.isEmpty() || tiposAnalisis.contains(&quot;DOSN&quot;)) {</span>
+<span class="fc" id="L467">                mapearDatosDosn(dto, lote);</span>
             }
             
-<span class="fc" id="L474">            datos.add(dto);</span>
-        }
+<span class="fc" id="L470">            datos.add(dto);</span>
+<span class="fc" id="L471">        }</span>
         
-<span class="fc" id="L477">        return datos;</span>
+<span class="fc" id="L473">        return datos;</span>
     }
 
     private void mapearDatosBasicosLote(DatosExportacionExcelDTO dto, Lote lote) {
-        // Especie y variedad
-<span class="fc bfc" id="L482" title="All 2 branches covered.">        if (lote.getCultivar() != null) {</span>
-<span class="fc" id="L483">            dto.setVariedad(lote.getCultivar().getNombre());</span>
-<span class="pc bpc" id="L484" title="1 of 2 branches missed.">            if (lote.getCultivar().getEspecie() != null) {</span>
-<span class="fc" id="L485">                dto.setEspecie(lote.getCultivar().getEspecie().getNombreComun());</span>
+        
+<span class="fc bfc" id="L478" title="All 2 branches covered.">        if (lote.getCultivar() != null) {</span>
+<span class="fc" id="L479">            dto.setVariedad(lote.getCultivar().getNombre());</span>
+<span class="pc bpc" id="L480" title="1 of 2 branches missed.">            if (lote.getCultivar().getEspecie() != null) {</span>
+<span class="fc" id="L481">                dto.setEspecie(lote.getCultivar().getEspecie().getNombreComun());</span>
             }
         }
         
-        // Datos del lote
-<span class="fc" id="L490">        dto.setLote(lote.getFicha());</span>
-<span class="fc" id="L491">        dto.setNombreLote(lote.getNomLote());  //  NUEVO: Nombre del lote</span>
-<span class="pc bpc" id="L492" title="1 of 2 branches missed.">        dto.setKilos(lote.getKilosLimpios() != null ? lote.getKilosLimpios().toString() : &quot;&quot;);</span>
         
-        // Número de análisis (usando el ID del lote como referencia temporal)
-<span class="pc bpc" id="L495" title="1 of 2 branches missed.">        dto.setNumeroAnalisis(lote.getLoteID() != null ? lote.getLoteID().toString() : &quot;&quot;);</span>
+<span class="fc" id="L486">        dto.setLote(lote.getFicha());</span>
+<span class="fc" id="L487">        dto.setNombreLote(lote.getNomLote());  </span>
+<span class="pc bpc" id="L488" title="1 of 2 branches missed.">        dto.setKilos(lote.getKilosLimpios() != null ? lote.getKilosLimpios().toString() : &quot;&quot;);</span>
         
-        // Deposito
-<span class="pc bpc" id="L498" title="1 of 2 branches missed.">        if (lote.getDeposito() != null) {</span>
-<span class="nc" id="L499">            dto.setDeposito(lote.getDeposito().getValor());</span>
+        
+<span class="pc bpc" id="L491" title="1 of 2 branches missed.">        dto.setNumeroAnalisis(lote.getLoteID() != null ? lote.getLoteID().toString() : &quot;&quot;);</span>
+        
+        
+<span class="pc bpc" id="L494" title="1 of 2 branches missed.">        if (lote.getDeposito() != null) {</span>
+<span class="nc" id="L495">            dto.setDeposito(lote.getDeposito().getValor());</span>
         }
         
-        // Número de artículo
-<span class="pc bpc" id="L503" title="1 of 2 branches missed.">        if (lote.getNumeroArticulo() != null) {</span>
-<span class="nc" id="L504">            dto.setNumeroArticulo(lote.getNumeroArticulo().getValor());</span>
+        
+<span class="pc bpc" id="L499" title="1 of 2 branches missed.">        if (lote.getNumeroArticulo() != null) {</span>
+<span class="nc" id="L500">            dto.setNumeroArticulo(lote.getNumeroArticulo().getValor());</span>
         }
         
-        // Humedad (tomar el primer valor de datos de humedad)
-<span class="pc bpc" id="L508" title="3 of 4 branches missed.">        if (lote.getDatosHumedad() != null &amp;&amp; !lote.getDatosHumedad().isEmpty()) {</span>
-<span class="nc" id="L509">            dto.setHumedad(lote.getDatosHumedad().get(0).getValor());</span>
+        
+<span class="pc bpc" id="L504" title="3 of 4 branches missed.">        if (lote.getDatosHumedad() != null &amp;&amp; !lote.getDatosHumedad().isEmpty()) {</span>
+<span class="nc" id="L505">            dto.setHumedad(lote.getDatosHumedad().get(0).getValor());</span>
         }
-<span class="fc" id="L511">    }</span>
+<span class="fc" id="L507">    }</span>
 
     private void mapearDatosPureza(DatosExportacionExcelDTO dto, Lote lote) {
-<span class="fc" id="L514">        List&lt;Pureza&gt; analisisPureza = purezaRepository.findByLoteLoteID(lote.getLoteID());</span>
+<span class="fc" id="L510">        List&lt;Pureza&gt; analisisPureza = purezaRepository.findByLoteLoteID(lote.getLoteID());</span>
         
-<span class="fc" id="L516">        System.out.println(&quot;Buscando análisis de pureza para lote ID: &quot; + lote.getLoteID());</span>
-<span class="fc" id="L517">        System.out.println(&quot;Análisis de pureza encontrados: &quot; + analisisPureza.size());</span>
+<span class="fc" id="L512">        System.out.println(&quot;Buscando análisis de pureza para lote ID: &quot; + lote.getLoteID());</span>
+<span class="fc" id="L513">        System.out.println(&quot;Análisis de pureza encontrados: &quot; + analisisPureza.size());</span>
         
-<span class="fc bfc" id="L519" title="All 2 branches covered.">        if (!analisisPureza.isEmpty()) {</span>
-<span class="fc" id="L520">            Pureza pureza = analisisPureza.get(0); // Tomar el más reciente o el primero</span>
+<span class="fc bfc" id="L515" title="All 2 branches covered.">        if (!analisisPureza.isEmpty()) {</span>
+<span class="fc" id="L516">            Pureza pureza = analisisPureza.get(0); </span>
             
-<span class="fc" id="L522">            System.out.println(&quot;Datos INIA - SP: &quot; + pureza.getRedonSemillaPura() + &quot;, MI: &quot; + pureza.getRedonMateriaInerte());</span>
-<span class="fc" id="L523">            System.out.println(&quot;Datos INASE - SP: &quot; + pureza.getInasePura() + &quot;, MI: &quot; + pureza.getInaseMateriaInerte());</span>
+<span class="fc" id="L518">            System.out.println(&quot;Datos INIA - SP: &quot; + pureza.getRedonSemillaPura() + &quot;, MI: &quot; + pureza.getRedonMateriaInerte());</span>
+<span class="fc" id="L519">            System.out.println(&quot;Datos INASE - SP: &quot; + pureza.getInasePura() + &quot;, MI: &quot; + pureza.getInaseMateriaInerte());</span>
             
-            // Datos INIA
-<span class="fc" id="L526">            dto.setPurezaSemillaPura(pureza.getRedonSemillaPura());</span>
-<span class="fc" id="L527">            dto.setPurezaMateriaInerte(pureza.getRedonMateriaInerte());</span>
-<span class="fc" id="L528">            dto.setPurezaOtrosCultivos(pureza.getRedonOtrosCultivos());</span>
-<span class="fc" id="L529">            dto.setPurezaMalezas(pureza.getRedonMalezas());</span>
-<span class="fc" id="L530">            dto.setPurezaMalezasToleradas(pureza.getRedonMalezasToleradas());</span>
-<span class="fc" id="L531">            dto.setPurezaMalezasToleranciaC(pureza.getRedonMalezasTolCero());</span>
             
-            // Datos INASE
-<span class="fc" id="L534">            dto.setPurezaInaseSemillaPura(pureza.getInasePura());</span>
-<span class="fc" id="L535">            dto.setPurezaInaseMateriaInerte(pureza.getInaseMateriaInerte());</span>
-<span class="fc" id="L536">            dto.setPurezaInaseOtrosCultivos(pureza.getInaseOtrosCultivos());</span>
-<span class="fc" id="L537">            dto.setPurezaInaseMalezas(pureza.getInaseMalezas());</span>
-<span class="fc" id="L538">            dto.setPurezaInaseMalezasToleradas(pureza.getInaseMalezasToleradas());</span>
-<span class="fc" id="L539">            dto.setPurezaInaseMalezasToleranciaC(pureza.getInaseMalezasTolCero());</span>
+<span class="fc" id="L522">            dto.setPurezaSemillaPura(pureza.getRedonSemillaPura());</span>
+<span class="fc" id="L523">            dto.setPurezaMateriaInerte(pureza.getRedonMateriaInerte());</span>
+<span class="fc" id="L524">            dto.setPurezaOtrosCultivos(pureza.getRedonOtrosCultivos());</span>
+<span class="fc" id="L525">            dto.setPurezaMalezas(pureza.getRedonMalezas());</span>
+<span class="fc" id="L526">            dto.setPurezaMalezasToleradas(pureza.getRedonMalezasToleradas());</span>
+<span class="fc" id="L527">            dto.setPurezaMalezasToleranciaC(pureza.getRedonMalezasTolCero());</span>
             
-<span class="pc bpc" id="L541" title="1 of 2 branches missed.">            if (pureza.getFecha() != null) {</span>
-<span class="nc" id="L542">                dto.setFechaAnalisis(pureza.getFecha());</span>
+            
+<span class="fc" id="L530">            dto.setPurezaInaseSemillaPura(pureza.getInasePura());</span>
+<span class="fc" id="L531">            dto.setPurezaInaseMateriaInerte(pureza.getInaseMateriaInerte());</span>
+<span class="fc" id="L532">            dto.setPurezaInaseOtrosCultivos(pureza.getInaseOtrosCultivos());</span>
+<span class="fc" id="L533">            dto.setPurezaInaseMalezas(pureza.getInaseMalezas());</span>
+<span class="fc" id="L534">            dto.setPurezaInaseMalezasToleradas(pureza.getInaseMalezasToleradas());</span>
+<span class="fc" id="L535">            dto.setPurezaInaseMalezasToleranciaC(pureza.getInaseMalezasTolCero());</span>
+            
+<span class="pc bpc" id="L537" title="1 of 2 branches missed.">            if (pureza.getFecha() != null) {</span>
+<span class="nc" id="L538">                dto.setFechaAnalisis(pureza.getFecha());</span>
             }
             
-            // Mapear descripción de malezas y otros cultivos desde listados
-<span class="fc bfc" id="L546" title="All 4 branches covered.">            if (pureza.getListados() != null &amp;&amp; !pureza.getListados().isEmpty()) {</span>
-<span class="fc" id="L547">                System.out.println(&quot;Listados encontrados: &quot; + pureza.getListados().size());</span>
+            
+<span class="fc bfc" id="L542" title="All 4 branches covered.">            if (pureza.getListados() != null &amp;&amp; !pureza.getListados().isEmpty()) {</span>
+<span class="fc" id="L543">                System.out.println(&quot;Listados encontrados: &quot; + pureza.getListados().size());</span>
                 
-                // Variables para INIA
-<span class="fc" id="L550">                StringBuilder descripcionMalezas = new StringBuilder();</span>
-<span class="fc" id="L551">                StringBuilder descripcionOtrosCultivos = new StringBuilder();</span>
-<span class="fc" id="L552">                StringBuilder descripcionMalezasToleradas = new StringBuilder();</span>
-<span class="fc" id="L553">                StringBuilder descripcionMalezasToleranciaC = new StringBuilder();</span>
                 
-                // Variables para INASE
-<span class="fc" id="L556">                StringBuilder descripcionInaseMalezas = new StringBuilder();</span>
-<span class="fc" id="L557">                StringBuilder descripcionInaseOtrosCultivos = new StringBuilder();</span>
-<span class="fc" id="L558">                StringBuilder descripcionInaseMalezasToleradas = new StringBuilder();</span>
-<span class="fc" id="L559">                StringBuilder descripcionInaseMalezasToleranciaC = new StringBuilder();</span>
+<span class="fc" id="L546">                StringBuilder descripcionMalezas = new StringBuilder();</span>
+<span class="fc" id="L547">                StringBuilder descripcionOtrosCultivos = new StringBuilder();</span>
+<span class="fc" id="L548">                StringBuilder descripcionMalezasToleradas = new StringBuilder();</span>
+<span class="fc" id="L549">                StringBuilder descripcionMalezasToleranciaC = new StringBuilder();</span>
                 
-<span class="fc bfc" id="L561" title="All 2 branches covered.">                for (Listado listado : pureza.getListados()) {</span>
-<span class="fc" id="L562">                    String nombre = null;</span>
-<span class="fc" id="L563">                    boolean esMaleza = false;</span>
-<span class="fc" id="L564">                    boolean esCultivo = false;</span>
+                
+<span class="fc" id="L552">                StringBuilder descripcionInaseMalezas = new StringBuilder();</span>
+<span class="fc" id="L553">                StringBuilder descripcionInaseOtrosCultivos = new StringBuilder();</span>
+<span class="fc" id="L554">                StringBuilder descripcionInaseMalezasToleradas = new StringBuilder();</span>
+<span class="fc" id="L555">                StringBuilder descripcionInaseMalezasToleranciaC = new StringBuilder();</span>
+                
+<span class="fc bfc" id="L557" title="All 2 branches covered.">                for (Listado listado : pureza.getListados()) {</span>
+<span class="fc" id="L558">                    String nombre = null;</span>
+<span class="fc" id="L559">                    boolean esMaleza = false;</span>
+<span class="fc" id="L560">                    boolean esCultivo = false;</span>
                     
-                    // Determinar si es maleza (tiene catalogo) o cultivo (tiene especie)
-<span class="pc bpc" id="L567" title="1 of 2 branches missed.">                    if (listado.getCatalogo() != null) {</span>
-<span class="fc" id="L568">                        nombre = listado.getCatalogo().getNombreComun();</span>
-<span class="fc" id="L569">                        esMaleza = true;</span>
-<span class="pc bnc" id="L570" title="All 2 branches missed.">                    } else if (listado.getEspecie() != null) {</span>
-<span class="nc" id="L571">                        nombre = listado.getEspecie().getNombreComun();</span>
-<span class="nc" id="L572">                        esCultivo = true;</span>
+                    
+<span class="pc bpc" id="L563" title="1 of 2 branches missed.">                    if (listado.getCatalogo() != null) {</span>
+<span class="fc" id="L564">                        nombre = listado.getCatalogo().getNombreComun();</span>
+<span class="fc" id="L565">                        esMaleza = true;</span>
+<span class="nc bnc" id="L566" title="All 2 branches missed.">                    } else if (listado.getEspecie() != null) {</span>
+<span class="nc" id="L567">                        nombre = listado.getEspecie().getNombreComun();</span>
+<span class="nc" id="L568">                        esCultivo = true;</span>
                     }
                     
-<span class="pc bpc" id="L575" title="1 of 2 branches missed.">                    if (nombre != null) {</span>
-<span class="fc" id="L576">                        TipoListado tipoListado = listado.getListadoTipo();</span>
-<span class="fc" id="L577">                        Instituto instituto = listado.getListadoInsti();</span>
+<span class="pc bpc" id="L571" title="1 of 2 branches missed.">                    if (nombre != null) {</span>
+<span class="fc" id="L572">                        TipoListado tipoListado = listado.getListadoTipo();</span>
+<span class="fc" id="L573">                        Instituto instituto = listado.getListadoInsti();</span>
                         
-<span class="fc" id="L579">                        System.out.println(&quot;Procesando listado - Nombre: &quot; + nombre + &quot;, Tipo: &quot; + tipoListado + &quot;, Instituto: &quot; + instituto);</span>
+<span class="fc" id="L575">                        System.out.println(&quot;Procesando listado - Nombre: &quot; + nombre + &quot;, Tipo: &quot; + tipoListado + &quot;, Instituto: &quot; + instituto);</span>
                         
-                        // Procesar según el tipo de listado y el instituto
-<span class="fc bfc" id="L582" title="All 2 branches covered.">                        if (instituto == Instituto.INIA) {</span>
-                            // PUREZA INIA
-<span class="pc bpc" id="L584" title="1 of 2 branches missed.">                            if (tipoListado == TipoListado.MAL_TOLERANCIA_CERO) {</span>
-<span class="pc bpc" id="L585" title="1 of 2 branches missed.">                                if (descripcionMalezasToleranciaC.length() &gt; 0) descripcionMalezasToleranciaC.append(&quot;, &quot;);</span>
-<span class="fc" id="L586">                                descripcionMalezasToleranciaC.append(nombre);</span>
-<span class="pc bnc" id="L587" title="All 2 branches missed.">                            } else if (esMaleza) {</span>
-<span class="nc bnc" id="L588" title="All 2 branches missed.">                                if (tipoListado == TipoListado.MAL_TOLERANCIA) {</span>
-<span class="nc bnc" id="L589" title="All 2 branches missed.">                                    if (descripcionMalezasToleradas.length() &gt; 0) descripcionMalezasToleradas.append(&quot;, &quot;);</span>
-<span class="nc" id="L590">                                    descripcionMalezasToleradas.append(nombre);</span>
-<span class="nc" id="L591">                                } else {</span>
-<span class="nc bnc" id="L592" title="All 2 branches missed.">                                    if (descripcionMalezas.length() &gt; 0) descripcionMalezas.append(&quot;, &quot;);</span>
-<span class="nc" id="L593">                                    descripcionMalezas.append(nombre);</span>
+                        
+<span class="fc bfc" id="L578" title="All 2 branches covered.">                        if (instituto == Instituto.INIA) {</span>
+                            
+<span class="pc bpc" id="L580" title="1 of 2 branches missed.">                            if (tipoListado == TipoListado.MAL_TOLERANCIA_CERO) {</span>
+<span class="pc bpc" id="L581" title="1 of 2 branches missed.">                                if (descripcionMalezasToleranciaC.length() &gt; 0) descripcionMalezasToleranciaC.append(&quot;, &quot;);</span>
+<span class="fc" id="L582">                                descripcionMalezasToleranciaC.append(nombre);</span>
+<span class="nc bnc" id="L583" title="All 2 branches missed.">                            } else if (esMaleza) {</span>
+<span class="nc bnc" id="L584" title="All 2 branches missed.">                                if (tipoListado == TipoListado.MAL_TOLERANCIA) {</span>
+<span class="nc bnc" id="L585" title="All 2 branches missed.">                                    if (descripcionMalezasToleradas.length() &gt; 0) descripcionMalezasToleradas.append(&quot;, &quot;);</span>
+<span class="nc" id="L586">                                    descripcionMalezasToleradas.append(nombre);</span>
+                                } else {
+<span class="nc bnc" id="L588" title="All 2 branches missed.">                                    if (descripcionMalezas.length() &gt; 0) descripcionMalezas.append(&quot;, &quot;);</span>
+<span class="nc" id="L589">                                    descripcionMalezas.append(nombre);</span>
                                 }
-<span class="nc bnc" id="L595" title="All 2 branches missed.">                            } else if (esCultivo) {</span>
-<span class="nc bnc" id="L596" title="All 2 branches missed.">                                if (descripcionOtrosCultivos.length() &gt; 0) descripcionOtrosCultivos.append(&quot;, &quot;);</span>
-<span class="nc" id="L597">                                descripcionOtrosCultivos.append(nombre);</span>
+<span class="nc bnc" id="L591" title="All 2 branches missed.">                            } else if (esCultivo) {</span>
+<span class="nc bnc" id="L592" title="All 2 branches missed.">                                if (descripcionOtrosCultivos.length() &gt; 0) descripcionOtrosCultivos.append(&quot;, &quot;);</span>
+<span class="nc" id="L593">                                descripcionOtrosCultivos.append(nombre);</span>
                             }
-<span class="pc bpc" id="L599" title="1 of 2 branches missed.">                        } else if (instituto == Instituto.INASE) {</span>
-                            // PUREZA INASE
-<span class="pc bpc" id="L601" title="1 of 2 branches missed.">                            if (tipoListado == TipoListado.MAL_TOLERANCIA_CERO) {</span>
-<span class="pc bpc" id="L602" title="1 of 2 branches missed.">                                if (descripcionInaseMalezasToleranciaC.length() &gt; 0) descripcionInaseMalezasToleranciaC.append(&quot;, &quot;);</span>
-<span class="fc" id="L603">                                descripcionInaseMalezasToleranciaC.append(nombre);</span>
-<span class="pc bnc" id="L604" title="All 2 branches missed.">                            } else if (esMaleza) {</span>
-<span class="nc bnc" id="L605" title="All 2 branches missed.">                                if (tipoListado == TipoListado.MAL_TOLERANCIA) {</span>
-<span class="nc bnc" id="L606" title="All 2 branches missed.">                                    if (descripcionInaseMalezasToleradas.length() &gt; 0) descripcionInaseMalezasToleradas.append(&quot;, &quot;);</span>
-<span class="nc" id="L607">                                    descripcionInaseMalezasToleradas.append(nombre);</span>
-<span class="nc" id="L608">                                } else {</span>
-<span class="nc bnc" id="L609" title="All 2 branches missed.">                                    if (descripcionInaseMalezas.length() &gt; 0) descripcionInaseMalezas.append(&quot;, &quot;);</span>
-<span class="nc" id="L610">                                    descripcionInaseMalezas.append(nombre);</span>
+<span class="pc bpc" id="L595" title="1 of 2 branches missed.">                        } else if (instituto == Instituto.INASE) {</span>
+                            
+<span class="pc bpc" id="L597" title="1 of 2 branches missed.">                            if (tipoListado == TipoListado.MAL_TOLERANCIA_CERO) {</span>
+<span class="pc bpc" id="L598" title="1 of 2 branches missed.">                                if (descripcionInaseMalezasToleranciaC.length() &gt; 0) descripcionInaseMalezasToleranciaC.append(&quot;, &quot;);</span>
+<span class="fc" id="L599">                                descripcionInaseMalezasToleranciaC.append(nombre);</span>
+<span class="nc bnc" id="L600" title="All 2 branches missed.">                            } else if (esMaleza) {</span>
+<span class="nc bnc" id="L601" title="All 2 branches missed.">                                if (tipoListado == TipoListado.MAL_TOLERANCIA) {</span>
+<span class="nc bnc" id="L602" title="All 2 branches missed.">                                    if (descripcionInaseMalezasToleradas.length() &gt; 0) descripcionInaseMalezasToleradas.append(&quot;, &quot;);</span>
+<span class="nc" id="L603">                                    descripcionInaseMalezasToleradas.append(nombre);</span>
+                                } else {
+<span class="nc bnc" id="L605" title="All 2 branches missed.">                                    if (descripcionInaseMalezas.length() &gt; 0) descripcionInaseMalezas.append(&quot;, &quot;);</span>
+<span class="nc" id="L606">                                    descripcionInaseMalezas.append(nombre);</span>
                                 }
-<span class="nc bnc" id="L612" title="All 2 branches missed.">                            } else if (esCultivo) {</span>
-<span class="nc bnc" id="L613" title="All 2 branches missed.">                                if (descripcionInaseOtrosCultivos.length() &gt; 0) descripcionInaseOtrosCultivos.append(&quot;, &quot;);</span>
-<span class="nc" id="L614">                                descripcionInaseOtrosCultivos.append(nombre);</span>
+<span class="nc bnc" id="L608" title="All 2 branches missed.">                            } else if (esCultivo) {</span>
+<span class="nc bnc" id="L609" title="All 2 branches missed.">                                if (descripcionInaseOtrosCultivos.length() &gt; 0) descripcionInaseOtrosCultivos.append(&quot;, &quot;);</span>
+<span class="nc" id="L610">                                descripcionInaseOtrosCultivos.append(nombre);</span>
                             }
                         }
                     }
-                }
+<span class="fc" id="L614">                }</span>
                 
-                // Combinar descripciones de INIA e INASE en las mismas columnas (V-Y)
-                // Si hay datos de ambos institutos, se separan con &quot; | &quot;
                 
-<span class="fc" id="L623">                String malezasFinales = combinarDescripciones(descripcionMalezas.toString(), descripcionInaseMalezas.toString());</span>
-<span class="fc" id="L624">                String cultivosFinales = combinarDescripciones(descripcionOtrosCultivos.toString(), descripcionInaseOtrosCultivos.toString());</span>
-<span class="fc" id="L625">                String toleradasFinales = combinarDescripciones(descripcionMalezasToleradas.toString(), descripcionInaseMalezasToleradas.toString());</span>
-<span class="fc" id="L626">                String tolCeroFinales = combinarDescripciones(descripcionMalezasToleranciaC.toString(), descripcionInaseMalezasToleranciaC.toString());</span>
                 
-<span class="fc" id="L628">                dto.setDescripcionMalezas(malezasFinales);</span>
-<span class="fc" id="L629">                dto.setDescripcionOtrosCultivos(cultivosFinales);</span>
-<span class="fc" id="L630">                dto.setDescripcionMalezasToleradas(toleradasFinales);</span>
-<span class="fc" id="L631">                dto.setDescripcionMalezasToleranciaC(tolCeroFinales);</span>
                 
-                // Guardar también las versiones separadas por instituto (para uso futuro si se necesitan columnas separadas)
-<span class="fc" id="L634">                dto.setDescripcionInaseMalezas(descripcionInaseMalezas.toString());</span>
-<span class="fc" id="L635">                dto.setDescripcionInaseOtrosCultivos(descripcionInaseOtrosCultivos.toString());</span>
-<span class="fc" id="L636">                dto.setDescripcionInaseMalezasToleradas(descripcionInaseMalezasToleradas.toString());</span>
-<span class="fc" id="L637">                dto.setDescripcionInaseMalezasToleranciaC(descripcionInaseMalezasToleranciaC.toString());</span>
+<span class="fc" id="L619">                String malezasFinales = combinarDescripciones(descripcionMalezas.toString(), descripcionInaseMalezas.toString());</span>
+<span class="fc" id="L620">                String cultivosFinales = combinarDescripciones(descripcionOtrosCultivos.toString(), descripcionInaseOtrosCultivos.toString());</span>
+<span class="fc" id="L621">                String toleradasFinales = combinarDescripciones(descripcionMalezasToleradas.toString(), descripcionInaseMalezasToleradas.toString());</span>
+<span class="fc" id="L622">                String tolCeroFinales = combinarDescripciones(descripcionMalezasToleranciaC.toString(), descripcionInaseMalezasToleranciaC.toString());</span>
                 
-<span class="fc" id="L639">                System.out.println(&quot;Descripciones Finales - Malezas: &quot; + malezasFinales + </span>
-<span class="fc" id="L640">                                   &quot;, Toleradas: &quot; + toleradasFinales + </span>
-<span class="fc" id="L641">                                   &quot;, Tol. Cero: &quot; + tolCeroFinales + </span>
-<span class="fc" id="L642">                                   &quot;, Otros cultivos: &quot; + cultivosFinales);</span>
-<span class="fc" id="L643">            } else {</span>
-<span class="fc" id="L644">                System.out.println(&quot;No se encontraron listados para este análisis de pureza&quot;);</span>
+<span class="fc" id="L624">                dto.setDescripcionMalezas(malezasFinales);</span>
+<span class="fc" id="L625">                dto.setDescripcionOtrosCultivos(cultivosFinales);</span>
+<span class="fc" id="L626">                dto.setDescripcionMalezasToleradas(toleradasFinales);</span>
+<span class="fc" id="L627">                dto.setDescripcionMalezasToleranciaC(tolCeroFinales);</span>
+                
+                
+<span class="fc" id="L630">                dto.setDescripcionInaseMalezas(descripcionInaseMalezas.toString());</span>
+<span class="fc" id="L631">                dto.setDescripcionInaseOtrosCultivos(descripcionInaseOtrosCultivos.toString());</span>
+<span class="fc" id="L632">                dto.setDescripcionInaseMalezasToleradas(descripcionInaseMalezasToleradas.toString());</span>
+<span class="fc" id="L633">                dto.setDescripcionInaseMalezasToleranciaC(descripcionInaseMalezasToleranciaC.toString());</span>
+                
+<span class="fc" id="L635">                System.out.println(&quot;Descripciones Finales - Malezas: &quot; + malezasFinales + </span>
+                                   &quot;, Toleradas: &quot; + toleradasFinales + 
+                                   &quot;, Tol. Cero: &quot; + tolCeroFinales + 
+                                   &quot;, Otros cultivos: &quot; + cultivosFinales);
+<span class="fc" id="L639">            } else {</span>
+<span class="fc" id="L640">                System.out.println(&quot;No se encontraron listados para este análisis de pureza&quot;);</span>
             }
-<span class="fc" id="L646">        } else {</span>
-<span class="fc" id="L647">            System.out.println(&quot;No se encontraron análisis de pureza para el lote&quot;);</span>
+<span class="fc" id="L642">        } else {</span>
+<span class="fc" id="L643">            System.out.println(&quot;No se encontraron análisis de pureza para el lote&quot;);</span>
         }
-<span class="fc" id="L649">    }</span>
+<span class="fc" id="L645">    }</span>
 
     private void mapearDatosGerminacion(DatosExportacionExcelDTO dto, Lote lote) {
-<span class="fc" id="L652">        List&lt;Germinacion&gt; analisisGerminacion = germinacionRepository.findByLoteLoteID(lote.getLoteID());</span>
+<span class="fc" id="L648">        List&lt;Germinacion&gt; analisisGerminacion = germinacionRepository.findByLoteLoteID(lote.getLoteID());</span>
         
-<span class="fc bfc" id="L654" title="All 2 branches covered.">        if (!analisisGerminacion.isEmpty()) {</span>
-<span class="fc" id="L655">            Germinacion germinacion = analisisGerminacion.get(0);</span>
+<span class="fc bfc" id="L650" title="All 2 branches covered.">        if (!analisisGerminacion.isEmpty()) {</span>
+<span class="fc" id="L651">            Germinacion germinacion = analisisGerminacion.get(0);</span>
             
-<span class="pc bpc" id="L657" title="1 of 4 branches missed.">            if (germinacion.getTablaGerm() != null &amp;&amp; !germinacion.getTablaGerm().isEmpty()) {</span>
-<span class="fc" id="L658">                TablaGerm tabla = germinacion.getTablaGerm().get(0);</span>
+<span class="pc bpc" id="L653" title="1 of 4 branches missed.">            if (germinacion.getTablaGerm() != null &amp;&amp; !germinacion.getTablaGerm().isEmpty()) {</span>
+<span class="fc" id="L654">                TablaGerm tabla = germinacion.getTablaGerm().get(0);</span>
                 
-                // Buscar valores de INIA e INASE en ValoresGerm
-<span class="pc bpc" id="L661" title="1 of 2 branches missed.">                if (tabla.getValoresGerm() != null) {</span>
-<span class="fc bfc" id="L662" title="All 2 branches covered.">                    for (ValoresGerm valores : tabla.getValoresGerm()) {</span>
-<span class="fc bfc" id="L663" title="All 2 branches covered.">                        if (valores.getInstituto() == Instituto.INIA) {</span>
-                            // Datos de germinación INIA
-<span class="fc" id="L665">                            dto.setGerminacionPlantulasNormales(valores.getNormales());</span>
-<span class="fc" id="L666">                            dto.setGerminacionPlantulasAnormales(valores.getAnormales());</span>
-<span class="fc" id="L667">                            dto.setGerminacionSemillasDeterioras(valores.getDuras());</span>
-<span class="fc" id="L668">                            dto.setGerminacionSemillasFrescas(valores.getFrescas());</span>
-<span class="fc" id="L669">                            dto.setGerminacionSemillasMuertas(valores.getMuertas());</span>
-<span class="fc" id="L670">                            dto.setGerminacionTotal(valores.getGerminacion());</span>
-<span class="pc bpc" id="L671" title="1 of 2 branches missed.">                        } else if (valores.getInstituto() == Instituto.INASE) {</span>
-                            // Datos de germinación INASE
-<span class="fc" id="L673">                            dto.setGerminacionInasePlantulasNormales(valores.getNormales());</span>
-<span class="fc" id="L674">                            dto.setGerminacionInasePlantulasAnormales(valores.getAnormales());</span>
-<span class="fc" id="L675">                            dto.setGerminacionInaseSemillasDeterioras(valores.getDuras());</span>
-<span class="fc" id="L676">                            dto.setGerminacionInaseSemillasFrescas(valores.getFrescas());</span>
-<span class="fc" id="L677">                            dto.setGerminacionInaseSemillasMuertas(valores.getMuertas());</span>
-<span class="fc" id="L678">                            dto.setGerminacionInaseTotal(valores.getGerminacion());</span>
+                
+<span class="pc bpc" id="L657" title="1 of 2 branches missed.">                if (tabla.getValoresGerm() != null) {</span>
+<span class="fc bfc" id="L658" title="All 2 branches covered.">                    for (ValoresGerm valores : tabla.getValoresGerm()) {</span>
+<span class="fc bfc" id="L659" title="All 2 branches covered.">                        if (valores.getInstituto() == Instituto.INIA) {</span>
+                            
+<span class="fc" id="L661">                            dto.setGerminacionPlantulasNormales(valores.getNormales());</span>
+<span class="fc" id="L662">                            dto.setGerminacionPlantulasAnormales(valores.getAnormales());</span>
+<span class="fc" id="L663">                            dto.setGerminacionSemillasDeterioras(valores.getDuras());</span>
+<span class="fc" id="L664">                            dto.setGerminacionSemillasFrescas(valores.getFrescas());</span>
+<span class="fc" id="L665">                            dto.setGerminacionSemillasMuertas(valores.getMuertas());</span>
+<span class="fc" id="L666">                            dto.setGerminacionTotal(valores.getGerminacion());</span>
+<span class="pc bpc" id="L667" title="1 of 2 branches missed.">                        } else if (valores.getInstituto() == Instituto.INASE) {</span>
+                            
+<span class="fc" id="L669">                            dto.setGerminacionInasePlantulasNormales(valores.getNormales());</span>
+<span class="fc" id="L670">                            dto.setGerminacionInasePlantulasAnormales(valores.getAnormales());</span>
+<span class="fc" id="L671">                            dto.setGerminacionInaseSemillasDeterioras(valores.getDuras());</span>
+<span class="fc" id="L672">                            dto.setGerminacionInaseSemillasFrescas(valores.getFrescas());</span>
+<span class="fc" id="L673">                            dto.setGerminacionInaseSemillasMuertas(valores.getMuertas());</span>
+<span class="fc" id="L674">                            dto.setGerminacionInaseTotal(valores.getGerminacion());</span>
                         }
-                    }
+<span class="fc" id="L676">                    }</span>
                 }
                 
-                // Mapear tratamiento de semillas
-<span class="fc bfc" id="L684" title="All 2 branches covered.">                if (tabla.getTratamiento() != null) {</span>
-<span class="fc" id="L685">                    dto.setTratamientoSemillas(tabla.getTratamiento());</span>
+                
+<span class="fc bfc" id="L680" title="All 2 branches covered.">                if (tabla.getTratamiento() != null) {</span>
+<span class="fc" id="L681">                    dto.setTratamientoSemillas(tabla.getTratamiento());</span>
                 }
             }
         }
-<span class="fc" id="L689">    }</span>
+<span class="fc" id="L685">    }</span>
 
     private void mapearDatosPms(DatosExportacionExcelDTO dto, Lote lote) {
-<span class="fc" id="L692">        List&lt;Pms&gt; analisisPms = pmsRepository.findByLoteLoteID(lote.getLoteID());</span>
+<span class="fc" id="L688">        List&lt;Pms&gt; analisisPms = pmsRepository.findByLoteLoteID(lote.getLoteID());</span>
         
-<span class="fc bfc" id="L694" title="All 2 branches covered.">        if (!analisisPms.isEmpty()) {</span>
-<span class="fc" id="L695">            Pms pms = analisisPms.get(0);</span>
-<span class="fc" id="L696">            dto.setPms(pms.getPmsconRedon());</span>
+<span class="fc bfc" id="L690" title="All 2 branches covered.">        if (!analisisPms.isEmpty()) {</span>
+<span class="fc" id="L691">            Pms pms = analisisPms.get(0);</span>
+<span class="fc" id="L692">            dto.setPms(pms.getPmsconRedon());</span>
         }
-<span class="fc" id="L698">    }</span>
+<span class="fc" id="L694">    }</span>
 
     private void mapearDatosTetrazolio(DatosExportacionExcelDTO dto, Lote lote) {
-<span class="fc" id="L701">        List&lt;Tetrazolio&gt; analisisTetrazolio = tetrazolioRepository.findByLoteLoteID(lote.getLoteID());</span>
+<span class="fc" id="L697">        List&lt;Tetrazolio&gt; analisisTetrazolio = tetrazolioRepository.findByLoteLoteID(lote.getLoteID());</span>
         
-<span class="fc bfc" id="L703" title="All 2 branches covered.">        if (!analisisTetrazolio.isEmpty()) {</span>
-<span class="fc" id="L704">            Tetrazolio tetrazolio = analisisTetrazolio.get(0);</span>
+<span class="fc bfc" id="L699" title="All 2 branches covered.">        if (!analisisTetrazolio.isEmpty()) {</span>
+<span class="fc" id="L700">            Tetrazolio tetrazolio = analisisTetrazolio.get(0);</span>
             
-            // Datos de viabilidad INIA (columna AY)
-<span class="fc" id="L707">            dto.setViabilidadPorcentaje(tetrazolio.getPorcViablesRedondeo());</span>
             
-            //  Datos de viabilidad INASE (columna AZ) - usar el campo viabilidadInase
-<span class="fc" id="L710">            dto.setViabilidadInasePorcentaje(tetrazolio.getViabilidadInase());</span>
+<span class="fc" id="L703">            dto.setViabilidadPorcentaje(tetrazolio.getPorcViablesRedondeo());</span>
+            
+            
+<span class="fc" id="L706">            dto.setViabilidadInasePorcentaje(tetrazolio.getViabilidadInase());</span>
         }
-<span class="fc" id="L712">    }</span>
+<span class="fc" id="L708">    }</span>
 
     private void mapearDatosDosn(DatosExportacionExcelDTO dto, Lote lote) {
-<span class="fc" id="L715">        List&lt;Dosn&gt; analisisDosn = dosnRepository.findByLoteLoteID(lote.getLoteID());</span>
+<span class="fc" id="L711">        List&lt;Dosn&gt; analisisDosn = dosnRepository.findByLoteLoteID(lote.getLoteID());</span>
         
-<span class="fc bfc" id="L717" title="All 2 branches covered.">        if (!analisisDosn.isEmpty()) {</span>
-<span class="fc" id="L718">            Dosn dosn = analisisDosn.get(0);</span>
+<span class="fc bfc" id="L713" title="All 2 branches covered.">        if (!analisisDosn.isEmpty()) {</span>
+<span class="fc" id="L714">            Dosn dosn = analisisDosn.get(0);</span>
             
-            // Mapear descripción de malezas y otros cultivos desde listados de DOSN
-<span class="fc bfc" id="L721" title="All 2 branches covered.">            if (dosn.getListados() != null) {</span>
-<span class="fc" id="L722">                StringBuilder dosnOtrosCultivos = new StringBuilder();</span>
-<span class="fc" id="L723">                StringBuilder dosnMalezas = new StringBuilder();</span>
-<span class="fc" id="L724">                StringBuilder dosnMalezasToleradas = new StringBuilder();</span>
-<span class="fc" id="L725">                StringBuilder dosnMalezasToleranciaC = new StringBuilder();</span>
-<span class="fc" id="L726">                StringBuilder dosnBrassica = new StringBuilder();</span>
+            
+<span class="fc bfc" id="L717" title="All 2 branches covered.">            if (dosn.getListados() != null) {</span>
+<span class="fc" id="L718">                StringBuilder dosnOtrosCultivos = new StringBuilder();</span>
+<span class="fc" id="L719">                StringBuilder dosnMalezas = new StringBuilder();</span>
+<span class="fc" id="L720">                StringBuilder dosnMalezasToleradas = new StringBuilder();</span>
+<span class="fc" id="L721">                StringBuilder dosnMalezasToleranciaC = new StringBuilder();</span>
+<span class="fc" id="L722">                StringBuilder dosnBrassica = new StringBuilder();</span>
                 
-                // Para DOSN INASE
-<span class="fc" id="L729">                StringBuilder dosnInaseOtrosCultivos = new StringBuilder();</span>
-<span class="fc" id="L730">                StringBuilder dosnInaseMalezas = new StringBuilder();</span>
-<span class="fc" id="L731">                StringBuilder dosnInaseMalezasToleradas = new StringBuilder();</span>
-<span class="fc" id="L732">                StringBuilder dosnInaseMalezasToleranciaC = new StringBuilder();</span>
-<span class="fc" id="L733">                StringBuilder dosnInaseBrassica = new StringBuilder();</span>
                 
-<span class="fc bfc" id="L735" title="All 2 branches covered.">                for (Listado listado : dosn.getListados()) {</span>
-<span class="fc" id="L736">                    String nombre = null;</span>
-<span class="fc" id="L737">                    boolean esMaleza = false;</span>
-<span class="fc" id="L738">                    boolean esCultivo = false;</span>
+<span class="fc" id="L725">                StringBuilder dosnInaseOtrosCultivos = new StringBuilder();</span>
+<span class="fc" id="L726">                StringBuilder dosnInaseMalezas = new StringBuilder();</span>
+<span class="fc" id="L727">                StringBuilder dosnInaseMalezasToleradas = new StringBuilder();</span>
+<span class="fc" id="L728">                StringBuilder dosnInaseMalezasToleranciaC = new StringBuilder();</span>
+<span class="fc" id="L729">                StringBuilder dosnInaseBrassica = new StringBuilder();</span>
+                
+<span class="fc bfc" id="L731" title="All 2 branches covered.">                for (Listado listado : dosn.getListados()) {</span>
+<span class="fc" id="L732">                    String nombre = null;</span>
+<span class="fc" id="L733">                    boolean esMaleza = false;</span>
+<span class="fc" id="L734">                    boolean esCultivo = false;</span>
                     
-                    // Determinar si es maleza (tiene catalogo) o cultivo (tiene especie)
-<span class="fc bfc" id="L741" title="All 2 branches covered.">                    if (listado.getCatalogo() != null) {</span>
-<span class="fc" id="L742">                        nombre = listado.getCatalogo().getNombreComun();</span>
-<span class="fc" id="L743">                        esMaleza = true;</span>
-<span class="fc bfc" id="L744" title="All 2 branches covered.">                    } else if (listado.getEspecie() != null) {</span>
-<span class="fc" id="L745">                        nombre = listado.getEspecie().getNombreComun();</span>
-<span class="fc" id="L746">                        esCultivo = true;</span>
+                    
+<span class="fc bfc" id="L737" title="All 2 branches covered.">                    if (listado.getCatalogo() != null) {</span>
+<span class="fc" id="L738">                        nombre = listado.getCatalogo().getNombreComun();</span>
+<span class="fc" id="L739">                        esMaleza = true;</span>
+<span class="fc bfc" id="L740" title="All 2 branches covered.">                    } else if (listado.getEspecie() != null) {</span>
+<span class="fc" id="L741">                        nombre = listado.getEspecie().getNombreComun();</span>
+<span class="fc" id="L742">                        esCultivo = true;</span>
                     }
                     
-<span class="fc bfc" id="L749" title="All 2 branches covered.">                    if (nombre != null) {</span>
-<span class="fc" id="L750">                        TipoListado tipoListado = listado.getListadoTipo();</span>
-<span class="fc" id="L751">                        Instituto instituto = listado.getListadoInsti();</span>
+<span class="fc bfc" id="L745" title="All 2 branches covered.">                    if (nombre != null) {</span>
+<span class="fc" id="L746">                        TipoListado tipoListado = listado.getListadoTipo();</span>
+<span class="fc" id="L747">                        Instituto instituto = listado.getListadoInsti();</span>
                         
-                        // Procesar según el tipo de listado y el instituto
-<span class="fc bfc" id="L754" title="All 2 branches covered.">                        if (instituto == Instituto.INIA) {</span>
-                            // DOSN INIA
-<span class="fc bfc" id="L756" title="All 2 branches covered.">                            if (tipoListado == TipoListado.MAL_TOLERANCIA_CERO) {</span>
-<span class="pc bpc" id="L757" title="1 of 2 branches missed.">                                if (dosnMalezasToleranciaC.length() &gt; 0) dosnMalezasToleranciaC.append(&quot;, &quot;);</span>
-<span class="fc" id="L758">                                dosnMalezasToleranciaC.append(nombre);</span>
-<span class="fc bfc" id="L759" title="All 2 branches covered.">                            } else if (tipoListado == TipoListado.BRASSICA) {</span>
-<span class="pc bpc" id="L760" title="1 of 2 branches missed.">                                if (dosnBrassica.length() &gt; 0) dosnBrassica.append(&quot;, &quot;);</span>
-<span class="fc" id="L761">                                dosnBrassica.append(nombre);</span>
-<span class="fc bfc" id="L762" title="All 2 branches covered.">                            } else if (esMaleza) {</span>
-<span class="pc bpc" id="L763" title="1 of 2 branches missed.">                                if (tipoListado == TipoListado.MAL_TOLERANCIA) {</span>
-<span class="pc bpc" id="L764" title="1 of 2 branches missed.">                                    if (dosnMalezasToleradas.length() &gt; 0) dosnMalezasToleradas.append(&quot;, &quot;);</span>
-<span class="fc" id="L765">                                    dosnMalezasToleradas.append(nombre);</span>
-<span class="fc" id="L766">                                } else {</span>
-<span class="nc bnc" id="L767" title="All 2 branches missed.">                                    if (dosnMalezas.length() &gt; 0) dosnMalezas.append(&quot;, &quot;);</span>
-<span class="nc" id="L768">                                    dosnMalezas.append(nombre);</span>
+                        
+<span class="fc bfc" id="L750" title="All 2 branches covered.">                        if (instituto == Instituto.INIA) {</span>
+                            
+<span class="fc bfc" id="L752" title="All 2 branches covered.">                            if (tipoListado == TipoListado.MAL_TOLERANCIA_CERO) {</span>
+<span class="pc bpc" id="L753" title="1 of 2 branches missed.">                                if (dosnMalezasToleranciaC.length() &gt; 0) dosnMalezasToleranciaC.append(&quot;, &quot;);</span>
+<span class="fc" id="L754">                                dosnMalezasToleranciaC.append(nombre);</span>
+<span class="fc bfc" id="L755" title="All 2 branches covered.">                            } else if (tipoListado == TipoListado.BRASSICA) {</span>
+<span class="pc bpc" id="L756" title="1 of 2 branches missed.">                                if (dosnBrassica.length() &gt; 0) dosnBrassica.append(&quot;, &quot;);</span>
+<span class="fc" id="L757">                                dosnBrassica.append(nombre);</span>
+<span class="fc bfc" id="L758" title="All 2 branches covered.">                            } else if (esMaleza) {</span>
+<span class="pc bpc" id="L759" title="1 of 2 branches missed.">                                if (tipoListado == TipoListado.MAL_TOLERANCIA) {</span>
+<span class="pc bpc" id="L760" title="1 of 2 branches missed.">                                    if (dosnMalezasToleradas.length() &gt; 0) dosnMalezasToleradas.append(&quot;, &quot;);</span>
+<span class="fc" id="L761">                                    dosnMalezasToleradas.append(nombre);</span>
+                                } else {
+<span class="nc bnc" id="L763" title="All 2 branches missed.">                                    if (dosnMalezas.length() &gt; 0) dosnMalezas.append(&quot;, &quot;);</span>
+<span class="nc" id="L764">                                    dosnMalezas.append(nombre);</span>
                                 }
-<span class="pc bpc" id="L770" title="1 of 2 branches missed.">                            } else if (esCultivo) {</span>
-<span class="pc bpc" id="L771" title="1 of 2 branches missed.">                                if (dosnOtrosCultivos.length() &gt; 0) dosnOtrosCultivos.append(&quot;, &quot;);</span>
-<span class="fc" id="L772">                                dosnOtrosCultivos.append(nombre);</span>
+<span class="pc bpc" id="L766" title="1 of 2 branches missed.">                            } else if (esCultivo) {</span>
+<span class="pc bpc" id="L767" title="1 of 2 branches missed.">                                if (dosnOtrosCultivos.length() &gt; 0) dosnOtrosCultivos.append(&quot;, &quot;);</span>
+<span class="fc" id="L768">                                dosnOtrosCultivos.append(nombre);</span>
                             }
-<span class="pc bpc" id="L774" title="1 of 2 branches missed.">                        } else if (instituto == Instituto.INASE) {</span>
-                            // DOSN INASE
-<span class="pc bpc" id="L776" title="1 of 2 branches missed.">                            if (tipoListado == TipoListado.MAL_TOLERANCIA_CERO) {</span>
-<span class="pc bpc" id="L777" title="1 of 2 branches missed.">                                if (dosnInaseMalezasToleranciaC.length() &gt; 0) dosnInaseMalezasToleranciaC.append(&quot;, &quot;);</span>
-<span class="fc" id="L778">                                dosnInaseMalezasToleranciaC.append(nombre);</span>
-<span class="pc bnc" id="L779" title="All 2 branches missed.">                            } else if (tipoListado == TipoListado.BRASSICA) {</span>
-<span class="nc bnc" id="L780" title="All 2 branches missed.">                                if (dosnInaseBrassica.length() &gt; 0) dosnInaseBrassica.append(&quot;, &quot;);</span>
-<span class="nc" id="L781">                                dosnInaseBrassica.append(nombre);</span>
-<span class="nc bnc" id="L782" title="All 2 branches missed.">                            } else if (esMaleza) {</span>
-<span class="nc bnc" id="L783" title="All 2 branches missed.">                                if (tipoListado == TipoListado.MAL_TOLERANCIA) {</span>
-<span class="nc bnc" id="L784" title="All 2 branches missed.">                                    if (dosnInaseMalezasToleradas.length() &gt; 0) dosnInaseMalezasToleradas.append(&quot;, &quot;);</span>
-<span class="nc" id="L785">                                    dosnInaseMalezasToleradas.append(nombre);</span>
-<span class="nc" id="L786">                                } else {</span>
-<span class="nc bnc" id="L787" title="All 2 branches missed.">                                    if (dosnInaseMalezas.length() &gt; 0) dosnInaseMalezas.append(&quot;, &quot;);</span>
-<span class="nc" id="L788">                                    dosnInaseMalezas.append(nombre);</span>
+<span class="pc bpc" id="L770" title="1 of 2 branches missed.">                        } else if (instituto == Instituto.INASE) {</span>
+                            
+<span class="pc bpc" id="L772" title="1 of 2 branches missed.">                            if (tipoListado == TipoListado.MAL_TOLERANCIA_CERO) {</span>
+<span class="pc bpc" id="L773" title="1 of 2 branches missed.">                                if (dosnInaseMalezasToleranciaC.length() &gt; 0) dosnInaseMalezasToleranciaC.append(&quot;, &quot;);</span>
+<span class="fc" id="L774">                                dosnInaseMalezasToleranciaC.append(nombre);</span>
+<span class="nc bnc" id="L775" title="All 2 branches missed.">                            } else if (tipoListado == TipoListado.BRASSICA) {</span>
+<span class="nc bnc" id="L776" title="All 2 branches missed.">                                if (dosnInaseBrassica.length() &gt; 0) dosnInaseBrassica.append(&quot;, &quot;);</span>
+<span class="nc" id="L777">                                dosnInaseBrassica.append(nombre);</span>
+<span class="nc bnc" id="L778" title="All 2 branches missed.">                            } else if (esMaleza) {</span>
+<span class="nc bnc" id="L779" title="All 2 branches missed.">                                if (tipoListado == TipoListado.MAL_TOLERANCIA) {</span>
+<span class="nc bnc" id="L780" title="All 2 branches missed.">                                    if (dosnInaseMalezasToleradas.length() &gt; 0) dosnInaseMalezasToleradas.append(&quot;, &quot;);</span>
+<span class="nc" id="L781">                                    dosnInaseMalezasToleradas.append(nombre);</span>
+                                } else {
+<span class="nc bnc" id="L783" title="All 2 branches missed.">                                    if (dosnInaseMalezas.length() &gt; 0) dosnInaseMalezas.append(&quot;, &quot;);</span>
+<span class="nc" id="L784">                                    dosnInaseMalezas.append(nombre);</span>
                                 }
-<span class="nc bnc" id="L790" title="All 2 branches missed.">                            } else if (esCultivo) {</span>
-<span class="nc bnc" id="L791" title="All 2 branches missed.">                                if (dosnInaseOtrosCultivos.length() &gt; 0) dosnInaseOtrosCultivos.append(&quot;, &quot;);</span>
-<span class="nc" id="L792">                                dosnInaseOtrosCultivos.append(nombre);</span>
+<span class="nc bnc" id="L786" title="All 2 branches missed.">                            } else if (esCultivo) {</span>
+<span class="nc bnc" id="L787" title="All 2 branches missed.">                                if (dosnInaseOtrosCultivos.length() &gt; 0) dosnInaseOtrosCultivos.append(&quot;, &quot;);</span>
+<span class="nc" id="L788">                                dosnInaseOtrosCultivos.append(nombre);</span>
                             }
                         }
                     }
-                }
+<span class="fc" id="L792">                }</span>
                 
-                // DOSN INIA
-<span class="fc" id="L799">                dto.setDosnOtrosCultivos(dosnOtrosCultivos.toString());</span>
-<span class="fc" id="L800">                dto.setDosnMalezas(dosnMalezas.toString());</span>
-<span class="fc" id="L801">                dto.setDosnMalezasToleradas(dosnMalezasToleradas.toString());</span>
-<span class="fc" id="L802">                dto.setDosnMalezasToleranciaC(dosnMalezasToleranciaC.toString());</span>
-<span class="fc" id="L803">                dto.setDosnBrassica(dosnBrassica.toString());</span>
                 
-                // DOSN INASE
-<span class="fc" id="L806">                dto.setDosnInaseOtrosCultivos(dosnInaseOtrosCultivos.toString());</span>
-<span class="fc" id="L807">                dto.setDosnInaseMalezas(dosnInaseMalezas.toString());</span>
-<span class="fc" id="L808">                dto.setDosnInaseMalezasToleradas(dosnInaseMalezasToleradas.toString());</span>
-<span class="fc" id="L809">                dto.setDosnInaseMalezasToleranciaC(dosnInaseMalezasToleranciaC.toString());</span>
-<span class="fc" id="L810">                dto.setDosnInaseBrassica(dosnInaseBrassica.toString());</span>
+<span class="fc" id="L795">                dto.setDosnOtrosCultivos(dosnOtrosCultivos.toString());</span>
+<span class="fc" id="L796">                dto.setDosnMalezas(dosnMalezas.toString());</span>
+<span class="fc" id="L797">                dto.setDosnMalezasToleradas(dosnMalezasToleradas.toString());</span>
+<span class="fc" id="L798">                dto.setDosnMalezasToleranciaC(dosnMalezasToleranciaC.toString());</span>
+<span class="fc" id="L799">                dto.setDosnBrassica(dosnBrassica.toString());</span>
+                
+                
+<span class="fc" id="L802">                dto.setDosnInaseOtrosCultivos(dosnInaseOtrosCultivos.toString());</span>
+<span class="fc" id="L803">                dto.setDosnInaseMalezas(dosnInaseMalezas.toString());</span>
+<span class="fc" id="L804">                dto.setDosnInaseMalezasToleradas(dosnInaseMalezasToleradas.toString());</span>
+<span class="fc" id="L805">                dto.setDosnInaseMalezasToleranciaC(dosnInaseMalezasToleranciaC.toString());</span>
+<span class="fc" id="L806">                dto.setDosnInaseBrassica(dosnInaseBrassica.toString());</span>
             }
         }
-<span class="fc" id="L813">    }</span>
+<span class="fc" id="L809">    }</span>
     private CellStyle crearEstiloEncabezado(Workbook workbook) {
-<span class="fc" id="L815">        CellStyle style = workbook.createCellStyle();</span>
-<span class="fc" id="L816">        style.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());</span>
-<span class="fc" id="L817">        style.setFillPattern(FillPatternType.SOLID_FOREGROUND);</span>
-<span class="fc" id="L818">        style.setBorderTop(BorderStyle.THICK);</span>
-<span class="fc" id="L819">        style.setBorderBottom(BorderStyle.THICK);</span>
-<span class="fc" id="L820">        style.setBorderLeft(BorderStyle.THIN);</span>
-<span class="fc" id="L821">        style.setBorderRight(BorderStyle.THIN);</span>
-<span class="fc" id="L822">        style.setAlignment(HorizontalAlignment.CENTER);</span>
-<span class="fc" id="L823">        style.setVerticalAlignment(VerticalAlignment.BOTTOM);</span>
+<span class="fc" id="L811">        CellStyle style = workbook.createCellStyle();</span>
+<span class="fc" id="L812">        style.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());</span>
+<span class="fc" id="L813">        style.setFillPattern(FillPatternType.SOLID_FOREGROUND);</span>
+<span class="fc" id="L814">        style.setBorderTop(BorderStyle.THICK);</span>
+<span class="fc" id="L815">        style.setBorderBottom(BorderStyle.THICK);</span>
+<span class="fc" id="L816">        style.setBorderLeft(BorderStyle.THIN);</span>
+<span class="fc" id="L817">        style.setBorderRight(BorderStyle.THIN);</span>
+<span class="fc" id="L818">        style.setAlignment(HorizontalAlignment.CENTER);</span>
+<span class="fc" id="L819">        style.setVerticalAlignment(VerticalAlignment.BOTTOM);</span>
         
-<span class="fc" id="L825">        Font font = workbook.createFont();</span>
-<span class="fc" id="L826">        font.setBold(true);</span>
-<span class="fc" id="L827">        font.setFontHeightInPoints((short) 11);</span>
-<span class="fc" id="L828">        style.setFont(font);</span>
+<span class="fc" id="L821">        Font font = workbook.createFont();</span>
+<span class="fc" id="L822">        font.setBold(true);</span>
+<span class="fc" id="L823">        font.setFontHeightInPoints((short) 11);</span>
+<span class="fc" id="L824">        style.setFont(font);</span>
         
-<span class="fc" id="L830">        return style;</span>
+<span class="fc" id="L826">        return style;</span>
     }
 
     private CellStyle crearEstiloEncabezadoAmarillo(Workbook workbook) {
-<span class="fc" id="L834">        CellStyle style = workbook.createCellStyle();</span>
-<span class="fc" id="L835">        style.setFillForegroundColor(IndexedColors.YELLOW.getIndex());</span>
-<span class="fc" id="L836">        style.setFillPattern(FillPatternType.SOLID_FOREGROUND);</span>
-<span class="fc" id="L837">        style.setBorderTop(BorderStyle.THICK);</span>
-<span class="fc" id="L838">        style.setBorderBottom(BorderStyle.THICK);</span>
-<span class="fc" id="L839">        style.setBorderLeft(BorderStyle.THIN);</span>
-<span class="fc" id="L840">        style.setBorderRight(BorderStyle.THIN);</span>
-<span class="fc" id="L841">        style.setAlignment(HorizontalAlignment.CENTER);</span>
-<span class="fc" id="L842">        style.setVerticalAlignment(VerticalAlignment.BOTTOM);</span>
+<span class="fc" id="L830">        CellStyle style = workbook.createCellStyle();</span>
+<span class="fc" id="L831">        style.setFillForegroundColor(IndexedColors.YELLOW.getIndex());</span>
+<span class="fc" id="L832">        style.setFillPattern(FillPatternType.SOLID_FOREGROUND);</span>
+<span class="fc" id="L833">        style.setBorderTop(BorderStyle.THICK);</span>
+<span class="fc" id="L834">        style.setBorderBottom(BorderStyle.THICK);</span>
+<span class="fc" id="L835">        style.setBorderLeft(BorderStyle.THIN);</span>
+<span class="fc" id="L836">        style.setBorderRight(BorderStyle.THIN);</span>
+<span class="fc" id="L837">        style.setAlignment(HorizontalAlignment.CENTER);</span>
+<span class="fc" id="L838">        style.setVerticalAlignment(VerticalAlignment.BOTTOM);</span>
         
-<span class="fc" id="L844">        Font font = workbook.createFont();</span>
-<span class="fc" id="L845">        font.setBold(true);</span>
-<span class="fc" id="L846">        font.setFontHeightInPoints((short) 11);</span>
-<span class="fc" id="L847">        style.setFont(font);</span>
+<span class="fc" id="L840">        Font font = workbook.createFont();</span>
+<span class="fc" id="L841">        font.setBold(true);</span>
+<span class="fc" id="L842">        font.setFontHeightInPoints((short) 11);</span>
+<span class="fc" id="L843">        style.setFont(font);</span>
         
-<span class="fc" id="L849">        return style;</span>
+<span class="fc" id="L845">        return style;</span>
     }
 
     private CellStyle crearEstiloSubEncabezado(Workbook workbook) {
-<span class="fc" id="L853">        CellStyle style = workbook.createCellStyle();</span>
-<span class="fc" id="L854">        style.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());</span>
-<span class="fc" id="L855">        style.setFillPattern(FillPatternType.SOLID_FOREGROUND);</span>
-<span class="fc" id="L856">        style.setBorderTop(BorderStyle.THIN);</span>
-<span class="fc" id="L857">        style.setBorderBottom(BorderStyle.THIN);</span>
-<span class="fc" id="L858">        style.setBorderLeft(BorderStyle.THIN);</span>
-<span class="fc" id="L859">        style.setBorderRight(BorderStyle.THIN);</span>
-<span class="fc" id="L860">        style.setAlignment(HorizontalAlignment.CENTER);</span>
-<span class="fc" id="L861">        style.setVerticalAlignment(VerticalAlignment.BOTTOM);</span>
+<span class="fc" id="L849">        CellStyle style = workbook.createCellStyle();</span>
+<span class="fc" id="L850">        style.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());</span>
+<span class="fc" id="L851">        style.setFillPattern(FillPatternType.SOLID_FOREGROUND);</span>
+<span class="fc" id="L852">        style.setBorderTop(BorderStyle.THIN);</span>
+<span class="fc" id="L853">        style.setBorderBottom(BorderStyle.THIN);</span>
+<span class="fc" id="L854">        style.setBorderLeft(BorderStyle.THIN);</span>
+<span class="fc" id="L855">        style.setBorderRight(BorderStyle.THIN);</span>
+<span class="fc" id="L856">        style.setAlignment(HorizontalAlignment.CENTER);</span>
+<span class="fc" id="L857">        style.setVerticalAlignment(VerticalAlignment.BOTTOM);</span>
         
-<span class="fc" id="L863">        Font font = workbook.createFont();</span>
-<span class="fc" id="L864">        font.setFontHeightInPoints((short) 8);</span>
-<span class="fc" id="L865">        style.setFont(font);</span>
+<span class="fc" id="L859">        Font font = workbook.createFont();</span>
+<span class="fc" id="L860">        font.setFontHeightInPoints((short) 8);</span>
+<span class="fc" id="L861">        style.setFont(font);</span>
         
-<span class="fc" id="L867">        return style;</span>
+<span class="fc" id="L863">        return style;</span>
     }
 
     private CellStyle crearEstiloData(Workbook workbook) {
-<span class="fc" id="L871">        CellStyle style = workbook.createCellStyle();</span>
-<span class="fc" id="L872">        style.setBorderTop(BorderStyle.THIN);</span>
-<span class="fc" id="L873">        style.setBorderBottom(BorderStyle.THIN);</span>
-<span class="fc" id="L874">        style.setBorderLeft(BorderStyle.THIN);</span>
-<span class="fc" id="L875">        style.setBorderRight(BorderStyle.THIN);</span>
-<span class="fc" id="L876">        style.setAlignment(HorizontalAlignment.LEFT);</span>
-<span class="fc" id="L877">        style.setVerticalAlignment(VerticalAlignment.BOTTOM);</span>
+<span class="fc" id="L867">        CellStyle style = workbook.createCellStyle();</span>
+<span class="fc" id="L868">        style.setBorderTop(BorderStyle.THIN);</span>
+<span class="fc" id="L869">        style.setBorderBottom(BorderStyle.THIN);</span>
+<span class="fc" id="L870">        style.setBorderLeft(BorderStyle.THIN);</span>
+<span class="fc" id="L871">        style.setBorderRight(BorderStyle.THIN);</span>
+<span class="fc" id="L872">        style.setAlignment(HorizontalAlignment.LEFT);</span>
+<span class="fc" id="L873">        style.setVerticalAlignment(VerticalAlignment.BOTTOM);</span>
         
-<span class="fc" id="L879">        Font font = workbook.createFont();</span>
-<span class="fc" id="L880">        font.setFontHeightInPoints((short) 11);</span>
-<span class="fc" id="L881">        style.setFont(font);</span>
+<span class="fc" id="L875">        Font font = workbook.createFont();</span>
+<span class="fc" id="L876">        font.setFontHeightInPoints((short) 11);</span>
+<span class="fc" id="L877">        style.setFont(font);</span>
         
-<span class="fc" id="L883">        return style;</span>
+<span class="fc" id="L879">        return style;</span>
     }
 
     private void ajustarAnchoColumnas(Sheet sheet) {
-        // Ajustar el ancho de las primeras columnas que contienen texto
-<span class="fc bfc" id="L888" title="All 2 branches covered.">        for (int i = 0; i &lt; 8; i++) {</span>
-<span class="fc" id="L889">            sheet.autoSizeColumn(i);</span>
-            // Establecer un ancho mínimo
-<span class="fc bfc" id="L891" title="All 2 branches covered.">            if (sheet.getColumnWidth(i) &lt; 3000) {</span>
-<span class="fc" id="L892">                sheet.setColumnWidth(i, 3000);</span>
+        
+<span class="fc bfc" id="L884" title="All 2 branches covered.">        for (int i = 0; i &lt; 8; i++) {</span>
+<span class="fc" id="L885">            sheet.autoSizeColumn(i);</span>
+            
+<span class="fc bfc" id="L887" title="All 2 branches covered.">            if (sheet.getColumnWidth(i) &lt; 3000) {</span>
+<span class="fc" id="L888">                sheet.setColumnWidth(i, 3000);</span>
             }
         }
         
-        // Para el resto de columnas (datos numéricos), establecer un ancho fijo
-<span class="fc bfc" id="L897" title="All 2 branches covered.">        for (int i = 8; i &lt; 50; i++) {</span>
-<span class="fc" id="L898">            sheet.setColumnWidth(i, 2500);</span>
+        
+<span class="fc bfc" id="L893" title="All 2 branches covered.">        for (int i = 8; i &lt; 50; i++) {</span>
+<span class="fc" id="L894">            sheet.setColumnWidth(i, 2500);</span>
         }
-<span class="fc" id="L900">    }</span>
+<span class="fc" id="L896">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

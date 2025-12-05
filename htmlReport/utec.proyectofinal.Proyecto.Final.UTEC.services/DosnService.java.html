@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DosnService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">DosnService.java</span></div><h1>DosnService.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DosnService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">DosnService.java</span></div><h1>DosnService.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,51 +62,51 @@ import utec.proyectofinal.Proyecto.Final.UTEC.dtos.response.DosnListadoDTO;
     @Autowired
     private AnalisisHistorialService analisisHistorialService;
 
-    // Crear Dosn
+    
     @Transactional
     public DosnDTO crearDosn(DosnRequestDTO solicitud) {
 <span class="fc" id="L68">        Dosn dosn = mapearSolicitudAEntidad(solicitud);</span>
 <span class="fc" id="L69">        dosn.setEstado(Estado.EN_PROCESO);</span>
 
-        // Establecer fecha de inicio automáticamente
+        
 <span class="fc" id="L72">        analisisService.establecerFechaInicio(dosn);</span>
 
 <span class="fc" id="L74">        Dosn dosnGuardada = dosnRepository.save(dosn);</span>
 
-        // Registrar automáticamente en el historial
+        
 <span class="fc" id="L77">        analisisHistorialService.registrarCreacion(dosnGuardada);</span>
 
 <span class="fc" id="L79">        return mapearEntidadADTO(dosnGuardada);</span>
     }
 
-    // Editar Dosn
+    
     @Transactional
     public DosnDTO actualizarDosn(Long id, DosnRequestDTO solicitud) {
 <span class="fc" id="L85">        Dosn dosn = dosnRepository.findById(id)</span>
 <span class="fc" id="L86">                .orElseThrow(() -&gt; new RuntimeException(&quot;Dosn no encontrada con id: &quot; + id));</span>
 
-        // Manejar cambios de estado según rol del usuario
+        
 <span class="fc" id="L89">        Estado estadoOriginal = dosn.getEstado();</span>
 
 <span class="pc bpc" id="L91" title="1 of 4 branches missed.">        if (estadoOriginal == Estado.APROBADO &amp;&amp; analisisService.esAnalista()) {</span>
-            // Si es ANALISTA editando un análisis APROBADO, cambiar a PENDIENTE_APROBACION
+            
 <span class="fc" id="L93">            dosn.setEstado(Estado.PENDIENTE_APROBACION);</span>
         }
-        // Si es ADMIN editando análisis APROBADO, mantiene el estado APROBADO
-        // Para otros estados se mantiene igual
+        
+        
 
 <span class="fc" id="L98">        actualizarEntidadDesdeSolicitud(dosn, solicitud);</span>
 
-        // Guardar la entidad actualizada
+        
 <span class="fc" id="L101">        Dosn dosnActualizada = dosnRepository.save(dosn);</span>
 
-        // Registrar automáticamente en el historial
+        
 <span class="fc" id="L104">        analisisHistorialService.registrarModificacion(dosnActualizada);</span>
 
 <span class="fc" id="L106">        return mapearEntidadADTO(dosnActualizada);</span>
     }
 
-    // Eliminar Dosn (desactivar - cambiar activo a false)
+    
     public void eliminarDosn(Long id) {
 <span class="fc" id="L111">        Dosn dosn = dosnRepository.findById(id)</span>
 <span class="pc" id="L112">                .orElseThrow(() -&gt; new RuntimeException(&quot;Dosn no encontrada con id: &quot; + id));</span>
@@ -115,17 +115,17 @@ import utec.proyectofinal.Proyecto.Final.UTEC.dtos.response.DosnListadoDTO;
 <span class="fc" id="L115">        dosnRepository.save(dosn);</span>
 <span class="fc" id="L116">    }</span>
 
-    // Desactivar DOSN (cambiar activo a false)
+    
     public void desactivarDosn(Long id) {
 <span class="fc" id="L120">        analisisService.desactivarAnalisis(id, dosnRepository);</span>
 <span class="fc" id="L121">    }</span>
 
-    // Reactivar DOSN (cambiar activo a true)
+    
     public DosnDTO reactivarDosn(Long id) {
 <span class="fc" id="L125">        return analisisService.reactivarAnalisis(id, dosnRepository, this::mapearEntidadADTO);</span>
     }
 
-    // Listar todas las Dosn activas
+    
     public ResponseListadoDosn obtenerTodasDosnActivas() {
 <span class="fc" id="L130">        List&lt;DosnDTO&gt; dosnDTOs = dosnRepository.findByActivoTrue()</span>
 <span class="fc" id="L131">                .stream()</span>
@@ -137,14 +137,14 @@ import utec.proyectofinal.Proyecto.Final.UTEC.dtos.response.DosnListadoDTO;
 <span class="fc" id="L137">        return respuesta;</span>
     }
 
-    // Obtener Dosn por ID
+    
     public DosnDTO obtenerDosnPorId(Long id) {
 <span class="fc" id="L142">        return dosnRepository.findById(id)</span>
 <span class="fc" id="L143">                .map(this::mapearEntidadADTO)</span>
 <span class="fc" id="L144">                .orElseThrow(() -&gt; new RuntimeException(&quot;Dosn no encontrada con id: &quot; + id));</span>
     }
 
-    // Obtener Dosn por Lote
+    
     public List&lt;DosnDTO&gt; obtenerDosnPorIdLote(Integer idLote) {
 <span class="nc" id="L149">        return dosnRepository.findByIdLote(idLote)</span>
 <span class="nc" id="L150">                .stream()</span>
@@ -152,13 +152,13 @@ import utec.proyectofinal.Proyecto.Final.UTEC.dtos.response.DosnListadoDTO;
 <span class="nc" id="L152">                .collect(Collectors.toList());</span>
     }
 
-    // Listar Dosn con paginado (para listado)
+    
     public Page&lt;DosnListadoDTO&gt; obtenerDosnPaginadas(Pageable pageable) {
 <span class="fc" id="L157">        Page&lt;Dosn&gt; dosnPage = dosnRepository.findByActivoTrueOrderByFechaInicioDesc(pageable);</span>
 <span class="fc" id="L158">        return dosnPage.map(this::mapearEntidadAListadoDTO);</span>
     }
 
-    // Listar Dosn con paginado y filtro de activo
+    
     public Page&lt;DosnListadoDTO&gt; obtenerDosnPaginadasConFiltro(Pageable pageable, String filtroActivo) {
         Page&lt;Dosn&gt; dosnPage;
         
@@ -169,7 +169,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.dtos.response.DosnListadoDTO;
             case &quot;inactivos&quot;:
 <span class="fc" id="L170">                dosnPage = dosnRepository.findByActivoFalseOrderByFechaInicioDesc(pageable);</span>
 <span class="fc" id="L171">                break;</span>
-            default: // &quot;todos&quot;
+            default: 
 <span class="fc" id="L173">                dosnPage = dosnRepository.findAllByOrderByFechaInicioDesc(pageable);</span>
                 break;
         }
@@ -177,9 +177,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.dtos.response.DosnListadoDTO;
 <span class="fc" id="L177">        return dosnPage.map(this::mapearEntidadAListadoDTO);</span>
     }
 
-    /**
-     * Listar DOSN con paginado y filtros dinámicos
-     */
+    
     public Page&lt;DosnListadoDTO&gt; obtenerDosnPaginadasConFiltros(
             Pageable pageable,
             String searchTerm,
@@ -187,316 +185,304 @@ import utec.proyectofinal.Proyecto.Final.UTEC.dtos.response.DosnListadoDTO;
             String estado,
             Long loteId) {
         
-<span class="nc" id="L190">        Specification&lt;Dosn&gt; spec = DosnSpecification.conFiltros(searchTerm, activo, estado, loteId);</span>
-<span class="nc" id="L191">        Page&lt;Dosn&gt; dosnPage = dosnRepository.findAll(spec, pageable);</span>
-<span class="nc" id="L192">        return dosnPage.map(this::mapearEntidadAListadoDTO);</span>
+<span class="nc" id="L188">        Specification&lt;Dosn&gt; spec = DosnSpecification.conFiltros(searchTerm, activo, estado, loteId);</span>
+<span class="nc" id="L189">        Page&lt;Dosn&gt; dosnPage = dosnRepository.findAll(spec, pageable);</span>
+<span class="nc" id="L190">        return dosnPage.map(this::mapearEntidadAListadoDTO);</span>
     }
 
-    // Mapear entidad a DTO de listado simple
+    
     private DosnListadoDTO mapearEntidadAListadoDTO(Dosn dosn) {
-<span class="fc" id="L197">        DosnListadoDTO dto = new DosnListadoDTO();</span>
-<span class="fc" id="L198">        dto.setAnalisisID(dosn.getAnalisisID());</span>
-<span class="fc" id="L199">        dto.setEstado(dosn.getEstado());</span>
-<span class="fc" id="L200">        dto.setFechaInicio(dosn.getFechaInicio());</span>
-<span class="fc" id="L201">        dto.setFechaFin(dosn.getFechaFin());</span>
-<span class="fc" id="L202">        dto.setActivo(dosn.getActivo());</span>
+<span class="fc" id="L195">        DosnListadoDTO dto = new DosnListadoDTO();</span>
+<span class="fc" id="L196">        dto.setAnalisisID(dosn.getAnalisisID());</span>
+<span class="fc" id="L197">        dto.setEstado(dosn.getEstado());</span>
+<span class="fc" id="L198">        dto.setFechaInicio(dosn.getFechaInicio());</span>
+<span class="fc" id="L199">        dto.setFechaFin(dosn.getFechaFin());</span>
+<span class="fc" id="L200">        dto.setActivo(dosn.getActivo());</span>
         
-        // Campo específico de DOSN
-<span class="fc" id="L205">        dto.setCumpleEstandar(dosn.getCumpleEstandar());</span>
         
-<span class="pc bpc" id="L207" title="1 of 2 branches missed.">        if (dosn.getLote() != null) {</span>
-<span class="fc" id="L208">            dto.setIdLote(dosn.getLote().getLoteID());</span>
-<span class="fc" id="L209">            dto.setLote(dosn.getLote().getNomLote()); // Usar nomLote en lugar de ficha</span>
+<span class="fc" id="L203">        dto.setCumpleEstandar(dosn.getCumpleEstandar());</span>
+        
+<span class="pc bpc" id="L205" title="1 of 2 branches missed.">        if (dosn.getLote() != null) {</span>
+<span class="fc" id="L206">            dto.setIdLote(dosn.getLote().getLoteID());</span>
+<span class="fc" id="L207">            dto.setLote(dosn.getLote().getNomLote()); </span>
             
-            // Obtener especie del lote - Usar nombreComun primero, luego nombreCientifico
-<span class="pc bpc" id="L212" title="1 of 4 branches missed.">            if (dosn.getLote().getCultivar() != null &amp;&amp; dosn.getLote().getCultivar().getEspecie() != null) {</span>
-<span class="fc" id="L213">                String nombreEspecie = dosn.getLote().getCultivar().getEspecie().getNombreComun();</span>
-                // Si nombreComun está vacío, intentar con nombreCientifico
-<span class="pc bpc" id="L215" title="1 of 4 branches missed.">                if (nombreEspecie == null || nombreEspecie.trim().isEmpty()) {</span>
-<span class="fc" id="L216">                    nombreEspecie = dosn.getLote().getCultivar().getEspecie().getNombreCientifico();</span>
+            
+<span class="pc bpc" id="L210" title="1 of 4 branches missed.">            if (dosn.getLote().getCultivar() != null &amp;&amp; dosn.getLote().getCultivar().getEspecie() != null) {</span>
+<span class="fc" id="L211">                String nombreEspecie = dosn.getLote().getCultivar().getEspecie().getNombreComun();</span>
+                
+<span class="pc bpc" id="L213" title="1 of 4 branches missed.">                if (nombreEspecie == null || nombreEspecie.trim().isEmpty()) {</span>
+<span class="fc" id="L214">                    nombreEspecie = dosn.getLote().getCultivar().getEspecie().getNombreCientifico();</span>
                 }
-<span class="fc" id="L218">                dto.setEspecie(nombreEspecie);</span>
+<span class="fc" id="L216">                dto.setEspecie(nombreEspecie);</span>
             }
         }
         
-<span class="pc bpc" id="L222" title="1 of 2 branches missed.">        if (dosn.getAnalisisID() != null) {</span>
-<span class="fc" id="L223">            var historial = analisisHistorialService.obtenerHistorialAnalisis(dosn.getAnalisisID());</span>
-<span class="fc bfc" id="L224" title="All 2 branches covered.">            if (!historial.isEmpty()) {</span>
-<span class="fc" id="L225">                var primerRegistro = historial.get(historial.size() - 1);</span>
-<span class="fc" id="L226">                dto.setUsuarioCreador(primerRegistro.getUsuario());</span>
-<span class="fc" id="L227">                var ultimoRegistro = historial.get(0);</span>
-<span class="fc" id="L228">                dto.setUsuarioModificador(ultimoRegistro.getUsuario());</span>
+<span class="pc bpc" id="L220" title="1 of 2 branches missed.">        if (dosn.getAnalisisID() != null) {</span>
+<span class="fc" id="L221">            var historial = analisisHistorialService.obtenerHistorialAnalisis(dosn.getAnalisisID());</span>
+<span class="fc bfc" id="L222" title="All 2 branches covered.">            if (!historial.isEmpty()) {</span>
+<span class="fc" id="L223">                var primerRegistro = historial.get(historial.size() - 1);</span>
+<span class="fc" id="L224">                dto.setUsuarioCreador(primerRegistro.getUsuario());</span>
+<span class="fc" id="L225">                var ultimoRegistro = historial.get(0);</span>
+<span class="fc" id="L226">                dto.setUsuarioModificador(ultimoRegistro.getUsuario());</span>
             }
         }
-<span class="fc" id="L231">        return dto;</span>
+<span class="fc" id="L229">        return dto;</span>
     }
 
-    // === Mappers ===
+    
 
     private Dosn mapearSolicitudAEntidad(DosnRequestDTO solicitud) {
-<span class="fc" id="L237">        Dosn dosn = new Dosn();</span>
+<span class="fc" id="L235">        Dosn dosn = new Dosn();</span>
 
-<span class="pc bpc" id="L239" title="1 of 2 branches missed.">        if (solicitud.getIdLote() != null) {</span>
-<span class="fc" id="L240">            Optional&lt;Lote&gt; loteOpt = loteRepository.findById(solicitud.getIdLote());</span>
-<span class="fc bfc" id="L241" title="All 2 branches covered.">            if (loteOpt.isPresent()) {</span>
-<span class="fc" id="L242">                Lote lote = loteOpt.get();</span>
+<span class="pc bpc" id="L237" title="1 of 2 branches missed.">        if (solicitud.getIdLote() != null) {</span>
+<span class="fc" id="L238">            Optional&lt;Lote&gt; loteOpt = loteRepository.findById(solicitud.getIdLote());</span>
+<span class="fc bfc" id="L239" title="All 2 branches covered.">            if (loteOpt.isPresent()) {</span>
+<span class="fc" id="L240">                Lote lote = loteOpt.get();</span>
                 
-                // Validar que el lote esté activo
-<span class="pc bpc" id="L245" title="1 of 2 branches missed.">                if (!lote.getActivo()) {</span>
-<span class="nc" id="L246">                    throw new RuntimeException(&quot;No se puede crear un análisis para un lote inactivo&quot;);</span>
+                
+<span class="pc bpc" id="L243" title="1 of 2 branches missed.">                if (!lote.getActivo()) {</span>
+<span class="nc" id="L244">                    throw new RuntimeException(&quot;No se puede crear un análisis para un lote inactivo&quot;);</span>
                 }
                 
-<span class="fc" id="L249">                dosn.setLote(lote);</span>
-<span class="fc" id="L250">            } else {</span>
-<span class="fc" id="L251">                throw new RuntimeException(&quot;Lote no encontrado con ID: &quot; + solicitud.getIdLote());</span>
+<span class="fc" id="L247">                dosn.setLote(lote);</span>
+<span class="fc" id="L248">            } else {</span>
+<span class="fc" id="L249">                throw new RuntimeException(&quot;Lote no encontrado con ID: &quot; + solicitud.getIdLote());</span>
             }
         }
 
-<span class="fc" id="L255">        dosn.setCumpleEstandar(solicitud.getCumpleEstandar());</span>
-<span class="fc" id="L256">        dosn.setComentarios(solicitud.getComentarios());</span>
+<span class="fc" id="L253">        dosn.setCumpleEstandar(solicitud.getCumpleEstandar());</span>
+<span class="fc" id="L254">        dosn.setComentarios(solicitud.getComentarios());</span>
 
-        // Las fechas fechaInicio y fechaFin son automáticas
-<span class="fc" id="L259">        dosn.setFechaINIA(solicitud.getFechaINIA());</span>
-<span class="fc" id="L260">        dosn.setGramosAnalizadosINIA(solicitud.getGramosAnalizadosINIA());</span>
-<span class="fc" id="L261">        dosn.setTipoINIA(solicitud.getTipoINIA());</span>
+        
+<span class="fc" id="L257">        dosn.setFechaINIA(solicitud.getFechaINIA());</span>
+<span class="fc" id="L258">        dosn.setGramosAnalizadosINIA(solicitud.getGramosAnalizadosINIA());</span>
+<span class="fc" id="L259">        dosn.setTipoINIA(solicitud.getTipoINIA());</span>
 
-<span class="fc" id="L263">        dosn.setFechaINASE(solicitud.getFechaINASE());</span>
-<span class="fc" id="L264">        dosn.setGramosAnalizadosINASE(solicitud.getGramosAnalizadosINASE());</span>
-<span class="fc" id="L265">        dosn.setTipoINASE(solicitud.getTipoINASE());</span>
+<span class="fc" id="L261">        dosn.setFechaINASE(solicitud.getFechaINASE());</span>
+<span class="fc" id="L262">        dosn.setGramosAnalizadosINASE(solicitud.getGramosAnalizadosINASE());</span>
+<span class="fc" id="L263">        dosn.setTipoINASE(solicitud.getTipoINASE());</span>
 
-        // Mapear registros de Cuscuta
-<span class="pc bpc" id="L268" title="1 of 4 branches missed.">        if (solicitud.getCuscutaRegistros() != null &amp;&amp; !solicitud.getCuscutaRegistros().isEmpty()) {</span>
-<span class="fc" id="L269">            List&lt;CuscutaRegistro&gt; cuscutaRegistros = solicitud.getCuscutaRegistros().stream()</span>
-<span class="fc" id="L270">                    .map(req -&gt; crearCuscutaRegistroDesdeSolicitud(req, dosn))</span>
-<span class="fc" id="L271">                    .collect(Collectors.toList());</span>
-<span class="fc" id="L272">            dosn.setCuscutaRegistros(cuscutaRegistros);</span>
+        
+<span class="pc bpc" id="L266" title="1 of 4 branches missed.">        if (solicitud.getCuscutaRegistros() != null &amp;&amp; !solicitud.getCuscutaRegistros().isEmpty()) {</span>
+<span class="fc" id="L267">            List&lt;CuscutaRegistro&gt; cuscutaRegistros = solicitud.getCuscutaRegistros().stream()</span>
+<span class="fc" id="L268">                    .map(req -&gt; crearCuscutaRegistroDesdeSolicitud(req, dosn))</span>
+<span class="fc" id="L269">                    .collect(Collectors.toList());</span>
+<span class="fc" id="L270">            dosn.setCuscutaRegistros(cuscutaRegistros);</span>
         }
 
-<span class="pc bpc" id="L275" title="1 of 4 branches missed.">        if (solicitud.getListados() != null &amp;&amp; !solicitud.getListados().isEmpty()) {</span>
-<span class="fc" id="L276">            List&lt;Listado&gt; listados = solicitud.getListados().stream()</span>
-<span class="fc" id="L277">                    .map(req -&gt; crearListadoDesdeSolicitud(req, dosn))</span>
-<span class="fc" id="L278">                    .collect(Collectors.toList());</span>
-<span class="fc" id="L279">            dosn.setListados(listados);</span>
+<span class="pc bpc" id="L273" title="1 of 4 branches missed.">        if (solicitud.getListados() != null &amp;&amp; !solicitud.getListados().isEmpty()) {</span>
+<span class="fc" id="L274">            List&lt;Listado&gt; listados = solicitud.getListados().stream()</span>
+<span class="fc" id="L275">                    .map(req -&gt; crearListadoDesdeSolicitud(req, dosn))</span>
+<span class="fc" id="L276">                    .collect(Collectors.toList());</span>
+<span class="fc" id="L277">            dosn.setListados(listados);</span>
         }
 
-<span class="fc" id="L282">        return dosn;</span>
+<span class="fc" id="L280">        return dosn;</span>
     }
 
     private void actualizarEntidadDesdeSolicitud(Dosn dosn, DosnRequestDTO solicitud) {
-<span class="pc bpc" id="L286" title="1 of 2 branches missed.">        if (solicitud.getIdLote() != null) {</span>
-<span class="fc" id="L287">            Optional&lt;Lote&gt; loteOpt = loteRepository.findById(solicitud.getIdLote());</span>
-<span class="pc bpc" id="L288" title="1 of 2 branches missed.">            if (loteOpt.isPresent()) {</span>
-<span class="fc" id="L289">                dosn.setLote(loteOpt.get());</span>
-<span class="fc" id="L290">            } else {</span>
-<span class="nc" id="L291">                throw new RuntimeException(&quot;Lote no encontrado con ID: &quot; + solicitud.getIdLote());</span>
+<span class="pc bpc" id="L284" title="1 of 2 branches missed.">        if (solicitud.getIdLote() != null) {</span>
+<span class="fc" id="L285">            Optional&lt;Lote&gt; loteOpt = loteRepository.findById(solicitud.getIdLote());</span>
+<span class="pc bpc" id="L286" title="1 of 2 branches missed.">            if (loteOpt.isPresent()) {</span>
+<span class="fc" id="L287">                dosn.setLote(loteOpt.get());</span>
+            } else {
+<span class="nc" id="L289">                throw new RuntimeException(&quot;Lote no encontrado con ID: &quot; + solicitud.getIdLote());</span>
             }
         }
 
-<span class="pc bpc" id="L295" title="1 of 2 branches missed.">        if (solicitud.getCumpleEstandar() != null) dosn.setCumpleEstandar(solicitud.getCumpleEstandar());</span>
-<span class="pc bpc" id="L296" title="1 of 2 branches missed.">        if (solicitud.getComentarios() != null) dosn.setComentarios(solicitud.getComentarios());</span>
+<span class="pc bpc" id="L293" title="1 of 2 branches missed.">        if (solicitud.getCumpleEstandar() != null) dosn.setCumpleEstandar(solicitud.getCumpleEstandar());</span>
+<span class="pc bpc" id="L294" title="1 of 2 branches missed.">        if (solicitud.getComentarios() != null) dosn.setComentarios(solicitud.getComentarios());</span>
 
-<span class="pc bpc" id="L298" title="1 of 2 branches missed.">        if (solicitud.getFechaINIA() != null) dosn.setFechaINIA(solicitud.getFechaINIA());</span>
-<span class="pc bpc" id="L299" title="1 of 2 branches missed.">        if (solicitud.getGramosAnalizadosINIA() != null)</span>
-<span class="fc" id="L300">            dosn.setGramosAnalizadosINIA(solicitud.getGramosAnalizadosINIA());</span>
-<span class="pc bpc" id="L301" title="1 of 2 branches missed.">        if (solicitud.getTipoINIA() != null) dosn.setTipoINIA(solicitud.getTipoINIA());</span>
+<span class="pc bpc" id="L296" title="1 of 2 branches missed.">        if (solicitud.getFechaINIA() != null) dosn.setFechaINIA(solicitud.getFechaINIA());</span>
+<span class="pc bpc" id="L297" title="1 of 2 branches missed.">        if (solicitud.getGramosAnalizadosINIA() != null)</span>
+<span class="fc" id="L298">            dosn.setGramosAnalizadosINIA(solicitud.getGramosAnalizadosINIA());</span>
+<span class="pc bpc" id="L299" title="1 of 2 branches missed.">        if (solicitud.getTipoINIA() != null) dosn.setTipoINIA(solicitud.getTipoINIA());</span>
 
-<span class="pc bpc" id="L303" title="1 of 2 branches missed.">        if (solicitud.getFechaINASE() != null) dosn.setFechaINASE(solicitud.getFechaINASE());</span>
-<span class="pc bpc" id="L304" title="1 of 2 branches missed.">        if (solicitud.getGramosAnalizadosINASE() != null)</span>
-<span class="nc" id="L305">            dosn.setGramosAnalizadosINASE(solicitud.getGramosAnalizadosINASE());</span>
-<span class="pc bpc" id="L306" title="1 of 2 branches missed.">        if (solicitud.getTipoINASE() != null) dosn.setTipoINASE(solicitud.getTipoINASE());</span>
+<span class="pc bpc" id="L301" title="1 of 2 branches missed.">        if (solicitud.getFechaINASE() != null) dosn.setFechaINASE(solicitud.getFechaINASE());</span>
+<span class="pc bpc" id="L302" title="1 of 2 branches missed.">        if (solicitud.getGramosAnalizadosINASE() != null)</span>
+<span class="nc" id="L303">            dosn.setGramosAnalizadosINASE(solicitud.getGramosAnalizadosINASE());</span>
+<span class="pc bpc" id="L304" title="1 of 2 branches missed.">        if (solicitud.getTipoINASE() != null) dosn.setTipoINASE(solicitud.getTipoINASE());</span>
 
-        // Actualizar registros de Cuscuta
-<span class="fc bfc" id="L309" title="All 2 branches covered.">        if (solicitud.getCuscutaRegistros() != null) {</span>
-            // Inicializar la lista si es null
-<span class="pc bpc" id="L311" title="1 of 2 branches missed.">            if (dosn.getCuscutaRegistros() == null) {</span>
-<span class="nc" id="L312">                dosn.setCuscutaRegistros(new ArrayList&lt;&gt;());</span>
+        
+<span class="fc bfc" id="L307" title="All 2 branches covered.">        if (solicitud.getCuscutaRegistros() != null) {</span>
+            
+<span class="pc bpc" id="L309" title="1 of 2 branches missed.">            if (dosn.getCuscutaRegistros() == null) {</span>
+<span class="nc" id="L310">                dosn.setCuscutaRegistros(new ArrayList&lt;&gt;());</span>
             }
 
-            // Limpiar registros existentes
-<span class="fc" id="L316">            dosn.getCuscutaRegistros().clear();</span>
+            
+<span class="fc" id="L314">            dosn.getCuscutaRegistros().clear();</span>
 
-            // Si hay nuevos registros, crearlos y agregarlos
-<span class="pc bpc" id="L319" title="1 of 2 branches missed.">            if (!solicitud.getCuscutaRegistros().isEmpty()) {</span>
-<span class="fc" id="L320">                List&lt;CuscutaRegistro&gt; nuevosCuscutaRegistros = solicitud.getCuscutaRegistros().stream()</span>
-<span class="fc" id="L321">                        .map(req -&gt; crearCuscutaRegistroDesdeSolicitud(req, dosn))</span>
-<span class="fc" id="L322">                        .collect(Collectors.toList());</span>
+            
+<span class="pc bpc" id="L317" title="1 of 2 branches missed.">            if (!solicitud.getCuscutaRegistros().isEmpty()) {</span>
+<span class="fc" id="L318">                List&lt;CuscutaRegistro&gt; nuevosCuscutaRegistros = solicitud.getCuscutaRegistros().stream()</span>
+<span class="fc" id="L319">                        .map(req -&gt; crearCuscutaRegistroDesdeSolicitud(req, dosn))</span>
+<span class="fc" id="L320">                        .collect(Collectors.toList());</span>
 
-<span class="fc" id="L324">                dosn.getCuscutaRegistros().addAll(nuevosCuscutaRegistros);</span>
-            }
-        }
-
-<span class="fc bfc" id="L328" title="All 2 branches covered.">        if (solicitud.getListados() != null) {</span>
-            // Inicializar la lista si es null
-<span class="pc bpc" id="L330" title="1 of 2 branches missed.">            if (dosn.getListados() == null) {</span>
-<span class="nc" id="L331">                dosn.setListados(new ArrayList&lt;&gt;());</span>
-            }
-
-            // Limpiar listados existentes
-<span class="fc" id="L335">            dosn.getListados().clear();</span>
-
-            // Si hay nuevos listados, crearlos y agregarlos
-<span class="pc bpc" id="L338" title="1 of 2 branches missed.">            if (!solicitud.getListados().isEmpty()) {</span>
-<span class="fc" id="L339">                List&lt;Listado&gt; nuevosListados = solicitud.getListados().stream()</span>
-<span class="fc" id="L340">                        .map(req -&gt; crearListadoDesdeSolicitud(req, dosn))</span>
-<span class="fc" id="L341">                        .collect(Collectors.toList());</span>
-
-<span class="fc" id="L343">                dosn.getListados().addAll(nuevosListados);</span>
+<span class="fc" id="L322">                dosn.getCuscutaRegistros().addAll(nuevosCuscutaRegistros);</span>
             }
         }
-<span class="fc" id="L346">    }</span>
+
+<span class="fc bfc" id="L326" title="All 2 branches covered.">        if (solicitud.getListados() != null) {</span>
+            
+<span class="pc bpc" id="L328" title="1 of 2 branches missed.">            if (dosn.getListados() == null) {</span>
+<span class="nc" id="L329">                dosn.setListados(new ArrayList&lt;&gt;());</span>
+            }
+
+            
+<span class="fc" id="L333">            dosn.getListados().clear();</span>
+
+            
+<span class="pc bpc" id="L336" title="1 of 2 branches missed.">            if (!solicitud.getListados().isEmpty()) {</span>
+<span class="fc" id="L337">                List&lt;Listado&gt; nuevosListados = solicitud.getListados().stream()</span>
+<span class="fc" id="L338">                        .map(req -&gt; crearListadoDesdeSolicitud(req, dosn))</span>
+<span class="fc" id="L339">                        .collect(Collectors.toList());</span>
+
+<span class="fc" id="L341">                dosn.getListados().addAll(nuevosListados);</span>
+            }
+        }
+<span class="fc" id="L344">    }</span>
 
     private DosnDTO mapearEntidadADTO(Dosn dosn) {
-<span class="fc" id="L349">        DosnDTO dto = new DosnDTO();</span>
+<span class="fc" id="L347">        DosnDTO dto = new DosnDTO();</span>
 
-<span class="fc" id="L351">        dto.setAnalisisID(dosn.getAnalisisID());</span>
-<span class="fc" id="L352">        dto.setEstado(dosn.getEstado());</span>
-<span class="fc" id="L353">        dto.setFechaInicio(dosn.getFechaInicio());</span>
-<span class="fc" id="L354">        dto.setFechaFin(dosn.getFechaFin());</span>
-<span class="fc" id="L355">        dto.setCumpleEstandar(dosn.getCumpleEstandar());</span>
-<span class="fc" id="L356">        dto.setComentarios(dosn.getComentarios());</span>
+<span class="fc" id="L349">        dto.setAnalisisID(dosn.getAnalisisID());</span>
+<span class="fc" id="L350">        dto.setEstado(dosn.getEstado());</span>
+<span class="fc" id="L351">        dto.setFechaInicio(dosn.getFechaInicio());</span>
+<span class="fc" id="L352">        dto.setFechaFin(dosn.getFechaFin());</span>
+<span class="fc" id="L353">        dto.setCumpleEstandar(dosn.getCumpleEstandar());</span>
+<span class="fc" id="L354">        dto.setComentarios(dosn.getComentarios());</span>
         
-        // Datos completos del lote si existe
-<span class="pc bpc" id="L359" title="1 of 2 branches missed.">        if (dosn.getLote() != null) {</span>
-<span class="fc" id="L360">            dto.setIdLote(dosn.getLote().getLoteID());</span>
-<span class="fc" id="L361">            dto.setLote(dosn.getLote().getNomLote());</span>
-<span class="fc" id="L362">            dto.setFicha(dosn.getLote().getFicha());</span>
+        
+<span class="pc bpc" id="L357" title="1 of 2 branches missed.">        if (dosn.getLote() != null) {</span>
+<span class="fc" id="L358">            dto.setIdLote(dosn.getLote().getLoteID());</span>
+<span class="fc" id="L359">            dto.setLote(dosn.getLote().getNomLote());</span>
+<span class="fc" id="L360">            dto.setFicha(dosn.getLote().getFicha());</span>
             
-            // Información del cultivar y especie
-<span class="pc bpc" id="L365" title="1 of 2 branches missed.">            if (dosn.getLote().getCultivar() != null) {</span>
-<span class="nc" id="L366">                dto.setCultivarNombre(dosn.getLote().getCultivar().getNombre());</span>
+            
+<span class="pc bpc" id="L363" title="1 of 2 branches missed.">            if (dosn.getLote().getCultivar() != null) {</span>
+<span class="nc" id="L364">                dto.setCultivarNombre(dosn.getLote().getCultivar().getNombre());</span>
                 
-<span class="nc bnc" id="L368" title="All 2 branches missed.">                if (dosn.getLote().getCultivar().getEspecie() != null) {</span>
-<span class="nc" id="L369">                    dto.setEspecieNombre(dosn.getLote().getCultivar().getEspecie().getNombreComun());</span>
+<span class="nc bnc" id="L366" title="All 2 branches missed.">                if (dosn.getLote().getCultivar().getEspecie() != null) {</span>
+<span class="nc" id="L367">                    dto.setEspecieNombre(dosn.getLote().getCultivar().getEspecie().getNombreComun());</span>
                 }
             }
         }
 
-<span class="fc" id="L374">        dto.setFechaINIA(dosn.getFechaINIA());</span>
-<span class="fc" id="L375">        dto.setGramosAnalizadosINIA(dosn.getGramosAnalizadosINIA());</span>
-<span class="fc" id="L376">        dto.setTipoINIA(dosn.getTipoINIA());</span>
+<span class="fc" id="L372">        dto.setFechaINIA(dosn.getFechaINIA());</span>
+<span class="fc" id="L373">        dto.setGramosAnalizadosINIA(dosn.getGramosAnalizadosINIA());</span>
+<span class="fc" id="L374">        dto.setTipoINIA(dosn.getTipoINIA());</span>
 
-<span class="fc" id="L378">        dto.setFechaINASE(dosn.getFechaINASE());</span>
-<span class="fc" id="L379">        dto.setGramosAnalizadosINASE(dosn.getGramosAnalizadosINASE());</span>
-<span class="fc" id="L380">        dto.setTipoINASE(dosn.getTipoINASE());</span>
+<span class="fc" id="L376">        dto.setFechaINASE(dosn.getFechaINASE());</span>
+<span class="fc" id="L377">        dto.setGramosAnalizadosINASE(dosn.getGramosAnalizadosINASE());</span>
+<span class="fc" id="L378">        dto.setTipoINASE(dosn.getTipoINASE());</span>
 
-        // Mapear registros de Cuscuta
-<span class="fc bfc" id="L383" title="All 2 branches covered.">        if (dosn.getCuscutaRegistros() != null) {</span>
-<span class="fc" id="L384">            List&lt;CuscutaRegistroDTO&gt; cuscutaRegistroDTOs = dosn.getCuscutaRegistros().stream()</span>
-<span class="fc" id="L385">                    .map(this::mapearCuscutaRegistroADTO)</span>
-<span class="fc" id="L386">                    .collect(Collectors.toList());</span>
-<span class="fc" id="L387">            dto.setCuscutaRegistros(cuscutaRegistroDTOs);</span>
+        
+<span class="fc bfc" id="L381" title="All 2 branches covered.">        if (dosn.getCuscutaRegistros() != null) {</span>
+<span class="fc" id="L382">            List&lt;CuscutaRegistroDTO&gt; cuscutaRegistroDTOs = dosn.getCuscutaRegistros().stream()</span>
+<span class="fc" id="L383">                    .map(this::mapearCuscutaRegistroADTO)</span>
+<span class="fc" id="L384">                    .collect(Collectors.toList());</span>
+<span class="fc" id="L385">            dto.setCuscutaRegistros(cuscutaRegistroDTOs);</span>
         }
 
-<span class="fc bfc" id="L390" title="All 2 branches covered.">        if (dosn.getListados() != null) {</span>
-<span class="fc" id="L391">            List&lt;ListadoDTO&gt; listadoDTOs = dosn.getListados().stream()</span>
-<span class="fc" id="L392">                    .map(MappingUtils::toListadoDTO)</span>
-<span class="fc" id="L393">                    .collect(Collectors.toList());</span>
-<span class="fc" id="L394">            dto.setListados(listadoDTOs);</span>
+<span class="fc bfc" id="L388" title="All 2 branches covered.">        if (dosn.getListados() != null) {</span>
+<span class="fc" id="L389">            List&lt;ListadoDTO&gt; listadoDTOs = dosn.getListados().stream()</span>
+<span class="fc" id="L390">                    .map(MappingUtils::toListadoDTO)</span>
+<span class="fc" id="L391">                    .collect(Collectors.toList());</span>
+<span class="fc" id="L392">            dto.setListados(listadoDTOs);</span>
         }
 
-        // Mapear historial de análisis
-<span class="fc" id="L398">        dto.setHistorial(analisisHistorialService.obtenerHistorialAnalisis(dosn.getAnalisisID()));</span>
+        
+<span class="fc" id="L396">        dto.setHistorial(analisisHistorialService.obtenerHistorialAnalisis(dosn.getAnalisisID()));</span>
 
-<span class="fc" id="L400">        return dto;</span>
+<span class="fc" id="L398">        return dto;</span>
     }
 
     private Listado crearListadoDesdeSolicitud(ListadoRequestDTO solicitud, Dosn dosn) {
-<span class="fc" id="L404">        Listado listado = MappingUtils.fromListadoRequest(solicitud, malezasCatalogoRepository, especieRepository);</span>
-<span class="fc" id="L405">        listado.setDosn(dosn);</span>
-<span class="fc" id="L406">        return listado;</span>
+<span class="fc" id="L402">        Listado listado = MappingUtils.fromListadoRequest(solicitud, malezasCatalogoRepository, especieRepository);</span>
+<span class="fc" id="L403">        listado.setDosn(dosn);</span>
+<span class="fc" id="L404">        return listado;</span>
     }
 
     private CuscutaRegistro crearCuscutaRegistroDesdeSolicitud(CuscutaRegistroRequestDTO solicitud, Dosn dosn) {
-<span class="fc" id="L410">        CuscutaRegistro registro = new CuscutaRegistro();</span>
-<span class="fc" id="L411">        registro.setInstituto(solicitud.getInstituto());</span>
-<span class="fc" id="L412">        registro.setCuscuta_g(solicitud.getCuscuta_g());</span>
-<span class="fc" id="L413">        registro.setCuscutaNum(solicitud.getCuscutaNum());</span>
-<span class="fc" id="L414">        registro.setFechaCuscuta(solicitud.getFechaCuscuta());</span>
-<span class="fc" id="L415">        registro.setDosn(dosn);</span>
-<span class="fc" id="L416">        return registro;</span>
+<span class="fc" id="L408">        CuscutaRegistro registro = new CuscutaRegistro();</span>
+<span class="fc" id="L409">        registro.setInstituto(solicitud.getInstituto());</span>
+<span class="fc" id="L410">        registro.setCuscuta_g(solicitud.getCuscuta_g());</span>
+<span class="fc" id="L411">        registro.setCuscutaNum(solicitud.getCuscutaNum());</span>
+<span class="fc" id="L412">        registro.setFechaCuscuta(solicitud.getFechaCuscuta());</span>
+<span class="fc" id="L413">        registro.setDosn(dosn);</span>
+<span class="fc" id="L414">        return registro;</span>
     }
 
     private CuscutaRegistroDTO mapearCuscutaRegistroADTO(CuscutaRegistro registro) {
-<span class="fc" id="L420">        CuscutaRegistroDTO dto = new CuscutaRegistroDTO();</span>
-<span class="fc" id="L421">        dto.setId(registro.getId());</span>
-<span class="fc" id="L422">        dto.setInstituto(registro.getInstituto());</span>
-<span class="fc" id="L423">        dto.setCuscuta_g(registro.getCuscuta_g());</span>
-<span class="fc" id="L424">        dto.setCuscutaNum(registro.getCuscutaNum());</span>
-<span class="fc" id="L425">        dto.setFechaCuscuta(registro.getFechaCuscuta());</span>
-<span class="fc" id="L426">        return dto;</span>
+<span class="fc" id="L418">        CuscutaRegistroDTO dto = new CuscutaRegistroDTO();</span>
+<span class="fc" id="L419">        dto.setId(registro.getId());</span>
+<span class="fc" id="L420">        dto.setInstituto(registro.getInstituto());</span>
+<span class="fc" id="L421">        dto.setCuscuta_g(registro.getCuscuta_g());</span>
+<span class="fc" id="L422">        dto.setCuscutaNum(registro.getCuscutaNum());</span>
+<span class="fc" id="L423">        dto.setFechaCuscuta(registro.getFechaCuscuta());</span>
+<span class="fc" id="L424">        return dto;</span>
     }
 
-    /**
-     * Finalizar análisis según el rol del usuario
-     * - Analistas: pasa a PENDIENTE_APROBACION
-     * - Administradores: pasa directamente a APROBADO
-     */
+    
     public DosnDTO finalizarAnalisis(Long id) {
-<span class="fc" id="L435">        return analisisService.finalizarAnalisisGenerico(</span>
-<span class="fc" id="L436">                id,</span>
-<span class="fc" id="L437">                dosnRepository,</span>
-<span class="fc" id="L438">                this::mapearEntidadADTO,</span>
-<span class="fc" id="L439">                this::validarAntesDeFinalizar // Validación específica para DOSN</span>
+<span class="fc" id="L429">        return analisisService.finalizarAnalisisGenerico(</span>
+                id,
+                dosnRepository,
+                this::mapearEntidadADTO,
+                this::validarAntesDeFinalizar 
         );
     }
     
-    /**
-     * Validación básica previa a la finalización de un DOSN.
-     * Requiere al menos una forma de evidencia: resultados INIA o INASE (gramos &gt; 0),
-     * datos de cuscuta o listados no vacíos. Si no hay evidencia lanza RuntimeException.
-     */
+    
     private void validarAntesDeFinalizar(Dosn dosn) {
-<span class="fc bfc" id="L449" title="All 4 branches covered.">        boolean tieneINIA = dosn.getFechaINIA() != null</span>
-<span class="pc bpc" id="L450" title="1 of 2 branches missed.">                &amp;&amp; dosn.getGramosAnalizadosINIA() != null</span>
-<span class="fc" id="L451">                &amp;&amp; dosn.getGramosAnalizadosINIA().compareTo(BigDecimal.ZERO) &gt; 0;</span>
+<span class="fc bfc" id="L439" title="All 2 branches covered.">        boolean tieneINIA = dosn.getFechaINIA() != null</span>
+<span class="pc bpc" id="L440" title="1 of 2 branches missed.">                &amp;&amp; dosn.getGramosAnalizadosINIA() != null</span>
+<span class="fc bfc" id="L441" title="All 2 branches covered.">                &amp;&amp; dosn.getGramosAnalizadosINIA().compareTo(BigDecimal.ZERO) &gt; 0;</span>
 
-<span class="fc bfc" id="L453" title="All 4 branches covered.">        boolean tieneINASE = dosn.getFechaINASE() != null</span>
-<span class="pc bpc" id="L454" title="1 of 2 branches missed.">                &amp;&amp; dosn.getGramosAnalizadosINASE() != null</span>
-<span class="fc" id="L455">                &amp;&amp; dosn.getGramosAnalizadosINASE().compareTo(BigDecimal.ZERO) &gt; 0;</span>
+<span class="fc bfc" id="L443" title="All 2 branches covered.">        boolean tieneINASE = dosn.getFechaINASE() != null</span>
+<span class="pc bpc" id="L444" title="1 of 2 branches missed.">                &amp;&amp; dosn.getGramosAnalizadosINASE() != null</span>
+<span class="fc bfc" id="L445" title="All 2 branches covered.">                &amp;&amp; dosn.getGramosAnalizadosINASE().compareTo(BigDecimal.ZERO) &gt; 0;</span>
 
-<span class="fc bfc" id="L457" title="All 2 branches covered.">        boolean tieneCuscuta = dosn.getCuscutaRegistros() != null </span>
-<span class="pc bpc" id="L458" title="1 of 2 branches missed.">                &amp;&amp; !dosn.getCuscutaRegistros().isEmpty()</span>
-<span class="fc" id="L459">                &amp;&amp; dosn.getCuscutaRegistros().stream().anyMatch(reg -&gt;</span>
-<span class="fc bfc" id="L460" title="All 4 branches covered.">                    (reg.getCuscuta_g() != null &amp;&amp; reg.getCuscuta_g().compareTo(BigDecimal.ZERO) &gt; 0)</span>
-<span class="pc bpc" id="L461" title="1 of 4 branches missed.">                    || (reg.getCuscutaNum() != null &amp;&amp; reg.getCuscutaNum() &gt; 0)</span>
-<span class="fc bfc" id="L462" title="All 2 branches covered.">                );</span>
+<span class="fc bfc" id="L447" title="All 2 branches covered.">        boolean tieneCuscuta = dosn.getCuscutaRegistros() != null </span>
+<span class="pc bpc" id="L448" title="1 of 2 branches missed.">                &amp;&amp; !dosn.getCuscutaRegistros().isEmpty()</span>
+<span class="fc bfc" id="L449" title="All 2 branches covered.">                &amp;&amp; dosn.getCuscutaRegistros().stream().anyMatch(reg -&gt;</span>
+<span class="fc bfc" id="L450" title="All 4 branches covered.">                    (reg.getCuscuta_g() != null &amp;&amp; reg.getCuscuta_g().compareTo(BigDecimal.ZERO) &gt; 0)</span>
+<span class="pc bpc" id="L451" title="1 of 4 branches missed.">                    || (reg.getCuscutaNum() != null &amp;&amp; reg.getCuscutaNum() &gt; 0)</span>
+                );
 
-<span class="pc bpc" id="L464" title="1 of 4 branches missed.">        boolean tieneListados = dosn.getListados() != null &amp;&amp; !dosn.getListados().isEmpty();</span>
+<span class="pc bpc" id="L454" title="1 of 4 branches missed.">        boolean tieneListados = dosn.getListados() != null &amp;&amp; !dosn.getListados().isEmpty();</span>
 
-<span class="pc bpc" id="L466" title="2 of 8 branches missed.">        if (!tieneINIA &amp;&amp; !tieneINASE &amp;&amp; !tieneCuscuta &amp;&amp; !tieneListados) {</span>
-<span class="fc" id="L467">            throw new RuntimeException(&quot;No se puede finalizar: el DOSN carece de evidencia. Agregue resultados INIA/INASE, listados, o datos de cuscuta antes de finalizar.&quot;);</span>
+<span class="pc bpc" id="L456" title="2 of 8 branches missed.">        if (!tieneINIA &amp;&amp; !tieneINASE &amp;&amp; !tieneCuscuta &amp;&amp; !tieneListados) {</span>
+<span class="fc" id="L457">            throw new RuntimeException(&quot;No se puede finalizar: el DOSN carece de evidencia. Agregue resultados INIA/INASE, listados, o datos de cuscuta antes de finalizar.&quot;);</span>
         }
 
-<span class="pc bpc" id="L470" title="1 of 4 branches missed.">        if (dosn.getGramosAnalizadosINIA() != null &amp;&amp; dosn.getGramosAnalizadosINIA().compareTo(BigDecimal.ZERO) &lt;= 0) {</span>
-<span class="fc" id="L471">            throw new RuntimeException(&quot;Gramos analizados INIA debe ser mayor que 0&quot;);</span>
+<span class="pc bpc" id="L460" title="1 of 4 branches missed.">        if (dosn.getGramosAnalizadosINIA() != null &amp;&amp; dosn.getGramosAnalizadosINIA().compareTo(BigDecimal.ZERO) &lt;= 0) {</span>
+<span class="fc" id="L461">            throw new RuntimeException(&quot;Gramos analizados INIA debe ser mayor que 0&quot;);</span>
         }
-<span class="fc bfc" id="L473" title="All 4 branches covered.">        if (dosn.getGramosAnalizadosINASE() != null &amp;&amp; dosn.getGramosAnalizadosINASE().compareTo(BigDecimal.ZERO) &lt;= 0) {</span>
-<span class="fc" id="L474">            throw new RuntimeException(&quot;Gramos analizados INASE debe ser mayor que 0&quot;);</span>
+<span class="fc bfc" id="L463" title="All 4 branches covered.">        if (dosn.getGramosAnalizadosINASE() != null &amp;&amp; dosn.getGramosAnalizadosINASE().compareTo(BigDecimal.ZERO) &lt;= 0) {</span>
+<span class="fc" id="L464">            throw new RuntimeException(&quot;Gramos analizados INASE debe ser mayor que 0&quot;);</span>
         }
-<span class="fc" id="L476">    }</span>
+<span class="fc" id="L466">    }</span>
 
-    /**
-     * Aprobar análisis (solo administradores)
-     */
+    
     public DosnDTO aprobarAnalisis(Long id) {
-<span class="fc" id="L482">        return analisisService.aprobarAnalisisGenerico(</span>
-<span class="fc" id="L483">                id,</span>
-<span class="fc" id="L484">                dosnRepository,</span>
-<span class="fc" id="L485">                this::mapearEntidadADTO,</span>
-<span class="fc" id="L486">                this::validarAntesDeFinalizar, // Mismas validaciones que finalizar</span>
-<span class="pc" id="L487">                (idLote) -&gt; dosnRepository.findByIdLote(idLote.intValue()) // Función para buscar por lote</span>
+<span class="fc" id="L470">        return analisisService.aprobarAnalisisGenerico(</span>
+                id,
+                dosnRepository,
+                this::mapearEntidadADTO,
+                this::validarAntesDeFinalizar, 
+<span class="nc" id="L475">                (idLote) -&gt; dosnRepository.findByIdLote(idLote.intValue()) </span>
         );
     }
 
-    /**
-     * Marcar análisis para repetir (solo administradores)
-     */
+    
     public DosnDTO marcarParaRepetir(Long id) {
-<span class="nc" id="L495">        return analisisService.marcarParaRepetirGenerico(</span>
-<span class="nc" id="L496">                id,</span>
-<span class="nc" id="L497">                dosnRepository,</span>
-<span class="nc" id="L498">                this::mapearEntidadADTO,</span>
-<span class="nc" id="L499">                this::validarAntesDeFinalizar // Mismas validaciones que finalizar</span>
+<span class="nc" id="L481">        return analisisService.marcarParaRepetirGenerico(</span>
+                id,
+                dosnRepository,
+                this::mapearEntidadADTO,
+                this::validarAntesDeFinalizar 
         );
     }
 }

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CatalogosInitializer.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.config</a> &gt; <span class="el_source">CatalogosInitializer.java</span></div><h1>CatalogosInitializer.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.config;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CatalogosInitializer.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.config</a> &gt; <span class="el_source">CatalogosInitializer.java</span></div><h1>CatalogosInitializer.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -12,13 +12,10 @@ import utec.proyectofinal.Proyecto.Final.UTEC.business.repositories.MalezasCatal
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Inicializador de catálogos base (Malezas y Especies).
- * Se ejecuta automáticamente al iniciar la aplicación si los catálogos están vacíos.
- */
+
 @Component
 @Order(2) // Se ejecuta después del DatabaseInitializer (Order 1)
-<span class="fc" id="L21">public class CatalogosInitializer implements CommandLineRunner {</span>
+<span class="fc" id="L18">public class CatalogosInitializer implements CommandLineRunner {</span>
 
     @Autowired
     private MalezasCatalogoRepository malezasRepository;
@@ -28,220 +25,212 @@ import java.util.List;
 
     @Override
     public void run(String... args) throws Exception {
-<span class="fc" id="L31">        initializeMalezas();</span>
-<span class="fc" id="L32">        initializeEspecies();</span>
-<span class="fc" id="L33">    }</span>
+<span class="fc" id="L28">        initializeMalezas();</span>
+<span class="fc" id="L29">        initializeEspecies();</span>
+<span class="fc" id="L30">    }</span>
 
-    /**
-     * Inicializa el catálogo de malezas si está vacío
-     */
+    
     private void initializeMalezas() {
         try {
             // Verificar si ya existen malezas en la base de datos
-<span class="fc" id="L41">            long count = malezasRepository.count();</span>
-<span class="pc bpc" id="L42" title="1 of 2 branches missed.">            if (count &gt; 0) {</span>
-<span class="nc" id="L43">                System.out.println(&quot;ℹCatálogo de Malezas ya inicializado (&quot; + count + &quot; registros)&quot;);</span>
-<span class="nc" id="L44">                return;</span>
+<span class="fc" id="L36">            long count = malezasRepository.count();</span>
+<span class="pc bpc" id="L37" title="1 of 2 branches missed.">            if (count &gt; 0) {</span>
+<span class="nc" id="L38">                System.out.println(&quot;ℹCatálogo de Malezas ya inicializado (&quot; + count + &quot; registros)&quot;);</span>
+<span class="nc" id="L39">                return;</span>
             }
 
-<span class="fc" id="L47">            System.out.println(&quot; Inicializando catálogo de Malezas...&quot;);</span>
+<span class="fc" id="L42">            System.out.println(&quot; Inicializando catálogo de Malezas...&quot;);</span>
 
             // Lista de malezas tol cero
-<span class="fc" id="L50">            List&lt;MalezaData&gt; malezasTolCero = Arrays.asList(</span>
-<span class="fc" id="L51">                new MalezaData(&quot;Coleostephus myconis&quot;, &quot;Margarita de piria&quot;),</span>
-<span class="fc" id="L52">                new MalezaData(&quot;Cuscuta spp.&quot;, &quot;Cúscuta&quot;),</span>
-<span class="fc" id="L53">                new MalezaData(&quot;Eragrostis plana&quot;, &quot;Capin annoni&quot;),</span>
-<span class="fc" id="L54">                new MalezaData(&quot;Senecio madagascariensis&quot;, &quot;Senecio&quot;),</span>
-<span class="fc" id="L55">                new MalezaData(&quot;Sorghum halepense&quot;, &quot;Sorgo de Alepo&quot;),</span>
-<span class="fc" id="L56">                new MalezaData(&quot;Xanthium spp.&quot;, &quot;Abrojo&quot;)</span>
+<span class="fc" id="L45">            List&lt;MalezaData&gt; malezasTolCero = Arrays.asList(</span>
+                new MalezaData(&quot;Coleostephus myconis&quot;, &quot;Margarita de piria&quot;),
+                new MalezaData(&quot;Cuscuta spp.&quot;, &quot;Cúscuta&quot;),
+                new MalezaData(&quot;Eragrostis plana&quot;, &quot;Capin annoni&quot;),
+                new MalezaData(&quot;Senecio madagascariensis&quot;, &quot;Senecio&quot;),
+                new MalezaData(&quot;Sorghum halepense&quot;, &quot;Sorgo de Alepo&quot;),
+                new MalezaData(&quot;Xanthium spp.&quot;, &quot;Abrojo&quot;)
             );
 
             // Lista de malezas tolerancia
-<span class="fc" id="L60">            List&lt;MalezaData&gt; malezasToleradas = Arrays.asList(</span>
-<span class="fc" id="L61">                new MalezaData(&quot;Ammi majus&quot;, &quot;Biznaguilla&quot;),</span>
-<span class="fc" id="L62">                new MalezaData(&quot;Ammi visnaga&quot;, &quot;Biznaga&quot;),</span>
-<span class="fc" id="L63">                new MalezaData(&quot;Anthemis cotula&quot;, &quot;Manzanilla&quot;),</span>
-<span class="fc" id="L64">                new MalezaData(&quot;Avena fatua&quot;, &quot;Balango&quot;),</span>
-<span class="fc" id="L65">                new MalezaData(&quot;Brassica spp.&quot;, &quot;Nabo&quot;),</span>
-<span class="fc" id="L66">                new MalezaData(&quot;Carduus spp.&quot;, &quot;Cardos&quot;),</span>
-<span class="fc" id="L67">                new MalezaData(&quot;Carthamus lanatus&quot;, &quot;Cardo de la cruz&quot;),</span>
-<span class="fc" id="L68">                new MalezaData(&quot;Centaurea spp.&quot;, &quot;Abrepuño&quot;),</span>
-<span class="fc" id="L69">                new MalezaData(&quot;Cirsium vulgare&quot;, &quot;Cardo negro&quot;),</span>
-<span class="fc" id="L70">                new MalezaData(&quot;Convolvulus spp.&quot;, &quot;Corrigüela&quot;),</span>
-<span class="fc" id="L71">                new MalezaData(&quot;Cyclospermum leptophyllum&quot;, &quot;Apio cimarrón&quot;),</span>
-<span class="fc" id="L72">                new MalezaData(&quot;Cynara cardunculus&quot;, &quot;Cardo de castilla&quot;),</span>
-<span class="fc" id="L73">                new MalezaData(&quot;Cyperus rotundus&quot;, &quot;Pasto bolita&quot;),</span>
-<span class="fc" id="L74">                new MalezaData(&quot;Echium plantagineum&quot;, &quot;Flor morada&quot;),</span>
-<span class="fc" id="L75">                new MalezaData(&quot;Lolium temulentum&quot;, &quot;Joyo&quot;),</span>
-<span class="fc" id="L76">                new MalezaData(&quot;Melilotus indicus&quot;, &quot;Trébol de olor&quot;),</span>
-<span class="fc" id="L77">                new MalezaData(&quot;Phalaris paradoxa&quot;, &quot;Alpistillo&quot;),</span>
-<span class="fc" id="L78">                new MalezaData(&quot;Plantago lanceolata&quot;, &quot;Llantén&quot;),</span>
-<span class="fc" id="L79">                new MalezaData(&quot;Polygonum convolvulus&quot;, &quot;Enredadera anual&quot;),</span>
-<span class="fc" id="L80">                new MalezaData(&quot;Raphanus spp.&quot;, &quot;Rábano&quot;),</span>
-<span class="fc" id="L81">                new MalezaData(&quot;Rapistrum rugosum&quot;, &quot;Mostacilla&quot;),</span>
-<span class="fc" id="L82">                new MalezaData(&quot;Rumex spp.&quot;, &quot;Lengua de vaca&quot;),</span>
-<span class="fc" id="L83">                new MalezaData(&quot;Sylibum marianum&quot;, &quot;Cardo asnal&quot;)</span>
+<span class="fc" id="L55">            List&lt;MalezaData&gt; malezasToleradas = Arrays.asList(</span>
+                new MalezaData(&quot;Ammi majus&quot;, &quot;Biznaguilla&quot;),
+                new MalezaData(&quot;Ammi visnaga&quot;, &quot;Biznaga&quot;),
+                new MalezaData(&quot;Anthemis cotula&quot;, &quot;Manzanilla&quot;),
+                new MalezaData(&quot;Avena fatua&quot;, &quot;Balango&quot;),
+                new MalezaData(&quot;Brassica spp.&quot;, &quot;Nabo&quot;),
+                new MalezaData(&quot;Carduus spp.&quot;, &quot;Cardos&quot;),
+                new MalezaData(&quot;Carthamus lanatus&quot;, &quot;Cardo de la cruz&quot;),
+                new MalezaData(&quot;Centaurea spp.&quot;, &quot;Abrepuño&quot;),
+                new MalezaData(&quot;Cirsium vulgare&quot;, &quot;Cardo negro&quot;),
+                new MalezaData(&quot;Convolvulus spp.&quot;, &quot;Corrigüela&quot;),
+                new MalezaData(&quot;Cyclospermum leptophyllum&quot;, &quot;Apio cimarrón&quot;),
+                new MalezaData(&quot;Cynara cardunculus&quot;, &quot;Cardo de castilla&quot;),
+                new MalezaData(&quot;Cyperus rotundus&quot;, &quot;Pasto bolita&quot;),
+                new MalezaData(&quot;Echium plantagineum&quot;, &quot;Flor morada&quot;),
+                new MalezaData(&quot;Lolium temulentum&quot;, &quot;Joyo&quot;),
+                new MalezaData(&quot;Melilotus indicus&quot;, &quot;Trébol de olor&quot;),
+                new MalezaData(&quot;Phalaris paradoxa&quot;, &quot;Alpistillo&quot;),
+                new MalezaData(&quot;Plantago lanceolata&quot;, &quot;Llantén&quot;),
+                new MalezaData(&quot;Polygonum convolvulus&quot;, &quot;Enredadera anual&quot;),
+                new MalezaData(&quot;Raphanus spp.&quot;, &quot;Rábano&quot;),
+                new MalezaData(&quot;Rapistrum rugosum&quot;, &quot;Mostacilla&quot;),
+                new MalezaData(&quot;Rumex spp.&quot;, &quot;Lengua de vaca&quot;),
+                new MalezaData(&quot;Sylibum marianum&quot;, &quot;Cardo asnal&quot;)
             );
 
-<span class="fc" id="L86">            int count_inserted = 0;</span>
+<span class="fc" id="L81">            int count_inserted = 0;</span>
 
             // Insertar malezas tolerancia cero
-<span class="fc bfc" id="L89" title="All 2 branches covered.">            for (MalezaData data : malezasTolCero) {</span>
-<span class="fc" id="L90">                MalezasCatalogo maleza = new MalezasCatalogo();</span>
-<span class="fc" id="L91">                maleza.setNombreCientifico(data.nombreCientifico);</span>
-<span class="fc" id="L92">                maleza.setNombreComun(data.nombreComun);</span>
-<span class="fc" id="L93">                maleza.setActivo(true);</span>
-<span class="fc" id="L94">                malezasRepository.save(maleza);</span>
-<span class="fc" id="L95">                count_inserted++;</span>
-            }
+<span class="fc bfc" id="L84" title="All 2 branches covered.">            for (MalezaData data : malezasTolCero) {</span>
+<span class="fc" id="L85">                MalezasCatalogo maleza = new MalezasCatalogo();</span>
+<span class="fc" id="L86">                maleza.setNombreCientifico(data.nombreCientifico);</span>
+<span class="fc" id="L87">                maleza.setNombreComun(data.nombreComun);</span>
+<span class="fc" id="L88">                maleza.setActivo(true);</span>
+<span class="fc" id="L89">                malezasRepository.save(maleza);</span>
+<span class="fc" id="L90">                count_inserted++;</span>
+<span class="fc" id="L91">            }</span>
 
             // Insertar malezas con tolerancia
-<span class="fc bfc" id="L99" title="All 2 branches covered.">            for (MalezaData data : malezasToleradas) {</span>
-<span class="fc" id="L100">                MalezasCatalogo maleza = new MalezasCatalogo();</span>
-<span class="fc" id="L101">                maleza.setNombreCientifico(data.nombreCientifico);</span>
-<span class="fc" id="L102">                maleza.setNombreComun(data.nombreComun);</span>
-<span class="fc" id="L103">                maleza.setActivo(true);</span>
-<span class="fc" id="L104">                malezasRepository.save(maleza);</span>
-<span class="fc" id="L105">                count_inserted++;</span>
-            }
+<span class="fc bfc" id="L94" title="All 2 branches covered.">            for (MalezaData data : malezasToleradas) {</span>
+<span class="fc" id="L95">                MalezasCatalogo maleza = new MalezasCatalogo();</span>
+<span class="fc" id="L96">                maleza.setNombreCientifico(data.nombreCientifico);</span>
+<span class="fc" id="L97">                maleza.setNombreComun(data.nombreComun);</span>
+<span class="fc" id="L98">                maleza.setActivo(true);</span>
+<span class="fc" id="L99">                malezasRepository.save(maleza);</span>
+<span class="fc" id="L100">                count_inserted++;</span>
+<span class="fc" id="L101">            }</span>
 
-<span class="fc" id="L108">            System.out.println(&quot; Catálogo de Malezas inicializado exitosamente&quot;);</span>
-<span class="fc" id="L109">            System.out.println(&quot;   Total de malezas registradas: &quot; + count_inserted);</span>
+<span class="fc" id="L103">            System.out.println(&quot; Catálogo de Malezas inicializado exitosamente&quot;);</span>
+<span class="fc" id="L104">            System.out.println(&quot;   Total de malezas registradas: &quot; + count_inserted);</span>
             
-<span class="pc" id="L111">        } catch (Exception e) {</span>
-<span class="nc" id="L112">            System.err.println(&quot; Error al inicializar catálogo de Malezas: &quot; + e.getMessage());</span>
-<span class="nc" id="L113">            e.printStackTrace();</span>
-        }
-<span class="fc" id="L115">    }</span>
+<span class="nc" id="L106">        } catch (Exception e) {</span>
+<span class="nc" id="L107">            System.err.println(&quot; Error al inicializar catálogo de Malezas: &quot; + e.getMessage());</span>
+<span class="nc" id="L108">            e.printStackTrace();</span>
+<span class="fc" id="L109">        }</span>
+<span class="fc" id="L110">    }</span>
 
-    /**
-     * Inicializa el catálogo de especies si está vacío
-     */
+    
     private void initializeEspecies() {
         try {
             // Verificar si ya existen especies en la base de datos
-<span class="fc" id="L123">            long count = especieRepository.count();</span>
-<span class="pc bpc" id="L124" title="1 of 2 branches missed.">            if (count &gt; 0) {</span>
-<span class="nc" id="L125">                System.out.println(&quot;ℹCatálogo de Especies ya inicializado (&quot; + count + &quot; registros)&quot;);</span>
-<span class="nc" id="L126">                return;</span>
+<span class="fc" id="L116">            long count = especieRepository.count();</span>
+<span class="pc bpc" id="L117" title="1 of 2 branches missed.">            if (count &gt; 0) {</span>
+<span class="nc" id="L118">                System.out.println(&quot;ℹCatálogo de Especies ya inicializado (&quot; + count + &quot; registros)&quot;);</span>
+<span class="nc" id="L119">                return;</span>
             }
 
-<span class="fc" id="L129">            System.out.println(&quot; Inicializando catálogo de Especies...&quot;);</span>
+<span class="fc" id="L122">            System.out.println(&quot; Inicializando catálogo de Especies...&quot;);</span>
 
             // Lista de especies - Cereales y Oleaginosas
-<span class="fc" id="L132">            List&lt;EspecieData&gt; cerealesOleaginosas = Arrays.asList(</span>
-<span class="fc" id="L133">                new EspecieData(&quot;Achicoria&quot;, &quot;Cichorium intybus&quot;),</span>
-<span class="fc" id="L134">                new EspecieData(&quot;Arroz&quot;, &quot;Oryza sativa&quot;),</span>
-<span class="fc" id="L135">                new EspecieData(&quot;Cebada&quot;, &quot;Hordeum vulgare subsp. vulgare&quot;),</span>
-<span class="fc" id="L136">                new EspecieData(&quot;Cáñamo&quot;, &quot;Cannabis spp.&quot;),</span>
-<span class="fc" id="L137">                new EspecieData(&quot;Centeno&quot;, &quot;Secale cereale&quot;),</span>
-<span class="fc" id="L138">                new EspecieData(&quot;Colza, Nabo, Nabo forrajero, Canola&quot;, &quot;Brassica napus&quot;),</span>
-<span class="fc" id="L139">                new EspecieData(&quot;Girasol&quot;, &quot;Helianthus annuus&quot;),</span>
-<span class="fc" id="L140">                new EspecieData(&quot;Lino&quot;, &quot;Linum usitatissimum L.&quot;),</span>
-<span class="fc" id="L141">                new EspecieData(&quot;Maíz&quot;, &quot;Zea mays&quot;),</span>
-<span class="fc" id="L142">                new EspecieData(&quot;Soja&quot;, &quot;Glycine max&quot;),</span>
-<span class="fc" id="L143">                new EspecieData(&quot;Sorgo granífero&quot;, &quot;Sorghum bicolor&quot;),</span>
-<span class="fc" id="L144">                new EspecieData(&quot;Sorgo forrajero&quot;, &quot;Sorghum bicolor x Sorghum drummondii&quot;),</span>
-<span class="fc" id="L145">                new EspecieData(&quot;Sudangrás&quot;, &quot;Sorghum x drummondii&quot;),</span>
-<span class="fc" id="L146">                new EspecieData(&quot;Trigo&quot;, &quot;Triticum aestivum subsp. aestivum&quot;),</span>
-<span class="fc" id="L147">                new EspecieData(&quot;Triticale&quot;, &quot;x Triticosecale&quot;)</span>
+<span class="fc" id="L125">            List&lt;EspecieData&gt; cerealesOleaginosas = Arrays.asList(</span>
+                new EspecieData(&quot;Achicoria&quot;, &quot;Cichorium intybus&quot;),
+                new EspecieData(&quot;Arroz&quot;, &quot;Oryza sativa&quot;),
+                new EspecieData(&quot;Cebada&quot;, &quot;Hordeum vulgare subsp. vulgare&quot;),
+                new EspecieData(&quot;Cáñamo&quot;, &quot;Cannabis spp.&quot;),
+                new EspecieData(&quot;Centeno&quot;, &quot;Secale cereale&quot;),
+                new EspecieData(&quot;Colza, Nabo, Nabo forrajero, Canola&quot;, &quot;Brassica napus&quot;),
+                new EspecieData(&quot;Girasol&quot;, &quot;Helianthus annuus&quot;),
+                new EspecieData(&quot;Lino&quot;, &quot;Linum usitatissimum L.&quot;),
+                new EspecieData(&quot;Maíz&quot;, &quot;Zea mays&quot;),
+                new EspecieData(&quot;Soja&quot;, &quot;Glycine max&quot;),
+                new EspecieData(&quot;Sorgo granífero&quot;, &quot;Sorghum bicolor&quot;),
+                new EspecieData(&quot;Sorgo forrajero&quot;, &quot;Sorghum bicolor x Sorghum drummondii&quot;),
+                new EspecieData(&quot;Sudangrás&quot;, &quot;Sorghum x drummondii&quot;),
+                new EspecieData(&quot;Trigo&quot;, &quot;Triticum aestivum subsp. aestivum&quot;),
+                new EspecieData(&quot;Triticale&quot;, &quot;x Triticosecale&quot;)
             );
 
             // Lista de especies - Forrajeras (Gramíneas)
-<span class="fc" id="L151">            List&lt;EspecieData&gt; forragerasGramineas = Arrays.asList(</span>
-<span class="fc" id="L152">                new EspecieData(&quot;Avena blanca / Avena amarilla&quot;, &quot;Avena sativa / Avena byzantina&quot;),</span>
-<span class="fc" id="L153">                new EspecieData(&quot;Avena negra&quot;, &quot;Avena strigosa&quot;),</span>
-<span class="fc" id="L154">                new EspecieData(&quot;Cebadilla&quot;, &quot;Bromus catharticus&quot;),</span>
-<span class="fc" id="L155">                new EspecieData(&quot;Pasto ovillo / Pasto azul&quot;, &quot;Dactylis glomerata&quot;),</span>
-<span class="fc" id="L156">                new EspecieData(&quot;Falaris&quot;, &quot;Phalaris aquatica&quot;),</span>
-<span class="fc" id="L157">                new EspecieData(&quot;Festuca&quot;, &quot;Festuca arundinacea&quot;),</span>
-<span class="fc" id="L158">                new EspecieData(&quot;Festulolium&quot;, &quot;x Festulolium&quot;),</span>
-<span class="fc" id="L159">                new EspecieData(&quot;Holcus&quot;, &quot;Holcus lanatus&quot;),</span>
-<span class="fc" id="L160">                new EspecieData(&quot;Moha&quot;, &quot;Setaria italica&quot;),</span>
-<span class="fc" id="L161">                new EspecieData(&quot;Raigrás&quot;, &quot;Lolium multiflorum / Lolium perenne&quot;)</span>
+<span class="fc" id="L144">            List&lt;EspecieData&gt; forragerasGramineas = Arrays.asList(</span>
+                new EspecieData(&quot;Avena blanca / Avena amarilla&quot;, &quot;Avena sativa / Avena byzantina&quot;),
+                new EspecieData(&quot;Avena negra&quot;, &quot;Avena strigosa&quot;),
+                new EspecieData(&quot;Cebadilla&quot;, &quot;Bromus catharticus&quot;),
+                new EspecieData(&quot;Pasto ovillo / Pasto azul&quot;, &quot;Dactylis glomerata&quot;),
+                new EspecieData(&quot;Falaris&quot;, &quot;Phalaris aquatica&quot;),
+                new EspecieData(&quot;Festuca&quot;, &quot;Festuca arundinacea&quot;),
+                new EspecieData(&quot;Festulolium&quot;, &quot;x Festulolium&quot;),
+                new EspecieData(&quot;Holcus&quot;, &quot;Holcus lanatus&quot;),
+                new EspecieData(&quot;Moha&quot;, &quot;Setaria italica&quot;),
+                new EspecieData(&quot;Raigrás&quot;, &quot;Lolium multiflorum / Lolium perenne&quot;)
             );
 
             // Lista de especies - Forrajeras (Leguminosas)
-<span class="fc" id="L165">            List&lt;EspecieData&gt; forragerasLeguminosas = Arrays.asList(</span>
-<span class="fc" id="L166">                new EspecieData(&quot;Alfalfa&quot;, &quot;Medicago sativa&quot;),</span>
-<span class="fc" id="L167">                new EspecieData(&quot;Lotononis&quot;, &quot;Lotononis bainesii&quot;),</span>
-<span class="fc" id="L168">                new EspecieData(&quot;Lotus angustissimus&quot;, &quot;Lotus angustissimus&quot;),</span>
-<span class="fc" id="L169">                new EspecieData(&quot;Lotus corniculatus&quot;, &quot;Lotus corniculatus&quot;),</span>
-<span class="fc" id="L170">                new EspecieData(&quot;Lotus subbiflorus&quot;, &quot;Lotus subbiflorus&quot;),</span>
-<span class="fc" id="L171">                new EspecieData(&quot;Lotus tenuis&quot;, &quot;Lotus tenuis&quot;),</span>
-<span class="fc" id="L172">                new EspecieData(&quot;Lotus uliginosus / L. pedunculatus&quot;, &quot;Lotus uliginosus / L. pedunculatus&quot;),</span>
-<span class="fc" id="L173">                new EspecieData(&quot;Trébol alejandrino&quot;, &quot;Trifolium alexandrinum&quot;),</span>
-<span class="fc" id="L174">                new EspecieData(&quot;Trébol blanco&quot;, &quot;Trifolium repens&quot;),</span>
-<span class="fc" id="L175">                new EspecieData(&quot;Trébol persa&quot;, &quot;Trifolium resupinatum&quot;),</span>
-<span class="fc" id="L176">                new EspecieData(&quot;Trébol rojo&quot;, &quot;Trifolium pratense&quot;),</span>
-<span class="fc" id="L177">                new EspecieData(&quot;Vicia forrajera&quot;, &quot;Vicia benghalensis, Vicia villosa, Vicia sativa&quot;)</span>
+<span class="fc" id="L158">            List&lt;EspecieData&gt; forragerasLeguminosas = Arrays.asList(</span>
+                new EspecieData(&quot;Alfalfa&quot;, &quot;Medicago sativa&quot;),
+                new EspecieData(&quot;Lotononis&quot;, &quot;Lotononis bainesii&quot;),
+                new EspecieData(&quot;Lotus angustissimus&quot;, &quot;Lotus angustissimus&quot;),
+                new EspecieData(&quot;Lotus corniculatus&quot;, &quot;Lotus corniculatus&quot;),
+                new EspecieData(&quot;Lotus subbiflorus&quot;, &quot;Lotus subbiflorus&quot;),
+                new EspecieData(&quot;Lotus tenuis&quot;, &quot;Lotus tenuis&quot;),
+                new EspecieData(&quot;Lotus uliginosus / L. pedunculatus&quot;, &quot;Lotus uliginosus / L. pedunculatus&quot;),
+                new EspecieData(&quot;Trébol alejandrino&quot;, &quot;Trifolium alexandrinum&quot;),
+                new EspecieData(&quot;Trébol blanco&quot;, &quot;Trifolium repens&quot;),
+                new EspecieData(&quot;Trébol persa&quot;, &quot;Trifolium resupinatum&quot;),
+                new EspecieData(&quot;Trébol rojo&quot;, &quot;Trifolium pratense&quot;),
+                new EspecieData(&quot;Vicia forrajera&quot;, &quot;Vicia benghalensis, Vicia villosa, Vicia sativa&quot;)
             );
 
-<span class="fc" id="L180">            int count_inserted = 0;</span>
+<span class="fc" id="L173">            int count_inserted = 0;</span>
 
             // Insertar cereales y oleaginosas
-<span class="fc bfc" id="L183" title="All 2 branches covered.">            for (EspecieData data : cerealesOleaginosas) {</span>
-<span class="fc" id="L184">                Especie especie = new Especie();</span>
-<span class="fc" id="L185">                especie.setNombreComun(data.nombreComun);</span>
-<span class="fc" id="L186">                especie.setNombreCientifico(data.nombreCientifico);</span>
-<span class="fc" id="L187">                especie.setActivo(true);</span>
-<span class="fc" id="L188">                especieRepository.save(especie);</span>
-<span class="fc" id="L189">                count_inserted++;</span>
-            }
+<span class="fc bfc" id="L176" title="All 2 branches covered.">            for (EspecieData data : cerealesOleaginosas) {</span>
+<span class="fc" id="L177">                Especie especie = new Especie();</span>
+<span class="fc" id="L178">                especie.setNombreComun(data.nombreComun);</span>
+<span class="fc" id="L179">                especie.setNombreCientifico(data.nombreCientifico);</span>
+<span class="fc" id="L180">                especie.setActivo(true);</span>
+<span class="fc" id="L181">                especieRepository.save(especie);</span>
+<span class="fc" id="L182">                count_inserted++;</span>
+<span class="fc" id="L183">            }</span>
 
             // Insertar forrajeras gramíneas
-<span class="fc bfc" id="L193" title="All 2 branches covered.">            for (EspecieData data : forragerasGramineas) {</span>
-<span class="fc" id="L194">                Especie especie = new Especie();</span>
-<span class="fc" id="L195">                especie.setNombreComun(data.nombreComun);</span>
-<span class="fc" id="L196">                especie.setNombreCientifico(data.nombreCientifico);</span>
-<span class="fc" id="L197">                especie.setActivo(true);</span>
-<span class="fc" id="L198">                especieRepository.save(especie);</span>
-<span class="fc" id="L199">                count_inserted++;</span>
-            }
+<span class="fc bfc" id="L186" title="All 2 branches covered.">            for (EspecieData data : forragerasGramineas) {</span>
+<span class="fc" id="L187">                Especie especie = new Especie();</span>
+<span class="fc" id="L188">                especie.setNombreComun(data.nombreComun);</span>
+<span class="fc" id="L189">                especie.setNombreCientifico(data.nombreCientifico);</span>
+<span class="fc" id="L190">                especie.setActivo(true);</span>
+<span class="fc" id="L191">                especieRepository.save(especie);</span>
+<span class="fc" id="L192">                count_inserted++;</span>
+<span class="fc" id="L193">            }</span>
 
             // Insertar forrajeras leguminosas
-<span class="fc bfc" id="L203" title="All 2 branches covered.">            for (EspecieData data : forragerasLeguminosas) {</span>
-<span class="fc" id="L204">                Especie especie = new Especie();</span>
-<span class="fc" id="L205">                especie.setNombreComun(data.nombreComun);</span>
-<span class="fc" id="L206">                especie.setNombreCientifico(data.nombreCientifico);</span>
-<span class="fc" id="L207">                especie.setActivo(true);</span>
-<span class="fc" id="L208">                especieRepository.save(especie);</span>
-<span class="fc" id="L209">                count_inserted++;</span>
-            }
+<span class="fc bfc" id="L196" title="All 2 branches covered.">            for (EspecieData data : forragerasLeguminosas) {</span>
+<span class="fc" id="L197">                Especie especie = new Especie();</span>
+<span class="fc" id="L198">                especie.setNombreComun(data.nombreComun);</span>
+<span class="fc" id="L199">                especie.setNombreCientifico(data.nombreCientifico);</span>
+<span class="fc" id="L200">                especie.setActivo(true);</span>
+<span class="fc" id="L201">                especieRepository.save(especie);</span>
+<span class="fc" id="L202">                count_inserted++;</span>
+<span class="fc" id="L203">            }</span>
 
-<span class="fc" id="L212">            System.out.println(&quot; Catálogo de Especies inicializado exitosamente&quot;);</span>
-<span class="fc" id="L213">            System.out.println(&quot;   Total de especies registradas: &quot; + count_inserted);</span>
+<span class="fc" id="L205">            System.out.println(&quot; Catálogo de Especies inicializado exitosamente&quot;);</span>
+<span class="fc" id="L206">            System.out.println(&quot;   Total de especies registradas: &quot; + count_inserted);</span>
             
-<span class="pc" id="L215">        } catch (Exception e) {</span>
-<span class="nc" id="L216">            System.err.println(&quot; Error al inicializar catálogo de Especies: &quot; + e.getMessage());</span>
-<span class="nc" id="L217">            e.printStackTrace();</span>
-        }
-<span class="fc" id="L219">    }</span>
+<span class="nc" id="L208">        } catch (Exception e) {</span>
+<span class="nc" id="L209">            System.err.println(&quot; Error al inicializar catálogo de Especies: &quot; + e.getMessage());</span>
+<span class="nc" id="L210">            e.printStackTrace();</span>
+<span class="fc" id="L211">        }</span>
+<span class="fc" id="L212">    }</span>
 
-    /**
-     * Clase auxiliar para almacenar datos de malezas
-     */
+    
     private static class MalezaData {
         String nombreCientifico;
         String nombreComun;
 
-<span class="fc" id="L228">        MalezaData(String nombreCientifico, String nombreComun) {</span>
-<span class="fc" id="L229">            this.nombreCientifico = nombreCientifico;</span>
-<span class="fc" id="L230">            this.nombreComun = nombreComun;</span>
-<span class="fc" id="L231">        }</span>
+<span class="fc" id="L219">        MalezaData(String nombreCientifico, String nombreComun) {</span>
+<span class="fc" id="L220">            this.nombreCientifico = nombreCientifico;</span>
+<span class="fc" id="L221">            this.nombreComun = nombreComun;</span>
+<span class="fc" id="L222">        }</span>
     }
 
-    /**
-     * Clase auxiliar para almacenar datos de especies
-     */
+    
     private static class EspecieData {
         String nombreComun;
         String nombreCientifico;
 
-<span class="fc" id="L241">        EspecieData(String nombreComun, String nombreCientifico) {</span>
-<span class="fc" id="L242">            this.nombreComun = nombreComun;</span>
-<span class="fc" id="L243">            this.nombreCientifico = nombreCientifico;</span>
-<span class="fc" id="L244">        }</span>
+<span class="fc" id="L230">        EspecieData(String nombreComun, String nombreCientifico) {</span>
+<span class="fc" id="L231">            this.nombreComun = nombreComun;</span>
+<span class="fc" id="L232">            this.nombreCientifico = nombreCientifico;</span>
+<span class="fc" id="L233">        }</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

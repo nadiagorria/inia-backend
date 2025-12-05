@@ -1,21 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TrustedDevice.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.business.entities</a> &gt; <span class="el_source">TrustedDevice.java</span></div><h1>TrustedDevice.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.business.entities;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TrustedDevice.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.business.entities</a> &gt; <span class="el_source">TrustedDevice.java</span></div><h1>TrustedDevice.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.business.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDateTime;
 
-/**
- * Entidad para trackear dispositivos de confianza
- * 
- * Permite que los usuarios no tengan que ingresar el código 2FA
- * en dispositivos que ya fueron verificados previamente.
- * 
- * SEGURIDAD:
- * - El fingerprint se genera en el cliente combinando:
- *   User-Agent, IP, idioma del navegador, zona horaria, etc.
- * - Se hashea en el servidor para evitar almacenar datos sensibles
- * - Cada dispositivo expira después de 30 días de inactividad
- */
+
 @Entity
 @Table(name = &quot;trusted_devices&quot;, indexes = {
     @Index(name = &quot;idx_user_device&quot;, columnList = &quot;usuario_id,device_fingerprint_hash&quot;)
@@ -27,93 +16,65 @@ public class TrustedDevice {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    /**
-     * ID del usuario al que pertenece este dispositivo
-     */
+    
     @Column(name = &quot;usuario_id&quot;, nullable = false)
     private Integer usuarioId;
 
-    /**
-     * Hash del fingerprint del dispositivo
-     * El fingerprint original nunca se almacena, solo su hash SHA-256
-     */
+    
     @Column(name = &quot;device_fingerprint_hash&quot;, nullable = false, length = 64)
     private String deviceFingerprintHash;
 
-    /**
-     * Nombre descriptivo del dispositivo (opcional)
-     * Ej: &quot;Chrome en Windows&quot;, &quot;Safari en iPhone&quot;
-     */
+    
     @Column(name = &quot;device_name&quot;, length = 100)
     private String deviceName;
 
-    /**
-     * User-Agent completo del navegador (para auditoría)
-     */
+    
     @Column(name = &quot;user_agent&quot;, length = 500)
     private String userAgent;
 
-    /**
-     * IP desde donde se registró este dispositivo
-     */
+    
     @Column(name = &quot;ip_address&quot;, length = 45)
     private String ipAddress;
 
-    /**
-     * Fecha de creación (primera vez que se confió en este dispositivo)
-     */
+    
     @Column(name = &quot;created_at&quot;, nullable = false)
     private LocalDateTime createdAt;
 
-    /**
-     * Última vez que se usó este dispositivo
-     * Se actualiza en cada login exitoso
-     */
+    
     @Column(name = &quot;last_used_at&quot;, nullable = false)
     private LocalDateTime lastUsedAt;
 
-    /**
-     * Fecha de expiración del dispositivo de confianza
-     * Por defecto: 60 días desde última vez usado
-     */
+    
     @Column(name = &quot;expires_at&quot;, nullable = false)
     private LocalDateTime expiresAt;
 
-    /**
-     * Si el dispositivo está activo o fue revocado manualmente
-     */
+    
     @Column(name = &quot;active&quot;, nullable = false)
     private Boolean active = true;
 
     @PrePersist
     protected void onCreate() {
-<span class="nc" id="L90">        createdAt = LocalDateTime.now();</span>
-<span class="nc" id="L91">        lastUsedAt = LocalDateTime.now();</span>
-<span class="nc bnc" id="L92" title="All 2 branches missed.">        if (expiresAt == null) {</span>
-<span class="nc" id="L93">            expiresAt = LocalDateTime.now().plusDays(60);</span>
+<span class="nc" id="L57">        createdAt = LocalDateTime.now();</span>
+<span class="nc" id="L58">        lastUsedAt = LocalDateTime.now();</span>
+<span class="nc bnc" id="L59" title="All 2 branches missed.">        if (expiresAt == null) {</span>
+<span class="nc" id="L60">            expiresAt = LocalDateTime.now().plusDays(60);</span>
         }
-<span class="nc" id="L95">    }</span>
+<span class="nc" id="L62">    }</span>
 
-    /**
-     * Actualiza la fecha de último uso y extiende la expiración
-     */
+    
     public void updateLastUsed() {
-<span class="fc" id="L101">        this.lastUsedAt = LocalDateTime.now();</span>
-<span class="fc" id="L102">        this.expiresAt = LocalDateTime.now().plusDays(60);</span>
-<span class="fc" id="L103">    }</span>
+<span class="fc" id="L66">        this.lastUsedAt = LocalDateTime.now();</span>
+<span class="fc" id="L67">        this.expiresAt = LocalDateTime.now().plusDays(60);</span>
+<span class="fc" id="L68">    }</span>
 
-    /**
-     * Verifica si el dispositivo está expirado
-     */
+    
     public boolean isExpired() {
-<span class="fc" id="L109">        return LocalDateTime.now().isAfter(expiresAt);</span>
+<span class="fc" id="L72">        return LocalDateTime.now().isAfter(expiresAt);</span>
     }
 
-    /**
-     * Verifica si el dispositivo es válido (activo y no expirado)
-     */
+    
     public boolean isValid() {
-<span class="nc bnc" id="L116" title="All 4 branches missed.">        return active &amp;&amp; !isExpired();</span>
+<span class="nc bnc" id="L77" title="All 4 branches missed.">        return active &amp;&amp; !isExpired();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

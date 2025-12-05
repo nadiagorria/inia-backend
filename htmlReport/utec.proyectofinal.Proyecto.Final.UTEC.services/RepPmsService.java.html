@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RepPmsService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">RepPmsService.java</span></div><h1>RepPmsService.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RepPmsService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">RepPmsService.java</span></div><h1>RepPmsService.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
 
 import java.util.List;
 import java.util.Optional;
@@ -33,7 +33,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.enums.Estado;
     @Autowired
     private AnalisisHistorialService analisisHistorialService;
 
-    // Crear nueva repetición asociada a un Pms
+    
     public RepPmsDTO crearRepeticion(Long pmsId, RepPmsRequestDTO solicitud) {
 <span class="fc" id="L38">        Optional&lt;Pms&gt; pmsOpt = pmsRepository.findById(pmsId);</span>
 <span class="fc bfc" id="L39" title="All 2 branches covered.">        if (pmsOpt.isEmpty()) {</span>
@@ -41,65 +41,65 @@ import utec.proyectofinal.Proyecto.Final.UTEC.enums.Estado;
         }
 <span class="fc" id="L42">        Pms pms = pmsOpt.get();</span>
 
-        // Validar que el PMS esté en estado correcto para agregar repeticiones
+        
 <span class="pc bpc" id="L45" title="1 of 4 branches missed.">        if (pms.getEstado() != Estado.REGISTRADO &amp;&amp; pms.getEstado() != Estado.EN_PROCESO) {</span>
 <span class="fc" id="L46">            throw new RuntimeException(&quot;No se pueden agregar repeticiones a un PMS que no esté en estado REGISTRADO o EN_PROCESO&quot;);</span>
         }
 
-        // Validar límite de repeticiones totales (16 máximo)
+        
 <span class="fc" id="L50">        long totalRepeticiones = repPmsRepository.countByPmsId(pmsId);</span>
 <span class="fc bfc" id="L51" title="All 2 branches covered.">        if (totalRepeticiones &gt;= 16) {</span>
 <span class="fc" id="L52">            throw new RuntimeException(&quot;No se pueden crear más de 16 repeticiones para un análisis PMS&quot;);</span>
         }
 
-        // Determinar la tanda actual
+        
 <span class="fc" id="L56">        Integer tandaActual = determinarTandaActual(pms);</span>
 
-        // Contar repeticiones VÁLIDAS de la tanda actual
+        
 <span class="fc" id="L59">        long repeticionesValidasTandaActual = repPmsRepository.findByPmsId(pmsId).stream()</span>
 <span class="fc bfc" id="L60" title="All 4 branches covered.">            .filter(rep -&gt; rep.getNumTanda().equals(tandaActual) &amp;&amp; Boolean.TRUE.equals(rep.getValido()))</span>
 <span class="fc" id="L61">            .count();</span>
 
-        // Contar repeticiones TOTALES de la tanda actual (para saber si procesar cálculos)
+        
 <span class="fc" id="L64">        long repeticionesTotalesTandaActual = repPmsRepository.findByPmsId(pmsId).stream()</span>
 <span class="fc" id="L65">            .filter(rep -&gt; rep.getNumTanda().equals(tandaActual))</span>
 <span class="fc" id="L66">            .count();</span>
 
-        // No lanzar excepción aquí - permitir agregar más repeticiones si hay inválidas
-        // La validación real se hará después del procesamiento de la tanda
+        
+        
 
 <span class="fc" id="L71">        RepPms repeticion = mapearSolicitudAEntidad(solicitud, pms, tandaActual);</span>
 <span class="fc" id="L72">        RepPms guardada = repPmsRepository.save(repeticion);</span>
 
-        // Cambiar estado a EN_PROCESO si es la primera repetición
+        
 <span class="pc bpc" id="L75" title="1 of 2 branches missed.">        if (pms.getEstado() == Estado.REGISTRADO) {</span>
 <span class="fc" id="L76">            pms.setEstado(Estado.EN_PROCESO);</span>
-            // Usar repository en lugar de EntityManager para aprovechar auto-transacciones
+            
 <span class="fc" id="L78">            pmsRepository.save(pms);</span>
         }
 
-        // Verificar si se completó la tanda (número esperado de repeticiones totales) y procesar cálculos
+        
 <span class="fc bfc" id="L82" title="All 2 branches covered.">        if (repeticionesTotalesTandaActual + 1 &gt;= pms.getNumRepeticionesEsperadas()) {</span>
 <span class="fc" id="L83">            System.out.println(&quot; Tanda completa! Validando todas las repeticiones del PMS ID: &quot; + pmsId);</span>
 <span class="fc" id="L84">            System.out.println(&quot;  Repeticiones totales: &quot; + (repeticionesTotalesTandaActual + 1) + &quot; &gt;= Esperadas: &quot; + pms.getNumRepeticionesEsperadas());</span>
             
-            // Validar TODAS las repeticiones del PMS con estadísticas globales
+            
 <span class="fc" id="L87">            pmsService.validarTodasLasRepeticiones(pmsId);</span>
             
-            // Recargar la repetición desde la base de datos para obtener el valor actualizado de 'valido'
+            
 <span class="fc" id="L90">            RepPms repeticionActualizada = repPmsRepository.findById(guardada.getRepPMSID())</span>
 <span class="pc" id="L91">                .orElseThrow(() -&gt; new RuntimeException(&quot;Error al recargar repetición creada&quot;));</span>
             
 <span class="fc" id="L93">            return mapearEntidadADTO(repeticionActualizada);</span>
         }
 
-        // Registrar modificación en el historial del análisis PMS
+        
 <span class="fc" id="L97">        analisisHistorialService.registrarModificacion(pms);</span>
 
 <span class="fc" id="L99">        return mapearEntidadADTO(guardada);</span>
     }
 
-    // Obtener repetición por ID
+    
     public RepPmsDTO obtenerPorId(Long id) {
 <span class="fc" id="L104">        Optional&lt;RepPms&gt; repeticion = repPmsRepository.findById(id);</span>
 <span class="fc bfc" id="L105" title="All 2 branches covered.">        if (repeticion.isPresent()) {</span>
@@ -109,46 +109,46 @@ import utec.proyectofinal.Proyecto.Final.UTEC.enums.Estado;
         }
     }
 
-    // Actualizar repetición
+    
     public RepPmsDTO actualizarRepeticion(Long id, RepPmsRequestDTO solicitud) {
 <span class="fc" id="L114">        Optional&lt;RepPms&gt; existente = repPmsRepository.findById(id);</span>
 
 <span class="pc bpc" id="L116" title="1 of 2 branches missed.">        if (existente.isPresent()) {</span>
 <span class="fc" id="L117">            RepPms rep = existente.get();</span>
             
-            // Manejar edición de análisis finalizado según el rol del usuario
+            
 <span class="fc" id="L120">            analisisService.manejarEdicionAnalisisFinalizado(rep.getPms());</span>
             
 <span class="fc" id="L122">            actualizarEntidadDesdeSolicitud(rep, solicitud);</span>
 <span class="fc" id="L123">            RepPms actualizado = repPmsRepository.save(rep);</span>
             
-            // Después de actualizar la repetición, validar todas las repeticiones del PMS
+            
 <span class="fc" id="L126">            Pms pms = rep.getPms();</span>
             
 <span class="fc" id="L128">            System.out.println(&quot;=== Actualización de repetición ===&quot;);</span>
 <span class="fc" id="L129">            System.out.println(&quot;PMS ID: &quot; + pms.getAnalisisID());</span>
 <span class="fc" id="L130">            System.out.println(&quot;Rep ID: &quot; + id);</span>
             
-            // Contar repeticiones TOTALES del PMS (no solo de una tanda)
+            
 <span class="fc" id="L133">            long repeticionesTotales = repPmsRepository.countByPmsId(pms.getAnalisisID());</span>
             
 <span class="fc" id="L135">            System.out.println(&quot;Repeticiones totales del PMS: &quot; + repeticionesTotales);</span>
 <span class="fc" id="L136">            System.out.println(&quot;Repeticiones esperadas: &quot; + pms.getNumRepeticionesEsperadas());</span>
             
-            // Validar todas las repeticiones si hay al menos el número esperado
+            
 <span class="pc bpc" id="L139" title="1 of 2 branches missed.">            if (repeticionesTotales &gt;= pms.getNumRepeticionesEsperadas()) {</span>
 <span class="fc" id="L140">                System.out.println(&quot;Validando todas las repeticiones del PMS...&quot;);</span>
 <span class="fc" id="L141">                pmsService.validarTodasLasRepeticiones(pms.getAnalisisID());</span>
-<span class="fc" id="L142">            } else {</span>
+            } else {
 <span class="nc" id="L143">                System.out.println(&quot;Repeticiones insuficientes, solo actualizando estadísticas generales...&quot;);</span>
 <span class="nc" id="L144">                pmsService.actualizarEstadisticasPms(pms.getAnalisisID());</span>
             }
             
-            // Recargar la repetición desde la base de datos para obtener el valor actualizado de 'valido'
+            
 <span class="fc" id="L148">            RepPms repeticionActualizada = repPmsRepository.findById(id)</span>
 <span class="pc" id="L149">                .orElseThrow(() -&gt; new RuntimeException(&quot;Error al recargar repetición actualizada&quot;));</span>
             
-            // Registrar modificación en el historial del análisis PMS
+            
 <span class="fc" id="L152">            analisisHistorialService.registrarModificacion(pms);</span>
             
 <span class="fc" id="L154">            return mapearEntidadADTO(repeticionActualizada);</span>
@@ -157,7 +157,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.enums.Estado;
         }
     }
 
-    // Eliminar repetición
+    
     public void eliminarRepeticion(Long id) {
 <span class="fc" id="L162">        Optional&lt;RepPms&gt; existente = repPmsRepository.findById(id);</span>
 
@@ -170,38 +170,38 @@ import utec.proyectofinal.Proyecto.Final.UTEC.enums.Estado;
 <span class="fc" id="L170">            System.out.println(&quot;PMS ID: &quot; + pms.getAnalisisID());</span>
 <span class="fc" id="L171">            System.out.println(&quot;Repetición a eliminar ID: &quot; + id);</span>
             
-            // Eliminar la repetición
+            
 <span class="fc" id="L174">            repPmsRepository.deleteById(id);</span>
             
-            // Después de eliminar, contar cuántas repeticiones quedan en TOTAL
+            
 <span class="fc" id="L177">            long repeticionesTotales = repPmsRepository.countByPmsId(pms.getAnalisisID());</span>
             
 <span class="fc" id="L179">            System.out.println(&quot;Repeticiones restantes en el PMS: &quot; + repeticionesTotales);</span>
 <span class="fc" id="L180">            System.out.println(&quot;Repeticiones esperadas: &quot; + pms.getNumRepeticionesEsperadas());</span>
             
-            // Si aún quedan suficientes repeticiones, validar todas
+            
 <span class="pc bpc" id="L183" title="1 of 2 branches missed.">            if (repeticionesTotales &gt;= pms.getNumRepeticionesEsperadas()) {</span>
 <span class="nc" id="L184">                System.out.println(&quot;Validando todas las repeticiones del PMS...&quot;);</span>
 <span class="nc" id="L185">                pmsService.validarTodasLasRepeticiones(pms.getAnalisisID());</span>
-<span class="nc" id="L186">            } else {</span>
+            } else {
 <span class="fc" id="L187">                System.out.println(&quot;Repeticiones insuficientes, reseteando validaciones...&quot;);</span>
-                // Marcar todas las repeticiones restantes como indeterminadas
+                
 <span class="fc" id="L189">                List&lt;RepPms&gt; repeticionesRestantes = repPmsRepository.findByPmsId(pms.getAnalisisID());</span>
 <span class="pc bpc" id="L190" title="1 of 2 branches missed.">                for (RepPms r : repeticionesRestantes) {</span>
 <span class="nc" id="L191">                    r.setValido(null);</span>
-                }
+<span class="nc" id="L192">                }</span>
 <span class="fc" id="L193">                repPmsRepository.saveAll(repeticionesRestantes);</span>
 <span class="fc" id="L194">                pmsService.actualizarEstadisticasPms(pms.getAnalisisID());</span>
             }
             
-            // Registrar modificación en el historial del análisis PMS
+            
 <span class="fc" id="L198">            analisisHistorialService.registrarModificacion(pms);</span>
 <span class="fc" id="L199">        } else {</span>
 <span class="fc" id="L200">            throw new RuntimeException(&quot;Repetición PMS no encontrada con ID: &quot; + id);</span>
         }
 <span class="fc" id="L202">    }</span>
 
-    // Obtener todas las repeticiones de un Pms
+    
     public List&lt;RepPmsDTO&gt; obtenerPorPms(Long pmsId) {
 <span class="fc" id="L206">        List&lt;RepPms&gt; repeticiones = repPmsRepository.findByPmsId(pmsId);</span>
 <span class="fc" id="L207">        return repeticiones.stream()</span>
@@ -209,21 +209,21 @@ import utec.proyectofinal.Proyecto.Final.UTEC.enums.Estado;
 <span class="fc" id="L209">                .collect(Collectors.toList());</span>
     }
 
-    // Contar repeticiones de un Pms
+    
     public Long contarPorPms(Long pmsId) {
 <span class="fc" id="L214">        return repPmsRepository.countByPmsId(pmsId);</span>
     }
 
-    // ==============================
-    // Métodos auxiliares de mapeo
-    // ==============================
+    
+    
+    
 
     private RepPms mapearSolicitudAEntidad(RepPmsRequestDTO solicitud, Pms pms, Integer numTanda) {
 <span class="fc" id="L222">        RepPms rep = new RepPms();</span>
 <span class="fc" id="L223">        rep.setNumRep(solicitud.getNumRep());</span>
 <span class="fc" id="L224">        rep.setPeso(solicitud.getPeso());</span>
 <span class="fc" id="L225">        rep.setNumTanda(numTanda);</span>
-<span class="fc" id="L226">        rep.setValido(null); // Se establecerá después del cálculo estadístico</span>
+<span class="fc" id="L226">        rep.setValido(null); </span>
 <span class="fc" id="L227">        rep.setPms(pms);</span>
 <span class="fc" id="L228">        return rep;</span>
     }
@@ -243,41 +243,41 @@ import utec.proyectofinal.Proyecto.Final.UTEC.enums.Estado;
 <span class="fc" id="L243">        return dto;</span>
     }
 
-    // Determinar la tanda actual donde se deben agregar las repeticiones
+    
     private Integer determinarTandaActual(Pms pms) {
-        // Buscar tandas existentes
+        
 <span class="fc" id="L249">        List&lt;RepPms&gt; todasLasRepeticiones = repPmsRepository.findByPmsId(pms.getAnalisisID());</span>
         
 <span class="fc bfc" id="L251" title="All 2 branches covered.">        if (todasLasRepeticiones.isEmpty()) {</span>
-<span class="fc" id="L252">            return 1; // Primera tanda</span>
+<span class="fc" id="L252">            return 1; </span>
         }
 
-        // Encontrar la tanda con repeticiones VÁLIDAS incompletas
+        
 <span class="fc bfc" id="L256" title="All 2 branches covered.">        for (int tandaNum = 1; tandaNum &lt;= pms.getNumTandas(); tandaNum++) {</span>
 <span class="fc" id="L257">            final int tanda = tandaNum;</span>
 <span class="fc" id="L258">            long repeticionesValidas = todasLasRepeticiones.stream()</span>
 <span class="fc bfc" id="L259" title="All 4 branches covered.">                .filter(rep -&gt; rep.getNumTanda().equals(tanda) &amp;&amp; Boolean.TRUE.equals(rep.getValido()))</span>
 <span class="fc" id="L260">                .count();</span>
             
-            // Una tanda está incompleta si no tiene suficientes repeticiones VÁLIDAS
+            
 <span class="fc bfc" id="L263" title="All 2 branches covered.">            if (repeticionesValidas &lt; pms.getNumRepeticionesEsperadas()) {</span>
-<span class="fc" id="L264">                return tanda; // Tanda incompleta (necesita más repeticiones válidas)</span>
+<span class="fc" id="L264">                return tanda; </span>
             }
         }
 
-        // Si todas las tandas están completas, verificar si se puede agregar nueva tanda
+        
 <span class="fc" id="L269">        long totalRepeticiones = todasLasRepeticiones.size();</span>
 <span class="pc bpc" id="L270" title="1 of 2 branches missed.">        if (totalRepeticiones &gt;= 16) {</span>
 <span class="nc" id="L271">            throw new RuntimeException(&quot;Se alcanzó el límite máximo de 16 repeticiones&quot;);</span>
         }
 
-        // Verificar si el CV global de repeticiones válidas es aceptable
+        
 <span class="fc" id="L275">        List&lt;RepPms&gt; repeticionesValidas = todasLasRepeticiones.stream()</span>
 <span class="fc" id="L276">            .filter(rep -&gt; Boolean.TRUE.equals(rep.getValido()))</span>
 <span class="fc" id="L277">            .collect(Collectors.toList());</span>
 
 <span class="pc bpc" id="L279" title="1 of 2 branches missed.">        if (!repeticionesValidas.isEmpty()) {</span>
-            // Calcular CV global
+            
 <span class="fc" id="L281">            double promedio = repeticionesValidas.stream()</span>
 <span class="fc" id="L282">                .mapToDouble(rep -&gt; rep.getPeso().doubleValue())</span>
 <span class="fc" id="L283">                .average()</span>
@@ -294,11 +294,11 @@ import utec.proyectofinal.Proyecto.Final.UTEC.enums.Estado;
             
 <span class="fc bfc" id="L295" title="All 2 branches covered.">            if (cv &lt;= umbralCV) {</span>
 <span class="fc" id="L296">                throw new RuntimeException(&quot;El CV global (&quot; + String.format(&quot;%.2f&quot;, cv) + </span>
-<span class="fc" id="L297">                    &quot;) ya es aceptable (≤ &quot; + umbralCV + &quot;). No se necesitan más repeticiones.&quot;);</span>
+                    &quot;) ya es aceptable (≤ &quot; + umbralCV + &quot;). No se necesitan más repeticiones.&quot;);
             }
         }
 
-        // Si llegamos aquí, necesitamos incrementar a una nueva tanda
+        
 <span class="fc" id="L302">        int nuevaTanda = pms.getNumTandas() + 1;</span>
 <span class="fc" id="L303">        pms.setNumTandas(nuevaTanda);</span>
 <span class="fc" id="L304">        pmsRepository.save(pms);</span>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LegadoService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">LegadoService.java</span></div><h1>LegadoService.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LegadoService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">LegadoService.java</span></div><h1>LegadoService.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -25,62 +25,50 @@ public class LegadoService {
     private final LegadoRepository legadoRepository;
     private final LoteService loteService;
 
-    /**
-     * Obtener todos los registros legados activos (versión simple)
-     */
+    
     @Transactional(readOnly = true)
     public List&lt;LegadoSimpleDTO&gt; obtenerTodosSimple() {
-<span class="fc" id="L33">        return legadoRepository.findByActivoTrue().stream()</span>
-<span class="fc" id="L34">                .map(this::convertirASimpleDTO)</span>
-<span class="fc" id="L35">                .collect(Collectors.toList());</span>
+<span class="fc" id="L31">        return legadoRepository.findByActivoTrue().stream()</span>
+<span class="fc" id="L32">                .map(this::convertirASimpleDTO)</span>
+<span class="fc" id="L33">                .collect(Collectors.toList());</span>
     }
 
-    /**
-     * Obtener un legado por ID con información completa
-     */
+    
     @Transactional(readOnly = true)
     public LegadoDTO obtenerPorId(Long id) {
-<span class="fc" id="L43">        Legado legado = legadoRepository.findById(id)</span>
-<span class="fc" id="L44">                .orElseThrow(() -&gt; new RuntimeException(&quot;Legado no encontrado con ID: &quot; + id));</span>
+<span class="fc" id="L39">        Legado legado = legadoRepository.findById(id)</span>
+<span class="fc" id="L40">                .orElseThrow(() -&gt; new RuntimeException(&quot;Legado no encontrado con ID: &quot; + id));</span>
         
-<span class="fc" id="L46">        return convertirADTO(legado);</span>
+<span class="fc" id="L42">        return convertirADTO(legado);</span>
     }
 
-    /**
-     * Obtener legados por archivo origen
-     */
+    
     @Transactional(readOnly = true)
     public List&lt;LegadoSimpleDTO&gt; obtenerPorArchivo(String archivoOrigen) {
-<span class="fc" id="L54">        return legadoRepository.findByArchivoOrigen(archivoOrigen).stream()</span>
-<span class="fc" id="L55">                .map(this::convertirASimpleDTO)</span>
-<span class="fc" id="L56">                .collect(Collectors.toList());</span>
+<span class="fc" id="L48">        return legadoRepository.findByArchivoOrigen(archivoOrigen).stream()</span>
+<span class="fc" id="L49">                .map(this::convertirASimpleDTO)</span>
+<span class="fc" id="L50">                .collect(Collectors.toList());</span>
     }
 
-    /**
-     * Obtener legados por ficha
-     */
+    
     @Transactional(readOnly = true)
     public List&lt;LegadoSimpleDTO&gt; obtenerPorFicha(String ficha) {
-<span class="fc" id="L64">        return legadoRepository.findByFicha(ficha).stream()</span>
-<span class="fc" id="L65">                .map(this::convertirASimpleDTO)</span>
-<span class="fc" id="L66">                .collect(Collectors.toList());</span>
+<span class="fc" id="L56">        return legadoRepository.findByFicha(ficha).stream()</span>
+<span class="fc" id="L57">                .map(this::convertirASimpleDTO)</span>
+<span class="fc" id="L58">                .collect(Collectors.toList());</span>
     }
 
-    /**
-     * Desactivar un registro legado
-     */
+    
     @Transactional
     public void desactivar(Long id) {
-<span class="fc" id="L74">        Legado legado = legadoRepository.findById(id)</span>
-<span class="fc" id="L75">                .orElseThrow(() -&gt; new RuntimeException(&quot;Legado no encontrado con ID: &quot; + id));</span>
+<span class="fc" id="L64">        Legado legado = legadoRepository.findById(id)</span>
+<span class="fc" id="L65">                .orElseThrow(() -&gt; new RuntimeException(&quot;Legado no encontrado con ID: &quot; + id));</span>
         
-<span class="fc" id="L77">        legado.setActivo(false);</span>
-<span class="fc" id="L78">        legadoRepository.save(legado);</span>
-<span class="fc" id="L79">    }</span>
+<span class="fc" id="L67">        legado.setActivo(false);</span>
+<span class="fc" id="L68">        legadoRepository.save(legado);</span>
+<span class="fc" id="L69">    }</span>
 
-    /**
-     * Obtener legados paginados con filtros
-     */
+    
     @Transactional(readOnly = true)
     public Page&lt;LegadoListadoDTO&gt; obtenerLegadosPaginadas(
             Pageable pageable,
@@ -89,141 +77,133 @@ public class LegadoService {
             LocalDate fechaReciboInicio,
             LocalDate fechaReciboFin) {
         
-<span class="nc" id="L92">        Specification&lt;Legado&gt; spec = LegadoSpecification.conFiltros(</span>
-<span class="nc" id="L93">            searchTerm, especie, fechaReciboInicio, fechaReciboFin);</span>
-<span class="nc" id="L94">        Page&lt;Legado&gt; legadoPage = legadoRepository.findAll(spec, pageable);</span>
-<span class="nc" id="L95">        return legadoPage.map(this::convertirAListadoDTO);</span>
+<span class="nc" id="L80">        Specification&lt;Legado&gt; spec = LegadoSpecification.conFiltros(</span>
+            searchTerm, especie, fechaReciboInicio, fechaReciboFin);
+<span class="nc" id="L82">        Page&lt;Legado&gt; legadoPage = legadoRepository.findAll(spec, pageable);</span>
+<span class="nc" id="L83">        return legadoPage.map(this::convertirAListadoDTO);</span>
     }
 
-    /**
-     * Obtener todas las especies únicas de los legados activos
-     */
+    
     @Transactional(readOnly = true)
     public List&lt;String&gt; obtenerEspeciesUnicas() {
-<span class="fc" id="L103">        return legadoRepository.findByActivoTrue().stream()</span>
-<span class="pc bpc" id="L104" title="2 of 4 branches missed.">                .map(legado -&gt; legado.getLote() != null &amp;&amp; legado.getLote().getCultivar() != null </span>
-<span class="nc" id="L105">                    ? legado.getLote().getCultivar().getNombre() </span>
-<span class="fc" id="L106">                    : null)</span>
-<span class="pc bpc" id="L107" title="3 of 4 branches missed.">                .filter(especie -&gt; especie != null &amp;&amp; !especie.isEmpty())</span>
-<span class="fc" id="L108">                .distinct()</span>
-<span class="fc" id="L109">                .sorted()</span>
-<span class="fc" id="L110">                .collect(Collectors.toList());</span>
+<span class="fc" id="L89">        return legadoRepository.findByActivoTrue().stream()</span>
+<span class="pc bpc" id="L90" title="2 of 4 branches missed.">                .map(legado -&gt; legado.getLote() != null &amp;&amp; legado.getLote().getCultivar() != null </span>
+<span class="nc" id="L91">                    ? legado.getLote().getCultivar().getNombre() </span>
+<span class="fc" id="L92">                    : null)</span>
+<span class="pc bpc" id="L93" title="3 of 4 branches missed.">                .filter(especie -&gt; especie != null &amp;&amp; !especie.isEmpty())</span>
+<span class="fc" id="L94">                .distinct()</span>
+<span class="fc" id="L95">                .sorted()</span>
+<span class="fc" id="L96">                .collect(Collectors.toList());</span>
     }
 
-    /**
-     * Convertir entidad a DTO de listado
-     */
+    
     private LegadoListadoDTO convertirAListadoDTO(Legado legado) {
-<span class="nc" id="L117">        LegadoListadoDTO dto = new LegadoListadoDTO();</span>
-<span class="nc" id="L118">        dto.setLegadoID(legado.getLegadoID());</span>
+<span class="nc" id="L101">        LegadoListadoDTO dto = new LegadoListadoDTO();</span>
+<span class="nc" id="L102">        dto.setLegadoID(legado.getLegadoID());</span>
         
         // Obtener datos del lote
-<span class="nc bnc" id="L121" title="All 2 branches missed.">        if (legado.getLote() != null) {</span>
-<span class="nc" id="L122">            dto.setFicha(legado.getLote().getFicha());</span>
-<span class="nc" id="L123">            dto.setFechaRecibo(legado.getLote().getFechaRecibo());</span>
+<span class="nc bnc" id="L105" title="All 2 branches missed.">        if (legado.getLote() != null) {</span>
+<span class="nc" id="L106">            dto.setFicha(legado.getLote().getFicha());</span>
+<span class="nc" id="L107">            dto.setFechaRecibo(legado.getLote().getFechaRecibo());</span>
             
             // Obtener nombre del cultivar (especie)
-<span class="nc bnc" id="L126" title="All 2 branches missed.">            if (legado.getLote().getCultivar() != null) {</span>
-<span class="nc" id="L127">                dto.setEspecie(legado.getLote().getCultivar().getNombre());</span>
+<span class="nc bnc" id="L110" title="All 2 branches missed.">            if (legado.getLote().getCultivar() != null) {</span>
+<span class="nc" id="L111">                dto.setEspecie(legado.getLote().getCultivar().getNombre());</span>
             }
         }
         
         // Datos de germinación y pureza
-<span class="nc" id="L132">        dto.setGermC(legado.getGermC());</span>
-<span class="nc" id="L133">        dto.setGermSC(legado.getGermSC());</span>
-<span class="nc" id="L134">        dto.setPeso1000(legado.getPeso1000());</span>
-<span class="nc" id="L135">        dto.setPura(legado.getPura());</span>
-<span class="nc" id="L136">        dto.setPuraI(legado.getPuraI());</span>
+<span class="nc" id="L116">        dto.setGermC(legado.getGermC());</span>
+<span class="nc" id="L117">        dto.setGermSC(legado.getGermSC());</span>
+<span class="nc" id="L118">        dto.setPeso1000(legado.getPeso1000());</span>
+<span class="nc" id="L119">        dto.setPura(legado.getPura());</span>
+<span class="nc" id="L120">        dto.setPuraI(legado.getPuraI());</span>
         
-<span class="nc" id="L138">        return dto;</span>
+<span class="nc" id="L122">        return dto;</span>
     }
 
-    /**
-     * Convertir entidad a DTO simple
-     */
+    
     private LegadoSimpleDTO convertirASimpleDTO(Legado legado) {
-<span class="fc" id="L145">        LegadoSimpleDTO dto = new LegadoSimpleDTO();</span>
-<span class="fc" id="L146">        dto.setLegadoID(legado.getLegadoID());</span>
-<span class="pc bpc" id="L147" title="1 of 2 branches missed.">        dto.setNomLote(legado.getLote() != null ? legado.getLote().getNomLote() : null);</span>
-<span class="pc bpc" id="L148" title="1 of 2 branches missed.">        dto.setFicha(legado.getLote() != null ? legado.getLote().getFicha() : null);</span>
-<span class="fc" id="L149">        dto.setCodDoc(legado.getCodDoc());</span>
-<span class="fc" id="L150">        dto.setNomDoc(legado.getNomDoc());</span>
-<span class="fc" id="L151">        dto.setFamilia(legado.getFamilia());</span>
-<span class="fc" id="L152">        dto.setActivo(legado.getActivo());</span>
-<span class="fc" id="L153">        return dto;</span>
+<span class="fc" id="L127">        LegadoSimpleDTO dto = new LegadoSimpleDTO();</span>
+<span class="fc" id="L128">        dto.setLegadoID(legado.getLegadoID());</span>
+<span class="pc bpc" id="L129" title="1 of 2 branches missed.">        dto.setNomLote(legado.getLote() != null ? legado.getLote().getNomLote() : null);</span>
+<span class="pc bpc" id="L130" title="1 of 2 branches missed.">        dto.setFicha(legado.getLote() != null ? legado.getLote().getFicha() : null);</span>
+<span class="fc" id="L131">        dto.setCodDoc(legado.getCodDoc());</span>
+<span class="fc" id="L132">        dto.setNomDoc(legado.getNomDoc());</span>
+<span class="fc" id="L133">        dto.setFamilia(legado.getFamilia());</span>
+<span class="fc" id="L134">        dto.setActivo(legado.getActivo());</span>
+<span class="fc" id="L135">        return dto;</span>
     }
 
-    /**
-     * Convertir entidad a DTO completo
-     */
+    
     private LegadoDTO convertirADTO(Legado legado) {
-<span class="fc" id="L160">        LegadoDTO dto = new LegadoDTO();</span>
-<span class="fc" id="L161">        dto.setLegadoID(legado.getLegadoID());</span>
+<span class="fc" id="L140">        LegadoDTO dto = new LegadoDTO();</span>
+<span class="fc" id="L141">        dto.setLegadoID(legado.getLegadoID());</span>
         
         // Obtener información completa del lote
-<span class="fc bfc" id="L164" title="All 2 branches covered.">        if (legado.getLote() != null) {</span>
-<span class="fc" id="L165">            LoteDTO loteDTO = loteService.obtenerLotePorId(legado.getLote().getLoteID());</span>
-<span class="fc" id="L166">            dto.setLote(loteDTO);</span>
+<span class="fc bfc" id="L144" title="All 2 branches covered.">        if (legado.getLote() != null) {</span>
+<span class="fc" id="L145">            LoteDTO loteDTO = loteService.obtenerLotePorId(legado.getLote().getLoteID());</span>
+<span class="fc" id="L146">            dto.setLote(loteDTO);</span>
         }
         
         // Datos del documento
-<span class="fc" id="L170">        dto.setCodDoc(legado.getCodDoc());</span>
-<span class="fc" id="L171">        dto.setNomDoc(legado.getNomDoc());</span>
-<span class="fc" id="L172">        dto.setNroDoc(legado.getNroDoc());</span>
-<span class="fc" id="L173">        dto.setFechaDoc(legado.getFechaDoc());</span>
-<span class="fc" id="L174">        dto.setFamilia(legado.getFamilia());</span>
+<span class="fc" id="L150">        dto.setCodDoc(legado.getCodDoc());</span>
+<span class="fc" id="L151">        dto.setNomDoc(legado.getNomDoc());</span>
+<span class="fc" id="L152">        dto.setNroDoc(legado.getNroDoc());</span>
+<span class="fc" id="L153">        dto.setFechaDoc(legado.getFechaDoc());</span>
+<span class="fc" id="L154">        dto.setFamilia(legado.getFamilia());</span>
         
         // Tipo de semilla y tratamiento
-<span class="fc" id="L177">        dto.setTipoSemilla(legado.getTipoSemilla());</span>
-<span class="fc" id="L178">        dto.setTipoTratGerm(legado.getTipoTratGerm());</span>
+<span class="fc" id="L157">        dto.setTipoSemilla(legado.getTipoSemilla());</span>
+<span class="fc" id="L158">        dto.setTipoTratGerm(legado.getTipoTratGerm());</span>
 
         // Datos de germinación
-<span class="fc" id="L181">        dto.setGermC(legado.getGermC());</span>
-<span class="fc" id="L182">        dto.setGermSC(legado.getGermSC());</span>
-<span class="fc" id="L183">        dto.setPeso1000(legado.getPeso1000());</span>
+<span class="fc" id="L161">        dto.setGermC(legado.getGermC());</span>
+<span class="fc" id="L162">        dto.setGermSC(legado.getGermSC());</span>
+<span class="fc" id="L163">        dto.setPeso1000(legado.getPeso1000());</span>
         
         // Datos de pureza
-<span class="fc" id="L186">        dto.setPura(legado.getPura());</span>
-<span class="fc" id="L187">        dto.setOc(legado.getOc());</span>
-<span class="fc" id="L188">        dto.setPorcOC(legado.getPorcOC());</span>
-<span class="fc" id="L189">        dto.setMaleza(legado.getMaleza());</span>
-<span class="fc" id="L190">        dto.setMalezaTol(legado.getMalezaTol());</span>
-<span class="fc" id="L191">        dto.setMatInerte(legado.getMatInerte());</span>
+<span class="fc" id="L166">        dto.setPura(legado.getPura());</span>
+<span class="fc" id="L167">        dto.setOc(legado.getOc());</span>
+<span class="fc" id="L168">        dto.setPorcOC(legado.getPorcOC());</span>
+<span class="fc" id="L169">        dto.setMaleza(legado.getMaleza());</span>
+<span class="fc" id="L170">        dto.setMalezaTol(legado.getMalezaTol());</span>
+<span class="fc" id="L171">        dto.setMatInerte(legado.getMatInerte());</span>
         
         // Datos de pureza inicial
-<span class="fc" id="L194">        dto.setPuraI(legado.getPuraI());</span>
-<span class="fc" id="L195">        dto.setOcI(legado.getOcI());</span>
-<span class="fc" id="L196">        dto.setMalezaI(legado.getMalezaI());</span>
-<span class="fc" id="L197">        dto.setMalezaTolI(legado.getMalezaTolI());</span>
-<span class="fc" id="L198">        dto.setMatInerteI(legado.getMatInerteI());</span>
+<span class="fc" id="L174">        dto.setPuraI(legado.getPuraI());</span>
+<span class="fc" id="L175">        dto.setOcI(legado.getOcI());</span>
+<span class="fc" id="L176">        dto.setMalezaI(legado.getMalezaI());</span>
+<span class="fc" id="L177">        dto.setMalezaTolI(legado.getMalezaTolI());</span>
+<span class="fc" id="L178">        dto.setMatInerteI(legado.getMatInerteI());</span>
         
         // Otros datos
-<span class="fc" id="L201">        dto.setPesoHEC(legado.getPesoHEC());</span>
-<span class="fc" id="L202">        dto.setNroTrans(legado.getNroTrans());</span>
-<span class="fc" id="L203">        dto.setCtaMov(legado.getCtaMov());</span>
-<span class="fc" id="L204">        dto.setStk(legado.getStk());</span>
+<span class="fc" id="L181">        dto.setPesoHEC(legado.getPesoHEC());</span>
+<span class="fc" id="L182">        dto.setNroTrans(legado.getNroTrans());</span>
+<span class="fc" id="L183">        dto.setCtaMov(legado.getCtaMov());</span>
+<span class="fc" id="L184">        dto.setStk(legado.getStk());</span>
         
         // Fechas adicionales
-<span class="fc" id="L207">        dto.setFechaSC_I(legado.getFechaSC_I());</span>
-<span class="fc" id="L208">        dto.setFechaC_I(legado.getFechaC_I());</span>
-<span class="fc" id="L209">        dto.setGermTotalSC_I(legado.getGermTotalSC_I());</span>
-<span class="fc" id="L210">        dto.setGermTotalC_I(legado.getGermTotalC_I());</span>
+<span class="fc" id="L187">        dto.setFechaSC_I(legado.getFechaSC_I());</span>
+<span class="fc" id="L188">        dto.setFechaC_I(legado.getFechaC_I());</span>
+<span class="fc" id="L189">        dto.setGermTotalSC_I(legado.getGermTotalSC_I());</span>
+<span class="fc" id="L190">        dto.setGermTotalC_I(legado.getGermTotalC_I());</span>
         
         // Observaciones
-<span class="fc" id="L213">        dto.setOtrasSemillasObser(legado.getOtrasSemillasObser());</span>
-<span class="fc" id="L214">        dto.setSemillaPura(legado.getSemillaPura());</span>
-<span class="fc" id="L215">        dto.setSemillaOtrosCultivos(legado.getSemillaOtrosCultivos());</span>
-<span class="fc" id="L216">        dto.setSemillaMalezas(legado.getSemillaMalezas());</span>
-<span class="fc" id="L217">        dto.setSemillaMalezasToleradas(legado.getSemillaMalezasToleradas());</span>
-<span class="fc" id="L218">        dto.setMateriaInerte(legado.getMateriaInerte());</span>
+<span class="fc" id="L193">        dto.setOtrasSemillasObser(legado.getOtrasSemillasObser());</span>
+<span class="fc" id="L194">        dto.setSemillaPura(legado.getSemillaPura());</span>
+<span class="fc" id="L195">        dto.setSemillaOtrosCultivos(legado.getSemillaOtrosCultivos());</span>
+<span class="fc" id="L196">        dto.setSemillaMalezas(legado.getSemillaMalezas());</span>
+<span class="fc" id="L197">        dto.setSemillaMalezasToleradas(legado.getSemillaMalezasToleradas());</span>
+<span class="fc" id="L198">        dto.setMateriaInerte(legado.getMateriaInerte());</span>
         
         // Metadatos
-<span class="fc" id="L221">        dto.setFechaImportacion(legado.getFechaImportacion());</span>
-<span class="fc" id="L222">        dto.setArchivoOrigen(legado.getArchivoOrigen());</span>
-<span class="fc" id="L223">        dto.setFilaExcel(legado.getFilaExcel());</span>
-<span class="fc" id="L224">        dto.setActivo(legado.getActivo());</span>
+<span class="fc" id="L201">        dto.setFechaImportacion(legado.getFechaImportacion());</span>
+<span class="fc" id="L202">        dto.setArchivoOrigen(legado.getArchivoOrigen());</span>
+<span class="fc" id="L203">        dto.setFilaExcel(legado.getFilaExcel());</span>
+<span class="fc" id="L204">        dto.setActivo(legado.getActivo());</span>
         
-<span class="fc" id="L226">        return dto;</span>
+<span class="fc" id="L206">        return dto;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

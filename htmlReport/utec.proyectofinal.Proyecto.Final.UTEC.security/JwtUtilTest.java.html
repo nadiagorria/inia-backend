@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JwtUtilTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.security</a> &gt; <span class="el_source">JwtUtilTest.java</span></div><h1>JwtUtilTest.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.security;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JwtUtilTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.security</a> &gt; <span class="el_source">JwtUtilTest.java</span></div><h1>JwtUtilTest.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.security;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -19,471 +19,458 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * Test completo para JwtUtil
- * 
- * Cubre todas las funciones:
- * - generarToken (access token con roles y claims completos)
- * - generarRefreshToken (refresh token con claims mínimos)
- * - obtenerUserIdDelToken (extrae userId del token)
- * - esTokenValido (valida estructura, firma y expiración)
- * - obtenerUsuarioDelToken (extrae username/subject)
- * - getAccessTokenExpiration (retorna tiempo de expiración access)
- * - getRefreshTokenExpiration (retorna tiempo de expiración refresh)
- * 
- * Total de tests: 24
- */
+
 @DisplayName(&quot;JwtUtil - Test Completo&quot;)
-<span class="fc" id="L37">class JwtUtilTest {</span>
+<span class="fc" id="L24">class JwtUtilTest {</span>
 
     private JwtUtil jwtUtil;
     private Usuario usuarioTest;
     
     // Clave secreta (debe coincidir con JwtUtil)
-<span class="fc" id="L43">    private final String CLAVE = &quot;@Z9@vQ3!pL8#wX7^tR2&amp;nG6*yM4$eB1(dF0)sH5%kJ3&amp;uY8*rE4#wQ1@zX6^nM9$&quot;;</span>
-<span class="fc" id="L44">    private final SecretKey secretKey = Keys.hmacShaKeyFor(CLAVE.getBytes(StandardCharsets.UTF_8));</span>
+<span class="fc" id="L30">    private final String CLAVE = &quot;@Z9@vQ3!pL8#wX7^tR2&amp;nG6*yM4$eB1(dF0)sH5%kJ3&amp;uY8*rE4#wQ1@zX6^nM9$&quot;;</span>
+<span class="fc" id="L31">    private final SecretKey secretKey = Keys.hmacShaKeyFor(CLAVE.getBytes(StandardCharsets.UTF_8));</span>
 
     @BeforeEach
     void setUp() {
-<span class="fc" id="L48">        jwtUtil = new JwtUtil();</span>
+<span class="fc" id="L35">        jwtUtil = new JwtUtil();</span>
         
         // Crear usuario de prueba con todos los campos
-<span class="fc" id="L51">        usuarioTest = new Usuario();</span>
-<span class="fc" id="L52">        usuarioTest.setUsuarioID(123);</span>
-<span class="fc" id="L53">        usuarioTest.setNombre(&quot;testuser&quot;);</span>
-<span class="fc" id="L54">        usuarioTest.setNombres(&quot;Juan&quot;);</span>
-<span class="fc" id="L55">        usuarioTest.setApellidos(&quot;Pérez&quot;);</span>
-<span class="fc" id="L56">        usuarioTest.setEmail(&quot;test@example.com&quot;);</span>
-<span class="fc" id="L57">        usuarioTest.setRol(Rol.ADMIN);</span>
-<span class="fc" id="L58">        usuarioTest.setEstado(EstadoUsuario.ACTIVO);</span>
-<span class="fc" id="L59">    }</span>
+<span class="fc" id="L38">        usuarioTest = new Usuario();</span>
+<span class="fc" id="L39">        usuarioTest.setUsuarioID(123);</span>
+<span class="fc" id="L40">        usuarioTest.setNombre(&quot;testuser&quot;);</span>
+<span class="fc" id="L41">        usuarioTest.setNombres(&quot;Juan&quot;);</span>
+<span class="fc" id="L42">        usuarioTest.setApellidos(&quot;Pérez&quot;);</span>
+<span class="fc" id="L43">        usuarioTest.setEmail(&quot;test@example.com&quot;);</span>
+<span class="fc" id="L44">        usuarioTest.setRol(Rol.ADMIN);</span>
+<span class="fc" id="L45">        usuarioTest.setEstado(EstadoUsuario.ACTIVO);</span>
+<span class="fc" id="L46">    }</span>
 
     // ===== TESTS DE generarToken =====
 
     @Test
     @DisplayName(&quot;generarToken - Debe generar access token con rol único&quot;)
     void generarToken_rolUnico_debeGenerarTokenValido() {
-        // Arrange
-<span class="fc" id="L67">        List&lt;String&gt; roles = Arrays.asList(&quot;ADMIN&quot;);</span>
+        
+<span class="fc" id="L54">        List&lt;String&gt; roles = Arrays.asList(&quot;ADMIN&quot;);</span>
 
-        // Act
-<span class="fc" id="L70">        String token = jwtUtil.generarToken(usuarioTest, roles);</span>
+        
+<span class="fc" id="L57">        String token = jwtUtil.generarToken(usuarioTest, roles);</span>
 
-        // Assert
-<span class="fc" id="L73">        assertNotNull(token, &quot;Token no debe ser null&quot;);</span>
-<span class="fc" id="L74">        assertFalse(token.isEmpty(), &quot;Token no debe estar vacío&quot;);</span>
-<span class="fc" id="L75">        assertTrue(token.contains(&quot;.&quot;), &quot;Token debe tener formato JWT (3 partes separadas por .)&quot;);</span>
+        
+<span class="fc" id="L60">        assertNotNull(token, &quot;Token no debe ser null&quot;);</span>
+<span class="fc" id="L61">        assertFalse(token.isEmpty(), &quot;Token no debe estar vacío&quot;);</span>
+<span class="fc" id="L62">        assertTrue(token.contains(&quot;.&quot;), &quot;Token debe tener formato JWT (3 partes separadas por .)&quot;);</span>
         
         // Verificar que el token es válido
-<span class="fc" id="L78">        assertTrue(jwtUtil.esTokenValido(token), &quot;Token generado debe ser válido&quot;);</span>
-<span class="fc" id="L79">    }</span>
+<span class="fc" id="L65">        assertTrue(jwtUtil.esTokenValido(token), &quot;Token generado debe ser válido&quot;);</span>
+<span class="fc" id="L66">    }</span>
 
     @Test
     @DisplayName(&quot;generarToken - Debe incluir subject (username)&quot;)
     void generarToken_debeIncluirSubject() {
-        // Arrange
-<span class="fc" id="L85">        List&lt;String&gt; roles = Arrays.asList(&quot;ADMIN&quot;);</span>
+        
+<span class="fc" id="L72">        List&lt;String&gt; roles = Arrays.asList(&quot;ADMIN&quot;);</span>
 
-        // Act
-<span class="fc" id="L88">        String token = jwtUtil.generarToken(usuarioTest, roles);</span>
-<span class="fc" id="L89">        String username = jwtUtil.obtenerUsuarioDelToken(token);</span>
+        
+<span class="fc" id="L75">        String token = jwtUtil.generarToken(usuarioTest, roles);</span>
+<span class="fc" id="L76">        String username = jwtUtil.obtenerUsuarioDelToken(token);</span>
 
-        // Assert
-<span class="fc" id="L92">        assertEquals(&quot;testuser&quot;, username, &quot;Subject debe ser el nombre del usuario&quot;);</span>
-<span class="fc" id="L93">    }</span>
+        
+<span class="fc" id="L79">        assertEquals(&quot;testuser&quot;, username, &quot;Subject debe ser el nombre del usuario&quot;);</span>
+<span class="fc" id="L80">    }</span>
 
     @Test
     @DisplayName(&quot;generarToken - Debe incluir userId en claims&quot;)
     void generarToken_debeIncluirUserId() {
-        // Arrange
-<span class="fc" id="L99">        List&lt;String&gt; roles = Arrays.asList(&quot;ADMIN&quot;);</span>
+        
+<span class="fc" id="L86">        List&lt;String&gt; roles = Arrays.asList(&quot;ADMIN&quot;);</span>
 
-        // Act
-<span class="fc" id="L102">        String token = jwtUtil.generarToken(usuarioTest, roles);</span>
-<span class="fc" id="L103">        Integer userId = jwtUtil.obtenerUserIdDelToken(token);</span>
+        
+<span class="fc" id="L89">        String token = jwtUtil.generarToken(usuarioTest, roles);</span>
+<span class="fc" id="L90">        Integer userId = jwtUtil.obtenerUserIdDelToken(token);</span>
 
-        // Assert
-<span class="fc" id="L106">        assertEquals(123, userId, &quot;userId debe coincidir con el del usuario&quot;);</span>
-<span class="fc" id="L107">    }</span>
+        
+<span class="fc" id="L93">        assertEquals(123, userId, &quot;userId debe coincidir con el del usuario&quot;);</span>
+<span class="fc" id="L94">    }</span>
 
     @Test
     @DisplayName(&quot;generarToken - Debe incluir authorities (roles)&quot;)
     void generarToken_debeIncluirAuthorities() {
-        // Arrange
-<span class="fc" id="L113">        List&lt;String&gt; roles = Arrays.asList(&quot;ADMIN&quot;, &quot;ANALISTA&quot;);</span>
+        
+<span class="fc" id="L100">        List&lt;String&gt; roles = Arrays.asList(&quot;ADMIN&quot;, &quot;ANALISTA&quot;);</span>
 
-        // Act
-<span class="fc" id="L116">        String token = jwtUtil.generarToken(usuarioTest, roles);</span>
+        
+<span class="fc" id="L103">        String token = jwtUtil.generarToken(usuarioTest, roles);</span>
 
-        // Assert
+        
         // Parsear token para verificar authorities
         @SuppressWarnings(&quot;unchecked&quot;)
-<span class="fc" id="L121">        List&lt;String&gt; authorities = (List&lt;String&gt;) Jwts.parser()</span>
-<span class="fc" id="L122">                .verifyWith(secretKey)</span>
-<span class="fc" id="L123">                .build()</span>
-<span class="fc" id="L124">                .parseSignedClaims(token)</span>
-<span class="fc" id="L125">                .getPayload()</span>
-<span class="fc" id="L126">                .get(&quot;authorities&quot;);</span>
+<span class="fc" id="L108">        List&lt;String&gt; authorities = (List&lt;String&gt;) Jwts.parser()</span>
+<span class="fc" id="L109">                .verifyWith(secretKey)</span>
+<span class="fc" id="L110">                .build()</span>
+<span class="fc" id="L111">                .parseSignedClaims(token)</span>
+<span class="fc" id="L112">                .getPayload()</span>
+<span class="fc" id="L113">                .get(&quot;authorities&quot;);</span>
         
-<span class="fc" id="L128">        assertEquals(2, authorities.size(), &quot;Debe tener 2 roles&quot;);</span>
-<span class="fc" id="L129">        assertTrue(authorities.contains(&quot;ADMIN&quot;), &quot;Debe contener rol ADMIN&quot;);</span>
-<span class="fc" id="L130">        assertTrue(authorities.contains(&quot;ANALISTA&quot;), &quot;Debe contener rol ANALISTA&quot;);</span>
-<span class="fc" id="L131">    }</span>
+<span class="fc" id="L115">        assertEquals(2, authorities.size(), &quot;Debe tener 2 roles&quot;);</span>
+<span class="fc" id="L116">        assertTrue(authorities.contains(&quot;ADMIN&quot;), &quot;Debe contener rol ADMIN&quot;);</span>
+<span class="fc" id="L117">        assertTrue(authorities.contains(&quot;ANALISTA&quot;), &quot;Debe contener rol ANALISTA&quot;);</span>
+<span class="fc" id="L118">    }</span>
 
     @Test
     @DisplayName(&quot;generarToken - Debe incluir claim 'type' con valor 'access'&quot;)
     void generarToken_debeIncluirTypeAccess() {
-        // Arrange
-<span class="fc" id="L137">        List&lt;String&gt; roles = Arrays.asList(&quot;ADMIN&quot;);</span>
-
-        // Act
-<span class="fc" id="L140">        String token = jwtUtil.generarToken(usuarioTest, roles);</span>
-
-        // Assert
-<span class="fc" id="L143">        String type = Jwts.parser()</span>
-<span class="fc" id="L144">                .verifyWith(secretKey)</span>
-<span class="fc" id="L145">                .build()</span>
-<span class="fc" id="L146">                .parseSignedClaims(token)</span>
-<span class="fc" id="L147">                .getPayload()</span>
-<span class="fc" id="L148">                .get(&quot;type&quot;, String.class);</span>
         
-<span class="fc" id="L150">        assertEquals(&quot;access&quot;, type, &quot;Claim 'type' debe ser 'access'&quot;);</span>
-<span class="fc" id="L151">    }</span>
+<span class="fc" id="L124">        List&lt;String&gt; roles = Arrays.asList(&quot;ADMIN&quot;);</span>
+
+        
+<span class="fc" id="L127">        String token = jwtUtil.generarToken(usuarioTest, roles);</span>
+
+        
+<span class="fc" id="L130">        String type = Jwts.parser()</span>
+<span class="fc" id="L131">                .verifyWith(secretKey)</span>
+<span class="fc" id="L132">                .build()</span>
+<span class="fc" id="L133">                .parseSignedClaims(token)</span>
+<span class="fc" id="L134">                .getPayload()</span>
+<span class="fc" id="L135">                .get(&quot;type&quot;, String.class);</span>
+        
+<span class="fc" id="L137">        assertEquals(&quot;access&quot;, type, &quot;Claim 'type' debe ser 'access'&quot;);</span>
+<span class="fc" id="L138">    }</span>
 
     @Test
     @DisplayName(&quot;generarToken - Debe incluir email, nombres y apellidos&quot;)
     void generarToken_debeIncluirDatosCompletos() {
-        // Arrange
-<span class="fc" id="L157">        List&lt;String&gt; roles = Arrays.asList(&quot;ADMIN&quot;);</span>
-
-        // Act
-<span class="fc" id="L160">        String token = jwtUtil.generarToken(usuarioTest, roles);</span>
-
-        // Assert
-<span class="fc" id="L163">        var claims = Jwts.parser()</span>
-<span class="fc" id="L164">                .verifyWith(secretKey)</span>
-<span class="fc" id="L165">                .build()</span>
-<span class="fc" id="L166">                .parseSignedClaims(token)</span>
-<span class="fc" id="L167">                .getPayload();</span>
         
-<span class="fc" id="L169">        assertEquals(&quot;test@example.com&quot;, claims.get(&quot;email&quot;, String.class), &quot;Email debe estar en claims&quot;);</span>
-<span class="fc" id="L170">        assertEquals(&quot;Juan&quot;, claims.get(&quot;nombres&quot;, String.class), &quot;Nombres debe estar en claims&quot;);</span>
-<span class="fc" id="L171">        assertEquals(&quot;Pérez&quot;, claims.get(&quot;apellidos&quot;, String.class), &quot;Apellidos debe estar en claims&quot;);</span>
-<span class="fc" id="L172">    }</span>
+<span class="fc" id="L144">        List&lt;String&gt; roles = Arrays.asList(&quot;ADMIN&quot;);</span>
+
+        
+<span class="fc" id="L147">        String token = jwtUtil.generarToken(usuarioTest, roles);</span>
+
+        
+<span class="fc" id="L150">        var claims = Jwts.parser()</span>
+<span class="fc" id="L151">                .verifyWith(secretKey)</span>
+<span class="fc" id="L152">                .build()</span>
+<span class="fc" id="L153">                .parseSignedClaims(token)</span>
+<span class="fc" id="L154">                .getPayload();</span>
+        
+<span class="fc" id="L156">        assertEquals(&quot;test@example.com&quot;, claims.get(&quot;email&quot;, String.class), &quot;Email debe estar en claims&quot;);</span>
+<span class="fc" id="L157">        assertEquals(&quot;Juan&quot;, claims.get(&quot;nombres&quot;, String.class), &quot;Nombres debe estar en claims&quot;);</span>
+<span class="fc" id="L158">        assertEquals(&quot;Pérez&quot;, claims.get(&quot;apellidos&quot;, String.class), &quot;Apellidos debe estar en claims&quot;);</span>
+<span class="fc" id="L159">    }</span>
 
     @Test
     @DisplayName(&quot;generarToken - Debe tener fecha de expiración de 1 hora&quot;)
     void generarToken_debeExpirarEn1Hora() {
-        // Arrange
-<span class="fc" id="L178">        List&lt;String&gt; roles = Arrays.asList(&quot;ADMIN&quot;);</span>
-<span class="fc" id="L179">        long ahora = System.currentTimeMillis();</span>
-
-        // Act
-<span class="fc" id="L182">        String token = jwtUtil.generarToken(usuarioTest, roles);</span>
-
-        // Assert
-<span class="fc" id="L185">        Date expiracion = Jwts.parser()</span>
-<span class="fc" id="L186">                .verifyWith(secretKey)</span>
-<span class="fc" id="L187">                .build()</span>
-<span class="fc" id="L188">                .parseSignedClaims(token)</span>
-<span class="fc" id="L189">                .getPayload()</span>
-<span class="fc" id="L190">                .getExpiration();</span>
         
-<span class="fc" id="L192">        long tiempoExpiracion = expiracion.getTime() - ahora;</span>
+<span class="fc" id="L165">        List&lt;String&gt; roles = Arrays.asList(&quot;ADMIN&quot;);</span>
+<span class="fc" id="L166">        long ahora = System.currentTimeMillis();</span>
+
+        
+<span class="fc" id="L169">        String token = jwtUtil.generarToken(usuarioTest, roles);</span>
+
+        
+<span class="fc" id="L172">        Date expiracion = Jwts.parser()</span>
+<span class="fc" id="L173">                .verifyWith(secretKey)</span>
+<span class="fc" id="L174">                .build()</span>
+<span class="fc" id="L175">                .parseSignedClaims(token)</span>
+<span class="fc" id="L176">                .getPayload()</span>
+<span class="fc" id="L177">                .getExpiration();</span>
+        
+<span class="fc" id="L179">        long tiempoExpiracion = expiracion.getTime() - ahora;</span>
         
         // Verificar que la expiración está alrededor de 1 hora (3600000 ms)
-<span class="pc bpc" id="L195" title="2 of 4 branches missed.">        assertTrue(tiempoExpiracion &gt; 3590000 &amp;&amp; tiempoExpiracion &lt;= 3600000, </span>
+<span class="pc bpc" id="L182" title="2 of 4 branches missed.">        assertTrue(tiempoExpiracion &gt; 3590000 &amp;&amp; tiempoExpiracion &lt;= 3600000, </span>
                    &quot;Token debe expirar en aproximadamente 1 hora&quot;);
-<span class="fc" id="L197">    }</span>
+<span class="fc" id="L184">    }</span>
 
     // ===== TESTS DE generarRefreshToken =====
 
     @Test
     @DisplayName(&quot;generarRefreshToken - Debe generar refresh token válido&quot;)
     void generarRefreshToken_debeGenerarTokenValido() {
-        // Act
-<span class="fc" id="L205">        String refreshToken = jwtUtil.generarRefreshToken(usuarioTest);</span>
+        
+<span class="fc" id="L192">        String refreshToken = jwtUtil.generarRefreshToken(usuarioTest);</span>
 
-        // Assert
-<span class="fc" id="L208">        assertNotNull(refreshToken, &quot;Refresh token no debe ser null&quot;);</span>
-<span class="fc" id="L209">        assertFalse(refreshToken.isEmpty(), &quot;Refresh token no debe estar vacío&quot;);</span>
-<span class="fc" id="L210">        assertTrue(jwtUtil.esTokenValido(refreshToken), &quot;Refresh token debe ser válido&quot;);</span>
-<span class="fc" id="L211">    }</span>
+        
+<span class="fc" id="L195">        assertNotNull(refreshToken, &quot;Refresh token no debe ser null&quot;);</span>
+<span class="fc" id="L196">        assertFalse(refreshToken.isEmpty(), &quot;Refresh token no debe estar vacío&quot;);</span>
+<span class="fc" id="L197">        assertTrue(jwtUtil.esTokenValido(refreshToken), &quot;Refresh token debe ser válido&quot;);</span>
+<span class="fc" id="L198">    }</span>
 
     @Test
     @DisplayName(&quot;generarRefreshToken - Debe incluir subject (username)&quot;)
     void generarRefreshToken_debeIncluirSubject() {
-        // Act
-<span class="fc" id="L217">        String refreshToken = jwtUtil.generarRefreshToken(usuarioTest);</span>
-<span class="fc" id="L218">        String username = jwtUtil.obtenerUsuarioDelToken(refreshToken);</span>
+        
+<span class="fc" id="L204">        String refreshToken = jwtUtil.generarRefreshToken(usuarioTest);</span>
+<span class="fc" id="L205">        String username = jwtUtil.obtenerUsuarioDelToken(refreshToken);</span>
 
-        // Assert
-<span class="fc" id="L221">        assertEquals(&quot;testuser&quot;, username, &quot;Subject debe ser el nombre del usuario&quot;);</span>
-<span class="fc" id="L222">    }</span>
+        
+<span class="fc" id="L208">        assertEquals(&quot;testuser&quot;, username, &quot;Subject debe ser el nombre del usuario&quot;);</span>
+<span class="fc" id="L209">    }</span>
 
     @Test
     @DisplayName(&quot;generarRefreshToken - Debe incluir userId&quot;)
     void generarRefreshToken_debeIncluirUserId() {
-        // Act
-<span class="fc" id="L228">        String refreshToken = jwtUtil.generarRefreshToken(usuarioTest);</span>
-<span class="fc" id="L229">        Integer userId = jwtUtil.obtenerUserIdDelToken(refreshToken);</span>
+        
+<span class="fc" id="L215">        String refreshToken = jwtUtil.generarRefreshToken(usuarioTest);</span>
+<span class="fc" id="L216">        Integer userId = jwtUtil.obtenerUserIdDelToken(refreshToken);</span>
 
-        // Assert
-<span class="fc" id="L232">        assertEquals(123, userId, &quot;userId debe coincidir con el del usuario&quot;);</span>
-<span class="fc" id="L233">    }</span>
+        
+<span class="fc" id="L219">        assertEquals(123, userId, &quot;userId debe coincidir con el del usuario&quot;);</span>
+<span class="fc" id="L220">    }</span>
 
     @Test
     @DisplayName(&quot;generarRefreshToken - Debe incluir claim 'type' con valor 'refresh'&quot;)
     void generarRefreshToken_debeIncluirTypeRefresh() {
-        // Act
-<span class="fc" id="L239">        String refreshToken = jwtUtil.generarRefreshToken(usuarioTest);</span>
-
-        // Assert
-<span class="fc" id="L242">        String type = Jwts.parser()</span>
-<span class="fc" id="L243">                .verifyWith(secretKey)</span>
-<span class="fc" id="L244">                .build()</span>
-<span class="fc" id="L245">                .parseSignedClaims(refreshToken)</span>
-<span class="fc" id="L246">                .getPayload()</span>
-<span class="fc" id="L247">                .get(&quot;type&quot;, String.class);</span>
         
-<span class="fc" id="L249">        assertEquals(&quot;refresh&quot;, type, &quot;Claim 'type' debe ser 'refresh'&quot;);</span>
-<span class="fc" id="L250">    }</span>
+<span class="fc" id="L226">        String refreshToken = jwtUtil.generarRefreshToken(usuarioTest);</span>
+
+        
+<span class="fc" id="L229">        String type = Jwts.parser()</span>
+<span class="fc" id="L230">                .verifyWith(secretKey)</span>
+<span class="fc" id="L231">                .build()</span>
+<span class="fc" id="L232">                .parseSignedClaims(refreshToken)</span>
+<span class="fc" id="L233">                .getPayload()</span>
+<span class="fc" id="L234">                .get(&quot;type&quot;, String.class);</span>
+        
+<span class="fc" id="L236">        assertEquals(&quot;refresh&quot;, type, &quot;Claim 'type' debe ser 'refresh'&quot;);</span>
+<span class="fc" id="L237">    }</span>
 
     @Test
     @DisplayName(&quot;generarRefreshToken - NO debe incluir authorities&quot;)
     void generarRefreshToken_noDebeIncluirAuthorities() {
-        // Act
-<span class="fc" id="L256">        String refreshToken = jwtUtil.generarRefreshToken(usuarioTest);</span>
-
-        // Assert
-<span class="fc" id="L259">        var claims = Jwts.parser()</span>
-<span class="fc" id="L260">                .verifyWith(secretKey)</span>
-<span class="fc" id="L261">                .build()</span>
-<span class="fc" id="L262">                .parseSignedClaims(refreshToken)</span>
-<span class="fc" id="L263">                .getPayload();</span>
         
-<span class="fc" id="L265">        assertNull(claims.get(&quot;authorities&quot;), &quot;Refresh token NO debe contener authorities&quot;);</span>
-<span class="fc" id="L266">    }</span>
+<span class="fc" id="L243">        String refreshToken = jwtUtil.generarRefreshToken(usuarioTest);</span>
+
+        
+<span class="fc" id="L246">        var claims = Jwts.parser()</span>
+<span class="fc" id="L247">                .verifyWith(secretKey)</span>
+<span class="fc" id="L248">                .build()</span>
+<span class="fc" id="L249">                .parseSignedClaims(refreshToken)</span>
+<span class="fc" id="L250">                .getPayload();</span>
+        
+<span class="fc" id="L252">        assertNull(claims.get(&quot;authorities&quot;), &quot;Refresh token NO debe contener authorities&quot;);</span>
+<span class="fc" id="L253">    }</span>
 
     @Test
     @DisplayName(&quot;generarRefreshToken - Debe tener fecha de expiración de 7 días&quot;)
     void generarRefreshToken_debeExpirarEn7Dias() {
-        // Arrange
-<span class="fc" id="L272">        long ahora = System.currentTimeMillis();</span>
-
-        // Act
-<span class="fc" id="L275">        String refreshToken = jwtUtil.generarRefreshToken(usuarioTest);</span>
-
-        // Assert
-<span class="fc" id="L278">        Date expiracion = Jwts.parser()</span>
-<span class="fc" id="L279">                .verifyWith(secretKey)</span>
-<span class="fc" id="L280">                .build()</span>
-<span class="fc" id="L281">                .parseSignedClaims(refreshToken)</span>
-<span class="fc" id="L282">                .getPayload()</span>
-<span class="fc" id="L283">                .getExpiration();</span>
         
-<span class="fc" id="L285">        long tiempoExpiracion = expiracion.getTime() - ahora;</span>
-<span class="fc" id="L286">        long siete_dias = 604800000; // 7 días en ms</span>
+<span class="fc" id="L259">        long ahora = System.currentTimeMillis();</span>
+
+        
+<span class="fc" id="L262">        String refreshToken = jwtUtil.generarRefreshToken(usuarioTest);</span>
+
+        
+<span class="fc" id="L265">        Date expiracion = Jwts.parser()</span>
+<span class="fc" id="L266">                .verifyWith(secretKey)</span>
+<span class="fc" id="L267">                .build()</span>
+<span class="fc" id="L268">                .parseSignedClaims(refreshToken)</span>
+<span class="fc" id="L269">                .getPayload()</span>
+<span class="fc" id="L270">                .getExpiration();</span>
+        
+<span class="fc" id="L272">        long tiempoExpiracion = expiracion.getTime() - ahora;</span>
+<span class="fc" id="L273">        long siete_dias = 604800000; // 7 días en ms</span>
         
         // Verificar que la expiración está alrededor de 7 días
-<span class="pc bpc" id="L289" title="2 of 4 branches missed.">        assertTrue(tiempoExpiracion &gt; (siete_dias - 10000) &amp;&amp; tiempoExpiracion &lt;= siete_dias, </span>
+<span class="pc bpc" id="L276" title="2 of 4 branches missed.">        assertTrue(tiempoExpiracion &gt; (siete_dias - 10000) &amp;&amp; tiempoExpiracion &lt;= siete_dias, </span>
                    &quot;Refresh token debe expirar en aproximadamente 7 días&quot;);
-<span class="fc" id="L291">    }</span>
+<span class="fc" id="L278">    }</span>
 
     // ===== TESTS DE obtenerUserIdDelToken =====
 
     @Test
     @DisplayName(&quot;obtenerUserIdDelToken - Debe extraer userId de access token&quot;)
     void obtenerUserIdDelToken_accessToken_debeExtraerUserId() {
-        // Arrange
-<span class="fc" id="L299">        String token = jwtUtil.generarToken(usuarioTest, Arrays.asList(&quot;ADMIN&quot;));</span>
+        
+<span class="fc" id="L286">        String token = jwtUtil.generarToken(usuarioTest, Arrays.asList(&quot;ADMIN&quot;));</span>
 
-        // Act
-<span class="fc" id="L302">        Integer userId = jwtUtil.obtenerUserIdDelToken(token);</span>
+        
+<span class="fc" id="L289">        Integer userId = jwtUtil.obtenerUserIdDelToken(token);</span>
 
-        // Assert
-<span class="fc" id="L305">        assertNotNull(userId, &quot;userId no debe ser null&quot;);</span>
-<span class="fc" id="L306">        assertEquals(123, userId, &quot;userId debe ser 123&quot;);</span>
-<span class="fc" id="L307">    }</span>
+        
+<span class="fc" id="L292">        assertNotNull(userId, &quot;userId no debe ser null&quot;);</span>
+<span class="fc" id="L293">        assertEquals(123, userId, &quot;userId debe ser 123&quot;);</span>
+<span class="fc" id="L294">    }</span>
 
     @Test
     @DisplayName(&quot;obtenerUserIdDelToken - Debe extraer userId de refresh token&quot;)
     void obtenerUserIdDelToken_refreshToken_debeExtraerUserId() {
-        // Arrange
-<span class="fc" id="L313">        String refreshToken = jwtUtil.generarRefreshToken(usuarioTest);</span>
+        
+<span class="fc" id="L300">        String refreshToken = jwtUtil.generarRefreshToken(usuarioTest);</span>
 
-        // Act
-<span class="fc" id="L316">        Integer userId = jwtUtil.obtenerUserIdDelToken(refreshToken);</span>
+        
+<span class="fc" id="L303">        Integer userId = jwtUtil.obtenerUserIdDelToken(refreshToken);</span>
 
-        // Assert
-<span class="fc" id="L319">        assertNotNull(userId, &quot;userId no debe ser null&quot;);</span>
-<span class="fc" id="L320">        assertEquals(123, userId, &quot;userId debe ser 123&quot;);</span>
-<span class="fc" id="L321">    }</span>
+        
+<span class="fc" id="L306">        assertNotNull(userId, &quot;userId no debe ser null&quot;);</span>
+<span class="fc" id="L307">        assertEquals(123, userId, &quot;userId debe ser 123&quot;);</span>
+<span class="fc" id="L308">    }</span>
 
     @Test
     @DisplayName(&quot;obtenerUserIdDelToken - Debe lanzar excepción con token inválido&quot;)
     void obtenerUserIdDelToken_tokenInvalido_debeLanzarExcepcion() {
-        // Arrange
-<span class="fc" id="L327">        String tokenInvalido = &quot;token.invalido.xyz&quot;;</span>
+        
+<span class="fc" id="L314">        String tokenInvalido = &quot;token.invalido.xyz&quot;;</span>
 
-        // Act &amp; Assert
-<span class="fc" id="L330">        assertThrows(Exception.class, () -&gt; {</span>
-<span class="nc" id="L331">            jwtUtil.obtenerUserIdDelToken(tokenInvalido);</span>
-<span class="nc" id="L332">        }, &quot;Debe lanzar excepción con token inválido&quot;);</span>
-<span class="fc" id="L333">    }</span>
+        
+<span class="fc" id="L317">        assertThrows(Exception.class, () -&gt; {</span>
+<span class="nc" id="L318">            jwtUtil.obtenerUserIdDelToken(tokenInvalido);</span>
+<span class="nc" id="L319">        }, &quot;Debe lanzar excepción con token inválido&quot;);</span>
+<span class="fc" id="L320">    }</span>
 
     // ===== TESTS DE esTokenValido =====
 
     @Test
     @DisplayName(&quot;esTokenValido - Token válido debe retornar true&quot;)
     void esTokenValido_tokenValido_debeRetornarTrue() {
-        // Arrange
-<span class="fc" id="L341">        String token = jwtUtil.generarToken(usuarioTest, Arrays.asList(&quot;ADMIN&quot;));</span>
+        
+<span class="fc" id="L328">        String token = jwtUtil.generarToken(usuarioTest, Arrays.asList(&quot;ADMIN&quot;));</span>
 
-        // Act
-<span class="fc" id="L344">        boolean esValido = jwtUtil.esTokenValido(token);</span>
+        
+<span class="fc" id="L331">        boolean esValido = jwtUtil.esTokenValido(token);</span>
 
-        // Assert
-<span class="fc" id="L347">        assertTrue(esValido, &quot;Token válido debe retornar true&quot;);</span>
-<span class="fc" id="L348">    }</span>
+        
+<span class="fc" id="L334">        assertTrue(esValido, &quot;Token válido debe retornar true&quot;);</span>
+<span class="fc" id="L335">    }</span>
 
     @Test
     @DisplayName(&quot;esTokenValido - Token expirado debe retornar false&quot;)
     void esTokenValido_tokenExpirado_debeRetornarFalse() {
-        // Arrange
-<span class="fc" id="L354">        String tokenExpirado = Jwts.builder()</span>
-<span class="fc" id="L355">                .subject(&quot;testuser&quot;)</span>
-<span class="fc" id="L356">                .claim(&quot;userId&quot;, 123)</span>
-<span class="fc" id="L357">                .issuedAt(Date.from(Instant.now().minus(2, ChronoUnit.HOURS)))</span>
-<span class="fc" id="L358">                .expiration(Date.from(Instant.now().minus(1, ChronoUnit.HOURS)))</span>
-<span class="fc" id="L359">                .signWith(secretKey)</span>
-<span class="fc" id="L360">                .compact();</span>
+        
+<span class="fc" id="L341">        String tokenExpirado = Jwts.builder()</span>
+<span class="fc" id="L342">                .subject(&quot;testuser&quot;)</span>
+<span class="fc" id="L343">                .claim(&quot;userId&quot;, 123)</span>
+<span class="fc" id="L344">                .issuedAt(Date.from(Instant.now().minus(2, ChronoUnit.HOURS)))</span>
+<span class="fc" id="L345">                .expiration(Date.from(Instant.now().minus(1, ChronoUnit.HOURS)))</span>
+<span class="fc" id="L346">                .signWith(secretKey)</span>
+<span class="fc" id="L347">                .compact();</span>
 
-        // Act
-<span class="fc" id="L363">        boolean esValido = jwtUtil.esTokenValido(tokenExpirado);</span>
+        
+<span class="fc" id="L350">        boolean esValido = jwtUtil.esTokenValido(tokenExpirado);</span>
 
-        // Assert
-<span class="fc" id="L366">        assertFalse(esValido, &quot;Token expirado debe retornar false&quot;);</span>
-<span class="fc" id="L367">    }</span>
+        
+<span class="fc" id="L353">        assertFalse(esValido, &quot;Token expirado debe retornar false&quot;);</span>
+<span class="fc" id="L354">    }</span>
 
     @Test
     @DisplayName(&quot;esTokenValido - Token con firma incorrecta debe retornar false&quot;)
     void esTokenValido_firmaIncorrecta_debeRetornarFalse() {
-        // Arrange
-<span class="fc" id="L373">        SecretKey otraLlave = Keys.hmacShaKeyFor(&quot;otra_clave_secreta_diferente_muy_larga_123456789&quot;.getBytes(StandardCharsets.UTF_8));</span>
-<span class="fc" id="L374">        String tokenConOtraFirma = Jwts.builder()</span>
-<span class="fc" id="L375">                .subject(&quot;hacker&quot;)</span>
-<span class="fc" id="L376">                .claim(&quot;userId&quot;, 999)</span>
-<span class="fc" id="L377">                .issuedAt(new Date())</span>
-<span class="fc" id="L378">                .expiration(Date.from(Instant.now().plus(1, ChronoUnit.HOURS)))</span>
-<span class="fc" id="L379">                .signWith(otraLlave)</span>
-<span class="fc" id="L380">                .compact();</span>
+        
+<span class="fc" id="L360">        SecretKey otraLlave = Keys.hmacShaKeyFor(&quot;otra_clave_secreta_diferente_muy_larga_123456789&quot;.getBytes(StandardCharsets.UTF_8));</span>
+<span class="fc" id="L361">        String tokenConOtraFirma = Jwts.builder()</span>
+<span class="fc" id="L362">                .subject(&quot;hacker&quot;)</span>
+<span class="fc" id="L363">                .claim(&quot;userId&quot;, 999)</span>
+<span class="fc" id="L364">                .issuedAt(new Date())</span>
+<span class="fc" id="L365">                .expiration(Date.from(Instant.now().plus(1, ChronoUnit.HOURS)))</span>
+<span class="fc" id="L366">                .signWith(otraLlave)</span>
+<span class="fc" id="L367">                .compact();</span>
 
-        // Act
-<span class="fc" id="L383">        boolean esValido = jwtUtil.esTokenValido(tokenConOtraFirma);</span>
+        
+<span class="fc" id="L370">        boolean esValido = jwtUtil.esTokenValido(tokenConOtraFirma);</span>
 
-        // Assert
-<span class="fc" id="L386">        assertFalse(esValido, &quot;Token con firma incorrecta debe retornar false&quot;);</span>
-<span class="fc" id="L387">    }</span>
+        
+<span class="fc" id="L373">        assertFalse(esValido, &quot;Token con firma incorrecta debe retornar false&quot;);</span>
+<span class="fc" id="L374">    }</span>
 
     @Test
     @DisplayName(&quot;esTokenValido - Token malformado debe retornar false&quot;)
     void esTokenValido_tokenMalformado_debeRetornarFalse() {
-        // Arrange
-<span class="fc" id="L393">        String tokenMalformado = &quot;token.malformado.xyz&quot;;</span>
+        
+<span class="fc" id="L380">        String tokenMalformado = &quot;token.malformado.xyz&quot;;</span>
 
-        // Act
-<span class="fc" id="L396">        boolean esValido = jwtUtil.esTokenValido(tokenMalformado);</span>
+        
+<span class="fc" id="L383">        boolean esValido = jwtUtil.esTokenValido(tokenMalformado);</span>
 
-        // Assert
-<span class="fc" id="L399">        assertFalse(esValido, &quot;Token malformado debe retornar false&quot;);</span>
-<span class="fc" id="L400">    }</span>
+        
+<span class="fc" id="L386">        assertFalse(esValido, &quot;Token malformado debe retornar false&quot;);</span>
+<span class="fc" id="L387">    }</span>
 
     @Test
     @DisplayName(&quot;esTokenValido - Token vacío debe retornar false&quot;)
     void esTokenValido_tokenVacio_debeRetornarFalse() {
-        // Arrange
-<span class="fc" id="L406">        String tokenVacio = &quot;&quot;;</span>
+        
+<span class="fc" id="L393">        String tokenVacio = &quot;&quot;;</span>
 
-        // Act
-<span class="fc" id="L409">        boolean esValido = jwtUtil.esTokenValido(tokenVacio);</span>
+        
+<span class="fc" id="L396">        boolean esValido = jwtUtil.esTokenValido(tokenVacio);</span>
 
-        // Assert
-<span class="fc" id="L412">        assertFalse(esValido, &quot;Token vacío debe retornar false&quot;);</span>
-<span class="fc" id="L413">    }</span>
+        
+<span class="fc" id="L399">        assertFalse(esValido, &quot;Token vacío debe retornar false&quot;);</span>
+<span class="fc" id="L400">    }</span>
 
     @Test
     @DisplayName(&quot;esTokenValido - Token null debe retornar false&quot;)
     void esTokenValido_tokenNull_debeRetornarFalse() {
-        // Act
-<span class="fc" id="L419">        boolean esValido = jwtUtil.esTokenValido(null);</span>
+        
+<span class="fc" id="L406">        boolean esValido = jwtUtil.esTokenValido(null);</span>
 
-        // Assert
-<span class="fc" id="L422">        assertFalse(esValido, &quot;Token null debe retornar false&quot;);</span>
-<span class="fc" id="L423">    }</span>
+        
+<span class="fc" id="L409">        assertFalse(esValido, &quot;Token null debe retornar false&quot;);</span>
+<span class="fc" id="L410">    }</span>
 
     // ===== TESTS DE obtenerUsuarioDelToken =====
 
     @Test
     @DisplayName(&quot;obtenerUsuarioDelToken - Debe extraer username de access token&quot;)
     void obtenerUsuarioDelToken_accessToken_debeExtraerUsername() {
-        // Arrange
-<span class="fc" id="L431">        String token = jwtUtil.generarToken(usuarioTest, Arrays.asList(&quot;ADMIN&quot;));</span>
+        
+<span class="fc" id="L418">        String token = jwtUtil.generarToken(usuarioTest, Arrays.asList(&quot;ADMIN&quot;));</span>
 
-        // Act
-<span class="fc" id="L434">        String username = jwtUtil.obtenerUsuarioDelToken(token);</span>
+        
+<span class="fc" id="L421">        String username = jwtUtil.obtenerUsuarioDelToken(token);</span>
 
-        // Assert
-<span class="fc" id="L437">        assertEquals(&quot;testuser&quot;, username, &quot;Username debe ser 'testuser'&quot;);</span>
-<span class="fc" id="L438">    }</span>
+        
+<span class="fc" id="L424">        assertEquals(&quot;testuser&quot;, username, &quot;Username debe ser 'testuser'&quot;);</span>
+<span class="fc" id="L425">    }</span>
 
     @Test
     @DisplayName(&quot;obtenerUsuarioDelToken - Debe extraer username de refresh token&quot;)
     void obtenerUsuarioDelToken_refreshToken_debeExtraerUsername() {
-        // Arrange
-<span class="fc" id="L444">        String refreshToken = jwtUtil.generarRefreshToken(usuarioTest);</span>
+        
+<span class="fc" id="L431">        String refreshToken = jwtUtil.generarRefreshToken(usuarioTest);</span>
 
-        // Act
-<span class="fc" id="L447">        String username = jwtUtil.obtenerUsuarioDelToken(refreshToken);</span>
+        
+<span class="fc" id="L434">        String username = jwtUtil.obtenerUsuarioDelToken(refreshToken);</span>
 
-        // Assert
-<span class="fc" id="L450">        assertEquals(&quot;testuser&quot;, username, &quot;Username debe ser 'testuser'&quot;);</span>
-<span class="fc" id="L451">    }</span>
+        
+<span class="fc" id="L437">        assertEquals(&quot;testuser&quot;, username, &quot;Username debe ser 'testuser'&quot;);</span>
+<span class="fc" id="L438">    }</span>
 
     @Test
     @DisplayName(&quot;obtenerUsuarioDelToken - Debe lanzar excepción con token inválido&quot;)
     void obtenerUsuarioDelToken_tokenInvalido_debeLanzarExcepcion() {
-        // Arrange
-<span class="fc" id="L457">        String tokenInvalido = &quot;token.invalido.xyz&quot;;</span>
+        
+<span class="fc" id="L444">        String tokenInvalido = &quot;token.invalido.xyz&quot;;</span>
 
-        // Act &amp; Assert
-<span class="fc" id="L460">        assertThrows(Exception.class, () -&gt; {</span>
-<span class="nc" id="L461">            jwtUtil.obtenerUsuarioDelToken(tokenInvalido);</span>
-<span class="nc" id="L462">        }, &quot;Debe lanzar excepción con token inválido&quot;);</span>
-<span class="fc" id="L463">    }</span>
+        
+<span class="fc" id="L447">        assertThrows(Exception.class, () -&gt; {</span>
+<span class="nc" id="L448">            jwtUtil.obtenerUsuarioDelToken(tokenInvalido);</span>
+<span class="nc" id="L449">        }, &quot;Debe lanzar excepción con token inválido&quot;);</span>
+<span class="fc" id="L450">    }</span>
 
     // ===== TESTS DE getAccessTokenExpiration =====
 
     @Test
     @DisplayName(&quot;getAccessTokenExpiration - Debe retornar 1 hora en milisegundos&quot;)
     void getAccessTokenExpiration_debeRetornar1Hora() {
-        // Act
-<span class="fc" id="L471">        long expiracion = jwtUtil.getAccessTokenExpiration();</span>
+        
+<span class="fc" id="L458">        long expiracion = jwtUtil.getAccessTokenExpiration();</span>
 
-        // Assert
-<span class="fc" id="L474">        assertEquals(3600000, expiracion, &quot;Access token expiration debe ser 3600000 ms (1 hora)&quot;);</span>
-<span class="fc" id="L475">    }</span>
+        
+<span class="fc" id="L461">        assertEquals(3600000, expiracion, &quot;Access token expiration debe ser 3600000 ms (1 hora)&quot;);</span>
+<span class="fc" id="L462">    }</span>
 
     // ===== TESTS DE getRefreshTokenExpiration =====
 
     @Test
     @DisplayName(&quot;getRefreshTokenExpiration - Debe retornar 7 días en milisegundos&quot;)
     void getRefreshTokenExpiration_debeRetornar7Dias() {
-        // Act
-<span class="fc" id="L483">        long expiracion = jwtUtil.getRefreshTokenExpiration();</span>
+        
+<span class="fc" id="L470">        long expiracion = jwtUtil.getRefreshTokenExpiration();</span>
 
-        // Assert
-<span class="fc" id="L486">        assertEquals(604800000, expiracion, &quot;Refresh token expiration debe ser 604800000 ms (7 días)&quot;);</span>
-<span class="fc" id="L487">    }</span>
+        
+<span class="fc" id="L473">        assertEquals(604800000, expiracion, &quot;Refresh token expiration debe ser 604800000 ms (7 días)&quot;);</span>
+<span class="fc" id="L474">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

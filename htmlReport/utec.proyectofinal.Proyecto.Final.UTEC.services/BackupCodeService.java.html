@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BackupCodeService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">BackupCodeService.java</span></div><h1>BackupCodeService.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BackupCodeService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">BackupCodeService.java</span></div><h1>BackupCodeService.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -12,171 +12,123 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Servicio para gestionar códigos de respaldo de 2FA
- * 
- * SEGURIDAD:
- * - Los códigos se generan con SecureRandom
- * - Se hashean con BCrypt antes de almacenar
- * - Cada código funciona UNA SOLA VEZ
- * - Formato: XXXX-XXXX-XXXX (12 caracteres alfanuméricos)
- */
+
 @Service
-<span class="fc" id="L25">public class BackupCodeService {</span>
+<span class="fc" id="L17">public class BackupCodeService {</span>
 
     @Autowired
     private BackupCodeRepository backupCodeRepository;
 
-<span class="fc" id="L30">    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(12);</span>
-    private static final String CHARACTERS = &quot;ABCDEFGHJKLMNPQRSTUVWXYZ23456789&quot;; // Sin O, 0, I, 1 para evitar confusión
-    private static final int CODE_LENGTH = 12; // XXXX-XXXX-XXXX
+<span class="fc" id="L22">    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(12);</span>
+    private static final String CHARACTERS = &quot;ABCDEFGHJKLMNPQRSTUVWXYZ23456789&quot;; 
+    private static final int CODE_LENGTH = 12; 
     private static final int BACKUP_CODES_COUNT = 10;
 
-    /**
-     * Genera 10 códigos de respaldo para un usuario
-     * 
-     * IMPORTANTE: Los códigos originales solo se devuelven UNA VEZ.
-     * Después se almacenan hasheados y no se pueden recuperar.
-     * 
-     * @param usuarioId ID del usuario
-     * @return Lista de códigos en texto plano (XXXX-XXXX-XXXX)
-     */
+    
     @Transactional
     public List&lt;String&gt; generateBackupCodes(Integer usuarioId) {
         // Eliminar códigos anteriores (si existen)
-<span class="fc" id="L47">        backupCodeRepository.deleteAllByUsuarioId(usuarioId);</span>
+<span class="fc" id="L31">        backupCodeRepository.deleteAllByUsuarioId(usuarioId);</span>
         
-<span class="fc" id="L49">        List&lt;String&gt; plainCodes = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L50">        SecureRandom random = new SecureRandom();</span>
+<span class="fc" id="L33">        List&lt;String&gt; plainCodes = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L34">        SecureRandom random = new SecureRandom();</span>
         
-<span class="fc bfc" id="L52" title="All 2 branches covered.">        for (int i = 0; i &lt; BACKUP_CODES_COUNT; i++) {</span>
+<span class="fc bfc" id="L36" title="All 2 branches covered.">        for (int i = 0; i &lt; BACKUP_CODES_COUNT; i++) {</span>
             // Generar código aleatorio
-<span class="fc" id="L54">            String code = generateRandomCode(random);</span>
-<span class="fc" id="L55">            plainCodes.add(code);</span>
+<span class="fc" id="L38">            String code = generateRandomCode(random);</span>
+<span class="fc" id="L39">            plainCodes.add(code);</span>
             
             // Hashear y guardar
-<span class="fc" id="L58">            BackupCode backupCode = new BackupCode();</span>
-<span class="fc" id="L59">            backupCode.setUsuarioId(usuarioId);</span>
-<span class="fc" id="L60">            backupCode.setCodeHash(passwordEncoder.encode(code.replace(&quot;-&quot;, &quot;&quot;))); // Hashear sin guiones</span>
-<span class="fc" id="L61">            backupCodeRepository.save(backupCode);</span>
+<span class="fc" id="L42">            BackupCode backupCode = new BackupCode();</span>
+<span class="fc" id="L43">            backupCode.setUsuarioId(usuarioId);</span>
+<span class="fc" id="L44">            backupCode.setCodeHash(passwordEncoder.encode(code.replace(&quot;-&quot;, &quot;&quot;))); </span>
+<span class="fc" id="L45">            backupCodeRepository.save(backupCode);</span>
         }
         
-<span class="fc" id="L64">        System.out.println(&quot; [BACKUP-CODES] Generados &quot; + BACKUP_CODES_COUNT + &quot; códigos para usuario ID: &quot; + usuarioId);</span>
+<span class="fc" id="L48">        System.out.println(&quot; [BACKUP-CODES] Generados &quot; + BACKUP_CODES_COUNT + &quot; códigos para usuario ID: &quot; + usuarioId);</span>
         
-<span class="fc" id="L66">        return plainCodes;</span>
+<span class="fc" id="L50">        return plainCodes;</span>
     }
 
-    /**
-     * Verifica un código de respaldo y lo marca como usado si es válido
-     * 
-     * @param usuarioId ID del usuario
-     * @param code Código en texto plano (puede incluir guiones o no)
-     * @return true si el código es válido y no usado, false en caso contrario
-     */
+    
     @Transactional
     public boolean verifyAndUseBackupCode(Integer usuarioId, String code) {
-<span class="pc bpc" id="L78" title="1 of 4 branches missed.">        if (code == null || code.isEmpty()) {</span>
-<span class="fc" id="L79">            return false;</span>
+<span class="pc bpc" id="L56" title="1 of 4 branches missed.">        if (code == null || code.isEmpty()) {</span>
+<span class="fc" id="L57">            return false;</span>
         }
         
-        // Normalizar código (quitar guiones, convertir a mayúsculas, quitar espacios)
-<span class="fc" id="L83">        String normalizedCode = code.replace(&quot;-&quot;, &quot;&quot;).replace(&quot; &quot;, &quot;&quot;).toUpperCase();</span>
         
-<span class="fc bfc" id="L85" title="All 2 branches covered.">        if (normalizedCode.length() != CODE_LENGTH) {</span>
-<span class="fc" id="L86">            System.err.println(&quot; [BACKUP-CODE] Código con longitud incorrecta: &quot; + normalizedCode.length());</span>
-<span class="fc" id="L87">            return false;</span>
+<span class="fc" id="L61">        String normalizedCode = code.replace(&quot;-&quot;, &quot;&quot;).replace(&quot; &quot;, &quot;&quot;).toUpperCase();</span>
+        
+<span class="fc bfc" id="L63" title="All 2 branches covered.">        if (normalizedCode.length() != CODE_LENGTH) {</span>
+<span class="fc" id="L64">            System.err.println(&quot; [BACKUP-CODE] Código con longitud incorrecta: &quot; + normalizedCode.length());</span>
+<span class="fc" id="L65">            return false;</span>
         }
         
         // Obtener todos los códigos no usados del usuario
-<span class="fc" id="L91">        List&lt;BackupCode&gt; availableCodes = backupCodeRepository.findByUsuarioIdAndUsedFalse(usuarioId);</span>
+<span class="fc" id="L69">        List&lt;BackupCode&gt; availableCodes = backupCodeRepository.findByUsuarioIdAndUsedFalse(usuarioId);</span>
         
-<span class="fc" id="L93">        System.out.println(&quot; [BACKUP-CODE] Verificando código para usuario ID: &quot; + usuarioId);</span>
-<span class="fc" id="L94">        System.out.println(&quot; [BACKUP-CODE] Códigos disponibles: &quot; + availableCodes.size());</span>
+<span class="fc" id="L71">        System.out.println(&quot; [BACKUP-CODE] Verificando código para usuario ID: &quot; + usuarioId);</span>
+<span class="fc" id="L72">        System.out.println(&quot; [BACKUP-CODE] Códigos disponibles: &quot; + availableCodes.size());</span>
         
-        // Probar contra cada código no usado
-<span class="fc bfc" id="L97" title="All 2 branches covered.">        for (BackupCode backupCode : availableCodes) {</span>
-<span class="fc bfc" id="L98" title="All 2 branches covered.">            if (passwordEncoder.matches(normalizedCode, backupCode.getCodeHash())) {</span>
-                // ¡Código válido! Marcarlo como usado
-<span class="fc" id="L100">                backupCode.markAsUsed();</span>
-<span class="fc" id="L101">                backupCodeRepository.save(backupCode);</span>
+        
+<span class="fc bfc" id="L75" title="All 2 branches covered.">        for (BackupCode backupCode : availableCodes) {</span>
+<span class="fc bfc" id="L76" title="All 2 branches covered.">            if (passwordEncoder.matches(normalizedCode, backupCode.getCodeHash())) {</span>
                 
-<span class="fc" id="L103">                long remaining = backupCodeRepository.countByUsuarioIdAndUsedFalse(usuarioId);</span>
-<span class="fc" id="L104">                System.out.println(&quot; [BACKUP-CODE] Código válido usado. Códigos restantes: &quot; + remaining);</span>
+<span class="fc" id="L78">                backupCode.markAsUsed();</span>
+<span class="fc" id="L79">                backupCodeRepository.save(backupCode);</span>
                 
-<span class="pc bpc" id="L106" title="1 of 2 branches missed.">                if (remaining &lt;= 2) {</span>
-<span class="nc" id="L107">                    System.out.println(&quot; [BACKUP-CODE] ADVERTENCIA: Solo quedan &quot; + remaining + &quot; códigos de respaldo&quot;);</span>
+<span class="fc" id="L81">                long remaining = backupCodeRepository.countByUsuarioIdAndUsedFalse(usuarioId);</span>
+<span class="fc" id="L82">                System.out.println(&quot; [BACKUP-CODE] Código válido usado. Códigos restantes: &quot; + remaining);</span>
+                
+<span class="pc bpc" id="L84" title="1 of 2 branches missed.">                if (remaining &lt;= 2) {</span>
+<span class="nc" id="L85">                    System.out.println(&quot; [BACKUP-CODE] ADVERTENCIA: Solo quedan &quot; + remaining + &quot; códigos de respaldo&quot;);</span>
                 }
                 
-<span class="fc" id="L110">                return true;</span>
+<span class="fc" id="L88">                return true;</span>
             }
-        }
+<span class="fc" id="L90">        }</span>
         
-<span class="fc" id="L114">        System.err.println(&quot; [BACKUP-CODE] Código inválido o ya usado&quot;);</span>
-<span class="fc" id="L115">        return false;</span>
+<span class="fc" id="L92">        System.err.println(&quot; [BACKUP-CODE] Código inválido o ya usado&quot;);</span>
+<span class="fc" id="L93">        return false;</span>
     }
 
-    /**
-     * Obtiene la cantidad de códigos de respaldo disponibles para un usuario
-     * 
-     * @param usuarioId ID del usuario
-     * @return Cantidad de códigos no usados
-     */
+    
     public long getAvailableCodesCount(Integer usuarioId) {
-<span class="fc" id="L125">        return backupCodeRepository.countByUsuarioIdAndUsedFalse(usuarioId);</span>
+<span class="fc" id="L98">        return backupCodeRepository.countByUsuarioIdAndUsedFalse(usuarioId);</span>
     }
 
-    /**
-     * Verifica si un usuario tiene códigos de respaldo disponibles
-     * 
-     * @param usuarioId ID del usuario
-     * @return true si tiene al menos un código disponible
-     */
+    
     public boolean hasAvailableCodes(Integer usuarioId) {
-<span class="fc bfc" id="L135" title="All 2 branches covered.">        return getAvailableCodesCount(usuarioId) &gt; 0;</span>
+<span class="fc bfc" id="L103" title="All 2 branches covered.">        return getAvailableCodesCount(usuarioId) &gt; 0;</span>
     }
 
-    /**
-     * Regenera todos los códigos de respaldo de un usuario
-     * Invalida todos los códigos anteriores
-     * 
-     * @param usuarioId ID del usuario
-     * @return Lista de nuevos códigos en texto plano
-     */
+    
     @Transactional
     public List&lt;String&gt; regenerateBackupCodes(Integer usuarioId) {
-<span class="fc" id="L147">        System.out.println(&quot; [BACKUP-CODE] Regenerando códigos para usuario ID: &quot; + usuarioId);</span>
-<span class="fc" id="L148">        return generateBackupCodes(usuarioId);</span>
+<span class="fc" id="L109">        System.out.println(&quot; [BACKUP-CODE] Regenerando códigos para usuario ID: &quot; + usuarioId);</span>
+<span class="fc" id="L110">        return generateBackupCodes(usuarioId);</span>
     }
 
-    /**
-     * Elimina todos los códigos de un usuario
-     * Útil al deshabilitar 2FA
-     * 
-     * @param usuarioId ID del usuario
-     */
+    
     @Transactional
     public void deleteAllUserCodes(Integer usuarioId) {
-<span class="fc" id="L159">        backupCodeRepository.deleteAllByUsuarioId(usuarioId);</span>
-<span class="fc" id="L160">        System.out.println(&quot; [BACKUP-CODE] Eliminados todos los códigos de usuario ID: &quot; + usuarioId);</span>
-<span class="fc" id="L161">    }</span>
+<span class="fc" id="L116">        backupCodeRepository.deleteAllByUsuarioId(usuarioId);</span>
+<span class="fc" id="L117">        System.out.println(&quot; [BACKUP-CODE] Eliminados todos los códigos de usuario ID: &quot; + usuarioId);</span>
+<span class="fc" id="L118">    }</span>
 
-    /**
-     * Genera un código aleatorio con formato XXXX-XXXX-XXXX
-     * 
-     * @param random Generador de números aleatorios
-     * @return Código formateado
-     */
+    
     private String generateRandomCode(SecureRandom random) {
-<span class="fc" id="L170">        StringBuilder code = new StringBuilder();</span>
+<span class="fc" id="L122">        StringBuilder code = new StringBuilder();</span>
         
-<span class="fc bfc" id="L172" title="All 2 branches covered.">        for (int i = 0; i &lt; CODE_LENGTH; i++) {</span>
-<span class="fc bfc" id="L173" title="All 4 branches covered.">            if (i &gt; 0 &amp;&amp; i % 4 == 0) {</span>
-<span class="fc" id="L174">                code.append(&quot;-&quot;);</span>
+<span class="fc bfc" id="L124" title="All 2 branches covered.">        for (int i = 0; i &lt; CODE_LENGTH; i++) {</span>
+<span class="fc bfc" id="L125" title="All 4 branches covered.">            if (i &gt; 0 &amp;&amp; i % 4 == 0) {</span>
+<span class="fc" id="L126">                code.append(&quot;-&quot;);</span>
             }
-<span class="fc" id="L176">            code.append(CHARACTERS.charAt(random.nextInt(CHARACTERS.length())));</span>
+<span class="fc" id="L128">            code.append(CHARACTERS.charAt(random.nextInt(CHARACTERS.length())));</span>
         }
         
-<span class="fc" id="L179">        return code.toString();</span>
+<span class="fc" id="L131">        return code.toString();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

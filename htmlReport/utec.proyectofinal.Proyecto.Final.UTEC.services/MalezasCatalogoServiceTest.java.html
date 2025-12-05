@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MalezasCatalogoServiceTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">MalezasCatalogoServiceTest.java</span></div><h1>MalezasCatalogoServiceTest.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MalezasCatalogoServiceTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">MalezasCatalogoServiceTest.java</span></div><h1>MalezasCatalogoServiceTest.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -26,27 +26,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-/**
- * Tests unitarios para MalezasCatalogoService
- * 
- * Funcionalidades testeadas:
- * - Obtener todas las malezas activas
- * - Obtener malezas inactivas
- * - Búsqueda por nombre común
- * - Búsqueda por nombre científico
- * - Obtener maleza por ID
- * - Crear nueva maleza
- * - Actualizar maleza existente
- * - Soft delete (eliminar)
- * - Reactivar maleza
- * - Obtener entidad por ID (para uso interno)
- * - Paginación simple
- * - Paginación con filtros dinámicos
- * - Mapeo de entidad a DTO
- */
+
 @ExtendWith(MockitoExtension.class)
 @DisplayName(&quot;Tests de MalezasCatalogoService&quot;)
-<span class="fc" id="L49">class MalezasCatalogoServiceTest {</span>
+<span class="fc" id="L32">class MalezasCatalogoServiceTest {</span>
 
     @Mock
     private MalezasCatalogoRepository repository;
@@ -62,623 +45,623 @@ import static org.mockito.Mockito.*;
     @BeforeEach
     void setUp() {
         // ARRANGE: Preparar malezas activas
-<span class="fc" id="L65">        maleza1 = new MalezasCatalogo();</span>
-<span class="fc" id="L66">        maleza1.setCatalogoID(1L);</span>
-<span class="fc" id="L67">        maleza1.setNombreComun(&quot;Gramilla&quot;);</span>
-<span class="fc" id="L68">        maleza1.setNombreCientifico(&quot;Cynodon dactylon&quot;);</span>
-<span class="fc" id="L69">        maleza1.setActivo(true);</span>
+<span class="fc" id="L48">        maleza1 = new MalezasCatalogo();</span>
+<span class="fc" id="L49">        maleza1.setCatalogoID(1L);</span>
+<span class="fc" id="L50">        maleza1.setNombreComun(&quot;Gramilla&quot;);</span>
+<span class="fc" id="L51">        maleza1.setNombreCientifico(&quot;Cynodon dactylon&quot;);</span>
+<span class="fc" id="L52">        maleza1.setActivo(true);</span>
 
-<span class="fc" id="L71">        maleza2 = new MalezasCatalogo();</span>
-<span class="fc" id="L72">        maleza2.setCatalogoID(2L);</span>
-<span class="fc" id="L73">        maleza2.setNombreComun(&quot;Yuyo Colorado&quot;);</span>
-<span class="fc" id="L74">        maleza2.setNombreCientifico(&quot;Amaranthus quitensis&quot;);</span>
-<span class="fc" id="L75">        maleza2.setActivo(true);</span>
+<span class="fc" id="L54">        maleza2 = new MalezasCatalogo();</span>
+<span class="fc" id="L55">        maleza2.setCatalogoID(2L);</span>
+<span class="fc" id="L56">        maleza2.setNombreComun(&quot;Yuyo Colorado&quot;);</span>
+<span class="fc" id="L57">        maleza2.setNombreCientifico(&quot;Amaranthus quitensis&quot;);</span>
+<span class="fc" id="L58">        maleza2.setActivo(true);</span>
 
         // ARRANGE: Preparar maleza inactiva
-<span class="fc" id="L78">        maleza3Inactiva = new MalezasCatalogo();</span>
-<span class="fc" id="L79">        maleza3Inactiva.setCatalogoID(3L);</span>
-<span class="fc" id="L80">        maleza3Inactiva.setNombreComun(&quot;Capín&quot;);</span>
-<span class="fc" id="L81">        maleza3Inactiva.setNombreCientifico(&quot;Echinochloa crus-galli&quot;);</span>
-<span class="fc" id="L82">        maleza3Inactiva.setActivo(false);</span>
+<span class="fc" id="L61">        maleza3Inactiva = new MalezasCatalogo();</span>
+<span class="fc" id="L62">        maleza3Inactiva.setCatalogoID(3L);</span>
+<span class="fc" id="L63">        maleza3Inactiva.setNombreComun(&quot;Capín&quot;);</span>
+<span class="fc" id="L64">        maleza3Inactiva.setNombreCientifico(&quot;Echinochloa crus-galli&quot;);</span>
+<span class="fc" id="L65">        maleza3Inactiva.setActivo(false);</span>
 
         // ARRANGE: Preparar request DTO
-<span class="fc" id="L85">        requestDTO = new MalezasCatalogoRequestDTO();</span>
-<span class="fc" id="L86">        requestDTO.setNombreComun(&quot;Pasto Horqueta&quot;);</span>
-<span class="fc" id="L87">        requestDTO.setNombreCientifico(&quot;Paspalum notatum&quot;);</span>
-<span class="fc" id="L88">    }</span>
+<span class="fc" id="L68">        requestDTO = new MalezasCatalogoRequestDTO();</span>
+<span class="fc" id="L69">        requestDTO.setNombreComun(&quot;Pasto Horqueta&quot;);</span>
+<span class="fc" id="L70">        requestDTO.setNombreCientifico(&quot;Paspalum notatum&quot;);</span>
+<span class="fc" id="L71">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener todos - debe retornar solo malezas activas&quot;)
     void obtenerTodos_debeRetornarSoloActivas() {
-        // ARRANGE
-<span class="fc" id="L94">        List&lt;MalezasCatalogo&gt; malezasActivas = Arrays.asList(maleza1, maleza2);</span>
-<span class="fc" id="L95">        when(repository.findByActivoTrue()).thenReturn(malezasActivas);</span>
-
-        // ACT
-<span class="fc" id="L98">        List&lt;MalezasCatalogoDTO&gt; resultado = service.obtenerTodos();</span>
-
-        // ASSERT
-<span class="fc" id="L101">        assertNotNull(resultado, &quot;El resultado no debe ser nulo&quot;);</span>
-<span class="fc" id="L102">        assertEquals(2, resultado.size(), &quot;Debe retornar 2 malezas activas&quot;);</span>
-<span class="fc" id="L103">        assertEquals(&quot;Gramilla&quot;, resultado.get(0).getNombreComun(), &quot;Primera maleza debe ser Gramilla&quot;);</span>
-<span class="fc" id="L104">        assertEquals(&quot;Yuyo Colorado&quot;, resultado.get(1).getNombreComun(), &quot;Segunda maleza debe ser Yuyo Colorado&quot;);</span>
-<span class="fc" id="L105">        assertTrue(resultado.get(0).getActivo(), &quot;Primera maleza debe estar activa&quot;);</span>
-<span class="fc" id="L106">        assertTrue(resultado.get(1).getActivo(), &quot;Segunda maleza debe estar activa&quot;);</span>
         
-<span class="fc" id="L108">        verify(repository, times(1)).findByActivoTrue();</span>
-<span class="fc" id="L109">    }</span>
+<span class="fc" id="L77">        List&lt;MalezasCatalogo&gt; malezasActivas = Arrays.asList(maleza1, maleza2);</span>
+<span class="fc" id="L78">        when(repository.findByActivoTrue()).thenReturn(malezasActivas);</span>
+
+        
+<span class="fc" id="L81">        List&lt;MalezasCatalogoDTO&gt; resultado = service.obtenerTodos();</span>
+
+        
+<span class="fc" id="L84">        assertNotNull(resultado, &quot;El resultado no debe ser nulo&quot;);</span>
+<span class="fc" id="L85">        assertEquals(2, resultado.size(), &quot;Debe retornar 2 malezas activas&quot;);</span>
+<span class="fc" id="L86">        assertEquals(&quot;Gramilla&quot;, resultado.get(0).getNombreComun(), &quot;Primera maleza debe ser Gramilla&quot;);</span>
+<span class="fc" id="L87">        assertEquals(&quot;Yuyo Colorado&quot;, resultado.get(1).getNombreComun(), &quot;Segunda maleza debe ser Yuyo Colorado&quot;);</span>
+<span class="fc" id="L88">        assertTrue(resultado.get(0).getActivo(), &quot;Primera maleza debe estar activa&quot;);</span>
+<span class="fc" id="L89">        assertTrue(resultado.get(1).getActivo(), &quot;Segunda maleza debe estar activa&quot;);</span>
+        
+<span class="fc" id="L91">        verify(repository, times(1)).findByActivoTrue();</span>
+<span class="fc" id="L92">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener todos - debe retornar lista vacía si no hay malezas activas&quot;)
     void obtenerTodos_debeRetornarListaVacia() {
-        // ARRANGE
-<span class="fc" id="L115">        when(repository.findByActivoTrue()).thenReturn(new ArrayList&lt;&gt;());</span>
+        
+<span class="fc" id="L98">        when(repository.findByActivoTrue()).thenReturn(new ArrayList&lt;&gt;());</span>
 
-        // ACT
-<span class="fc" id="L118">        List&lt;MalezasCatalogoDTO&gt; resultado = service.obtenerTodos();</span>
+        
+<span class="fc" id="L101">        List&lt;MalezasCatalogoDTO&gt; resultado = service.obtenerTodos();</span>
 
-        // ASSERT
-<span class="fc" id="L121">        assertNotNull(resultado, &quot;El resultado no debe ser nulo&quot;);</span>
-<span class="fc" id="L122">        assertEquals(0, resultado.size(), &quot;La lista debe estar vacía&quot;);</span>
-<span class="fc" id="L123">    }</span>
+        
+<span class="fc" id="L104">        assertNotNull(resultado, &quot;El resultado no debe ser nulo&quot;);</span>
+<span class="fc" id="L105">        assertEquals(0, resultado.size(), &quot;La lista debe estar vacía&quot;);</span>
+<span class="fc" id="L106">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener inactivos - debe retornar solo malezas inactivas&quot;)
     void obtenerInactivos_debeRetornarSoloInactivas() {
-        // ARRANGE
-<span class="fc" id="L129">        List&lt;MalezasCatalogo&gt; malezasInactivas = Arrays.asList(maleza3Inactiva);</span>
-<span class="fc" id="L130">        when(repository.findByActivoFalse()).thenReturn(malezasInactivas);</span>
-
-        // ACT
-<span class="fc" id="L133">        List&lt;MalezasCatalogoDTO&gt; resultado = service.obtenerInactivos();</span>
-
-        // ASSERT
-<span class="fc" id="L136">        assertNotNull(resultado, &quot;El resultado no debe ser nulo&quot;);</span>
-<span class="fc" id="L137">        assertEquals(1, resultado.size(), &quot;Debe retornar 1 maleza inactiva&quot;);</span>
-<span class="fc" id="L138">        assertEquals(&quot;Capín&quot;, resultado.get(0).getNombreComun(), &quot;La maleza debe ser Capín&quot;);</span>
-<span class="fc" id="L139">        assertFalse(resultado.get(0).getActivo(), &quot;La maleza debe estar inactiva&quot;);</span>
         
-<span class="fc" id="L141">        verify(repository, times(1)).findByActivoFalse();</span>
-<span class="fc" id="L142">    }</span>
+<span class="fc" id="L112">        List&lt;MalezasCatalogo&gt; malezasInactivas = Arrays.asList(maleza3Inactiva);</span>
+<span class="fc" id="L113">        when(repository.findByActivoFalse()).thenReturn(malezasInactivas);</span>
+
+        
+<span class="fc" id="L116">        List&lt;MalezasCatalogoDTO&gt; resultado = service.obtenerInactivos();</span>
+
+        
+<span class="fc" id="L119">        assertNotNull(resultado, &quot;El resultado no debe ser nulo&quot;);</span>
+<span class="fc" id="L120">        assertEquals(1, resultado.size(), &quot;Debe retornar 1 maleza inactiva&quot;);</span>
+<span class="fc" id="L121">        assertEquals(&quot;Capín&quot;, resultado.get(0).getNombreComun(), &quot;La maleza debe ser Capín&quot;);</span>
+<span class="fc" id="L122">        assertFalse(resultado.get(0).getActivo(), &quot;La maleza debe estar inactiva&quot;);</span>
+        
+<span class="fc" id="L124">        verify(repository, times(1)).findByActivoFalse();</span>
+<span class="fc" id="L125">    }</span>
 
     @Test
     @DisplayName(&quot;Buscar por nombre común - debe encontrar malezas que coincidan&quot;)
     void buscarPorNombreComun_debeEncontrarCoincidencias() {
-        // ARRANGE
-<span class="fc" id="L148">        List&lt;MalezasCatalogo&gt; malezasEncontradas = Arrays.asList(maleza1);</span>
-<span class="fc" id="L149">        when(repository.findByNombreComunContainingIgnoreCaseAndActivoTrue(&quot;Gram&quot;))</span>
-<span class="fc" id="L150">                .thenReturn(malezasEncontradas);</span>
-
-        // ACT
-<span class="fc" id="L153">        List&lt;MalezasCatalogoDTO&gt; resultado = service.buscarPorNombreComun(&quot;Gram&quot;);</span>
-
-        // ASSERT
-<span class="fc" id="L156">        assertNotNull(resultado, &quot;El resultado no debe ser nulo&quot;);</span>
-<span class="fc" id="L157">        assertEquals(1, resultado.size(), &quot;Debe encontrar 1 maleza&quot;);</span>
-<span class="fc" id="L158">        assertEquals(&quot;Gramilla&quot;, resultado.get(0).getNombreComun(), &quot;Debe encontrar Gramilla&quot;);</span>
         
-<span class="fc" id="L160">        verify(repository, times(1)).findByNombreComunContainingIgnoreCaseAndActivoTrue(&quot;Gram&quot;);</span>
-<span class="fc" id="L161">    }</span>
+<span class="fc" id="L131">        List&lt;MalezasCatalogo&gt; malezasEncontradas = Arrays.asList(maleza1);</span>
+<span class="fc" id="L132">        when(repository.findByNombreComunContainingIgnoreCaseAndActivoTrue(&quot;Gram&quot;))</span>
+<span class="fc" id="L133">                .thenReturn(malezasEncontradas);</span>
+
+        
+<span class="fc" id="L136">        List&lt;MalezasCatalogoDTO&gt; resultado = service.buscarPorNombreComun(&quot;Gram&quot;);</span>
+
+        
+<span class="fc" id="L139">        assertNotNull(resultado, &quot;El resultado no debe ser nulo&quot;);</span>
+<span class="fc" id="L140">        assertEquals(1, resultado.size(), &quot;Debe encontrar 1 maleza&quot;);</span>
+<span class="fc" id="L141">        assertEquals(&quot;Gramilla&quot;, resultado.get(0).getNombreComun(), &quot;Debe encontrar Gramilla&quot;);</span>
+        
+<span class="fc" id="L143">        verify(repository, times(1)).findByNombreComunContainingIgnoreCaseAndActivoTrue(&quot;Gram&quot;);</span>
+<span class="fc" id="L144">    }</span>
 
     @Test
     @DisplayName(&quot;Buscar por nombre común - debe retornar lista vacía si no hay coincidencias&quot;)
     void buscarPorNombreComun_debeRetornarListaVaciaSinCoincidencias() {
-        // ARRANGE
-<span class="fc" id="L167">        when(repository.findByNombreComunContainingIgnoreCaseAndActivoTrue(&quot;NoExiste&quot;))</span>
-<span class="fc" id="L168">                .thenReturn(new ArrayList&lt;&gt;());</span>
+        
+<span class="fc" id="L150">        when(repository.findByNombreComunContainingIgnoreCaseAndActivoTrue(&quot;NoExiste&quot;))</span>
+<span class="fc" id="L151">                .thenReturn(new ArrayList&lt;&gt;());</span>
 
-        // ACT
-<span class="fc" id="L171">        List&lt;MalezasCatalogoDTO&gt; resultado = service.buscarPorNombreComun(&quot;NoExiste&quot;);</span>
+        
+<span class="fc" id="L154">        List&lt;MalezasCatalogoDTO&gt; resultado = service.buscarPorNombreComun(&quot;NoExiste&quot;);</span>
 
-        // ASSERT
-<span class="fc" id="L174">        assertNotNull(resultado, &quot;El resultado no debe ser nulo&quot;);</span>
-<span class="fc" id="L175">        assertEquals(0, resultado.size(), &quot;La lista debe estar vacía&quot;);</span>
-<span class="fc" id="L176">    }</span>
+        
+<span class="fc" id="L157">        assertNotNull(resultado, &quot;El resultado no debe ser nulo&quot;);</span>
+<span class="fc" id="L158">        assertEquals(0, resultado.size(), &quot;La lista debe estar vacía&quot;);</span>
+<span class="fc" id="L159">    }</span>
 
     @Test
     @DisplayName(&quot;Buscar por nombre científico - debe encontrar malezas que coincidan&quot;)
     void buscarPorNombreCientifico_debeEncontrarCoincidencias() {
-        // ARRANGE
-<span class="fc" id="L182">        List&lt;MalezasCatalogo&gt; malezasEncontradas = Arrays.asList(maleza2);</span>
-<span class="fc" id="L183">        when(repository.findByNombreCientificoContainingIgnoreCaseAndActivoTrue(&quot;Amaranthus&quot;))</span>
-<span class="fc" id="L184">                .thenReturn(malezasEncontradas);</span>
-
-        // ACT
-<span class="fc" id="L187">        List&lt;MalezasCatalogoDTO&gt; resultado = service.buscarPorNombreCientifico(&quot;Amaranthus&quot;);</span>
-
-        // ASSERT
-<span class="fc" id="L190">        assertNotNull(resultado, &quot;El resultado no debe ser nulo&quot;);</span>
-<span class="fc" id="L191">        assertEquals(1, resultado.size(), &quot;Debe encontrar 1 maleza&quot;);</span>
-<span class="fc" id="L192">        assertEquals(&quot;Amaranthus quitensis&quot;, resultado.get(0).getNombreCientifico(), </span>
-<span class="fc" id="L193">                &quot;Debe encontrar Amaranthus quitensis&quot;);</span>
         
-<span class="fc" id="L195">        verify(repository, times(1)).findByNombreCientificoContainingIgnoreCaseAndActivoTrue(&quot;Amaranthus&quot;);</span>
-<span class="fc" id="L196">    }</span>
+<span class="fc" id="L165">        List&lt;MalezasCatalogo&gt; malezasEncontradas = Arrays.asList(maleza2);</span>
+<span class="fc" id="L166">        when(repository.findByNombreCientificoContainingIgnoreCaseAndActivoTrue(&quot;Amaranthus&quot;))</span>
+<span class="fc" id="L167">                .thenReturn(malezasEncontradas);</span>
+
+        
+<span class="fc" id="L170">        List&lt;MalezasCatalogoDTO&gt; resultado = service.buscarPorNombreCientifico(&quot;Amaranthus&quot;);</span>
+
+        
+<span class="fc" id="L173">        assertNotNull(resultado, &quot;El resultado no debe ser nulo&quot;);</span>
+<span class="fc" id="L174">        assertEquals(1, resultado.size(), &quot;Debe encontrar 1 maleza&quot;);</span>
+<span class="fc" id="L175">        assertEquals(&quot;Amaranthus quitensis&quot;, resultado.get(0).getNombreCientifico(), </span>
+                &quot;Debe encontrar Amaranthus quitensis&quot;);
+        
+<span class="fc" id="L178">        verify(repository, times(1)).findByNombreCientificoContainingIgnoreCaseAndActivoTrue(&quot;Amaranthus&quot;);</span>
+<span class="fc" id="L179">    }</span>
 
     @Test
     @DisplayName(&quot;Buscar por nombre científico - debe ser case insensitive&quot;)
     void buscarPorNombreCientifico_debeSerCaseInsensitive() {
-        // ARRANGE
-<span class="fc" id="L202">        List&lt;MalezasCatalogo&gt; malezasEncontradas = Arrays.asList(maleza1);</span>
-<span class="fc" id="L203">        when(repository.findByNombreCientificoContainingIgnoreCaseAndActivoTrue(&quot;CYNODON&quot;))</span>
-<span class="fc" id="L204">                .thenReturn(malezasEncontradas);</span>
+        
+<span class="fc" id="L185">        List&lt;MalezasCatalogo&gt; malezasEncontradas = Arrays.asList(maleza1);</span>
+<span class="fc" id="L186">        when(repository.findByNombreCientificoContainingIgnoreCaseAndActivoTrue(&quot;CYNODON&quot;))</span>
+<span class="fc" id="L187">                .thenReturn(malezasEncontradas);</span>
 
-        // ACT
-<span class="fc" id="L207">        List&lt;MalezasCatalogoDTO&gt; resultado = service.buscarPorNombreCientifico(&quot;CYNODON&quot;);</span>
+        
+<span class="fc" id="L190">        List&lt;MalezasCatalogoDTO&gt; resultado = service.buscarPorNombreCientifico(&quot;CYNODON&quot;);</span>
 
-        // ASSERT
-<span class="fc" id="L210">        assertNotNull(resultado, &quot;El resultado no debe ser nulo&quot;);</span>
-<span class="fc" id="L211">        assertEquals(1, resultado.size(), &quot;Debe encontrar 1 maleza&quot;);</span>
-<span class="fc" id="L212">        assertEquals(&quot;Cynodon dactylon&quot;, resultado.get(0).getNombreCientifico(), </span>
-<span class="fc" id="L213">                &quot;Debe encontrar Cynodon dactylon&quot;);</span>
-<span class="fc" id="L214">    }</span>
+        
+<span class="fc" id="L193">        assertNotNull(resultado, &quot;El resultado no debe ser nulo&quot;);</span>
+<span class="fc" id="L194">        assertEquals(1, resultado.size(), &quot;Debe encontrar 1 maleza&quot;);</span>
+<span class="fc" id="L195">        assertEquals(&quot;Cynodon dactylon&quot;, resultado.get(0).getNombreCientifico(), </span>
+                &quot;Debe encontrar Cynodon dactylon&quot;);
+<span class="fc" id="L197">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener por ID - debe retornar maleza existente&quot;)
     void obtenerPorId_debeRetornarMalezaExistente() {
-        // ARRANGE
-<span class="fc" id="L220">        when(repository.findById(1L)).thenReturn(Optional.of(maleza1));</span>
-
-        // ACT
-<span class="fc" id="L223">        MalezasCatalogoDTO resultado = service.obtenerPorId(1L);</span>
-
-        // ASSERT
-<span class="fc" id="L226">        assertNotNull(resultado, &quot;El resultado no debe ser nulo&quot;);</span>
-<span class="fc" id="L227">        assertEquals(1L, resultado.getCatalogoID(), &quot;El ID debe ser 1&quot;);</span>
-<span class="fc" id="L228">        assertEquals(&quot;Gramilla&quot;, resultado.getNombreComun(), &quot;El nombre común debe ser Gramilla&quot;);</span>
-<span class="fc" id="L229">        assertEquals(&quot;Cynodon dactylon&quot;, resultado.getNombreCientifico(), </span>
-<span class="fc" id="L230">                &quot;El nombre científico debe ser Cynodon dactylon&quot;);</span>
         
-<span class="fc" id="L232">        verify(repository, times(1)).findById(1L);</span>
-<span class="fc" id="L233">    }</span>
+<span class="fc" id="L203">        when(repository.findById(1L)).thenReturn(Optional.of(maleza1));</span>
+
+        
+<span class="fc" id="L206">        MalezasCatalogoDTO resultado = service.obtenerPorId(1L);</span>
+
+        
+<span class="fc" id="L209">        assertNotNull(resultado, &quot;El resultado no debe ser nulo&quot;);</span>
+<span class="fc" id="L210">        assertEquals(1L, resultado.getCatalogoID(), &quot;El ID debe ser 1&quot;);</span>
+<span class="fc" id="L211">        assertEquals(&quot;Gramilla&quot;, resultado.getNombreComun(), &quot;El nombre común debe ser Gramilla&quot;);</span>
+<span class="fc" id="L212">        assertEquals(&quot;Cynodon dactylon&quot;, resultado.getNombreCientifico(), </span>
+                &quot;El nombre científico debe ser Cynodon dactylon&quot;);
+        
+<span class="fc" id="L215">        verify(repository, times(1)).findById(1L);</span>
+<span class="fc" id="L216">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener por ID - debe retornar null si no existe&quot;)
     void obtenerPorId_debeRetornarNullSiNoExiste() {
-        // ARRANGE
-<span class="fc" id="L239">        when(repository.findById(999L)).thenReturn(Optional.empty());</span>
+        
+<span class="fc" id="L222">        when(repository.findById(999L)).thenReturn(Optional.empty());</span>
 
-        // ACT
-<span class="fc" id="L242">        MalezasCatalogoDTO resultado = service.obtenerPorId(999L);</span>
+        
+<span class="fc" id="L225">        MalezasCatalogoDTO resultado = service.obtenerPorId(999L);</span>
 
-        // ASSERT
-<span class="fc" id="L245">        assertNull(resultado, &quot;El resultado debe ser nulo&quot;);</span>
-<span class="fc" id="L246">        verify(repository, times(1)).findById(999L);</span>
-<span class="fc" id="L247">    }</span>
+        
+<span class="fc" id="L228">        assertNull(resultado, &quot;El resultado debe ser nulo&quot;);</span>
+<span class="fc" id="L229">        verify(repository, times(1)).findById(999L);</span>
+<span class="fc" id="L230">    }</span>
 
     @Test
     @DisplayName(&quot;Crear - debe crear nueva maleza con estado activo&quot;)
     void crear_debeCrearNuevaMaleza() {
-        // ARRANGE
-<span class="fc" id="L253">        MalezasCatalogo malezaNueva = new MalezasCatalogo();</span>
-<span class="fc" id="L254">        malezaNueva.setCatalogoID(4L);</span>
-<span class="fc" id="L255">        malezaNueva.setNombreComun(&quot;Pasto Horqueta&quot;);</span>
-<span class="fc" id="L256">        malezaNueva.setNombreCientifico(&quot;Paspalum notatum&quot;);</span>
-<span class="fc" id="L257">        malezaNueva.setActivo(true);</span>
-
-<span class="fc" id="L259">        when(repository.save(any(MalezasCatalogo.class))).thenReturn(malezaNueva);</span>
-
-        // ACT
-<span class="fc" id="L262">        MalezasCatalogoDTO resultado = service.crear(requestDTO);</span>
-
-        // ASSERT
-<span class="fc" id="L265">        assertNotNull(resultado, &quot;El resultado no debe ser nulo&quot;);</span>
-<span class="fc" id="L266">        assertEquals(4L, resultado.getCatalogoID(), &quot;El ID debe ser 4&quot;);</span>
-<span class="fc" id="L267">        assertEquals(&quot;Pasto Horqueta&quot;, resultado.getNombreComun(), &quot;El nombre común debe coincidir&quot;);</span>
-<span class="fc" id="L268">        assertEquals(&quot;Paspalum notatum&quot;, resultado.getNombreCientifico(), &quot;El nombre científico debe coincidir&quot;);</span>
-<span class="fc" id="L269">        assertTrue(resultado.getActivo(), &quot;La maleza debe estar activa por defecto&quot;);</span>
         
-<span class="fc" id="L271">        verify(repository, times(1)).save(any(MalezasCatalogo.class));</span>
-<span class="fc" id="L272">    }</span>
+<span class="fc" id="L236">        MalezasCatalogo malezaNueva = new MalezasCatalogo();</span>
+<span class="fc" id="L237">        malezaNueva.setCatalogoID(4L);</span>
+<span class="fc" id="L238">        malezaNueva.setNombreComun(&quot;Pasto Horqueta&quot;);</span>
+<span class="fc" id="L239">        malezaNueva.setNombreCientifico(&quot;Paspalum notatum&quot;);</span>
+<span class="fc" id="L240">        malezaNueva.setActivo(true);</span>
+
+<span class="fc" id="L242">        when(repository.save(any(MalezasCatalogo.class))).thenReturn(malezaNueva);</span>
+
+        
+<span class="fc" id="L245">        MalezasCatalogoDTO resultado = service.crear(requestDTO);</span>
+
+        
+<span class="fc" id="L248">        assertNotNull(resultado, &quot;El resultado no debe ser nulo&quot;);</span>
+<span class="fc" id="L249">        assertEquals(4L, resultado.getCatalogoID(), &quot;El ID debe ser 4&quot;);</span>
+<span class="fc" id="L250">        assertEquals(&quot;Pasto Horqueta&quot;, resultado.getNombreComun(), &quot;El nombre común debe coincidir&quot;);</span>
+<span class="fc" id="L251">        assertEquals(&quot;Paspalum notatum&quot;, resultado.getNombreCientifico(), &quot;El nombre científico debe coincidir&quot;);</span>
+<span class="fc" id="L252">        assertTrue(resultado.getActivo(), &quot;La maleza debe estar activa por defecto&quot;);</span>
+        
+<span class="fc" id="L254">        verify(repository, times(1)).save(any(MalezasCatalogo.class));</span>
+<span class="fc" id="L255">    }</span>
 
     @Test
     @DisplayName(&quot;Actualizar - debe actualizar maleza existente&quot;)
     void actualizar_debeActualizarMalezaExistente() {
-        // ARRANGE
-<span class="fc" id="L278">        MalezasCatalogo malezaActualizada = new MalezasCatalogo();</span>
-<span class="fc" id="L279">        malezaActualizada.setCatalogoID(1L);</span>
-<span class="fc" id="L280">        malezaActualizada.setNombreComun(&quot;Pasto Horqueta&quot;);</span>
-<span class="fc" id="L281">        malezaActualizada.setNombreCientifico(&quot;Paspalum notatum&quot;);</span>
-<span class="fc" id="L282">        malezaActualizada.setActivo(true);</span>
-
-<span class="fc" id="L284">        when(repository.findById(1L)).thenReturn(Optional.of(maleza1));</span>
-<span class="fc" id="L285">        when(repository.save(any(MalezasCatalogo.class))).thenReturn(malezaActualizada);</span>
-
-        // ACT
-<span class="fc" id="L288">        MalezasCatalogoDTO resultado = service.actualizar(1L, requestDTO);</span>
-
-        // ASSERT
-<span class="fc" id="L291">        assertNotNull(resultado, &quot;El resultado no debe ser nulo&quot;);</span>
-<span class="fc" id="L292">        assertEquals(1L, resultado.getCatalogoID(), &quot;El ID debe mantenerse&quot;);</span>
-<span class="fc" id="L293">        assertEquals(&quot;Pasto Horqueta&quot;, resultado.getNombreComun(), &quot;El nombre común debe actualizarse&quot;);</span>
-<span class="fc" id="L294">        assertEquals(&quot;Paspalum notatum&quot;, resultado.getNombreCientifico(), &quot;El nombre científico debe actualizarse&quot;);</span>
         
-<span class="fc" id="L296">        verify(repository, times(1)).findById(1L);</span>
-<span class="fc" id="L297">        verify(repository, times(1)).save(any(MalezasCatalogo.class));</span>
-<span class="fc" id="L298">    }</span>
+<span class="fc" id="L261">        MalezasCatalogo malezaActualizada = new MalezasCatalogo();</span>
+<span class="fc" id="L262">        malezaActualizada.setCatalogoID(1L);</span>
+<span class="fc" id="L263">        malezaActualizada.setNombreComun(&quot;Pasto Horqueta&quot;);</span>
+<span class="fc" id="L264">        malezaActualizada.setNombreCientifico(&quot;Paspalum notatum&quot;);</span>
+<span class="fc" id="L265">        malezaActualizada.setActivo(true);</span>
+
+<span class="fc" id="L267">        when(repository.findById(1L)).thenReturn(Optional.of(maleza1));</span>
+<span class="fc" id="L268">        when(repository.save(any(MalezasCatalogo.class))).thenReturn(malezaActualizada);</span>
+
+        
+<span class="fc" id="L271">        MalezasCatalogoDTO resultado = service.actualizar(1L, requestDTO);</span>
+
+        
+<span class="fc" id="L274">        assertNotNull(resultado, &quot;El resultado no debe ser nulo&quot;);</span>
+<span class="fc" id="L275">        assertEquals(1L, resultado.getCatalogoID(), &quot;El ID debe mantenerse&quot;);</span>
+<span class="fc" id="L276">        assertEquals(&quot;Pasto Horqueta&quot;, resultado.getNombreComun(), &quot;El nombre común debe actualizarse&quot;);</span>
+<span class="fc" id="L277">        assertEquals(&quot;Paspalum notatum&quot;, resultado.getNombreCientifico(), &quot;El nombre científico debe actualizarse&quot;);</span>
+        
+<span class="fc" id="L279">        verify(repository, times(1)).findById(1L);</span>
+<span class="fc" id="L280">        verify(repository, times(1)).save(any(MalezasCatalogo.class));</span>
+<span class="fc" id="L281">    }</span>
 
     @Test
     @DisplayName(&quot;Actualizar - debe retornar null si la maleza no existe&quot;)
     void actualizar_debeRetornarNullSiNoExiste() {
-        // ARRANGE
-<span class="fc" id="L304">        when(repository.findById(999L)).thenReturn(Optional.empty());</span>
+        
+<span class="fc" id="L287">        when(repository.findById(999L)).thenReturn(Optional.empty());</span>
 
-        // ACT
-<span class="fc" id="L307">        MalezasCatalogoDTO resultado = service.actualizar(999L, requestDTO);</span>
+        
+<span class="fc" id="L290">        MalezasCatalogoDTO resultado = service.actualizar(999L, requestDTO);</span>
 
-        // ASSERT
-<span class="fc" id="L310">        assertNull(resultado, &quot;El resultado debe ser nulo&quot;);</span>
-<span class="fc" id="L311">        verify(repository, times(1)).findById(999L);</span>
-<span class="fc" id="L312">        verify(repository, never()).save(any(MalezasCatalogo.class));</span>
-<span class="fc" id="L313">    }</span>
+        
+<span class="fc" id="L293">        assertNull(resultado, &quot;El resultado debe ser nulo&quot;);</span>
+<span class="fc" id="L294">        verify(repository, times(1)).findById(999L);</span>
+<span class="fc" id="L295">        verify(repository, never()).save(any(MalezasCatalogo.class));</span>
+<span class="fc" id="L296">    }</span>
 
     @Test
     @DisplayName(&quot;Eliminar - debe realizar soft delete (marcar como inactivo)&quot;)
     void eliminar_debeRealizarSoftDelete() {
-        // ARRANGE
-<span class="fc" id="L319">        when(repository.findById(1L)).thenReturn(Optional.of(maleza1));</span>
-<span class="fc" id="L320">        when(repository.save(any(MalezasCatalogo.class))).thenAnswer(invocation -&gt; {</span>
-<span class="fc" id="L321">            MalezasCatalogo maleza = invocation.getArgument(0);</span>
-<span class="fc" id="L322">            assertFalse(maleza.getActivo(), &quot;La maleza debe marcarse como inactiva&quot;);</span>
-<span class="fc" id="L323">            return maleza;</span>
+        
+<span class="fc" id="L302">        when(repository.findById(1L)).thenReturn(Optional.of(maleza1));</span>
+<span class="fc" id="L303">        when(repository.save(any(MalezasCatalogo.class))).thenAnswer(invocation -&gt; {</span>
+<span class="fc" id="L304">            MalezasCatalogo maleza = invocation.getArgument(0);</span>
+<span class="fc" id="L305">            assertFalse(maleza.getActivo(), &quot;La maleza debe marcarse como inactiva&quot;);</span>
+<span class="fc" id="L306">            return maleza;</span>
         });
 
-        // ACT
-<span class="fc" id="L327">        service.eliminar(1L);</span>
+        
+<span class="fc" id="L310">        service.eliminar(1L);</span>
 
-        // ASSERT
-<span class="fc" id="L330">        verify(repository, times(1)).findById(1L);</span>
-<span class="fc" id="L331">        verify(repository, times(1)).save(any(MalezasCatalogo.class));</span>
-<span class="fc" id="L332">    }</span>
+        
+<span class="fc" id="L313">        verify(repository, times(1)).findById(1L);</span>
+<span class="fc" id="L314">        verify(repository, times(1)).save(any(MalezasCatalogo.class));</span>
+<span class="fc" id="L315">    }</span>
 
     @Test
     @DisplayName(&quot;Eliminar - no debe hacer nada si la maleza no existe&quot;)
     void eliminar_noDebeHacerNadaSiNoExiste() {
-        // ARRANGE
-<span class="fc" id="L338">        when(repository.findById(999L)).thenReturn(Optional.empty());</span>
+        
+<span class="fc" id="L321">        when(repository.findById(999L)).thenReturn(Optional.empty());</span>
 
-        // ACT
-<span class="fc" id="L341">        service.eliminar(999L);</span>
+        
+<span class="fc" id="L324">        service.eliminar(999L);</span>
 
-        // ASSERT
-<span class="fc" id="L344">        verify(repository, times(1)).findById(999L);</span>
-<span class="fc" id="L345">        verify(repository, never()).save(any(MalezasCatalogo.class));</span>
-<span class="fc" id="L346">    }</span>
+        
+<span class="fc" id="L327">        verify(repository, times(1)).findById(999L);</span>
+<span class="fc" id="L328">        verify(repository, never()).save(any(MalezasCatalogo.class));</span>
+<span class="fc" id="L329">    }</span>
 
     @Test
     @DisplayName(&quot;Reactivar - debe marcar maleza como activa&quot;)
     void reactivar_debeMarcarComoActiva() {
-        // ARRANGE
-<span class="fc" id="L352">        MalezasCatalogo malezaReactivada = new MalezasCatalogo();</span>
-<span class="fc" id="L353">        malezaReactivada.setCatalogoID(3L);</span>
-<span class="fc" id="L354">        malezaReactivada.setNombreComun(&quot;Capín&quot;);</span>
-<span class="fc" id="L355">        malezaReactivada.setNombreCientifico(&quot;Echinochloa crus-galli&quot;);</span>
-<span class="fc" id="L356">        malezaReactivada.setActivo(true);</span>
-
-<span class="fc" id="L358">        when(repository.findById(3L)).thenReturn(Optional.of(maleza3Inactiva));</span>
-<span class="fc" id="L359">        when(repository.save(any(MalezasCatalogo.class))).thenReturn(malezaReactivada);</span>
-
-        // ACT
-<span class="fc" id="L362">        MalezasCatalogoDTO resultado = service.reactivar(3L);</span>
-
-        // ASSERT
-<span class="fc" id="L365">        assertNotNull(resultado, &quot;El resultado no debe ser nulo&quot;);</span>
-<span class="fc" id="L366">        assertEquals(3L, resultado.getCatalogoID(), &quot;El ID debe ser 3&quot;);</span>
-<span class="fc" id="L367">        assertTrue(resultado.getActivo(), &quot;La maleza debe estar activa&quot;);</span>
         
-<span class="fc" id="L369">        verify(repository, times(1)).findById(3L);</span>
-<span class="fc" id="L370">        verify(repository, times(1)).save(any(MalezasCatalogo.class));</span>
-<span class="fc" id="L371">    }</span>
+<span class="fc" id="L335">        MalezasCatalogo malezaReactivada = new MalezasCatalogo();</span>
+<span class="fc" id="L336">        malezaReactivada.setCatalogoID(3L);</span>
+<span class="fc" id="L337">        malezaReactivada.setNombreComun(&quot;Capín&quot;);</span>
+<span class="fc" id="L338">        malezaReactivada.setNombreCientifico(&quot;Echinochloa crus-galli&quot;);</span>
+<span class="fc" id="L339">        malezaReactivada.setActivo(true);</span>
+
+<span class="fc" id="L341">        when(repository.findById(3L)).thenReturn(Optional.of(maleza3Inactiva));</span>
+<span class="fc" id="L342">        when(repository.save(any(MalezasCatalogo.class))).thenReturn(malezaReactivada);</span>
+
+        
+<span class="fc" id="L345">        MalezasCatalogoDTO resultado = service.reactivar(3L);</span>
+
+        
+<span class="fc" id="L348">        assertNotNull(resultado, &quot;El resultado no debe ser nulo&quot;);</span>
+<span class="fc" id="L349">        assertEquals(3L, resultado.getCatalogoID(), &quot;El ID debe ser 3&quot;);</span>
+<span class="fc" id="L350">        assertTrue(resultado.getActivo(), &quot;La maleza debe estar activa&quot;);</span>
+        
+<span class="fc" id="L352">        verify(repository, times(1)).findById(3L);</span>
+<span class="fc" id="L353">        verify(repository, times(1)).save(any(MalezasCatalogo.class));</span>
+<span class="fc" id="L354">    }</span>
 
     @Test
     @DisplayName(&quot;Reactivar - debe retornar null si la maleza no existe&quot;)
     void reactivar_debeRetornarNullSiNoExiste() {
-        // ARRANGE
-<span class="fc" id="L377">        when(repository.findById(999L)).thenReturn(Optional.empty());</span>
+        
+<span class="fc" id="L360">        when(repository.findById(999L)).thenReturn(Optional.empty());</span>
 
-        // ACT
-<span class="fc" id="L380">        MalezasCatalogoDTO resultado = service.reactivar(999L);</span>
+        
+<span class="fc" id="L363">        MalezasCatalogoDTO resultado = service.reactivar(999L);</span>
 
-        // ASSERT
-<span class="fc" id="L383">        assertNull(resultado, &quot;El resultado debe ser nulo&quot;);</span>
-<span class="fc" id="L384">        verify(repository, times(1)).findById(999L);</span>
-<span class="fc" id="L385">        verify(repository, never()).save(any(MalezasCatalogo.class));</span>
-<span class="fc" id="L386">    }</span>
+        
+<span class="fc" id="L366">        assertNull(resultado, &quot;El resultado debe ser nulo&quot;);</span>
+<span class="fc" id="L367">        verify(repository, times(1)).findById(999L);</span>
+<span class="fc" id="L368">        verify(repository, never()).save(any(MalezasCatalogo.class));</span>
+<span class="fc" id="L369">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener entidad por ID - debe retornar entidad completa&quot;)
     void obtenerEntidadPorId_debeRetornarEntidad() {
-        // ARRANGE
-<span class="fc" id="L392">        when(repository.findById(1L)).thenReturn(Optional.of(maleza1));</span>
-
-        // ACT
-<span class="fc" id="L395">        MalezasCatalogo resultado = service.obtenerEntidadPorId(1L);</span>
-
-        // ASSERT
-<span class="fc" id="L398">        assertNotNull(resultado, &quot;El resultado no debe ser nulo&quot;);</span>
-<span class="fc" id="L399">        assertEquals(1L, resultado.getCatalogoID(), &quot;El ID debe ser 1&quot;);</span>
-<span class="fc" id="L400">        assertEquals(&quot;Gramilla&quot;, resultado.getNombreComun(), &quot;El nombre común debe ser Gramilla&quot;);</span>
-<span class="fc" id="L401">        assertTrue(resultado.getActivo(), &quot;La maleza debe estar activa&quot;);</span>
         
-<span class="fc" id="L403">        verify(repository, times(1)).findById(1L);</span>
-<span class="fc" id="L404">    }</span>
+<span class="fc" id="L375">        when(repository.findById(1L)).thenReturn(Optional.of(maleza1));</span>
+
+        
+<span class="fc" id="L378">        MalezasCatalogo resultado = service.obtenerEntidadPorId(1L);</span>
+
+        
+<span class="fc" id="L381">        assertNotNull(resultado, &quot;El resultado no debe ser nulo&quot;);</span>
+<span class="fc" id="L382">        assertEquals(1L, resultado.getCatalogoID(), &quot;El ID debe ser 1&quot;);</span>
+<span class="fc" id="L383">        assertEquals(&quot;Gramilla&quot;, resultado.getNombreComun(), &quot;El nombre común debe ser Gramilla&quot;);</span>
+<span class="fc" id="L384">        assertTrue(resultado.getActivo(), &quot;La maleza debe estar activa&quot;);</span>
+        
+<span class="fc" id="L386">        verify(repository, times(1)).findById(1L);</span>
+<span class="fc" id="L387">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener entidad por ID - debe retornar null si no existe&quot;)
     void obtenerEntidadPorId_debeRetornarNullSiNoExiste() {
-        // ARRANGE
-<span class="fc" id="L410">        when(repository.findById(999L)).thenReturn(Optional.empty());</span>
+        
+<span class="fc" id="L393">        when(repository.findById(999L)).thenReturn(Optional.empty());</span>
 
-        // ACT
-<span class="fc" id="L413">        MalezasCatalogo resultado = service.obtenerEntidadPorId(999L);</span>
+        
+<span class="fc" id="L396">        MalezasCatalogo resultado = service.obtenerEntidadPorId(999L);</span>
 
-        // ASSERT
-<span class="fc" id="L416">        assertNull(resultado, &quot;El resultado debe ser nulo&quot;);</span>
-<span class="fc" id="L417">        verify(repository, times(1)).findById(999L);</span>
-<span class="fc" id="L418">    }</span>
+        
+<span class="fc" id="L399">        assertNull(resultado, &quot;El resultado debe ser nulo&quot;);</span>
+<span class="fc" id="L400">        verify(repository, times(1)).findById(999L);</span>
+<span class="fc" id="L401">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener malezas paginadas - debe retornar página de malezas activas&quot;)
     void obtenerMalezasPaginadas_debeRetornarPagina() {
-        // ARRANGE
-<span class="fc" id="L424">        Pageable pageable = PageRequest.of(0, 10);</span>
-<span class="fc" id="L425">        List&lt;MalezasCatalogo&gt; malezas = Arrays.asList(maleza1, maleza2);</span>
-<span class="fc" id="L426">        Page&lt;MalezasCatalogo&gt; page = new PageImpl&lt;&gt;(malezas, pageable, malezas.size());</span>
         
-<span class="fc" id="L428">        when(repository.findByActivoTrueOrderByNombreComunAsc(pageable)).thenReturn(page);</span>
-
-        // ACT
-<span class="fc" id="L431">        Page&lt;MalezasCatalogoDTO&gt; resultado = service.obtenerMalezasPaginadas(pageable);</span>
-
-        // ASSERT
-<span class="fc" id="L434">        assertNotNull(resultado, &quot;El resultado no debe ser nulo&quot;);</span>
-<span class="fc" id="L435">        assertEquals(2, resultado.getTotalElements(), &quot;Debe haber 2 elementos en total&quot;);</span>
-<span class="fc" id="L436">        assertEquals(2, resultado.getContent().size(), &quot;Debe haber 2 elementos en la página&quot;);</span>
-<span class="fc" id="L437">        assertEquals(&quot;Gramilla&quot;, resultado.getContent().get(0).getNombreComun(), </span>
-<span class="fc" id="L438">                &quot;Primera maleza debe ser Gramilla&quot;);</span>
+<span class="fc" id="L407">        Pageable pageable = PageRequest.of(0, 10);</span>
+<span class="fc" id="L408">        List&lt;MalezasCatalogo&gt; malezas = Arrays.asList(maleza1, maleza2);</span>
+<span class="fc" id="L409">        Page&lt;MalezasCatalogo&gt; page = new PageImpl&lt;&gt;(malezas, pageable, malezas.size());</span>
         
-<span class="fc" id="L440">        verify(repository, times(1)).findByActivoTrueOrderByNombreComunAsc(pageable);</span>
-<span class="fc" id="L441">    }</span>
+<span class="fc" id="L411">        when(repository.findByActivoTrueOrderByNombreComunAsc(pageable)).thenReturn(page);</span>
+
+        
+<span class="fc" id="L414">        Page&lt;MalezasCatalogoDTO&gt; resultado = service.obtenerMalezasPaginadas(pageable);</span>
+
+        
+<span class="fc" id="L417">        assertNotNull(resultado, &quot;El resultado no debe ser nulo&quot;);</span>
+<span class="fc" id="L418">        assertEquals(2, resultado.getTotalElements(), &quot;Debe haber 2 elementos en total&quot;);</span>
+<span class="fc" id="L419">        assertEquals(2, resultado.getContent().size(), &quot;Debe haber 2 elementos en la página&quot;);</span>
+<span class="fc" id="L420">        assertEquals(&quot;Gramilla&quot;, resultado.getContent().get(0).getNombreComun(), </span>
+                &quot;Primera maleza debe ser Gramilla&quot;);
+        
+<span class="fc" id="L423">        verify(repository, times(1)).findByActivoTrueOrderByNombreComunAsc(pageable);</span>
+<span class="fc" id="L424">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener malezas paginadas con filtros - sin filtros debe retornar todas ordenadas&quot;)
     void obtenerMalezasPaginadasConFiltros_sinFiltros() {
-        // ARRANGE
-<span class="fc" id="L447">        Pageable pageable = PageRequest.of(0, 10);</span>
-<span class="fc" id="L448">        List&lt;MalezasCatalogo&gt; todasLasMalezas = Arrays.asList(maleza1, maleza2, maleza3Inactiva);</span>
-<span class="fc" id="L449">        Page&lt;MalezasCatalogo&gt; page = new PageImpl&lt;&gt;(todasLasMalezas, pageable, todasLasMalezas.size());</span>
         
-<span class="fc" id="L451">        when(repository.findAllByOrderByNombreComunAsc(pageable)).thenReturn(page);</span>
-
-        // ACT
-<span class="fc" id="L454">        Page&lt;MalezasCatalogoDTO&gt; resultado = service.obtenerMalezasPaginadasConFiltros(pageable, null, null);</span>
-
-        // ASSERT
-<span class="fc" id="L457">        assertNotNull(resultado, &quot;El resultado no debe ser nulo&quot;);</span>
-<span class="fc" id="L458">        assertEquals(3, resultado.getTotalElements(), &quot;Debe haber 3 elementos en total&quot;);</span>
+<span class="fc" id="L430">        Pageable pageable = PageRequest.of(0, 10);</span>
+<span class="fc" id="L431">        List&lt;MalezasCatalogo&gt; todasLasMalezas = Arrays.asList(maleza1, maleza2, maleza3Inactiva);</span>
+<span class="fc" id="L432">        Page&lt;MalezasCatalogo&gt; page = new PageImpl&lt;&gt;(todasLasMalezas, pageable, todasLasMalezas.size());</span>
         
-<span class="fc" id="L460">        verify(repository, times(1)).findAllByOrderByNombreComunAsc(pageable);</span>
-<span class="fc" id="L461">    }</span>
+<span class="fc" id="L434">        when(repository.findAllByOrderByNombreComunAsc(pageable)).thenReturn(page);</span>
+
+        
+<span class="fc" id="L437">        Page&lt;MalezasCatalogoDTO&gt; resultado = service.obtenerMalezasPaginadasConFiltros(pageable, null, null);</span>
+
+        
+<span class="fc" id="L440">        assertNotNull(resultado, &quot;El resultado no debe ser nulo&quot;);</span>
+<span class="fc" id="L441">        assertEquals(3, resultado.getTotalElements(), &quot;Debe haber 3 elementos en total&quot;);</span>
+        
+<span class="fc" id="L443">        verify(repository, times(1)).findAllByOrderByNombreComunAsc(pageable);</span>
+<span class="fc" id="L444">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener malezas paginadas con filtros - solo activas&quot;)
     void obtenerMalezasPaginadasConFiltros_soloActivas() {
-        // ARRANGE
-<span class="fc" id="L467">        Pageable pageable = PageRequest.of(0, 10);</span>
-<span class="fc" id="L468">        List&lt;MalezasCatalogo&gt; malezasActivas = Arrays.asList(maleza1, maleza2);</span>
-<span class="fc" id="L469">        Page&lt;MalezasCatalogo&gt; page = new PageImpl&lt;&gt;(malezasActivas, pageable, malezasActivas.size());</span>
         
-<span class="fc" id="L471">        when(repository.findByActivoTrueOrderByNombreComunAsc(pageable)).thenReturn(page);</span>
-
-        // ACT
-<span class="fc" id="L474">        Page&lt;MalezasCatalogoDTO&gt; resultado = service.obtenerMalezasPaginadasConFiltros(pageable, null, true);</span>
-
-        // ASSERT
-<span class="fc" id="L477">        assertNotNull(resultado, &quot;El resultado no debe ser nulo&quot;);</span>
-<span class="fc" id="L478">        assertEquals(2, resultado.getTotalElements(), &quot;Debe haber 2 elementos activos&quot;);</span>
-<span class="fc" id="L479">        assertTrue(resultado.getContent().stream().allMatch(MalezasCatalogoDTO::getActivo), </span>
-<span class="fc" id="L480">                &quot;Todas deben estar activas&quot;);</span>
+<span class="fc" id="L450">        Pageable pageable = PageRequest.of(0, 10);</span>
+<span class="fc" id="L451">        List&lt;MalezasCatalogo&gt; malezasActivas = Arrays.asList(maleza1, maleza2);</span>
+<span class="fc" id="L452">        Page&lt;MalezasCatalogo&gt; page = new PageImpl&lt;&gt;(malezasActivas, pageable, malezasActivas.size());</span>
         
-<span class="fc" id="L482">        verify(repository, times(1)).findByActivoTrueOrderByNombreComunAsc(pageable);</span>
-<span class="fc" id="L483">    }</span>
+<span class="fc" id="L454">        when(repository.findByActivoTrueOrderByNombreComunAsc(pageable)).thenReturn(page);</span>
+
+        
+<span class="fc" id="L457">        Page&lt;MalezasCatalogoDTO&gt; resultado = service.obtenerMalezasPaginadasConFiltros(pageable, null, true);</span>
+
+        
+<span class="fc" id="L460">        assertNotNull(resultado, &quot;El resultado no debe ser nulo&quot;);</span>
+<span class="fc" id="L461">        assertEquals(2, resultado.getTotalElements(), &quot;Debe haber 2 elementos activos&quot;);</span>
+<span class="fc" id="L462">        assertTrue(resultado.getContent().stream().allMatch(MalezasCatalogoDTO::getActivo), </span>
+                &quot;Todas deben estar activas&quot;);
+        
+<span class="fc" id="L465">        verify(repository, times(1)).findByActivoTrueOrderByNombreComunAsc(pageable);</span>
+<span class="fc" id="L466">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener malezas paginadas con filtros - solo inactivas&quot;)
     void obtenerMalezasPaginadasConFiltros_soloInactivas() {
-        // ARRANGE
-<span class="fc" id="L489">        Pageable pageable = PageRequest.of(0, 10);</span>
-<span class="fc" id="L490">        List&lt;MalezasCatalogo&gt; malezasInactivas = Arrays.asList(maleza3Inactiva);</span>
-<span class="fc" id="L491">        Page&lt;MalezasCatalogo&gt; page = new PageImpl&lt;&gt;(malezasInactivas, pageable, malezasInactivas.size());</span>
         
-<span class="fc" id="L493">        when(repository.findByActivoFalseOrderByNombreComunAsc(pageable)).thenReturn(page);</span>
-
-        // ACT
-<span class="fc" id="L496">        Page&lt;MalezasCatalogoDTO&gt; resultado = service.obtenerMalezasPaginadasConFiltros(pageable, null, false);</span>
-
-        // ASSERT
-<span class="fc" id="L499">        assertNotNull(resultado, &quot;El resultado no debe ser nulo&quot;);</span>
-<span class="fc" id="L500">        assertEquals(1, resultado.getTotalElements(), &quot;Debe haber 1 elemento inactivo&quot;);</span>
-<span class="fc" id="L501">        assertFalse(resultado.getContent().get(0).getActivo(), &quot;Debe estar inactiva&quot;);</span>
+<span class="fc" id="L472">        Pageable pageable = PageRequest.of(0, 10);</span>
+<span class="fc" id="L473">        List&lt;MalezasCatalogo&gt; malezasInactivas = Arrays.asList(maleza3Inactiva);</span>
+<span class="fc" id="L474">        Page&lt;MalezasCatalogo&gt; page = new PageImpl&lt;&gt;(malezasInactivas, pageable, malezasInactivas.size());</span>
         
-<span class="fc" id="L503">        verify(repository, times(1)).findByActivoFalseOrderByNombreComunAsc(pageable);</span>
-<span class="fc" id="L504">    }</span>
+<span class="fc" id="L476">        when(repository.findByActivoFalseOrderByNombreComunAsc(pageable)).thenReturn(page);</span>
+
+        
+<span class="fc" id="L479">        Page&lt;MalezasCatalogoDTO&gt; resultado = service.obtenerMalezasPaginadasConFiltros(pageable, null, false);</span>
+
+        
+<span class="fc" id="L482">        assertNotNull(resultado, &quot;El resultado no debe ser nulo&quot;);</span>
+<span class="fc" id="L483">        assertEquals(1, resultado.getTotalElements(), &quot;Debe haber 1 elemento inactivo&quot;);</span>
+<span class="fc" id="L484">        assertFalse(resultado.getContent().get(0).getActivo(), &quot;Debe estar inactiva&quot;);</span>
+        
+<span class="fc" id="L486">        verify(repository, times(1)).findByActivoFalseOrderByNombreComunAsc(pageable);</span>
+<span class="fc" id="L487">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener malezas paginadas con filtros - con búsqueda en activas&quot;)
     void obtenerMalezasPaginadasConFiltros_conBusquedaEnActivas() {
-        // ARRANGE
-<span class="fc" id="L510">        Pageable pageable = PageRequest.of(0, 10);</span>
-<span class="fc" id="L511">        String searchTerm = &quot;Gram&quot;;</span>
         
-<span class="fc" id="L513">        when(repository.findByNombreComunContainingIgnoreCaseAndActivoTrue(searchTerm))</span>
-<span class="fc" id="L514">                .thenReturn(Arrays.asList(maleza1));</span>
-<span class="fc" id="L515">        when(repository.findByNombreCientificoContainingIgnoreCaseAndActivoTrue(searchTerm))</span>
-<span class="fc" id="L516">                .thenReturn(new ArrayList&lt;&gt;());</span>
-
-        // ACT
-<span class="fc" id="L519">        Page&lt;MalezasCatalogoDTO&gt; resultado = service.obtenerMalezasPaginadasConFiltros(pageable, searchTerm, true);</span>
-
-        // ASSERT
-<span class="fc" id="L522">        assertNotNull(resultado, &quot;El resultado no debe ser nulo&quot;);</span>
-<span class="fc" id="L523">        assertEquals(1, resultado.getTotalElements(), &quot;Debe encontrar 1 elemento&quot;);</span>
-<span class="fc" id="L524">        assertEquals(&quot;Gramilla&quot;, resultado.getContent().get(0).getNombreComun(), </span>
-<span class="fc" id="L525">                &quot;Debe encontrar Gramilla&quot;);</span>
+<span class="fc" id="L493">        Pageable pageable = PageRequest.of(0, 10);</span>
+<span class="fc" id="L494">        String searchTerm = &quot;Gram&quot;;</span>
         
-<span class="fc" id="L527">        verify(repository, times(1)).findByNombreComunContainingIgnoreCaseAndActivoTrue(searchTerm);</span>
-<span class="fc" id="L528">        verify(repository, times(1)).findByNombreCientificoContainingIgnoreCaseAndActivoTrue(searchTerm);</span>
-<span class="fc" id="L529">    }</span>
+<span class="fc" id="L496">        when(repository.findByNombreComunContainingIgnoreCaseAndActivoTrue(searchTerm))</span>
+<span class="fc" id="L497">                .thenReturn(Arrays.asList(maleza1));</span>
+<span class="fc" id="L498">        when(repository.findByNombreCientificoContainingIgnoreCaseAndActivoTrue(searchTerm))</span>
+<span class="fc" id="L499">                .thenReturn(new ArrayList&lt;&gt;());</span>
+
+        
+<span class="fc" id="L502">        Page&lt;MalezasCatalogoDTO&gt; resultado = service.obtenerMalezasPaginadasConFiltros(pageable, searchTerm, true);</span>
+
+        
+<span class="fc" id="L505">        assertNotNull(resultado, &quot;El resultado no debe ser nulo&quot;);</span>
+<span class="fc" id="L506">        assertEquals(1, resultado.getTotalElements(), &quot;Debe encontrar 1 elemento&quot;);</span>
+<span class="fc" id="L507">        assertEquals(&quot;Gramilla&quot;, resultado.getContent().get(0).getNombreComun(), </span>
+                &quot;Debe encontrar Gramilla&quot;);
+        
+<span class="fc" id="L510">        verify(repository, times(1)).findByNombreComunContainingIgnoreCaseAndActivoTrue(searchTerm);</span>
+<span class="fc" id="L511">        verify(repository, times(1)).findByNombreCientificoContainingIgnoreCaseAndActivoTrue(searchTerm);</span>
+<span class="fc" id="L512">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener malezas paginadas con filtros - con búsqueda en inactivas&quot;)
     void obtenerMalezasPaginadasConFiltros_conBusquedaEnInactivas() {
-        // ARRANGE
-<span class="fc" id="L535">        Pageable pageable = PageRequest.of(0, 10);</span>
-<span class="fc" id="L536">        String searchTerm = &quot;Capín&quot;;</span>
         
-<span class="fc" id="L538">        List&lt;MalezasCatalogo&gt; todasLasMalezas = Arrays.asList(maleza1, maleza2, maleza3Inactiva);</span>
-<span class="fc" id="L539">        when(repository.findAll()).thenReturn(todasLasMalezas);</span>
-
-        // ACT
-<span class="fc" id="L542">        Page&lt;MalezasCatalogoDTO&gt; resultado = service.obtenerMalezasPaginadasConFiltros(pageable, searchTerm, false);</span>
-
-        // ASSERT
-<span class="fc" id="L545">        assertNotNull(resultado, &quot;El resultado no debe ser nulo&quot;);</span>
-<span class="fc" id="L546">        assertEquals(1, resultado.getTotalElements(), &quot;Debe encontrar 1 elemento inactivo&quot;);</span>
-<span class="fc" id="L547">        assertEquals(&quot;Capín&quot;, resultado.getContent().get(0).getNombreComun(), </span>
-<span class="fc" id="L548">                &quot;Debe encontrar Capín&quot;);</span>
-<span class="fc" id="L549">        assertFalse(resultado.getContent().get(0).getActivo(), &quot;Debe estar inactiva&quot;);</span>
+<span class="fc" id="L518">        Pageable pageable = PageRequest.of(0, 10);</span>
+<span class="fc" id="L519">        String searchTerm = &quot;Capín&quot;;</span>
         
-<span class="fc" id="L551">        verify(repository, times(1)).findAll();</span>
-<span class="fc" id="L552">    }</span>
+<span class="fc" id="L521">        List&lt;MalezasCatalogo&gt; todasLasMalezas = Arrays.asList(maleza1, maleza2, maleza3Inactiva);</span>
+<span class="fc" id="L522">        when(repository.findAll()).thenReturn(todasLasMalezas);</span>
+
+        
+<span class="fc" id="L525">        Page&lt;MalezasCatalogoDTO&gt; resultado = service.obtenerMalezasPaginadasConFiltros(pageable, searchTerm, false);</span>
+
+        
+<span class="fc" id="L528">        assertNotNull(resultado, &quot;El resultado no debe ser nulo&quot;);</span>
+<span class="fc" id="L529">        assertEquals(1, resultado.getTotalElements(), &quot;Debe encontrar 1 elemento inactivo&quot;);</span>
+<span class="fc" id="L530">        assertEquals(&quot;Capín&quot;, resultado.getContent().get(0).getNombreComun(), </span>
+                &quot;Debe encontrar Capín&quot;);
+<span class="fc" id="L532">        assertFalse(resultado.getContent().get(0).getActivo(), &quot;Debe estar inactiva&quot;);</span>
+        
+<span class="fc" id="L534">        verify(repository, times(1)).findAll();</span>
+<span class="fc" id="L535">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener malezas paginadas con filtros - con búsqueda sin filtro de activo&quot;)
     void obtenerMalezasPaginadasConFiltros_conBusquedaSinFiltroActivo() {
-        // ARRANGE
-<span class="fc" id="L558">        Pageable pageable = PageRequest.of(0, 10);</span>
-<span class="fc" id="L559">        String searchTerm = &quot;o&quot;; // Busca la letra 'o' que está en varios nombres</span>
         
-<span class="fc" id="L561">        List&lt;MalezasCatalogo&gt; todasLasMalezas = Arrays.asList(maleza1, maleza2, maleza3Inactiva);</span>
-<span class="fc" id="L562">        when(repository.findAll()).thenReturn(todasLasMalezas);</span>
+<span class="fc" id="L541">        Pageable pageable = PageRequest.of(0, 10);</span>
+<span class="fc" id="L542">        String searchTerm = &quot;o&quot;; // Busca la letra 'o' que está en varios nombres</span>
+        
+<span class="fc" id="L544">        List&lt;MalezasCatalogo&gt; todasLasMalezas = Arrays.asList(maleza1, maleza2, maleza3Inactiva);</span>
+<span class="fc" id="L545">        when(repository.findAll()).thenReturn(todasLasMalezas);</span>
 
-        // ACT
-<span class="fc" id="L565">        Page&lt;MalezasCatalogoDTO&gt; resultado = service.obtenerMalezasPaginadasConFiltros(pageable, searchTerm, null);</span>
+        
+<span class="fc" id="L548">        Page&lt;MalezasCatalogoDTO&gt; resultado = service.obtenerMalezasPaginadasConFiltros(pageable, searchTerm, null);</span>
 
-        // ASSERT
-<span class="fc" id="L568">        assertNotNull(resultado, &quot;El resultado no debe ser nulo&quot;);</span>
+        
+<span class="fc" id="L551">        assertNotNull(resultado, &quot;El resultado no debe ser nulo&quot;);</span>
         // Yuyo Colorado y Cynodon dactylon contienen 'o'
-<span class="pc bpc" id="L570" title="1 of 2 branches missed.">        assertTrue(resultado.getTotalElements() &gt;= 1, &quot;Debe encontrar al menos 1 elemento&quot;);</span>
+<span class="pc bpc" id="L553" title="1 of 2 branches missed.">        assertTrue(resultado.getTotalElements() &gt;= 1, &quot;Debe encontrar al menos 1 elemento&quot;);</span>
         
-<span class="fc" id="L572">        verify(repository, times(1)).findAll();</span>
-<span class="fc" id="L573">    }</span>
+<span class="fc" id="L555">        verify(repository, times(1)).findAll();</span>
+<span class="fc" id="L556">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener malezas paginadas con filtros - búsqueda con término vacío&quot;)
     void obtenerMalezasPaginadasConFiltros_busquedaTerminoVacio() {
-        // ARRANGE
-<span class="fc" id="L579">        Pageable pageable = PageRequest.of(0, 10);</span>
-<span class="fc" id="L580">        String searchTerm = &quot;   &quot;; // Término vacío con espacios</span>
         
-<span class="fc" id="L582">        List&lt;MalezasCatalogo&gt; malezasActivas = Arrays.asList(maleza1, maleza2);</span>
-<span class="fc" id="L583">        Page&lt;MalezasCatalogo&gt; page = new PageImpl&lt;&gt;(malezasActivas, pageable, malezasActivas.size());</span>
+<span class="fc" id="L562">        Pageable pageable = PageRequest.of(0, 10);</span>
+<span class="fc" id="L563">        String searchTerm = &quot;   &quot;; // Término vacío con espacios</span>
         
-<span class="fc" id="L585">        when(repository.findByActivoTrueOrderByNombreComunAsc(pageable)).thenReturn(page);</span>
+<span class="fc" id="L565">        List&lt;MalezasCatalogo&gt; malezasActivas = Arrays.asList(maleza1, maleza2);</span>
+<span class="fc" id="L566">        Page&lt;MalezasCatalogo&gt; page = new PageImpl&lt;&gt;(malezasActivas, pageable, malezasActivas.size());</span>
+        
+<span class="fc" id="L568">        when(repository.findByActivoTrueOrderByNombreComunAsc(pageable)).thenReturn(page);</span>
 
-        // ACT
-<span class="fc" id="L588">        Page&lt;MalezasCatalogoDTO&gt; resultado = service.obtenerMalezasPaginadasConFiltros(pageable, searchTerm, true);</span>
-
-        // ASSERT
-<span class="fc" id="L591">        assertNotNull(resultado, &quot;El resultado no debe ser nulo&quot;);</span>
-<span class="fc" id="L592">        assertEquals(2, resultado.getTotalElements(), &quot;Debe retornar todas las activas&quot;);</span>
         
-<span class="fc" id="L594">        verify(repository, times(1)).findByActivoTrueOrderByNombreComunAsc(pageable);</span>
-<span class="fc" id="L595">    }</span>
+<span class="fc" id="L571">        Page&lt;MalezasCatalogoDTO&gt; resultado = service.obtenerMalezasPaginadasConFiltros(pageable, searchTerm, true);</span>
+
+        
+<span class="fc" id="L574">        assertNotNull(resultado, &quot;El resultado no debe ser nulo&quot;);</span>
+<span class="fc" id="L575">        assertEquals(2, resultado.getTotalElements(), &quot;Debe retornar todas las activas&quot;);</span>
+        
+<span class="fc" id="L577">        verify(repository, times(1)).findByActivoTrueOrderByNombreComunAsc(pageable);</span>
+<span class="fc" id="L578">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener malezas paginadas con filtros - búsqueda por nombre científico&quot;)
     void obtenerMalezasPaginadasConFiltros_busquedaPorNombreCientifico() {
-        // ARRANGE
-<span class="fc" id="L601">        Pageable pageable = PageRequest.of(0, 10);</span>
-<span class="fc" id="L602">        String searchTerm = &quot;dactylon&quot;;</span>
         
-<span class="fc" id="L604">        when(repository.findByNombreComunContainingIgnoreCaseAndActivoTrue(searchTerm))</span>
-<span class="fc" id="L605">                .thenReturn(new ArrayList&lt;&gt;());</span>
-<span class="fc" id="L606">        when(repository.findByNombreCientificoContainingIgnoreCaseAndActivoTrue(searchTerm))</span>
-<span class="fc" id="L607">                .thenReturn(Arrays.asList(maleza1));</span>
-
-        // ACT
-<span class="fc" id="L610">        Page&lt;MalezasCatalogoDTO&gt; resultado = service.obtenerMalezasPaginadasConFiltros(pageable, searchTerm, true);</span>
-
-        // ASSERT
-<span class="fc" id="L613">        assertNotNull(resultado, &quot;El resultado no debe ser nulo&quot;);</span>
-<span class="fc" id="L614">        assertEquals(1, resultado.getTotalElements(), &quot;Debe encontrar 1 elemento&quot;);</span>
-<span class="fc" id="L615">        assertEquals(&quot;Cynodon dactylon&quot;, resultado.getContent().get(0).getNombreCientifico(), </span>
-<span class="fc" id="L616">                &quot;Debe encontrar Cynodon dactylon&quot;);</span>
+<span class="fc" id="L584">        Pageable pageable = PageRequest.of(0, 10);</span>
+<span class="fc" id="L585">        String searchTerm = &quot;dactylon&quot;;</span>
         
-<span class="fc" id="L618">        verify(repository, times(1)).findByNombreComunContainingIgnoreCaseAndActivoTrue(searchTerm);</span>
-<span class="fc" id="L619">        verify(repository, times(1)).findByNombreCientificoContainingIgnoreCaseAndActivoTrue(searchTerm);</span>
-<span class="fc" id="L620">    }</span>
+<span class="fc" id="L587">        when(repository.findByNombreComunContainingIgnoreCaseAndActivoTrue(searchTerm))</span>
+<span class="fc" id="L588">                .thenReturn(new ArrayList&lt;&gt;());</span>
+<span class="fc" id="L589">        when(repository.findByNombreCientificoContainingIgnoreCaseAndActivoTrue(searchTerm))</span>
+<span class="fc" id="L590">                .thenReturn(Arrays.asList(maleza1));</span>
+
+        
+<span class="fc" id="L593">        Page&lt;MalezasCatalogoDTO&gt; resultado = service.obtenerMalezasPaginadasConFiltros(pageable, searchTerm, true);</span>
+
+        
+<span class="fc" id="L596">        assertNotNull(resultado, &quot;El resultado no debe ser nulo&quot;);</span>
+<span class="fc" id="L597">        assertEquals(1, resultado.getTotalElements(), &quot;Debe encontrar 1 elemento&quot;);</span>
+<span class="fc" id="L598">        assertEquals(&quot;Cynodon dactylon&quot;, resultado.getContent().get(0).getNombreCientifico(), </span>
+                &quot;Debe encontrar Cynodon dactylon&quot;);
+        
+<span class="fc" id="L601">        verify(repository, times(1)).findByNombreComunContainingIgnoreCaseAndActivoTrue(searchTerm);</span>
+<span class="fc" id="L602">        verify(repository, times(1)).findByNombreCientificoContainingIgnoreCaseAndActivoTrue(searchTerm);</span>
+<span class="fc" id="L603">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener malezas paginadas con filtros - búsqueda que coincide en ambos campos&quot;)
     void obtenerMalezasPaginadasConFiltros_busquedaEnAmbosCampos() {
-        // ARRANGE
-<span class="fc" id="L626">        Pageable pageable = PageRequest.of(0, 10);</span>
-<span class="fc" id="L627">        String searchTerm = &quot;Yuyo&quot;;</span>
+        
+<span class="fc" id="L609">        Pageable pageable = PageRequest.of(0, 10);</span>
+<span class="fc" id="L610">        String searchTerm = &quot;Yuyo&quot;;</span>
         
         // Coincide en nombre común
-<span class="fc" id="L630">        when(repository.findByNombreComunContainingIgnoreCaseAndActivoTrue(searchTerm))</span>
-<span class="fc" id="L631">                .thenReturn(Arrays.asList(maleza2));</span>
+<span class="fc" id="L613">        when(repository.findByNombreComunContainingIgnoreCaseAndActivoTrue(searchTerm))</span>
+<span class="fc" id="L614">                .thenReturn(Arrays.asList(maleza2));</span>
         // No coincide en nombre científico
-<span class="fc" id="L633">        when(repository.findByNombreCientificoContainingIgnoreCaseAndActivoTrue(searchTerm))</span>
-<span class="fc" id="L634">                .thenReturn(new ArrayList&lt;&gt;());</span>
+<span class="fc" id="L616">        when(repository.findByNombreCientificoContainingIgnoreCaseAndActivoTrue(searchTerm))</span>
+<span class="fc" id="L617">                .thenReturn(new ArrayList&lt;&gt;());</span>
 
-        // ACT
-<span class="fc" id="L637">        Page&lt;MalezasCatalogoDTO&gt; resultado = service.obtenerMalezasPaginadasConFiltros(pageable, searchTerm, true);</span>
+        
+<span class="fc" id="L620">        Page&lt;MalezasCatalogoDTO&gt; resultado = service.obtenerMalezasPaginadasConFiltros(pageable, searchTerm, true);</span>
 
-        // ASSERT
-<span class="fc" id="L640">        assertNotNull(resultado, &quot;El resultado no debe ser nulo&quot;);</span>
-<span class="fc" id="L641">        assertEquals(1, resultado.getTotalElements(), &quot;Debe encontrar 1 elemento&quot;);</span>
-<span class="fc" id="L642">        assertEquals(&quot;Yuyo Colorado&quot;, resultado.getContent().get(0).getNombreComun(), </span>
-<span class="fc" id="L643">                &quot;Debe encontrar Yuyo Colorado&quot;);</span>
-<span class="fc" id="L644">    }</span>
+        
+<span class="fc" id="L623">        assertNotNull(resultado, &quot;El resultado no debe ser nulo&quot;);</span>
+<span class="fc" id="L624">        assertEquals(1, resultado.getTotalElements(), &quot;Debe encontrar 1 elemento&quot;);</span>
+<span class="fc" id="L625">        assertEquals(&quot;Yuyo Colorado&quot;, resultado.getContent().get(0).getNombreComun(), </span>
+                &quot;Debe encontrar Yuyo Colorado&quot;);
+<span class="fc" id="L627">    }</span>
 
     @Test
     @DisplayName(&quot;Mapear entidad a DTO - debe mapear todos los campos correctamente&quot;)
     void mapearEntidadADTO_debeMapeaTodosLosCampos() {
-        // ARRANGE
-<span class="fc" id="L650">        when(repository.findById(1L)).thenReturn(Optional.of(maleza1));</span>
+        
+<span class="fc" id="L633">        when(repository.findById(1L)).thenReturn(Optional.of(maleza1));</span>
 
-        // ACT
-<span class="fc" id="L653">        MalezasCatalogoDTO resultado = service.obtenerPorId(1L);</span>
+        
+<span class="fc" id="L636">        MalezasCatalogoDTO resultado = service.obtenerPorId(1L);</span>
 
-        // ASSERT
-<span class="fc" id="L656">        assertNotNull(resultado, &quot;El DTO no debe ser nulo&quot;);</span>
-<span class="fc" id="L657">        assertEquals(maleza1.getCatalogoID(), resultado.getCatalogoID(), &quot;El ID debe coincidir&quot;);</span>
-<span class="fc" id="L658">        assertEquals(maleza1.getNombreComun(), resultado.getNombreComun(), &quot;El nombre común debe coincidir&quot;);</span>
-<span class="fc" id="L659">        assertEquals(maleza1.getNombreCientifico(), resultado.getNombreCientifico(), </span>
-<span class="fc" id="L660">                &quot;El nombre científico debe coincidir&quot;);</span>
-<span class="fc" id="L661">        assertEquals(maleza1.getActivo(), resultado.getActivo(), &quot;El estado activo debe coincidir&quot;);</span>
-<span class="fc" id="L662">    }</span>
+        
+<span class="fc" id="L639">        assertNotNull(resultado, &quot;El DTO no debe ser nulo&quot;);</span>
+<span class="fc" id="L640">        assertEquals(maleza1.getCatalogoID(), resultado.getCatalogoID(), &quot;El ID debe coincidir&quot;);</span>
+<span class="fc" id="L641">        assertEquals(maleza1.getNombreComun(), resultado.getNombreComun(), &quot;El nombre común debe coincidir&quot;);</span>
+<span class="fc" id="L642">        assertEquals(maleza1.getNombreCientifico(), resultado.getNombreCientifico(), </span>
+                &quot;El nombre científico debe coincidir&quot;);
+<span class="fc" id="L644">        assertEquals(maleza1.getActivo(), resultado.getActivo(), &quot;El estado activo debe coincidir&quot;);</span>
+<span class="fc" id="L645">    }</span>
 
     @Test
     @DisplayName(&quot;Paginación - debe respetar el tamaño de página&quot;)
     void paginacion_debeRespetarTamanoPagina() {
-        // ARRANGE
-<span class="fc" id="L668">        Pageable pageable = PageRequest.of(0, 1); // Solo 1 elemento por página</span>
-<span class="fc" id="L669">        List&lt;MalezasCatalogo&gt; malezas = Arrays.asList(maleza1);</span>
-<span class="fc" id="L670">        Page&lt;MalezasCatalogo&gt; page = new PageImpl&lt;&gt;(malezas, pageable, 2); // 2 elementos totales</span>
         
-<span class="fc" id="L672">        when(repository.findByActivoTrueOrderByNombreComunAsc(pageable)).thenReturn(page);</span>
+<span class="fc" id="L651">        Pageable pageable = PageRequest.of(0, 1); // Solo 1 elemento por página</span>
+<span class="fc" id="L652">        List&lt;MalezasCatalogo&gt; malezas = Arrays.asList(maleza1);</span>
+<span class="fc" id="L653">        Page&lt;MalezasCatalogo&gt; page = new PageImpl&lt;&gt;(malezas, pageable, 2); // 2 elementos totales</span>
+        
+<span class="fc" id="L655">        when(repository.findByActivoTrueOrderByNombreComunAsc(pageable)).thenReturn(page);</span>
 
-        // ACT
-<span class="fc" id="L675">        Page&lt;MalezasCatalogoDTO&gt; resultado = service.obtenerMalezasPaginadas(pageable);</span>
+        
+<span class="fc" id="L658">        Page&lt;MalezasCatalogoDTO&gt; resultado = service.obtenerMalezasPaginadas(pageable);</span>
 
-        // ASSERT
-<span class="fc" id="L678">        assertNotNull(resultado, &quot;El resultado no debe ser nulo&quot;);</span>
-<span class="fc" id="L679">        assertEquals(2, resultado.getTotalElements(), &quot;Debe haber 2 elementos en total&quot;);</span>
-<span class="fc" id="L680">        assertEquals(1, resultado.getContent().size(), &quot;Debe haber 1 elemento en la página&quot;);</span>
-<span class="fc" id="L681">        assertEquals(2, resultado.getTotalPages(), &quot;Debe haber 2 páginas en total&quot;);</span>
-<span class="fc" id="L682">    }</span>
+        
+<span class="fc" id="L661">        assertNotNull(resultado, &quot;El resultado no debe ser nulo&quot;);</span>
+<span class="fc" id="L662">        assertEquals(2, resultado.getTotalElements(), &quot;Debe haber 2 elementos en total&quot;);</span>
+<span class="fc" id="L663">        assertEquals(1, resultado.getContent().size(), &quot;Debe haber 1 elemento en la página&quot;);</span>
+<span class="fc" id="L664">        assertEquals(2, resultado.getTotalPages(), &quot;Debe haber 2 páginas en total&quot;);</span>
+<span class="fc" id="L665">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

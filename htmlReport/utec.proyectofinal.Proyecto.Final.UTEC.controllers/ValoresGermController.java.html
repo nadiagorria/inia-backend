@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ValoresGermController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.controllers</a> &gt; <span class="el_source">ValoresGermController.java</span></div><h1>ValoresGermController.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.controllers;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ValoresGermController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.controllers</a> &gt; <span class="el_source">ValoresGermController.java</span></div><h1>ValoresGermController.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.controllers;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.dtos.response.ValoresGermDTO;
 import utec.proyectofinal.Proyecto.Final.UTEC.enums.Instituto;
 import utec.proyectofinal.Proyecto.Final.UTEC.services.ValoresGermService;
 
-// CORS configurado globalmente en WebSecurityConfig
+
 @RestController
 @RequestMapping(&quot;/api/germinacion/{germinacionId}/tabla/{tablaId}/valores&quot;)
 @Tag(name = &quot;Valores Germinación&quot;, description = &quot;API para gestión de valores de germinación&quot;)
@@ -33,7 +33,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.ValoresGermService;
     @Autowired
     private ValoresGermService valoresGermService;
 
-    // Obtener valores por ID
+    
     @Operation(summary = &quot;Obtener valores de germinación por ID&quot;,
               description = &quot;Obtiene los valores específicos de germinación por su ID&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')&quot;)
@@ -50,7 +50,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.ValoresGermService;
         }
     }
 
-    // Actualizar valores existentes
+    
     @Operation(summary = &quot;Actualizar valores de germinación&quot;, 
               description = &quot;Actualiza los valores específicos de germinación por su ID&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA')&quot;)
@@ -68,7 +68,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.ValoresGermService;
         }
     }
 
-    // Obtener todos los valores de una tabla
+    
     @Operation(summary = &quot;Obtener todos los valores de germinación para una tabla&quot;, 
               description = &quot;Obtiene todos los valores de germinación asociados a una tabla específica&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')&quot;)
@@ -84,7 +84,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.ValoresGermService;
         }
     }
 
-    // Obtener valores de INIA para una tabla
+    
     @Operation(summary = &quot;Obtener valores de germinación de INIA para una tabla&quot;, 
               description = &quot;Obtiene los valores de germinación específicos del instituto INIA para una tabla dada&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')&quot;)
@@ -100,7 +100,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.ValoresGermService;
         }
     }
 
-    // Obtener valores de INASE para una tabla
+    
     @Operation(summary = &quot;Obtener valores de germinación de INASE para una tabla&quot;, 
               description = &quot;Obtiene los valores de germinación específicos del instituto INASE para una tabla dada&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')&quot;)
@@ -116,7 +116,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.ValoresGermService;
         }
     }
 
-    // Obtener valores por tabla e instituto (parámetro de consulta)
+    
     @Operation(summary = &quot;Obtener valores de germinación por tabla e instituto&quot;, 
               description = &quot;Obtiene los valores de germinación asociados a una tabla específica y un instituto dado&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')&quot;)
@@ -133,7 +133,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.ValoresGermService;
         }
     }
 
-    // Eliminar valores
+    
     @Operation(summary = &quot;Eliminar valores de germinación&quot;, 
               description = &quot;Elimina los valores específicos de germinación por su ID&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN')&quot;)

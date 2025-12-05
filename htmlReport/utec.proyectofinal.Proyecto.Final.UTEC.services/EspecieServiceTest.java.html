@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EspecieServiceTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">EspecieServiceTest.java</span></div><h1>EspecieServiceTest.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EspecieServiceTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">EspecieServiceTest.java</span></div><h1>EspecieServiceTest.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -269,7 +269,7 @@ import static org.mockito.Mockito.*;
 <span class="fc" id="L269">        org.springframework.data.domain.Page&lt;EspecieDTO&gt; resultado = </span>
 <span class="fc" id="L270">            especieService.obtenerEspeciesPaginadasConFiltro(</span>
 <span class="fc" id="L271">                org.springframework.data.domain.Pageable.unpaged(), </span>
-                &quot;activos&quot;
+<span class="fc" id="L272">                &quot;activos&quot;</span>
             );
 
 <span class="fc" id="L275">        assertNotNull(resultado);</span>
@@ -285,7 +285,7 @@ import static org.mockito.Mockito.*;
 <span class="fc" id="L285">        org.springframework.data.domain.Page&lt;EspecieDTO&gt; resultado = </span>
 <span class="fc" id="L286">            especieService.obtenerEspeciesPaginadasConFiltro(</span>
 <span class="fc" id="L287">                org.springframework.data.domain.Pageable.unpaged(), </span>
-                &quot;inactivos&quot;
+<span class="fc" id="L288">                &quot;inactivos&quot;</span>
             );
 
 <span class="fc" id="L291">        assertNotNull(resultado);</span>
@@ -301,7 +301,7 @@ import static org.mockito.Mockito.*;
 <span class="fc" id="L301">        org.springframework.data.domain.Page&lt;EspecieDTO&gt; resultado = </span>
 <span class="fc" id="L302">            especieService.obtenerEspeciesPaginadasConFiltro(</span>
 <span class="fc" id="L303">                org.springframework.data.domain.Pageable.unpaged(), </span>
-                &quot;todos&quot;
+<span class="fc" id="L304">                &quot;todos&quot;</span>
             );
 
 <span class="fc" id="L307">        assertNotNull(resultado);</span>
@@ -317,8 +317,8 @@ import static org.mockito.Mockito.*;
 <span class="fc" id="L317">        org.springframework.data.domain.Page&lt;EspecieDTO&gt; resultado = </span>
 <span class="fc" id="L318">            especieService.obtenerEspeciesPaginadasConFiltros(</span>
 <span class="fc" id="L319">                org.springframework.data.domain.Pageable.unpaged(),</span>
-                null,
-                null
+<span class="fc" id="L320">                null,</span>
+<span class="fc" id="L321">                null</span>
             );
 
 <span class="fc" id="L324">        assertNotNull(resultado);</span>
@@ -334,7 +334,7 @@ import static org.mockito.Mockito.*;
 <span class="fc" id="L334">        org.springframework.data.domain.Page&lt;EspecieDTO&gt; resultado = </span>
 <span class="fc" id="L335">            especieService.obtenerEspeciesPaginadasConFiltros(</span>
 <span class="fc" id="L336">                org.springframework.data.domain.Pageable.unpaged(),</span>
-                null,
+<span class="fc" id="L337">                null,</span>
 <span class="fc" id="L338">                true</span>
             );
 
@@ -351,7 +351,7 @@ import static org.mockito.Mockito.*;
 <span class="fc" id="L351">        org.springframework.data.domain.Page&lt;EspecieDTO&gt; resultado = </span>
 <span class="fc" id="L352">            especieService.obtenerEspeciesPaginadasConFiltros(</span>
 <span class="fc" id="L353">                org.springframework.data.domain.Pageable.unpaged(),</span>
-                null,
+<span class="fc" id="L354">                null,</span>
 <span class="fc" id="L355">                false</span>
             );
 
@@ -367,8 +367,8 @@ import static org.mockito.Mockito.*;
 <span class="fc" id="L367">        org.springframework.data.domain.Page&lt;EspecieDTO&gt; resultado = </span>
 <span class="fc" id="L368">            especieService.obtenerEspeciesPaginadasConFiltros(</span>
 <span class="fc" id="L369">                PageRequest.of(0, 10),</span>
-                &quot;Trigo&quot;,
-                null
+<span class="fc" id="L370">                &quot;Trigo&quot;,</span>
+<span class="fc" id="L371">                null</span>
             );
 
 <span class="fc" id="L374">        assertNotNull(resultado);</span>
@@ -386,7 +386,7 @@ import static org.mockito.Mockito.*;
 <span class="fc" id="L386">        org.springframework.data.domain.Page&lt;EspecieDTO&gt; resultado = </span>
 <span class="fc" id="L387">            especieService.obtenerEspeciesPaginadasConFiltros(</span>
 <span class="fc" id="L388">                PageRequest.of(0, 10),</span>
-                &quot;Trigo&quot;,
+<span class="fc" id="L389">                &quot;Trigo&quot;,</span>
 <span class="fc" id="L390">                true</span>
             );
 
@@ -404,7 +404,7 @@ import static org.mockito.Mockito.*;
 <span class="fc" id="L404">        org.springframework.data.domain.Page&lt;EspecieDTO&gt; resultado = </span>
 <span class="fc" id="L405">            especieService.obtenerEspeciesPaginadasConFiltros(</span>
 <span class="fc" id="L406">                PageRequest.of(0, 10),</span>
-                &quot;Trigo&quot;,
+<span class="fc" id="L407">                &quot;Trigo&quot;,</span>
 <span class="fc" id="L408">                false</span>
             );
 
@@ -421,7 +421,7 @@ import static org.mockito.Mockito.*;
 <span class="fc" id="L421">        org.springframework.data.domain.Page&lt;EspecieDTO&gt; resultado = </span>
 <span class="fc" id="L422">            especieService.obtenerEspeciesPaginadasConFiltros(</span>
 <span class="fc" id="L423">                org.springframework.data.domain.Pageable.unpaged(),</span>
-                &quot;   &quot;,
+<span class="fc" id="L424">                &quot;   &quot;,</span>
 <span class="fc" id="L425">                true</span>
             );
 

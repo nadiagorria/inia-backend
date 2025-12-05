@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>WebSocketAuthInterceptor.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.config</a> &gt; <span class="el_source">WebSocketAuthInterceptor.java</span></div><h1>WebSocketAuthInterceptor.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.config;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>WebSocketAuthInterceptor.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.config</a> &gt; <span class="el_source">WebSocketAuthInterceptor.java</span></div><h1>WebSocketAuthInterceptor.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.Message;
@@ -15,106 +15,79 @@ import utec.proyectofinal.Proyecto.Final.UTEC.security.JwtUtil;
 
 import java.util.List;
 
-/**
- * Interceptor para autenticar conexiones WebSocket usando JWT
- * 
- * ¿Qué hace esta clase?
- * - Intercepta TODOS los mensajes WebSocket antes de procesarlos
- * - Valida el token JWT en el momento de la conexión (CONNECT)
- * - Asocia el usuario autenticado a la sesión WebSocket
- * 
- * ¿Por qué es importante?
- * Sin este interceptor, cualquiera podría conectarse al WebSocket
- * y recibir notificaciones de otros usuarios. Esto valida la identidad.
- * 
- * Flujo:
- * 1. Cliente intenta conectar con header &quot;Authorization: Bearer TOKEN&quot;
- * 2. Este interceptor captura el mensaje CONNECT
- * 3. Extrae y valida el JWT
- * 4. Si es válido, asocia el usuario a la sesión
- * 5. Si no es válido, la conexión se rechaza
- */
+
 @Component
-<span class="fc" id="L38">public class WebSocketAuthInterceptor implements ChannelInterceptor {</span>
+<span class="fc" id="L20">public class WebSocketAuthInterceptor implements ChannelInterceptor {</span>
 
     @Autowired
     private JwtUtil jwtUtil;
 
-    /**
-     * Se ejecuta ANTES de enviar el mensaje al canal
-     * 
-     * @param message El mensaje WebSocket
-     * @param channel El canal de comunicación
-     * @return El mensaje (modificado o no) o null para rechazar
-     */
+    
     @Override
     public Message&lt;?&gt; preSend(Message&lt;?&gt; message, MessageChannel channel) {
         // Obtener el accessor para manipular headers del mensaje STOMP
-<span class="nc" id="L53">        StompHeaderAccessor accessor = MessageHeaderAccessor.getAccessor(</span>
-<span class="nc" id="L54">            message, StompHeaderAccessor.class);</span>
+<span class="nc" id="L29">        StompHeaderAccessor accessor = MessageHeaderAccessor.getAccessor(</span>
+            message, StompHeaderAccessor.class);
 
         // Solo validar en el comando CONNECT (cuando el cliente se conecta)
-<span class="nc bnc" id="L57" title="All 4 branches missed.">        if (accessor != null &amp;&amp; StompCommand.CONNECT.equals(accessor.getCommand())) {</span>
+<span class="nc bnc" id="L33" title="All 4 branches missed.">        if (accessor != null &amp;&amp; StompCommand.CONNECT.equals(accessor.getCommand())) {</span>
             
             // Extraer el header Authorization
-<span class="nc" id="L60">            String authHeader = accessor.getFirstNativeHeader(&quot;Authorization&quot;);</span>
+<span class="nc" id="L36">            String authHeader = accessor.getFirstNativeHeader(&quot;Authorization&quot;);</span>
             
-<span class="nc bnc" id="L62" title="All 4 branches missed.">            if (authHeader != null &amp;&amp; authHeader.startsWith(&quot;Bearer &quot;)) {</span>
+<span class="nc bnc" id="L38" title="All 4 branches missed.">            if (authHeader != null &amp;&amp; authHeader.startsWith(&quot;Bearer &quot;)) {</span>
                 // Extraer el token (remover &quot;Bearer &quot;)
-<span class="nc" id="L64">                String token = authHeader.substring(7);</span>
+<span class="nc" id="L40">                String token = authHeader.substring(7);</span>
                 
                 try {
                     // Validar el token
-<span class="nc bnc" id="L68" title="All 2 branches missed.">                    if (jwtUtil.esTokenValido(token)) {</span>
+<span class="nc bnc" id="L44" title="All 2 branches missed.">                    if (jwtUtil.esTokenValido(token)) {</span>
                         // Extraer información del usuario
-<span class="nc" id="L70">                        String username = jwtUtil.obtenerUsuarioDelToken(token);</span>
-<span class="nc" id="L71">                        Integer userId = jwtUtil.obtenerUserIdDelToken(token);</span>
+<span class="nc" id="L46">                        String username = jwtUtil.obtenerUsuarioDelToken(token);</span>
+<span class="nc" id="L47">                        Integer userId = jwtUtil.obtenerUserIdDelToken(token);</span>
                         
                         // Crear una autenticación de Spring Security
-                        // Esto permite que el sistema sepa quién es el usuario
-<span class="nc" id="L75">                        UsernamePasswordAuthenticationToken authentication = </span>
-<span class="nc" id="L76">                            new UsernamePasswordAuthenticationToken(</span>
-<span class="nc" id="L77">                                userId.toString(),  // Principal (identificador único)</span>
-<span class="nc" id="L78">                                null,               // Credentials (no necesarias después de autenticar)</span>
-<span class="nc" id="L79">                                List.of(new SimpleGrantedAuthority(&quot;ROLE_USER&quot;))</span>
+                        
+<span class="nc" id="L51">                        UsernamePasswordAuthenticationToken authentication = </span>
+                            new UsernamePasswordAuthenticationToken(
+<span class="nc" id="L53">                                userId.toString(),  </span>
+                                null,               
+<span class="nc" id="L55">                                List.of(new SimpleGrantedAuthority(&quot;ROLE_USER&quot;))</span>
                             );
                         
                         // Asociar el usuario autenticado a esta sesión WebSocket
-                        // Esto permite enviar mensajes a &quot;/user/{userId}/queue/notifications&quot;
-<span class="nc" id="L84">                        accessor.setUser(authentication);</span>
                         
-<span class="nc" id="L86">                        System.out.println(&quot; WebSocket autenticado: Usuario &quot; + username + &quot; (ID: &quot; + userId + &quot;)&quot;);</span>
-<span class="nc" id="L87">                    } else {</span>
-<span class="nc" id="L88">                        System.err.println(&quot; Token JWT inválido en WebSocket&quot;);</span>
-<span class="nc" id="L89">                        return null; // Rechazar conexión</span>
+<span class="nc" id="L60">                        accessor.setUser(authentication);</span>
+                        
+<span class="nc" id="L62">                        System.out.println(&quot; WebSocket autenticado: Usuario &quot; + username + &quot; (ID: &quot; + userId + &quot;)&quot;);</span>
+<span class="nc" id="L63">                    } else {</span>
+<span class="nc" id="L64">                        System.err.println(&quot; Token JWT inválido en WebSocket&quot;);</span>
+<span class="nc" id="L65">                        return null; </span>
                     }
-<span class="nc" id="L91">                } catch (Exception e) {</span>
-<span class="nc" id="L92">                    System.err.println(&quot; Error validando token en WebSocket: &quot; + e.getMessage());</span>
-<span class="nc" id="L93">                    return null; // Rechazar conexión</span>
-                }
-            } else {
-<span class="nc" id="L96">                System.err.println(&quot; WebSocket sin token de autenticación&quot;);</span>
-<span class="nc" id="L97">                return null; // Rechazar conexión sin token</span>
+<span class="nc" id="L67">                } catch (Exception e) {</span>
+<span class="nc" id="L68">                    System.err.println(&quot; Error validando token en WebSocket: &quot; + e.getMessage());</span>
+<span class="nc" id="L69">                    return null; </span>
+<span class="nc" id="L70">                }</span>
+<span class="nc" id="L71">            } else {</span>
+<span class="nc" id="L72">                System.err.println(&quot; WebSocket sin token de autenticación&quot;);</span>
+<span class="nc" id="L73">                return null; </span>
             }
         }
 
-<span class="nc" id="L101">        return message; // Permitir que el mensaje continúe</span>
+<span class="nc" id="L77">        return message; </span>
     }
 
-    /**
-     * Se ejecuta DESPUÉS de enviar el mensaje
-     * Útil para logging o estadísticas
-     */
+    
     @Override
     public void postSend(Message&lt;?&gt; message, MessageChannel channel, boolean sent) {
-<span class="nc" id="L110">        StompHeaderAccessor accessor = MessageHeaderAccessor.getAccessor(</span>
-<span class="nc" id="L111">            message, StompHeaderAccessor.class);</span>
+<span class="nc" id="L83">        StompHeaderAccessor accessor = MessageHeaderAccessor.getAccessor(</span>
+            message, StompHeaderAccessor.class);
         
-<span class="nc bnc" id="L113" title="All 4 branches missed.">        if (accessor != null &amp;&amp; StompCommand.DISCONNECT.equals(accessor.getCommand())) {</span>
-<span class="nc bnc" id="L114" title="All 2 branches missed.">            if (accessor.getUser() != null) {</span>
-<span class="nc" id="L115">                System.out.println(&quot; Usuario &quot; + accessor.getUser().getName() + &quot; desconectado del WebSocket&quot;);</span>
+<span class="nc bnc" id="L86" title="All 4 branches missed.">        if (accessor != null &amp;&amp; StompCommand.DISCONNECT.equals(accessor.getCommand())) {</span>
+<span class="nc bnc" id="L87" title="All 2 branches missed.">            if (accessor.getUser() != null) {</span>
+<span class="nc" id="L88">                System.out.println(&quot; Usuario &quot; + accessor.getUser().getName() + &quot; desconectado del WebSocket&quot;);</span>
             }
         }
-<span class="nc" id="L118">    }</span>
+<span class="nc" id="L91">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

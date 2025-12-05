@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RepGermController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.controllers</a> &gt; <span class="el_source">RepGermController.java</span></div><h1>RepGermController.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.controllers;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RepGermController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.controllers</a> &gt; <span class="el_source">RepGermController.java</span></div><h1>RepGermController.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.controllers;
 
 import java.util.List;
 
@@ -24,7 +24,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.dtos.request.RepGermRequestDTO;
 import utec.proyectofinal.Proyecto.Final.UTEC.dtos.response.RepGermDTO;
 import utec.proyectofinal.Proyecto.Final.UTEC.services.RepGermService;
 
-// CORS configurado globalmente en WebSecurityConfig
+
 @RestController
 @RequestMapping(&quot;/api/germinacion/{germinacionId}/tabla/{tablaId}/repeticion&quot;)
 @Tag(name = &quot;Repeticiones de Germinación&quot;, description = &quot;API para gestión de repeticiones dentro de las tablas de germinación&quot;)
@@ -34,7 +34,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.RepGermService;
     @Autowired
     private RepGermService repGermService;
 
-    // Crear nueva repetición para una tabla
+    
     @Operation(summary = &quot;Crear repetición&quot;, 
               description = &quot;Crea una nueva repetición para una tabla. No puede superar el numeroRepeticiones definido en la germinación&quot;)
     @ApiResponses(value = {
@@ -56,7 +56,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.RepGermService;
         }
     }
 
-    // Obtener repetición por ID
+    
     @Operation(summary = &quot;Obtener repetición por ID&quot;, description = &quot;Devuelve una repetición específica por su ID&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')&quot;)
     @GetMapping(&quot;/{repeticionId}&quot;)
@@ -72,7 +72,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.RepGermService;
         }
     }
 
-    // Actualizar repetición existente
+    
     @Operation(summary = &quot;Actualizar repetición&quot;, description = &quot;Actualiza los datos de una repetición existente&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA')&quot;)
     @PutMapping(&quot;/{repeticionId}&quot;)
@@ -89,7 +89,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.RepGermService;
         }
     }
 
-    // Eliminar repetición
+    
     @Operation(summary = &quot;Eliminar repetición&quot;, description = &quot;Elimina una repetición específica por su ID&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN')&quot;)
     @DeleteMapping(&quot;/{repeticionId}&quot;)
@@ -105,7 +105,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.RepGermService;
         }
     }
 
-    // Obtener todas las repeticiones de una tabla
+    
     @Operation(summary = &quot;Obtener repeticiones por tabla&quot;, description = &quot;Devuelve todas las repeticiones asociadas a una tabla específica&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')&quot;)
     @GetMapping
@@ -120,7 +120,7 @@ import utec.proyectofinal.Proyecto.Final.UTEC.services.RepGermService;
         }
     }
 
-    // Contar repeticiones de una tabla
+    
     @Operation(summary = &quot;Contar repeticiones por tabla&quot;, description = &quot;Devuelve el número total de repeticiones asociadas a una tabla específica&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')&quot;)
     @GetMapping(&quot;/contar&quot;)

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RepGermControllerIntegrationTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.controllers</a> &gt; <span class="el_source">RepGermControllerIntegrationTest.java</span></div><h1>RepGermControllerIntegrationTest.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.controllers;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RepGermControllerIntegrationTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.controllers</a> &gt; <span class="el_source">RepGermControllerIntegrationTest.java</span></div><h1>RepGermControllerIntegrationTest.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -103,7 +103,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 <span class="fc" id="L103">        when(repGermService.obtenerRepGermPorId(repeticionId)).thenReturn(repGermDTO);</span>
 
 <span class="fc" id="L105">        mockMvc.perform(get(&quot;/api/germinacion/{germinacionId}/tabla/{tablaId}/repeticion/{repeticionId}&quot;, </span>
-                germinacionId, tablaId, repeticionId)
+<span class="fc" id="L106">                germinacionId, tablaId, repeticionId)</span>
 <span class="fc" id="L107">                .with(csrf()))</span>
 <span class="fc" id="L108">                .andExpect(status().isOk())</span>
 <span class="fc" id="L109">                .andExpect(jsonPath(&quot;$.repGermID&quot;).value(repeticionId))</span>
@@ -146,7 +146,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 <span class="fc" id="L146">        actualizarDTO.setMuertas(0);</span>
 
 <span class="fc" id="L148">        mockMvc.perform(put(&quot;/api/germinacion/{germinacionId}/tabla/{tablaId}/repeticion/{repeticionId}&quot;, </span>
-                germinacionId, tablaId, repeticionId)
+<span class="fc" id="L149">                germinacionId, tablaId, repeticionId)</span>
 <span class="fc" id="L150">                .with(csrf())</span>
 <span class="fc" id="L151">                .contentType(MediaType.APPLICATION_JSON)</span>
 <span class="fc" id="L152">                .content(objectMapper.writeValueAsString(actualizarDTO)))</span>
@@ -176,7 +176,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 <span class="fc" id="L176">        doNothing().when(repGermService).eliminarRepGerm(repeticionId);</span>
 
 <span class="fc" id="L178">        mockMvc.perform(delete(&quot;/api/germinacion/{germinacionId}/tabla/{tablaId}/repeticion/{repeticionId}&quot;, </span>
-                germinacionId, tablaId, repeticionId)
+<span class="fc" id="L179">                germinacionId, tablaId, repeticionId)</span>
 <span class="fc" id="L180">                .with(csrf()))</span>
 <span class="fc" id="L181">                .andExpect(status().isOk());</span>
 <span class="fc" id="L182">    }</span>

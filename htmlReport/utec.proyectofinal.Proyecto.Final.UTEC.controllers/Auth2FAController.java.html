@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Auth2FAController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.controllers</a> &gt; <span class="el_source">Auth2FAController.java</span></div><h1>Auth2FAController.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.controllers;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Auth2FAController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.controllers</a> &gt; <span class="el_source">Auth2FAController.java</span></div><h1>Auth2FAController.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,19 +40,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-/**
- * Controlador para 2FA y Recuperación de Contraseña
- * 
- * Este controlador maneja:
- * - Configuración y gestión de Google Authenticator (2FA)
- * - Dispositivos de confianza
- * - Recuperación segura de contraseña
- */
+
 @RestController
 @RequestMapping(&quot;/api/v1/auth&quot;)
 @CrossOrigin(origins = &quot;http://localhost:3000&quot;)
 @Tag(name = &quot;Autenticación 2FA y Recuperación&quot;, description = &quot;Endpoints para 2FA y recuperación de contraseña&quot;)
-<span class="fc" id="L55">public class Auth2FAController {</span>
+<span class="fc" id="L48">public class Auth2FAController {</span>
 
     @Autowired
     private SeguridadService seguridadService;
@@ -81,7 +74,7 @@ import java.util.Optional;
     @Autowired
     private SetupTokenService setupTokenService;
 
-    // ===== ENDPOINT DE LOGIN CON SOPORTE 2FA =====
+    
 
     @PostMapping(&quot;/login-2fa&quot;)
     @Operation(summary = &quot;Login con soporte 2FA&quot;, description = &quot;Autentica usuario con soporte para 2FA y dispositivos de confianza&quot;)
@@ -89,230 +82,222 @@ import java.util.Optional;
                                           HttpServletRequest request, 
                                           HttpServletResponse response) {
         // PASO 1: Autenticar credenciales básicas (usuario + contraseña)
-<span class="fc" id="L92">        Optional&lt;Usuario&gt; usuarioOpt = seguridadService.autenticarUsuario(</span>
-<span class="fc" id="L93">            loginData.getUsuario(), </span>
-<span class="fc" id="L94">            loginData.getPassword()</span>
+<span class="fc" id="L85">        Optional&lt;Usuario&gt; usuarioOpt = seguridadService.autenticarUsuario(</span>
+<span class="fc" id="L86">            loginData.getUsuario(), </span>
+<span class="fc" id="L87">            loginData.getPassword()</span>
         );
         
-<span class="fc bfc" id="L97" title="All 2 branches covered.">        if (usuarioOpt.isEmpty()) {</span>
-<span class="fc" id="L98">            throw new BadRequestException(&quot;Credenciales incorrectas&quot;);</span>
+<span class="fc bfc" id="L90" title="All 2 branches covered.">        if (usuarioOpt.isEmpty()) {</span>
+<span class="fc" id="L91">            throw new BadRequestException(&quot;Credenciales incorrectas&quot;);</span>
         }
         
-<span class="fc" id="L101">        Usuario user = usuarioOpt.get();</span>
+<span class="fc" id="L94">        Usuario user = usuarioOpt.get();</span>
         
         // PASO 2: Verificar si el usuario requiere cambio de credenciales (primer login del admin)
-<span class="pc bpc" id="L104" title="1 of 4 branches missed.">        if (user.getRequiereCambioCredenciales() != null &amp;&amp; user.getRequiereCambioCredenciales()) {</span>
-<span class="fc" id="L105">            String qrCodeDataUrl = totpService.generateQrCodeDataUrl(user.getTotpSecret(), &quot;admin@temporal.local&quot;);</span>
+<span class="pc bpc" id="L97" title="1 of 4 branches missed.">        if (user.getRequiereCambioCredenciales() != null &amp;&amp; user.getRequiereCambioCredenciales()) {</span>
+<span class="fc" id="L98">            String qrCodeDataUrl = totpService.generateQrCodeDataUrl(user.getTotpSecret(), &quot;admin@temporal.local&quot;);</span>
             
-<span class="fc" id="L107">            String setupToken = setupTokenService.createSetupToken(</span>
-<span class="fc" id="L108">                user.getUsuarioID(),</span>
-<span class="fc" id="L109">                user.getNombre(),</span>
+<span class="fc" id="L100">            String setupToken = setupTokenService.createSetupToken(</span>
+<span class="fc" id="L101">                user.getUsuarioID(),</span>
+<span class="fc" id="L102">                user.getNombre(),</span>
                 qrCodeDataUrl,
-<span class="fc" id="L111">                user.getTotpSecret()</span>
+<span class="fc" id="L104">                user.getTotpSecret()</span>
             );
             
-<span class="fc" id="L114">            return ResponseEntity.status(HttpStatus.FORBIDDEN)</span>
-<span class="fc" id="L115">                    .body(Map.of(</span>
-<span class="fc" id="L116">                        &quot;requiresCredentialChange&quot;, true,</span>
+<span class="fc" id="L107">            return ResponseEntity.status(HttpStatus.FORBIDDEN)</span>
+<span class="fc" id="L108">                    .body(Map.of(</span>
+<span class="fc" id="L109">                        &quot;requiresCredentialChange&quot;, true,</span>
                         &quot;mensaje&quot;, &quot;Debes configurar tus credenciales y 2FA en el primer acceso&quot;,
                         &quot;setupToken&quot;, setupToken
                     ));
         }
         
         // PASO 3: Verificar si el usuario tiene 2FA habilitado
-<span class="pc bpc" id="L123" title="1 of 4 branches missed.">        boolean has2FAEnabled = user.getTotpEnabled() != null &amp;&amp; user.getTotpEnabled();</span>
+<span class="pc bpc" id="L116" title="1 of 4 branches missed.">        boolean has2FAEnabled = user.getTotpEnabled() != null &amp;&amp; user.getTotpEnabled();</span>
         
-<span class="fc bfc" id="L125" title="All 2 branches covered.">        if (!has2FAEnabled) {</span>
-<span class="fc" id="L126">            return ResponseEntity.status(HttpStatus.FORBIDDEN)</span>
-<span class="fc" id="L127">                    .body(Map.of(</span>
-<span class="fc" id="L128">                        &quot;requires2FASetup&quot;, true,</span>
+<span class="fc bfc" id="L118" title="All 2 branches covered.">        if (!has2FAEnabled) {</span>
+<span class="fc" id="L119">            return ResponseEntity.status(HttpStatus.FORBIDDEN)</span>
+<span class="fc" id="L120">                    .body(Map.of(</span>
+<span class="fc" id="L121">                        &quot;requires2FASetup&quot;, true,</span>
                         &quot;mensaje&quot;, &quot;Debes activar la autenticación de dos factores para usar el sistema&quot;,
-<span class="fc" id="L130">                        &quot;userId&quot;, user.getUsuarioID(),</span>
-<span class="fc" id="L131">                        &quot;email&quot;, user.getEmail(),</span>
-<span class="fc" id="L132">                        &quot;nombre&quot;, user.getNombreCompleto()</span>
+<span class="fc" id="L123">                        &quot;userId&quot;, user.getUsuarioID(),</span>
+<span class="fc" id="L124">                        &quot;email&quot;, user.getEmail(),</span>
+<span class="fc" id="L125">                        &quot;nombre&quot;, user.getNombreCompleto()</span>
                     ));
         }
         
         // PASO 4: Verificar dispositivo de confianza
-<span class="fc" id="L137">        String deviceFingerprint = loginData.getDeviceFingerprint();</span>
-<span class="fc" id="L138">        boolean isTrustedDevice = false;</span>
+<span class="fc" id="L130">        String deviceFingerprint = loginData.getDeviceFingerprint();</span>
+<span class="fc" id="L131">        boolean isTrustedDevice = false;</span>
         
-<span class="pc bpc" id="L140" title="1 of 4 branches missed.">        if (deviceFingerprint != null &amp;&amp; !deviceFingerprint.isEmpty()) {</span>
-<span class="fc" id="L141">            isTrustedDevice = trustedDeviceService.isTrustedDevice(user.getUsuarioID(), deviceFingerprint);</span>
+<span class="pc bpc" id="L133" title="1 of 4 branches missed.">        if (deviceFingerprint != null &amp;&amp; !deviceFingerprint.isEmpty()) {</span>
+<span class="fc" id="L134">            isTrustedDevice = trustedDeviceService.isTrustedDevice(user.getUsuarioID(), deviceFingerprint);</span>
         }
         
-<span class="fc bfc" id="L144" title="All 2 branches covered.">        if (isTrustedDevice) {</span>
-<span class="fc" id="L145">            return completarLoginExitoso(user, response);</span>
+<span class="fc bfc" id="L137" title="All 2 branches covered.">        if (isTrustedDevice) {</span>
+<span class="fc" id="L138">            return completarLoginExitoso(user, response);</span>
         }
         
         // PASO 5: Dispositivo NO es de confianza - Requiere código 2FA
-<span class="fc" id="L149">        String totpCode = loginData.getTotpCode();</span>
+<span class="fc" id="L142">        String totpCode = loginData.getTotpCode();</span>
         
-<span class="pc bpc" id="L151" title="1 of 4 branches missed.">        if (totpCode == null || totpCode.isEmpty()) {</span>
-<span class="fc" id="L152">            return ResponseEntity.status(HttpStatus.FORBIDDEN)</span>
-<span class="fc" id="L153">                    .body(Map.of(</span>
-<span class="fc" id="L154">                        &quot;requires2FA&quot;, true,</span>
+<span class="pc bpc" id="L144" title="1 of 4 branches missed.">        if (totpCode == null || totpCode.isEmpty()) {</span>
+<span class="fc" id="L145">            return ResponseEntity.status(HttpStatus.FORBIDDEN)</span>
+<span class="fc" id="L146">                    .body(Map.of(</span>
+<span class="fc" id="L147">                        &quot;requires2FA&quot;, true,</span>
                         &quot;mensaje&quot;, &quot;Se requiere código de autenticación de dos factores&quot;,
-<span class="fc" id="L156">                        &quot;userId&quot;, user.getUsuarioID()</span>
+<span class="fc" id="L149">                        &quot;userId&quot;, user.getUsuarioID()</span>
                     ));
         }
         
         // PASO 6: Verificar código 2FA (TOTP o código de respaldo)
-<span class="fc" id="L161">        boolean isCodeValid = false;</span>
+<span class="fc" id="L154">        boolean isCodeValid = false;</span>
         
-<span class="pc bpc" id="L163" title="1 of 4 branches missed.">        if (totpCode.length() == 6 &amp;&amp; totpCode.matches(&quot;\\d+&quot;)) {</span>
-<span class="fc" id="L164">            isCodeValid = totpService.verifyCode(user.getTotpSecret(), totpCode);</span>
+<span class="pc bpc" id="L156" title="1 of 4 branches missed.">        if (totpCode.length() == 6 &amp;&amp; totpCode.matches(&quot;\\d+&quot;)) {</span>
+<span class="fc" id="L157">            isCodeValid = totpService.verifyCode(user.getTotpSecret(), totpCode);</span>
         }
         
-<span class="fc bfc" id="L167" title="All 4 branches covered.">        if (!isCodeValid &amp;&amp; totpCode.length() &gt;= 12) {</span>
-<span class="fc" id="L168">            isCodeValid = backupCodeService.verifyAndUseBackupCode(user.getUsuarioID(), totpCode);</span>
+<span class="fc bfc" id="L160" title="All 4 branches covered.">        if (!isCodeValid &amp;&amp; totpCode.length() &gt;= 12) {</span>
+<span class="fc" id="L161">            isCodeValid = backupCodeService.verifyAndUseBackupCode(user.getUsuarioID(), totpCode);</span>
         }
         
-<span class="fc bfc" id="L171" title="All 2 branches covered.">        if (!isCodeValid) {</span>
-<span class="fc" id="L172">            throw new BadRequestException(&quot;Código de autenticación inválido&quot;);</span>
+<span class="fc bfc" id="L164" title="All 2 branches covered.">        if (!isCodeValid) {</span>
+<span class="fc" id="L165">            throw new BadRequestException(&quot;Código de autenticación inválido&quot;);</span>
         }
         
         // PASO 7: Si el usuario quiere confiar en este dispositivo, registrarlo
-<span class="pc bpc" id="L176" title="2 of 6 branches missed.">        if (loginData.getTrustDevice() != null &amp;&amp; loginData.getTrustDevice() &amp;&amp; deviceFingerprint != null) {</span>
-<span class="fc" id="L177">            trustedDeviceService.trustDevice(user.getUsuarioID(), deviceFingerprint, request);</span>
+<span class="pc bpc" id="L169" title="2 of 6 branches missed.">        if (loginData.getTrustDevice() != null &amp;&amp; loginData.getTrustDevice() &amp;&amp; deviceFingerprint != null) {</span>
+<span class="fc" id="L170">            trustedDeviceService.trustDevice(user.getUsuarioID(), deviceFingerprint, request);</span>
             
-<span class="fc" id="L179">            String deviceName = extractDeviceName(request);</span>
-<span class="fc" id="L180">            String ipAddress = extractIpAddress(request);</span>
-<span class="fc" id="L181">            emailService.enviarNuevoDispositivo(</span>
-<span class="fc" id="L182">                user.getEmail(),</span>
-<span class="fc" id="L183">                user.getNombreCompleto(),</span>
+<span class="fc" id="L172">            String deviceName = extractDeviceName(request);</span>
+<span class="fc" id="L173">            String ipAddress = extractIpAddress(request);</span>
+<span class="fc" id="L174">            emailService.enviarNuevoDispositivo(</span>
+<span class="fc" id="L175">                user.getEmail(),</span>
+<span class="fc" id="L176">                user.getNombreCompleto(),</span>
                 deviceName,
                 ipAddress
             );
         }
         
-<span class="fc" id="L189">        return completarLoginExitoso(user, response);</span>
+<span class="fc" id="L182">        return completarLoginExitoso(user, response);</span>
     }
 
-    /**
-     * Completa el login exitoso generando tokens JWT y configurando cookies
-     */
+    
     private ResponseEntity&lt;?&gt; completarLoginExitoso(Usuario user, HttpServletResponse response) {
-<span class="fc" id="L196">        String[] roles = seguridadService.listarRolesPorUsuario(user);</span>
+<span class="fc" id="L187">        String[] roles = seguridadService.listarRolesPorUsuario(user);</span>
         
-<span class="fc" id="L198">        String accessToken = jwtUtil.generarToken(user, java.util.Arrays.asList(roles));</span>
-<span class="fc" id="L199">        String refreshToken = jwtUtil.generarRefreshToken(user);</span>
+<span class="fc" id="L189">        String accessToken = jwtUtil.generarToken(user, java.util.Arrays.asList(roles));</span>
+<span class="fc" id="L190">        String refreshToken = jwtUtil.generarRefreshToken(user);</span>
         
-<span class="fc" id="L201">        configurarCookieToken(response, &quot;accessToken&quot;, accessToken, (int) (jwtUtil.getAccessTokenExpiration() / 1000));</span>
-<span class="fc" id="L202">        configurarCookieToken(response, &quot;refreshToken&quot;, refreshToken, (int) (jwtUtil.getRefreshTokenExpiration() / 1000));</span>
+<span class="fc" id="L192">        configurarCookieToken(response, &quot;accessToken&quot;, accessToken, (int) (jwtUtil.getAccessTokenExpiration() / 1000));</span>
+<span class="fc" id="L193">        configurarCookieToken(response, &quot;refreshToken&quot;, refreshToken, (int) (jwtUtil.getRefreshTokenExpiration() / 1000));</span>
         
-<span class="fc" id="L204">        Map&lt;String, Object&gt; responseBody = new HashMap&lt;&gt;();</span>
-<span class="fc" id="L205">        responseBody.put(&quot;mensaje&quot;, &quot;Login exitoso&quot;);</span>
-<span class="fc" id="L206">        responseBody.put(&quot;usuario&quot;, Map.of(</span>
-<span class="fc" id="L207">            &quot;id&quot;, user.getUsuarioID(),</span>
-<span class="fc" id="L208">            &quot;nombre&quot;, user.getNombre(),</span>
-<span class="fc" id="L209">            &quot;nombres&quot;, user.getNombres(),</span>
-<span class="fc" id="L210">            &quot;apellidos&quot;, user.getApellidos(),</span>
-<span class="fc" id="L211">            &quot;email&quot;, user.getEmail(),</span>
+<span class="fc" id="L195">        Map&lt;String, Object&gt; responseBody = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L196">        responseBody.put(&quot;mensaje&quot;, &quot;Login exitoso&quot;);</span>
+<span class="fc" id="L197">        responseBody.put(&quot;usuario&quot;, Map.of(</span>
+<span class="fc" id="L198">            &quot;id&quot;, user.getUsuarioID(),</span>
+<span class="fc" id="L199">            &quot;nombre&quot;, user.getNombre(),</span>
+<span class="fc" id="L200">            &quot;nombres&quot;, user.getNombres(),</span>
+<span class="fc" id="L201">            &quot;apellidos&quot;, user.getApellidos(),</span>
+<span class="fc" id="L202">            &quot;email&quot;, user.getEmail(),</span>
             &quot;roles&quot;, roles,
-<span class="pc bpc" id="L213" title="2 of 4 branches missed.">            &quot;has2FA&quot;, user.getTotpEnabled() != null &amp;&amp; user.getTotpEnabled()</span>
+<span class="pc bpc" id="L204" title="2 of 4 branches missed.">            &quot;has2FA&quot;, user.getTotpEnabled() != null &amp;&amp; user.getTotpEnabled()</span>
         ));
         
-<span class="fc" id="L216">        return ResponseEntity.ok(responseBody);</span>
+<span class="fc" id="L207">        return ResponseEntity.ok(responseBody);</span>
     }
 
-    /**
-     * Configura una cookie HttpOnly Secure
-     */
+    
     private void configurarCookieToken(HttpServletResponse response, String nombre, String valor, int maxAgeSegundos) {
-<span class="fc" id="L223">        String cookieValue = String.format(</span>
+<span class="fc" id="L212">        String cookieValue = String.format(</span>
             &quot;%s=%s; Path=/; Max-Age=%d; HttpOnly; SameSite=Lax&quot;,
-<span class="fc" id="L225">            nombre, valor, maxAgeSegundos</span>
+<span class="fc" id="L214">            nombre, valor, maxAgeSegundos</span>
         );
-<span class="fc" id="L227">        response.addHeader(&quot;Set-Cookie&quot;, cookieValue);</span>
-<span class="fc" id="L228">    }</span>
+<span class="fc" id="L216">        response.addHeader(&quot;Set-Cookie&quot;, cookieValue);</span>
+<span class="fc" id="L217">    }</span>
 
-    /**
-     * Extrae nombre del dispositivo del User-Agent
-     */
+    
     private String extractDeviceName(HttpServletRequest request) {
-<span class="fc" id="L234">        String userAgent = request.getHeader(&quot;User-Agent&quot;);</span>
-<span class="fc bfc" id="L235" title="All 2 branches covered.">        if (userAgent == null) return &quot;Dispositivo Desconocido&quot;;</span>
+<span class="fc" id="L221">        String userAgent = request.getHeader(&quot;User-Agent&quot;);</span>
+<span class="fc bfc" id="L222" title="All 2 branches covered.">        if (userAgent == null) return &quot;Dispositivo Desconocido&quot;;</span>
         
-<span class="fc" id="L237">        String browser = &quot;Navegador&quot;;</span>
-<span class="fc" id="L238">        String os = &quot;SO&quot;;</span>
+<span class="fc" id="L224">        String browser = &quot;Navegador&quot;;</span>
+<span class="fc" id="L225">        String os = &quot;SO&quot;;</span>
         
-<span class="fc bfc" id="L240" title="All 4 branches covered.">        if (userAgent.contains(&quot;Chrome&quot;) &amp;&amp; !userAgent.contains(&quot;Edg&quot;)) browser = &quot;Chrome&quot;;</span>
-<span class="fc bfc" id="L241" title="All 2 branches covered.">        else if (userAgent.contains(&quot;Firefox&quot;)) browser = &quot;Firefox&quot;;</span>
-<span class="pc bpc" id="L242" title="1 of 4 branches missed.">        else if (userAgent.contains(&quot;Safari&quot;) &amp;&amp; !userAgent.contains(&quot;Chrome&quot;)) browser = &quot;Safari&quot;;</span>
-<span class="pc bpc" id="L243" title="1 of 2 branches missed.">        else if (userAgent.contains(&quot;Edg&quot;)) browser = &quot;Edge&quot;;</span>
+<span class="fc bfc" id="L227" title="All 4 branches covered.">        if (userAgent.contains(&quot;Chrome&quot;) &amp;&amp; !userAgent.contains(&quot;Edg&quot;)) browser = &quot;Chrome&quot;;</span>
+<span class="fc bfc" id="L228" title="All 2 branches covered.">        else if (userAgent.contains(&quot;Firefox&quot;)) browser = &quot;Firefox&quot;;</span>
+<span class="pc bpc" id="L229" title="1 of 4 branches missed.">        else if (userAgent.contains(&quot;Safari&quot;) &amp;&amp; !userAgent.contains(&quot;Chrome&quot;)) browser = &quot;Safari&quot;;</span>
+<span class="pc bpc" id="L230" title="1 of 2 branches missed.">        else if (userAgent.contains(&quot;Edg&quot;)) browser = &quot;Edge&quot;;</span>
         
-<span class="fc bfc" id="L245" title="All 2 branches covered.">        if (userAgent.contains(&quot;Windows&quot;)) os = &quot;Windows&quot;;</span>
-<span class="fc bfc" id="L246" title="All 2 branches covered.">        else if (userAgent.contains(&quot;Mac&quot;)) os = &quot;macOS&quot;;</span>
-<span class="pc bpc" id="L247" title="1 of 2 branches missed.">        else if (userAgent.contains(&quot;Linux&quot;)) os = &quot;Linux&quot;;</span>
-<span class="nc bnc" id="L248" title="All 2 branches missed.">        else if (userAgent.contains(&quot;Android&quot;)) os = &quot;Android&quot;;</span>
-<span class="nc bnc" id="L249" title="All 4 branches missed.">        else if (userAgent.contains(&quot;iPhone&quot;) || userAgent.contains(&quot;iPad&quot;)) os = &quot;iOS&quot;;</span>
+<span class="fc bfc" id="L232" title="All 2 branches covered.">        if (userAgent.contains(&quot;Windows&quot;)) os = &quot;Windows&quot;;</span>
+<span class="fc bfc" id="L233" title="All 2 branches covered.">        else if (userAgent.contains(&quot;Mac&quot;)) os = &quot;macOS&quot;;</span>
+<span class="pc bpc" id="L234" title="1 of 2 branches missed.">        else if (userAgent.contains(&quot;Linux&quot;)) os = &quot;Linux&quot;;</span>
+<span class="nc bnc" id="L235" title="All 2 branches missed.">        else if (userAgent.contains(&quot;Android&quot;)) os = &quot;Android&quot;;</span>
+<span class="nc bnc" id="L236" title="All 4 branches missed.">        else if (userAgent.contains(&quot;iPhone&quot;) || userAgent.contains(&quot;iPad&quot;)) os = &quot;iOS&quot;;</span>
         
-<span class="fc" id="L251">        return browser + &quot; en &quot; + os;</span>
+<span class="fc" id="L238">        return browser + &quot; en &quot; + os;</span>
     }
 
-    /**
-     * Extrae IP considerando proxies
-     */
+    
     private String extractIpAddress(HttpServletRequest request) {
-<span class="fc" id="L258">        String ip = request.getHeader(&quot;X-Forwarded-For&quot;);</span>
-<span class="pc bpc" id="L259" title="2 of 6 branches missed.">        if (ip == null || ip.isEmpty() || &quot;unknown&quot;.equalsIgnoreCase(ip)) {</span>
-<span class="fc" id="L260">            ip = request.getHeader(&quot;X-Real-IP&quot;);</span>
+<span class="fc" id="L243">        String ip = request.getHeader(&quot;X-Forwarded-For&quot;);</span>
+<span class="pc bpc" id="L244" title="2 of 6 branches missed.">        if (ip == null || ip.isEmpty() || &quot;unknown&quot;.equalsIgnoreCase(ip)) {</span>
+<span class="fc" id="L245">            ip = request.getHeader(&quot;X-Real-IP&quot;);</span>
         }
-<span class="pc bpc" id="L262" title="2 of 6 branches missed.">        if (ip == null || ip.isEmpty() || &quot;unknown&quot;.equalsIgnoreCase(ip)) {</span>
-<span class="fc" id="L263">            ip = request.getRemoteAddr();</span>
+<span class="pc bpc" id="L247" title="2 of 6 branches missed.">        if (ip == null || ip.isEmpty() || &quot;unknown&quot;.equalsIgnoreCase(ip)) {</span>
+<span class="fc" id="L248">            ip = request.getRemoteAddr();</span>
         }
-<span class="pc bpc" id="L265" title="1 of 4 branches missed.">        if (ip != null &amp;&amp; ip.contains(&quot;,&quot;)) {</span>
-<span class="fc" id="L266">            ip = ip.split(&quot;,&quot;)[0].trim();</span>
+<span class="pc bpc" id="L250" title="1 of 4 branches missed.">        if (ip != null &amp;&amp; ip.contains(&quot;,&quot;)) {</span>
+<span class="fc" id="L251">            ip = ip.split(&quot;,&quot;)[0].trim();</span>
         }
-<span class="fc" id="L268">        return ip;</span>
+<span class="fc" id="L253">        return ip;</span>
     }
 
-    // ===== ENDPOINTS DE AUTENTICACIÓN DE DOS FACTORES (2FA) =====
+    // ENDPOINTS DE AUTENTICACIÓN DE DOS FACTORES (2FA)
 
     @PostMapping(&quot;/2fa/setup-initial&quot;)
     @Operation(summary = &quot;Setup inicial de 2FA (sin autenticación)&quot;, 
                description = &quot;Genera QR code para usuarios que DEBEN activar 2FA por primera vez&quot;)
     public ResponseEntity&lt;?&gt; setupInitial2FA(@RequestBody Map&lt;String, String&gt; request) {
-<span class="fc" id="L277">        String email = request.get(&quot;email&quot;);</span>
-<span class="fc" id="L278">        String password = request.get(&quot;password&quot;);</span>
+<span class="fc" id="L262">        String email = request.get(&quot;email&quot;);</span>
+<span class="fc" id="L263">        String password = request.get(&quot;password&quot;);</span>
         
-<span class="pc bpc" id="L280" title="2 of 4 branches missed.">        if (email == null || password == null) {</span>
-<span class="nc" id="L281">            throw new BadRequestException(&quot;Email y contraseña son requeridos&quot;);</span>
+<span class="pc bpc" id="L265" title="2 of 4 branches missed.">        if (email == null || password == null) {</span>
+<span class="nc" id="L266">            throw new BadRequestException(&quot;Email y contraseña son requeridos&quot;);</span>
         }
         
-<span class="fc" id="L284">        Optional&lt;Usuario&gt; userOpt = seguridadService.autenticarUsuario(email, password);</span>
+<span class="fc" id="L269">        Optional&lt;Usuario&gt; userOpt = seguridadService.autenticarUsuario(email, password);</span>
         
-<span class="pc bpc" id="L286" title="1 of 2 branches missed.">        if (userOpt.isEmpty()) {</span>
-<span class="nc" id="L287">            throw new BadRequestException(&quot;Credenciales incorrectas&quot;);</span>
+<span class="pc bpc" id="L271" title="1 of 2 branches missed.">        if (userOpt.isEmpty()) {</span>
+<span class="nc" id="L272">            throw new BadRequestException(&quot;Credenciales incorrectas&quot;);</span>
         }
         
-<span class="fc" id="L290">        Usuario user = userOpt.get();</span>
+<span class="fc" id="L275">        Usuario user = userOpt.get();</span>
         
-<span class="pc bpc" id="L292" title="1 of 4 branches missed.">        if (user.getTotpEnabled() != null &amp;&amp; user.getTotpEnabled()) {</span>
-<span class="fc" id="L293">            throw new BadRequestException(&quot;El usuario ya tiene 2FA habilitado. Inicia sesión normalmente.&quot;);</span>
+<span class="pc bpc" id="L277" title="1 of 4 branches missed.">        if (user.getTotpEnabled() != null &amp;&amp; user.getTotpEnabled()) {</span>
+<span class="fc" id="L278">            throw new BadRequestException(&quot;El usuario ya tiene 2FA habilitado. Inicia sesión normalmente.&quot;);</span>
         }
         
-<span class="fc" id="L296">        String secret = totpService.generateSecret();</span>
-<span class="fc" id="L297">        String accountName = user.getEmail();</span>
-<span class="fc" id="L298">        String qrCodeDataUrl = totpService.generateQrCodeDataUrl(secret, accountName);</span>
+<span class="fc" id="L281">        String secret = totpService.generateSecret();</span>
+<span class="fc" id="L282">        String accountName = user.getEmail();</span>
+<span class="fc" id="L283">        String qrCodeDataUrl = totpService.generateQrCodeDataUrl(secret, accountName);</span>
         
-<span class="fc" id="L300">        user.setTotpSecret(secret);</span>
-<span class="fc" id="L301">        user.setTotpEnabled(false);</span>
-<span class="fc" id="L302">        usuarioService.guardar(user);</span>
+<span class="fc" id="L285">        user.setTotpSecret(secret);</span>
+<span class="fc" id="L286">        user.setTotpEnabled(false);</span>
+<span class="fc" id="L287">        usuarioService.guardar(user);</span>
         
-<span class="fc" id="L304">        Setup2FAResponseDTO response = new Setup2FAResponseDTO(</span>
+<span class="fc" id="L289">        Setup2FAResponseDTO response = new Setup2FAResponseDTO(</span>
             secret,
             qrCodeDataUrl,
             &quot;INIA&quot;,
             accountName
         );
         
-<span class="fc" id="L311">        return ResponseEntity.ok(Map.of(</span>
+<span class="fc" id="L296">        return ResponseEntity.ok(Map.of(</span>
             &quot;mensaje&quot;, &quot;Escanea el QR code con Google Authenticator&quot;,
             &quot;data&quot;, response,
-<span class="fc" id="L314">            &quot;userId&quot;, user.getUsuarioID(),</span>
-<span class="fc" id="L315">            &quot;email&quot;, user.getEmail()</span>
+<span class="fc" id="L299">            &quot;userId&quot;, user.getUsuarioID(),</span>
+<span class="fc" id="L300">            &quot;email&quot;, user.getEmail()</span>
         ));
     }
 
@@ -322,73 +307,73 @@ import java.util.Optional;
     public ResponseEntity&lt;?&gt; verifyInitial2FA(
             @RequestBody Map&lt;String, String&gt; request,
             HttpServletResponse response) {
-<span class="fc" id="L325">        String email = request.get(&quot;email&quot;);</span>
-<span class="fc" id="L326">        String totpCode = request.get(&quot;totpCode&quot;);</span>
+<span class="fc" id="L310">        String email = request.get(&quot;email&quot;);</span>
+<span class="fc" id="L311">        String totpCode = request.get(&quot;totpCode&quot;);</span>
         
-<span class="pc bpc" id="L328" title="2 of 4 branches missed.">        if (email == null || totpCode == null) {</span>
-<span class="nc" id="L329">            throw new BadRequestException(&quot;Email y código TOTP son requeridos&quot;);</span>
+<span class="pc bpc" id="L313" title="2 of 4 branches missed.">        if (email == null || totpCode == null) {</span>
+<span class="nc" id="L314">            throw new BadRequestException(&quot;Email y código TOTP son requeridos&quot;);</span>
         }
         
-<span class="fc" id="L332">        Optional&lt;Usuario&gt; usuarioOpt = usuarioService.buscarPorEmail(email);</span>
+<span class="fc" id="L317">        Optional&lt;Usuario&gt; usuarioOpt = usuarioService.buscarPorEmail(email);</span>
         
-<span class="pc bpc" id="L334" title="1 of 2 branches missed.">        if (usuarioOpt.isEmpty()) {</span>
-<span class="nc" id="L335">            throw new NotFoundException(&quot;Usuario no encontrado&quot;);</span>
+<span class="pc bpc" id="L319" title="1 of 2 branches missed.">        if (usuarioOpt.isEmpty()) {</span>
+<span class="nc" id="L320">            throw new NotFoundException(&quot;Usuario no encontrado&quot;);</span>
         }
         
-<span class="fc" id="L338">        Usuario usuario = usuarioOpt.get();</span>
+<span class="fc" id="L323">        Usuario usuario = usuarioOpt.get();</span>
 
-<span class="pc bpc" id="L340" title="2 of 4 branches missed.">        if (usuario.getTotpSecret() == null || usuario.getTotpSecret().isEmpty()) {</span>
-<span class="nc" id="L341">            throw new BadRequestException(&quot;No se ha configurado 2FA para este usuario&quot;);</span>
+<span class="pc bpc" id="L325" title="2 of 4 branches missed.">        if (usuario.getTotpSecret() == null || usuario.getTotpSecret().isEmpty()) {</span>
+<span class="nc" id="L326">            throw new BadRequestException(&quot;No se ha configurado 2FA para este usuario&quot;);</span>
         }
         
-<span class="fc" id="L344">        boolean isValid = totpService.verifyCode(usuario.getTotpSecret(), totpCode);</span>
+<span class="fc" id="L329">        boolean isValid = totpService.verifyCode(usuario.getTotpSecret(), totpCode);</span>
         
-<span class="fc bfc" id="L346" title="All 2 branches covered.">        if (!isValid) {</span>
-<span class="fc" id="L347">            throw new BadRequestException(&quot;Código de autenticación inválido&quot;);</span>
+<span class="fc bfc" id="L331" title="All 2 branches covered.">        if (!isValid) {</span>
+<span class="fc" id="L332">            throw new BadRequestException(&quot;Código de autenticación inválido&quot;);</span>
         }
         
-<span class="fc" id="L350">        usuario.setTotpEnabled(true);</span>
-<span class="fc" id="L351">        usuarioService.guardar(usuario);</span>
+<span class="fc" id="L335">        usuario.setTotpEnabled(true);</span>
+<span class="fc" id="L336">        usuarioService.guardar(usuario);</span>
         
-<span class="fc" id="L353">        List&lt;String&gt; backupCodes = backupCodeService.generateBackupCodes(usuario.getUsuarioID());</span>
-<span class="fc" id="L354">        emailService.enviar2FAActivado(usuario.getEmail(), usuario.getNombreCompleto());</span>
+<span class="fc" id="L338">        List&lt;String&gt; backupCodes = backupCodeService.generateBackupCodes(usuario.getUsuarioID());</span>
+<span class="fc" id="L339">        emailService.enviar2FAActivado(usuario.getEmail(), usuario.getNombreCompleto());</span>
 
-<span class="fc" id="L356">        String[] roles = seguridadService.listarRolesPorUsuario(usuario);</span>
-<span class="fc" id="L357">        String accessToken = jwtUtil.generarToken(usuario, java.util.Arrays.asList(roles));</span>
-<span class="fc" id="L358">        String refreshToken = jwtUtil.generarRefreshToken(usuario);</span>
+<span class="fc" id="L341">        String[] roles = seguridadService.listarRolesPorUsuario(usuario);</span>
+<span class="fc" id="L342">        String accessToken = jwtUtil.generarToken(usuario, java.util.Arrays.asList(roles));</span>
+<span class="fc" id="L343">        String refreshToken = jwtUtil.generarRefreshToken(usuario);</span>
         
-<span class="fc" id="L360">        configurarCookieToken(response, &quot;accessToken&quot;, accessToken, 24 * 60 * 60);</span>
-<span class="fc" id="L361">        configurarCookieToken(response, &quot;refreshToken&quot;, refreshToken, 7 * 24 * 60 * 60);</span>
+<span class="fc" id="L345">        configurarCookieToken(response, &quot;accessToken&quot;, accessToken, 24 * 60 * 60);</span>
+<span class="fc" id="L346">        configurarCookieToken(response, &quot;refreshToken&quot;, refreshToken, 7 * 24 * 60 * 60);</span>
         
-<span class="fc" id="L363">        Map&lt;String, Object&gt; responseData = new HashMap&lt;&gt;();</span>
-<span class="fc" id="L364">        responseData.put(&quot;mensaje&quot;, &quot;2FA activado exitosamente. GUARDA estos códigos de respaldo.&quot;);</span>
-<span class="fc" id="L365">        responseData.put(&quot;totpEnabled&quot;, true);</span>
-<span class="fc" id="L366">        responseData.put(&quot;backupCodes&quot;, backupCodes);</span>
-<span class="fc" id="L367">        responseData.put(&quot;totalCodes&quot;, backupCodes.size());</span>
-<span class="fc" id="L368">        responseData.put(&quot;usuario&quot;, Map.of(</span>
-<span class="fc" id="L369">            &quot;id&quot;, usuario.getUsuarioID(),</span>
-<span class="fc" id="L370">            &quot;nombre&quot;, usuario.getNombre(),</span>
-<span class="fc" id="L371">            &quot;nombres&quot;, usuario.getNombres(),</span>
-<span class="fc" id="L372">            &quot;apellidos&quot;, usuario.getApellidos(),</span>
-<span class="fc" id="L373">            &quot;email&quot;, usuario.getEmail(),</span>
+<span class="fc" id="L348">        Map&lt;String, Object&gt; responseData = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L349">        responseData.put(&quot;mensaje&quot;, &quot;2FA activado exitosamente. GUARDA estos códigos de respaldo.&quot;);</span>
+<span class="fc" id="L350">        responseData.put(&quot;totpEnabled&quot;, true);</span>
+<span class="fc" id="L351">        responseData.put(&quot;backupCodes&quot;, backupCodes);</span>
+<span class="fc" id="L352">        responseData.put(&quot;totalCodes&quot;, backupCodes.size());</span>
+<span class="fc" id="L353">        responseData.put(&quot;usuario&quot;, Map.of(</span>
+<span class="fc" id="L354">            &quot;id&quot;, usuario.getUsuarioID(),</span>
+<span class="fc" id="L355">            &quot;nombre&quot;, usuario.getNombre(),</span>
+<span class="fc" id="L356">            &quot;nombres&quot;, usuario.getNombres(),</span>
+<span class="fc" id="L357">            &quot;apellidos&quot;, usuario.getApellidos(),</span>
+<span class="fc" id="L358">            &quot;email&quot;, usuario.getEmail(),</span>
             &quot;roles&quot;, roles,
-<span class="fc" id="L375">            &quot;has2FA&quot;, true</span>
+<span class="fc" id="L360">            &quot;has2FA&quot;, true</span>
         ));
 
-<span class="fc" id="L378">        return ResponseEntity.ok(responseData);</span>
+<span class="fc" id="L363">        return ResponseEntity.ok(responseData);</span>
     }
 
     @GetMapping(&quot;/admin/setup-data/{token}&quot;)
     @Operation(summary = &quot;Obtener datos de configuración con token temporal&quot;, 
                description = &quot;Recupera datos de configuración usando un token de un solo uso&quot;)
     public ResponseEntity&lt;?&gt; getSetupData(@PathVariable String token) {
-<span class="fc" id="L385">        Map&lt;String, Object&gt; setupData = setupTokenService.consumeSetupToken(token);</span>
+<span class="fc" id="L370">        Map&lt;String, Object&gt; setupData = setupTokenService.consumeSetupToken(token);</span>
         
-<span class="fc bfc" id="L387" title="All 2 branches covered.">        if (setupData == null) {</span>
-<span class="fc" id="L388">            throw new BadRequestException(&quot;Token inválido o expirado&quot;);</span>
+<span class="fc bfc" id="L372" title="All 2 branches covered.">        if (setupData == null) {</span>
+<span class="fc" id="L373">            throw new BadRequestException(&quot;Token inválido o expirado&quot;);</span>
         }
         
-<span class="fc" id="L391">        return ResponseEntity.ok(setupData);</span>
+<span class="fc" id="L376">        return ResponseEntity.ok(setupData);</span>
     }
 
     @PostMapping(&quot;/admin/complete-setup&quot;)
@@ -398,87 +383,87 @@ import java.util.Optional;
             @RequestBody Map&lt;String, String&gt; request,
             HttpServletRequest httpRequest,
             HttpServletResponse response) {
-<span class="fc" id="L401">        String currentPassword = request.get(&quot;currentPassword&quot;);</span>
-<span class="fc" id="L402">        String newEmail = request.get(&quot;newEmail&quot;);</span>
-<span class="fc" id="L403">        String newPassword = request.get(&quot;newPassword&quot;);</span>
-<span class="fc" id="L404">        String totpCode = request.get(&quot;totpCode&quot;);</span>
+<span class="fc" id="L386">        String currentPassword = request.get(&quot;currentPassword&quot;);</span>
+<span class="fc" id="L387">        String newEmail = request.get(&quot;newEmail&quot;);</span>
+<span class="fc" id="L388">        String newPassword = request.get(&quot;newPassword&quot;);</span>
+<span class="fc" id="L389">        String totpCode = request.get(&quot;totpCode&quot;);</span>
         
-<span class="pc bpc" id="L406" title="4 of 8 branches missed.">        if (currentPassword == null || newEmail == null || newPassword == null || totpCode == null) {</span>
-<span class="nc" id="L407">            throw new BadRequestException(&quot;Todos los campos son requeridos&quot;);</span>
+<span class="pc bpc" id="L391" title="4 of 8 branches missed.">        if (currentPassword == null || newEmail == null || newPassword == null || totpCode == null) {</span>
+<span class="nc" id="L392">            throw new BadRequestException(&quot;Todos los campos son requeridos&quot;);</span>
         }
 
-<span class="fc" id="L410">        Optional&lt;Usuario&gt; userOpt = seguridadService.autenticarUsuario(&quot;admin&quot;, currentPassword);</span>
+<span class="fc" id="L395">        Optional&lt;Usuario&gt; userOpt = seguridadService.autenticarUsuario(&quot;admin&quot;, currentPassword);</span>
         
-<span class="pc bpc" id="L412" title="1 of 2 branches missed.">        if (userOpt.isEmpty()) {</span>
-<span class="nc" id="L413">            throw new BadRequestException(&quot;Credenciales incorrectas&quot;);</span>
+<span class="pc bpc" id="L397" title="1 of 2 branches missed.">        if (userOpt.isEmpty()) {</span>
+<span class="nc" id="L398">            throw new BadRequestException(&quot;Credenciales incorrectas&quot;);</span>
         }
         
-<span class="fc" id="L416">        Usuario admin = userOpt.get();</span>
+<span class="fc" id="L401">        Usuario admin = userOpt.get();</span>
         
-<span class="pc bpc" id="L418" title="1 of 4 branches missed.">        if (!admin.esAdmin() || !admin.getRequiereCambioCredenciales()) {</span>
-<span class="fc" id="L419">            throw new BadRequestException(&quot;No autorizado para esta acción&quot;);</span>
+<span class="pc bpc" id="L403" title="1 of 4 branches missed.">        if (!admin.esAdmin() || !admin.getRequiereCambioCredenciales()) {</span>
+<span class="fc" id="L404">            throw new BadRequestException(&quot;No autorizado para esta acción&quot;);</span>
         }
 
-<span class="fc" id="L422">        boolean isValid = totpService.verifyCode(admin.getTotpSecret(), totpCode);</span>
+<span class="fc" id="L407">        boolean isValid = totpService.verifyCode(admin.getTotpSecret(), totpCode);</span>
 
-<span class="pc bpc" id="L424" title="1 of 2 branches missed.">        if (!isValid) {</span>
-<span class="nc" id="L425">            throw new BadRequestException(&quot;Código de autenticación inválido&quot;);</span>
+<span class="pc bpc" id="L409" title="1 of 2 branches missed.">        if (!isValid) {</span>
+<span class="nc" id="L410">            throw new BadRequestException(&quot;Código de autenticación inválido&quot;);</span>
         }
 
-<span class="fc" id="L428">        admin.setEmail(newEmail);</span>
-<span class="fc" id="L429">        admin.setTotpEnabled(true);</span>
-<span class="fc" id="L430">        admin.setRequiereCambioCredenciales(false);</span>
-<span class="fc" id="L431">        usuarioService.guardar(admin);</span>
+<span class="fc" id="L413">        admin.setEmail(newEmail);</span>
+<span class="fc" id="L414">        admin.setTotpEnabled(true);</span>
+<span class="fc" id="L415">        admin.setRequiereCambioCredenciales(false);</span>
+<span class="fc" id="L416">        usuarioService.guardar(admin);</span>
         
-<span class="fc" id="L433">        usuarioService.cambiarContrasenia(admin.getUsuarioID(), newPassword);</span>
+<span class="fc" id="L418">        usuarioService.cambiarContrasenia(admin.getUsuarioID(), newPassword);</span>
 
-<span class="fc" id="L435">        List&lt;String&gt; backupCodes = backupCodeService.generateBackupCodes(admin.getUsuarioID());</span>
+<span class="fc" id="L420">        List&lt;String&gt; backupCodes = backupCodeService.generateBackupCodes(admin.getUsuarioID());</span>
 
         try {
-<span class="fc" id="L438">            emailService.enviar2FAActivado(newEmail, admin.getNombreCompleto());</span>
-<span class="nc" id="L439">        } catch (Exception e) {</span>
+<span class="fc" id="L423">            emailService.enviar2FAActivado(newEmail, admin.getNombreCompleto());</span>
+<span class="nc" id="L424">        } catch (Exception e) {</span>
             // Email no crítico, continuar
-<span class="fc" id="L441">        }</span>
+<span class="fc" id="L426">        }</span>
 
-<span class="fc" id="L443">        String[] roles = seguridadService.listarRolesPorUsuario(admin);</span>
+<span class="fc" id="L428">        String[] roles = seguridadService.listarRolesPorUsuario(admin);</span>
         
-<span class="fc" id="L445">        Collection&lt;org.springframework.security.core.GrantedAuthority&gt; authorities = </span>
-<span class="fc" id="L446">            java.util.Arrays.stream(roles)</span>
-<span class="fc" id="L447">                .map(role -&gt; new org.springframework.security.core.authority.SimpleGrantedAuthority(</span>
-<span class="pc bpc" id="L448" title="1 of 2 branches missed.">                    role.startsWith(&quot;ROLE_&quot;) ? role : &quot;ROLE_&quot; + role))</span>
-<span class="fc" id="L449">                .collect(java.util.stream.Collectors.toList());</span>
+<span class="fc" id="L430">        Collection&lt;org.springframework.security.core.GrantedAuthority&gt; authorities = </span>
+<span class="fc" id="L431">            java.util.Arrays.stream(roles)</span>
+<span class="fc" id="L432">                .map(role -&gt; new org.springframework.security.core.authority.SimpleGrantedAuthority(</span>
+<span class="pc bpc" id="L433" title="1 of 2 branches missed.">                    role.startsWith(&quot;ROLE_&quot;) ? role : &quot;ROLE_&quot; + role))</span>
+<span class="fc" id="L434">                .collect(java.util.stream.Collectors.toList());</span>
         
-<span class="fc" id="L451">        UsernamePasswordAuthenticationToken authToken = </span>
-<span class="fc" id="L452">            new UsernamePasswordAuthenticationToken(admin.getNombre(), null, authorities);</span>
+<span class="fc" id="L436">        UsernamePasswordAuthenticationToken authToken = </span>
+<span class="fc" id="L437">            new UsernamePasswordAuthenticationToken(admin.getNombre(), null, authorities);</span>
         
-<span class="fc" id="L454">        SecurityContext securityContext = SecurityContextHolder.createEmptyContext();</span>
-<span class="fc" id="L455">        securityContext.setAuthentication(authToken);</span>
-<span class="fc" id="L456">        SecurityContextHolder.setContext(securityContext);</span>
+<span class="fc" id="L439">        SecurityContext securityContext = SecurityContextHolder.createEmptyContext();</span>
+<span class="fc" id="L440">        securityContext.setAuthentication(authToken);</span>
+<span class="fc" id="L441">        SecurityContextHolder.setContext(securityContext);</span>
         
-<span class="fc" id="L458">        HttpSession session = httpRequest.getSession(true);</span>
-<span class="fc" id="L459">        session.setAttribute(&quot;SPRING_SECURITY_CONTEXT&quot;, securityContext);</span>
+<span class="fc" id="L443">        HttpSession session = httpRequest.getSession(true);</span>
+<span class="fc" id="L444">        session.setAttribute(&quot;SPRING_SECURITY_CONTEXT&quot;, securityContext);</span>
 
-<span class="fc" id="L461">        String accessToken = jwtUtil.generarToken(admin, java.util.Arrays.asList(roles));</span>
-<span class="fc" id="L462">        String refreshToken = jwtUtil.generarRefreshToken(admin);</span>
+<span class="fc" id="L446">        String accessToken = jwtUtil.generarToken(admin, java.util.Arrays.asList(roles));</span>
+<span class="fc" id="L447">        String refreshToken = jwtUtil.generarRefreshToken(admin);</span>
         
-<span class="fc" id="L464">        configurarCookieToken(response, &quot;accessToken&quot;, accessToken, 24 * 60 * 60);</span>
-<span class="fc" id="L465">        configurarCookieToken(response, &quot;refreshToken&quot;, refreshToken, 7 * 24 * 60 * 60);</span>
+<span class="fc" id="L449">        configurarCookieToken(response, &quot;accessToken&quot;, accessToken, 24 * 60 * 60);</span>
+<span class="fc" id="L450">        configurarCookieToken(response, &quot;refreshToken&quot;, refreshToken, 7 * 24 * 60 * 60);</span>
 
-<span class="fc" id="L467">        Map&lt;String, Object&gt; responseData = new HashMap&lt;&gt;();</span>
-<span class="fc" id="L468">        responseData.put(&quot;mensaje&quot;, &quot;Configuración completada exitosamente&quot;);</span>
-<span class="fc" id="L469">        responseData.put(&quot;backupCodes&quot;, backupCodes);</span>
-<span class="fc" id="L470">        responseData.put(&quot;totalCodes&quot;, backupCodes.size());</span>
-<span class="fc" id="L471">        responseData.put(&quot;usuario&quot;, Map.of(</span>
-<span class="fc" id="L472">            &quot;id&quot;, admin.getUsuarioID(),</span>
-<span class="fc" id="L473">            &quot;nombre&quot;, admin.getNombre(),</span>
-<span class="fc" id="L474">            &quot;nombres&quot;, admin.getNombres(),</span>
-<span class="fc" id="L475">            &quot;apellidos&quot;, admin.getApellidos(),</span>
-<span class="fc" id="L476">            &quot;email&quot;, admin.getEmail(),</span>
+<span class="fc" id="L452">        Map&lt;String, Object&gt; responseData = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L453">        responseData.put(&quot;mensaje&quot;, &quot;Configuración completada exitosamente&quot;);</span>
+<span class="fc" id="L454">        responseData.put(&quot;backupCodes&quot;, backupCodes);</span>
+<span class="fc" id="L455">        responseData.put(&quot;totalCodes&quot;, backupCodes.size());</span>
+<span class="fc" id="L456">        responseData.put(&quot;usuario&quot;, Map.of(</span>
+<span class="fc" id="L457">            &quot;id&quot;, admin.getUsuarioID(),</span>
+<span class="fc" id="L458">            &quot;nombre&quot;, admin.getNombre(),</span>
+<span class="fc" id="L459">            &quot;nombres&quot;, admin.getNombres(),</span>
+<span class="fc" id="L460">            &quot;apellidos&quot;, admin.getApellidos(),</span>
+<span class="fc" id="L461">            &quot;email&quot;, admin.getEmail(),</span>
             &quot;roles&quot;, roles,
-<span class="fc" id="L478">            &quot;has2FA&quot;, true</span>
+<span class="fc" id="L463">            &quot;has2FA&quot;, true</span>
         ));
 
-<span class="fc" id="L481">        return ResponseEntity.ok(responseData);</span>
+<span class="fc" id="L466">        return ResponseEntity.ok(responseData);</span>
     }
 
     @PostMapping(&quot;/2fa/setup&quot;)
@@ -486,35 +471,35 @@ import java.util.Optional;
     @Operation(summary = &quot;Configurar 2FA&quot;, description = &quot;Genera QR code para configurar Google Authenticator&quot;)
     @SecurityRequirement(name = &quot;bearerAuth&quot;)
     public ResponseEntity&lt;?&gt; setup2FA() {
-<span class="fc" id="L489">        Integer userId = seguridadService.obtenerUsuarioAutenticado();</span>
-<span class="fc" id="L490">        Optional&lt;Usuario&gt; usuarioOpt = usuarioService.buscarPorId(userId);</span>
+<span class="fc" id="L474">        Integer userId = seguridadService.obtenerUsuarioAutenticado();</span>
+<span class="fc" id="L475">        Optional&lt;Usuario&gt; usuarioOpt = usuarioService.buscarPorId(userId);</span>
         
-<span class="pc bpc" id="L492" title="1 of 2 branches missed.">        if (usuarioOpt.isEmpty()) {</span>
-<span class="nc" id="L493">            throw new NotFoundException(&quot;Usuario no encontrado&quot;);</span>
+<span class="pc bpc" id="L477" title="1 of 2 branches missed.">        if (usuarioOpt.isEmpty()) {</span>
+<span class="nc" id="L478">            throw new NotFoundException(&quot;Usuario no encontrado&quot;);</span>
         }
         
-<span class="fc" id="L496">        Usuario usuario = usuarioOpt.get();</span>
+<span class="fc" id="L481">        Usuario usuario = usuarioOpt.get();</span>
         
-<span class="pc bpc" id="L498" title="2 of 4 branches missed.">        if (usuario.getTotpEnabled() != null &amp;&amp; usuario.getTotpEnabled()) {</span>
-<span class="nc" id="L499">            throw new BadRequestException(&quot;2FA ya está habilitado. Deshabilítalo primero si deseas reconfigurarlo.&quot;);</span>
+<span class="pc bpc" id="L483" title="2 of 4 branches missed.">        if (usuario.getTotpEnabled() != null &amp;&amp; usuario.getTotpEnabled()) {</span>
+<span class="nc" id="L484">            throw new BadRequestException(&quot;2FA ya está habilitado. Deshabilítalo primero si deseas reconfigurarlo.&quot;);</span>
         }
         
-<span class="fc" id="L502">        String secret = totpService.generateSecret();</span>
-<span class="fc" id="L503">        String accountName = usuario.getEmail();</span>
-<span class="fc" id="L504">        String qrCodeDataUrl = totpService.generateQrCodeDataUrl(secret, accountName);</span>
+<span class="fc" id="L487">        String secret = totpService.generateSecret();</span>
+<span class="fc" id="L488">        String accountName = usuario.getEmail();</span>
+<span class="fc" id="L489">        String qrCodeDataUrl = totpService.generateQrCodeDataUrl(secret, accountName);</span>
         
-<span class="fc" id="L506">        usuario.setTotpSecret(secret);</span>
-<span class="fc" id="L507">        usuario.setTotpEnabled(false);</span>
-<span class="fc" id="L508">        usuarioService.guardar(usuario);</span>
+<span class="fc" id="L491">        usuario.setTotpSecret(secret);</span>
+<span class="fc" id="L492">        usuario.setTotpEnabled(false);</span>
+<span class="fc" id="L493">        usuarioService.guardar(usuario);</span>
         
-<span class="fc" id="L510">        Setup2FAResponseDTO response = new Setup2FAResponseDTO(</span>
+<span class="fc" id="L495">        Setup2FAResponseDTO response = new Setup2FAResponseDTO(</span>
             secret,
             qrCodeDataUrl,
             &quot;INIA&quot;,
             accountName
         );
 
-<span class="fc" id="L517">        return ResponseEntity.ok(Map.of(</span>
+<span class="fc" id="L502">        return ResponseEntity.ok(Map.of(</span>
             &quot;mensaje&quot;, &quot;Escanea el QR code con Google Authenticator y verifica el código&quot;,
             &quot;data&quot;, response
         ));
@@ -525,38 +510,38 @@ import java.util.Optional;
     @Operation(summary = &quot;Verificar y activar 2FA&quot;, description = &quot;Verifica el código de Google Authenticator y activa 2FA&quot;)
     @SecurityRequirement(name = &quot;bearerAuth&quot;)
     public ResponseEntity&lt;?&gt; verify2FA(@RequestBody Verify2FARequestDTO request) {
-<span class="fc" id="L528">        Integer userId = seguridadService.obtenerUsuarioAutenticado();</span>
-<span class="fc" id="L529">        Optional&lt;Usuario&gt; usuarioOpt = usuarioService.buscarPorId(userId);</span>
+<span class="fc" id="L513">        Integer userId = seguridadService.obtenerUsuarioAutenticado();</span>
+<span class="fc" id="L514">        Optional&lt;Usuario&gt; usuarioOpt = usuarioService.buscarPorId(userId);</span>
         
-<span class="pc bpc" id="L531" title="1 of 2 branches missed.">        if (usuarioOpt.isEmpty()) {</span>
-<span class="nc" id="L532">            throw new NotFoundException(&quot;Usuario no encontrado&quot;);</span>
+<span class="pc bpc" id="L516" title="1 of 2 branches missed.">        if (usuarioOpt.isEmpty()) {</span>
+<span class="nc" id="L517">            throw new NotFoundException(&quot;Usuario no encontrado&quot;);</span>
         }
         
-<span class="fc" id="L535">        Usuario usuario = usuarioOpt.get();</span>
+<span class="fc" id="L520">        Usuario usuario = usuarioOpt.get();</span>
 
-<span class="pc bpc" id="L537" title="2 of 4 branches missed.">        if (usuario.getTotpSecret() == null || usuario.getTotpSecret().isEmpty()) {</span>
-<span class="nc" id="L538">            throw new BadRequestException(&quot;Primero debes configurar 2FA usando /api/v1/auth/2fa/setup&quot;);</span>
+<span class="pc bpc" id="L522" title="2 of 4 branches missed.">        if (usuario.getTotpSecret() == null || usuario.getTotpSecret().isEmpty()) {</span>
+<span class="nc" id="L523">            throw new BadRequestException(&quot;Primero debes configurar 2FA usando /api/v1/auth/2fa/setup&quot;);</span>
         }
         
-<span class="fc" id="L541">        boolean isValid = totpService.verifyCode(usuario.getTotpSecret(), request.getTotpCode());</span>
+<span class="fc" id="L526">        boolean isValid = totpService.verifyCode(usuario.getTotpSecret(), request.getTotpCode());</span>
 
-<span class="fc bfc" id="L543" title="All 2 branches covered.">        if (!isValid) {</span>
-<span class="fc" id="L544">            throw new BadRequestException(&quot;Código de autenticación inválido&quot;);</span>
+<span class="fc bfc" id="L528" title="All 2 branches covered.">        if (!isValid) {</span>
+<span class="fc" id="L529">            throw new BadRequestException(&quot;Código de autenticación inválido&quot;);</span>
         }
         
-<span class="fc" id="L547">        usuario.setTotpEnabled(true);</span>
-<span class="fc" id="L548">        usuarioService.guardar(usuario);</span>
+<span class="fc" id="L532">        usuario.setTotpEnabled(true);</span>
+<span class="fc" id="L533">        usuarioService.guardar(usuario);</span>
         
-<span class="fc" id="L550">        List&lt;String&gt; backupCodes = backupCodeService.generateBackupCodes(userId);</span>
-<span class="fc" id="L551">        emailService.enviar2FAActivado(usuario.getEmail(), usuario.getNombreCompleto());</span>
+<span class="fc" id="L535">        List&lt;String&gt; backupCodes = backupCodeService.generateBackupCodes(userId);</span>
+<span class="fc" id="L536">        emailService.enviar2FAActivado(usuario.getEmail(), usuario.getNombreCompleto());</span>
 
-<span class="fc" id="L553">        Map&lt;String, Object&gt; response = new HashMap&lt;&gt;();</span>
-<span class="fc" id="L554">        response.put(&quot;mensaje&quot;, &quot;2FA activado exitosamente. GUARDA estos códigos de respaldo en un lugar seguro.&quot;);</span>
-<span class="fc" id="L555">        response.put(&quot;totpEnabled&quot;, true);</span>
-<span class="fc" id="L556">        response.put(&quot;backupCodes&quot;, backupCodes);</span>
-<span class="fc" id="L557">        response.put(&quot;totalCodes&quot;, backupCodes.size());</span>
+<span class="fc" id="L538">        Map&lt;String, Object&gt; response = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L539">        response.put(&quot;mensaje&quot;, &quot;2FA activado exitosamente. GUARDA estos códigos de respaldo en un lugar seguro.&quot;);</span>
+<span class="fc" id="L540">        response.put(&quot;totpEnabled&quot;, true);</span>
+<span class="fc" id="L541">        response.put(&quot;backupCodes&quot;, backupCodes);</span>
+<span class="fc" id="L542">        response.put(&quot;totalCodes&quot;, backupCodes.size());</span>
         
-<span class="fc" id="L559">        return ResponseEntity.ok(response);</span>
+<span class="fc" id="L544">        return ResponseEntity.ok(response);</span>
     }
 
     @DeleteMapping(&quot;/2fa/disable&quot;)
@@ -564,35 +549,35 @@ import java.util.Optional;
     @Operation(summary = &quot;Deshabilitar 2FA&quot;, description = &quot;Deshabilita 2FA después de verificar el código actual&quot;)
     @SecurityRequirement(name = &quot;bearerAuth&quot;)
     public ResponseEntity&lt;?&gt; disable2FA(@RequestBody Verify2FARequestDTO request) {
-<span class="fc" id="L567">        Integer userId = seguridadService.obtenerUsuarioAutenticado();</span>
-<span class="fc" id="L568">        Optional&lt;Usuario&gt; usuarioOpt = usuarioService.buscarPorId(userId);</span>
+<span class="fc" id="L552">        Integer userId = seguridadService.obtenerUsuarioAutenticado();</span>
+<span class="fc" id="L553">        Optional&lt;Usuario&gt; usuarioOpt = usuarioService.buscarPorId(userId);</span>
         
-<span class="pc bpc" id="L570" title="1 of 2 branches missed.">        if (usuarioOpt.isEmpty()) {</span>
-<span class="nc" id="L571">            throw new NotFoundException(&quot;Usuario no encontrado&quot;);</span>
+<span class="pc bpc" id="L555" title="1 of 2 branches missed.">        if (usuarioOpt.isEmpty()) {</span>
+<span class="nc" id="L556">            throw new NotFoundException(&quot;Usuario no encontrado&quot;);</span>
         }
         
-<span class="fc" id="L574">        Usuario usuario = usuarioOpt.get();</span>
+<span class="fc" id="L559">        Usuario usuario = usuarioOpt.get();</span>
         
-<span class="pc bpc" id="L576" title="2 of 4 branches missed.">        if (usuario.getTotpEnabled() == null || !usuario.getTotpEnabled()) {</span>
-<span class="nc" id="L577">            throw new BadRequestException(&quot;2FA no está habilitado&quot;);</span>
+<span class="pc bpc" id="L561" title="2 of 4 branches missed.">        if (usuario.getTotpEnabled() == null || !usuario.getTotpEnabled()) {</span>
+<span class="nc" id="L562">            throw new BadRequestException(&quot;2FA no está habilitado&quot;);</span>
         }
         
-<span class="fc" id="L580">        boolean isValid = totpService.verifyCode(usuario.getTotpSecret(), request.getTotpCode());</span>
+<span class="fc" id="L565">        boolean isValid = totpService.verifyCode(usuario.getTotpSecret(), request.getTotpCode());</span>
         
-<span class="fc bfc" id="L582" title="All 2 branches covered.">        if (!isValid) {</span>
-<span class="fc" id="L583">            throw new BadRequestException(&quot;Código 2FA inválido. Necesitas el código correcto para deshabilitar 2FA&quot;);</span>
+<span class="fc bfc" id="L567" title="All 2 branches covered.">        if (!isValid) {</span>
+<span class="fc" id="L568">            throw new BadRequestException(&quot;Código 2FA inválido. Necesitas el código correcto para deshabilitar 2FA&quot;);</span>
         }
         
-<span class="fc" id="L586">        usuario.setTotpEnabled(false);</span>
-<span class="fc" id="L587">        usuario.setTotpSecret(null);</span>
-<span class="fc" id="L588">        usuarioService.guardar(usuario);</span>
+<span class="fc" id="L571">        usuario.setTotpEnabled(false);</span>
+<span class="fc" id="L572">        usuario.setTotpSecret(null);</span>
+<span class="fc" id="L573">        usuarioService.guardar(usuario);</span>
         
-<span class="fc" id="L590">        backupCodeService.deleteAllUserCodes(userId);</span>
-<span class="fc" id="L591">        trustedDeviceService.revokeAllUserDevices(userId);</span>
+<span class="fc" id="L575">        backupCodeService.deleteAllUserCodes(userId);</span>
+<span class="fc" id="L576">        trustedDeviceService.revokeAllUserDevices(userId);</span>
 
-<span class="fc" id="L593">        return ResponseEntity.ok(Map.of(</span>
+<span class="fc" id="L578">        return ResponseEntity.ok(Map.of(</span>
             &quot;mensaje&quot;, &quot;2FA deshabilitado exitosamente&quot;,
-<span class="fc" id="L595">            &quot;totpEnabled&quot;, false</span>
+<span class="fc" id="L580">            &quot;totpEnabled&quot;, false</span>
         ));
     }
 
@@ -601,34 +586,34 @@ import java.util.Optional;
     @Operation(summary = &quot;Estado de 2FA&quot;, description = &quot;Verifica si el usuario tiene 2FA habilitado&quot;)
     @SecurityRequirement(name = &quot;bearerAuth&quot;)
     public ResponseEntity&lt;?&gt; get2FAStatus() {
-<span class="fc" id="L604">        Integer userId = seguridadService.obtenerUsuarioAutenticado();</span>
-<span class="fc" id="L605">        Optional&lt;Usuario&gt; usuarioOpt = usuarioService.buscarPorId(userId);</span>
+<span class="fc" id="L589">        Integer userId = seguridadService.obtenerUsuarioAutenticado();</span>
+<span class="fc" id="L590">        Optional&lt;Usuario&gt; usuarioOpt = usuarioService.buscarPorId(userId);</span>
         
-<span class="pc bpc" id="L607" title="1 of 2 branches missed.">        if (usuarioOpt.isEmpty()) {</span>
-<span class="nc" id="L608">            throw new NotFoundException(&quot;Usuario no encontrado&quot;);</span>
+<span class="pc bpc" id="L592" title="1 of 2 branches missed.">        if (usuarioOpt.isEmpty()) {</span>
+<span class="nc" id="L593">            throw new NotFoundException(&quot;Usuario no encontrado&quot;);</span>
         }
         
-<span class="fc" id="L611">        Usuario usuario = usuarioOpt.get();</span>
+<span class="fc" id="L596">        Usuario usuario = usuarioOpt.get();</span>
         
-<span class="fc" id="L613">        return ResponseEntity.ok(Map.of(</span>
-<span class="pc bpc" id="L614" title="2 of 4 branches missed.">            &quot;totpEnabled&quot;, usuario.getTotpEnabled() != null &amp;&amp; usuario.getTotpEnabled(),</span>
-<span class="pc bpc" id="L615" title="2 of 4 branches missed.">            &quot;hasSecret&quot;, usuario.getTotpSecret() != null &amp;&amp; !usuario.getTotpSecret().isEmpty()</span>
+<span class="fc" id="L598">        return ResponseEntity.ok(Map.of(</span>
+<span class="pc bpc" id="L599" title="2 of 4 branches missed.">            &quot;totpEnabled&quot;, usuario.getTotpEnabled() != null &amp;&amp; usuario.getTotpEnabled(),</span>
+<span class="pc bpc" id="L600" title="2 of 4 branches missed.">            &quot;hasSecret&quot;, usuario.getTotpSecret() != null &amp;&amp; !usuario.getTotpSecret().isEmpty()</span>
         ));
     }
 
-    // ===== ENDPOINTS DE DISPOSITIVOS DE CONFIANZA =====
+    // ENDPOINTS DE DISPOSITIVOS DE CONFIANZA
 
     @GetMapping(&quot;/trusted-devices&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')&quot;)
     @Operation(summary = &quot;Listar dispositivos de confianza&quot;, description = &quot;Lista todos los dispositivos de confianza del usuario&quot;)
     @SecurityRequirement(name = &quot;bearerAuth&quot;)
     public ResponseEntity&lt;?&gt; listTrustedDevices() {
-<span class="fc" id="L626">        Integer userId = seguridadService.obtenerUsuarioAutenticado();</span>
-<span class="fc" id="L627">        List&lt;TrustedDeviceDTO&gt; devices = trustedDeviceService.listUserDevices(userId);</span>
+<span class="fc" id="L611">        Integer userId = seguridadService.obtenerUsuarioAutenticado();</span>
+<span class="fc" id="L612">        List&lt;TrustedDeviceDTO&gt; devices = trustedDeviceService.listUserDevices(userId);</span>
         
-<span class="fc" id="L629">        return ResponseEntity.ok(Map.of(</span>
+<span class="fc" id="L614">        return ResponseEntity.ok(Map.of(</span>
             &quot;devices&quot;, devices,
-<span class="fc" id="L631">            &quot;count&quot;, devices.size()</span>
+<span class="fc" id="L616">            &quot;count&quot;, devices.size()</span>
         ));
     }
 
@@ -637,10 +622,10 @@ import java.util.Optional;
     @Operation(summary = &quot;Revocar dispositivo de confianza&quot;, description = &quot;Revoca un dispositivo de confianza específico&quot;)
     @SecurityRequirement(name = &quot;bearerAuth&quot;)
     public ResponseEntity&lt;?&gt; revokeTrustedDevice(@PathVariable Long deviceId) {
-<span class="fc" id="L640">        Integer userId = seguridadService.obtenerUsuarioAutenticado();</span>
-<span class="fc" id="L641">        trustedDeviceService.revokeDevice(deviceId, userId);</span>
+<span class="fc" id="L625">        Integer userId = seguridadService.obtenerUsuarioAutenticado();</span>
+<span class="fc" id="L626">        trustedDeviceService.revokeDevice(deviceId, userId);</span>
         
-<span class="fc" id="L643">        return ResponseEntity.ok(Map.of(&quot;mensaje&quot;, &quot;Dispositivo revocado exitosamente&quot;));</span>
+<span class="fc" id="L628">        return ResponseEntity.ok(Map.of(&quot;mensaje&quot;, &quot;Dispositivo revocado exitosamente&quot;));</span>
     }
 
     @DeleteMapping(&quot;/trusted-devices&quot;)
@@ -648,111 +633,109 @@ import java.util.Optional;
     @Operation(summary = &quot;Revocar todos los dispositivos&quot;, description = &quot;Revoca todos los dispositivos de confianza del usuario&quot;)
     @SecurityRequirement(name = &quot;bearerAuth&quot;)
     public ResponseEntity&lt;?&gt; revokeAllTrustedDevices() {
-<span class="fc" id="L651">        Integer userId = seguridadService.obtenerUsuarioAutenticado();</span>
-<span class="fc" id="L652">        trustedDeviceService.revokeAllUserDevices(userId);</span>
+<span class="fc" id="L636">        Integer userId = seguridadService.obtenerUsuarioAutenticado();</span>
+<span class="fc" id="L637">        trustedDeviceService.revokeAllUserDevices(userId);</span>
         
-<span class="fc" id="L654">        return ResponseEntity.ok(Map.of(&quot;mensaje&quot;, &quot;Todos los dispositivos revocados exitosamente&quot;));</span>
+<span class="fc" id="L639">        return ResponseEntity.ok(Map.of(&quot;mensaje&quot;, &quot;Todos los dispositivos revocados exitosamente&quot;));</span>
     }
 
-    // ===== ENDPOINTS DE RECUPERACIÓN DE CONTRASEÑA =====
+    // ENDPOINTS DE RECUPERACIÓN DE CONTRASEÑA
 
-    @PostMapping(&quot;/forgot-password&quot;)
+    @PostMapping(&quot;/recuperar-contrasena&quot;)
     @Operation(summary = &quot;Olvidé mi contraseña&quot;, description = &quot;Envía un código de recuperación al email del usuario&quot;)
     public ResponseEntity&lt;?&gt; forgotPassword(@RequestBody ForgotPasswordRequestDTO request) {
-<span class="fc" id="L662">        Optional&lt;Usuario&gt; usuarioOpt = usuarioService.buscarPorEmail(request.getEmail());</span>
+<span class="fc" id="L647">        Optional&lt;Usuario&gt; usuarioOpt = usuarioService.buscarPorEmail(request.getEmail());</span>
         
-<span class="fc bfc" id="L664" title="All 2 branches covered.">        if (usuarioOpt.isEmpty()) {</span>
-<span class="fc" id="L665">            return ResponseEntity.ok(Map.of(</span>
+<span class="fc bfc" id="L649" title="All 2 branches covered.">        if (usuarioOpt.isEmpty()) {</span>
+<span class="fc" id="L650">            return ResponseEntity.ok(Map.of(</span>
                 &quot;mensaje&quot;, &quot;Si el email existe, se enviará un código de recuperación&quot;
             ));
         }
         
-<span class="fc" id="L670">        Usuario usuario = usuarioOpt.get();</span>
+<span class="fc" id="L655">        Usuario usuario = usuarioOpt.get();</span>
         
-<span class="pc bpc" id="L672" title="2 of 4 branches missed.">        if (usuario.getTotpEnabled() == null || !usuario.getTotpEnabled()) {</span>
-<span class="nc" id="L673">            throw new BadRequestException(&quot;Este usuario no tiene 2FA habilitado. Contacte al administrador.&quot;);</span>
+<span class="pc bpc" id="L657" title="2 of 4 branches missed.">        if (usuario.getTotpEnabled() == null || !usuario.getTotpEnabled()) {</span>
+<span class="nc" id="L658">            throw new BadRequestException(&quot;Este usuario no tiene 2FA habilitado. Contacte al administrador.&quot;);</span>
         }
         
-<span class="fc" id="L676">        String recoveryCode = recoveryCodeService.generateRecoveryCode();</span>
-<span class="fc" id="L677">        String hashedCode = recoveryCodeService.hashCode(recoveryCode);</span>
+<span class="fc" id="L661">        String recoveryCode = recoveryCodeService.generateRecoveryCode();</span>
+<span class="fc" id="L662">        String hashedCode = recoveryCodeService.hashCode(recoveryCode);</span>
         
-<span class="fc" id="L679">        usuario.setRecoveryCodeHash(hashedCode);</span>
-<span class="fc" id="L680">        usuario.setRecoveryCodeExpiry(recoveryCodeService.getExpiryTime());</span>
-<span class="fc" id="L681">        usuarioService.guardar(usuario);</span>
+<span class="fc" id="L664">        usuario.setRecoveryCodeHash(hashedCode);</span>
+<span class="fc" id="L665">        usuario.setRecoveryCodeExpiry(recoveryCodeService.getExpiryTime());</span>
+<span class="fc" id="L666">        usuarioService.guardar(usuario);</span>
         
-<span class="fc" id="L683">        emailService.enviarCodigoRecuperacion(</span>
-<span class="fc" id="L684">            usuario.getEmail(),</span>
-<span class="fc" id="L685">            usuario.getNombreCompleto(),</span>
+<span class="fc" id="L668">        emailService.enviarCodigoRecuperacion(</span>
+<span class="fc" id="L669">            usuario.getEmail(),</span>
+<span class="fc" id="L670">            usuario.getNombreCompleto(),</span>
             recoveryCode
         );
 
-<span class="fc" id="L689">        return ResponseEntity.ok(Map.of(</span>
+<span class="fc" id="L674">        return ResponseEntity.ok(Map.of(</span>
             &quot;mensaje&quot;, &quot;Código de recuperación enviado a tu email. Válido por 10 minutos.&quot;,
-<span class="fc" id="L691">            &quot;expiresIn&quot;, recoveryCodeService.getExpiryMinutes() + &quot; minutos&quot;</span>
+<span class="fc" id="L676">            &quot;expiresIn&quot;, recoveryCodeService.getExpiryMinutes() + &quot; minutos&quot;</span>
         ));
     }
 
-    @PostMapping(&quot;/reset-password&quot;)
+    @PostMapping(&quot;/restablecer-contrasena&quot;)
     @Operation(summary = &quot;Resetear contraseña&quot;, description = &quot;Resetea la contraseña usando código de recuperación + 2FA&quot;)
     public ResponseEntity&lt;?&gt; resetPassword(@RequestBody ResetPasswordRequestDTO request) {
-<span class="fc" id="L698">        Optional&lt;Usuario&gt; usuarioOpt = usuarioService.buscarPorEmail(request.getEmail());</span>
+<span class="fc" id="L683">        Optional&lt;Usuario&gt; usuarioOpt = usuarioService.buscarPorEmail(request.getEmail());</span>
         
-<span class="pc bpc" id="L700" title="1 of 2 branches missed.">        if (usuarioOpt.isEmpty()) {</span>
-<span class="nc" id="L701">            throw new NotFoundException(&quot;Usuario no encontrado&quot;);</span>
+<span class="pc bpc" id="L685" title="1 of 2 branches missed.">        if (usuarioOpt.isEmpty()) {</span>
+<span class="nc" id="L686">            throw new NotFoundException(&quot;Usuario no encontrado&quot;);</span>
         }
         
-<span class="fc" id="L704">        Usuario usuario = usuarioOpt.get();</span>
+<span class="fc" id="L689">        Usuario usuario = usuarioOpt.get();</span>
         
-<span class="pc bpc" id="L706" title="2 of 4 branches missed.">        if (usuario.getRecoveryCodeHash() == null || usuario.getRecoveryCodeExpiry() == null) {</span>
-<span class="nc" id="L707">            throw new BadRequestException(&quot;No hay código de recuperación activo. Solicita uno nuevo.&quot;);</span>
+<span class="pc bpc" id="L691" title="2 of 4 branches missed.">        if (usuario.getRecoveryCodeHash() == null || usuario.getRecoveryCodeExpiry() == null) {</span>
+<span class="nc" id="L692">            throw new BadRequestException(&quot;No hay código de recuperación activo. Solicita uno nuevo.&quot;);</span>
         }
         
-<span class="fc bfc" id="L710" title="All 2 branches covered.">        if (recoveryCodeService.isExpired(usuario.getRecoveryCodeExpiry())) {</span>
-<span class="fc" id="L711">            usuario.setRecoveryCodeHash(null);</span>
-<span class="fc" id="L712">            usuario.setRecoveryCodeExpiry(null);</span>
-<span class="fc" id="L713">            usuarioService.guardar(usuario);</span>
-<span class="fc" id="L714">            throw new BadRequestException(&quot;Código de recuperación expirado. Solicita uno nuevo.&quot;);</span>
+<span class="fc bfc" id="L695" title="All 2 branches covered.">        if (recoveryCodeService.isExpired(usuario.getRecoveryCodeExpiry())) {</span>
+<span class="fc" id="L696">            usuario.setRecoveryCodeHash(null);</span>
+<span class="fc" id="L697">            usuario.setRecoveryCodeExpiry(null);</span>
+<span class="fc" id="L698">            usuarioService.guardar(usuario);</span>
+<span class="fc" id="L699">            throw new BadRequestException(&quot;Código de recuperación expirado. Solicita uno nuevo.&quot;);</span>
         }
         
-<span class="fc" id="L717">        boolean isRecoveryCodeValid = recoveryCodeService.verifyCode(</span>
-<span class="fc" id="L718">            request.getRecoveryCode(),</span>
-<span class="fc" id="L719">            usuario.getRecoveryCodeHash()</span>
+<span class="fc" id="L702">        boolean isRecoveryCodeValid = recoveryCodeService.verifyCode(</span>
+<span class="fc" id="L703">            request.getRecoveryCode(),</span>
+<span class="fc" id="L704">            usuario.getRecoveryCodeHash()</span>
         );
         
-<span class="pc bpc" id="L722" title="1 of 2 branches missed.">        if (!isRecoveryCodeValid) {</span>
-<span class="nc" id="L723">            throw new BadRequestException(&quot;Código de recuperación inválido&quot;);</span>
+<span class="pc bpc" id="L707" title="1 of 2 branches missed.">        if (!isRecoveryCodeValid) {</span>
+<span class="nc" id="L708">            throw new BadRequestException(&quot;Código de recuperación inválido&quot;);</span>
         }
         
-<span class="fc" id="L726">        boolean is2FAValid = false;</span>
+<span class="fc" id="L711">        boolean is2FAValid = false;</span>
         
-<span class="pc bpc" id="L728" title="2 of 4 branches missed.">        if (request.getTotpCode().length() == 6 &amp;&amp; request.getTotpCode().matches(&quot;\\d+&quot;)) {</span>
-<span class="fc" id="L729">            is2FAValid = totpService.verifyCode(usuario.getTotpSecret(), request.getTotpCode());</span>
+<span class="pc bpc" id="L713" title="2 of 4 branches missed.">        if (request.getTotpCode().length() == 6 &amp;&amp; request.getTotpCode().matches(&quot;\\d+&quot;)) {</span>
+<span class="fc" id="L714">            is2FAValid = totpService.verifyCode(usuario.getTotpSecret(), request.getTotpCode());</span>
         }
         
-<span class="pc bpc" id="L732" title="1 of 4 branches missed.">        if (!is2FAValid &amp;&amp; request.getTotpCode().length() &gt;= 12) {</span>
-<span class="nc" id="L733">            is2FAValid = backupCodeService.verifyAndUseBackupCode(usuario.getUsuarioID(), request.getTotpCode());</span>
+<span class="pc bpc" id="L717" title="1 of 4 branches missed.">        if (!is2FAValid &amp;&amp; request.getTotpCode().length() &gt;= 12) {</span>
+<span class="nc" id="L718">            is2FAValid = backupCodeService.verifyAndUseBackupCode(usuario.getUsuarioID(), request.getTotpCode());</span>
         }
         
-<span class="fc bfc" id="L736" title="All 2 branches covered.">        if (!is2FAValid) {</span>
-<span class="fc" id="L737">            throw new BadRequestException(&quot;Código de autenticación inválido&quot;);</span>
+<span class="fc bfc" id="L721" title="All 2 branches covered.">        if (!is2FAValid) {</span>
+<span class="fc" id="L722">            throw new BadRequestException(&quot;Código de autenticación inválido&quot;);</span>
         }
 
-<span class="fc" id="L740">        usuarioService.cambiarContrasenia(usuario.getUsuarioID(), request.getNewPassword());</span>
+<span class="fc" id="L725">        usuarioService.cambiarContrasenia(usuario.getUsuarioID(), request.getNewPassword());</span>
         
-<span class="fc" id="L742">        usuario.setRecoveryCodeHash(null);</span>
-<span class="fc" id="L743">        usuario.setRecoveryCodeExpiry(null);</span>
-<span class="fc" id="L744">        usuarioService.guardar(usuario);</span>
+<span class="fc" id="L727">        usuario.setRecoveryCodeHash(null);</span>
+<span class="fc" id="L728">        usuario.setRecoveryCodeExpiry(null);</span>
+<span class="fc" id="L729">        usuarioService.guardar(usuario);</span>
         
-<span class="fc" id="L746">        trustedDeviceService.revokeAllUserDevices(usuario.getUsuarioID());</span>
+<span class="fc" id="L731">        trustedDeviceService.revokeAllUserDevices(usuario.getUsuarioID());</span>
 
-<span class="fc" id="L748">        return ResponseEntity.ok(Map.of(</span>
+<span class="fc" id="L733">        return ResponseEntity.ok(Map.of(</span>
             &quot;mensaje&quot;, &quot;Contraseña cambiada exitosamente. Por seguridad, todos tus dispositivos de confianza fueron revocados.&quot;
         ));
     }
 
-    // ============================================
     // ENDPOINTS DE CÓDIGOS DE RESPALDO
-    // ============================================
 
     @PostMapping(&quot;/2fa/backup-codes/regenerate&quot;)
     @PreAuthorize(&quot;hasRole('ADMIN') or hasRole('ANALISTA') or hasRole('OBSERVADOR')&quot;)
@@ -760,33 +743,33 @@ import java.util.Optional;
                description = &quot;Genera un nuevo conjunto de códigos de respaldo, invalidando los anteriores. Requiere código TOTP para seguridad.&quot;)
     @SecurityRequirement(name = &quot;bearerAuth&quot;)
     public ResponseEntity&lt;?&gt; regenerateBackupCodes(@RequestBody Verify2FARequestDTO request) {
-<span class="fc" id="L763">        Integer userId = seguridadService.obtenerUsuarioAutenticado();</span>
-<span class="fc" id="L764">        Optional&lt;Usuario&gt; usuarioOpt = usuarioService.buscarPorId(userId);</span>
+<span class="fc" id="L746">        Integer userId = seguridadService.obtenerUsuarioAutenticado();</span>
+<span class="fc" id="L747">        Optional&lt;Usuario&gt; usuarioOpt = usuarioService.buscarPorId(userId);</span>
         
-<span class="pc bpc" id="L766" title="1 of 2 branches missed.">        if (usuarioOpt.isEmpty()) {</span>
-<span class="nc" id="L767">            throw new NotFoundException(&quot;Usuario no encontrado&quot;);</span>
+<span class="pc bpc" id="L749" title="1 of 2 branches missed.">        if (usuarioOpt.isEmpty()) {</span>
+<span class="nc" id="L750">            throw new NotFoundException(&quot;Usuario no encontrado&quot;);</span>
         }
         
-<span class="fc" id="L770">        Usuario usuario = usuarioOpt.get();</span>
+<span class="fc" id="L753">        Usuario usuario = usuarioOpt.get();</span>
         
-<span class="pc bpc" id="L772" title="1 of 4 branches missed.">        if (usuario.getTotpEnabled() == null || !usuario.getTotpEnabled()) {</span>
-<span class="fc" id="L773">            throw new BadRequestException(&quot;2FA no está habilitado&quot;);</span>
+<span class="pc bpc" id="L755" title="1 of 4 branches missed.">        if (usuario.getTotpEnabled() == null || !usuario.getTotpEnabled()) {</span>
+<span class="fc" id="L756">            throw new BadRequestException(&quot;2FA no está habilitado&quot;);</span>
         }
         
-<span class="fc" id="L776">        boolean isValid = totpService.verifyCode(usuario.getTotpSecret(), request.getTotpCode());</span>
+<span class="fc" id="L759">        boolean isValid = totpService.verifyCode(usuario.getTotpSecret(), request.getTotpCode());</span>
         
-<span class="pc bpc" id="L778" title="1 of 2 branches missed.">        if (!isValid) {</span>
-<span class="nc" id="L779">            throw new BadRequestException(&quot;Código 2FA inválido&quot;);</span>
+<span class="pc bpc" id="L761" title="1 of 2 branches missed.">        if (!isValid) {</span>
+<span class="nc" id="L762">            throw new BadRequestException(&quot;Código 2FA inválido&quot;);</span>
         }
         
-<span class="fc" id="L782">        List&lt;String&gt; backupCodes = backupCodeService.regenerateBackupCodes(userId);</span>
+<span class="fc" id="L765">        List&lt;String&gt; backupCodes = backupCodeService.regenerateBackupCodes(userId);</span>
 
-<span class="fc" id="L784">        Map&lt;String, Object&gt; response = new HashMap&lt;&gt;();</span>
-<span class="fc" id="L785">        response.put(&quot;mensaje&quot;, &quot;Códigos de respaldo regenerados exitosamente. GUARDA estos nuevos códigos, los anteriores fueron invalidados.&quot;);</span>
-<span class="fc" id="L786">        response.put(&quot;backupCodes&quot;, backupCodes);</span>
-<span class="fc" id="L787">        response.put(&quot;totalCodes&quot;, backupCodes.size());</span>
+<span class="fc" id="L767">        Map&lt;String, Object&gt; response = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L768">        response.put(&quot;mensaje&quot;, &quot;Códigos de respaldo regenerados exitosamente. GUARDA estos nuevos códigos, los anteriores fueron invalidados.&quot;);</span>
+<span class="fc" id="L769">        response.put(&quot;backupCodes&quot;, backupCodes);</span>
+<span class="fc" id="L770">        response.put(&quot;totalCodes&quot;, backupCodes.size());</span>
         
-<span class="fc" id="L789">        return ResponseEntity.ok(response);</span>
+<span class="fc" id="L772">        return ResponseEntity.ok(response);</span>
     }
 
     @GetMapping(&quot;/2fa/backup-codes/count&quot;)
@@ -795,32 +778,32 @@ import java.util.Optional;
                description = &quot;Obtiene la cantidad de códigos de respaldo disponibles (no usados)&quot;)
     @SecurityRequirement(name = &quot;bearerAuth&quot;)
     public ResponseEntity&lt;?&gt; getBackupCodesCount() {
-<span class="fc" id="L798">        Integer userId = seguridadService.obtenerUsuarioAutenticado();</span>
-<span class="fc" id="L799">        Optional&lt;Usuario&gt; usuarioOpt = usuarioService.buscarPorId(userId);</span>
+<span class="fc" id="L781">        Integer userId = seguridadService.obtenerUsuarioAutenticado();</span>
+<span class="fc" id="L782">        Optional&lt;Usuario&gt; usuarioOpt = usuarioService.buscarPorId(userId);</span>
         
-<span class="pc bpc" id="L801" title="1 of 2 branches missed.">        if (usuarioOpt.isEmpty()) {</span>
-<span class="nc" id="L802">            throw new NotFoundException(&quot;Usuario no encontrado&quot;);</span>
+<span class="pc bpc" id="L784" title="1 of 2 branches missed.">        if (usuarioOpt.isEmpty()) {</span>
+<span class="nc" id="L785">            throw new NotFoundException(&quot;Usuario no encontrado&quot;);</span>
         }
         
-<span class="fc" id="L805">        Usuario usuario = usuarioOpt.get();</span>
+<span class="fc" id="L788">        Usuario usuario = usuarioOpt.get();</span>
         
-<span class="pc bpc" id="L807" title="2 of 4 branches missed.">        if (usuario.getTotpEnabled() == null || !usuario.getTotpEnabled()) {</span>
-<span class="nc" id="L808">            return ResponseEntity.ok(Map.of(</span>
-<span class="nc" id="L809">                &quot;availableCodes&quot;, 0,</span>
+<span class="pc bpc" id="L790" title="2 of 4 branches missed.">        if (usuario.getTotpEnabled() == null || !usuario.getTotpEnabled()) {</span>
+<span class="nc" id="L791">            return ResponseEntity.ok(Map.of(</span>
+<span class="nc" id="L792">                &quot;availableCodes&quot;, 0,</span>
                 &quot;mensaje&quot;, &quot;2FA no está habilitado&quot;
             ));
         }
         
-<span class="fc" id="L814">        long availableCodes = backupCodeService.getAvailableCodesCount(userId);</span>
+<span class="fc" id="L797">        long availableCodes = backupCodeService.getAvailableCodesCount(userId);</span>
         
-<span class="fc" id="L816">        Map&lt;String, Object&gt; response = new HashMap&lt;&gt;();</span>
-<span class="fc" id="L817">        response.put(&quot;availableCodes&quot;, availableCodes);</span>
+<span class="fc" id="L799">        Map&lt;String, Object&gt; response = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L800">        response.put(&quot;availableCodes&quot;, availableCodes);</span>
         
-<span class="fc bfc" id="L819" title="All 2 branches covered.">        if (availableCodes &lt;= 2) {</span>
-<span class="fc" id="L820">            response.put(&quot;warning&quot;, &quot;Quedan pocos códigos de respaldo. Considera regenerarlos.&quot;);</span>
+<span class="fc bfc" id="L802" title="All 2 branches covered.">        if (availableCodes &lt;= 2) {</span>
+<span class="fc" id="L803">            response.put(&quot;warning&quot;, &quot;Quedan pocos códigos de respaldo. Considera regenerarlos.&quot;);</span>
         }
         
-<span class="fc" id="L823">        return ResponseEntity.ok(response);</span>
+<span class="fc" id="L806">        return ResponseEntity.ok(response);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SeguridadServiceTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.security</a> &gt; <span class="el_source">SeguridadServiceTest.java</span></div><h1>SeguridadServiceTest.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.security;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SeguridadServiceTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.security</a> &gt; <span class="el_source">SeguridadServiceTest.java</span></div><h1>SeguridadServiceTest.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.security;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -24,22 +24,10 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
-/**
- * Tests unitarios para SeguridadService
- * 
- * Funcionalidades testeadas:
- * - Autenticación de usuarios (por nombre o email)
- * - Validaciones de estado de usuario (activo, pendiente, inactivo)
- * - Validación de contraseñas
- * - Obtener usuario autenticado del contexto de seguridad
- * - Listar roles por usuario
- * - Verificar existencia de usuarios
- * - Verificar existencia de emails activos
- * - Actualización de fecha de última conexión
- */
+
 @ExtendWith(MockitoExtension.class)
 @DisplayName(&quot;Tests de SeguridadService&quot;)
-<span class="fc" id="L42">class SeguridadServiceTest {</span>
+<span class="fc" id="L30">class SeguridadServiceTest {</span>
 
     @Mock
     private UsuarioRepository usuarioRepository;
@@ -64,321 +52,321 @@ import static org.mockito.Mockito.*;
     @BeforeEach
     void setUp() {
         // Usuario activo normal
-<span class="fc" id="L67">        usuarioActivo = new Usuario();</span>
-<span class="fc" id="L68">        usuarioActivo.setUsuarioID(1);</span>
-<span class="fc" id="L69">        usuarioActivo.setNombre(&quot;testuser&quot;);</span>
-<span class="fc" id="L70">        usuarioActivo.setEmail(&quot;testuser@inia.org.uy&quot;);</span>
-<span class="fc" id="L71">        usuarioActivo.setNombres(&quot;Test&quot;);</span>
-<span class="fc" id="L72">        usuarioActivo.setApellidos(&quot;User&quot;);</span>
-<span class="fc" id="L73">        usuarioActivo.setContrasenia(&quot;$2a$10$hashedPassword&quot;);</span>
-<span class="fc" id="L74">        usuarioActivo.setRol(Rol.ANALISTA);</span>
-<span class="fc" id="L75">        usuarioActivo.setEstado(EstadoUsuario.ACTIVO);</span>
-<span class="fc" id="L76">        usuarioActivo.setActivo(true);</span>
+<span class="fc" id="L55">        usuarioActivo = new Usuario();</span>
+<span class="fc" id="L56">        usuarioActivo.setUsuarioID(1);</span>
+<span class="fc" id="L57">        usuarioActivo.setNombre(&quot;testuser&quot;);</span>
+<span class="fc" id="L58">        usuarioActivo.setEmail(&quot;testuser@inia.org.uy&quot;);</span>
+<span class="fc" id="L59">        usuarioActivo.setNombres(&quot;Test&quot;);</span>
+<span class="fc" id="L60">        usuarioActivo.setApellidos(&quot;User&quot;);</span>
+<span class="fc" id="L61">        usuarioActivo.setContrasenia(&quot;$2a$10$hashedPassword&quot;);</span>
+<span class="fc" id="L62">        usuarioActivo.setRol(Rol.ANALISTA);</span>
+<span class="fc" id="L63">        usuarioActivo.setEstado(EstadoUsuario.ACTIVO);</span>
+<span class="fc" id="L64">        usuarioActivo.setActivo(true);</span>
 
         // Usuario pendiente de aprobación
-<span class="fc" id="L79">        usuarioPendiente = new Usuario();</span>
-<span class="fc" id="L80">        usuarioPendiente.setUsuarioID(2);</span>
-<span class="fc" id="L81">        usuarioPendiente.setNombre(&quot;pendinguser&quot;);</span>
-<span class="fc" id="L82">        usuarioPendiente.setEmail(&quot;pending@inia.org.uy&quot;);</span>
-<span class="fc" id="L83">        usuarioPendiente.setNombres(&quot;Pending&quot;);</span>
-<span class="fc" id="L84">        usuarioPendiente.setApellidos(&quot;User&quot;);</span>
-<span class="fc" id="L85">        usuarioPendiente.setContrasenia(&quot;$2a$10$hashedPassword&quot;);</span>
-<span class="fc" id="L86">        usuarioPendiente.setRol(Rol.ANALISTA);</span>
-<span class="fc" id="L87">        usuarioPendiente.setEstado(EstadoUsuario.PENDIENTE);</span>
-<span class="fc" id="L88">        usuarioPendiente.setActivo(true);</span>
+<span class="fc" id="L67">        usuarioPendiente = new Usuario();</span>
+<span class="fc" id="L68">        usuarioPendiente.setUsuarioID(2);</span>
+<span class="fc" id="L69">        usuarioPendiente.setNombre(&quot;pendinguser&quot;);</span>
+<span class="fc" id="L70">        usuarioPendiente.setEmail(&quot;pending@inia.org.uy&quot;);</span>
+<span class="fc" id="L71">        usuarioPendiente.setNombres(&quot;Pending&quot;);</span>
+<span class="fc" id="L72">        usuarioPendiente.setApellidos(&quot;User&quot;);</span>
+<span class="fc" id="L73">        usuarioPendiente.setContrasenia(&quot;$2a$10$hashedPassword&quot;);</span>
+<span class="fc" id="L74">        usuarioPendiente.setRol(Rol.ANALISTA);</span>
+<span class="fc" id="L75">        usuarioPendiente.setEstado(EstadoUsuario.PENDIENTE);</span>
+<span class="fc" id="L76">        usuarioPendiente.setActivo(true);</span>
 
         // Usuario inactivo
-<span class="fc" id="L91">        usuarioInactivo = new Usuario();</span>
-<span class="fc" id="L92">        usuarioInactivo.setUsuarioID(3);</span>
-<span class="fc" id="L93">        usuarioInactivo.setNombre(&quot;inactiveuser&quot;);</span>
-<span class="fc" id="L94">        usuarioInactivo.setEmail(&quot;inactive@inia.org.uy&quot;);</span>
-<span class="fc" id="L95">        usuarioInactivo.setNombres(&quot;Inactive&quot;);</span>
-<span class="fc" id="L96">        usuarioInactivo.setApellidos(&quot;User&quot;);</span>
-<span class="fc" id="L97">        usuarioInactivo.setContrasenia(&quot;$2a$10$hashedPassword&quot;);</span>
-<span class="fc" id="L98">        usuarioInactivo.setRol(Rol.ANALISTA);</span>
-<span class="fc" id="L99">        usuarioInactivo.setEstado(EstadoUsuario.INACTIVO);</span>
-<span class="fc" id="L100">        usuarioInactivo.setActivo(false);</span>
+<span class="fc" id="L79">        usuarioInactivo = new Usuario();</span>
+<span class="fc" id="L80">        usuarioInactivo.setUsuarioID(3);</span>
+<span class="fc" id="L81">        usuarioInactivo.setNombre(&quot;inactiveuser&quot;);</span>
+<span class="fc" id="L82">        usuarioInactivo.setEmail(&quot;inactive@inia.org.uy&quot;);</span>
+<span class="fc" id="L83">        usuarioInactivo.setNombres(&quot;Inactive&quot;);</span>
+<span class="fc" id="L84">        usuarioInactivo.setApellidos(&quot;User&quot;);</span>
+<span class="fc" id="L85">        usuarioInactivo.setContrasenia(&quot;$2a$10$hashedPassword&quot;);</span>
+<span class="fc" id="L86">        usuarioInactivo.setRol(Rol.ANALISTA);</span>
+<span class="fc" id="L87">        usuarioInactivo.setEstado(EstadoUsuario.INACTIVO);</span>
+<span class="fc" id="L88">        usuarioInactivo.setActivo(false);</span>
 
         // Admin activo
-<span class="fc" id="L103">        adminActivo = new Usuario();</span>
-<span class="fc" id="L104">        adminActivo.setUsuarioID(4);</span>
-<span class="fc" id="L105">        adminActivo.setNombre(&quot;admin&quot;);</span>
-<span class="fc" id="L106">        adminActivo.setEmail(&quot;admin@inia.org.uy&quot;);</span>
-<span class="fc" id="L107">        adminActivo.setNombres(&quot;Admin&quot;);</span>
-<span class="fc" id="L108">        adminActivo.setApellidos(&quot;User&quot;);</span>
-<span class="fc" id="L109">        adminActivo.setContrasenia(&quot;$2a$10$hashedPassword&quot;);</span>
-<span class="fc" id="L110">        adminActivo.setRol(Rol.ADMIN);</span>
-<span class="fc" id="L111">        adminActivo.setEstado(EstadoUsuario.ACTIVO);</span>
-<span class="fc" id="L112">        adminActivo.setActivo(true);</span>
-<span class="fc" id="L113">    }</span>
+<span class="fc" id="L91">        adminActivo = new Usuario();</span>
+<span class="fc" id="L92">        adminActivo.setUsuarioID(4);</span>
+<span class="fc" id="L93">        adminActivo.setNombre(&quot;admin&quot;);</span>
+<span class="fc" id="L94">        adminActivo.setEmail(&quot;admin@inia.org.uy&quot;);</span>
+<span class="fc" id="L95">        adminActivo.setNombres(&quot;Admin&quot;);</span>
+<span class="fc" id="L96">        adminActivo.setApellidos(&quot;User&quot;);</span>
+<span class="fc" id="L97">        adminActivo.setContrasenia(&quot;$2a$10$hashedPassword&quot;);</span>
+<span class="fc" id="L98">        adminActivo.setRol(Rol.ADMIN);</span>
+<span class="fc" id="L99">        adminActivo.setEstado(EstadoUsuario.ACTIVO);</span>
+<span class="fc" id="L100">        adminActivo.setActivo(true);</span>
+<span class="fc" id="L101">    }</span>
 
     // ========== TESTS DE AUTENTICACIÓN ==========
 
     @Test
     @DisplayName(&quot;autenticarUsuario - debe autenticar correctamente por nombre de usuario&quot;)
     void autenticarUsuario_porNombreUsuario_debeAutenticarCorrectamente() {
-        // ARRANGE
-<span class="fc" id="L121">        when(usuarioRepository.findByNombreIgnoreCase(&quot;testuser&quot;)).thenReturn(Optional.of(usuarioActivo));</span>
-<span class="fc" id="L122">        when(passwordService.matchPassword(&quot;password123&quot;, usuarioActivo.getContrasenia())).thenReturn(true);</span>
-<span class="fc" id="L123">        when(usuarioRepository.save(any(Usuario.class))).thenReturn(usuarioActivo);</span>
+        
+<span class="fc" id="L109">        when(usuarioRepository.findByNombreIgnoreCase(&quot;testuser&quot;)).thenReturn(Optional.of(usuarioActivo));</span>
+<span class="fc" id="L110">        when(passwordService.matchPassword(&quot;password123&quot;, usuarioActivo.getContrasenia())).thenReturn(true);</span>
+<span class="fc" id="L111">        when(usuarioRepository.save(any(Usuario.class))).thenReturn(usuarioActivo);</span>
 
-        // ACT
-<span class="fc" id="L126">        Optional&lt;Usuario&gt; resultado = seguridadService.autenticarUsuario(&quot;testuser&quot;, &quot;password123&quot;);</span>
+        
+<span class="fc" id="L114">        Optional&lt;Usuario&gt; resultado = seguridadService.autenticarUsuario(&quot;testuser&quot;, &quot;password123&quot;);</span>
 
-        // ASSERT
-<span class="fc" id="L129">        assertTrue(resultado.isPresent());</span>
-<span class="fc" id="L130">        assertEquals(usuarioActivo.getUsuarioID(), resultado.get().getUsuarioID());</span>
-<span class="fc" id="L131">        assertEquals(&quot;testuser&quot;, resultado.get().getNombre());</span>
-<span class="fc" id="L132">        verify(usuarioRepository).save(argThat(usuario -&gt; </span>
-<span class="pc bpc" id="L133" title="1 of 2 branches missed.">            usuario.getFechaUltimaConexion() != null</span>
+        
+<span class="fc" id="L117">        assertTrue(resultado.isPresent());</span>
+<span class="fc" id="L118">        assertEquals(usuarioActivo.getUsuarioID(), resultado.get().getUsuarioID());</span>
+<span class="fc" id="L119">        assertEquals(&quot;testuser&quot;, resultado.get().getNombre());</span>
+<span class="fc" id="L120">        verify(usuarioRepository).save(argThat(usuario -&gt; </span>
+<span class="pc bpc" id="L121" title="1 of 2 branches missed.">            usuario.getFechaUltimaConexion() != null</span>
         ));
-<span class="fc" id="L135">    }</span>
+<span class="fc" id="L123">    }</span>
 
     @Test
     @DisplayName(&quot;autenticarUsuario - debe autenticar correctamente por email&quot;)
     void autenticarUsuario_porEmail_debeAutenticarCorrectamente() {
-        // ARRANGE
-<span class="fc" id="L141">        when(usuarioRepository.findByNombreIgnoreCase(&quot;testuser@inia.org.uy&quot;)).thenReturn(Optional.empty());</span>
-<span class="fc" id="L142">        when(usuarioRepository.findByEmailIgnoreCase(&quot;testuser@inia.org.uy&quot;)).thenReturn(Optional.of(usuarioActivo));</span>
-<span class="fc" id="L143">        when(passwordService.matchPassword(&quot;password123&quot;, usuarioActivo.getContrasenia())).thenReturn(true);</span>
-<span class="fc" id="L144">        when(usuarioRepository.save(any(Usuario.class))).thenReturn(usuarioActivo);</span>
+        
+<span class="fc" id="L129">        when(usuarioRepository.findByNombreIgnoreCase(&quot;testuser@inia.org.uy&quot;)).thenReturn(Optional.empty());</span>
+<span class="fc" id="L130">        when(usuarioRepository.findByEmailIgnoreCase(&quot;testuser@inia.org.uy&quot;)).thenReturn(Optional.of(usuarioActivo));</span>
+<span class="fc" id="L131">        when(passwordService.matchPassword(&quot;password123&quot;, usuarioActivo.getContrasenia())).thenReturn(true);</span>
+<span class="fc" id="L132">        when(usuarioRepository.save(any(Usuario.class))).thenReturn(usuarioActivo);</span>
 
-        // ACT
-<span class="fc" id="L147">        Optional&lt;Usuario&gt; resultado = seguridadService.autenticarUsuario(&quot;testuser@inia.org.uy&quot;, &quot;password123&quot;);</span>
+        
+<span class="fc" id="L135">        Optional&lt;Usuario&gt; resultado = seguridadService.autenticarUsuario(&quot;testuser@inia.org.uy&quot;, &quot;password123&quot;);</span>
 
-        // ASSERT
-<span class="fc" id="L150">        assertTrue(resultado.isPresent());</span>
-<span class="fc" id="L151">        assertEquals(usuarioActivo.getUsuarioID(), resultado.get().getUsuarioID());</span>
-<span class="fc" id="L152">        assertEquals(&quot;testuser@inia.org.uy&quot;, resultado.get().getEmail());</span>
-<span class="fc" id="L153">        verify(usuarioRepository).save(any(Usuario.class));</span>
-<span class="fc" id="L154">    }</span>
+        
+<span class="fc" id="L138">        assertTrue(resultado.isPresent());</span>
+<span class="fc" id="L139">        assertEquals(usuarioActivo.getUsuarioID(), resultado.get().getUsuarioID());</span>
+<span class="fc" id="L140">        assertEquals(&quot;testuser@inia.org.uy&quot;, resultado.get().getEmail());</span>
+<span class="fc" id="L141">        verify(usuarioRepository).save(any(Usuario.class));</span>
+<span class="fc" id="L142">    }</span>
 
     @Test
     @DisplayName(&quot;autenticarUsuario - debe ser case-insensitive para nombre de usuario&quot;)
     void autenticarUsuario_caseInsensitive_debeAutenticar() {
-        // ARRANGE
-<span class="fc" id="L160">        when(usuarioRepository.findByNombreIgnoreCase(&quot;TESTUSER&quot;)).thenReturn(Optional.of(usuarioActivo));</span>
-<span class="fc" id="L161">        when(passwordService.matchPassword(&quot;password123&quot;, usuarioActivo.getContrasenia())).thenReturn(true);</span>
-<span class="fc" id="L162">        when(usuarioRepository.save(any(Usuario.class))).thenReturn(usuarioActivo);</span>
+        
+<span class="fc" id="L148">        when(usuarioRepository.findByNombreIgnoreCase(&quot;TESTUSER&quot;)).thenReturn(Optional.of(usuarioActivo));</span>
+<span class="fc" id="L149">        when(passwordService.matchPassword(&quot;password123&quot;, usuarioActivo.getContrasenia())).thenReturn(true);</span>
+<span class="fc" id="L150">        when(usuarioRepository.save(any(Usuario.class))).thenReturn(usuarioActivo);</span>
 
-        // ACT
-<span class="fc" id="L165">        Optional&lt;Usuario&gt; resultado = seguridadService.autenticarUsuario(&quot;TESTUSER&quot;, &quot;password123&quot;);</span>
+        
+<span class="fc" id="L153">        Optional&lt;Usuario&gt; resultado = seguridadService.autenticarUsuario(&quot;TESTUSER&quot;, &quot;password123&quot;);</span>
 
-        // ASSERT
-<span class="fc" id="L168">        assertTrue(resultado.isPresent());</span>
-<span class="fc" id="L169">        verify(usuarioRepository).findByNombreIgnoreCase(&quot;TESTUSER&quot;);</span>
-<span class="fc" id="L170">    }</span>
+        
+<span class="fc" id="L156">        assertTrue(resultado.isPresent());</span>
+<span class="fc" id="L157">        verify(usuarioRepository).findByNombreIgnoreCase(&quot;TESTUSER&quot;);</span>
+<span class="fc" id="L158">    }</span>
 
     @Test
     @DisplayName(&quot;autenticarUsuario - debe ser case-insensitive para email&quot;)
     void autenticarUsuario_emailCaseInsensitive_debeAutenticar() {
-        // ARRANGE
-<span class="fc" id="L176">        when(usuarioRepository.findByNombreIgnoreCase(&quot;TESTUSER@INIA.ORG.UY&quot;)).thenReturn(Optional.empty());</span>
-<span class="fc" id="L177">        when(usuarioRepository.findByEmailIgnoreCase(&quot;TESTUSER@INIA.ORG.UY&quot;)).thenReturn(Optional.of(usuarioActivo));</span>
-<span class="fc" id="L178">        when(passwordService.matchPassword(&quot;password123&quot;, usuarioActivo.getContrasenia())).thenReturn(true);</span>
-<span class="fc" id="L179">        when(usuarioRepository.save(any(Usuario.class))).thenReturn(usuarioActivo);</span>
+        
+<span class="fc" id="L164">        when(usuarioRepository.findByNombreIgnoreCase(&quot;TESTUSER@INIA.ORG.UY&quot;)).thenReturn(Optional.empty());</span>
+<span class="fc" id="L165">        when(usuarioRepository.findByEmailIgnoreCase(&quot;TESTUSER@INIA.ORG.UY&quot;)).thenReturn(Optional.of(usuarioActivo));</span>
+<span class="fc" id="L166">        when(passwordService.matchPassword(&quot;password123&quot;, usuarioActivo.getContrasenia())).thenReturn(true);</span>
+<span class="fc" id="L167">        when(usuarioRepository.save(any(Usuario.class))).thenReturn(usuarioActivo);</span>
 
-        // ACT
-<span class="fc" id="L182">        Optional&lt;Usuario&gt; resultado = seguridadService.autenticarUsuario(&quot;TESTUSER@INIA.ORG.UY&quot;, &quot;password123&quot;);</span>
+        
+<span class="fc" id="L170">        Optional&lt;Usuario&gt; resultado = seguridadService.autenticarUsuario(&quot;TESTUSER@INIA.ORG.UY&quot;, &quot;password123&quot;);</span>
 
-        // ASSERT
-<span class="fc" id="L185">        assertTrue(resultado.isPresent());</span>
-<span class="fc" id="L186">        verify(usuarioRepository).findByEmailIgnoreCase(&quot;TESTUSER@INIA.ORG.UY&quot;);</span>
-<span class="fc" id="L187">    }</span>
+        
+<span class="fc" id="L173">        assertTrue(resultado.isPresent());</span>
+<span class="fc" id="L174">        verify(usuarioRepository).findByEmailIgnoreCase(&quot;TESTUSER@INIA.ORG.UY&quot;);</span>
+<span class="fc" id="L175">    }</span>
 
     @Test
     @DisplayName(&quot;autenticarUsuario - debe actualizar fecha de última conexión&quot;)
     void autenticarUsuario_debeActualizarFechaUltimaConexion() {
-        // ARRANGE
-<span class="fc" id="L193">        LocalDateTime antes = LocalDateTime.now();</span>
-<span class="fc" id="L194">        when(usuarioRepository.findByNombreIgnoreCase(&quot;testuser&quot;)).thenReturn(Optional.of(usuarioActivo));</span>
-<span class="fc" id="L195">        when(passwordService.matchPassword(&quot;password123&quot;, usuarioActivo.getContrasenia())).thenReturn(true);</span>
-<span class="fc" id="L196">        when(usuarioRepository.save(any(Usuario.class))).thenReturn(usuarioActivo);</span>
+        
+<span class="fc" id="L181">        LocalDateTime antes = LocalDateTime.now();</span>
+<span class="fc" id="L182">        when(usuarioRepository.findByNombreIgnoreCase(&quot;testuser&quot;)).thenReturn(Optional.of(usuarioActivo));</span>
+<span class="fc" id="L183">        when(passwordService.matchPassword(&quot;password123&quot;, usuarioActivo.getContrasenia())).thenReturn(true);</span>
+<span class="fc" id="L184">        when(usuarioRepository.save(any(Usuario.class))).thenReturn(usuarioActivo);</span>
 
-        // ACT
-<span class="fc" id="L199">        seguridadService.autenticarUsuario(&quot;testuser&quot;, &quot;password123&quot;);</span>
+        
+<span class="fc" id="L187">        seguridadService.autenticarUsuario(&quot;testuser&quot;, &quot;password123&quot;);</span>
 
-        // ASSERT
-<span class="fc" id="L202">        verify(usuarioRepository).save(argThat(usuario -&gt; {</span>
-<span class="fc" id="L203">            LocalDateTime fechaConexion = usuario.getFechaUltimaConexion();</span>
-<span class="pc bpc" id="L204" title="1 of 2 branches missed.">            return fechaConexion != null &amp;&amp; </span>
-<span class="pc bpc" id="L205" title="3 of 4 branches missed.">                   (fechaConexion.isEqual(antes) || fechaConexion.isAfter(antes));</span>
+        
+<span class="fc" id="L190">        verify(usuarioRepository).save(argThat(usuario -&gt; {</span>
+<span class="fc" id="L191">            LocalDateTime fechaConexion = usuario.getFechaUltimaConexion();</span>
+<span class="pc bpc" id="L192" title="1 of 2 branches missed.">            return fechaConexion != null &amp;&amp; </span>
+<span class="pc bpc" id="L193" title="3 of 4 branches missed.">                   (fechaConexion.isEqual(antes) || fechaConexion.isAfter(antes));</span>
         }));
-<span class="fc" id="L207">    }</span>
+<span class="fc" id="L195">    }</span>
 
     // ========== TESTS DE VALIDACIONES DE USUARIO ==========
 
     @Test
     @DisplayName(&quot;autenticarUsuario - usuario no encontrado debe lanzar USUARIO_INCORRECTO&quot;)
     void autenticarUsuario_usuarioNoEncontrado_debeLanzarExcepcion() {
-        // ARRANGE
-<span class="fc" id="L215">        when(usuarioRepository.findByNombreIgnoreCase(&quot;noexiste&quot;)).thenReturn(Optional.empty());</span>
-<span class="fc" id="L216">        when(usuarioRepository.findByEmailIgnoreCase(&quot;noexiste&quot;)).thenReturn(Optional.empty());</span>
-
-        // ACT &amp; ASSERT
-<span class="fc" id="L219">        RuntimeException exception = assertThrows(RuntimeException.class, () -&gt; </span>
-<span class="nc" id="L220">            seguridadService.autenticarUsuario(&quot;noexiste&quot;, &quot;password123&quot;));</span>
         
-<span class="fc" id="L222">        assertEquals(&quot;USUARIO_INCORRECTO&quot;, exception.getMessage());</span>
-<span class="fc" id="L223">        verify(usuarioRepository, never()).save(any(Usuario.class));</span>
-<span class="fc" id="L224">    }</span>
+<span class="fc" id="L203">        when(usuarioRepository.findByNombreIgnoreCase(&quot;noexiste&quot;)).thenReturn(Optional.empty());</span>
+<span class="fc" id="L204">        when(usuarioRepository.findByEmailIgnoreCase(&quot;noexiste&quot;)).thenReturn(Optional.empty());</span>
+
+        
+<span class="fc" id="L207">        RuntimeException exception = assertThrows(RuntimeException.class, () -&gt; </span>
+<span class="nc" id="L208">            seguridadService.autenticarUsuario(&quot;noexiste&quot;, &quot;password123&quot;));</span>
+        
+<span class="fc" id="L210">        assertEquals(&quot;USUARIO_INCORRECTO&quot;, exception.getMessage());</span>
+<span class="fc" id="L211">        verify(usuarioRepository, never()).save(any(Usuario.class));</span>
+<span class="fc" id="L212">    }</span>
 
     @Test
     @DisplayName(&quot;autenticarUsuario - usuario inactivo (campo legacy) debe lanzar USUARIO_INACTIVO&quot;)
     void autenticarUsuario_usuarioInactivoLegacy_debeLanzarExcepcion() {
-        // ARRANGE
-<span class="fc" id="L230">        usuarioActivo.setActivo(false);</span>
-<span class="fc" id="L231">        when(usuarioRepository.findByNombreIgnoreCase(&quot;testuser&quot;)).thenReturn(Optional.of(usuarioActivo));</span>
-
-        // ACT &amp; ASSERT
-<span class="fc" id="L234">        RuntimeException exception = assertThrows(RuntimeException.class, () -&gt; </span>
-<span class="nc" id="L235">            seguridadService.autenticarUsuario(&quot;testuser&quot;, &quot;password123&quot;));</span>
         
-<span class="fc" id="L237">        assertEquals(&quot;USUARIO_INACTIVO&quot;, exception.getMessage());</span>
-<span class="fc" id="L238">        verify(passwordService, never()).matchPassword(anyString(), anyString());</span>
-<span class="fc" id="L239">    }</span>
+<span class="fc" id="L218">        usuarioActivo.setActivo(false);</span>
+<span class="fc" id="L219">        when(usuarioRepository.findByNombreIgnoreCase(&quot;testuser&quot;)).thenReturn(Optional.of(usuarioActivo));</span>
+
+        
+<span class="fc" id="L222">        RuntimeException exception = assertThrows(RuntimeException.class, () -&gt; </span>
+<span class="nc" id="L223">            seguridadService.autenticarUsuario(&quot;testuser&quot;, &quot;password123&quot;));</span>
+        
+<span class="fc" id="L225">        assertEquals(&quot;USUARIO_INACTIVO&quot;, exception.getMessage());</span>
+<span class="fc" id="L226">        verify(passwordService, never()).matchPassword(anyString(), anyString());</span>
+<span class="fc" id="L227">    }</span>
 
     @Test
     @DisplayName(&quot;autenticarUsuario - usuario pendiente debe lanzar USUARIO_PENDIENTE_APROBACION&quot;)
     void autenticarUsuario_usuarioPendiente_debeLanzarExcepcion() {
-        // ARRANGE
-<span class="fc" id="L245">        when(usuarioRepository.findByNombreIgnoreCase(&quot;pendinguser&quot;)).thenReturn(Optional.of(usuarioPendiente));</span>
-
-        // ACT &amp; ASSERT
-<span class="fc" id="L248">        RuntimeException exception = assertThrows(RuntimeException.class, () -&gt; </span>
-<span class="nc" id="L249">            seguridadService.autenticarUsuario(&quot;pendinguser&quot;, &quot;password123&quot;));</span>
         
-<span class="fc" id="L251">        assertEquals(&quot;USUARIO_PENDIENTE_APROBACION&quot;, exception.getMessage());</span>
-<span class="fc" id="L252">        verify(passwordService, never()).matchPassword(anyString(), anyString());</span>
-<span class="fc" id="L253">    }</span>
+<span class="fc" id="L233">        when(usuarioRepository.findByNombreIgnoreCase(&quot;pendinguser&quot;)).thenReturn(Optional.of(usuarioPendiente));</span>
+
+        
+<span class="fc" id="L236">        RuntimeException exception = assertThrows(RuntimeException.class, () -&gt; </span>
+<span class="nc" id="L237">            seguridadService.autenticarUsuario(&quot;pendinguser&quot;, &quot;password123&quot;));</span>
+        
+<span class="fc" id="L239">        assertEquals(&quot;USUARIO_PENDIENTE_APROBACION&quot;, exception.getMessage());</span>
+<span class="fc" id="L240">        verify(passwordService, never()).matchPassword(anyString(), anyString());</span>
+<span class="fc" id="L241">    }</span>
 
     @Test
     @DisplayName(&quot;autenticarUsuario - usuario con estado INACTIVO debe lanzar USUARIO_INACTIVO&quot;)
     void autenticarUsuario_estadoInactivo_debeLanzarExcepcion() {
-        // ARRANGE
-<span class="fc" id="L259">        when(usuarioRepository.findByNombreIgnoreCase(&quot;inactiveuser&quot;)).thenReturn(Optional.of(usuarioInactivo));</span>
-
-        // ACT &amp; ASSERT
-<span class="fc" id="L262">        RuntimeException exception = assertThrows(RuntimeException.class, () -&gt; </span>
-<span class="nc" id="L263">            seguridadService.autenticarUsuario(&quot;inactiveuser&quot;, &quot;password123&quot;));</span>
         
-<span class="fc" id="L265">        assertEquals(&quot;USUARIO_INACTIVO&quot;, exception.getMessage());</span>
-<span class="fc" id="L266">        verify(passwordService, never()).matchPassword(anyString(), anyString());</span>
-<span class="fc" id="L267">    }</span>
+<span class="fc" id="L247">        when(usuarioRepository.findByNombreIgnoreCase(&quot;inactiveuser&quot;)).thenReturn(Optional.of(usuarioInactivo));</span>
+
+        
+<span class="fc" id="L250">        RuntimeException exception = assertThrows(RuntimeException.class, () -&gt; </span>
+<span class="nc" id="L251">            seguridadService.autenticarUsuario(&quot;inactiveuser&quot;, &quot;password123&quot;));</span>
+        
+<span class="fc" id="L253">        assertEquals(&quot;USUARIO_INACTIVO&quot;, exception.getMessage());</span>
+<span class="fc" id="L254">        verify(passwordService, never()).matchPassword(anyString(), anyString());</span>
+<span class="fc" id="L255">    }</span>
 
     @Test
     @DisplayName(&quot;autenticarUsuario - usuario sin rol debe lanzar USUARIO_SIN_ROL&quot;)
     void autenticarUsuario_usuarioSinRol_debeLanzarExcepcion() {
-        // ARRANGE
-<span class="fc" id="L273">        usuarioActivo.setRol(null);</span>
-<span class="fc" id="L274">        when(usuarioRepository.findByNombreIgnoreCase(&quot;testuser&quot;)).thenReturn(Optional.of(usuarioActivo));</span>
-
-        // ACT &amp; ASSERT
-<span class="fc" id="L277">        RuntimeException exception = assertThrows(RuntimeException.class, () -&gt; </span>
-<span class="nc" id="L278">            seguridadService.autenticarUsuario(&quot;testuser&quot;, &quot;password123&quot;));</span>
         
-<span class="fc" id="L280">        assertEquals(&quot;USUARIO_SIN_ROL&quot;, exception.getMessage());</span>
-<span class="fc" id="L281">        verify(passwordService, never()).matchPassword(anyString(), anyString());</span>
-<span class="fc" id="L282">    }</span>
+<span class="fc" id="L261">        usuarioActivo.setRol(null);</span>
+<span class="fc" id="L262">        when(usuarioRepository.findByNombreIgnoreCase(&quot;testuser&quot;)).thenReturn(Optional.of(usuarioActivo));</span>
+
+        
+<span class="fc" id="L265">        RuntimeException exception = assertThrows(RuntimeException.class, () -&gt; </span>
+<span class="nc" id="L266">            seguridadService.autenticarUsuario(&quot;testuser&quot;, &quot;password123&quot;));</span>
+        
+<span class="fc" id="L268">        assertEquals(&quot;USUARIO_SIN_ROL&quot;, exception.getMessage());</span>
+<span class="fc" id="L269">        verify(passwordService, never()).matchPassword(anyString(), anyString());</span>
+<span class="fc" id="L270">    }</span>
 
     @Test
     @DisplayName(&quot;autenticarUsuario - contraseña incorrecta debe lanzar CONTRASENIA_INCORRECTA&quot;)
     void autenticarUsuario_contraseniaIncorrecta_debeLanzarExcepcion() {
-        // ARRANGE
-<span class="fc" id="L288">        when(usuarioRepository.findByNombreIgnoreCase(&quot;testuser&quot;)).thenReturn(Optional.of(usuarioActivo));</span>
-<span class="fc" id="L289">        when(passwordService.matchPassword(&quot;wrongpassword&quot;, usuarioActivo.getContrasenia())).thenReturn(false);</span>
-
-        // ACT &amp; ASSERT
-<span class="fc" id="L292">        RuntimeException exception = assertThrows(RuntimeException.class, () -&gt; </span>
-<span class="nc" id="L293">            seguridadService.autenticarUsuario(&quot;testuser&quot;, &quot;wrongpassword&quot;));</span>
         
-<span class="fc" id="L295">        assertEquals(&quot;CONTRASENIA_INCORRECTA&quot;, exception.getMessage());</span>
-<span class="fc" id="L296">        verify(usuarioRepository, never()).save(any(Usuario.class));</span>
-<span class="fc" id="L297">    }</span>
+<span class="fc" id="L276">        when(usuarioRepository.findByNombreIgnoreCase(&quot;testuser&quot;)).thenReturn(Optional.of(usuarioActivo));</span>
+<span class="fc" id="L277">        when(passwordService.matchPassword(&quot;wrongpassword&quot;, usuarioActivo.getContrasenia())).thenReturn(false);</span>
+
+        
+<span class="fc" id="L280">        RuntimeException exception = assertThrows(RuntimeException.class, () -&gt; </span>
+<span class="nc" id="L281">            seguridadService.autenticarUsuario(&quot;testuser&quot;, &quot;wrongpassword&quot;));</span>
+        
+<span class="fc" id="L283">        assertEquals(&quot;CONTRASENIA_INCORRECTA&quot;, exception.getMessage());</span>
+<span class="fc" id="L284">        verify(usuarioRepository, never()).save(any(Usuario.class));</span>
+<span class="fc" id="L285">    }</span>
 
     // ========== TESTS DE OBTENER USUARIO AUTENTICADO ==========
 
     @Test
     @DisplayName(&quot;obtenerUsuarioAutenticado - debe retornar ID del usuario autenticado por nombre&quot;)
     void obtenerUsuarioAutenticado_porNombre_debeRetornarID() {
-        // ARRANGE
-<span class="fc" id="L305">        SecurityContextHolder.setContext(securityContext);</span>
-<span class="fc" id="L306">        when(securityContext.getAuthentication()).thenReturn(authentication);</span>
-<span class="fc" id="L307">        when(authentication.getName()).thenReturn(&quot;testuser&quot;);</span>
-<span class="fc" id="L308">        when(usuarioRepository.findByNombre(&quot;testuser&quot;)).thenReturn(Optional.of(usuarioActivo));</span>
+        
+<span class="fc" id="L293">        SecurityContextHolder.setContext(securityContext);</span>
+<span class="fc" id="L294">        when(securityContext.getAuthentication()).thenReturn(authentication);</span>
+<span class="fc" id="L295">        when(authentication.getName()).thenReturn(&quot;testuser&quot;);</span>
+<span class="fc" id="L296">        when(usuarioRepository.findByNombre(&quot;testuser&quot;)).thenReturn(Optional.of(usuarioActivo));</span>
 
-        // ACT
-<span class="fc" id="L311">        Integer usuarioId = seguridadService.obtenerUsuarioAutenticado();</span>
+        
+<span class="fc" id="L299">        Integer usuarioId = seguridadService.obtenerUsuarioAutenticado();</span>
 
-        // ASSERT
-<span class="fc" id="L314">        assertEquals(1, usuarioId);</span>
-<span class="fc" id="L315">        verify(usuarioRepository).findByNombre(&quot;testuser&quot;);</span>
-<span class="fc" id="L316">    }</span>
+        
+<span class="fc" id="L302">        assertEquals(1, usuarioId);</span>
+<span class="fc" id="L303">        verify(usuarioRepository).findByNombre(&quot;testuser&quot;);</span>
+<span class="fc" id="L304">    }</span>
 
     @Test
     @DisplayName(&quot;obtenerUsuarioAutenticado - debe retornar ID del usuario autenticado por email&quot;)
     void obtenerUsuarioAutenticado_porEmail_debeRetornarID() {
-        // ARRANGE
-<span class="fc" id="L322">        SecurityContextHolder.setContext(securityContext);</span>
-<span class="fc" id="L323">        when(securityContext.getAuthentication()).thenReturn(authentication);</span>
-<span class="fc" id="L324">        when(authentication.getName()).thenReturn(&quot;testuser@inia.org.uy&quot;);</span>
-<span class="fc" id="L325">        when(usuarioRepository.findByNombre(&quot;testuser@inia.org.uy&quot;)).thenReturn(Optional.empty());</span>
-<span class="fc" id="L326">        when(usuarioRepository.findByEmail(&quot;testuser@inia.org.uy&quot;)).thenReturn(Optional.of(usuarioActivo));</span>
+        
+<span class="fc" id="L310">        SecurityContextHolder.setContext(securityContext);</span>
+<span class="fc" id="L311">        when(securityContext.getAuthentication()).thenReturn(authentication);</span>
+<span class="fc" id="L312">        when(authentication.getName()).thenReturn(&quot;testuser@inia.org.uy&quot;);</span>
+<span class="fc" id="L313">        when(usuarioRepository.findByNombre(&quot;testuser@inia.org.uy&quot;)).thenReturn(Optional.empty());</span>
+<span class="fc" id="L314">        when(usuarioRepository.findByEmail(&quot;testuser@inia.org.uy&quot;)).thenReturn(Optional.of(usuarioActivo));</span>
 
-        // ACT
-<span class="fc" id="L329">        Integer usuarioId = seguridadService.obtenerUsuarioAutenticado();</span>
+        
+<span class="fc" id="L317">        Integer usuarioId = seguridadService.obtenerUsuarioAutenticado();</span>
 
-        // ASSERT
-<span class="fc" id="L332">        assertEquals(1, usuarioId);</span>
-<span class="fc" id="L333">        verify(usuarioRepository).findByNombre(&quot;testuser@inia.org.uy&quot;);</span>
-<span class="fc" id="L334">        verify(usuarioRepository).findByEmail(&quot;testuser@inia.org.uy&quot;);</span>
-<span class="fc" id="L335">    }</span>
+        
+<span class="fc" id="L320">        assertEquals(1, usuarioId);</span>
+<span class="fc" id="L321">        verify(usuarioRepository).findByNombre(&quot;testuser@inia.org.uy&quot;);</span>
+<span class="fc" id="L322">        verify(usuarioRepository).findByEmail(&quot;testuser@inia.org.uy&quot;);</span>
+<span class="fc" id="L323">    }</span>
 
     @Test
     @DisplayName(&quot;obtenerUsuarioAutenticado - sin autenticación debe lanzar excepción&quot;)
     void obtenerUsuarioAutenticado_sinAutenticacion_debeLanzarExcepcion() {
-        // ARRANGE
-<span class="fc" id="L341">        SecurityContextHolder.setContext(securityContext);</span>
-<span class="fc" id="L342">        when(securityContext.getAuthentication()).thenReturn(null);</span>
-
-        // ACT &amp; ASSERT
-<span class="fc" id="L345">        RuntimeException exception = assertThrows(RuntimeException.class, () -&gt; </span>
-<span class="nc" id="L346">            seguridadService.obtenerUsuarioAutenticado());</span>
         
-<span class="fc" id="L348">        assertEquals(&quot;No hay usuario autenticado&quot;, exception.getMessage());</span>
-<span class="fc" id="L349">    }</span>
+<span class="fc" id="L329">        SecurityContextHolder.setContext(securityContext);</span>
+<span class="fc" id="L330">        when(securityContext.getAuthentication()).thenReturn(null);</span>
+
+        
+<span class="fc" id="L333">        RuntimeException exception = assertThrows(RuntimeException.class, () -&gt; </span>
+<span class="nc" id="L334">            seguridadService.obtenerUsuarioAutenticado());</span>
+        
+<span class="fc" id="L336">        assertEquals(&quot;No hay usuario autenticado&quot;, exception.getMessage());</span>
+<span class="fc" id="L337">    }</span>
 
     @Test
     @DisplayName(&quot;obtenerUsuarioAutenticado - authentication sin nombre debe lanzar excepción&quot;)
     void obtenerUsuarioAutenticado_authenticationSinNombre_debeLanzarExcepcion() {
-        // ARRANGE
-<span class="fc" id="L355">        SecurityContextHolder.setContext(securityContext);</span>
-<span class="fc" id="L356">        when(securityContext.getAuthentication()).thenReturn(authentication);</span>
-<span class="fc" id="L357">        when(authentication.getName()).thenReturn(null);</span>
-
-        // ACT &amp; ASSERT
-<span class="fc" id="L360">        RuntimeException exception = assertThrows(RuntimeException.class, () -&gt; </span>
-<span class="nc" id="L361">            seguridadService.obtenerUsuarioAutenticado());</span>
         
-<span class="fc" id="L363">        assertEquals(&quot;No hay usuario autenticado&quot;, exception.getMessage());</span>
-<span class="fc" id="L364">    }</span>
+<span class="fc" id="L343">        SecurityContextHolder.setContext(securityContext);</span>
+<span class="fc" id="L344">        when(securityContext.getAuthentication()).thenReturn(authentication);</span>
+<span class="fc" id="L345">        when(authentication.getName()).thenReturn(null);</span>
+
+        
+<span class="fc" id="L348">        RuntimeException exception = assertThrows(RuntimeException.class, () -&gt; </span>
+<span class="nc" id="L349">            seguridadService.obtenerUsuarioAutenticado());</span>
+        
+<span class="fc" id="L351">        assertEquals(&quot;No hay usuario autenticado&quot;, exception.getMessage());</span>
+<span class="fc" id="L352">    }</span>
 
     @Test
     @DisplayName(&quot;obtenerUsuarioAutenticado - usuario no encontrado en BD debe lanzar excepción&quot;)
     void obtenerUsuarioAutenticado_usuarioNoEnBD_debeLanzarExcepcion() {
-        // ARRANGE
-<span class="fc" id="L370">        SecurityContextHolder.setContext(securityContext);</span>
-<span class="fc" id="L371">        when(securityContext.getAuthentication()).thenReturn(authentication);</span>
-<span class="fc" id="L372">        when(authentication.getName()).thenReturn(&quot;noexiste&quot;);</span>
-<span class="fc" id="L373">        when(usuarioRepository.findByNombre(&quot;noexiste&quot;)).thenReturn(Optional.empty());</span>
-<span class="fc" id="L374">        when(usuarioRepository.findByEmail(&quot;noexiste&quot;)).thenReturn(Optional.empty());</span>
-
-        // ACT &amp; ASSERT
-<span class="fc" id="L377">        RuntimeException exception = assertThrows(RuntimeException.class, () -&gt; </span>
-<span class="nc" id="L378">            seguridadService.obtenerUsuarioAutenticado());</span>
         
-<span class="fc" id="L380">        assertEquals(&quot;Usuario autenticado no encontrado en base de datos&quot;, exception.getMessage());</span>
-<span class="fc" id="L381">    }</span>
+<span class="fc" id="L358">        SecurityContextHolder.setContext(securityContext);</span>
+<span class="fc" id="L359">        when(securityContext.getAuthentication()).thenReturn(authentication);</span>
+<span class="fc" id="L360">        when(authentication.getName()).thenReturn(&quot;noexiste&quot;);</span>
+<span class="fc" id="L361">        when(usuarioRepository.findByNombre(&quot;noexiste&quot;)).thenReturn(Optional.empty());</span>
+<span class="fc" id="L362">        when(usuarioRepository.findByEmail(&quot;noexiste&quot;)).thenReturn(Optional.empty());</span>
+
+        
+<span class="fc" id="L365">        RuntimeException exception = assertThrows(RuntimeException.class, () -&gt; </span>
+<span class="nc" id="L366">            seguridadService.obtenerUsuarioAutenticado());</span>
+        
+<span class="fc" id="L368">        assertEquals(&quot;Usuario autenticado no encontrado en base de datos&quot;, exception.getMessage());</span>
+<span class="fc" id="L369">    }</span>
 
     // ========== TESTS DE LISTAR ROLES ==========
 
@@ -388,198 +376,198 @@ import static org.mockito.Mockito.*;
         // ARRANGE - Usuario con rol ANALISTA tiene roles [&quot;ANALISTA&quot;]
         // (asumiendo que Usuario.getRoles() retorna una lista de strings basada en el rol)
 
-        // ACT
-<span class="fc" id="L392">        String[] roles = seguridadService.listarRolesPorUsuario(usuarioActivo);</span>
+        
+<span class="fc" id="L380">        String[] roles = seguridadService.listarRolesPorUsuario(usuarioActivo);</span>
 
-        // ASSERT
-<span class="fc" id="L395">        assertNotNull(roles);</span>
-<span class="pc bpc" id="L396" title="1 of 2 branches missed.">        assertTrue(roles.length &gt; 0);</span>
-<span class="fc" id="L397">    }</span>
+        
+<span class="fc" id="L383">        assertNotNull(roles);</span>
+<span class="pc bpc" id="L384" title="1 of 2 branches missed.">        assertTrue(roles.length &gt; 0);</span>
+<span class="fc" id="L385">    }</span>
 
     @Test
     @DisplayName(&quot;listarRolesPorUsuario - admin debe tener roles de administrador&quot;)
     void listarRolesPorUsuario_admin_debeTenerRolesAdmin() {
         // ARRANGE - Admin puede tener múltiples roles
 
-        // ACT
-<span class="fc" id="L405">        String[] roles = seguridadService.listarRolesPorUsuario(adminActivo);</span>
+        
+<span class="fc" id="L393">        String[] roles = seguridadService.listarRolesPorUsuario(adminActivo);</span>
 
-        // ASSERT
-<span class="fc" id="L408">        assertNotNull(roles);</span>
-<span class="pc bpc" id="L409" title="1 of 2 branches missed.">        assertTrue(roles.length &gt; 0);</span>
-<span class="fc" id="L410">    }</span>
+        
+<span class="fc" id="L396">        assertNotNull(roles);</span>
+<span class="pc bpc" id="L397" title="1 of 2 branches missed.">        assertTrue(roles.length &gt; 0);</span>
+<span class="fc" id="L398">    }</span>
 
     @Test
     @DisplayName(&quot;listarRolesPorUsuario - debe retornar array vacío si no tiene roles&quot;)
     void listarRolesPorUsuario_sinRoles_debeRetornarArrayVacio() {
-        // ARRANGE
-<span class="fc" id="L416">        Usuario usuarioSinRoles = new Usuario();</span>
-<span class="fc" id="L417">        usuarioSinRoles.setUsuarioID(99);</span>
-<span class="fc" id="L418">        usuarioSinRoles.setNombre(&quot;sinroles&quot;);</span>
+        
+<span class="fc" id="L404">        Usuario usuarioSinRoles = new Usuario();</span>
+<span class="fc" id="L405">        usuarioSinRoles.setUsuarioID(99);</span>
+<span class="fc" id="L406">        usuarioSinRoles.setNombre(&quot;sinroles&quot;);</span>
         // getRoles() debería retornar lista vacía si no hay rol configurado
 
-        // ACT
-<span class="fc" id="L422">        String[] roles = seguridadService.listarRolesPorUsuario(usuarioSinRoles);</span>
+        
+<span class="fc" id="L410">        String[] roles = seguridadService.listarRolesPorUsuario(usuarioSinRoles);</span>
 
-        // ASSERT
-<span class="fc" id="L425">        assertNotNull(roles);</span>
+        
+<span class="fc" id="L413">        assertNotNull(roles);</span>
         // El array existe aunque esté vacío
-<span class="fc" id="L427">    }</span>
+<span class="fc" id="L415">    }</span>
 
     // ========== TESTS DE EXISTENCIA DE USUARIO ==========
 
     @Test
     @DisplayName(&quot;existeUsuario - debe retornar true si el usuario existe&quot;)
     void existeUsuario_usuarioExiste_debeRetornarTrue() {
-        // ARRANGE
-<span class="fc" id="L435">        when(usuarioRepository.findByNombreIgnoreCase(&quot;testuser&quot;)).thenReturn(Optional.of(usuarioActivo));</span>
+        
+<span class="fc" id="L423">        when(usuarioRepository.findByNombreIgnoreCase(&quot;testuser&quot;)).thenReturn(Optional.of(usuarioActivo));</span>
 
-        // ACT
-<span class="fc" id="L438">        boolean existe = seguridadService.existeUsuario(&quot;testuser&quot;);</span>
+        
+<span class="fc" id="L426">        boolean existe = seguridadService.existeUsuario(&quot;testuser&quot;);</span>
 
-        // ASSERT
-<span class="fc" id="L441">        assertTrue(existe);</span>
-<span class="fc" id="L442">        verify(usuarioRepository).findByNombreIgnoreCase(&quot;testuser&quot;);</span>
-<span class="fc" id="L443">    }</span>
+        
+<span class="fc" id="L429">        assertTrue(existe);</span>
+<span class="fc" id="L430">        verify(usuarioRepository).findByNombreIgnoreCase(&quot;testuser&quot;);</span>
+<span class="fc" id="L431">    }</span>
 
     @Test
     @DisplayName(&quot;existeUsuario - debe retornar false si el usuario no existe&quot;)
     void existeUsuario_usuarioNoExiste_debeRetornarFalse() {
-        // ARRANGE
-<span class="fc" id="L449">        when(usuarioRepository.findByNombreIgnoreCase(&quot;noexiste&quot;)).thenReturn(Optional.empty());</span>
+        
+<span class="fc" id="L437">        when(usuarioRepository.findByNombreIgnoreCase(&quot;noexiste&quot;)).thenReturn(Optional.empty());</span>
 
-        // ACT
-<span class="fc" id="L452">        boolean existe = seguridadService.existeUsuario(&quot;noexiste&quot;);</span>
+        
+<span class="fc" id="L440">        boolean existe = seguridadService.existeUsuario(&quot;noexiste&quot;);</span>
 
-        // ASSERT
-<span class="fc" id="L455">        assertFalse(existe);</span>
-<span class="fc" id="L456">        verify(usuarioRepository).findByNombreIgnoreCase(&quot;noexiste&quot;);</span>
-<span class="fc" id="L457">    }</span>
+        
+<span class="fc" id="L443">        assertFalse(existe);</span>
+<span class="fc" id="L444">        verify(usuarioRepository).findByNombreIgnoreCase(&quot;noexiste&quot;);</span>
+<span class="fc" id="L445">    }</span>
 
     @Test
     @DisplayName(&quot;existeUsuario - debe ser case-insensitive&quot;)
     void existeUsuario_caseInsensitive_debeRetornarTrue() {
-        // ARRANGE
-<span class="fc" id="L463">        when(usuarioRepository.findByNombreIgnoreCase(&quot;TESTUSER&quot;)).thenReturn(Optional.of(usuarioActivo));</span>
+        
+<span class="fc" id="L451">        when(usuarioRepository.findByNombreIgnoreCase(&quot;TESTUSER&quot;)).thenReturn(Optional.of(usuarioActivo));</span>
 
-        // ACT
-<span class="fc" id="L466">        boolean existe = seguridadService.existeUsuario(&quot;TESTUSER&quot;);</span>
+        
+<span class="fc" id="L454">        boolean existe = seguridadService.existeUsuario(&quot;TESTUSER&quot;);</span>
 
-        // ASSERT
-<span class="fc" id="L469">        assertTrue(existe);</span>
-<span class="fc" id="L470">        verify(usuarioRepository).findByNombreIgnoreCase(&quot;TESTUSER&quot;);</span>
-<span class="fc" id="L471">    }</span>
+        
+<span class="fc" id="L457">        assertTrue(existe);</span>
+<span class="fc" id="L458">        verify(usuarioRepository).findByNombreIgnoreCase(&quot;TESTUSER&quot;);</span>
+<span class="fc" id="L459">    }</span>
 
     // ========== TESTS DE EXISTENCIA DE EMAIL ==========
 
     @Test
     @DisplayName(&quot;existeEmailActivo - debe retornar true si el email existe&quot;)
     void existeEmailActivo_emailExiste_debeRetornarTrue() {
-        // ARRANGE
-<span class="fc" id="L479">        when(usuarioRepository.findByEmailIgnoreCase(&quot;testuser@inia.org.uy&quot;))</span>
-<span class="fc" id="L480">            .thenReturn(Optional.of(usuarioActivo));</span>
+        
+<span class="fc" id="L467">        when(usuarioRepository.findByEmailIgnoreCase(&quot;testuser@inia.org.uy&quot;))</span>
+<span class="fc" id="L468">            .thenReturn(Optional.of(usuarioActivo));</span>
 
-        // ACT
-<span class="fc" id="L483">        boolean existe = seguridadService.existeEmailActivo(&quot;testuser@inia.org.uy&quot;);</span>
+        
+<span class="fc" id="L471">        boolean existe = seguridadService.existeEmailActivo(&quot;testuser@inia.org.uy&quot;);</span>
 
-        // ASSERT
-<span class="fc" id="L486">        assertTrue(existe);</span>
-<span class="fc" id="L487">        verify(usuarioRepository).findByEmailIgnoreCase(&quot;testuser@inia.org.uy&quot;);</span>
-<span class="fc" id="L488">    }</span>
+        
+<span class="fc" id="L474">        assertTrue(existe);</span>
+<span class="fc" id="L475">        verify(usuarioRepository).findByEmailIgnoreCase(&quot;testuser@inia.org.uy&quot;);</span>
+<span class="fc" id="L476">    }</span>
 
     @Test
     @DisplayName(&quot;existeEmailActivo - debe retornar false si el email no existe&quot;)
     void existeEmailActivo_emailNoExiste_debeRetornarFalse() {
-        // ARRANGE
-<span class="fc" id="L494">        when(usuarioRepository.findByEmailIgnoreCase(&quot;noexiste@inia.org.uy&quot;))</span>
-<span class="fc" id="L495">            .thenReturn(Optional.empty());</span>
+        
+<span class="fc" id="L482">        when(usuarioRepository.findByEmailIgnoreCase(&quot;noexiste@inia.org.uy&quot;))</span>
+<span class="fc" id="L483">            .thenReturn(Optional.empty());</span>
 
-        // ACT
-<span class="fc" id="L498">        boolean existe = seguridadService.existeEmailActivo(&quot;noexiste@inia.org.uy&quot;);</span>
+        
+<span class="fc" id="L486">        boolean existe = seguridadService.existeEmailActivo(&quot;noexiste@inia.org.uy&quot;);</span>
 
-        // ASSERT
-<span class="fc" id="L501">        assertFalse(existe);</span>
-<span class="fc" id="L502">        verify(usuarioRepository).findByEmailIgnoreCase(&quot;noexiste@inia.org.uy&quot;);</span>
-<span class="fc" id="L503">    }</span>
+        
+<span class="fc" id="L489">        assertFalse(existe);</span>
+<span class="fc" id="L490">        verify(usuarioRepository).findByEmailIgnoreCase(&quot;noexiste@inia.org.uy&quot;);</span>
+<span class="fc" id="L491">    }</span>
 
     @Test
     @DisplayName(&quot;existeEmailActivo - debe ser case-insensitive&quot;)
     void existeEmailActivo_caseInsensitive_debeRetornarTrue() {
-        // ARRANGE
-<span class="fc" id="L509">        when(usuarioRepository.findByEmailIgnoreCase(&quot;TESTUSER@INIA.ORG.UY&quot;))</span>
-<span class="fc" id="L510">            .thenReturn(Optional.of(usuarioActivo));</span>
+        
+<span class="fc" id="L497">        when(usuarioRepository.findByEmailIgnoreCase(&quot;TESTUSER@INIA.ORG.UY&quot;))</span>
+<span class="fc" id="L498">            .thenReturn(Optional.of(usuarioActivo));</span>
 
-        // ACT
-<span class="fc" id="L513">        boolean existe = seguridadService.existeEmailActivo(&quot;TESTUSER@INIA.ORG.UY&quot;);</span>
+        
+<span class="fc" id="L501">        boolean existe = seguridadService.existeEmailActivo(&quot;TESTUSER@INIA.ORG.UY&quot;);</span>
 
-        // ASSERT
-<span class="fc" id="L516">        assertTrue(existe);</span>
-<span class="fc" id="L517">        verify(usuarioRepository).findByEmailIgnoreCase(&quot;TESTUSER@INIA.ORG.UY&quot;);</span>
-<span class="fc" id="L518">    }</span>
+        
+<span class="fc" id="L504">        assertTrue(existe);</span>
+<span class="fc" id="L505">        verify(usuarioRepository).findByEmailIgnoreCase(&quot;TESTUSER@INIA.ORG.UY&quot;);</span>
+<span class="fc" id="L506">    }</span>
 
     @Test
     @DisplayName(&quot;existeEmailActivo - debe encontrar emails con diferentes mayúsculas/minúsculas&quot;)
     void existeEmailActivo_diferentesMayusculas_debeRetornarTrue() {
-        // ARRANGE
-<span class="fc" id="L524">        when(usuarioRepository.findByEmailIgnoreCase(&quot;TestUser@INIA.org.UY&quot;))</span>
-<span class="fc" id="L525">            .thenReturn(Optional.of(usuarioActivo));</span>
+        
+<span class="fc" id="L512">        when(usuarioRepository.findByEmailIgnoreCase(&quot;TestUser@INIA.org.UY&quot;))</span>
+<span class="fc" id="L513">            .thenReturn(Optional.of(usuarioActivo));</span>
 
-        // ACT
-<span class="fc" id="L528">        boolean existe = seguridadService.existeEmailActivo(&quot;TestUser@INIA.org.UY&quot;);</span>
+        
+<span class="fc" id="L516">        boolean existe = seguridadService.existeEmailActivo(&quot;TestUser@INIA.org.UY&quot;);</span>
 
-        // ASSERT
-<span class="fc" id="L531">        assertTrue(existe);</span>
-<span class="fc" id="L532">        verify(usuarioRepository).findByEmailIgnoreCase(&quot;TestUser@INIA.org.UY&quot;);</span>
-<span class="fc" id="L533">    }</span>
+        
+<span class="fc" id="L519">        assertTrue(existe);</span>
+<span class="fc" id="L520">        verify(usuarioRepository).findByEmailIgnoreCase(&quot;TestUser@INIA.org.UY&quot;);</span>
+<span class="fc" id="L521">    }</span>
 
     // ========== TESTS DE INTEGRACIÓN DE FLUJO COMPLETO ==========
 
     @Test
     @DisplayName(&quot;Flujo completo - autenticar admin y verificar todos sus datos&quot;)
     void flujoCompleto_autenticarAdmin_debeVerificarTodosSusDatos() {
-        // ARRANGE
-<span class="fc" id="L541">        when(usuarioRepository.findByNombreIgnoreCase(&quot;admin&quot;)).thenReturn(Optional.of(adminActivo));</span>
-<span class="fc" id="L542">        when(passwordService.matchPassword(&quot;admin123&quot;, adminActivo.getContrasenia())).thenReturn(true);</span>
-<span class="fc" id="L543">        when(usuarioRepository.save(any(Usuario.class))).thenReturn(adminActivo);</span>
+        
+<span class="fc" id="L529">        when(usuarioRepository.findByNombreIgnoreCase(&quot;admin&quot;)).thenReturn(Optional.of(adminActivo));</span>
+<span class="fc" id="L530">        when(passwordService.matchPassword(&quot;admin123&quot;, adminActivo.getContrasenia())).thenReturn(true);</span>
+<span class="fc" id="L531">        when(usuarioRepository.save(any(Usuario.class))).thenReturn(adminActivo);</span>
 
-        // ACT
-<span class="fc" id="L546">        Optional&lt;Usuario&gt; resultado = seguridadService.autenticarUsuario(&quot;admin&quot;, &quot;admin123&quot;);</span>
+        
+<span class="fc" id="L534">        Optional&lt;Usuario&gt; resultado = seguridadService.autenticarUsuario(&quot;admin&quot;, &quot;admin123&quot;);</span>
 
-        // ASSERT
-<span class="fc" id="L549">        assertTrue(resultado.isPresent());</span>
-<span class="fc" id="L550">        Usuario admin = resultado.get();</span>
-<span class="fc" id="L551">        assertEquals(4, admin.getUsuarioID());</span>
-<span class="fc" id="L552">        assertEquals(&quot;admin&quot;, admin.getNombre());</span>
-<span class="fc" id="L553">        assertEquals(&quot;admin@inia.org.uy&quot;, admin.getEmail());</span>
-<span class="fc" id="L554">        assertEquals(Rol.ADMIN, admin.getRol());</span>
-<span class="fc" id="L555">        assertEquals(EstadoUsuario.ACTIVO, admin.getEstado());</span>
-<span class="fc" id="L556">        assertTrue(admin.getActivo());</span>
+        
+<span class="fc" id="L537">        assertTrue(resultado.isPresent());</span>
+<span class="fc" id="L538">        Usuario admin = resultado.get();</span>
+<span class="fc" id="L539">        assertEquals(4, admin.getUsuarioID());</span>
+<span class="fc" id="L540">        assertEquals(&quot;admin&quot;, admin.getNombre());</span>
+<span class="fc" id="L541">        assertEquals(&quot;admin@inia.org.uy&quot;, admin.getEmail());</span>
+<span class="fc" id="L542">        assertEquals(Rol.ADMIN, admin.getRol());</span>
+<span class="fc" id="L543">        assertEquals(EstadoUsuario.ACTIVO, admin.getEstado());</span>
+<span class="fc" id="L544">        assertTrue(admin.getActivo());</span>
         
         // Verificar que se llamó a listarRolesPorUsuario
-<span class="fc" id="L559">        String[] roles = seguridadService.listarRolesPorUsuario(admin);</span>
-<span class="fc" id="L560">        assertNotNull(roles);</span>
-<span class="fc" id="L561">    }</span>
+<span class="fc" id="L547">        String[] roles = seguridadService.listarRolesPorUsuario(admin);</span>
+<span class="fc" id="L548">        assertNotNull(roles);</span>
+<span class="fc" id="L549">    }</span>
 
     @Test
     @DisplayName(&quot;Flujo completo - verificar existencia de usuario y email antes de autenticar&quot;)
     void flujoCompleto_verificarExistenciaAntesDeAutenticar() {
-        // ARRANGE
-<span class="fc" id="L567">        when(usuarioRepository.findByNombreIgnoreCase(&quot;testuser&quot;)).thenReturn(Optional.of(usuarioActivo));</span>
-<span class="fc" id="L568">        when(usuarioRepository.findByEmailIgnoreCase(&quot;testuser@inia.org.uy&quot;))</span>
-<span class="fc" id="L569">            .thenReturn(Optional.of(usuarioActivo));</span>
-<span class="fc" id="L570">        when(passwordService.matchPassword(&quot;password123&quot;, usuarioActivo.getContrasenia())).thenReturn(true);</span>
-<span class="fc" id="L571">        when(usuarioRepository.save(any(Usuario.class))).thenReturn(usuarioActivo);</span>
+        
+<span class="fc" id="L555">        when(usuarioRepository.findByNombreIgnoreCase(&quot;testuser&quot;)).thenReturn(Optional.of(usuarioActivo));</span>
+<span class="fc" id="L556">        when(usuarioRepository.findByEmailIgnoreCase(&quot;testuser@inia.org.uy&quot;))</span>
+<span class="fc" id="L557">            .thenReturn(Optional.of(usuarioActivo));</span>
+<span class="fc" id="L558">        when(passwordService.matchPassword(&quot;password123&quot;, usuarioActivo.getContrasenia())).thenReturn(true);</span>
+<span class="fc" id="L559">        when(usuarioRepository.save(any(Usuario.class))).thenReturn(usuarioActivo);</span>
 
-        // ACT
-<span class="fc" id="L574">        boolean existeUsuario = seguridadService.existeUsuario(&quot;testuser&quot;);</span>
-<span class="fc" id="L575">        boolean existeEmail = seguridadService.existeEmailActivo(&quot;testuser@inia.org.uy&quot;);</span>
-<span class="fc" id="L576">        Optional&lt;Usuario&gt; autenticado = seguridadService.autenticarUsuario(&quot;testuser&quot;, &quot;password123&quot;);</span>
+        
+<span class="fc" id="L562">        boolean existeUsuario = seguridadService.existeUsuario(&quot;testuser&quot;);</span>
+<span class="fc" id="L563">        boolean existeEmail = seguridadService.existeEmailActivo(&quot;testuser@inia.org.uy&quot;);</span>
+<span class="fc" id="L564">        Optional&lt;Usuario&gt; autenticado = seguridadService.autenticarUsuario(&quot;testuser&quot;, &quot;password123&quot;);</span>
 
-        // ASSERT
-<span class="fc" id="L579">        assertTrue(existeUsuario, &quot;El usuario debe existir&quot;);</span>
-<span class="fc" id="L580">        assertTrue(existeEmail, &quot;El email debe existir&quot;);</span>
-<span class="fc" id="L581">        assertTrue(autenticado.isPresent(), &quot;La autenticación debe ser exitosa&quot;);</span>
-<span class="fc" id="L582">        assertEquals(usuarioActivo.getUsuarioID(), autenticado.get().getUsuarioID());</span>
-<span class="fc" id="L583">    }</span>
+        
+<span class="fc" id="L567">        assertTrue(existeUsuario, &quot;El usuario debe existir&quot;);</span>
+<span class="fc" id="L568">        assertTrue(existeEmail, &quot;El email debe existir&quot;);</span>
+<span class="fc" id="L569">        assertTrue(autenticado.isPresent(), &quot;La autenticación debe ser exitosa&quot;);</span>
+<span class="fc" id="L570">        assertEquals(usuarioActivo.getUsuarioID(), autenticado.get().getUsuarioID());</span>
+<span class="fc" id="L571">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

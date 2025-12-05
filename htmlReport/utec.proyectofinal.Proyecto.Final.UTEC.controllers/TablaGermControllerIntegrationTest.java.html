@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TablaGermControllerIntegrationTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.controllers</a> &gt; <span class="el_source">TablaGermControllerIntegrationTest.java</span></div><h1>TablaGermControllerIntegrationTest.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.controllers;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TablaGermControllerIntegrationTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.controllers</a> &gt; <span class="el_source">TablaGermControllerIntegrationTest.java</span></div><h1>TablaGermControllerIntegrationTest.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -153,7 +153,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 <span class="fc" id="L153">            .thenReturn(tablaGermDTO);</span>
 
 <span class="fc" id="L155">        mockMvc.perform(get(&quot;/api/germinacion/{germinacionId}/tabla/{tablaId}&quot;, </span>
-                GERMINACION_ID, TABLA_ID)
+<span class="fc" id="L156">                GERMINACION_ID, TABLA_ID)</span>
 <span class="fc" id="L157">                .with(csrf()))</span>
 <span class="fc" id="L158">                .andExpect(status().isOk())</span>
 <span class="fc" id="L159">                .andExpect(jsonPath(&quot;$.tablaGermID&quot;).value(TABLA_ID));</span>
@@ -181,7 +181,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 <span class="fc" id="L181">            any(TablaGermRequestDTO.class))).thenReturn(tablaGermDTO);</span>
 
 <span class="fc" id="L183">        mockMvc.perform(put(&quot;/api/germinacion/{germinacionId}/tabla/{tablaId}&quot;, </span>
-                GERMINACION_ID, TABLA_ID)
+<span class="fc" id="L184">                GERMINACION_ID, TABLA_ID)</span>
 <span class="fc" id="L185">                .with(csrf())</span>
 <span class="fc" id="L186">                .contentType(MediaType.APPLICATION_JSON)</span>
 <span class="fc" id="L187">                .content(objectMapper.writeValueAsString(tablaGermRequestDTO)))</span>
@@ -196,7 +196,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 <span class="fc" id="L196">        doNothing().when(tablaGermService).eliminarTablaGerm(TABLA_ID);</span>
 
 <span class="fc" id="L198">        mockMvc.perform(delete(&quot;/api/germinacion/{germinacionId}/tabla/{tablaId}&quot;, </span>
-                GERMINACION_ID, TABLA_ID)
+<span class="fc" id="L199">                GERMINACION_ID, TABLA_ID)</span>
 <span class="fc" id="L200">                .with(csrf()))</span>
 <span class="fc" id="L201">                .andExpect(status().isNoContent());</span>
 <span class="fc" id="L202">    }</span>
@@ -211,7 +211,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 <span class="fc" id="L211">            .thenReturn(tablaGermDTO);</span>
 
 <span class="fc" id="L213">        mockMvc.perform(put(&quot;/api/germinacion/{germinacionId}/tabla/{tablaId}/finalizar&quot;, </span>
-                GERMINACION_ID, TABLA_ID)
+<span class="fc" id="L214">                GERMINACION_ID, TABLA_ID)</span>
 <span class="fc" id="L215">                .with(csrf()))</span>
 <span class="fc" id="L216">                .andExpect(status().isOk())</span>
 <span class="fc" id="L217">                .andExpect(jsonPath(&quot;$.finalizada&quot;).value(true))</span>
@@ -226,7 +226,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 <span class="fc" id="L226">            .thenThrow(new RuntimeException(&quot;No se puede finalizar sin completar todas las repeticiones&quot;));</span>
 
 <span class="fc" id="L228">        mockMvc.perform(put(&quot;/api/germinacion/{germinacionId}/tabla/{tablaId}/finalizar&quot;, </span>
-                GERMINACION_ID, TABLA_ID)
+<span class="fc" id="L229">                GERMINACION_ID, TABLA_ID)</span>
 <span class="fc" id="L230">                .with(csrf()))</span>
 <span class="fc" id="L231">                .andExpect(status().isBadRequest());</span>
 <span class="fc" id="L232">    }</span>
@@ -239,7 +239,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 <span class="fc" id="L239">            .thenReturn(true);</span>
 
 <span class="fc" id="L241">        mockMvc.perform(get(&quot;/api/germinacion/{germinacionId}/tabla/{tablaId}/puede-ingresar-porcentajes&quot;, </span>
-                GERMINACION_ID, TABLA_ID)
+<span class="fc" id="L242">                GERMINACION_ID, TABLA_ID)</span>
 <span class="fc" id="L243">                .with(csrf()))</span>
 <span class="fc" id="L244">                .andExpect(status().isOk())</span>
 <span class="fc" id="L245">                .andExpect(content().string(&quot;true&quot;));</span>
@@ -261,7 +261,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 <span class="fc" id="L261">            any(PorcentajesRedondeoRequestDTO.class))).thenReturn(tablaGermDTO);</span>
 
 <span class="fc" id="L263">        mockMvc.perform(put(&quot;/api/germinacion/{germinacionId}/tabla/{tablaId}/porcentajes&quot;, </span>
-                GERMINACION_ID, TABLA_ID)
+<span class="fc" id="L264">                GERMINACION_ID, TABLA_ID)</span>
 <span class="fc" id="L265">                .with(csrf())</span>
 <span class="fc" id="L266">                .contentType(MediaType.APPLICATION_JSON)</span>
 <span class="fc" id="L267">                .content(objectMapper.writeValueAsString(porcentajesDTO)))</span>
@@ -286,7 +286,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 <span class="fc" id="L286">            .thenThrow(new RuntimeException(&quot;La suma de porcentajes debe ser 100&quot;));</span>
 
 <span class="fc" id="L288">        mockMvc.perform(put(&quot;/api/germinacion/{germinacionId}/tabla/{tablaId}/porcentajes&quot;, </span>
-                GERMINACION_ID, TABLA_ID)
+<span class="fc" id="L289">                GERMINACION_ID, TABLA_ID)</span>
 <span class="fc" id="L290">                .with(csrf())</span>
 <span class="fc" id="L291">                .contentType(MediaType.APPLICATION_JSON)</span>
 <span class="fc" id="L292">                .content(objectMapper.writeValueAsString(porcentajesDTO)))</span>
@@ -304,7 +304,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 <span class="fc" id="L304">        doNothing().when(tablaGermService).eliminarTablaGerm(TABLA_ID);</span>
 
 <span class="fc" id="L306">        mockMvc.perform(delete(&quot;/api/germinacion/{germinacionId}/tabla/{tablaId}&quot;, </span>
-                GERMINACION_ID, TABLA_ID)
+<span class="fc" id="L307">                GERMINACION_ID, TABLA_ID)</span>
 <span class="fc" id="L308">                .with(csrf()))</span>
 <span class="fc" id="L309">                .andExpect(status().isNoContent());</span>
 <span class="fc" id="L310">    }</span>
@@ -329,7 +329,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 <span class="fc" id="L329">            .thenThrow(new RuntimeException(&quot;Error verificando permisos&quot;));</span>
 
 <span class="fc" id="L331">        mockMvc.perform(get(&quot;/api/germinacion/{germinacionId}/tabla/{tablaId}/puede-ingresar-porcentajes&quot;, </span>
-                GERMINACION_ID, TABLA_ID)
+<span class="fc" id="L332">                GERMINACION_ID, TABLA_ID)</span>
 <span class="fc" id="L333">                .with(csrf()))</span>
 <span class="fc" id="L334">                .andExpect(status().isInternalServerError());</span>
 <span class="fc" id="L335">    }</span>

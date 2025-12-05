@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AnalisisHistorialService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">AnalisisHistorialService.java</span></div><h1>AnalisisHistorialService.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AnalisisHistorialService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">AnalisisHistorialService.java</span></div><h1>AnalisisHistorialService.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -25,89 +25,77 @@ import utec.proyectofinal.Proyecto.Final.UTEC.dtos.response.AnalisisHistorialDTO
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    /**
-     * Registrar automáticamente cuando se crea un análisis
-     */
+    
     @Transactional
     public void registrarCreacion(Analisis analisis) {
-<span class="fc" id="L33">        registrarAccion(analisis, &quot;CREACION&quot;);</span>
-<span class="fc" id="L34">    }</span>
+<span class="fc" id="L31">        registrarAccion(analisis, &quot;CREACION&quot;);</span>
+<span class="fc" id="L32">    }</span>
 
-    /**
-     * Registrar automáticamente cuando se modifica un análisis
-     */
+    
     @Transactional
     public void registrarModificacion(Analisis analisis) {
-<span class="fc" id="L41">        registrarAccion(analisis, &quot;MODIFICACION&quot;);</span>
-<span class="fc" id="L42">    }</span>
+<span class="fc" id="L37">        registrarAccion(analisis, &quot;MODIFICACION&quot;);</span>
+<span class="fc" id="L38">    }</span>
 
-    /**
-     * Método privado para registrar una acción en el historial
-     */
+    
     private void registrarAccion(Analisis analisis, String accion) {
         try {
-            // Obtener usuario actual del contexto de seguridad
-<span class="fc" id="L50">            String username = SecurityContextHolder.getContext().getAuthentication().getName();</span>
-<span class="fc" id="L51">            Usuario usuario = usuarioRepository.findByNombreIgnoreCase(username)</span>
-<span class="fc" id="L52">                .orElse(null);</span>
+            
+<span class="fc" id="L44">            String username = SecurityContextHolder.getContext().getAuthentication().getName();</span>
+<span class="fc" id="L45">            Usuario usuario = usuarioRepository.findByNombreIgnoreCase(username)</span>
+<span class="fc" id="L46">                .orElse(null);</span>
 
-<span class="fc bfc" id="L54" title="All 2 branches covered.">            if (usuario != null) {</span>
-<span class="fc" id="L55">                AnalisisHistorial historial = new AnalisisHistorial();</span>
-<span class="fc" id="L56">                historial.setAnalisis(analisis);</span>
-<span class="fc" id="L57">                historial.setUsuario(usuario);</span>
-<span class="fc" id="L58">                historial.setFechaHora(LocalDateTime.now());</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">            if (usuario != null) {</span>
+<span class="fc" id="L49">                AnalisisHistorial historial = new AnalisisHistorial();</span>
+<span class="fc" id="L50">                historial.setAnalisis(analisis);</span>
+<span class="fc" id="L51">                historial.setUsuario(usuario);</span>
+<span class="fc" id="L52">                historial.setFechaHora(LocalDateTime.now());</span>
                 
-<span class="fc" id="L60">                analisisHistorialRepository.save(historial);</span>
+<span class="fc" id="L54">                analisisHistorialRepository.save(historial);</span>
             }
-<span class="fc" id="L62">        } catch (Exception e) {</span>
-            // Log error pero no interrumpir el flujo principal
-<span class="fc" id="L64">            System.err.println(&quot;Error registrando historial de análisis: &quot; + e.getMessage());</span>
-        }
-<span class="fc" id="L66">    }</span>
+<span class="fc" id="L56">        } catch (Exception e) {</span>
+            
+<span class="fc" id="L58">            System.err.println(&quot;Error registrando historial de análisis: &quot; + e.getMessage());</span>
+<span class="fc" id="L59">        }</span>
+<span class="fc" id="L60">    }</span>
 
-    /**
-     * Obtener historial de un análisis específico
-     */
+    
     public List&lt;AnalisisHistorialDTO&gt; obtenerHistorialAnalisis(Long analisisId) {
-<span class="fc" id="L72">        List&lt;AnalisisHistorial&gt; historial = analisisHistorialRepository</span>
-<span class="fc" id="L73">            .findByAnalisisIdOrderByFechaHoraDesc(analisisId);</span>
+<span class="fc" id="L64">        List&lt;AnalisisHistorial&gt; historial = analisisHistorialRepository</span>
+<span class="fc" id="L65">            .findByAnalisisIdOrderByFechaHoraDesc(analisisId);</span>
         
-<span class="fc" id="L75">        return historial.stream()</span>
-<span class="fc" id="L76">            .map(this::mapearEntidadADTO)</span>
-<span class="fc" id="L77">            .collect(Collectors.toList());</span>
+<span class="fc" id="L67">        return historial.stream()</span>
+<span class="fc" id="L68">            .map(this::mapearEntidadADTO)</span>
+<span class="fc" id="L69">            .collect(Collectors.toList());</span>
     }
 
-    /**
-     * Obtener historial de análisis por usuario
-     */
+    
     public List&lt;AnalisisHistorialDTO&gt; obtenerHistorialUsuario(Integer usuarioId) {
-<span class="fc" id="L84">        List&lt;AnalisisHistorial&gt; historial = analisisHistorialRepository</span>
-<span class="fc" id="L85">            .findByUsuarioIdOrderByFechaHoraDesc(usuarioId);</span>
+<span class="fc" id="L74">        List&lt;AnalisisHistorial&gt; historial = analisisHistorialRepository</span>
+<span class="fc" id="L75">            .findByUsuarioIdOrderByFechaHoraDesc(usuarioId);</span>
         
-<span class="fc" id="L87">        return historial.stream()</span>
-<span class="fc" id="L88">            .map(this::mapearEntidadADTO)</span>
-<span class="fc" id="L89">            .collect(Collectors.toList());</span>
+<span class="fc" id="L77">        return historial.stream()</span>
+<span class="fc" id="L78">            .map(this::mapearEntidadADTO)</span>
+<span class="fc" id="L79">            .collect(Collectors.toList());</span>
     }
 
-    /**
-     * Mapear entidad a DTO
-     */
+    
     private AnalisisHistorialDTO mapearEntidadADTO(AnalisisHistorial historial) {
-<span class="fc" id="L96">        AnalisisHistorialDTO dto = new AnalisisHistorialDTO();</span>
-<span class="fc" id="L97">        dto.setId(historial.getId());</span>
-<span class="fc" id="L98">        dto.setUsuario(historial.getUsuario().getNombres() + &quot; &quot; + historial.getUsuario().getApellidos());</span>
-<span class="fc" id="L99">        dto.setFechaHora(historial.getFechaHora());</span>
+<span class="fc" id="L84">        AnalisisHistorialDTO dto = new AnalisisHistorialDTO();</span>
+<span class="fc" id="L85">        dto.setId(historial.getId());</span>
+<span class="fc" id="L86">        dto.setUsuario(historial.getUsuario().getNombres() + &quot; &quot; + historial.getUsuario().getApellidos());</span>
+<span class="fc" id="L87">        dto.setFechaHora(historial.getFechaHora());</span>
         
-        // Determinar la acción basándose en la fecha (primera entrada = creación, resto = modificación)
-<span class="fc" id="L102">        List&lt;AnalisisHistorial&gt; todosRegistros = analisisHistorialRepository</span>
-<span class="fc" id="L103">            .findByAnalisisIdOrderByFechaHoraDesc(historial.getAnalisis().getAnalisisID());</span>
         
-<span class="pc bpc" id="L105" title="1 of 2 branches missed.">        boolean esCreacion = todosRegistros.size() &gt; 0 &amp;&amp; </span>
-<span class="pc bpc" id="L106" title="1 of 2 branches missed.">            todosRegistros.get(todosRegistros.size() - 1).getId().equals(historial.getId());</span>
+<span class="fc" id="L90">        List&lt;AnalisisHistorial&gt; todosRegistros = analisisHistorialRepository</span>
+<span class="fc" id="L91">            .findByAnalisisIdOrderByFechaHoraDesc(historial.getAnalisis().getAnalisisID());</span>
         
-<span class="pc bpc" id="L108" title="1 of 2 branches missed.">        dto.setAccion(esCreacion ? &quot;CREACION&quot; : &quot;MODIFICACION&quot;);</span>
+<span class="pc bpc" id="L93" title="1 of 2 branches missed.">        boolean esCreacion = todosRegistros.size() &gt; 0 &amp;&amp; </span>
+<span class="pc bpc" id="L94" title="1 of 2 branches missed.">            todosRegistros.get(todosRegistros.size() - 1).getId().equals(historial.getId());</span>
         
-<span class="fc" id="L110">        return dto;</span>
+<span class="pc bpc" id="L96" title="1 of 2 branches missed.">        dto.setAccion(esCreacion ? &quot;CREACION&quot; : &quot;MODIFICACION&quot;);</span>
+        
+<span class="fc" id="L98">        return dto;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

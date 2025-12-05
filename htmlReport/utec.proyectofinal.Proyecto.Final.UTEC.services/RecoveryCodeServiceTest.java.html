@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RecoveryCodeServiceTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">RecoveryCodeServiceTest.java</span></div><h1>RecoveryCodeServiceTest.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RecoveryCodeServiceTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">RecoveryCodeServiceTest.java</span></div><h1>RecoveryCodeServiceTest.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -10,412 +10,403 @@ import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * Tests unitarios para RecoveryCodeService
- * 
- * Funcionalidades testeadas:
- * - Generación de códigos de recuperación aleatorios
- * - Hashing de códigos para almacenamiento seguro
- * - Verificación de códigos
- * - Validación de formato
- * - Expiración de códigos (10 minutos)
- */
+
 @ExtendWith(MockitoExtension.class)
 @DisplayName(&quot;Tests de RecoveryCodeService (Códigos de Recuperación)&quot;)
-<span class="fc" id="L25">class RecoveryCodeServiceTest {</span>
+<span class="fc" id="L16">class RecoveryCodeServiceTest {</span>
 
     private RecoveryCodeService recoveryCodeService;
 
     @BeforeEach
     void setUp() {
-<span class="fc" id="L31">        recoveryCodeService = new RecoveryCodeService();</span>
-<span class="fc" id="L32">    }</span>
+<span class="fc" id="L22">        recoveryCodeService = new RecoveryCodeService();</span>
+<span class="fc" id="L23">    }</span>
 
     @Test
     @DisplayName(&quot;Generar código - debe retornar código de 9 caracteres con guion&quot;)
     void generateRecoveryCode_debeRetornarFormatoCorrecto() {
-        // ACT
-<span class="fc" id="L38">        String code = recoveryCodeService.generateRecoveryCode();</span>
+        
+<span class="fc" id="L29">        String code = recoveryCodeService.generateRecoveryCode();</span>
 
-        // ASSERT
-<span class="fc" id="L41">        assertNotNull(code, &quot;El código no debe ser nulo&quot;);</span>
-<span class="fc" id="L42">        assertEquals(9, code.length(), &quot;El código debe tener 9 caracteres (8 + guion)&quot;);</span>
-<span class="fc" id="L43">        assertTrue(code.contains(&quot;-&quot;), &quot;El código debe contener un guion&quot;);</span>
-<span class="fc" id="L44">        assertEquals(4, code.indexOf(&quot;-&quot;), &quot;El guion debe estar en la posición 4&quot;);</span>
-<span class="fc" id="L45">    }</span>
+        
+<span class="fc" id="L32">        assertNotNull(code, &quot;El código no debe ser nulo&quot;);</span>
+<span class="fc" id="L33">        assertEquals(9, code.length(), &quot;El código debe tener 9 caracteres (8 + guion)&quot;);</span>
+<span class="fc" id="L34">        assertTrue(code.contains(&quot;-&quot;), &quot;El código debe contener un guion&quot;);</span>
+<span class="fc" id="L35">        assertEquals(4, code.indexOf(&quot;-&quot;), &quot;El guion debe estar en la posición 4&quot;);</span>
+<span class="fc" id="L36">    }</span>
 
     @Test
     @DisplayName(&quot;Generar código - debe usar solo caracteres válidos&quot;)
     void generateRecoveryCode_debeUsarCaracteresValidos() {
-        // ARRANGE
-<span class="fc" id="L51">        String validChars = &quot;ABCDEFGHJKLMNPQRSTUVWXYZ23456789&quot;;</span>
+        
+<span class="fc" id="L42">        String validChars = &quot;ABCDEFGHJKLMNPQRSTUVWXYZ23456789&quot;;</span>
 
-        // ACT
-<span class="fc" id="L54">        String code = recoveryCodeService.generateRecoveryCode();</span>
-<span class="fc" id="L55">        String codeWithoutDash = code.replace(&quot;-&quot;, &quot;&quot;);</span>
+        
+<span class="fc" id="L45">        String code = recoveryCodeService.generateRecoveryCode();</span>
+<span class="fc" id="L46">        String codeWithoutDash = code.replace(&quot;-&quot;, &quot;&quot;);</span>
 
-        // ASSERT
-<span class="fc bfc" id="L58" title="All 2 branches covered.">        for (char c : codeWithoutDash.toCharArray()) {</span>
-<span class="pc bpc" id="L59" title="1 of 2 branches missed.">            assertTrue(validChars.indexOf(c) &gt;= 0, </span>
-<span class="fc" id="L60">                &quot;El carácter '&quot; + c + &quot;' debe estar en el conjunto válido&quot;);</span>
+        
+<span class="fc bfc" id="L49" title="All 2 branches covered.">        for (char c : codeWithoutDash.toCharArray()) {</span>
+<span class="pc bpc" id="L50" title="1 of 2 branches missed.">            assertTrue(validChars.indexOf(c) &gt;= 0, </span>
+                &quot;El carácter '&quot; + c + &quot;' debe estar en el conjunto válido&quot;);
         }
-<span class="fc" id="L62">    }</span>
+<span class="fc" id="L53">    }</span>
 
     @Test
     @DisplayName(&quot;Generar código - no debe contener caracteres confusos (I, O, 0, 1)&quot;)
     void generateRecoveryCode_noDebeContenerCaracteresConfusos() {
-        // ACT
-<span class="fc bfc" id="L68" title="All 2 branches covered.">        for (int i = 0; i &lt; 100; i++) {</span>
-<span class="fc" id="L69">            String code = recoveryCodeService.generateRecoveryCode();</span>
-<span class="fc" id="L70">            String codeWithoutDash = code.replace(&quot;-&quot;, &quot;&quot;);</span>
+        
+<span class="fc bfc" id="L59" title="All 2 branches covered.">        for (int i = 0; i &lt; 100; i++) {</span>
+<span class="fc" id="L60">            String code = recoveryCodeService.generateRecoveryCode();</span>
+<span class="fc" id="L61">            String codeWithoutDash = code.replace(&quot;-&quot;, &quot;&quot;);</span>
 
-            // ASSERT
-<span class="fc" id="L73">            assertFalse(codeWithoutDash.contains(&quot;I&quot;), &quot;No debe contener 'I'&quot;);</span>
-<span class="fc" id="L74">            assertFalse(codeWithoutDash.contains(&quot;O&quot;), &quot;No debe contener 'O'&quot;);</span>
-<span class="fc" id="L75">            assertFalse(codeWithoutDash.contains(&quot;0&quot;), &quot;No debe contener '0'&quot;);</span>
-<span class="fc" id="L76">            assertFalse(codeWithoutDash.contains(&quot;1&quot;), &quot;No debe contener '1'&quot;);</span>
+            
+<span class="fc" id="L64">            assertFalse(codeWithoutDash.contains(&quot;I&quot;), &quot;No debe contener 'I'&quot;);</span>
+<span class="fc" id="L65">            assertFalse(codeWithoutDash.contains(&quot;O&quot;), &quot;No debe contener 'O'&quot;);</span>
+<span class="fc" id="L66">            assertFalse(codeWithoutDash.contains(&quot;0&quot;), &quot;No debe contener '0'&quot;);</span>
+<span class="fc" id="L67">            assertFalse(codeWithoutDash.contains(&quot;1&quot;), &quot;No debe contener '1'&quot;);</span>
         }
-<span class="fc" id="L78">    }</span>
+<span class="fc" id="L69">    }</span>
 
     @Test
     @DisplayName(&quot;Generar múltiples códigos - deben ser únicos&quot;)
     void generateRecoveryCode_multiplesLlamadas_debenSerUnicos() {
-        // ACT
-<span class="fc" id="L84">        String code1 = recoveryCodeService.generateRecoveryCode();</span>
-<span class="fc" id="L85">        String code2 = recoveryCodeService.generateRecoveryCode();</span>
-<span class="fc" id="L86">        String code3 = recoveryCodeService.generateRecoveryCode();</span>
+        
+<span class="fc" id="L75">        String code1 = recoveryCodeService.generateRecoveryCode();</span>
+<span class="fc" id="L76">        String code2 = recoveryCodeService.generateRecoveryCode();</span>
+<span class="fc" id="L77">        String code3 = recoveryCodeService.generateRecoveryCode();</span>
 
-        // ASSERT
-<span class="fc" id="L89">        assertNotEquals(code1, code2, &quot;Los códigos deben ser diferentes&quot;);</span>
-<span class="fc" id="L90">        assertNotEquals(code1, code3, &quot;Los códigos deben ser diferentes&quot;);</span>
-<span class="fc" id="L91">        assertNotEquals(code2, code3, &quot;Los códigos deben ser diferentes&quot;);</span>
-<span class="fc" id="L92">    }</span>
+        
+<span class="fc" id="L80">        assertNotEquals(code1, code2, &quot;Los códigos deben ser diferentes&quot;);</span>
+<span class="fc" id="L81">        assertNotEquals(code1, code3, &quot;Los códigos deben ser diferentes&quot;);</span>
+<span class="fc" id="L82">        assertNotEquals(code2, code3, &quot;Los códigos deben ser diferentes&quot;);</span>
+<span class="fc" id="L83">    }</span>
 
     @Test
     @DisplayName(&quot;Hashear código - debe retornar hash BCrypt&quot;)
     void hashCode_debeRetornarHashBCrypt() {
-        // ARRANGE
-<span class="fc" id="L98">        String plainCode = &quot;AB3K-7M9P&quot;;</span>
+        
+<span class="fc" id="L89">        String plainCode = &quot;AB3K-7M9P&quot;;</span>
 
-        // ACT
-<span class="fc" id="L101">        String hashedCode = recoveryCodeService.hashCode(plainCode);</span>
+        
+<span class="fc" id="L92">        String hashedCode = recoveryCodeService.hashCode(plainCode);</span>
 
-        // ASSERT
-<span class="fc" id="L104">        assertNotNull(hashedCode, &quot;El hash no debe ser nulo&quot;);</span>
-<span class="pc bpc" id="L105" title="3 of 4 branches missed.">        assertTrue(hashedCode.startsWith(&quot;$2a$&quot;) || hashedCode.startsWith(&quot;$2b$&quot;), </span>
-<span class="fc" id="L106">            &quot;Debe ser un hash BCrypt válido&quot;);</span>
-<span class="fc" id="L107">        assertNotEquals(plainCode, hashedCode, &quot;El hash debe ser diferente al código original&quot;);</span>
-<span class="fc" id="L108">    }</span>
+        
+<span class="fc" id="L95">        assertNotNull(hashedCode, &quot;El hash no debe ser nulo&quot;);</span>
+<span class="pc bpc" id="L96" title="3 of 4 branches missed.">        assertTrue(hashedCode.startsWith(&quot;$2a$&quot;) || hashedCode.startsWith(&quot;$2b$&quot;), </span>
+            &quot;Debe ser un hash BCrypt válido&quot;);
+<span class="fc" id="L98">        assertNotEquals(plainCode, hashedCode, &quot;El hash debe ser diferente al código original&quot;);</span>
+<span class="fc" id="L99">    }</span>
 
     @Test
     @DisplayName(&quot;Hashear mismo código dos veces - debe generar hashes diferentes&quot;)
     void hashCode_mismoCodigoDosVeces_debeGenerarHashesDiferentes() {
-        // ARRANGE
-<span class="fc" id="L114">        String plainCode = &quot;XY4Z-8N2K&quot;;</span>
+        
+<span class="fc" id="L105">        String plainCode = &quot;XY4Z-8N2K&quot;;</span>
 
-        // ACT
-<span class="fc" id="L117">        String hash1 = recoveryCodeService.hashCode(plainCode);</span>
-<span class="fc" id="L118">        String hash2 = recoveryCodeService.hashCode(plainCode);</span>
+        
+<span class="fc" id="L108">        String hash1 = recoveryCodeService.hashCode(plainCode);</span>
+<span class="fc" id="L109">        String hash2 = recoveryCodeService.hashCode(plainCode);</span>
 
-        // ASSERT
-<span class="fc" id="L121">        assertNotEquals(hash1, hash2, </span>
-<span class="fc" id="L122">            &quot;BCrypt debe generar hashes diferentes por el salt aleatorio&quot;);</span>
-<span class="fc" id="L123">    }</span>
+        
+<span class="fc" id="L112">        assertNotEquals(hash1, hash2, </span>
+            &quot;BCrypt debe generar hashes diferentes por el salt aleatorio&quot;);
+<span class="fc" id="L114">    }</span>
 
     @Test
     @DisplayName(&quot;Hashear código con guion - debe normalizar correctamente&quot;)
     void hashCode_conGuion_debeNormalizar() {
-        // ARRANGE
-<span class="fc" id="L129">        String codeWithDash = &quot;AB3K-7M9P&quot;;</span>
-<span class="fc" id="L130">        String codeWithoutDash = &quot;AB3K7M9P&quot;;</span>
-
-        // ACT
-<span class="fc" id="L133">        String hash1 = recoveryCodeService.hashCode(codeWithDash);</span>
         
-        // Verificar que se puede validar con o sin guion
-<span class="fc" id="L136">        boolean matches = recoveryCodeService.verifyCode(codeWithoutDash, hash1);</span>
+<span class="fc" id="L120">        String codeWithDash = &quot;AB3K-7M9P&quot;;</span>
+<span class="fc" id="L121">        String codeWithoutDash = &quot;AB3K7M9P&quot;;</span>
 
-        // ASSERT
-<span class="fc" id="L139">        assertTrue(matches, &quot;Debe normalizar el código removiendo guiones&quot;);</span>
-<span class="fc" id="L140">    }</span>
+        
+<span class="fc" id="L124">        String hash1 = recoveryCodeService.hashCode(codeWithDash);</span>
+        
+        
+<span class="fc" id="L127">        boolean matches = recoveryCodeService.verifyCode(codeWithoutDash, hash1);</span>
+
+        
+<span class="fc" id="L130">        assertTrue(matches, &quot;Debe normalizar el código removiendo guiones&quot;);</span>
+<span class="fc" id="L131">    }</span>
 
     @Test
     @DisplayName(&quot;Hashear código vacío - debe lanzar excepción&quot;)
     void hashCode_codigoVacio_debeLanzarExcepcion() {
-        // ACT &amp; ASSERT
-<span class="fc" id="L146">        assertThrows(IllegalArgumentException.class, </span>
-<span class="pc" id="L147">            () -&gt; recoveryCodeService.hashCode(&quot;&quot;),</span>
-<span class="fc" id="L148">            &quot;Debe lanzar excepción para código vacío&quot;);</span>
-<span class="fc" id="L149">    }</span>
+        
+<span class="fc" id="L137">        assertThrows(IllegalArgumentException.class, </span>
+<span class="nc" id="L138">            () -&gt; recoveryCodeService.hashCode(&quot;&quot;),</span>
+            &quot;Debe lanzar excepción para código vacío&quot;);
+<span class="fc" id="L140">    }</span>
 
     @Test
     @DisplayName(&quot;Hashear código nulo - debe lanzar excepción&quot;)
     void hashCode_codigoNulo_debeLanzarExcepcion() {
-        // ACT &amp; ASSERT
-<span class="fc" id="L155">        assertThrows(IllegalArgumentException.class, </span>
-<span class="pc" id="L156">            () -&gt; recoveryCodeService.hashCode(null),</span>
-<span class="fc" id="L157">            &quot;Debe lanzar excepción para código nulo&quot;);</span>
-<span class="fc" id="L158">    }</span>
+        
+<span class="fc" id="L146">        assertThrows(IllegalArgumentException.class, </span>
+<span class="nc" id="L147">            () -&gt; recoveryCodeService.hashCode(null),</span>
+            &quot;Debe lanzar excepción para código nulo&quot;);
+<span class="fc" id="L149">    }</span>
 
     @Test
     @DisplayName(&quot;Verificar código correcto - debe retornar true&quot;)
     void verifyCode_codigoCorrecto_debeRetornarTrue() {
-        // ARRANGE
-<span class="fc" id="L164">        String plainCode = &quot;MN5P-9Q2R&quot;;</span>
-<span class="fc" id="L165">        String hashedCode = recoveryCodeService.hashCode(plainCode);</span>
+        
+<span class="fc" id="L155">        String plainCode = &quot;MN5P-9Q2R&quot;;</span>
+<span class="fc" id="L156">        String hashedCode = recoveryCodeService.hashCode(plainCode);</span>
 
-        // ACT
-<span class="fc" id="L168">        boolean isValid = recoveryCodeService.verifyCode(plainCode, hashedCode);</span>
+        
+<span class="fc" id="L159">        boolean isValid = recoveryCodeService.verifyCode(plainCode, hashedCode);</span>
 
-        // ASSERT
-<span class="fc" id="L171">        assertTrue(isValid, &quot;El código correcto debe ser verificado exitosamente&quot;);</span>
-<span class="fc" id="L172">    }</span>
+        
+<span class="fc" id="L162">        assertTrue(isValid, &quot;El código correcto debe ser verificado exitosamente&quot;);</span>
+<span class="fc" id="L163">    }</span>
 
     @Test
     @DisplayName(&quot;Verificar código incorrecto - debe retornar false&quot;)
     void verifyCode_codigoIncorrecto_debeRetornarFalse() {
-        // ARRANGE
-<span class="fc" id="L178">        String correctCode = &quot;AB3K-7M9P&quot;;</span>
-<span class="fc" id="L179">        String wrongCode = &quot;XY4Z-8N2K&quot;;</span>
-<span class="fc" id="L180">        String hashedCode = recoveryCodeService.hashCode(correctCode);</span>
+        
+<span class="fc" id="L169">        String correctCode = &quot;AB3K-7M9P&quot;;</span>
+<span class="fc" id="L170">        String wrongCode = &quot;XY4Z-8N2K&quot;;</span>
+<span class="fc" id="L171">        String hashedCode = recoveryCodeService.hashCode(correctCode);</span>
 
-        // ACT
-<span class="fc" id="L183">        boolean isValid = recoveryCodeService.verifyCode(wrongCode, hashedCode);</span>
+        
+<span class="fc" id="L174">        boolean isValid = recoveryCodeService.verifyCode(wrongCode, hashedCode);</span>
 
-        // ASSERT
-<span class="fc" id="L186">        assertFalse(isValid, &quot;Un código incorrecto debe fallar la verificación&quot;);</span>
-<span class="fc" id="L187">    }</span>
+        
+<span class="fc" id="L177">        assertFalse(isValid, &quot;Un código incorrecto debe fallar la verificación&quot;);</span>
+<span class="fc" id="L178">    }</span>
 
     @Test
     @DisplayName(&quot;Verificar código sin guion - debe normalizar y validar&quot;)
     void verifyCode_sinGuion_debeNormalizarYValidar() {
-        // ARRANGE
-<span class="fc" id="L193">        String codeWithDash = &quot;CD6E-4F2G&quot;;</span>
-<span class="fc" id="L194">        String codeWithoutDash = &quot;CD6E4F2G&quot;;</span>
-<span class="fc" id="L195">        String hashedCode = recoveryCodeService.hashCode(codeWithDash);</span>
+        
+<span class="fc" id="L184">        String codeWithDash = &quot;CD6E-4F2G&quot;;</span>
+<span class="fc" id="L185">        String codeWithoutDash = &quot;CD6E4F2G&quot;;</span>
+<span class="fc" id="L186">        String hashedCode = recoveryCodeService.hashCode(codeWithDash);</span>
 
-        // ACT
-<span class="fc" id="L198">        boolean isValid = recoveryCodeService.verifyCode(codeWithoutDash, hashedCode);</span>
+        
+<span class="fc" id="L189">        boolean isValid = recoveryCodeService.verifyCode(codeWithoutDash, hashedCode);</span>
 
-        // ASSERT
-<span class="fc" id="L201">        assertTrue(isValid, &quot;Debe validar código sin guion correctamente&quot;);</span>
-<span class="fc" id="L202">    }</span>
+        
+<span class="fc" id="L192">        assertTrue(isValid, &quot;Debe validar código sin guion correctamente&quot;);</span>
+<span class="fc" id="L193">    }</span>
 
     @Test
     @DisplayName(&quot;Verificar código en minúsculas - debe normalizar a mayúsculas&quot;)
     void verifyCode_enMinusculas_debeNormalizarAMayusculas() {
-        // ARRANGE
-<span class="fc" id="L208">        String upperCode = &quot;AB3K-7M9P&quot;;</span>
-<span class="fc" id="L209">        String lowerCode = &quot;ab3k-7m9p&quot;;</span>
-<span class="fc" id="L210">        String hashedCode = recoveryCodeService.hashCode(upperCode);</span>
+        
+<span class="fc" id="L199">        String upperCode = &quot;AB3K-7M9P&quot;;</span>
+<span class="fc" id="L200">        String lowerCode = &quot;ab3k-7m9p&quot;;</span>
+<span class="fc" id="L201">        String hashedCode = recoveryCodeService.hashCode(upperCode);</span>
 
-        // ACT
-<span class="fc" id="L213">        boolean isValid = recoveryCodeService.verifyCode(lowerCode, hashedCode);</span>
+        
+<span class="fc" id="L204">        boolean isValid = recoveryCodeService.verifyCode(lowerCode, hashedCode);</span>
 
-        // ASSERT
-<span class="fc" id="L216">        assertTrue(isValid, &quot;Debe normalizar a mayúsculas automáticamente&quot;);</span>
-<span class="fc" id="L217">    }</span>
+        
+<span class="fc" id="L207">        assertTrue(isValid, &quot;Debe normalizar a mayúsculas automáticamente&quot;);</span>
+<span class="fc" id="L208">    }</span>
 
     @Test
     @DisplayName(&quot;Verificar código con espacios - debe limpiar espacios&quot;)
     void verifyCode_conEspacios_debeLimpiarEspacios() {
-        // ARRANGE
-<span class="fc" id="L223">        String code = &quot;AB3K-7M9P&quot;;</span>
-<span class="fc" id="L224">        String codeWithSpaces = &quot; AB3K-7M9P &quot;;</span>
-<span class="fc" id="L225">        String hashedCode = recoveryCodeService.hashCode(code);</span>
+        
+<span class="fc" id="L214">        String code = &quot;AB3K-7M9P&quot;;</span>
+<span class="fc" id="L215">        String codeWithSpaces = &quot; AB3K-7M9P &quot;;</span>
+<span class="fc" id="L216">        String hashedCode = recoveryCodeService.hashCode(code);</span>
 
-        // ACT
-<span class="fc" id="L228">        boolean isValid = recoveryCodeService.verifyCode(codeWithSpaces, hashedCode);</span>
+        
+<span class="fc" id="L219">        boolean isValid = recoveryCodeService.verifyCode(codeWithSpaces, hashedCode);</span>
 
-        // ASSERT
-<span class="fc" id="L231">        assertTrue(isValid, &quot;Debe limpiar espacios al inicio/fin&quot;);</span>
-<span class="fc" id="L232">    }</span>
+        
+<span class="fc" id="L222">        assertTrue(isValid, &quot;Debe limpiar espacios al inicio/fin&quot;);</span>
+<span class="fc" id="L223">    }</span>
 
     @Test
     @DisplayName(&quot;Verificar código nulo - debe retornar false&quot;)
     void verifyCode_codigoNulo_debeRetornarFalse() {
-        // ARRANGE
-<span class="fc" id="L238">        String hashedCode = recoveryCodeService.hashCode(&quot;AB3K-7M9P&quot;);</span>
+        
+<span class="fc" id="L229">        String hashedCode = recoveryCodeService.hashCode(&quot;AB3K-7M9P&quot;);</span>
 
-        // ACT
-<span class="fc" id="L241">        boolean isValid = recoveryCodeService.verifyCode(null, hashedCode);</span>
+        
+<span class="fc" id="L232">        boolean isValid = recoveryCodeService.verifyCode(null, hashedCode);</span>
 
-        // ASSERT
-<span class="fc" id="L244">        assertFalse(isValid, &quot;Un código nulo debe retornar false&quot;);</span>
-<span class="fc" id="L245">    }</span>
+        
+<span class="fc" id="L235">        assertFalse(isValid, &quot;Un código nulo debe retornar false&quot;);</span>
+<span class="fc" id="L236">    }</span>
 
     @Test
     @DisplayName(&quot;Verificar código con hash nulo - debe retornar false&quot;)
     void verifyCode_hashNulo_debeRetornarFalse() {
-        // ACT
-<span class="fc" id="L251">        boolean isValid = recoveryCodeService.verifyCode(&quot;AB3K-7M9P&quot;, null);</span>
+        
+<span class="fc" id="L242">        boolean isValid = recoveryCodeService.verifyCode(&quot;AB3K-7M9P&quot;, null);</span>
 
-        // ASSERT
-<span class="fc" id="L254">        assertFalse(isValid, &quot;Un hash nulo debe retornar false&quot;);</span>
-<span class="fc" id="L255">    }</span>
+        
+<span class="fc" id="L245">        assertFalse(isValid, &quot;Un hash nulo debe retornar false&quot;);</span>
+<span class="fc" id="L246">    }</span>
 
     @Test
     @DisplayName(&quot;Verificar código con longitud incorrecta - debe retornar false&quot;)
     void verifyCode_longitudIncorrecta_debeRetornarFalse() {
-        // ARRANGE
-<span class="fc" id="L261">        String hashedCode = recoveryCodeService.hashCode(&quot;AB3K-7M9P&quot;);</span>
+        
+<span class="fc" id="L252">        String hashedCode = recoveryCodeService.hashCode(&quot;AB3K-7M9P&quot;);</span>
 
-        // ACT
-<span class="fc" id="L264">        boolean shortCode = recoveryCodeService.verifyCode(&quot;AB3-7M9P&quot;, hashedCode);</span>
-<span class="fc" id="L265">        boolean longCode = recoveryCodeService.verifyCode(&quot;AB3K-7M9PX&quot;, hashedCode);</span>
+        
+<span class="fc" id="L255">        boolean shortCode = recoveryCodeService.verifyCode(&quot;AB3-7M9P&quot;, hashedCode);</span>
+<span class="fc" id="L256">        boolean longCode = recoveryCodeService.verifyCode(&quot;AB3K-7M9PX&quot;, hashedCode);</span>
 
-        // ASSERT
-<span class="fc" id="L268">        assertFalse(shortCode, &quot;Un código corto debe retornar false&quot;);</span>
-<span class="fc" id="L269">        assertFalse(longCode, &quot;Un código largo debe retornar false&quot;);</span>
-<span class="fc" id="L270">    }</span>
+        
+<span class="fc" id="L259">        assertFalse(shortCode, &quot;Un código corto debe retornar false&quot;);</span>
+<span class="fc" id="L260">        assertFalse(longCode, &quot;Un código largo debe retornar false&quot;);</span>
+<span class="fc" id="L261">    }</span>
 
     @Test
     @DisplayName(&quot;Validar formato de código válido - debe retornar true&quot;)
     void isValidFormat_codigoValido_debeRetornarTrue() {
-        // ARRANGE
-<span class="fc" id="L276">        String validCode = &quot;AB3K-7M9P&quot;;</span>
+        
+<span class="fc" id="L267">        String validCode = &quot;AB3K-7M9P&quot;;</span>
 
-        // ACT
-<span class="fc" id="L279">        boolean isValid = recoveryCodeService.isValidFormat(validCode);</span>
+        
+<span class="fc" id="L270">        boolean isValid = recoveryCodeService.isValidFormat(validCode);</span>
 
-        // ASSERT
-<span class="fc" id="L282">        assertTrue(isValid, &quot;Un código con formato válido debe retornar true&quot;);</span>
-<span class="fc" id="L283">    }</span>
+        
+<span class="fc" id="L273">        assertTrue(isValid, &quot;Un código con formato válido debe retornar true&quot;);</span>
+<span class="fc" id="L274">    }</span>
 
     @Test
     @DisplayName(&quot;Validar formato sin guion - debe retornar true&quot;)
     void isValidFormat_sinGuion_debeRetornarTrue() {
-        // ARRANGE
-<span class="fc" id="L289">        String codeWithoutDash = &quot;AB3K7M9P&quot;;</span>
+        
+<span class="fc" id="L280">        String codeWithoutDash = &quot;AB3K7M9P&quot;;</span>
 
-        // ACT
-<span class="fc" id="L292">        boolean isValid = recoveryCodeService.isValidFormat(codeWithoutDash);</span>
+        
+<span class="fc" id="L283">        boolean isValid = recoveryCodeService.isValidFormat(codeWithoutDash);</span>
 
-        // ASSERT
-<span class="fc" id="L295">        assertTrue(isValid, &quot;Debe aceptar código sin guion&quot;);</span>
-<span class="fc" id="L296">    }</span>
+        
+<span class="fc" id="L286">        assertTrue(isValid, &quot;Debe aceptar código sin guion&quot;);</span>
+<span class="fc" id="L287">    }</span>
 
     @Test
     @DisplayName(&quot;Validar formato nulo - debe retornar false&quot;)
     void isValidFormat_nulo_debeRetornarFalse() {
-        // ACT
-<span class="fc" id="L302">        boolean isValid = recoveryCodeService.isValidFormat(null);</span>
+        
+<span class="fc" id="L293">        boolean isValid = recoveryCodeService.isValidFormat(null);</span>
 
-        // ASSERT
-<span class="fc" id="L305">        assertFalse(isValid, &quot;Un código nulo debe retornar false&quot;);</span>
-<span class="fc" id="L306">    }</span>
+        
+<span class="fc" id="L296">        assertFalse(isValid, &quot;Un código nulo debe retornar false&quot;);</span>
+<span class="fc" id="L297">    }</span>
 
     @Test
     @DisplayName(&quot;Validar formato con caracteres inválidos - debe retornar false&quot;)
     void isValidFormat_caracteresInvalidos_debeRetornarFalse() {
-        // ACT
-<span class="fc" id="L312">        boolean withI = recoveryCodeService.isValidFormat(&quot;ABIK-7M9P&quot;);</span>
-<span class="fc" id="L313">        boolean withO = recoveryCodeService.isValidFormat(&quot;ABOK-7M9P&quot;);</span>
-<span class="fc" id="L314">        boolean with0 = recoveryCodeService.isValidFormat(&quot;AB0K-7M9P&quot;);</span>
-<span class="fc" id="L315">        boolean with1 = recoveryCodeService.isValidFormat(&quot;AB1K-7M9P&quot;);</span>
+        
+<span class="fc" id="L303">        boolean withI = recoveryCodeService.isValidFormat(&quot;ABIK-7M9P&quot;);</span>
+<span class="fc" id="L304">        boolean withO = recoveryCodeService.isValidFormat(&quot;ABOK-7M9P&quot;);</span>
+<span class="fc" id="L305">        boolean with0 = recoveryCodeService.isValidFormat(&quot;AB0K-7M9P&quot;);</span>
+<span class="fc" id="L306">        boolean with1 = recoveryCodeService.isValidFormat(&quot;AB1K-7M9P&quot;);</span>
 
-        // ASSERT
-<span class="fc" id="L318">        assertFalse(withI, &quot;No debe aceptar 'I'&quot;);</span>
-<span class="fc" id="L319">        assertFalse(withO, &quot;No debe aceptar 'O'&quot;);</span>
-<span class="fc" id="L320">        assertFalse(with0, &quot;No debe aceptar '0'&quot;);</span>
-<span class="fc" id="L321">        assertFalse(with1, &quot;No debe aceptar '1'&quot;);</span>
-<span class="fc" id="L322">    }</span>
+        
+<span class="fc" id="L309">        assertFalse(withI, &quot;No debe aceptar 'I'&quot;);</span>
+<span class="fc" id="L310">        assertFalse(withO, &quot;No debe aceptar 'O'&quot;);</span>
+<span class="fc" id="L311">        assertFalse(with0, &quot;No debe aceptar '0'&quot;);</span>
+<span class="fc" id="L312">        assertFalse(with1, &quot;No debe aceptar '1'&quot;);</span>
+<span class="fc" id="L313">    }</span>
 
     @Test
     @DisplayName(&quot;Validar formato con longitud incorrecta - debe retornar false&quot;)
     void isValidFormat_longitudIncorrecta_debeRetornarFalse() {
-        // ACT
-<span class="fc" id="L328">        boolean tooShort = recoveryCodeService.isValidFormat(&quot;AB3-7M9&quot;);</span>
-<span class="fc" id="L329">        boolean tooLong = recoveryCodeService.isValidFormat(&quot;AB3K-7M9PX&quot;);</span>
+        
+<span class="fc" id="L319">        boolean tooShort = recoveryCodeService.isValidFormat(&quot;AB3-7M9&quot;);</span>
+<span class="fc" id="L320">        boolean tooLong = recoveryCodeService.isValidFormat(&quot;AB3K-7M9PX&quot;);</span>
 
-        // ASSERT
-<span class="fc" id="L332">        assertFalse(tooShort, &quot;Un código corto debe retornar false&quot;);</span>
-<span class="fc" id="L333">        assertFalse(tooLong, &quot;Un código largo debe retornar false&quot;);</span>
-<span class="fc" id="L334">    }</span>
+        
+<span class="fc" id="L323">        assertFalse(tooShort, &quot;Un código corto debe retornar false&quot;);</span>
+<span class="fc" id="L324">        assertFalse(tooLong, &quot;Un código largo debe retornar false&quot;);</span>
+<span class="fc" id="L325">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener tiempo de expiración - debe ser 10 minutos en el futuro&quot;)
     void getExpiryTime_debeSerDiezMinutosEnFuturo() {
-        // ACT
-<span class="fc" id="L340">        LocalDateTime expiryTime = recoveryCodeService.getExpiryTime();</span>
+        
+<span class="fc" id="L331">        LocalDateTime expiryTime = recoveryCodeService.getExpiryTime();</span>
 
-        // ASSERT
-<span class="fc" id="L343">        assertNotNull(expiryTime);</span>
-<span class="fc" id="L344">        assertTrue(expiryTime.isAfter(LocalDateTime.now()), </span>
-<span class="fc" id="L345">            &quot;El tiempo de expiración debe estar en el futuro&quot;);</span>
-<span class="fc" id="L346">        assertTrue(expiryTime.isBefore(LocalDateTime.now().plusMinutes(11)), </span>
-<span class="fc" id="L347">            &quot;El tiempo de expiración debe ser aproximadamente 10 minutos&quot;);</span>
-<span class="fc" id="L348">    }</span>
+        
+<span class="fc" id="L334">        assertNotNull(expiryTime);</span>
+<span class="fc" id="L335">        assertTrue(expiryTime.isAfter(LocalDateTime.now()), </span>
+            &quot;El tiempo de expiración debe estar en el futuro&quot;);
+<span class="fc" id="L337">        assertTrue(expiryTime.isBefore(LocalDateTime.now().plusMinutes(11)), </span>
+            &quot;El tiempo de expiración debe ser aproximadamente 10 minutos&quot;);
+<span class="fc" id="L339">    }</span>
 
     @Test
     @DisplayName(&quot;Verificar expiración - código no expirado debe retornar false&quot;)
     void isExpired_codigoNoExpirado_debeRetornarFalse() {
-        // ARRANGE
-<span class="fc" id="L354">        LocalDateTime futureTime = LocalDateTime.now().plusMinutes(5);</span>
+        
+<span class="fc" id="L345">        LocalDateTime futureTime = LocalDateTime.now().plusMinutes(5);</span>
 
-        // ACT
-<span class="fc" id="L357">        boolean isExpired = recoveryCodeService.isExpired(futureTime);</span>
+        
+<span class="fc" id="L348">        boolean isExpired = recoveryCodeService.isExpired(futureTime);</span>
 
-        // ASSERT
-<span class="fc" id="L360">        assertFalse(isExpired, &quot;Un código con tiempo futuro no debe estar expirado&quot;);</span>
-<span class="fc" id="L361">    }</span>
+        
+<span class="fc" id="L351">        assertFalse(isExpired, &quot;Un código con tiempo futuro no debe estar expirado&quot;);</span>
+<span class="fc" id="L352">    }</span>
 
     @Test
     @DisplayName(&quot;Verificar expiración - código expirado debe retornar true&quot;)
     void isExpired_codigoExpirado_debeRetornarTrue() {
-        // ARRANGE
-<span class="fc" id="L367">        LocalDateTime pastTime = LocalDateTime.now().minusMinutes(5);</span>
+        
+<span class="fc" id="L358">        LocalDateTime pastTime = LocalDateTime.now().minusMinutes(5);</span>
 
-        // ACT
-<span class="fc" id="L370">        boolean isExpired = recoveryCodeService.isExpired(pastTime);</span>
+        
+<span class="fc" id="L361">        boolean isExpired = recoveryCodeService.isExpired(pastTime);</span>
 
-        // ASSERT
-<span class="fc" id="L373">        assertTrue(isExpired, &quot;Un código con tiempo pasado debe estar expirado&quot;);</span>
-<span class="fc" id="L374">    }</span>
+        
+<span class="fc" id="L364">        assertTrue(isExpired, &quot;Un código con tiempo pasado debe estar expirado&quot;);</span>
+<span class="fc" id="L365">    }</span>
 
     @Test
     @DisplayName(&quot;Verificar expiración - tiempo nulo debe retornar true&quot;)
     void isExpired_tiempoNulo_debeRetornarTrue() {
-        // ACT
-<span class="fc" id="L380">        boolean isExpired = recoveryCodeService.isExpired(null);</span>
+        
+<span class="fc" id="L371">        boolean isExpired = recoveryCodeService.isExpired(null);</span>
 
-        // ASSERT
-<span class="fc" id="L383">        assertTrue(isExpired, &quot;Un tiempo nulo debe considerarse expirado&quot;);</span>
-<span class="fc" id="L384">    }</span>
+        
+<span class="fc" id="L374">        assertTrue(isExpired, &quot;Un tiempo nulo debe considerarse expirado&quot;);</span>
+<span class="fc" id="L375">    }</span>
 
     @Test
     @DisplayName(&quot;Obtener minutos de expiración - debe retornar 10&quot;)
     void getExpiryMinutes_debeRetornarDiez() {
-        // ACT
-<span class="fc" id="L390">        int expiryMinutes = recoveryCodeService.getExpiryMinutes();</span>
+        
+<span class="fc" id="L381">        int expiryMinutes = recoveryCodeService.getExpiryMinutes();</span>
 
-        // ASSERT
-<span class="fc" id="L393">        assertEquals(10, expiryMinutes, &quot;El tiempo de expiración debe ser 10 minutos&quot;);</span>
-<span class="fc" id="L394">    }</span>
+        
+<span class="fc" id="L384">        assertEquals(10, expiryMinutes, &quot;El tiempo de expiración debe ser 10 minutos&quot;);</span>
+<span class="fc" id="L385">    }</span>
 
     @Test
     @DisplayName(&quot;Flujo completo - generar, hashear, verificar y expirar&quot;)
     void flujoCompleto_debeTrabajarCorrectamente() {
-        // 1. Generar código
-<span class="fc" id="L400">        String plainCode = recoveryCodeService.generateRecoveryCode();</span>
-<span class="fc" id="L401">        assertTrue(recoveryCodeService.isValidFormat(plainCode), &quot;El código generado debe ser válido&quot;);</span>
+        
+<span class="fc" id="L391">        String plainCode = recoveryCodeService.generateRecoveryCode();</span>
+<span class="fc" id="L392">        assertTrue(recoveryCodeService.isValidFormat(plainCode), &quot;El código generado debe ser válido&quot;);</span>
 
-        // 2. Hashear código
-<span class="fc" id="L404">        String hashedCode = recoveryCodeService.hashCode(plainCode);</span>
-<span class="fc" id="L405">        assertNotNull(hashedCode, &quot;Debe generar hash correctamente&quot;);</span>
+        
+<span class="fc" id="L395">        String hashedCode = recoveryCodeService.hashCode(plainCode);</span>
+<span class="fc" id="L396">        assertNotNull(hashedCode, &quot;Debe generar hash correctamente&quot;);</span>
 
-        // 3. Verificar código correcto
-<span class="fc" id="L408">        assertTrue(recoveryCodeService.verifyCode(plainCode, hashedCode), </span>
-<span class="fc" id="L409">            &quot;Debe verificar el código correcto&quot;);</span>
+        
+<span class="fc" id="L399">        assertTrue(recoveryCodeService.verifyCode(plainCode, hashedCode), </span>
+            &quot;Debe verificar el código correcto&quot;);
 
-        // 4. Verificar código incorrecto
-<span class="fc" id="L412">        assertFalse(recoveryCodeService.verifyCode(&quot;WRONG-CODE&quot;, hashedCode), </span>
-<span class="fc" id="L413">            &quot;Debe rechazar código incorrecto&quot;);</span>
+        
+<span class="fc" id="L403">        assertFalse(recoveryCodeService.verifyCode(&quot;WRONG-CODE&quot;, hashedCode), </span>
+            &quot;Debe rechazar código incorrecto&quot;);
 
-        // 5. Verificar expiración
-<span class="fc" id="L416">        LocalDateTime expiryTime = recoveryCodeService.getExpiryTime();</span>
-<span class="fc" id="L417">        assertFalse(recoveryCodeService.isExpired(expiryTime), </span>
-<span class="fc" id="L418">            &quot;El código recién creado no debe estar expirado&quot;);</span>
-<span class="fc" id="L419">    }</span>
+        
+<span class="fc" id="L407">        LocalDateTime expiryTime = recoveryCodeService.getExpiryTime();</span>
+<span class="fc" id="L408">        assertFalse(recoveryCodeService.isExpired(expiryTime), </span>
+            &quot;El código recién creado no debe estar expirado&quot;);
+<span class="fc" id="L410">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

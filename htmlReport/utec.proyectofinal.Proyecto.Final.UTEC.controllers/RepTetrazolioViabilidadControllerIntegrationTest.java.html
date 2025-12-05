@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RepTetrazolioViabilidadControllerIntegrationTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.controllers</a> &gt; <span class="el_source">RepTetrazolioViabilidadControllerIntegrationTest.java</span></div><h1>RepTetrazolioViabilidadControllerIntegrationTest.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.controllers;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RepTetrazolioViabilidadControllerIntegrationTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.controllers</a> &gt; <span class="el_source">RepTetrazolioViabilidadControllerIntegrationTest.java</span></div><h1>RepTetrazolioViabilidadControllerIntegrationTest.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -259,7 +259,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 <span class="fc" id="L259">                .with(csrf())</span>
 <span class="fc" id="L260">                .contentType(MediaType.APPLICATION_JSON)</span>
 <span class="fc" id="L261">                .content(objectMapper.writeValueAsString(repTetrazolioRequestDTO)))</span>
-<span class="fc" id="L262">                .andExpect(status().isInternalServerError()); // IllegalStateException retorna 500</span>
+<span class="fc" id="L262">                .andExpect(status().isInternalServerError()); </span>
 <span class="fc" id="L263">    }</span>
 
     @Test
@@ -296,7 +296,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 <span class="fc" id="L296">        mockMvc.perform(get(&quot;/api/tetrazolios/{tetrazolioId}/repeticiones/{repeticionId}&quot;, </span>
                 TETRAZOLIO_ID, REP_ID)
 <span class="fc" id="L298">                .with(csrf()))</span>
-<span class="fc" id="L299">                .andExpect(status().isInternalServerError()); // IllegalStateException retorna 500</span>
+<span class="fc" id="L299">                .andExpect(status().isInternalServerError()); </span>
 <span class="fc" id="L300">    }</span>
 
     @Test
@@ -326,7 +326,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 <span class="fc" id="L326">                .with(csrf())</span>
 <span class="fc" id="L327">                .contentType(MediaType.APPLICATION_JSON)</span>
 <span class="fc" id="L328">                .content(objectMapper.writeValueAsString(repTetrazolioRequestDTO)))</span>
-<span class="fc" id="L329">                .andExpect(status().isInternalServerError()); // IllegalStateException retorna 500</span>
+<span class="fc" id="L329">                .andExpect(status().isInternalServerError()); </span>
 <span class="fc" id="L330">    }</span>
 
     @Test
@@ -352,7 +352,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 <span class="fc" id="L352">        mockMvc.perform(delete(&quot;/api/tetrazolios/{tetrazolioId}/repeticiones/{repeticionId}&quot;, </span>
                 TETRAZOLIO_ID, REP_ID)
 <span class="fc" id="L354">                .with(csrf()))</span>
-<span class="fc" id="L355">                .andExpect(status().isInternalServerError()); // IllegalStateException retorna 500</span>
+<span class="fc" id="L355">                .andExpect(status().isInternalServerError()); </span>
 <span class="fc" id="L356">    }</span>
 
     @Test

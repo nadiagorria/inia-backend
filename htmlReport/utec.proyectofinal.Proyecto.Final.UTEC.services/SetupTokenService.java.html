@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SetupTokenService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">SetupTokenService.java</span></div><h1>SetupTokenService.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SetupTokenService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">SetupTokenService.java</span></div><h1>SetupTokenService.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
@@ -14,213 +14,165 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * Servicio para gestionar tokens JWT temporales de configuración inicial del admin
- * 
- * SOLUCIÓN DE PRODUCCIÓN:
- * - Usa JWT firmado con HMAC-SHA256 (criptográficamente seguro)
- * - Tokens expiran automáticamente en 5 minutos (claim 'exp')
- * - Un solo uso garantizado mediante blacklist en memoria
- * - Sin dependencias externas (Redis, base de datos)
- * - Validación criptográfica automática (firma HMAC)
- * - Datos cifrados dentro del token (no almacenados en servidor)
- * 
- * SEGURIDAD:
- * - Secret key de 256 bits mínimo (HMAC-SHA256)
- * - Tokens no pueden ser modificados sin invalidar la firma
- * - Expiración automática (claim 'exp')
- * - Blacklist para prevenir reutilización
- * - ID único por token (claim 'jti') para tracking
- */
+
 @Service
-<span class="fc" id="L36">public class SetupTokenService {</span>
+<span class="fc" id="L19">public class SetupTokenService {</span>
     
     private static final int TOKEN_EXPIRY_MINUTES = 5;
     private static final long TOKEN_EXPIRY_MS = TOKEN_EXPIRY_MINUTES * 60 * 1000;
     
-    // Misma clave que JwtUtil para consistencia
-<span class="fc" id="L42">    private final String JWT_SECRET = &quot;@Z9@vQ3!pL8#wX7^tR2&amp;nG6*yM4$eB1(dF0)sH5%kJ3&amp;uY8*rE4#wQ1@zX6^nM9$&quot;;</span>
-<span class="fc" id="L43">    private final SecretKey secretKey = Keys.hmacShaKeyFor(JWT_SECRET.getBytes(StandardCharsets.UTF_8));</span>
+    
+<span class="fc" id="L25">    private final String JWT_SECRET = &quot;@Z9@vQ3!pL8#wX7^tR2&amp;nG6*yM4$eB1(dF0)sH5%kJ3&amp;uY8*rE4#wQ1@zX6^nM9$&quot;;</span>
+<span class="fc" id="L26">    private final SecretKey secretKey = Keys.hmacShaKeyFor(JWT_SECRET.getBytes(StandardCharsets.UTF_8));</span>
     
     // Blacklist de tokens usados (previene reutilización)
-    // En producción multi-instancia, usar Redis o base de datos compartida
-<span class="fc" id="L47">    private final ConcurrentHashMap&lt;String, Long&gt; tokenBlacklist = new ConcurrentHashMap&lt;&gt;();</span>
     
-    /**
-     * Genera la clave secreta para firmar tokens JWT
-     * Usa la misma clave que JwtUtil para consistencia
-     */
+<span class="fc" id="L30">    private final ConcurrentHashMap&lt;String, Long&gt; tokenBlacklist = new ConcurrentHashMap&lt;&gt;();</span>
+    
+    
     private SecretKey getSigningKey() {
-<span class="fc" id="L54">        return secretKey;</span>
+<span class="fc" id="L34">        return secretKey;</span>
     }
     
-    /**
-     * Genera un token JWT firmado con los datos de configuración del admin
-     * 
-     * Claims incluidos:
-     * - userId: ID del usuario
-     * - nombre: Nombre del usuario
-     * - qrCodeDataUrl: Código QR en base64
-     * - totpSecret: Secret TOTP
-     * - jti: ID único del token (para blacklist)
-     * - iat: Timestamp de creación
-     * - exp: Timestamp de expiración (5 minutos)
-     */
+    
     public String createSetupToken(Integer userId, String nombre, String qrCodeDataUrl, String totpSecret) {
-<span class="fc" id="L70">        Date now = new Date();</span>
-<span class="fc" id="L71">        Date expiration = new Date(now.getTime() + TOKEN_EXPIRY_MS);</span>
+<span class="fc" id="L39">        Date now = new Date();</span>
+<span class="fc" id="L40">        Date expiration = new Date(now.getTime() + TOKEN_EXPIRY_MS);</span>
         
         // ID único del token (para blacklist y tracking)
-<span class="fc" id="L74">        String tokenId = UUID.randomUUID().toString();</span>
+<span class="fc" id="L43">        String tokenId = UUID.randomUUID().toString();</span>
         
         // Construir claims del JWT
-<span class="fc" id="L77">        Map&lt;String, Object&gt; claims = new HashMap&lt;&gt;();</span>
-<span class="fc" id="L78">        claims.put(&quot;userId&quot;, userId);</span>
-<span class="fc" id="L79">        claims.put(&quot;nombre&quot;, nombre);</span>
-<span class="fc" id="L80">        claims.put(&quot;qrCodeDataUrl&quot;, qrCodeDataUrl);</span>
-<span class="fc" id="L81">        claims.put(&quot;totpSecret&quot;, totpSecret);</span>
-<span class="fc" id="L82">        claims.put(&quot;type&quot;, &quot;admin_setup&quot;); // Tipo de token para validación adicional</span>
+<span class="fc" id="L46">        Map&lt;String, Object&gt; claims = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L47">        claims.put(&quot;userId&quot;, userId);</span>
+<span class="fc" id="L48">        claims.put(&quot;nombre&quot;, nombre);</span>
+<span class="fc" id="L49">        claims.put(&quot;qrCodeDataUrl&quot;, qrCodeDataUrl);</span>
+<span class="fc" id="L50">        claims.put(&quot;totpSecret&quot;, totpSecret);</span>
+<span class="fc" id="L51">        claims.put(&quot;type&quot;, &quot;admin_setup&quot;); // Tipo de token para validación adicional</span>
         
         // Generar token JWT firmado
-<span class="fc" id="L85">        String token = Jwts.builder()</span>
-<span class="fc" id="L86">                .claims(claims)</span>
-<span class="fc" id="L87">                .id(tokenId) // jti claim</span>
-<span class="fc" id="L88">                .issuedAt(now) // iat claim</span>
-<span class="fc" id="L89">                .expiration(expiration) // exp claim</span>
-<span class="fc" id="L90">                .signWith(getSigningKey()) // Firma HMAC-SHA256</span>
-<span class="fc" id="L91">                .compact();</span>
+<span class="fc" id="L54">        String token = Jwts.builder()</span>
+<span class="fc" id="L55">                .claims(claims)</span>
+<span class="fc" id="L56">                .id(tokenId) </span>
+<span class="fc" id="L57">                .issuedAt(now) </span>
+<span class="fc" id="L58">                .expiration(expiration) </span>
+<span class="fc" id="L59">                .signWith(getSigningKey()) </span>
+<span class="fc" id="L60">                .compact();</span>
         
-<span class="fc" id="L93">        System.out.println(&quot; [SetupToken] Token JWT creado para usuario: &quot; + nombre);</span>
-<span class="fc" id="L94">        System.out.println(&quot; [JWT] Token ID: &quot; + tokenId + &quot; (expira en &quot; + TOKEN_EXPIRY_MINUTES + &quot; min)&quot;);</span>
+<span class="fc" id="L62">        System.out.println(&quot; [SetupToken] Token JWT creado para usuario: &quot; + nombre);</span>
+<span class="fc" id="L63">        System.out.println(&quot; [JWT] Token ID: &quot; + tokenId + &quot; (expira en &quot; + TOKEN_EXPIRY_MINUTES + &quot; min)&quot;);</span>
         
         // Limpiar blacklist de tokens expirados periódicamente
-<span class="fc" id="L97">        cleanExpiredTokensFromBlacklist();</span>
+<span class="fc" id="L66">        cleanExpiredTokensFromBlacklist();</span>
         
-<span class="fc" id="L99">        return token;</span>
+<span class="fc" id="L68">        return token;</span>
     }
     
-    /**
-     * Valida y consume un token JWT de configuración
-     * 
-     * Validaciones:
-     * 1. Firma válida (HMAC-SHA256)
-     * 2. No expirado (claim 'exp')
-     * 3. No usado previamente (blacklist)
-     * 4. Tipo correcto (claim 'type')
-     * 
-     * Retorna null si el token es inválido, expirado o ya fue usado
-     */
+    
     public Map&lt;String, Object&gt; consumeSetupToken(String token) {
         try {
             // Parsear y validar token JWT
-<span class="fc" id="L116">            Claims claims = Jwts.parser()</span>
-<span class="fc" id="L117">                    .verifyWith(getSigningKey()) // Verifica firma HMAC</span>
-<span class="fc" id="L118">                    .build()</span>
-<span class="fc" id="L119">                    .parseSignedClaims(token)</span>
-<span class="fc" id="L120">                    .getPayload();</span>
+<span class="fc" id="L75">            Claims claims = Jwts.parser()</span>
+<span class="fc" id="L76">                    .verifyWith(getSigningKey()) // Verifica firma HMAC</span>
+<span class="fc" id="L77">                    .build()</span>
+<span class="fc" id="L78">                    .parseSignedClaims(token)</span>
+<span class="fc" id="L79">                    .getPayload();</span>
             
             // Validar que sea un token de setup
-<span class="fc" id="L123">            String type = claims.get(&quot;type&quot;, String.class);</span>
-<span class="pc bpc" id="L124" title="1 of 2 branches missed.">            if (!&quot;admin_setup&quot;.equals(type)) {</span>
-<span class="nc" id="L125">                System.err.println(&quot; [SetupToken] Token inválido: tipo incorrecto&quot;);</span>
-<span class="nc" id="L126">                return null;</span>
+<span class="fc" id="L82">            String type = claims.get(&quot;type&quot;, String.class);</span>
+<span class="pc bpc" id="L83" title="1 of 2 branches missed.">            if (!&quot;admin_setup&quot;.equals(type)) {</span>
+<span class="nc" id="L84">                System.err.println(&quot; [SetupToken] Token inválido: tipo incorrecto&quot;);</span>
+<span class="nc" id="L85">                return null;</span>
             }
             
             // Obtener ID del token
-<span class="fc" id="L130">            String tokenId = claims.getId();</span>
+<span class="fc" id="L89">            String tokenId = claims.getId();</span>
             
             // Verificar si ya fue usado (blacklist)
-<span class="fc bfc" id="L133" title="All 2 branches covered.">            if (tokenBlacklist.containsKey(tokenId)) {</span>
-<span class="fc" id="L134">                System.err.println(&quot; [SetupToken] Token ya fue usado anteriormente (JTI: &quot; + tokenId + &quot;)&quot;);</span>
-<span class="fc" id="L135">                return null;</span>
+<span class="fc bfc" id="L92" title="All 2 branches covered.">            if (tokenBlacklist.containsKey(tokenId)) {</span>
+<span class="fc" id="L93">                System.err.println(&quot; [SetupToken] Token ya fue usado anteriormente (JTI: &quot; + tokenId + &quot;)&quot;);</span>
+<span class="fc" id="L94">                return null;</span>
             }
             
             // Agregar a blacklist (un solo uso)
             // Guardamos el timestamp de expiración para limpieza posterior
-<span class="fc" id="L140">            long expirationTime = claims.getExpiration().getTime();</span>
-<span class="fc" id="L141">            tokenBlacklist.put(tokenId, expirationTime);</span>
+<span class="fc" id="L99">            long expirationTime = claims.getExpiration().getTime();</span>
+<span class="fc" id="L100">            tokenBlacklist.put(tokenId, expirationTime);</span>
             
-<span class="fc" id="L143">            System.out.println(&quot; [SetupToken] Token JWT validado y consumido exitosamente&quot;);</span>
-<span class="fc" id="L144">            System.out.println(&quot; [JWT] Token agregado a blacklist (un solo uso)&quot;);</span>
+<span class="fc" id="L102">            System.out.println(&quot; [SetupToken] Token JWT validado y consumido exitosamente&quot;);</span>
+<span class="fc" id="L103">            System.out.println(&quot; [JWT] Token agregado a blacklist (un solo uso)&quot;);</span>
             
             // Extraer datos del token
-<span class="fc" id="L147">            Map&lt;String, Object&gt; result = new HashMap&lt;&gt;();</span>
-<span class="fc" id="L148">            result.put(&quot;userId&quot;, claims.get(&quot;userId&quot;, Integer.class));</span>
-<span class="fc" id="L149">            result.put(&quot;nombre&quot;, claims.get(&quot;nombre&quot;, String.class));</span>
-<span class="fc" id="L150">            result.put(&quot;qrCodeDataUrl&quot;, claims.get(&quot;qrCodeDataUrl&quot;, String.class));</span>
-<span class="fc" id="L151">            result.put(&quot;totpSecret&quot;, claims.get(&quot;totpSecret&quot;, String.class));</span>
+<span class="fc" id="L106">            Map&lt;String, Object&gt; result = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L107">            result.put(&quot;userId&quot;, claims.get(&quot;userId&quot;, Integer.class));</span>
+<span class="fc" id="L108">            result.put(&quot;nombre&quot;, claims.get(&quot;nombre&quot;, String.class));</span>
+<span class="fc" id="L109">            result.put(&quot;qrCodeDataUrl&quot;, claims.get(&quot;qrCodeDataUrl&quot;, String.class));</span>
+<span class="fc" id="L110">            result.put(&quot;totpSecret&quot;, claims.get(&quot;totpSecret&quot;, String.class));</span>
             
-<span class="fc" id="L153">            return result;</span>
+<span class="fc" id="L112">            return result;</span>
             
-<span class="nc" id="L155">        } catch (io.jsonwebtoken.ExpiredJwtException e) {</span>
-<span class="nc" id="L156">            System.err.println(&quot; [SetupToken] Token expirado: &quot; + e.getMessage());</span>
-<span class="nc" id="L157">            return null;</span>
+<span class="nc" id="L114">        } catch (io.jsonwebtoken.ExpiredJwtException e) {</span>
+<span class="nc" id="L115">            System.err.println(&quot; [SetupToken] Token expirado: &quot; + e.getMessage());</span>
+<span class="nc" id="L116">            return null;</span>
             
-<span class="fc" id="L159">        } catch (JwtException e) {</span>
-<span class="fc" id="L160">            System.err.println(&quot; [SetupToken] Token JWT inválido: &quot; + e.getMessage());</span>
-<span class="fc" id="L161">            return null;</span>
+<span class="fc" id="L118">        } catch (JwtException e) {</span>
+<span class="fc" id="L119">            System.err.println(&quot; [SetupToken] Token JWT inválido: &quot; + e.getMessage());</span>
+<span class="fc" id="L120">            return null;</span>
             
-<span class="fc" id="L163">        } catch (Exception e) {</span>
-<span class="fc" id="L164">            System.err.println(&quot; [SetupToken] Error al procesar token: &quot; + e.getMessage());</span>
-<span class="fc" id="L165">            return null;</span>
+<span class="fc" id="L122">        } catch (Exception e) {</span>
+<span class="fc" id="L123">            System.err.println(&quot; [SetupToken] Error al procesar token: &quot; + e.getMessage());</span>
+<span class="fc" id="L124">            return null;</span>
         }
     }
     
-    /**
-     * Invalida manualmente un token agregándolo a la blacklist
-     */
+    
     public void invalidateToken(String token) {
         try {
-<span class="fc" id="L174">            Claims claims = Jwts.parser()</span>
-<span class="fc" id="L175">                    .verifyWith(getSigningKey())</span>
-<span class="fc" id="L176">                    .build()</span>
-<span class="fc" id="L177">                    .parseSignedClaims(token)</span>
-<span class="fc" id="L178">                    .getPayload();</span>
+<span class="fc" id="L131">            Claims claims = Jwts.parser()</span>
+<span class="fc" id="L132">                    .verifyWith(getSigningKey())</span>
+<span class="fc" id="L133">                    .build()</span>
+<span class="fc" id="L134">                    .parseSignedClaims(token)</span>
+<span class="fc" id="L135">                    .getPayload();</span>
             
-<span class="fc" id="L180">            String tokenId = claims.getId();</span>
-<span class="fc" id="L181">            long expirationTime = claims.getExpiration().getTime();</span>
-<span class="fc" id="L182">            tokenBlacklist.put(tokenId, expirationTime);</span>
+<span class="fc" id="L137">            String tokenId = claims.getId();</span>
+<span class="fc" id="L138">            long expirationTime = claims.getExpiration().getTime();</span>
+<span class="fc" id="L139">            tokenBlacklist.put(tokenId, expirationTime);</span>
             
-<span class="fc" id="L184">            System.out.println(&quot; [SetupToken] Token invalidado manualmente (JTI: &quot; + tokenId + &quot;)&quot;);</span>
+<span class="fc" id="L141">            System.out.println(&quot; [SetupToken] Token invalidado manualmente (JTI: &quot; + tokenId + &quot;)&quot;);</span>
             
-<span class="fc" id="L186">        } catch (Exception e) {</span>
-<span class="fc" id="L187">            System.err.println(&quot; [SetupToken] No se pudo invalidar token: &quot; + e.getMessage());</span>
-        }
-<span class="fc" id="L189">    }</span>
+<span class="fc" id="L143">        } catch (Exception e) {</span>
+<span class="fc" id="L144">            System.err.println(&quot; [SetupToken] No se pudo invalidar token: &quot; + e.getMessage());</span>
+<span class="fc" id="L145">        }</span>
+<span class="fc" id="L146">    }</span>
     
-    /**
-     * Verifica si un token es válido sin consumirlo
-     */
+    
     public boolean isTokenValid(String token) {
         try {
-<span class="fc" id="L196">            Claims claims = Jwts.parser()</span>
-<span class="fc" id="L197">                    .verifyWith(getSigningKey())</span>
-<span class="fc" id="L198">                    .build()</span>
-<span class="fc" id="L199">                    .parseSignedClaims(token)</span>
-<span class="fc" id="L200">                    .getPayload();</span>
+<span class="fc" id="L151">            Claims claims = Jwts.parser()</span>
+<span class="fc" id="L152">                    .verifyWith(getSigningKey())</span>
+<span class="fc" id="L153">                    .build()</span>
+<span class="fc" id="L154">                    .parseSignedClaims(token)</span>
+<span class="fc" id="L155">                    .getPayload();</span>
             
             // Verificar tipo
-<span class="fc" id="L203">            String type = claims.get(&quot;type&quot;, String.class);</span>
-<span class="pc bpc" id="L204" title="1 of 2 branches missed.">            if (!&quot;admin_setup&quot;.equals(type)) {</span>
-<span class="nc" id="L205">                return false;</span>
+<span class="fc" id="L158">            String type = claims.get(&quot;type&quot;, String.class);</span>
+<span class="pc bpc" id="L159" title="1 of 2 branches missed.">            if (!&quot;admin_setup&quot;.equals(type)) {</span>
+<span class="nc" id="L160">                return false;</span>
             }
             
             // Verificar blacklist
-<span class="fc" id="L209">            String tokenId = claims.getId();</span>
-<span class="fc bfc" id="L210" title="All 2 branches covered.">            return !tokenBlacklist.containsKey(tokenId);</span>
+<span class="fc" id="L164">            String tokenId = claims.getId();</span>
+<span class="fc bfc" id="L165" title="All 2 branches covered.">            return !tokenBlacklist.containsKey(tokenId);</span>
             
-<span class="fc" id="L212">        } catch (Exception e) {</span>
-<span class="fc" id="L213">            return false;</span>
+<span class="fc" id="L167">        } catch (Exception e) {</span>
+<span class="fc" id="L168">            return false;</span>
         }
     }
     
-    /**
-     * Limpia tokens expirados de la blacklist para evitar memory leaks
-     * Se ejecuta automáticamente al crear nuevos tokens
-     */
+    
     private void cleanExpiredTokensFromBlacklist() {
-<span class="fc" id="L222">        long now = System.currentTimeMillis();</span>
-<span class="pc bnc" id="L223" title="All 2 branches missed.">        tokenBlacklist.entrySet().removeIf(entry -&gt; entry.getValue() &lt; now);</span>
-<span class="fc" id="L224">    }</span>
+<span class="fc" id="L174">        long now = System.currentTimeMillis();</span>
+<span class="pc bnc" id="L175" title="All 2 branches missed.">        tokenBlacklist.entrySet().removeIf(entry -&gt; entry.getValue() &lt; now);</span>
+<span class="fc" id="L176">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

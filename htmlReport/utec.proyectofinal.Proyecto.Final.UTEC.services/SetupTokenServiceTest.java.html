@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SetupTokenServiceTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepPmsControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, RepTetrazolioViabilidadControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, Auth2FAControllerIntegrationTest Coverage Results, java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">SetupTokenServiceTest.java</span></div><h1>SetupTokenServiceTest.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SetupTokenServiceTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in Proyecto-Final-UTEC Coverage Results</a> &gt; <a href="index.source.html" class="el_package">utec.proyectofinal.Proyecto.Final.UTEC.services</a> &gt; <span class="el_source">SetupTokenServiceTest.java</span></div><h1>SetupTokenServiceTest.java</h1><pre class="source lang-java linenums">package utec.proyectofinal.Proyecto.Final.UTEC.services;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -10,477 +10,472 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * Tests para SetupTokenService
- * 
- * Valida la creación, validación y consumo de tokens JWT de configuración inicial
- * con firma HMAC-SHA256, expiración automática y blacklist de un solo uso
- */
+
 @ExtendWith(MockitoExtension.class)
 @DisplayName(&quot;Tests de SetupTokenService&quot;)
-<span class="fc" id="L21">class SetupTokenServiceTest {</span>
+<span class="fc" id="L16">class SetupTokenServiceTest {</span>
 
     private SetupTokenService setupTokenService;
 
-<span class="fc" id="L25">    private static final Integer TEST_USER_ID = 1;</span>
+<span class="fc" id="L20">    private static final Integer TEST_USER_ID = 1;</span>
     private static final String TEST_NOMBRE = &quot;Admin Test&quot;;
     private static final String TEST_QR_CODE = &quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==&quot;;
-<span class="fc" id="L28">    private static final String TEST_TOTP_SECRET = &quot;JBSWY3DPEHPK3PXP&quot;;</span>
+    private static final String TEST_TOTP_SECRET = &quot;JBSWY3DPEHPK3PXP&quot;;
 
     @BeforeEach
     void setUp() {
-<span class="fc" id="L32">        setupTokenService = new SetupTokenService();</span>
-<span class="fc" id="L33">    }</span>
+<span class="fc" id="L27">        setupTokenService = new SetupTokenService();</span>
+<span class="fc" id="L28">    }</span>
 
     @Test
     @DisplayName(&quot;createSetupToken - debe crear token JWT válido con todos los claims&quot;)
     void createSetupToken_debeCrearTokenValido() {
-        // ACT
-<span class="fc" id="L39">        String token = setupTokenService.createSetupToken(TEST_USER_ID, TEST_NOMBRE, TEST_QR_CODE, TEST_TOTP_SECRET);</span>
-
-        // ASSERT
-<span class="fc" id="L42">        assertNotNull(token, &quot;El token no debe ser null&quot;);</span>
-<span class="fc" id="L43">        assertFalse(token.isEmpty(), &quot;El token no debe estar vacío&quot;);</span>
-<span class="fc" id="L44">        assertTrue(token.contains(&quot;.&quot;), &quot;El token debe tener formato JWT (con puntos)&quot;);</span>
         
-        // Un JWT tiene 3 partes separadas por puntos: header.payload.signature
-<span class="fc" id="L47">        String[] parts = token.split(&quot;\\.&quot;);</span>
-<span class="fc" id="L48">        assertEquals(3, parts.length, &quot;Token JWT debe tener 3 partes (header.payload.signature)&quot;);</span>
-<span class="fc" id="L49">    }</span>
+<span class="fc" id="L34">        String token = setupTokenService.createSetupToken(TEST_USER_ID, TEST_NOMBRE, TEST_QR_CODE, TEST_TOTP_SECRET);</span>
+
+        
+<span class="fc" id="L37">        assertNotNull(token, &quot;El token no debe ser null&quot;);</span>
+<span class="fc" id="L38">        assertFalse(token.isEmpty(), &quot;El token no debe estar vacío&quot;);</span>
+<span class="fc" id="L39">        assertTrue(token.contains(&quot;.&quot;), &quot;El token debe tener formato JWT (con puntos)&quot;);</span>
+        
+        
+<span class="fc" id="L42">        String[] parts = token.split(&quot;\\.&quot;);</span>
+<span class="fc" id="L43">        assertEquals(3, parts.length, &quot;Token JWT debe tener 3 partes (header.payload.signature)&quot;);</span>
+<span class="fc" id="L44">    }</span>
 
     @Test
     @DisplayName(&quot;createSetupToken - debe incluir userId en el token&quot;)
     void createSetupToken_debeIncluirUserId() {
-        // ACT
-<span class="fc" id="L55">        String token = setupTokenService.createSetupToken(TEST_USER_ID, TEST_NOMBRE, TEST_QR_CODE, TEST_TOTP_SECRET);</span>
-<span class="fc" id="L56">        Map&lt;String, Object&gt; data = setupTokenService.consumeSetupToken(token);</span>
+        
+<span class="fc" id="L50">        String token = setupTokenService.createSetupToken(TEST_USER_ID, TEST_NOMBRE, TEST_QR_CODE, TEST_TOTP_SECRET);</span>
+<span class="fc" id="L51">        Map&lt;String, Object&gt; data = setupTokenService.consumeSetupToken(token);</span>
 
-        // ASSERT
-<span class="fc" id="L59">        assertNotNull(data);</span>
-<span class="fc" id="L60">        assertEquals(TEST_USER_ID, data.get(&quot;userId&quot;));</span>
-<span class="fc" id="L61">    }</span>
+        
+<span class="fc" id="L54">        assertNotNull(data);</span>
+<span class="fc" id="L55">        assertEquals(TEST_USER_ID, data.get(&quot;userId&quot;));</span>
+<span class="fc" id="L56">    }</span>
 
     @Test
     @DisplayName(&quot;createSetupToken - debe incluir nombre en el token&quot;)
     void createSetupToken_debeIncluirNombre() {
-        // ACT
-<span class="fc" id="L67">        String token = setupTokenService.createSetupToken(TEST_USER_ID, TEST_NOMBRE, TEST_QR_CODE, TEST_TOTP_SECRET);</span>
-<span class="fc" id="L68">        Map&lt;String, Object&gt; data = setupTokenService.consumeSetupToken(token);</span>
+        
+<span class="fc" id="L62">        String token = setupTokenService.createSetupToken(TEST_USER_ID, TEST_NOMBRE, TEST_QR_CODE, TEST_TOTP_SECRET);</span>
+<span class="fc" id="L63">        Map&lt;String, Object&gt; data = setupTokenService.consumeSetupToken(token);</span>
 
-        // ASSERT
-<span class="fc" id="L71">        assertNotNull(data);</span>
-<span class="fc" id="L72">        assertEquals(TEST_NOMBRE, data.get(&quot;nombre&quot;));</span>
-<span class="fc" id="L73">    }</span>
+        
+<span class="fc" id="L66">        assertNotNull(data);</span>
+<span class="fc" id="L67">        assertEquals(TEST_NOMBRE, data.get(&quot;nombre&quot;));</span>
+<span class="fc" id="L68">    }</span>
 
     @Test
     @DisplayName(&quot;createSetupToken - debe incluir QR code en el token&quot;)
     void createSetupToken_debeIncluirQrCode() {
-        // ACT
-<span class="fc" id="L79">        String token = setupTokenService.createSetupToken(TEST_USER_ID, TEST_NOMBRE, TEST_QR_CODE, TEST_TOTP_SECRET);</span>
-<span class="fc" id="L80">        Map&lt;String, Object&gt; data = setupTokenService.consumeSetupToken(token);</span>
+        
+<span class="fc" id="L74">        String token = setupTokenService.createSetupToken(TEST_USER_ID, TEST_NOMBRE, TEST_QR_CODE, TEST_TOTP_SECRET);</span>
+<span class="fc" id="L75">        Map&lt;String, Object&gt; data = setupTokenService.consumeSetupToken(token);</span>
 
-        // ASSERT
-<span class="fc" id="L83">        assertNotNull(data);</span>
-<span class="fc" id="L84">        assertEquals(TEST_QR_CODE, data.get(&quot;qrCodeDataUrl&quot;));</span>
-<span class="fc" id="L85">    }</span>
+        
+<span class="fc" id="L78">        assertNotNull(data);</span>
+<span class="fc" id="L79">        assertEquals(TEST_QR_CODE, data.get(&quot;qrCodeDataUrl&quot;));</span>
+<span class="fc" id="L80">    }</span>
 
     @Test
     @DisplayName(&quot;createSetupToken - debe incluir TOTP secret en el token&quot;)
     void createSetupToken_debeIncluirTotpSecret() {
-        // ACT
-<span class="fc" id="L91">        String token = setupTokenService.createSetupToken(TEST_USER_ID, TEST_NOMBRE, TEST_QR_CODE, TEST_TOTP_SECRET);</span>
-<span class="fc" id="L92">        Map&lt;String, Object&gt; data = setupTokenService.consumeSetupToken(token);</span>
+        
+<span class="fc" id="L86">        String token = setupTokenService.createSetupToken(TEST_USER_ID, TEST_NOMBRE, TEST_QR_CODE, TEST_TOTP_SECRET);</span>
+<span class="fc" id="L87">        Map&lt;String, Object&gt; data = setupTokenService.consumeSetupToken(token);</span>
 
-        // ASSERT
-<span class="fc" id="L95">        assertNotNull(data);</span>
-<span class="fc" id="L96">        assertEquals(TEST_TOTP_SECRET, data.get(&quot;totpSecret&quot;));</span>
-<span class="fc" id="L97">    }</span>
+        
+<span class="fc" id="L90">        assertNotNull(data);</span>
+<span class="fc" id="L91">        assertEquals(TEST_TOTP_SECRET, data.get(&quot;totpSecret&quot;));</span>
+<span class="fc" id="L92">    }</span>
 
     @Test
     @DisplayName(&quot;createSetupToken - debe crear tokens únicos para cada invocación&quot;)
     void createSetupToken_debeCrearTokensUnicos() {
-        // ACT
-<span class="fc" id="L103">        String token1 = setupTokenService.createSetupToken(TEST_USER_ID, TEST_NOMBRE, TEST_QR_CODE, TEST_TOTP_SECRET);</span>
-<span class="fc" id="L104">        String token2 = setupTokenService.createSetupToken(TEST_USER_ID, TEST_NOMBRE, TEST_QR_CODE, TEST_TOTP_SECRET);</span>
+        
+<span class="fc" id="L98">        String token1 = setupTokenService.createSetupToken(TEST_USER_ID, TEST_NOMBRE, TEST_QR_CODE, TEST_TOTP_SECRET);</span>
+<span class="fc" id="L99">        String token2 = setupTokenService.createSetupToken(TEST_USER_ID, TEST_NOMBRE, TEST_QR_CODE, TEST_TOTP_SECRET);</span>
 
-        // ASSERT
-<span class="fc" id="L107">        assertNotEquals(token1, token2, &quot;Cada token debe ser único (diferente JTI)&quot;);</span>
-<span class="fc" id="L108">    }</span>
+        
+<span class="fc" id="L102">        assertNotEquals(token1, token2, &quot;Cada token debe ser único (diferente JTI)&quot;);</span>
+<span class="fc" id="L103">    }</span>
 
     @Test
     @DisplayName(&quot;consumeSetupToken - debe validar y extraer datos correctamente&quot;)
     void consumeSetupToken_debeValidarYExtraerDatos() {
-        // ARRANGE
-<span class="fc" id="L114">        String token = setupTokenService.createSetupToken(TEST_USER_ID, TEST_NOMBRE, TEST_QR_CODE, TEST_TOTP_SECRET);</span>
+        
+<span class="fc" id="L109">        String token = setupTokenService.createSetupToken(TEST_USER_ID, TEST_NOMBRE, TEST_QR_CODE, TEST_TOTP_SECRET);</span>
 
-        // ACT
-<span class="fc" id="L117">        Map&lt;String, Object&gt; data = setupTokenService.consumeSetupToken(token);</span>
+        
+<span class="fc" id="L112">        Map&lt;String, Object&gt; data = setupTokenService.consumeSetupToken(token);</span>
 
-        // ASSERT
-<span class="fc" id="L120">        assertNotNull(data, &quot;Los datos extraídos no deben ser null&quot;);</span>
-<span class="fc" id="L121">        assertEquals(TEST_USER_ID, data.get(&quot;userId&quot;));</span>
-<span class="fc" id="L122">        assertEquals(TEST_NOMBRE, data.get(&quot;nombre&quot;));</span>
-<span class="fc" id="L123">        assertEquals(TEST_QR_CODE, data.get(&quot;qrCodeDataUrl&quot;));</span>
-<span class="fc" id="L124">        assertEquals(TEST_TOTP_SECRET, data.get(&quot;totpSecret&quot;));</span>
-<span class="fc" id="L125">    }</span>
+        
+<span class="fc" id="L115">        assertNotNull(data, &quot;Los datos extraídos no deben ser null&quot;);</span>
+<span class="fc" id="L116">        assertEquals(TEST_USER_ID, data.get(&quot;userId&quot;));</span>
+<span class="fc" id="L117">        assertEquals(TEST_NOMBRE, data.get(&quot;nombre&quot;));</span>
+<span class="fc" id="L118">        assertEquals(TEST_QR_CODE, data.get(&quot;qrCodeDataUrl&quot;));</span>
+<span class="fc" id="L119">        assertEquals(TEST_TOTP_SECRET, data.get(&quot;totpSecret&quot;));</span>
+<span class="fc" id="L120">    }</span>
 
     @Test
     @DisplayName(&quot;consumeSetupToken - debe permitir un solo uso del token (blacklist)&quot;)
     void consumeSetupToken_debePermitirUnSoloUso() {
-        // ARRANGE
-<span class="fc" id="L131">        String token = setupTokenService.createSetupToken(TEST_USER_ID, TEST_NOMBRE, TEST_QR_CODE, TEST_TOTP_SECRET);</span>
+        
+<span class="fc" id="L126">        String token = setupTokenService.createSetupToken(TEST_USER_ID, TEST_NOMBRE, TEST_QR_CODE, TEST_TOTP_SECRET);</span>
 
-        // ACT - Primer uso
-<span class="fc" id="L134">        Map&lt;String, Object&gt; firstUse = setupTokenService.consumeSetupToken(token);</span>
-        // Segundo uso (debe fallar)
-<span class="fc" id="L136">        Map&lt;String, Object&gt; secondUse = setupTokenService.consumeSetupToken(token);</span>
+        
+<span class="fc" id="L129">        Map&lt;String, Object&gt; firstUse = setupTokenService.consumeSetupToken(token);</span>
+        
+<span class="fc" id="L131">        Map&lt;String, Object&gt; secondUse = setupTokenService.consumeSetupToken(token);</span>
 
-        // ASSERT
-<span class="fc" id="L139">        assertNotNull(firstUse, &quot;El primer uso debe ser exitoso&quot;);</span>
-<span class="fc" id="L140">        assertNull(secondUse, &quot;El segundo uso debe fallar (token en blacklist)&quot;);</span>
-<span class="fc" id="L141">    }</span>
+        
+<span class="fc" id="L134">        assertNotNull(firstUse, &quot;El primer uso debe ser exitoso&quot;);</span>
+<span class="fc" id="L135">        assertNull(secondUse, &quot;El segundo uso debe fallar (token en blacklist)&quot;);</span>
+<span class="fc" id="L136">    }</span>
 
     @Test
     @DisplayName(&quot;consumeSetupToken - debe retornar null para token inválido&quot;)
     void consumeSetupToken_debeRetornarNullParaTokenInvalido() {
-        // ARRANGE
-<span class="fc" id="L147">        String invalidToken = &quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIn0.invalid&quot;;</span>
+        
+<span class="fc" id="L142">        String invalidToken = &quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIn0.invalid&quot;;</span>
 
-        // ACT
-<span class="fc" id="L150">        Map&lt;String, Object&gt; data = setupTokenService.consumeSetupToken(invalidToken);</span>
+        
+<span class="fc" id="L145">        Map&lt;String, Object&gt; data = setupTokenService.consumeSetupToken(invalidToken);</span>
 
-        // ASSERT
-<span class="fc" id="L153">        assertNull(data, &quot;Token inválido debe retornar null&quot;);</span>
-<span class="fc" id="L154">    }</span>
+        
+<span class="fc" id="L148">        assertNull(data, &quot;Token inválido debe retornar null&quot;);</span>
+<span class="fc" id="L149">    }</span>
 
     @Test
     @DisplayName(&quot;consumeSetupToken - debe retornar null para token vacío&quot;)
     void consumeSetupToken_debeRetornarNullParaTokenVacio() {
-        // ACT
-<span class="fc" id="L160">        Map&lt;String, Object&gt; data = setupTokenService.consumeSetupToken(&quot;&quot;);</span>
+        
+<span class="fc" id="L155">        Map&lt;String, Object&gt; data = setupTokenService.consumeSetupToken(&quot;&quot;);</span>
 
-        // ASSERT
-<span class="fc" id="L163">        assertNull(data, &quot;Token vacío debe retornar null&quot;);</span>
-<span class="fc" id="L164">    }</span>
+        
+<span class="fc" id="L158">        assertNull(data, &quot;Token vacío debe retornar null&quot;);</span>
+<span class="fc" id="L159">    }</span>
 
     @Test
     @DisplayName(&quot;consumeSetupToken - debe retornar null para token malformado&quot;)
     void consumeSetupToken_debeRetornarNullParaTokenMalformado() {
-        // ACT
-<span class="fc" id="L170">        Map&lt;String, Object&gt; data = setupTokenService.consumeSetupToken(&quot;not.a.valid.jwt.token&quot;);</span>
+        
+<span class="fc" id="L165">        Map&lt;String, Object&gt; data = setupTokenService.consumeSetupToken(&quot;not.a.valid.jwt.token&quot;);</span>
 
-        // ASSERT
-<span class="fc" id="L173">        assertNull(data, &quot;Token malformado debe retornar null&quot;);</span>
-<span class="fc" id="L174">    }</span>
+        
+<span class="fc" id="L168">        assertNull(data, &quot;Token malformado debe retornar null&quot;);</span>
+<span class="fc" id="L169">    }</span>
 
     @Test
     @DisplayName(&quot;isTokenValid - debe retornar true para token válido no usado&quot;)
     void isTokenValid_debeRetornarTrueParaTokenValido() {
-        // ARRANGE
-<span class="fc" id="L180">        String token = setupTokenService.createSetupToken(TEST_USER_ID, TEST_NOMBRE, TEST_QR_CODE, TEST_TOTP_SECRET);</span>
+        
+<span class="fc" id="L175">        String token = setupTokenService.createSetupToken(TEST_USER_ID, TEST_NOMBRE, TEST_QR_CODE, TEST_TOTP_SECRET);</span>
 
-        // ACT
-<span class="fc" id="L183">        boolean isValid = setupTokenService.isTokenValid(token);</span>
+        
+<span class="fc" id="L178">        boolean isValid = setupTokenService.isTokenValid(token);</span>
 
-        // ASSERT
-<span class="fc" id="L186">        assertTrue(isValid, &quot;Token recién creado debe ser válido&quot;);</span>
-<span class="fc" id="L187">    }</span>
+        
+<span class="fc" id="L181">        assertTrue(isValid, &quot;Token recién creado debe ser válido&quot;);</span>
+<span class="fc" id="L182">    }</span>
 
     @Test
     @DisplayName(&quot;isTokenValid - debe retornar false para token ya usado&quot;)
     void isTokenValid_debeRetornarFalseParaTokenUsado() {
-        // ARRANGE
-<span class="fc" id="L193">        String token = setupTokenService.createSetupToken(TEST_USER_ID, TEST_NOMBRE, TEST_QR_CODE, TEST_TOTP_SECRET);</span>
-<span class="fc" id="L194">        setupTokenService.consumeSetupToken(token); // Consumir token</span>
+        
+<span class="fc" id="L188">        String token = setupTokenService.createSetupToken(TEST_USER_ID, TEST_NOMBRE, TEST_QR_CODE, TEST_TOTP_SECRET);</span>
+<span class="fc" id="L189">        setupTokenService.consumeSetupToken(token); </span>
 
-        // ACT
-<span class="fc" id="L197">        boolean isValid = setupTokenService.isTokenValid(token);</span>
+        
+<span class="fc" id="L192">        boolean isValid = setupTokenService.isTokenValid(token);</span>
 
-        // ASSERT
-<span class="fc" id="L200">        assertFalse(isValid, &quot;Token usado debe ser inválido&quot;);</span>
-<span class="fc" id="L201">    }</span>
+        
+<span class="fc" id="L195">        assertFalse(isValid, &quot;Token usado debe ser inválido&quot;);</span>
+<span class="fc" id="L196">    }</span>
 
     @Test
     @DisplayName(&quot;isTokenValid - debe retornar false para token inválido&quot;)
     void isTokenValid_debeRetornarFalseParaTokenInvalido() {
-        // ACT
-<span class="fc" id="L207">        boolean isValid = setupTokenService.isTokenValid(&quot;invalid.token.here&quot;);</span>
+        
+<span class="fc" id="L202">        boolean isValid = setupTokenService.isTokenValid(&quot;invalid.token.here&quot;);</span>
 
-        // ASSERT
-<span class="fc" id="L210">        assertFalse(isValid, &quot;Token inválido debe retornar false&quot;);</span>
-<span class="fc" id="L211">    }</span>
+        
+<span class="fc" id="L205">        assertFalse(isValid, &quot;Token inválido debe retornar false&quot;);</span>
+<span class="fc" id="L206">    }</span>
 
     @Test
     @DisplayName(&quot;isTokenValid - debe retornar false para token vacío&quot;)
     void isTokenValid_debeRetornarFalseParaTokenVacio() {
-        // ACT
-<span class="fc" id="L217">        boolean isValid = setupTokenService.isTokenValid(&quot;&quot;);</span>
+        
+<span class="fc" id="L212">        boolean isValid = setupTokenService.isTokenValid(&quot;&quot;);</span>
 
-        // ASSERT
-<span class="fc" id="L220">        assertFalse(isValid, &quot;Token vacío debe retornar false&quot;);</span>
-<span class="fc" id="L221">    }</span>
+        
+<span class="fc" id="L215">        assertFalse(isValid, &quot;Token vacío debe retornar false&quot;);</span>
+<span class="fc" id="L216">    }</span>
 
     @Test
     @DisplayName(&quot;isTokenValid - debe retornar false para token null&quot;)
     void isTokenValid_debeRetornarFalseParaTokenNull() {
-        // ACT
-<span class="fc" id="L227">        boolean isValid = setupTokenService.isTokenValid(null);</span>
+        
+<span class="fc" id="L222">        boolean isValid = setupTokenService.isTokenValid(null);</span>
 
-        // ASSERT
-<span class="fc" id="L230">        assertFalse(isValid, &quot;Token null debe retornar false&quot;);</span>
-<span class="fc" id="L231">    }</span>
+        
+<span class="fc" id="L225">        assertFalse(isValid, &quot;Token null debe retornar false&quot;);</span>
+<span class="fc" id="L226">    }</span>
 
     @Test
     @DisplayName(&quot;invalidateToken - debe invalidar token manualmente&quot;)
     void invalidateToken_debeInvalidarTokenManualmente() {
-        // ARRANGE
-<span class="fc" id="L237">        String token = setupTokenService.createSetupToken(TEST_USER_ID, TEST_NOMBRE, TEST_QR_CODE, TEST_TOTP_SECRET);</span>
         
-        // Verificar que está válido inicialmente
-<span class="fc" id="L240">        assertTrue(setupTokenService.isTokenValid(token), &quot;Token debe ser válido antes de invalidar&quot;);</span>
+<span class="fc" id="L232">        String token = setupTokenService.createSetupToken(TEST_USER_ID, TEST_NOMBRE, TEST_QR_CODE, TEST_TOTP_SECRET);</span>
+        
+        
+<span class="fc" id="L235">        assertTrue(setupTokenService.isTokenValid(token), &quot;Token debe ser válido antes de invalidar&quot;);</span>
 
-        // ACT
-<span class="fc" id="L243">        setupTokenService.invalidateToken(token);</span>
+        
+<span class="fc" id="L238">        setupTokenService.invalidateToken(token);</span>
 
-        // ASSERT
-<span class="fc" id="L246">        assertFalse(setupTokenService.isTokenValid(token), &quot;Token debe ser inválido después de invalidar&quot;);</span>
-<span class="fc" id="L247">        assertNull(setupTokenService.consumeSetupToken(token), &quot;Token invalidado no debe poder consumirse&quot;);</span>
-<span class="fc" id="L248">    }</span>
+        
+<span class="fc" id="L241">        assertFalse(setupTokenService.isTokenValid(token), &quot;Token debe ser inválido después de invalidar&quot;);</span>
+<span class="fc" id="L242">        assertNull(setupTokenService.consumeSetupToken(token), &quot;Token invalidado no debe poder consumirse&quot;);</span>
+<span class="fc" id="L243">    }</span>
 
     @Test
     @DisplayName(&quot;invalidateToken - debe manejar token inválido sin errores&quot;)
     void invalidateToken_debeManjejarTokenInvalidoSinErrores() {
-        // ACT &amp; ASSERT - No debe lanzar excepción
-<span class="fc" id="L254">        assertDoesNotThrow(() -&gt; setupTokenService.invalidateToken(&quot;invalid.token&quot;));</span>
-<span class="fc" id="L255">        assertDoesNotThrow(() -&gt; setupTokenService.invalidateToken(&quot;&quot;));</span>
-<span class="fc" id="L256">        assertDoesNotThrow(() -&gt; setupTokenService.invalidateToken(null));</span>
-<span class="fc" id="L257">    }</span>
+        
+<span class="fc" id="L249">        assertDoesNotThrow(() -&gt; setupTokenService.invalidateToken(&quot;invalid.token&quot;));</span>
+<span class="fc" id="L250">        assertDoesNotThrow(() -&gt; setupTokenService.invalidateToken(&quot;&quot;));</span>
+<span class="fc" id="L251">        assertDoesNotThrow(() -&gt; setupTokenService.invalidateToken(null));</span>
+<span class="fc" id="L252">    }</span>
 
     @Test
     @DisplayName(&quot;invalidateToken - token ya invalidado debe permanecer inválido&quot;)
     void invalidateToken_tokenYaInvalidadoDebePermanecer() {
-        // ARRANGE
-<span class="fc" id="L263">        String token = setupTokenService.createSetupToken(TEST_USER_ID, TEST_NOMBRE, TEST_QR_CODE, TEST_TOTP_SECRET);</span>
         
-        // ACT
-<span class="fc" id="L266">        setupTokenService.invalidateToken(token);</span>
-<span class="fc" id="L267">        setupTokenService.invalidateToken(token); // Invalidar dos veces</span>
+<span class="fc" id="L258">        String token = setupTokenService.createSetupToken(TEST_USER_ID, TEST_NOMBRE, TEST_QR_CODE, TEST_TOTP_SECRET);</span>
+        
+        
+<span class="fc" id="L261">        setupTokenService.invalidateToken(token);</span>
+<span class="fc" id="L262">        setupTokenService.invalidateToken(token); </span>
 
-        // ASSERT
-<span class="fc" id="L270">        assertFalse(setupTokenService.isTokenValid(token), &quot;Token debe permanecer inválido&quot;);</span>
-<span class="fc" id="L271">    }</span>
+        
+<span class="fc" id="L265">        assertFalse(setupTokenService.isTokenValid(token), &quot;Token debe permanecer inválido&quot;);</span>
+<span class="fc" id="L266">    }</span>
 
     @Test
     @DisplayName(&quot;cleanExpiredTokensFromBlacklist - debe ejecutarse sin errores al crear token&quot;)
     void cleanExpiredTokensFromBlacklist_debeEjecutarseSinErrores() {
-        // ACT &amp; ASSERT - La limpieza se ejecuta automáticamente al crear token
-<span class="fc" id="L277">        assertDoesNotThrow(() -&gt; {</span>
-<span class="fc bfc" id="L278" title="All 2 branches covered.">            for (int i = 0; i &lt; 10; i++) {</span>
-<span class="fc" id="L279">                setupTokenService.createSetupToken(i, &quot;User &quot; + i, TEST_QR_CODE, TEST_TOTP_SECRET);</span>
+        
+<span class="fc" id="L272">        assertDoesNotThrow(() -&gt; {</span>
+<span class="fc bfc" id="L273" title="All 2 branches covered.">            for (int i = 0; i &lt; 10; i++) {</span>
+<span class="fc" id="L274">                setupTokenService.createSetupToken(i, &quot;User &quot; + i, TEST_QR_CODE, TEST_TOTP_SECRET);</span>
             }
-<span class="fc" id="L281">        });</span>
-<span class="fc" id="L282">    }</span>
+<span class="fc" id="L276">        });</span>
+<span class="fc" id="L277">    }</span>
 
     @Test
     @DisplayName(&quot;getSigningKey - debe generar tokens con firma consistente&quot;)
     void getSigningKey_debeGenerarFirmaConsistente() {
-        // ACT
-<span class="fc" id="L288">        String token1 = setupTokenService.createSetupToken(TEST_USER_ID, TEST_NOMBRE, TEST_QR_CODE, TEST_TOTP_SECRET);</span>
-<span class="fc" id="L289">        String token2 = setupTokenService.createSetupToken(TEST_USER_ID, TEST_NOMBRE, TEST_QR_CODE, TEST_TOTP_SECRET);</span>
         
-        // Ambos deben ser válidos (misma clave de firma)
-<span class="fc" id="L292">        Map&lt;String, Object&gt; data1 = setupTokenService.consumeSetupToken(token1);</span>
-<span class="fc" id="L293">        Map&lt;String, Object&gt; data2 = setupTokenService.consumeSetupToken(token2);</span>
+<span class="fc" id="L283">        String token1 = setupTokenService.createSetupToken(TEST_USER_ID, TEST_NOMBRE, TEST_QR_CODE, TEST_TOTP_SECRET);</span>
+<span class="fc" id="L284">        String token2 = setupTokenService.createSetupToken(TEST_USER_ID, TEST_NOMBRE, TEST_QR_CODE, TEST_TOTP_SECRET);</span>
+        
+        
+<span class="fc" id="L287">        Map&lt;String, Object&gt; data1 = setupTokenService.consumeSetupToken(token1);</span>
+<span class="fc" id="L288">        Map&lt;String, Object&gt; data2 = setupTokenService.consumeSetupToken(token2);</span>
 
-        // ASSERT
-<span class="fc" id="L296">        assertNotNull(data1, &quot;Token 1 debe validarse correctamente&quot;);</span>
-<span class="fc" id="L297">        assertNotNull(data2, &quot;Token 2 debe validarse correctamente&quot;);</span>
-<span class="fc" id="L298">    }</span>
+        
+<span class="fc" id="L291">        assertNotNull(data1, &quot;Token 1 debe validarse correctamente&quot;);</span>
+<span class="fc" id="L292">        assertNotNull(data2, &quot;Token 2 debe validarse correctamente&quot;);</span>
+<span class="fc" id="L293">    }</span>
 
     @Test
     @DisplayName(&quot;createSetupToken - debe crear token válido con diferentes usuarios&quot;)
     void createSetupToken_debeFuncionarConDiferentesUsuarios() {
-        // ACT
-<span class="fc" id="L304">        String token1 = setupTokenService.createSetupToken(1, &quot;Admin 1&quot;, TEST_QR_CODE, &quot;SECRET1&quot;);</span>
-<span class="fc" id="L305">        String token2 = setupTokenService.createSetupToken(2, &quot;Admin 2&quot;, TEST_QR_CODE, &quot;SECRET2&quot;);</span>
-<span class="fc" id="L306">        String token3 = setupTokenService.createSetupToken(3, &quot;Admin 3&quot;, TEST_QR_CODE, &quot;SECRET3&quot;);</span>
+        
+<span class="fc" id="L299">        String token1 = setupTokenService.createSetupToken(1, &quot;Admin 1&quot;, TEST_QR_CODE, &quot;SECRET1&quot;);</span>
+<span class="fc" id="L300">        String token2 = setupTokenService.createSetupToken(2, &quot;Admin 2&quot;, TEST_QR_CODE, &quot;SECRET2&quot;);</span>
+<span class="fc" id="L301">        String token3 = setupTokenService.createSetupToken(3, &quot;Admin 3&quot;, TEST_QR_CODE, &quot;SECRET3&quot;);</span>
 
-        // ASSERT
-<span class="fc" id="L309">        assertTrue(setupTokenService.isTokenValid(token1));</span>
-<span class="fc" id="L310">        assertTrue(setupTokenService.isTokenValid(token2));</span>
-<span class="fc" id="L311">        assertTrue(setupTokenService.isTokenValid(token3));</span>
         
-        // Verificar que los datos son correctos
-<span class="fc" id="L314">        Map&lt;String, Object&gt; data1 = setupTokenService.consumeSetupToken(token1);</span>
-<span class="fc" id="L315">        Map&lt;String, Object&gt; data2 = setupTokenService.consumeSetupToken(token2);</span>
-<span class="fc" id="L316">        Map&lt;String, Object&gt; data3 = setupTokenService.consumeSetupToken(token3);</span>
+<span class="fc" id="L304">        assertTrue(setupTokenService.isTokenValid(token1));</span>
+<span class="fc" id="L305">        assertTrue(setupTokenService.isTokenValid(token2));</span>
+<span class="fc" id="L306">        assertTrue(setupTokenService.isTokenValid(token3));</span>
         
-<span class="fc" id="L318">        assertEquals(1, data1.get(&quot;userId&quot;));</span>
-<span class="fc" id="L319">        assertEquals(2, data2.get(&quot;userId&quot;));</span>
-<span class="fc" id="L320">        assertEquals(3, data3.get(&quot;userId&quot;));</span>
-<span class="fc" id="L321">    }</span>
+        
+<span class="fc" id="L309">        Map&lt;String, Object&gt; data1 = setupTokenService.consumeSetupToken(token1);</span>
+<span class="fc" id="L310">        Map&lt;String, Object&gt; data2 = setupTokenService.consumeSetupToken(token2);</span>
+<span class="fc" id="L311">        Map&lt;String, Object&gt; data3 = setupTokenService.consumeSetupToken(token3);</span>
+        
+<span class="fc" id="L313">        assertEquals(1, data1.get(&quot;userId&quot;));</span>
+<span class="fc" id="L314">        assertEquals(2, data2.get(&quot;userId&quot;));</span>
+<span class="fc" id="L315">        assertEquals(3, data3.get(&quot;userId&quot;));</span>
+<span class="fc" id="L316">    }</span>
 
     @Test
     @DisplayName(&quot;consumeSetupToken - debe manejar múltiples tokens en blacklist&quot;)
     void consumeSetupToken_debeManjejarMultiplesTokensEnBlacklist() {
-        // ARRANGE
-<span class="fc" id="L327">        String token1 = setupTokenService.createSetupToken(1, &quot;User 1&quot;, TEST_QR_CODE, &quot;SECRET1&quot;);</span>
-<span class="fc" id="L328">        String token2 = setupTokenService.createSetupToken(2, &quot;User 2&quot;, TEST_QR_CODE, &quot;SECRET2&quot;);</span>
-<span class="fc" id="L329">        String token3 = setupTokenService.createSetupToken(3, &quot;User 3&quot;, TEST_QR_CODE, &quot;SECRET3&quot;);</span>
-
-        // ACT - Consumir todos
-<span class="fc" id="L332">        Map&lt;String, Object&gt; data1 = setupTokenService.consumeSetupToken(token1);</span>
-<span class="fc" id="L333">        Map&lt;String, Object&gt; data2 = setupTokenService.consumeSetupToken(token2);</span>
-<span class="fc" id="L334">        Map&lt;String, Object&gt; data3 = setupTokenService.consumeSetupToken(token3);</span>
-
-        // ASSERT - Primer uso exitoso
-<span class="fc" id="L337">        assertNotNull(data1);</span>
-<span class="fc" id="L338">        assertNotNull(data2);</span>
-<span class="fc" id="L339">        assertNotNull(data3);</span>
         
-        // Segundo uso debe fallar para todos
-<span class="fc" id="L342">        assertNull(setupTokenService.consumeSetupToken(token1));</span>
-<span class="fc" id="L343">        assertNull(setupTokenService.consumeSetupToken(token2));</span>
-<span class="fc" id="L344">        assertNull(setupTokenService.consumeSetupToken(token3));</span>
-<span class="fc" id="L345">    }</span>
+<span class="fc" id="L322">        String token1 = setupTokenService.createSetupToken(1, &quot;User 1&quot;, TEST_QR_CODE, &quot;SECRET1&quot;);</span>
+<span class="fc" id="L323">        String token2 = setupTokenService.createSetupToken(2, &quot;User 2&quot;, TEST_QR_CODE, &quot;SECRET2&quot;);</span>
+<span class="fc" id="L324">        String token3 = setupTokenService.createSetupToken(3, &quot;User 3&quot;, TEST_QR_CODE, &quot;SECRET3&quot;);</span>
+
+        
+<span class="fc" id="L327">        Map&lt;String, Object&gt; data1 = setupTokenService.consumeSetupToken(token1);</span>
+<span class="fc" id="L328">        Map&lt;String, Object&gt; data2 = setupTokenService.consumeSetupToken(token2);</span>
+<span class="fc" id="L329">        Map&lt;String, Object&gt; data3 = setupTokenService.consumeSetupToken(token3);</span>
+
+        
+<span class="fc" id="L332">        assertNotNull(data1);</span>
+<span class="fc" id="L333">        assertNotNull(data2);</span>
+<span class="fc" id="L334">        assertNotNull(data3);</span>
+        
+        
+<span class="fc" id="L337">        assertNull(setupTokenService.consumeSetupToken(token1));</span>
+<span class="fc" id="L338">        assertNull(setupTokenService.consumeSetupToken(token2));</span>
+<span class="fc" id="L339">        assertNull(setupTokenService.consumeSetupToken(token3));</span>
+<span class="fc" id="L340">    }</span>
 
     @Test
     @DisplayName(&quot;isTokenValid - debe verificar validez sin consumir el token&quot;)
     void isTokenValid_debeVerificarSinConsumir() {
-        // ARRANGE
-<span class="fc" id="L351">        String token = setupTokenService.createSetupToken(TEST_USER_ID, TEST_NOMBRE, TEST_QR_CODE, TEST_TOTP_SECRET);</span>
-
-        // ACT - Verificar múltiples veces
-<span class="fc" id="L354">        boolean valid1 = setupTokenService.isTokenValid(token);</span>
-<span class="fc" id="L355">        boolean valid2 = setupTokenService.isTokenValid(token);</span>
-<span class="fc" id="L356">        boolean valid3 = setupTokenService.isTokenValid(token);</span>
-
-        // ASSERT - Debe seguir válido después de múltiples verificaciones
-<span class="fc" id="L359">        assertTrue(valid1);</span>
-<span class="fc" id="L360">        assertTrue(valid2);</span>
-<span class="fc" id="L361">        assertTrue(valid3);</span>
         
-        // Y debe poder consumirse después
-<span class="fc" id="L364">        Map&lt;String, Object&gt; data = setupTokenService.consumeSetupToken(token);</span>
-<span class="fc" id="L365">        assertNotNull(data, &quot;Token debe poder consumirse después de verificar validez&quot;);</span>
-<span class="fc" id="L366">    }</span>
+<span class="fc" id="L346">        String token = setupTokenService.createSetupToken(TEST_USER_ID, TEST_NOMBRE, TEST_QR_CODE, TEST_TOTP_SECRET);</span>
+
+        
+<span class="fc" id="L349">        boolean valid1 = setupTokenService.isTokenValid(token);</span>
+<span class="fc" id="L350">        boolean valid2 = setupTokenService.isTokenValid(token);</span>
+<span class="fc" id="L351">        boolean valid3 = setupTokenService.isTokenValid(token);</span>
+
+        
+<span class="fc" id="L354">        assertTrue(valid1);</span>
+<span class="fc" id="L355">        assertTrue(valid2);</span>
+<span class="fc" id="L356">        assertTrue(valid3);</span>
+        
+        
+<span class="fc" id="L359">        Map&lt;String, Object&gt; data = setupTokenService.consumeSetupToken(token);</span>
+<span class="fc" id="L360">        assertNotNull(data, &quot;Token debe poder consumirse después de verificar validez&quot;);</span>
+<span class="fc" id="L361">    }</span>
 
     @Test
     @DisplayName(&quot;createSetupToken y consumeSetupToken - flujo completo de configuración&quot;)
     void flujoCompleto_creacionValidacionConsumo() {
-        // ARRANGE
-<span class="fc" id="L372">        Integer userId = 100;</span>
-<span class="fc" id="L373">        String nombre = &quot;Administrador Principal&quot;;</span>
-<span class="fc" id="L374">        String qrCode = &quot;data:image/png;base64,ABC123&quot;;</span>
-<span class="fc" id="L375">        String totpSecret = &quot;MYSECRETKEY123&quot;;</span>
+        
+<span class="fc" id="L367">        Integer userId = 100;</span>
+<span class="fc" id="L368">        String nombre = &quot;Administrador Principal&quot;;</span>
+<span class="fc" id="L369">        String qrCode = &quot;data:image/png;base64,ABC123&quot;;</span>
+<span class="fc" id="L370">        String totpSecret = &quot;MYSECRETKEY123&quot;;</span>
 
-        // ACT
-        // 1. Crear token
-<span class="fc" id="L379">        String token = setupTokenService.createSetupToken(userId, nombre, qrCode, totpSecret);</span>
-<span class="fc" id="L380">        assertNotNull(token);</span>
         
-        // 2. Verificar que es válido
-<span class="fc" id="L383">        assertTrue(setupTokenService.isTokenValid(token));</span>
         
-        // 3. Consumir token
-<span class="fc" id="L386">        Map&lt;String, Object&gt; data = setupTokenService.consumeSetupToken(token);</span>
+<span class="fc" id="L374">        String token = setupTokenService.createSetupToken(userId, nombre, qrCode, totpSecret);</span>
+<span class="fc" id="L375">        assertNotNull(token);</span>
         
-        // ASSERT
-<span class="fc" id="L389">        assertNotNull(data);</span>
-<span class="fc" id="L390">        assertEquals(userId, data.get(&quot;userId&quot;));</span>
-<span class="fc" id="L391">        assertEquals(nombre, data.get(&quot;nombre&quot;));</span>
-<span class="fc" id="L392">        assertEquals(qrCode, data.get(&quot;qrCodeDataUrl&quot;));</span>
-<span class="fc" id="L393">        assertEquals(totpSecret, data.get(&quot;totpSecret&quot;));</span>
         
-        // 4. Verificar que ya no es válido
-<span class="fc" id="L396">        assertFalse(setupTokenService.isTokenValid(token));</span>
+<span class="fc" id="L378">        assertTrue(setupTokenService.isTokenValid(token));</span>
         
-        // 5. Intentar consumir de nuevo (debe fallar)
-<span class="fc" id="L399">        Map&lt;String, Object&gt; secondAttempt = setupTokenService.consumeSetupToken(token);</span>
-<span class="fc" id="L400">        assertNull(secondAttempt);</span>
-<span class="fc" id="L401">    }</span>
+        
+<span class="fc" id="L381">        Map&lt;String, Object&gt; data = setupTokenService.consumeSetupToken(token);</span>
+        
+        
+<span class="fc" id="L384">        assertNotNull(data);</span>
+<span class="fc" id="L385">        assertEquals(userId, data.get(&quot;userId&quot;));</span>
+<span class="fc" id="L386">        assertEquals(nombre, data.get(&quot;nombre&quot;));</span>
+<span class="fc" id="L387">        assertEquals(qrCode, data.get(&quot;qrCodeDataUrl&quot;));</span>
+<span class="fc" id="L388">        assertEquals(totpSecret, data.get(&quot;totpSecret&quot;));</span>
+        
+        
+<span class="fc" id="L391">        assertFalse(setupTokenService.isTokenValid(token));</span>
+        
+        
+<span class="fc" id="L394">        Map&lt;String, Object&gt; secondAttempt = setupTokenService.consumeSetupToken(token);</span>
+<span class="fc" id="L395">        assertNull(secondAttempt);</span>
+<span class="fc" id="L396">    }</span>
 
     @Test
     @DisplayName(&quot;invalidateToken - flujo de invalidación manual&quot;)
     void flujoCompleto_invalidacionManual() {
-        // ARRANGE
-<span class="fc" id="L407">        String token = setupTokenService.createSetupToken(TEST_USER_ID, TEST_NOMBRE, TEST_QR_CODE, TEST_TOTP_SECRET);</span>
         
-        // ACT &amp; ASSERT
-        // 1. Token válido inicialmente
-<span class="fc" id="L411">        assertTrue(setupTokenService.isTokenValid(token));</span>
+<span class="fc" id="L402">        String token = setupTokenService.createSetupToken(TEST_USER_ID, TEST_NOMBRE, TEST_QR_CODE, TEST_TOTP_SECRET);</span>
         
-        // 2. Invalidar manualmente (por ejemplo, usuario cancela configuración)
-<span class="fc" id="L414">        setupTokenService.invalidateToken(token);</span>
         
-        // 3. Token ya no válido
-<span class="fc" id="L417">        assertFalse(setupTokenService.isTokenValid(token));</span>
         
-        // 4. No puede consumirse
-<span class="fc" id="L420">        Map&lt;String, Object&gt; data = setupTokenService.consumeSetupToken(token);</span>
-<span class="fc" id="L421">        assertNull(data);</span>
-<span class="fc" id="L422">    }</span>
+<span class="fc" id="L406">        assertTrue(setupTokenService.isTokenValid(token));</span>
+        
+        
+<span class="fc" id="L409">        setupTokenService.invalidateToken(token);</span>
+        
+        
+<span class="fc" id="L412">        assertFalse(setupTokenService.isTokenValid(token));</span>
+        
+        
+<span class="fc" id="L415">        Map&lt;String, Object&gt; data = setupTokenService.consumeSetupToken(token);</span>
+<span class="fc" id="L416">        assertNull(data);</span>
+<span class="fc" id="L417">    }</span>
 
     @Test
     @DisplayName(&quot;createSetupToken - debe manejar caracteres especiales en datos&quot;)
     void createSetupToken_debeManjejarCaracteresEspeciales() {
-        // ARRANGE
-<span class="fc" id="L428">        String nombreEspecial = &quot;José María O'Connor &amp; García-López&quot;;</span>
-<span class="fc" id="L429">        String qrCodeLargo = TEST_QR_CODE + &quot;VERY_LONG_BASE64_STRING_&quot; + &quot;X&quot;.repeat(1000);</span>
-<span class="fc" id="L430">        String secretEspecial = &quot;AB-CD_EF/GH+IJ=KL&quot;;</span>
+        
+<span class="fc" id="L423">        String nombreEspecial = &quot;José María O'Connor &amp; García-López&quot;;</span>
+<span class="fc" id="L424">        String qrCodeLargo = TEST_QR_CODE + &quot;VERY_LONG_BASE64_STRING_&quot; + &quot;X&quot;.repeat(1000);</span>
+<span class="fc" id="L425">        String secretEspecial = &quot;AB-CD_EF/GH+IJ=KL&quot;;</span>
 
-        // ACT
-<span class="fc" id="L433">        String token = setupTokenService.createSetupToken(TEST_USER_ID, nombreEspecial, qrCodeLargo, secretEspecial);</span>
-<span class="fc" id="L434">        Map&lt;String, Object&gt; data = setupTokenService.consumeSetupToken(token);</span>
+        
+<span class="fc" id="L428">        String token = setupTokenService.createSetupToken(TEST_USER_ID, nombreEspecial, qrCodeLargo, secretEspecial);</span>
+<span class="fc" id="L429">        Map&lt;String, Object&gt; data = setupTokenService.consumeSetupToken(token);</span>
 
-        // ASSERT
-<span class="fc" id="L437">        assertNotNull(data);</span>
-<span class="fc" id="L438">        assertEquals(nombreEspecial, data.get(&quot;nombre&quot;));</span>
-<span class="fc" id="L439">        assertEquals(qrCodeLargo, data.get(&quot;qrCodeDataUrl&quot;));</span>
-<span class="fc" id="L440">        assertEquals(secretEspecial, data.get(&quot;totpSecret&quot;));</span>
-<span class="fc" id="L441">    }</span>
+        
+<span class="fc" id="L432">        assertNotNull(data);</span>
+<span class="fc" id="L433">        assertEquals(nombreEspecial, data.get(&quot;nombre&quot;));</span>
+<span class="fc" id="L434">        assertEquals(qrCodeLargo, data.get(&quot;qrCodeDataUrl&quot;));</span>
+<span class="fc" id="L435">        assertEquals(secretEspecial, data.get(&quot;totpSecret&quot;));</span>
+<span class="fc" id="L436">    }</span>
 
     @Test
     @DisplayName(&quot;createSetupToken - debe manejar userId negativos o cero&quot;)
     void createSetupToken_debeManjejarUserIdEspeciales() {
-        // ACT
-<span class="fc" id="L447">        String token1 = setupTokenService.createSetupToken(0, &quot;User Zero&quot;, TEST_QR_CODE, TEST_TOTP_SECRET);</span>
-<span class="fc" id="L448">        String token2 = setupTokenService.createSetupToken(-1, &quot;User Negative&quot;, TEST_QR_CODE, TEST_TOTP_SECRET);</span>
-
-        // ASSERT
-<span class="fc" id="L451">        Map&lt;String, Object&gt; data1 = setupTokenService.consumeSetupToken(token1);</span>
-<span class="fc" id="L452">        Map&lt;String, Object&gt; data2 = setupTokenService.consumeSetupToken(token2);</span>
         
-<span class="fc" id="L454">        assertNotNull(data1);</span>
-<span class="fc" id="L455">        assertNotNull(data2);</span>
-<span class="fc" id="L456">        assertEquals(0, data1.get(&quot;userId&quot;));</span>
-<span class="fc" id="L457">        assertEquals(-1, data2.get(&quot;userId&quot;));</span>
-<span class="fc" id="L458">    }</span>
+<span class="fc" id="L442">        String token1 = setupTokenService.createSetupToken(0, &quot;User Zero&quot;, TEST_QR_CODE, TEST_TOTP_SECRET);</span>
+<span class="fc" id="L443">        String token2 = setupTokenService.createSetupToken(-1, &quot;User Negative&quot;, TEST_QR_CODE, TEST_TOTP_SECRET);</span>
+
+        
+<span class="fc" id="L446">        Map&lt;String, Object&gt; data1 = setupTokenService.consumeSetupToken(token1);</span>
+<span class="fc" id="L447">        Map&lt;String, Object&gt; data2 = setupTokenService.consumeSetupToken(token2);</span>
+        
+<span class="fc" id="L449">        assertNotNull(data1);</span>
+<span class="fc" id="L450">        assertNotNull(data2);</span>
+<span class="fc" id="L451">        assertEquals(0, data1.get(&quot;userId&quot;));</span>
+<span class="fc" id="L452">        assertEquals(-1, data2.get(&quot;userId&quot;));</span>
+<span class="fc" id="L453">    }</span>
 
     @Test
     @DisplayName(&quot;getSigningKey - debe usar clave de 256 bits para HMAC-SHA256&quot;)
     void getSigningKey_debeUsarClave256Bits() {
-        // ACT - Crear token y verificar que se puede validar (firma correcta)
-<span class="fc" id="L464">        String token = setupTokenService.createSetupToken(TEST_USER_ID, TEST_NOMBRE, TEST_QR_CODE, TEST_TOTP_SECRET);</span>
         
-        // ASSERT - Si la clave no fuera de 256 bits o incorrecta, esto fallaría
-<span class="fc" id="L467">        assertTrue(setupTokenService.isTokenValid(token));</span>
-<span class="fc" id="L468">        Map&lt;String, Object&gt; data = setupTokenService.consumeSetupToken(token);</span>
-<span class="fc" id="L469">        assertNotNull(data, &quot;La firma HMAC-SHA256 debe validarse correctamente&quot;);</span>
-<span class="fc" id="L470">    }</span>
+<span class="fc" id="L459">        String token = setupTokenService.createSetupToken(TEST_USER_ID, TEST_NOMBRE, TEST_QR_CODE, TEST_TOTP_SECRET);</span>
+        
+        
+<span class="fc" id="L462">        assertTrue(setupTokenService.isTokenValid(token));</span>
+<span class="fc" id="L463">        Map&lt;String, Object&gt; data = setupTokenService.consumeSetupToken(token);</span>
+<span class="fc" id="L464">        assertNotNull(data, &quot;La firma HMAC-SHA256 debe validarse correctamente&quot;);</span>
+<span class="fc" id="L465">    }</span>
 
     @Test
     @DisplayName(&quot;createSetupToken - token debe contener claim type=admin_setup&quot;)
     void createSetupToken_debeContenerTipoAdminSetup() {
-        // ACT
-<span class="fc" id="L476">        String token = setupTokenService.createSetupToken(TEST_USER_ID, TEST_NOMBRE, TEST_QR_CODE, TEST_TOTP_SECRET);</span>
         
-        // ASSERT - El token debe validarse (incluye verificación de tipo)
-<span class="fc" id="L479">        assertTrue(setupTokenService.isTokenValid(token));</span>
+<span class="fc" id="L471">        String token = setupTokenService.createSetupToken(TEST_USER_ID, TEST_NOMBRE, TEST_QR_CODE, TEST_TOTP_SECRET);</span>
         
-        // Si consumimos debe funcionar (valida tipo internamente)
-<span class="fc" id="L482">        Map&lt;String, Object&gt; data = setupTokenService.consumeSetupToken(token);</span>
-<span class="fc" id="L483">        assertNotNull(data, &quot;Token con tipo admin_setup debe validarse&quot;);</span>
-<span class="fc" id="L484">    }</span>
+        
+<span class="fc" id="L474">        assertTrue(setupTokenService.isTokenValid(token));</span>
+        
+        
+<span class="fc" id="L477">        Map&lt;String, Object&gt; data = setupTokenService.consumeSetupToken(token);</span>
+<span class="fc" id="L478">        assertNotNull(data, &quot;Token con tipo admin_setup debe validarse&quot;);</span>
+<span class="fc" id="L479">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>
