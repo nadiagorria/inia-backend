@@ -206,7 +206,8 @@ public class DataSeeder implements CommandLineRunner {
         listadosPureza1.add(createListadoMaleza(pureza1, maleza1, TipoListado.MAL_COMUNES, Instituto.INIA, 3));
         listadosPureza1.add(createListadoMaleza(pureza1, maleza2, TipoListado.MAL_TOLERANCIA, Instituto.INIA, 2));
         listadosPureza1.add(createListadoOtroCultivo(pureza1, soja, Instituto.INIA, 1));
-        listadoRepository.saveAll(listadosPureza1);
+        pureza1.setListados(listadosPureza1);
+        purezaRepository.save(pureza1);
 
         Pureza pureza2 = createPureza(
             lote2,
@@ -229,7 +230,8 @@ public class DataSeeder implements CommandLineRunner {
         listadosPureza2.add(createListadoMaleza(pureza2, maleza3, TipoListado.MAL_COMUNES, Instituto.INIA, 2));
         listadosPureza2.add(createListadoMaleza(pureza2, maleza4, TipoListado.MAL_COMUNES, Instituto.INASE, 1));
         listadosPureza2.add(createListadoOtroCultivo(pureza2, trigo, Instituto.INIA, 1));
-        listadoRepository.saveAll(listadosPureza2);
+        pureza2.setListados(listadosPureza2);
+        purezaRepository.save(pureza2);
 
         log.info("Análisis de pureza creados: 2");
 
@@ -519,7 +521,8 @@ public class DataSeeder implements CommandLineRunner {
         listadosPureza3.add(createListadoMaleza(pureza3, maleza5, TipoListado.MAL_COMUNES, Instituto.INIA, 1));
         listadosPureza3.add(createListadoMaleza(pureza3, maleza6, TipoListado.MAL_TOLERANCIA, Instituto.INASE, 1));
         listadosPureza3.add(createListadoOtroCultivo(pureza3, maiz, Instituto.INIA, 2));
-        listadoRepository.saveAll(listadosPureza3);
+        pureza3.setListados(listadosPureza3);
+        purezaRepository.save(pureza3);
 
         Pms pms3 = createPms(
             lote5,
@@ -625,7 +628,8 @@ public class DataSeeder implements CommandLineRunner {
         listadosPureza4.add(createListadoMaleza(pureza4, maleza4, TipoListado.MAL_TOLERANCIA_CERO, Instituto.INASE, 1));
         listadosPureza4.add(createListadoOtroCultivo(pureza4, trigo, Instituto.INIA, 1));
         listadosPureza4.add(createListadoOtroCultivo(pureza4, soja, Instituto.INASE, 1));
-        listadoRepository.saveAll(listadosPureza4);
+        pureza4.setListados(listadosPureza4);
+        purezaRepository.save(pureza4);
 
         Pms pms4 = createPms(
             lote6,
